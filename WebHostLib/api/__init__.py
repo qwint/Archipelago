@@ -48,4 +48,4 @@ def room_info(room: UUID):
     }
 
 
-from . import generate, user, datapackage  # trigger registration
+from . import generate, user, tracker, datapackage  # trigger registration
