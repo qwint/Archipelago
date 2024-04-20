@@ -2284,6 +2284,7 @@ def parse_args() -> argparse.Namespace:
     #0 -> recommended for tournaments to force a level playing field, only allow an exact version match
     """)
     parser.add_argument('--log_network', default=defaults["log_network"], action="store_true")
+    parser.add_argument('--headless', action="store_true")
     args = parser.parse_args()
     return args
 
@@ -2368,11 +2369,13 @@ async def main(args: argparse.Namespace):
                                                  'No password' if not ctx.password else 'Password: %s' % ctx.password))
 
     await ctx.server
-    console_task = asyncio.create_task(console(ctx))
-    if ctx.auto_shutdown:
-        ctx.shutdown_task = asyncio.create_task(auto_shutdown(ctx, [console_task]))
+    if not args.headless:
+        console_task = asyncio.create_task(console(ctx))
+        if ctx.auto_shutdown:
+            ctx.shutdown_task = asyncio.create_task(auto_shutdown(ctx, [console_task]))
     await ctx.exit_event.wait()
-    console_task.cancel()
+    if not args.headless:
+        console_task.cancel()
     if ctx.shutdown_task:
         await ctx.shutdown_task
 
