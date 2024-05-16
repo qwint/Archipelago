@@ -60,13 +60,26 @@ class CandleChecks(DefaultOnToggle):
     display_name = "Candle Checks"
 
 
-class BubbleJumping(Toggle):
+class BubbleJumping(Choice):
     """
     Include using the standard Bubble Wand and chaining bubble jumps together in logic.
-    The BB Wand does not put anything additional in logic with this option on.
+    Exclude Long Chains makes it so you may be required to chain a few bubble jumps before landing.
     """
     internal_name = "bubble_jumping"
     display_name = "Bubble Jumping"
+    option_off = 0
+    option_exclude_long_chains = 1
+    option_on = 2
+    default = 1
+
+
+class DiscRiding(Toggle):
+    """
+    Include jumping onto the disc without letting it bounce off of a wall first in logic.
+    Exception: The bunny that requires this technique.
+    """
+    internal_name = "disc_riding"
+    display_name = "Midair Disc Riding"
 
 
 @dataclass
@@ -78,3 +91,4 @@ class AnimalWellOptions(PerGameCommonOptions):
     bunnies_as_checks: BunniesAsChecks
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
+    disc_riding: DiscRiding
