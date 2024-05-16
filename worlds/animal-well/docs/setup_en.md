@@ -1,4 +1,4 @@
-# TUNIC Setup Guide
+# ANIMAL WELL Setup Guide
 
 ## Required Software
 
