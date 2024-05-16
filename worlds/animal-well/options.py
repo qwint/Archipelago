@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, TextChoice, PerGameCommonOptions
 
 
-class EggGoal(Range):
+class EggsNeeded(Range):
     """
     How many Eggs you need to do the Egg Song.
     """
-    internal_name = "egg_goal"
+    internal_name = "eggs_needed"
     display_name = "Eggs Required"
     range_start = 8
     range_end = 64
@@ -46,7 +46,7 @@ class BubbleJumping(Toggle):
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
-    egg_goal: EggGoal
+    eggs_needed: EggsNeeded
     bunnies_as_checks: BunniesAsChecks
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
