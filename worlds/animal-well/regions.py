@@ -19,7 +19,7 @@ class AWData(NamedTuple):
 # the inner string is the name of the destination region or location
 # use AWData to specify if it's a region or location, and then put the rules in the second parameter if any
 # add item names used within rules to the names.py file if any are missing
-# probably will change iname to something else later, but using it for now since find and replace exists
+# probably will change item_names to something else later, but using it for now since find and replace will make it easier to update
 # reason: we will probably change the names of things, so this'll make it easier
 # if you want to add something like an event to a rule, don't add it to the variables above, just write out the string in quotes
 # this is to set them apart from the rest for now, just making it easier as we write it initially
