@@ -1,6 +1,6 @@
 from typing import Dict, List, Set, NamedTuple
 from enum import IntEnum
-import .item_names as iname
+import .item_names
 
 
 # makes it more convenient to put together imo
@@ -26,7 +26,7 @@ class AWData(NamedTuple):
 traversal_requirements: Dict[str, Dict[str, AWData]] = {
     "Starting Area": {
         "Central Area":
-            AWData(AWType.region, [[iname.firecrackers]),  # needed to get past ghost, not sure if randomizing this yet?
+            AWData(AWType.region, [[item_names.firecrackers]),  # needed to get past ghost, not sure if randomizing this yet?
         "Candle Room":
             AWData(AWType.region, [["Light All Candles"]]),  # turn this into an event later
         "Ceiling Match":  # rename, this is the match that everyone apparently got last
