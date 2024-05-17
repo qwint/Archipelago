@@ -1,3 +1,4 @@
+# this file is a reference to the items that will end up going in rule names
 # actual items
 firecrackers = "Firecrackers"
 disc = "Disc"
