@@ -23,9 +23,13 @@ fast_travel = "Fast Travel Room"
 bird_area = "Bird Area"  # the central portion of the map
 bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladder
 candle_area = "Squirrel Candle Area"
-fish_area = "Fish Main"
-fish_west = "Fish West"  # after the b. wand chest, rename
-fish_tube_room = "Fish Tube Room"  # rename?
+fish_upper = "Fish Upper"
+fish_lower = "Fish Lower"
+fish_boss = "Fish Boss Arena"
+fish_wand_pit = "Fish B.Wand Chest Pit"
+fish_west = "Fish Warp Room"  # after the b. wand chest, rename
+fish_tube_room = "Fish Pipe Maze"  # rename?
+abyss = "Bone Fish Area"
 bear_area = "Bear Main"
 bear_chinchilla_song_room = "Bear Chinchilla Song Room"  # where the bunny is
 dog_area = "Dog Main"
@@ -37,6 +41,7 @@ dog_upper_above_switch_lines = "Dog Area Upper Above Switch Lines"  # rename, th
 dog_upper_above_switch_lines_to_upper_east = "Dog Area Upper Above Switch Lines to Upper East"  # where the button is
 dog_upper_east = "Dog Area Upper East"  # to the right of the area above the switch lines
 wave_room = "Wave Room"  # rename after figuring out which area this is
+bobcat_room = "Bobcat Room"
 
 # instructions for contributors:
 # the outer string is the name of the origin region
@@ -48,7 +53,7 @@ wave_room = "Wave Room"  # rename after figuring out which area this is
 # this is to set them apart from the rest for now, just making it easier as we write it initially
 traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bird_area: {
-        fish_area:
+        fish_upper:
             AWData(AWType.region),
         bear_area:
             AWData(AWType.region),
@@ -99,9 +104,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
     },
 
-    fish_area: {
-        fish_west:
-            AWData(AWType.region, [[iname.bubble]]),  # todo: check what else can be used for this connection
+    fish_upper: {
+        #todo, find alternate routes directly into fish_west not through bwand pit. Probably yoyo and top?
         lname.fish_mural_match:  # right at the start, just some platforming
             AWData(AWType.location),
         lname.fish_bunny:
@@ -111,7 +115,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         "Mystic Egg":  # avoid the fireball thrower, hit some buttons
             AWData(AWType.location),
         "Great Egg":  # east end of the crane room
-            AWData(AWType.location, [[iname.bubble_short], [iname.disc]]),  # verify you can do this with just one disc
+            AWData(AWType.location, [[iname.bubble_short], [iname.disc]]),  #TODO: verify you can do this with just one disc
         "Normal Egg":  # hidden wall in lower left of first bubble room
             AWData(AWType.location),
         "Dazzle Egg":  # little obstacle course, feels like the bubble jump tutorial?
@@ -119,13 +123,21 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         # todo: item in spike room under save room
-        lname.b_wand_chest:  # after seahorse room, need warp to start or b. wand to escape
+
+    },
+    fish_wand_pit: {
+        fish_upper:
+            AWData(AWType.region, [[]]), #INSERT LOGIC FOR "BBWand or Disc and Disc Skip" here, I don't know how to format it.
+        fish_west:
+            AWData(AWType.region, [[iname.bubble], [iname.disc]]), #Bubble OR disc to go vertically out of the pit
+        lname.b_wand_chest:
             AWData(AWType.location),
     },
     fish_west: {
         "Ancient Egg":  # one room up and left of save point, vines in top right
             AWData(AWType.location, [[iname.bubble]]),  # todo: check if you can get here with disc
-        # todo: to the left of the fast travel fish room
+        fish_lower: 
+            AWData:(AWType.region, [[iname.remote, iname.bubble], [iname.bubble, iname.disc]]), #bubble to go down, disc or remote to activate switches TODO: Check if passing stalagtites after save is possible with nothing
     },
     fish_tube_room: {  # no location access rules because you need bubble wand to get here anyway
         "Friendship Egg":  # the green pipe in the fish tube room
@@ -133,7 +145,20 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         "Magic Egg":  # open the gate in the fish tube room
             AWData(AWType.location),
     },
-
+    fish_lower: {
+        fish_west:
+            AWData(AWType.region, [[]]), #TODO: find item logic for going back up the chute
+        fish_boss:
+            AWData(AWType.region, [[iname.disc]]), #disc is required to solve both the windbox puzzle and to cross the whale room
+        bobcat_room:
+            AWData(AWType.region, [[iname.top]]),
+    },
+    fish_boss{
+        bird_area:
+            AWData(AWType.region),
+        abyss:
+            AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
+    },
     bear_area: {
         lname.key_chinchilla:
             AWData(AWType.location),
