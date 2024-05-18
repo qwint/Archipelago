@@ -7,23 +7,23 @@ class Goal(Choice):
     """
     What you need to do to beat the game.
     Fireworks requires you to get the 4 flames and defeat the Manticore.
-    Bunny Land requires you to find the Evil Egg, bring it to the incubator, and leave the Well.
-    Egg Song requires you to collect the amount of eggs you need to play the Egg Song, then open the Evil Egg chest.
+    Bunny Land requires you to find the 65th Egg, bring it to the incubator, and leave the Well.
+    Egg Hunt requires you to collect the amount of eggs you need to open the 4th Egg Door, then open the chest inside.
     """
     internal_name: "goal"
     display_name: "Goal"
     option_fireworks: 1
     option_bunny_land: 2
-    option_egg_song: 3
+    option_egg_hunt: 3
     default: 0
 
 
 class EvilEggLocation(Choice):
     """
-    Choose whether the Evil Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring the Egg Song to access it.
+    Choose whether the 65th Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring opening the 4th Egg Door to access it.
     """
-    internal_name: "evil_egg_location"
-    display_name: "Evil Egg Location"
+    internal_name: "65th_egg_location"
+    display_name: "65th Egg Location"
     option_randomized: 0
     option_vanilla: 1
     default: 1
@@ -31,7 +31,7 @@ class EvilEggLocation(Choice):
 
 class EggsNeeded(Range):
     """
-    How many Eggs you need to do the Egg Song.
+    How many Eggs you need to open the 4th Egg Door.
     """
     internal_name = "eggs_needed"
     display_name = "Eggs Required"
