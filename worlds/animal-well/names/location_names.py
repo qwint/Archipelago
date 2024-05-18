@@ -1,11 +1,16 @@
 # location names that aren't eggs
 map_chest = "Map Chest"
+stamp_chest = "Stamp Chest"
+pencil_chest = "Pencil Chest"
 b_wand_chest = "B. Wand Chest"
+flute_chest = "Animal Flute Chest"
 
 ceiling_match_start = "Squirrel Ceiling Match"
 fish_mural_match = "Fish Mural Match"
 
 first_candle = "Squirrel First Candle"
+
+key_chinchilla = "Chinchilla Key"  # early in the green area
 
 bunny_mural = "Community Bunny"
 map_bunny = "Doodle Bunny"
