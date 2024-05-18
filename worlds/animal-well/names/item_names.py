@@ -20,5 +20,10 @@ k_medal = "K. Medal"
 s_medal = "S. Medal"
 match = "Match"
 
+song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
+
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"
+can_break_spikes = "Can Break Spikes"
+disc_hop = "Disc Jumping"  # hopping on a disc in midair
+disc_hop_hard = "Consecutive Disc Jumps"  # hopping on a disc multiple times, or after a bubble jump
