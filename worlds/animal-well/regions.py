@@ -23,7 +23,7 @@ fast_travel = "Fast Travel Room"
 bird_area = "Bird Area"  # the central portion of the map
 bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladder
 candle_area = "Squirrel Candle Area"
-fish_upper = "Fish Upper"
+fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
 fish_lower = "Fish Lower"
 fish_boss = "Fish Boss Arena"
 fish_wand_pit = "Fish B.Wand Chest Pit"
@@ -51,6 +51,7 @@ bobcat_room = "Bobcat Room"
 # reason: we will probably change the names of things, so this'll make it easier
 # if you want to add something like an event to a rule, do so, that's fine
 # this is to set them apart from the rest for now, just making it easier as we write it initially
+# the rules are formatted such that [[wand], [disc, remote]] means you need wand OR you need disc + remote
 traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bird_area: {
         fish_upper:
@@ -126,8 +127,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
 
     },
     fish_wand_pit: {
-        fish_upper:
-            AWData(AWType.region, [[]]),  # INSERT LOGIC FOR "BBWand or Disc and Disc Skip" here, I don't know how to format it.
+        # fish_upper:  # commented out because not logically relevant
+        #     AWData(AWType.region, [[iname.bubble_long], [iname.disc_hop]]),
         fish_west:
             AWData(AWType.region, [[iname.bubble], [iname.disc]]),  # Bubble OR disc to go vertically out of the pit
         lname.b_wand_chest:
