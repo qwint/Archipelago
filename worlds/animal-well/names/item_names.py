@@ -19,6 +19,7 @@ e_medal = "E. Medal"
 k_medal = "K. Medal"
 s_medal = "S. Medal"
 match = "Match"
+key = "Key"
 
 blue_flame = "B. Flame"
 
