@@ -73,7 +73,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.remote]]),
     },
     bird_capybara_waterfall: {
-        "Sweet Egg":
+        "Sweet Egg Chest":
             AWData(AWType.location),
     },
 
@@ -84,7 +84,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [["Light All Candles"]]),  # turn this into an event later
         s_disc_area:
             AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc]]),
-        "Clover Egg":  # in room where you see the status of the candles
+        "Clover Egg Chest":  # in room where you see the status of the candles
             AWData(AWType.location),
         lname.ceiling_match_start:
             AWData(AWType.location),
@@ -98,27 +98,27 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         lname.first_candle:
             AWData(AWType.location, [[iname.match]]),  # idk if we're even doing these
-        "Gorgeous Egg":  # up and right of the candle
+        "Gorgeous Egg Chest":  # up and right of the candle
             AWData(AWType.location),
         lname.map_chest:
             AWData(AWType.location),
     },
 
     fish_upper: {
-        #todo, find alternate routes directly into fish_west not through bwand pit. Probably yoyo and top?
+        # todo, find alternate routes directly into fish_west not through bwand pit. Probably yoyo and top?
         lname.fish_mural_match:  # right at the start, just some platforming
             AWData(AWType.location),
         lname.fish_bunny:
             AWData(AWType.location, [[iname.flute]]),
         # todo: upper right of fish mural
         # upper right of first bubble room leads to a door that requires a button hit on both sides
-        "Mystic Egg":  # avoid the fireball thrower, hit some buttons
+        "Mystic Egg Chest":  # avoid the fireball thrower, hit some buttons
             AWData(AWType.location),
-        "Great Egg":  # east end of the crane room
-            AWData(AWType.location, [[iname.bubble_short], [iname.disc]]),  #TODO: verify you can do this with just one disc
-        "Normal Egg":  # hidden wall in lower left of first bubble room
+        "Great Egg Chest":  # east end of the crane room
+            AWData(AWType.location, [[iname.bubble_short], [iname.disc]]),  # TODO: verify you can do this with just one disc
+        "Normal Egg Chest":  # hidden wall in lower left of first bubble room
             AWData(AWType.location),
-        "Dazzle Egg":  # little obstacle course, feels like the bubble jump tutorial?
+        "Dazzle Egg Chest":  # little obstacle course, feels like the bubble jump tutorial?
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
@@ -127,33 +127,33 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     fish_wand_pit: {
         fish_upper:
-            AWData(AWType.region, [[]]), #INSERT LOGIC FOR "BBWand or Disc and Disc Skip" here, I don't know how to format it.
+            AWData(AWType.region, [[]]),  # INSERT LOGIC FOR "BBWand or Disc and Disc Skip" here, I don't know how to format it.
         fish_west:
-            AWData(AWType.region, [[iname.bubble], [iname.disc]]), #Bubble OR disc to go vertically out of the pit
+            AWData(AWType.region, [[iname.bubble], [iname.disc]]),  # Bubble OR disc to go vertically out of the pit
         lname.b_wand_chest:
             AWData(AWType.location),
     },
     fish_west: {
-        "Ancient Egg":  # one room up and left of save point, vines in top right
+        "Ancient Egg Chest":  # one room up and left of save point, vines in top right
             AWData(AWType.location, [[iname.bubble]]),  # todo: check if you can get here with disc
-        fish_lower: 
-            AWData:(AWType.region, [[iname.remote, iname.bubble], [iname.bubble, iname.disc]]), #bubble to go down, disc or remote to activate switches TODO: Check if passing stalagtites after save is possible with nothing
+        fish_lower:  # bubble to go down, disc or remote to activate switches TODO: Check if passing stalagtites after save is possible with nothing
+            AWData(AWType.region, [[iname.remote, iname.bubble], [iname.bubble, iname.disc]]),
     },
     fish_tube_room: {  # no location access rules because you need bubble wand to get here anyway
-        "Friendship Egg":  # the green pipe in the fish tube room
+        "Friendship Egg Chest":  # the green pipe in the fish tube room
             AWData(AWType.location),  # tight timing with no midair bubble jumps
-        "Magic Egg":  # open the gate in the fish tube room
+        "Magic Egg Chest":  # open the gate in the fish tube room
             AWData(AWType.location),
     },
     fish_lower: {
         fish_west:
-            AWData(AWType.region, [[]]), #TODO: find item logic for going back up the chute
-        fish_boss:
-            AWData(AWType.region, [[iname.disc]]), #disc is required to solve both the windbox puzzle and to cross the whale room
+            AWData(AWType.region, [[]]),  # TODO: find item logic for going back up the chute
+        fish_boss:  # disc is required to solve both the windbox puzzle and to cross the whale room
+            AWData(AWType.region, [[iname.disc]]),
         bobcat_room:
             AWData(AWType.region, [[iname.top]]),
     },
-    fish_boss{
+    fish_boss: {
         bird_area:
             AWData(AWType.region),
         abyss:
@@ -162,7 +162,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bear_area: {
         lname.key_chinchilla:
             AWData(AWType.location),
-        "Future Egg":  # chinchilla on the moving platforms puzzle room
+        "Future Egg Chest":  # chinchilla on the moving platforms puzzle room
             AWData(AWType.location),
     },
     bear_chinchilla_song_room: {
@@ -179,7 +179,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.match]]),  # todo: figure out what we're doing for matches/candles
         dog_chinchilla_skull:
             AWData(AWType.region, [[iname.bubble]]),  # can get here without bubble jumps
-        "Upside Down Egg":  # upper right of switch platform room above second dog
+        "Upside Down Egg Chest":  # upper right of switch platform room above second dog
             AWData(AWType.location, [[iname.bubble_short]]),  # todo: there's another way here from above?
         dog_at_mock_disc:  # you drop down to here, but can't get back up immediately
             AWData(AWType.region),
@@ -187,13 +187,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     dog_at_mock_disc: {
         dog_area:  # can leave by hitting the button or jumping up to the ledge you came from
             AWData(AWType.region, [[iname.bubble], [iname.disc]]),
-        "Sour Egg":  # when escaping the dachsund, jump up and right out of the tunnel
+        "Sour Egg Chest":  # when escaping the dachsund, jump up and right out of the tunnel
             AWData(AWType.location),
         bird_area:  # after the sour egg chest, you escape to the central area
             AWData(AWType.region),
     },
     dog_chinchilla_skull: {
-        "Red Egg":
+        "Red Egg Chest":
             AWData(AWType.location, [[iname.firecrackers]])  # use a firecracker
     },
     dog_upper: {
@@ -218,7 +218,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.disc], [iname.remote]]),
         lname.dog_candle_switch:
             AWData(AWType.location, [[iname.match, iname.disc], [iname.match, iname.remote]]),
-        "Depraved Egg":  # in the little switch area, you need to take care of the ghost
+        "Depraved Egg Chest":  # in the little switch area, you need to take care of the ghost
             AWData(AWType.location, [[iname.disc, iname.can_defeat_ghost], [iname.remote, iname.can_defeat_ghost]]),
         dog_upper_above_switch_lines_to_upper_east:
             AWData(AWType.region, [[iname.disc], [iname.remote]]),
@@ -242,7 +242,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     wave_room: {
-        "Jade Egg":  # do the puzzle
+        "Jade Egg Chest":  # do the puzzle
             AWData(AWType.location),
         # todo: to the worm room
         bird_capybara_waterfall:  # take the very long pipe to the sweet egg room
