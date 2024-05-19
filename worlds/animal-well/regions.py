@@ -22,6 +22,8 @@ starting_after_ghost = "Squirrel After Ghost"
 fast_travel = "Fast Travel Room"
 bird_area = "Bird Area"  # the central portion of the map
 bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladder
+bird_below_mouse_statues = "Bird Below Mouse Statues"  # on the way to frog area, need yoyo
+bird_planet_egg_spot = "Bird Planet Egg Spot"
 candle_area = "Squirrel Candle Area"
 fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
 fish_lower = "Fish Lower"
@@ -55,7 +57,7 @@ frog_bird_after_yoyo_2 = "Frog Bird Area after Yoyo 2"  # the area after the pre
 frog_dark_room = "Wave Room"  # the dark room with the frog, and also the wave room
 frog_ruby_egg_ledge = "Ruby Egg Ledge"  # the ledge with the ruby egg in the frog dark room
 frog_east_of_fast_travel = "Frog East of Fast Travel"  # one screen to the right of the fast travel spot
-frog_phone_room_under_bobcat = "Frog Phone Room under Bobcat Statue"
+frog_elevator_and_ostrich_wheel = "Frog Elevator and Ostrich Wheel Section"  # interdependent, so one big region
 
 # instructions for contributors:
 # the outer string is the name of the origin region
@@ -78,6 +80,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         bird_capybara_waterfall:
             AWData(AWType.region, [[iname.disc], [iname.bubble_short]]),
+        bird_below_mouse_statues:  # enter from the room where you can get the planet egg
+            AWData(AWType.region, [[iname.can_break_spikes_below]]),
         frog_near_wombat:  # to the right of the bunny mural, drop down
             AWData(AWType.region),
         lname.stamp_chest:
@@ -99,6 +103,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     bird_capybara_waterfall: {
         "Sweet Egg Chest":
+            AWData(AWType.location),
+    },
+    bird_below_mouse_statues: {
+        lname.match_under_mouse_statue:
+            AWData(AWType.location),
+        "Planet Egg Chest":
             AWData(AWType.location),
     },
 
@@ -186,7 +196,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
     },
     chest_on_spikes_region: {
-        lname.chest_on_spikes:  # fix name after verifying which egg it is
+        "Scarlet Egg Chest":
             AWData(AWType.location, [[iname.wheel]]),
         # no connection to fish_boss_1 since you'd need to open the door in fish_boss_1
         fish_boss_2:
@@ -364,20 +374,25 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.bubble]]),
         frog_ruby_egg_ledge:  # two bubble jumps, a difficult disc use (but no disc hops) or dig out the frog and flute
             AWData(AWType.region, [[iname.bubble_short], [iname.disc], [iname.top, iname.flute]]),
-        frog_east_of_fast_travel:  # yoyo to open the door, this one is a little weird but oh well
-            AWData(AWType.region, [[iname.yoyo]]),
+        frog_elevator_and_ostrich_wheel:  # you need these two items to avoid locking checks
+            AWData(AWType.region, [[iname.yoyo, iname.bubble]]),
     },
     frog_ruby_egg_ledge: {
         "Ruby Egg Chest":  # this whole region just for one egg
             AWData(AWType.location),
     },
-    frog_east_of_fast_travel: {  # tiny region for the purpose of connecting other regions
-        frog_phone_room_under_bobcat:
-            AWData(AWType.region, [[iname.bubble], [iname.disc]]),
-        # todo: bubble jump up top
-    },
-    frog_phone_room_under_bobcat: {
-        # todo: fill this out
+    frog_elevator_and_ostrich_wheel: {
+        "Desert Egg Chest":  # up the elevator, bottom right of dangerous elevator room
+            AWData(AWType.location),  # you need yoyo and bubble to get to this region
+            # if you have yoyo, you can swap the mouse direction and lock yourself out of the check without bubbles
+        "Obsidian Egg Chest":  # bounce disc between the moving walls
+            AWData(AWType.location, [[iname.disc]]),
+        "Golden Egg Chest":
+            AWData(AWType.location, [[iname.wheel]]),
+        lname.gray_flame:
+            AWData(AWType.location),
+        # bird_area:  # pipe after flame, you need bubble to be here so no need to put the item requirement
+        #     AWData(AWType.region),
     },
 
     top_of_the_well: {
