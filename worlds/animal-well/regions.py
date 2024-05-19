@@ -33,7 +33,9 @@ fish_wand_pit = "Fish B.Wand Chest Pit"
 fish_west = "Fish Warp Room"  # after the b. wand chest, rename
 fish_tube_room = "Fish Pipe Maze"  # rename?
 abyss = "Bone Fish Area"
-bear_area = "Bear Main"
+bear_area_entry = "Bear Main Entry"
+bear_capybara_and_below = "Bear Main Area"
+bear_future_egg_room = "Bear Future Egg Room"
 bear_chinchilla_song_room = "Bear Chinchilla Song Room"  # where the bunny is
 dog_area = "Dog Main"
 dog_chinchilla_skull = "Dog Chinchilla Skull Room"
@@ -72,7 +74,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bird_area: {
         fish_upper:
             AWData(AWType.region),
-        bear_area:
+        bear_area_entry:
             AWData(AWType.region),
         dog_area:
             AWData(AWType.region),
@@ -211,16 +213,24 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
     },
 
-    bear_area: {
+    bear_area_entry: {
         lname.key_chinchilla:
             AWData(AWType.location),
+        bear_capybara_and_below:
+            AWData(AWType.region, [[iname.key], [iname.bubble_short]]),
+    },
+    bear_capybara_and_below: {
+        bear_future_egg_room:
+            AWData(AWType.region),
+    },
+    bear_future_egg_room: {
         "Future Egg Chest":  # chinchilla on the moving platforms puzzle room
             AWData(AWType.location),
     },
     bear_chinchilla_song_room: {
         lname.chinchilla_vine_bunny:
             AWData(AWType.location),
-        bear_area:
+        bear_future_egg_room:
             AWData(AWType.region),
     },
 
