@@ -37,13 +37,25 @@ dog_area = "Dog Main"
 dog_chinchilla_skull = "Dog Chinchilla Skull Room"
 dog_at_mock_disc = "Dog at Mock Disc Chest"
 dog_upper = "Dog Area Upper"  # rename this variable and name
-dog_upper_past_lake = "Dog Area Upper Past Lake"
-dog_upper_above_switch_lines = "Dog Area Upper Above Switch Lines"  # rename, that spot where you go up the levels?
-dog_upper_above_switch_lines_to_upper_east = "Dog Area Upper Above Switch Lines to Upper East"  # where the button is
+dog_upper_past_lake = "Dog Area Upper past Lake"
+dog_upper_above_switch_lines = "Dog Area Upper above Switch Lines"  # rename, that spot where you go up the levels?
+dog_upper_above_switch_lines_to_upper_east = "Dog Area Upper above Switch Lines to Upper East"  # where the button is
 dog_upper_east = "Dog Area Upper East"  # to the right of the area above the switch lines
-wave_room = "Wave Room"  # rename after figuring out which area this is
 bobcat_room = "Bobcat Room"
 chest_on_spikes_region = "Chest on Spikes Region"
+top_of_the_well = "Top of the Well"  # where the warp song takes you, right of the house
+frog_near_wombat = "Frog Area near Wombat"  # first part of the frog area after you drop down the hole
+frog_under_ostrich_statue = "Frog Area under Ostrich Statue"  # just the dark room basically
+frog_pre_ostrich_attack = "Frog before Ostrich Attack"  # left of dark room, right of ostrich, above dynamite
+frog_ostrich_attack = "Frog Ostrich Attack"  # and also the little area above it
+frog_worm_shaft_top = "Frog Worm Shaft Top"  # where the fire egg is
+frog_worm_shaft_bottom = "Frog Worm Shaft Bottom"  # save point after ostrich chase
+frog_bird_after_yoyo_1 = "Frog Bird Area after Yoyo 1"  # the first two bird rooms after you get yoyo
+frog_bird_after_yoyo_2 = "Frog Bird Area after Yoyo 2"  # the area after the previous one (rewrite comment)
+frog_dark_room = "Wave Room"  # the dark room with the frog, and also the wave room
+frog_ruby_egg_ledge = "Ruby Egg Ledge"  # the ledge with the ruby egg in the frog dark room
+frog_east_of_fast_travel = "Frog East of Fast Travel"  # one screen to the right of the fast travel spot
+frog_phone_room_under_bobcat = "Frog Phone Room under Bobcat Statue"
 
 # instructions for contributors:
 # the outer string is the name of the origin region
@@ -66,14 +78,24 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         bird_capybara_waterfall:
             AWData(AWType.region, [[iname.disc], [iname.bubble_short]]),
+        frog_near_wombat:  # to the right of the bunny mural, drop down
+            AWData(AWType.region),
         lname.stamp_chest:
             AWData(AWType.location),
         lname.flute_chest:
             AWData(AWType.location, [["8 Eggs"]]),
+        lname.pencil_chest:
+            AWData(AWType.location, [["16 Eggs", iname.bubble], ["16 Eggs", iname.disc]]),
         lname.duckarabbit:  # edit rule if we shuffle songs
             AWData(AWType.location, [[iname.flute]]),
         lname.bunny_mural:
             AWData(AWType.location, [[iname.remote]]),
+        "Virtual Egg Chest":  # sneaky passage in the top left of the screen with the penguin hedges
+            AWData(AWType.location),
+        lname.match_above_egg_room:
+            AWData(AWType.location, [[iname.disc], [iname.remote], [iname.bubble_long]]),
+        "Holiday Egg Chest":  # in the wall to the right of the egg room entrance
+            AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
     },
     bird_capybara_waterfall: {
         "Sweet Egg Chest":
@@ -113,7 +135,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.fish_bunny:
             AWData(AWType.location, [[iname.flute]]),
-        # todo: upper right of fish mural
+        # upper right of fish mural room leads to Virtual Egg, which you can get itemless
         # upper right of first bubble room leads to a door that requires a button hit on both sides
         "Mystic Egg Chest":  # avoid the fireball thrower, hit some buttons
             AWData(AWType.location),
@@ -158,8 +180,6 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.disc], [iname.bubble, iname.can_break_spikes]]),
     },
     fish_boss_1: {
-        abyss:  # todo: verify
-            AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
         chest_on_spikes_region:  # the one you're supposed to get to after getting the wheel
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_boss_2:
@@ -177,6 +197,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.can_open_flame]]),
         bird_area:
             AWData(AWType.region),
+        abyss:  # little hole above the fish pipe
+            AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
     },
 
     bear_area: {
@@ -256,17 +278,115 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         dog_upper:  # hit the dynamite switch to get back to the bird area and upper dog
             AWData(AWType.region),
-        wave_room:  # take the bubble pipe by the dynamite, this is the really long pipe
+        frog_dark_room:  # take the bubble pipe by the dynamite, this is the really long pipe
             AWData(AWType.region, [[iname.bubble]]),
         # todo: get slink, go east past the room that needs it for a puzzle
     },
 
-    wave_room: {
+    frog_near_wombat: {
+        # todo: locked door to the left of the wombat
+        # todo: spikes at floor of the room with the 3 birds
+        lname.frog_candle_near_wombat:
+            AWData(AWType.location, [[iname.match]]),
+        "Moon Egg Chest":  # the one with all the mouse heads
+            AWData(AWType.location, [[iname.disc, iname.lantern], [iname.bubble_short, iname.lantern]]),
+            # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird
+        frog_under_ostrich_statue:  # after hitting the switch, no items needed
+            AWData(AWType.region),
+    },
+    frog_under_ostrich_statue: {
+        frog_near_wombat:  # may have to go a few screens away to hit a switch, but you don't need items
+            AWData(AWType.region),
+        "Bubble Egg Chest":  # top right of room with the mouse ghost that throws its head
+            AWData(AWType.location, [[iname.bubble], [iname.disc]]),
+        frog_pre_ostrich_attack:
+            AWData(AWType.region),
+    },
+    frog_pre_ostrich_attack: {
+        frog_ostrich_attack:
+            AWData(AWType.region),
+    },
+    frog_ostrich_attack: {
+        lname.key_chest_mouse_head_lever:
+            AWData(AWType.location),
+        "Dream Egg Chest":  # right after the key chest
+            AWData(AWType.location),
+        bird_area:  # door switch to get you out under the bunny mural
+            AWData(AWType.region),
+        frog_worm_shaft_top:
+            AWData(AWType.region),
+    },
+    frog_worm_shaft_top: {
+        "Fire Egg Chest":  # after ostrich attack room
+            AWData(AWType.location, [[iname.disc], [iname.bubble_short]]),
+        frog_worm_shaft_bottom:
+            AWData(AWType.region),
+    },
+    frog_worm_shaft_bottom: {
+        frog_worm_shaft_top:
+            AWData(AWType.region, [[iname.bubble_long]]),  # climb the shaft above the save point
+        lname.yoyo_chest:
+            AWData(AWType.location),
+        frog_bird_after_yoyo_1:  # can bypass the locked door with bubble jumps + lantern
+            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern]]),  # todo: test if you can use ball
+    },
+    frog_bird_after_yoyo_1: {
+        frog_bird_after_yoyo_2:  # pain in the ass, but you can get up with downwards bubbles
+            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long]]),
+    },
+    frog_bird_after_yoyo_2: {
+        lname.activate_frog_fast_travel:
+            AWData(AWType.location, [[iname.flute]]),
+        lname.key_frog_guard_room_west:
+            AWData(AWType.location, [[iname.yoyo], [iname.flute]]),  # todo: top, ball, wheel?
+        lname.guard_room_match:  # hit guard then jump off its head, or jump up with mobility
+            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop], [iname.bubble]]), # todo: top, ball, wheel?
+        # 2 doors in the top right of this region
+        lname.key_frog_guard_room_east:  # todo: can you move the guards with ball or top?
+            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute]]),
+        frog_dark_room:  # yoyo to open the door, lantern to fall through the bird
+            AWData(AWType.region, [[iname.yoyo], [iname.lantern]]),
+        frog_ruby_egg_ledge:  # fall through a bird onto it
+            AWData(AWType.region, [[iname.lantern]]),
+        frog_east_of_fast_travel:  # yoyo to open the door
+            AWData(AWType.region, [[iname.yoyo]]),
+        frog_pre_ostrich_attack:
+            AWData(AWType.region, [[iname.two_keys]]),
+    },
+    frog_dark_room: {
+        frog_bird_after_yoyo_2:  # jump up at the rust egg with lantern, or use yoyo to open the door
+            AWData(AWType.region, [[iname.lantern], [iname.yoyo]]),  # todo: verify you can yoyo the door open from this side
+        "Rust Egg Chest":  # top left of the dark room
+            AWData(AWType.location),
         "Jade Egg Chest":  # do the puzzle
             AWData(AWType.location),
-        # todo: to the worm room
         bird_capybara_waterfall:  # take the very long pipe to the sweet egg room
             AWData(AWType.region, [[iname.bubble]]),
+        frog_ruby_egg_ledge:  # two bubble jumps, a difficult disc use (but no disc hops) or dig out the frog and flute
+            AWData(AWType.region, [[iname.bubble_short], [iname.disc], [iname.top, iname.flute]]),
+        frog_east_of_fast_travel:  # yoyo to open the door, this one is a little weird but oh well
+            AWData(AWType.region, [[iname.yoyo]]),
+    },
+    frog_ruby_egg_ledge: {
+        "Ruby Egg Chest":  # this whole region just for one egg
+            AWData(AWType.location),
+    },
+    frog_east_of_fast_travel: {  # tiny region for the purpose of connecting other regions
+        frog_phone_room_under_bobcat:
+            AWData(AWType.region, [[iname.bubble], [iname.disc]]),
+        # todo: bubble jump up top
+    },
+    frog_phone_room_under_bobcat: {
+        # todo: fill this out
+    },
+
+    top_of_the_well: {
+        "Pickled Egg Chest":  # hold right while falling down the well
+            AWData(AWType.location),
+        lname.center_well_match:  # hold left while falling down well, switch might need to be flipped
+            AWData(AWType.location),  # todo: verify if this should be in this region
+        "Chocolate Egg Chest":  # todo: verify if this should be in this region
+            AWData(AWType.location, [[iname.bubble]]),  # across from center well match, maybe remote should be involved?
     },
 
     fast_travel: {
@@ -274,11 +394,15 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.flute]]),
         fish_west:
             AWData(AWType.region, [[iname.flute]]),
+        frog_dark_room:
+            AWData(AWType.region, [[iname.activated_frog_fast_travel]])
     },
 
-    fast_travel_fake: {
+    fast_travel_fake: {  # for direct teleport spells
         fast_travel:
             AWData(AWType.region),  # probably never randomizing fast travel song, so no rule
+        top_of_the_well:
+            AWData(AWType.region, [[iname.song_home]]),
         bear_chinchilla_song_room:
             AWData(AWType.region, [[iname.song_chinchilla]])
     },
