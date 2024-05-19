@@ -20,12 +20,16 @@ k_medal = "K. Medal"
 s_medal = "S. Medal"
 match = "Match"
 
+blue_flame = "B. Flame"
+
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
 
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"
 can_break_spikes = "Can Break Spikes"
+can_open_flame = "Can Open Flame"  # you can break this with the flute and other items, need to verify which
 disc_hop = "Disc Jumping"  # hopping on a disc in midair without it bouncing first
 disc_hop_hard = "Consecutive Disc Jumps"  # hopping on a disc multiple times, or after a bubble jump
 can_distract_dogs = "Can Distract Dogs"
 can_defeat_ghost = "Can Defeat Ghost"
+
