@@ -7,10 +7,14 @@ flute_chest = "Animal Flute Chest"
 
 disc_spot = "Disc Spot"  # rename
 
-ceiling_match_start = "Squirrel Ceiling Match"
-fish_mural_match = "Fish Mural Match"
-dog_match_switch = "Dog Switch Area Match"  # rename, in that spot where you throw the between the levers
-dog_match_upper_east = "Dog Match by Fish Pipe"
+ceiling_match_start = "Match in Tutorial"
+fish_mural_match = "Match in Fish Mural Room"
+dog_match_switch = "Match in Switch-Bounce Room"  # rename, in that spot where you throw the between the levers
+dog_match_upper_east = "Match by Dog Fish Pipe"
+bear_slink_match = "Match in Bear Slink Stair Puzzle"
+center_well_match = "Match in Center Well"
+guard_room_match = "Match in Guard Room"
+frog_autoplatform_match = "Match in Frog Autoplatform Room"
 
 first_candle = "Squirrel First Candle"  # the obvious first one
 dog_candle_dark = "Dog Dark Room Candle"  # the one in the dark room a few rooms after your first dog encounter
