@@ -25,7 +25,8 @@ bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladde
 candle_area = "Squirrel Candle Area"
 fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
 fish_lower = "Fish Lower"
-fish_boss = "Fish Boss Arena"
+fish_boss_1 = "Fish Boss Arena Part 1"  # just the whale
+fish_boss_2 = "Fish Boss Arena Part 2"  # whale + seahorse
 fish_wand_pit = "Fish B.Wand Chest Pit"
 fish_west = "Fish Warp Room"  # after the b. wand chest, rename
 fish_tube_room = "Fish Pipe Maze"  # rename?
@@ -42,6 +43,7 @@ dog_upper_above_switch_lines_to_upper_east = "Dog Area Upper Above Switch Lines 
 dog_upper_east = "Dog Area Upper East"  # to the right of the area above the switch lines
 wave_room = "Wave Room"  # rename after figuring out which area this is
 bobcat_room = "Bobcat Room"
+chest_on_spikes_region = "Chest on Spikes Region"
 
 # instructions for contributors:
 # the outer string is the name of the origin region
@@ -124,7 +126,6 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         # todo: item in spike room under save room
-
     },
     fish_wand_pit: {
         # fish_upper:  # commented out because not logically relevant
@@ -138,7 +139,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         "Ancient Egg Chest":  # one room up and left of save point, vines in top right
             AWData(AWType.location, [[iname.bubble]]),  # todo: check if you can get here with disc
         fish_lower:  # bubble to go down, disc or remote to activate switches TODO: Check if passing stalagtites after save is possible with nothing
-            AWData(AWType.region, [[iname.remote, iname.bubble], [iname.bubble, iname.disc]]),
+            AWData(AWType.region, [[iname.bubble, iname.remote], [iname.bubble, iname.disc]]),
     },
     fish_tube_room: {  # no location access rules because you need bubble wand to get here anyway
         "Friendship Egg Chest":  # the green pipe in the fish tube room
@@ -148,18 +149,36 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     fish_lower: {
         fish_west:
-            AWData(AWType.region, [[]]),  # TODO: find item logic for going back up the chute
-        fish_boss:  # disc is required to solve both the windbox puzzle and to cross the whale room
+            AWData(AWType.region, [[iname.bubble]]),  # fish pipe left of the save point
+        fish_boss_1:  # disc is required to solve both the windbox puzzle and to cross the whale room
             AWData(AWType.region, [[iname.disc]]),
         bobcat_room:
             AWData(AWType.region, [[iname.top]]),
+        lname.fish_candle_penguin:
+            AWData(AWType.location, [[iname.disc], [iname.bubble, iname.can_break_spikes]]),
     },
-    fish_boss: {
+    fish_boss_1: {
+        abyss:  # todo: verify
+            AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
+        chest_on_spikes_region:  # the one you're supposed to get to after getting the wheel
+            AWData(AWType.location, [[iname.bubble_short]]),
+        fish_boss_2:
+            AWData(AWType.region),
+    },
+    chest_on_spikes_region: {
+        lname.chest_on_spikes:  # fix name after verifying which egg it is
+            AWData(AWType.location, [[iname.wheel]]),
+        # no connection to fish_boss_1 since you'd need to open the door in fish_boss_1
+        fish_boss_2:
+            AWData(AWType.region),  # you can just jump down the shaft
+    },
+    fish_boss_2: {
+        lname.blue_flame:
+            AWData(AWType.location, [[iname.can_open_flame]]),
         bird_area:
             AWData(AWType.region),
-        abyss:
-            AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
     },
+
     bear_area: {
         lname.key_chinchilla:
             AWData(AWType.location),

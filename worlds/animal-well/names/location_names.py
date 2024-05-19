@@ -20,8 +20,11 @@ first_candle = "Squirrel First Candle Chest"  # the obvious first one
 dog_candle_dark = "Dog Dark Room Candle Chest"  # the one in the dark room a few rooms after your first dog encounter
 dog_candle_switch_box = "Dog Candle in Switch Room with Box Chest"  # definitely rename
 dog_candle_switch = "Dog Candle in Switch Room without Box Chest"  # definitely rename
+fish_candle_penguin = "Fish Candle in Penguin Room Chest"
 
 key_chinchilla = "Chinchilla Key"  # early in the green area
+
+blue_flame = "B. Flame"
 
 bunny_mural = "Community Bunny"
 map_bunny = "Doodle Bunny"
