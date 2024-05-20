@@ -12,6 +12,7 @@ class AWType(IntEnum):
 class AWData(NamedTuple):
     type: int  # location or region
     rules: List[List[str]] = []  # how to access it
+    # the rules are formatted such that [[wand], [disc, remote]] means you need wand OR you need disc + remote
 
 
 # region names
@@ -69,7 +70,6 @@ frog_elevator_and_ostrich_wheel = "Frog Elevator and Ostrich Wheel Section"  # i
 # reason: we will probably change the names of things, so this'll make it easier
 # if you want to add something like an event to a rule, do so, that's fine
 # this is to set them apart from the rest for now, just making it easier as we write it initially
-# the rules are formatted such that [[wand], [disc, remote]] means you need wand OR you need disc + remote
 traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bird_area: {
         fish_upper:
