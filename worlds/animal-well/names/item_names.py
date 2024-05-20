@@ -22,10 +22,10 @@ s_medal = "S. Medal"
 match = "Match"
 key = "Key"
 
-blue_flame = "B. Flame" #seahorse
-violet_flame = "V. Flame" #chameleon
-green_flame = "G. Flame" #ostritch
-purple_flame = "P. Flame" #ghost dog
+blue_flame = "B. Flame"  # seahorse
+violet_flame = "V. Flame"  # chameleon
+green_flame = "G. Flame"  # ostritch
+purple_flame = "P. Flame"  # ghost dog
 
 song_home = "Top of the Well Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
