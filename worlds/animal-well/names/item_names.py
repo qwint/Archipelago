@@ -16,12 +16,16 @@ ball = "B. Ball"
 m_disc = "Mock Disc"
 fanny_pack = "F. Pack"
 e_medal = "E. Medal"
-k_medal = "K. Medal"
+k_shard = "K. Shard"
+k_medal = "K. Medal"  # a fake item. 3 K. Shards exist in pool
 s_medal = "S. Medal"
 match = "Match"
 key = "Key"
 
-blue_flame = "B. Flame"
+blue_flame = "B. Flame"  # seahorse
+violet_flame = "V. Flame"  # chameleon
+green_flame = "G. Flame"  # ostritch
+purple_flame = "P. Flame"  # ghost dog
 
 song_home = "Top of the Well Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
@@ -39,5 +43,12 @@ ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obvi
 two_keys = "Two Keys"  # there's one spot that has two key doors adjacent to each other
 
 # event items
+activated_bird_fast_travel = "Activated Bird Fast Travel"
+activated_bear_fast_travel = "Activated Bear Fast Travel"
 activated_frog_fast_travel = "Activated Frog Fast Travel"
+activated_squirrel_fast_travel = "Activated Squirrel Fast Travel"
+activated_fish_fast_travel = "Activated Fish Fast Travel"
+activated_dog_fast_travel = "Activated Dog Fast Travel"
+activated_hippo_fast_travel = "Activated Hippo Fast Travel"
+activated_bonefish_fast_travel = "Activated Bone Fish Fast Travel"
 
