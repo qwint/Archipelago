@@ -3,7 +3,7 @@ from BaseClasses import Region, Location, Item, Tutorial, ItemClassification, Mu
 from .items import item_name_to_id, item_table, item_name_groups, filler_items
 from .locations import location_table, location_name_groups, location_name_to_id
 from .regions import traversal_requirements
-from .options import AnimalWellOptions
+from .options import AnimalWellOptions, aw_option_groups
 from worlds.AutoWorld import WebWorld, World
 
 
@@ -20,6 +20,7 @@ class AnimalWellWeb(WebWorld):
     ]
     theme = "jungle"
     game = "ANIMAL WELL"
+    option_groups = aw_option_groups
 
 
 class AnimalWellItem(Item):
