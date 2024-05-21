@@ -12,6 +12,8 @@ class AnimalWellItemData(NamedTuple):
 
 item_base_id = 11553377
 
+# todo: fill this out
+# do this after the logic is all set up mostly
 item_table: Dict[str, AnimalWellItemData] = {
     "Firecracker x2": AnimalWellItemData(ItemClassification.filler, 3, 0, "Bombs"),
     "Firecracker x3": AnimalWellItemData(ItemClassification.filler, 3, 1, "Bombs"),
