@@ -142,7 +142,6 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     fish_upper: {
-        # todo, find alternate routes directly into fish_west not through bwand pit. Probably yoyo and top?
         lname.fish_mural_match:  # right at the start, just some platforming
             AWData(AWType.location),
         lname.fish_bunny:
@@ -152,14 +151,16 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         "Mystic Egg Chest":  # avoid the fireball thrower, hit some buttons
             AWData(AWType.location),
         "Great Egg Chest":  # east end of the crane room
-            AWData(AWType.location, [[iname.bubble_short], [iname.disc]]),  # TODO: verify you can do this with just one disc
+            AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]), 
         "Normal Egg Chest":  # hidden wall in lower left of first bubble room
             AWData(AWType.location),
         "Dazzle Egg Chest":  # little obstacle course, feels like the bubble jump tutorial?
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
-        # todo: item in spike room under save room
+        "Sunset Egg Chest":  # break the spikes in the room to the right of the fish warp
+            AWData(AWType.location, [[iname.can_break_spikes_below], [iname.disc_hop]]),
+        
     },
     fish_wand_pit: {
         # fish_upper:  # commented out because not logically relevant
@@ -171,10 +172,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     fish_west: {
         "Ancient Egg Chest":  # one room up and left of save point, vines in top right
-            AWData(AWType.location, [[iname.bubble]]),  # todo: check if you can get here with disc
-        fish_lower:  # bubble to go down, disc or remote to activate switches TODO: Check if passing stalagtites after save is possible with nothing
-            AWData(AWType.region, [[iname.bubble, iname.remote], [iname.bubble, iname.disc]]),
-    },
+            AWData(AWType.location, [[iname.bubble], [iname.disc_hop_hard]]),
+        fish_lower:  # bubble to go down, disc or remote to activate switches, breakspike to pass icicles in first penguin room
+            AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes], [iname.bubble, iname.disc]]), 
+    },        
     fish_tube_room: {  # no location access rules because you need bubble wand to get here anyway
         "Friendship Egg Chest":  # the green pipe in the fish tube room
             AWData(AWType.location),  # tight timing with no midair bubble jumps
@@ -187,11 +188,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         fish_boss_1:  # disc is required to solve both the windbox puzzle and to cross the whale room
             AWData(AWType.region, [[iname.disc]]),
         bobcat_room:
-            AWData(AWType.region, [[iname.top]]),
+            AWData(AWType.region, [[iname.top]]), 
         lname.fish_candle_penguin:
-            AWData(AWType.location, [[iname.disc], [iname.bubble, iname.can_break_spikes]]),
+            AWData(AWType.location, [[iname.disc], [iname.bubble]]),
+        "Goodnight Egg Chest":
+            AWData(AWType.location, [[iname.can_defeat_ghost], [iname.event_penguin_candle_lit]]),
     },
-    fish_boss_1: {
+    fish_boss_1: {  # the disc required to clear this room's puzzle is implicated in the entrance reqs so it is not duplicated here
         chest_on_spikes_region:  # the one you're supposed to get to after getting the wheel
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_boss_2:
