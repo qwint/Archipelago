@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, TextChoice, PerGameCommonOptions
+from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, TextChoice, PerGameCommonOptions, OptionGroup
 
 
 class Goal(Choice):
@@ -92,3 +92,11 @@ class AnimalWellOptions(PerGameCommonOptions):
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
     disc_riding: DiscRiding
+
+
+aw_option_groups = [
+    OptionGroup("Logic Options", [
+        BubbleJumping,
+        DiscRiding,
+    ])
+]
