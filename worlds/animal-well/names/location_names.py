@@ -18,12 +18,15 @@ center_well_match = "Match in Center Well Chest"  # the one high up in the shaft
 guard_room_match = "Match in Guard Room Chest"
 match_under_mouse_statue = "Match under Mouse Statue"  # east bird area, need yoyo to get in
 
-first_candle = "Squirrel First Candle Chest"  # the obvious first one
-dog_candle_dark = "Dog Dark Room Candle Chest"  # the one in the dark room a few rooms after your first dog encounter
-dog_candle_switch_box = "Dog Candle in Switch Room with Box Chest"  # definitely rename
-dog_candle_switch = "Dog Candle in Switch Room without Box Chest"  # definitely rename
-fish_candle_penguin = "Fish Candle in Penguin Room Chest"
-frog_candle_near_wombat = "Frog Candle near Wombat"  # to screens to the right of the wombat save point
+first_candle = "Squirrel First Candle"  # the obvious first one
+dog_candle_dark = "Dog Dark Room Candle"  # the one in the dark room a few rooms after your first dog encounter
+dog_candle_switch_box = "Dog Boxed Candle"
+dog_candle_many_switches = "Dog Candle in Many Switches Room"
+dog_candle_disc_switches = "Dog Candle in Disc Switch Maze"
+dog_candle_bat = "Dog Candle in Bat Room"
+fish_candle = "Fish Candle in Penguin Room"
+frog_candle = "Frog Candle Switch Carousel"  # to screens to the right of the wombat save point
+bear_candle = "Bear Candle in Dark Maze"
 
 key_chinchilla = "Chinchilla Key"  # early in the green area
 key_chest_mouse_head_lever = "Key Chest by Mouse Head Hitting Lever"  # rename definitely
