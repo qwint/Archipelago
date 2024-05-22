@@ -217,7 +217,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     bear_area_entry: {
-        lname.key_bear_upper:
+        lname.key_bear_lower:
             AWData(AWType.location),
         bear_capybara_and_below:
             AWData(AWType.region, [[iname.key], [iname.bubble_short]]),
@@ -225,6 +225,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bear_capybara_and_below: {
         bear_future_egg_room:
             AWData(AWType.region),
+        lname.key_bear_upper:
+            AWData(AWType.location),
     },
     bear_future_egg_room: {
         lname.egg_future:  # chinchilla on the moving platforms puzzle room
