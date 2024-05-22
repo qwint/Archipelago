@@ -699,7 +699,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     frog_elevator_and_ostrich_wheel: {
         lname.egg_desert:  # up the elevator, bottom right of dangerous elevator room
-            AWData(AWType.location),  # you need yoyo and bubble to get to this region
+            AWData(AWType.location),  # you need yoyo and bubble to get to this check logically
             # if you have yoyo, you can swap the mouse direction and lock yourself out of the check without bubbles
         lname.egg_obsidian:  # bounce disc between the moving walls
             AWData(AWType.location, [[iname.disc]]),
@@ -707,8 +707,20 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.wheel]]),
         lname.flame_green:
             AWData(AWType.location),
+        bobcat_room:
+            AWData(AWType.region, [[iname.top]]),
         # bird_area:  # pipe after flame, you need bubble to be here so no need to put the item requirement
         #     AWData(AWType.region),
+    },
+    bobcat_room: {
+        frog_elevator_and_ostrich_wheel:  # todo: check if you can actually use top to get in here backwards
+            AWData(AWType.region, [[iname.top, iname.yoyo, iname.bubble]]),
+        fish_lower:
+            AWData(AWType.region, [[iname.top]]),
+        lname.wheel_chest:
+            AWData(AWType.location, [[iname.song_bobcat]]),
+        chest_on_spikes_region:  # kinda unreasonable without the wheel imo
+            AWData(AWType.region, [[iname.wheel]]),
     },
 
     top_of_the_well: {

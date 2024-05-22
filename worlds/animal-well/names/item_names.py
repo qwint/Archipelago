@@ -29,6 +29,7 @@ purple_flame = "P. Flame"  # ghost dog
 
 song_home = "Top of the Well Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
+song_bobcat = "Bobcat Song"  # idk what we should do with this, but it kinda sucks as it is
 
 # event items
 activated_bird_fast_travel = "Activated Bird Fast Travel"
