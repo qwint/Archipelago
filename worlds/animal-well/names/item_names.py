@@ -51,4 +51,5 @@ activated_fish_fast_travel = "Activated Fish Fast Travel"
 activated_dog_fast_travel = "Activated Dog Fast Travel"
 activated_hippo_fast_travel = "Activated Hippo Fast Travel"
 activated_bonefish_fast_travel = "Activated Bone Fish Fast Travel"
+event_candle_penguin_lit = "Lit the Candle by the Penguins"
 
