@@ -150,3 +150,4 @@ bunny_file_bud = "Flowering Bunny"  # bunny from file start codes
 
 # event locations
 activate_frog_fast_travel = "Activate Frog Fast Travel"
+activate_bear_fast_travel = "Activate Bear Fast Travel"
