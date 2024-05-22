@@ -67,6 +67,7 @@ dog_upper_above_switch_lines_to_upper_east = "Dog Area Upper above Switch Lines 
 dog_upper_east = "Dog Area Upper East"  # to the right of the area above the switch lines
 bobcat_room = "Bobcat Room"
 chest_on_spikes_region = "Chest on Spikes Region"
+dog_elevator = "Dog Elevator"  # east of the flame
 
 frog_near_wombat = "Frog Area near Wombat"  # first part of the frog area after you drop down the hole
 frog_under_ostrich_statue = "Frog Area under Ostrich Statue"  # just the dark room basically
@@ -103,7 +104,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         dog_upper:
             AWData(AWType.region),
-        bird_capybara_waterfall:
+        bird_capybara_waterfall:  # kinda tight with the disc, but you can just make it to the egg chest
             AWData(AWType.region, [[iname.disc], [iname.bubble_short]]),
         bird_below_mouse_statues:  # enter from the room where you can get the planet egg
             AWData(AWType.region, [[iname.can_break_spikes_below]]),
@@ -127,6 +128,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.disc], [iname.remote], [iname.bubble_long]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
+        lname.egg_rain:
+            AWData(AWType.location, [[iname.top]]),
     },
     bird_capybara_waterfall: {
         lname.egg_sweet:
@@ -305,6 +308,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),  # just press a button
         bear_middle_phone_room:
             AWData(AWType.region, [[iname.slink]]),
+        lname.egg_post_modern:
+            AWData(AWType.location, [[iname.top, iname.switch_for_post_modern_egg]]),
     },
     bear_middle_phone_room: {
         lname.activate_bear_fast_travel:
@@ -393,6 +398,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble_short]]),  # todo: there's another way here from above?
         dog_at_mock_disc:  # you drop down to here, but can't get back up immediately
             AWData(AWType.region),
+        lname.egg_orange:
+            AWData(AWType.location, [[iname.top]]),
     },
     dog_at_mock_disc: {
         dog_area:  # can leave by hitting the button or jumping up to the ledge you came from
@@ -411,6 +418,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long]]),  # maybe not long?
         dog_upper_above_switch_lines:
             AWData(AWType.region, [[iname.disc], [iname.remote]]),  # double check you can use remote in here
+        lname.egg_evil:
+            AWData(AWType.location, [[iname.flute]]),
     },
     dog_upper_past_lake: {
         lname.candle_dog_switch_box:
@@ -448,7 +457,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         frog_dark_room:  # take the bubble pipe by the dynamite, this is the really long pipe
             AWData(AWType.region, [[iname.bubble]]),
-        # todo: get slink, go east past the room that needs it for a puzzle
+        dog_elevator:
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    dog_elevator: {
+        lname.switch_for_post_modern_egg:
+            AWData(AWType.location),  # elevator must be going down, need to figure out what to do about that
+        # todo: remember how to get to the dog to swap directions
     },
 
     frog_near_wombat: {
