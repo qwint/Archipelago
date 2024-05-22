@@ -38,6 +38,13 @@ bear_area_entry = "Bear Main Entry"
 bear_capybara_and_below = "Bear Main Area"
 bear_future_egg_room = "Bear Future Egg Room"
 bear_chinchilla_song_room = "Bear Chinchilla Song Room"  # where the bunny is
+bear_dark_maze = "Bear Dark Maze"
+bear_chameleon_room_1 = "Bear Chameleon Room 1"  # first chameleon encounter with the chinchilla
+bear_ladder_after_chameleon = "Bear Ladder after Chameleon 1"
+bear_slink_room = "Bear Slink Room"  # the room you get slink
+bear_transcendental = "Bear Transcendental Egg Room"
+bear_kangaroo_waterfall = "Bear Kangaroo Waterfall and adjacent rooms"  # up left from entry point, need slink
+bear_upper_phone_room = "Bear Upper Phone Room"  # after the previous region
 dog_area = "Dog Main"
 dog_chinchilla_skull = "Dog Chinchilla Skull Room"
 dog_at_mock_disc = "Dog at Mock Disc Chest"
@@ -221,12 +228,19 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         bear_capybara_and_below:
             AWData(AWType.region, [[iname.key], [iname.bubble_short]]),
+        bear_transcendental:  # might be controversial? it's across a screen transition but only 4 bubbles
+            AWData(AWType.region, [[iname.bubble_short]]),
+        bear_kangaroo_waterfall:
+            AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo]]),  # todo: check if top + yoyo can be used
     },
     bear_capybara_and_below: {
         bear_future_egg_room:
             AWData(AWType.region),
         lname.key_bear_upper:
             AWData(AWType.location),
+        # todo: go back to chinchilla chest on head room with slink
+        bear_dark_maze:  # need one key to open the gate
+            AWData(AWType.region, [[iname.key]]),
     },
     bear_future_egg_room: {
         lname.egg_future:  # chinchilla on the moving platforms puzzle room
@@ -237,6 +251,46 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         bear_future_egg_room:
             AWData(AWType.region),
+    },
+    bear_dark_maze: {
+        bear_chameleon_room_1:
+            AWData(AWType.region),
+        lname.candle_bear:
+            AWData(AWType.location, [[iname.bubble], [iname.disc]]),
+        lname.egg_lf:
+            AWData(AWType.location, [[iname.firecrackers]]),
+    },
+    bear_chameleon_room_1: {
+        bear_dark_maze:
+            AWData(AWType.region, [[iname.bubble], [iname.disc]]),
+        bear_ladder_after_chameleon:
+            AWData(AWType.region),
+    },
+    bear_ladder_after_chameleon: {
+        bear_slink_room:  # jump up through the floor at the top of the ladder
+            AWData(AWType.region),
+    },
+    bear_slink_room: {
+        iname.slink:
+            AWData(AWType.location),
+        bear_transcendental:  # descend, jump into left wall
+            AWData(AWType.region, [[iname.bubble]]),
+        # bear_area_entry:  # unnecessary cause it's a sphere 1 area
+        #     AWData(AWType.region),
+    },
+    bear_transcendental: {
+        lname.egg_transcendental:
+            AWData(AWType.location),
+    },
+    bear_kangaroo_waterfall: {
+        bear_ladder_after_chameleon:
+            AWData(AWType.region),  # just press a button
+        bear_upper_phone_room:
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    bear_upper_phone_room: {
+        lname.activate_bear_fast_travel:
+            AWData(AWType.location, [[iname.flute]]),
     },
 
     dog_area: {
@@ -425,7 +479,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         fish_west:
             AWData(AWType.region, [[iname.flute]]),
         frog_dark_room:
-            AWData(AWType.region, [[iname.activated_frog_fast_travel]])
+            AWData(AWType.region, [[iname.activated_frog_fast_travel]]),
+        bear_upper_phone_room:
+            AWData(AWType.region, [[iname.activated_bear_fast_travel]]),
     },
 
     fast_travel_fake: {  # for direct teleport spells
@@ -434,6 +490,6 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         top_of_the_well:
             AWData(AWType.region, [[iname.song_home]]),
         bear_chinchilla_song_room:
-            AWData(AWType.region, [[iname.song_chinchilla]])
+            AWData(AWType.region, [[iname.song_chinchilla]]),
     },
 }
