@@ -56,6 +56,7 @@ bear_match_chest_spot = "Bear Match Chest Spot"  # where the match chest is, it'
 bear_upper_phone_room = "Bear Upper Phone Room"
 bear_above_chameleon = "Bear Above Chameleon Boss"  # right above the chameleon boss before the flame
 bear_chameleon_room_2 = "Bear Chameleon Boss Room before Flame"
+bear_razzle_egg_spot = "Bear Razzle Egg Spot"
 
 dog_area = "Dog Main"
 dog_chinchilla_skull = "Dog Chinchilla Skull Room"
@@ -68,6 +69,19 @@ dog_upper_east = "Dog Area Upper East"  # to the right of the area above the swi
 bobcat_room = "Bobcat Room"
 chest_on_spikes_region = "Chest on Spikes Region"
 dog_elevator = "Dog Elevator"  # east of the flame
+dog_many_switches = "Dog Switches and Bat"  # west of spike room
+dog_upside_down_egg_spot = "Dog Upside Down Egg Spot"
+dog_bat_room = "Dog Bat Room"
+dog_k_medal_plinth = "Dog K. Medal Plinth"  # how you enter the kangaroo room
+dog_under_fast_travel_room = "Dog Room under Fast Travel Door Room"
+dog_fast_travel_room = "Dog Room with Fast Travel Door"
+dog_swordfish_lake_ledge = "Dog Left side of Swordfish Lake"
+behind_kangaroo = "Vertical Passage behind Kangaroo Room"
+dog_above_fast_travel = "Dog Above Fast Travel Room"  # has some of those breakout blocks
+dog_mock_disc_shrine = "Dog Mock Disc Shrine"  # and the rooms to the left of it
+kangaroo_room = "Kangaroo Room"
+kangaroo_blocks = "Kangaroo Room Blocks"
+
 
 frog_near_wombat = "Frog Area near Wombat"  # first part of the frog area after you drop down the hole
 frog_under_ostrich_statue = "Frog Area under Ostrich Statue"  # just the dark room basically
@@ -148,7 +162,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         candle_area:
             AWData(AWType.region, [["Light All Candles"]]),  # turn this into an event later
         s_disc_area:
-            AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc]]),
+            AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc_hop]]),
         lname.egg_clover:  # in room where you see the status of the candles
             AWData(AWType.location),
         lname.match_start_ceiling:
@@ -167,6 +181,16 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.map_chest:
             AWData(AWType.location),
+    },
+    s_disc_area: {
+        lname.remote_chest:
+            AWData(AWType.location),
+        lname.egg_iridescent:
+            AWData(AWType.location, [[iname.remote]]),
+        lname.egg_ice:
+            AWData(AWType.location, [[iname.remote]]),
+        lname.egg_neon:
+            AWData(AWType.location, [[iname.remote, iname.ball]]),
     },
 
     fish_upper: {
@@ -253,6 +277,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.bubble_short]]),
         bear_kangaroo_waterfall:
             AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo]]),  # todo: check if top + yoyo can be used
+        bear_razzle_egg_spot:
+            AWData(AWType.region, [[iname.defeated_chameleon, iname.bubble_short],
+                                     [iname.defeated_chameleon, iname.disc_hop_hard]])
     },
     bear_capybara_and_below: {
         bear_future_egg_room:
@@ -286,6 +313,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.bubble], [iname.disc]]),
         bear_ladder_after_chameleon:
             AWData(AWType.region),
+        lname.medal_s:
+            AWData(AWType.location, iname.defeated_chameleon),
     },
     bear_ladder_after_chameleon: {
         bear_slink_room:  # jump up through the floor at the top of the ladder
@@ -386,6 +415,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         bear_upper_phone_room:
             AWData(AWType.region),
     },
+    bear_razzle_egg_spot: {
+        lname.egg_razzle:
+            AWData(AWType.location),
+        bear_dark_maze:
+            AWData(AWType.region),
+    },
 
     dog_area: {
         lname.disc_spot:
@@ -394,12 +429,20 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.match]]),  # todo: figure out what we're doing for matches/candles
         dog_chinchilla_skull:
             AWData(AWType.region, [[iname.bubble]]),  # can get here without bubble jumps
-        lname.egg_upside_down:  # upper right of switch platform room above second dog
-            AWData(AWType.location, [[iname.bubble_short]]),  # todo: there's another way here from above?
+        dog_upside_down_egg_spot:  # upper right of switch platform room above second dog
+            AWData(AWType.region, [[iname.bubble_short]]),
         dog_at_mock_disc:  # you drop down to here, but can't get back up immediately
             AWData(AWType.region),
         lname.egg_orange:
             AWData(AWType.location, [[iname.top]]),
+    },
+    dog_upside_down_egg_spot: {
+        lname.egg_upside_down:
+            AWData(AWType.location),
+        dog_area:
+            AWData(AWType.region),
+        dog_many_switches:
+            AWData(AWType.region, [[iname.remote]]),
     },
     dog_at_mock_disc: {
         dog_area:  # can leave by hitting the button or jumping up to the ledge you came from
@@ -417,7 +460,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         dog_upper_past_lake:
             AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long]]),  # maybe not long?
         dog_upper_above_switch_lines:
-            AWData(AWType.region, [[iname.disc], [iname.remote]]),  # double check you can use remote in here
+            AWData(AWType.region, [[iname.disc], [iname.remote], [iname.top]]),  # double check you can use remote in here
         lname.egg_evil:
             AWData(AWType.location, [[iname.flute]]),
     },
@@ -431,12 +474,112 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.mama_cha:
             AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         # todo: floor is lava
+        dog_many_switches:
+            AWData(AWType.region, [[iname.can_break_spikes]]),  # todo: verify you can do this with wheel
+        dog_under_fast_travel_room:
+            AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short]]),
+    },
+    dog_under_fast_travel_room: {
+        dog_upper_past_lake:
+            AWData(AWType.region, [[iname.bubble_short]]),
+        dog_fast_travel_room:
+            AWData(AWType.region, [[iname.can_distract_dogs], [iname.bubble_long]]),
+    },
+    dog_fast_travel_room: {
+        dog_under_fast_travel_room:
+            AWData(AWType.region),
+        lname.activate_dog_fast_travel:
+            AWData(AWType.location, [[iname.flute]]),
+        dog_swordfish_lake_ledge:
+            AWData(AWType.region),
+        dog_upper_past_lake:  # ride bubble down, jump the partial-height wall
+            AWData(AWType.region, [[iname.bubble]]),
+        dog_above_fast_travel:
+            AWData(AWType.region, [[iname.slink], [iname.bubble_short]]),
+        dog_mock_disc_shrine:
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    dog_mock_disc_shrine: {
+        lname.egg_raw:
+            AWData(AWType.location, [[iname.slink, iname.disc_hop_hard],
+                                     [iname.slink, iname.bubble_short],
+                                     [iname.slink, iname.key]]),
+        lname.flame_pink:
+            AWData(AWType.location, [[iname.m_disc]]),
+    },
+    dog_above_fast_travel: {
+        lname.egg_brown:
+            AWData(AWType.location, [[iname.slink]]),
+        lname.egg_reference:  # funny slink and disc room
+            AWData(AWType.location, [[iname.slink, iname.disc]]),
+        dog_fast_travel_room:
+            AWData(AWType.region),
+        lname.egg_crystal:  # todo: revisit with wheel to see if we need more items
+            AWData(AWType.location, [[iname.top, iname.ball, iname.slink, iname.remote, iname.wheel]]),
+    },
+    dog_swordfish_lake_ledge: {
+        dog_fast_travel_room:
+            AWData(AWType.region, [[iname.disc]]),
+        lname.egg_forbidden:
+            AWData(AWType.location, [[iname.disc], [iname.bubble_long]]),
+        lname.bunny_disc_spike:
+            AWData(AWType.location, [[iname.disc]]),  # not disc hop since you literally need to do this
+        behind_kangaroo:
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    behind_kangaroo: {
+        bear_middle_phone_room:
+            AWData(AWType.region),  # activate dynamite
+        lname.egg_plant:
+            AWData(AWType.location, [[iname.disc, iname.slink]]),
+        kangaroo_blocks:
+            AWData(AWType.region, [[iname.ball]]),
+    },
+    dog_many_switches: {
+        lname.candle_dog_many_switches:
+            AWData(AWType.location),
+        dog_upside_down_egg_spot:
+            AWData(AWType.region, [[iname.remote]]),
+        dog_bat_room:
+            AWData(AWType.region),
+    },
+    dog_bat_room: {
+        lname.key_dog:
+            AWData(AWType.location),
+        lname.switch_next_to_bat_room:
+            AWData(AWType.location),
+        dog_k_medal_plinth:
+            AWData(AWType.region, [[iname.can_break_spikes]]),  # todo: verify you can get here with just wheel
+    },
+    dog_k_medal_plinth: {
+        dog_bat_room:
+            AWData(AWType.region),
+        lname.egg_service:
+            AWData(AWType.location),
+        kangaroo_room:
+            AWData(AWType.region, [[iname.k_medal, iname.bubble], [iname.k_medal, iname.disc]]),
+    },
+    kangaroo_room: {
+        dog_k_medal_plinth:
+            AWData(AWType.region),
+        lname.b_ball_chest:
+            AWData(AWType.location),
+        kangaroo_blocks:
+            AWData(AWType.region, [[iname.ball, iname.disc], [iname.ball, iname.bubble]]),
+    },
+    kangaroo_blocks: {
+        kangaroo_room:
+            AWData(AWType.region),
+        lname.egg_vanity:
+            AWData(AWType.location),
+        behind_kangaroo:
+            AWData(AWType.region),
     },
     dog_upper_above_switch_lines: {
         lname.match_dog_switch_bounce:  # in the little switch area
-            AWData(AWType.location, [[iname.disc], [iname.remote]]),
+            AWData(AWType.location, [[iname.disc], [iname.remote], [iname.top]]),
         lname.candle_dog_disc_switches:
-            AWData(AWType.location, [[iname.match, iname.disc], [iname.match, iname.remote]]),
+            AWData(AWType.location, [[iname.match, iname.disc], [iname.match, iname.remote], [iname.match, iname.top]]),
         lname.egg_depraved:  # in the little switch area, you need to take care of the ghost
             AWData(AWType.location, [[iname.disc, iname.can_defeat_ghost], [iname.remote, iname.can_defeat_ghost]]),
         dog_upper_above_switch_lines_to_upper_east:

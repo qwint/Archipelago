@@ -151,6 +151,8 @@ bunny_file_bud = "Flowering Bunny"  # bunny from file start codes
 # event locations
 activate_frog_fast_travel = "Activate Frog Fast Travel"
 activate_bear_fast_travel = "Activate Bear Fast Travel"
+activate_dog_fast_travel = "Activate Dog Fast Travel"
 
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Switch for Post Modern Egg"
+switch_next_to_bat_room = "Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
