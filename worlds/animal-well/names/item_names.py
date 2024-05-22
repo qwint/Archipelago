@@ -41,6 +41,7 @@ activated_hippo_fast_travel = "Activated Hippo Fast Travel"
 activated_bonefish_fast_travel = "Activated Bone Fish Fast Travel"
 event_candle_penguin_lit = "Lit the Candle by the Penguins"
 defeated_chameleon = "Defeated Chameleon"
+switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
 
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"
