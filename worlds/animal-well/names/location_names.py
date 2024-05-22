@@ -28,14 +28,14 @@ mama_cha = "Mama Cha Chest"  # the same place as the barcode bunny at grass bowl
 squirrel_acorn = "Steal Squirrel's Acorn"
 
 # match chests
-ceiling_match_start = "Match in Tutorial Chest"
-fish_mural_match = "Match in Fish Mural Room Chest"
-dog_match_switch = "Match in Switch-Bounce Room Chest"  # rename, in that spot where you throw the between the levers
-dog_match_upper_east = "Match by Dog Fish Pipe Chest"
-bear_slink_match = "Match in Bear Slink Stair Puzzle Chest"
+match_start_ceiling = "Match in Tutorial Chest"
+match_fish_mural = "Match in Fish Mural Room Chest"
+match_dog_switch_bounce = "Match in Switch-Bounce Room Chest"  # rename, in that spot where you throw the between the levers
+match_dog_upper_east = "Match by Dog Fish Pipe Chest"
+match_bear = "Match in Bear Area"
 match_above_egg_room = "Match Above Egg Room"  # the one to the right of the dog lower entrance
-center_well_match = "Match in Center Well Chest"  # the one high up in the shaft
-guard_room_match = "Match in Guard Room Chest"
+match_center_well = "Match in Center Well Chest"  # the one high up in the shaft
+match_guard_room = "Match in Guard Room Chest"
 match_under_mouse_statue = "Match under Mouse Statue"  # east bird area, need yoyo to get in
 
 # candle checks
@@ -151,3 +151,5 @@ bunny_file_bud = "Flowering Bunny"  # bunny from file start codes
 # event locations
 activate_frog_fast_travel = "Activate Frog Fast Travel"
 activate_bear_fast_travel = "Activate Bear Fast Travel"
+
+defeated_chameleon = "Defeated Chameleon"

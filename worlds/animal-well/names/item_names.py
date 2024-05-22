@@ -30,6 +30,18 @@ purple_flame = "P. Flame"  # ghost dog
 song_home = "Top of the Well Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
 
+# event items
+activated_bird_fast_travel = "Activated Bird Fast Travel"
+activated_bear_fast_travel = "Activated Bear Fast Travel"
+activated_frog_fast_travel = "Activated Frog Fast Travel"
+activated_squirrel_fast_travel = "Activated Squirrel Fast Travel"
+activated_fish_fast_travel = "Activated Fish Fast Travel"
+activated_dog_fast_travel = "Activated Dog Fast Travel"
+activated_hippo_fast_travel = "Activated Hippo Fast Travel"
+activated_bonefish_fast_travel = "Activated Bone Fish Fast Travel"
+event_candle_penguin_lit = "Lit the Candle by the Penguins"
+defeated_chameleon = "Defeated Chameleon"
+
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"
 can_break_spikes = "Can Break Spikes"
@@ -41,15 +53,4 @@ can_distract_dogs = "Can Distract Dogs"
 can_defeat_ghost = "Can Defeat Ghost"
 ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obviously meant to be
 two_keys = "Two Keys"  # there's one spot that has two key doors adjacent to each other
-
-# event items
-activated_bird_fast_travel = "Activated Bird Fast Travel"
-activated_bear_fast_travel = "Activated Bear Fast Travel"
-activated_frog_fast_travel = "Activated Frog Fast Travel"
-activated_squirrel_fast_travel = "Activated Squirrel Fast Travel"
-activated_fish_fast_travel = "Activated Fish Fast Travel"
-activated_dog_fast_travel = "Activated Dog Fast Travel"
-activated_hippo_fast_travel = "Activated Hippo Fast Travel"
-activated_bonefish_fast_travel = "Activated Bone Fish Fast Travel"
-event_candle_penguin_lit = "Lit the Candle by the Penguins"
-
+tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage

@@ -26,6 +26,7 @@ bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladde
 bird_below_mouse_statues = "Bird Below Mouse Statues"  # on the way to frog area, need yoyo
 bird_planet_egg_spot = "Bird Planet Egg Spot"
 candle_area = "Squirrel Candle Area"
+
 fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
 fish_lower = "Fish Lower"
 fish_boss_1 = "Fish Boss Arena Part 1"  # just the whale
@@ -33,7 +34,9 @@ fish_boss_2 = "Fish Boss Arena Part 2"  # whale + seahorse
 fish_wand_pit = "Fish B.Wand Chest Pit"
 fish_west = "Fish Warp Room"  # after the b. wand chest, rename
 fish_tube_room = "Fish Pipe Maze"  # rename?
+
 abyss = "Bone Fish Area"
+
 bear_area_entry = "Bear Main Entry"
 bear_capybara_and_below = "Bear Main Area"
 bear_future_egg_room = "Bear Future Egg Room"
@@ -44,7 +47,16 @@ bear_ladder_after_chameleon = "Bear Ladder after Chameleon 1"
 bear_slink_room = "Bear Slink Room"  # the room you get slink
 bear_transcendental = "Bear Transcendental Egg Room"
 bear_kangaroo_waterfall = "Bear Kangaroo Waterfall and adjacent rooms"  # up left from entry point, need slink
-bear_upper_phone_room = "Bear Upper Phone Room"  # after the previous region
+bear_middle_phone_room = "Bear Middle Phone Room"  # after the previous region, has the fast travel, monkey room
+bear_crow_rooms = "Bear Crow Rooms"  # the room with a lot of crows, the room with 8 crows, and the room with 4 crows
+bear_shadow_egg_spot = "Bear Shadow Egg Chest Spot"  # since you can get here from above with top
+bear_hedgehog_square = "Bear Hedgehog on the Square Room"  # the one where the hedgehog presses 4 buttons
+bear_connector_passage = "Bear Connector Passage"  # connects capybara save room, upper bear
+bear_match_chest_spot = "Bear Match Chest Spot"  # where the match chest is, it's weird okay
+bear_upper_phone_room = "Bear Upper Phone Room"
+bear_above_chameleon = "Bear Above Chameleon Boss"  # right above the chameleon boss before the flame
+bear_chameleon_room_2 = "Bear Chameleon Boss Room before Flame"
+
 dog_area = "Dog Main"
 dog_chinchilla_skull = "Dog Chinchilla Skull Room"
 dog_at_mock_disc = "Dog at Mock Disc Chest"
@@ -55,7 +67,7 @@ dog_upper_above_switch_lines_to_upper_east = "Dog Area Upper above Switch Lines 
 dog_upper_east = "Dog Area Upper East"  # to the right of the area above the switch lines
 bobcat_room = "Bobcat Room"
 chest_on_spikes_region = "Chest on Spikes Region"
-top_of_the_well = "Top of the Well"  # where the warp song takes you, right of the house
+
 frog_near_wombat = "Frog Area near Wombat"  # first part of the frog area after you drop down the hole
 frog_under_ostrich_statue = "Frog Area under Ostrich Statue"  # just the dark room basically
 frog_pre_ostrich_attack = "Frog before Ostrich Attack"  # left of dark room, right of ostrich, above dynamite
@@ -68,6 +80,10 @@ frog_dark_room = "Wave Room"  # the dark room with the frog, and also the wave r
 frog_ruby_egg_ledge = "Ruby Egg Ledge"  # the ledge with the ruby egg in the frog dark room
 frog_east_of_fast_travel = "Frog East of Fast Travel"  # one screen to the right of the fast travel spot
 frog_elevator_and_ostrich_wheel = "Frog Elevator and Ostrich Wheel Section"  # interdependent, so one big region
+
+top_of_the_well = "Top of the Well"  # where the warp song takes you, right of the house
+chocolate_egg_spot = "Chocolate Egg Spot"
+match_center_well_spot = "Center Well Match Spot"  # in the shaft, across from chocolate egg
 
 # instructions for contributors:
 # the outer string is the name of the origin region
@@ -99,6 +115,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [["8 Eggs"]]),
         lname.pencil_chest:
             AWData(AWType.location, [["16 Eggs", iname.bubble], ["16 Eggs", iname.disc]]),
+        lname.top_chest:
+            AWData(AWType.location, [["32 Eggs", iname.bubble], ["32 Eggs", iname.disc]]),
         lname.bunny_duck:  # edit rule if we shuffle songs
             AWData(AWType.location, [[iname.flute]]),
         lname.bunny_mural:
@@ -130,7 +148,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc]]),
         lname.egg_clover:  # in room where you see the status of the candles
             AWData(AWType.location),
-        lname.ceiling_match_start:
+        lname.match_start_ceiling:
             AWData(AWType.location),
         lname.bunny_face:
             AWData(AWType.location, [[iname.flute]]),
@@ -149,7 +167,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     fish_upper: {
-        lname.fish_mural_match:  # right at the start, just some platforming
+        lname.match_fish_mural:  # right at the start, just some platforming
             AWData(AWType.location),
         lname.bunny_fish:
             AWData(AWType.location, [[iname.flute]]),
@@ -201,7 +219,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_goodnight:
             AWData(AWType.location, [[iname.can_defeat_ghost], [iname.event_candle_penguin_lit]]),
     },
-    fish_boss_1: {  # the disc required to clear this room's puzzle is implicated in the entrance reqs so it is not duplicated here
+    fish_boss_1: {  # the disc required to clear this room's puzzle is in the entrance reqs , so not duplicated here
         chest_on_spikes_region:  # the one you're supposed to get to after getting the wheel
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_boss_2:
@@ -275,7 +293,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         bear_transcendental:  # descend, jump into left wall
             AWData(AWType.region, [[iname.bubble]]),
-        # bear_area_entry:  # unnecessary cause it's a sphere 1 area
+        # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
     },
     bear_transcendental: {
@@ -285,12 +303,83 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bear_kangaroo_waterfall: {
         bear_ladder_after_chameleon:
             AWData(AWType.region),  # just press a button
-        bear_upper_phone_room:
+        bear_middle_phone_room:
             AWData(AWType.region, [[iname.slink]]),
     },
-    bear_upper_phone_room: {
+    bear_middle_phone_room: {
         lname.activate_bear_fast_travel:
             AWData(AWType.location, [[iname.flute]]),
+        fast_travel:
+            AWData(AWType.region, [[iname.activated_bear_fast_travel]]),
+        lname.egg_chaos:  # in the room with the monkey that throws rocks at you
+            AWData(AWType.location),
+        bear_crow_rooms:
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    bear_crow_rooms: {
+        bear_shadow_egg_spot:  # get across the room with the lifters and the miasma
+            AWData(AWType.region, [[iname.slink], [iname.lantern], [iname.tanking_damage]]),
+        lname.bunny_crow:  # it jumps down after a moment
+            AWData(AWType.location, [[iname.flute]]),
+        bear_hedgehog_square:  # slink needed for puzzle to get to the button
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    bear_shadow_egg_spot: {
+        lname.egg_shadow:
+            AWData(AWType.location),
+        bear_crow_rooms:
+            AWData(AWType.region),
+    },
+    bear_hedgehog_square: {
+        lname.bunny_ghost_dog:  # todo: figure out what rules we need for this
+            AWData(AWType.location, [[iname.disc]]),
+        bear_connector_passage:
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    bear_connector_passage: {
+        bear_capybara_and_below:
+            AWData(AWType.region),
+        bear_middle_phone_room:
+            AWData(AWType.region),
+        bear_match_chest_spot:  # you open some doors starting at the connector and ending at the door to here
+            AWData(AWType.region, [[iname.slink]]),
+    },
+    bear_match_chest_spot: {
+        lname.match_bear:
+            AWData(AWType.location),
+        chocolate_egg_spot:
+            AWData(AWType.region, [[iname.bubble]]),  # wall juts out, need bubble
+        match_center_well_spot:
+            AWData(AWType.region),  # wall is flush, just hold left
+        # top_of_the_well:  # unnecessary because of the connection from match center spot
+        #     AWData(AWType.region, [[iname.bubble_long]]),
+        bear_upper_phone_room:  # todo: see if ball can go through wooden platforms
+            AWData(AWType.region, [[iname.slink, iname.yoyo]]),
+    },
+    bear_upper_phone_room: {
+        bear_above_chameleon:
+            AWData(AWType.region, [[iname.yoyo]]),  # todo: check if you can do this with ball
+    },
+    bear_above_chameleon: {  # includes the screens to the right of it
+        lname.egg_swan:  # wake one chinchilla, push another
+            AWData(AWType.location, [[iname.flute, iname.disc], [iname.firecrackers]]),
+        # chinchilla can be woken up with flute or firecrackers
+        # otters can be distracted with firecrackers, yoyo, or top
+        # you need 3 firecrackers minimum if you want to get through without yoyo or flute
+        bear_shadow_egg_spot:
+            AWData(AWType.region, [[iname.top, iname.slink, iname.yoyo, iname.flute],
+                                   [iname.top, iname.slink, iname.firecrackers]]),
+        bear_chameleon_room_2:
+            AWData(AWType.region, [[iname.yoyo, iname.slink, iname.flute],
+                                   [iname.yoyo, iname.slink, iname.firecrackers]]),
+    },
+    bear_chameleon_room_2: {
+        bear_middle_phone_room:  # drop down, probably unimportant
+            AWData(AWType.region),
+        lname.flame_violet:
+            AWData(AWType.location, [[iname.can_open_flame]]),
+        bear_upper_phone_room:
+            AWData(AWType.region),
     },
 
     dog_area: {
@@ -335,7 +424,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # todo: floor is lava
     },
     dog_upper_above_switch_lines: {
-        lname.dog_match_switch:  # in the little switch area
+        lname.match_dog_switch_bounce:  # in the little switch area
             AWData(AWType.location, [[iname.disc], [iname.remote]]),
         lname.candle_dog_disc_switches:
             AWData(AWType.location, [[iname.match, iname.disc], [iname.match, iname.remote]]),
@@ -353,7 +442,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     dog_upper_east: {
         dog_upper_above_switch_lines_to_upper_east:
             AWData(AWType.region, [[iname.bubble_short]]),  # jump up to the switch
-        lname.dog_match_upper_east:
+        lname.match_dog_upper_east:
             AWData(AWType.location),
         dog_upper:  # hit the dynamite switch to get back to the bird area and upper dog
             AWData(AWType.region),
@@ -418,7 +507,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.flute]]),
         lname.key_frog_guard_room_west:
             AWData(AWType.location, [[iname.yoyo], [iname.flute]]),  # todo: top, ball, wheel?
-        lname.guard_room_match:  # hit guard then jump off its head, or jump up with mobility
+        lname.match_guard_room:  # hit guard then jump off its head, or jump up with mobility
             AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop], [iname.bubble]]), # todo: top, ball, wheel?
         # 2 doors in the top right of this region
         lname.key_frog_guard_room_east:  # todo: can you move the guards with ball or top?
@@ -467,10 +556,30 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     top_of_the_well: {
         lname.egg_pickled:  # hold right while falling down the well
             AWData(AWType.location),
-        lname.center_well_match:  # hold left while falling down well, switch might need to be flipped
-            AWData(AWType.location),  # todo: verify if this should be in this region
-        lname.egg_chocolate:  # todo: verify if this should be in this region
-            AWData(AWType.location, [[iname.bubble]]),  # across from center well match, maybe remote should be involved?
+        chocolate_egg_spot:
+            AWData(AWType.region, [[iname.bubble]]),  # wall juts out, need bubble
+        match_center_well_spot:
+            AWData(AWType.region),  # wall is flush, just hold left
+    },
+    chocolate_egg_spot: {
+        lname.egg_chocolate:  # across from center well match
+            AWData(AWType.location),
+        match_center_well_spot:
+            AWData(AWType.region, [[iname.disc, iname.remote], [iname.bubble_short, iname.remote]]),
+        bear_match_chest_spot:
+            AWData(AWType.region, [[iname.bubble_long]]),
+        top_of_the_well:
+            AWData(AWType.region, [[iname.bubble_long]]),
+    },
+    match_center_well_spot: {
+        lname.match_center_well:  # across from the chocolate egg
+            AWData(AWType.location),
+        chocolate_egg_spot:  # todo: verify that this needs bubble short
+            AWData(AWType.region, [[iname.disc, iname.remote], [iname.bubble_short, iname.remote]]),
+        bear_match_chest_spot:
+            AWData(AWType.region, [[iname.bubble_long]]),
+        top_of_the_well:
+            AWData(AWType.region, [[iname.bubble_long]]),
     },
 
     fast_travel: {
@@ -480,7 +589,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.flute]]),
         frog_dark_room:
             AWData(AWType.region, [[iname.activated_frog_fast_travel]]),
-        bear_upper_phone_room:
+        bear_middle_phone_room:
             AWData(AWType.region, [[iname.activated_bear_fast_travel]]),
     },
 
