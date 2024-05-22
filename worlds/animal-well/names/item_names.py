@@ -42,6 +42,7 @@ activated_bonefish_fast_travel = "Activated Bone Fish Fast Travel"
 event_candle_penguin_lit = "Lit the Candle by the Penguins"
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
+switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
 
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"
