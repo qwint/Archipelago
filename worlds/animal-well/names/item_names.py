@@ -21,15 +21,17 @@ k_medal = "K. Medal"  # a fake item. 3 K. Shards exist in pool
 s_medal = "S. Medal"
 match = "Match"
 key = "Key"
+house_key = "House Key"
 
 blue_flame = "B. Flame"  # seahorse
 violet_flame = "V. Flame"  # chameleon
 green_flame = "G. Flame"  # ostritch
-purple_flame = "P. Flame"  # ghost dog
+pink_flame = "P. Flame"  # ghost dog
 
 song_home = "Top of the Well Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
 song_bobcat = "Bobcat Song"  # idk what we should do with this, but it kinda sucks as it is
+song_fish = "Skeleton Fish Song"  # teleports you to the right side of the lower screen of the fast travel room
 
 # event items
 activated_bird_fast_travel = "Activated Bird Fast Travel"
@@ -44,6 +46,7 @@ event_candle_penguin_lit = "Lit the Candle by the Penguins"
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
 switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
+light_all_candles = "Light all Candles"
 
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"
