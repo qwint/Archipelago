@@ -22,6 +22,7 @@ s_medal = "S. Medal"
 match = "Match"
 key = "Key"
 house_key = "House Key"
+office_key = "Office Key"
 
 blue_flame = "B. Flame"  # seahorse
 violet_flame = "V. Flame"  # chameleon
