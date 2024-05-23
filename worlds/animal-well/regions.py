@@ -85,7 +85,7 @@ kangaroo_room = "Kangaroo Room"
 kangaroo_blocks = "Kangaroo Room Blocks"
 
 
-frog_near_wombat = "Frog Area near Wombat"  # first part of the frog area after you drop down the hole
+frog_near_wombat = "Frog Area near Groundhog"  # first part of the frog area after you drop down the hole
 frog_under_ostrich_statue = "Frog Area under Ostrich Statue"  # just the dark room basically
 frog_pre_ostrich_attack = "Frog before Ostrich Attack"  # left of dark room, right of ostrich, above dynamite
 frog_ostrich_attack = "Frog Ostrich Attack"  # and also the little area above it
@@ -97,6 +97,7 @@ frog_dark_room = "Wave Room"  # the dark room with the frog, and also the wave r
 frog_ruby_egg_ledge = "Ruby Egg Ledge"  # the ledge with the ruby egg in the frog dark room
 frog_east_of_fast_travel = "Frog East of Fast Travel"  # one screen to the right of the fast travel spot
 frog_elevator_and_ostrich_wheel = "Frog Elevator and Ostrich Wheel Section"  # interdependent, so one big region
+frog_travel_egg_spot = "Frog Travel Egg Spot"
 
 hippo_entry = "Hippo Entry"  # the beginning of the end
 hippo_manticore_room = "Hippo Manticore Room"  # the 4 rooms you evade the manticore in for the first ending
@@ -164,6 +165,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.egg_planet:
             AWData(AWType.location),
+        frog_travel_egg_spot:
+            AWData(AWType.region, [[iname.top]]),
     },
 
     starting_area: {
@@ -298,7 +301,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         bear_capybara_and_below:
             AWData(AWType.region, [[iname.key], [iname.bubble_short]]),
         bear_transcendental:  # might be controversial? it's across a screen transition but only 4 bubbles
-            AWData(AWType.region, [[iname.bubble_short]]),
+            AWData(AWType.region, [[iname.bubble_short], [iname.disc_hop_hard]]),
         bear_kangaroo_waterfall:
             AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo]]),  # todo: check if top + yoyo can be used
         bear_razzle_egg_spot:
@@ -345,7 +348,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         bear_ladder_after_chameleon:
             AWData(AWType.region),
         lname.medal_s:
-            AWData(AWType.location, iname.defeated_chameleon),
+            AWData(AWType.location, [[iname.defeated_chameleon]]),
     },
     bear_ladder_after_chameleon: {
         bear_slink_room:  # jump up through the floor at the top of the ladder
@@ -355,7 +358,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.slink:
             AWData(AWType.location),
         bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath. TODO: too tight to not be disc_hop_hard? It's close.
-            AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble], [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop]]),  # todo: fix formatting, check if you can use ball reliably
+            AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble], [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop], [iname.ball, iname.disc_hop], [iname.ball, iname.disc_hop]]),  # todo: fix formatting
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
     },
@@ -379,7 +382,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_chaos:  # in the room with the monkey that throws rocks at you
             AWData(AWType.location),
         bear_crow_rooms:
-            AWData(AWType.region, [[iname.slink]]),
+            AWData(AWType.region, [[iname.slink], [iname.ball_tricky]]),
+        bear_match_chest_spot:
+            AWData(AWType.region, [[iname.ball_tricky, iname.disc, iname.weird_skips]]),  # oh hell yeah this is a cool one
     },
     bear_crow_rooms: {
         bear_shadow_egg_spot:  # get across the room with the lifters and the miasma
@@ -387,7 +392,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.bunny_crow:  # it jumps down after a moment
             AWData(AWType.location, [[iname.flute]]),
         bear_hedgehog_square:  # slink needed for puzzle to get to the button
-            AWData(AWType.region, [[iname.slink]]),
+            AWData(AWType.region, [[iname.slink], [iname.ball_tricky]]),
     },
     bear_shadow_egg_spot: {
         lname.egg_shadow:
@@ -641,15 +646,23 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     frog_near_wombat: {
-        # todo: locked door to the left of the wombat
-        # todo: spikes at floor of the room with the 3 birds
         lname.candle_frog:
             AWData(AWType.location, [[iname.match]]),
         lname.egg_moon:  # the one with all the mouse heads
-            AWData(AWType.location, [[iname.disc, iname.lantern], [iname.bubble_short, iname.lantern]]),
-            # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird
+            AWData(AWType.location, [[iname.disc, iname.lantern], [iname.bubble, iname.lantern]]),
+            # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird -- i was getting this 90% of the time, but im not sure it's intuitive? make it logical and put it in the tricks FAQ.
+        lname.egg_promise:  # under spikes in 3 bird room
+            AWData(AWType.location, [[iname.lantern, iname.can_break_spikes_below]]),
         frog_under_ostrich_statue:  # after hitting the switch, no items needed
             AWData(AWType.region),
+        frog_travel_egg_spot:
+            AWData(AWType.region, [[iname.key]]), 
+    },
+    frog_travel_egg_spot: {  # the spot behind the groundhog
+        lname.egg_travel:
+            AWData(AWType.location),
+        frog_ostrich_attack:
+            AWData(AWType.region, [[iname.yoyo], [iname.ball]]),
     },
     frog_under_ostrich_statue: {
         frog_near_wombat:  # may have to go a few screens away to hit a switch, but you don't need items
@@ -699,12 +712,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.activate_frog_fast_travel:
             AWData(AWType.location, [[iname.flute]]),
         lname.key_frog_guard_room_west:
-            AWData(AWType.location, [[iname.yoyo], [iname.flute]]),  # todo: top, ball, wheel?
+            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.ball]]),  # you can just throw the ball at their shields lmao
         lname.match_guard_room:  # hit guard then jump off its head, or jump up with mobility
-            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop], [iname.bubble]]), # todo: top, ball, wheel?
+            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop], [iname.bubble], [iname.ball]]), # todo: top, ball, wheel?
         # 2 doors in the top right of this region
-        lname.key_frog_guard_room_east:  # todo: can you move the guards with ball or top?
-            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute]]),
+        lname.key_frog_guard_room_east: 
+            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute], [iname.ball]]),  # might be doable with flute + disc?
         frog_dark_room:  # yoyo to open the door, lantern to fall through the bird
             AWData(AWType.region, [[iname.yoyo], [iname.lantern]]),
         frog_ruby_egg_ledge:  # fall through a bird onto it
