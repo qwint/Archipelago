@@ -1,7 +1,7 @@
 from itertools import groupby
 from typing import Dict, List, Set, NamedTuple
 from BaseClasses import ItemClassification
-from names import item_names as iname
+from .names import item_names as iname
 
 
 class AnimalWellItemData(NamedTuple):
@@ -17,7 +17,7 @@ item_base_id = 11553377
 item_table: Dict[str, AnimalWellItemData] = {
 
     # Major progression items
-    iname.bubble: AnimalWellItemData(ItemClassification.progression, 2, "Toys"),  # are we treating this as progressive? what's the plan here. currently 2 items for this
+    iname.bubble: AnimalWellItemData(ItemClassification.progression, 2, "Toys"),  # progressive
     iname.disc: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
     iname.yoyo: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
     iname.slink: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
@@ -28,7 +28,7 @@ item_table: Dict[str, AnimalWellItemData] = {
     iname.ball: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
     iname.remote: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
     iname.wheel: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
-    #iname.firecrackers: AnimalWellItemData(ItemClassification.progression, 2, "Toys"),  # consideration: progressive fanny pack
+    # iname.firecrackers: AnimalWellItemData(ItemClassification.progression, 2, "Toys"),
 
     iname.m_disc: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
     iname.fanny_pack: AnimalWellItemData(ItemClassification.useful, 1, "Toys"),
@@ -44,7 +44,7 @@ item_table: Dict[str, AnimalWellItemData] = {
     iname.blue_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
     iname.green_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
     iname.violet_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
-    iname.purple_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
+    iname.pink_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
 
     "Clover Egg": AnimalWellItemData(ItemClassification.progression_skip_balancing, 1, "Eggs"),
     "Gorgeous Egg": AnimalWellItemData(ItemClassification.progression_skip_balancing, 1, "Eggs"),
