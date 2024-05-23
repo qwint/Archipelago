@@ -312,9 +312,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.key]]),
         lname.egg_universal:
             AWData(AWType.location, [[iname.slink, iname.bubble, iname.yoyo],
-                                     [iname.slink, iname.disc, iname.yoyo],
                                      [iname.slink, iname.bubble, iname.firecrackers],
-                                     [iname.slink, iname.disc, iname.firecrackers]]),
+                                     [iname.slink, iname.disc]]),  # disc hits the chinchilla across
         lname.egg_value:
             AWData(AWType.location, [[iname.bubble_long, iname.disc_hop_hard]]),
     },
@@ -687,6 +686,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     frog_bird_after_yoyo_1: {
         frog_bird_after_yoyo_2:  # pain in the ass, but you can get up with downwards bubbles
             AWData(AWType.region, [[iname.yoyo], [iname.bubble_long]]),
+        frog_worm_shaft_bottom:  # if you fall along the left side from a screen up, the bird doesn't reach you in time
+            AWData(AWType.region),
+        lname.egg_sapphire:
+            AWData(AWType.location, [[iname.lantern]]),
     },
     frog_bird_after_yoyo_2: {
         lname.activate_frog_fast_travel:
