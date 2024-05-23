@@ -59,7 +59,7 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_travel: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_promise: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_ice: AnimalWellLocationData("Menu", "Eggs"),
-    lname.firecracker_first: AnimalWellLocationData("Menu", "Eggs"),
+    lname.egg_fire: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_bubble: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_desert: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_clover: AnimalWellLocationData("Menu", "Eggs"),
