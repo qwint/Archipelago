@@ -59,6 +59,7 @@ bear_upper_phone_room = "Bear Upper Phone Room"
 bear_above_chameleon = "Bear Above Chameleon Boss"  # right above the chameleon boss before the flame
 bear_chameleon_room_2 = "Bear Chameleon Boss Room before Flame"
 bear_razzle_egg_spot = "Bear Razzle Egg Spot"
+bear_truth_egg_spot = "Bear Truth Egg Spot"
 
 dog_area = "Dog Main"
 dog_chinchilla_skull = "Dog Chinchilla Skull Room"
@@ -135,6 +136,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         hippo_entry:
             AWData(AWType.region, [[iname.blue_flame, iname.green_flame, iname.pink_flame, iname.violet_flame]]),
+        bear_truth_egg_spot:
+            AWData(AWType.region, [[iname.disc_hop_hard]]),
         lname.stamp_chest:
             AWData(AWType.location),
         lname.flute_chest:
@@ -274,6 +277,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_boss_2:
             AWData(AWType.region),
+        lname.egg_brick:  # disc hard required for one switch, and you can use disc to get in
+            AWData(AWType.location, [[iname.disc, iname.wheel]]),
     },
     chest_on_spikes_region: {
         lname.egg_scarlet:
@@ -355,10 +360,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
     },
     bear_slink_room: {
-        lname.slink:
+        lname.slink_chest:
             AWData(AWType.location),
         bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath. TODO: too tight to not be disc_hop_hard? It's close.
-            AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble], [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop], [iname.ball, iname.disc_hop], [iname.ball, iname.disc_hop]]),  # todo: fix formatting
+            AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble],
+                                   [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop],
+                                   [iname.ball, iname.disc_hop], [iname.ball, iname.disc_hop]]),
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
     },
@@ -373,6 +380,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.slink]]),
         lname.egg_post_modern:
             AWData(AWType.location, [[iname.top, iname.switch_for_post_modern_egg]]),
+        bear_truth_egg_spot:  # throw disc to the right after jumping down the waterfall
+            AWData(AWType.region, [[iname.disc]]),
+    },
+    bear_truth_egg_spot: {
+        lname.egg_truth:
+            AWData(AWType.location),
     },
     bear_middle_phone_room: {
         lname.activate_bear_fast_travel:
@@ -412,7 +425,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         bear_middle_phone_room:
             AWData(AWType.region),
         bear_match_chest_spot:  # you open some doors starting at the connector and ending at the door to here. Or, bubble over the wall through the miasma. Will we call this bubble_short?
-            AWData(AWType.region, [[iname.slink], [iname.bubble, iname.tanking_damage], [iname.disc, iname.tanking_damage, iname.weird_skips]]),
+            AWData(AWType.region, [[iname.slink], [iname.bubble, iname.tanking_damage],
+                                   [iname.disc, iname.tanking_damage, iname.weird_skips]]),
     },
     bear_match_chest_spot: {
         lname.match_bear:
@@ -650,13 +664,16 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.match]]),
         lname.egg_moon:  # the one with all the mouse heads
             AWData(AWType.location, [[iname.disc, iname.lantern], [iname.bubble, iname.lantern]]),
-            # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird -- i was getting this 90% of the time, but im not sure it's intuitive? make it logical and put it in the tricks FAQ.
+            # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird
+            # I was getting this 90% of the time, not sure it's intuitive? make it logical and put it in the tricks FAQ.
         lname.egg_promise:  # under spikes in 3 bird room
             AWData(AWType.location, [[iname.lantern, iname.can_break_spikes_below]]),
         frog_under_ostrich_statue:  # after hitting the switch, no items needed
             AWData(AWType.region),
         frog_travel_egg_spot:
-            AWData(AWType.region, [[iname.key]]), 
+            AWData(AWType.region, [[iname.key]]),
+        frog_pre_ostrich_attack:
+            AWData(AWType.region, [[iname.top]]),
     },
     frog_travel_egg_spot: {  # the spot behind the groundhog
         lname.egg_travel:

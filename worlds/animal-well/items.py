@@ -46,6 +46,8 @@ item_table: Dict[str, AnimalWellItemData] = {
     iname.violet_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
     iname.pink_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
 
+    # todo: reorder this so it's the same order as locations.py
+
     "Clover Egg": AnimalWellItemData(ItemClassification.progression_skip_balancing, 1, "Eggs"),
     "Gorgeous Egg": AnimalWellItemData(ItemClassification.progression_skip_balancing, 1, "Eggs"),
     "Magic Egg": AnimalWellItemData(ItemClassification.progression_skip_balancing, 1, "Eggs"),
