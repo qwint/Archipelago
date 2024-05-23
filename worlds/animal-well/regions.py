@@ -352,10 +352,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
     },
     bear_slink_room: {
-        iname.slink:
+        lname.slink:
             AWData(AWType.location),
         bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath. TODO: too tight to not be disc_hop_hard? It's close.
-            AWData(AWType.region, [[iname.bubble], [iname.disc_hop]]),
+            AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble], [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop]]),  # todo: fix formatting, check if you can use ball reliably
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
     },
@@ -396,7 +396,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
     },
     bear_hedgehog_square: {
-        lname.bunny_ghost_dog:  # okay, hear me out:
+        lname.bunny_ghost_dog:  # todo: find a route that doesn't require the flute
             AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel]]),
         bear_connector_passage:
             AWData(AWType.region, [[iname.slink]]),
