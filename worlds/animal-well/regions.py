@@ -21,6 +21,7 @@ starting_area = "Squirrel Main"
 s_disc_area = "Squirrel S. Disc Area"
 starting_after_ghost = "Squirrel After Ghost"
 fast_travel = "Fast Travel Room"
+fast_travel_fish_teleport = "Fast Travel Fish Teleport Spot"
 bird_area = "Bird Area"  # the central portion of the map
 bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladder
 bird_below_mouse_statues = "Bird Below Mouse Statues"  # on the way to frog area, need yoyo
@@ -36,6 +37,7 @@ fish_west = "Fish Warp Room"  # after the b. wand chest, rename
 fish_tube_room = "Fish Pipe Maze"  # rename?
 
 abyss = "Bone Fish Area"
+uv_lantern_spot = "UV Lantern Spot"
 
 bear_area_entry = "Bear Main Entry"
 bear_capybara_and_below = "Bear Main Area"
@@ -96,6 +98,12 @@ frog_ruby_egg_ledge = "Ruby Egg Ledge"  # the ledge with the ruby egg in the fro
 frog_east_of_fast_travel = "Frog East of Fast Travel"  # one screen to the right of the fast travel spot
 frog_elevator_and_ostrich_wheel = "Frog Elevator and Ostrich Wheel Section"  # interdependent, so one big region
 
+hippo_entry = "Hippo Entry"  # the beginning of the end
+hippo_manticore_room = "Hippo Manticore Room"  # the 4 rooms you evade the manticore in for the first ending
+hippo_skull_room = "Hippo Skull Room"  # B. B. Wand and the skull pile
+hippo_fireworks = "Hippo Fireworks Room"  # the first ending
+
+home = "Home"
 top_of_the_well = "Top of the Well"  # where the warp song takes you, right of the house
 chocolate_egg_spot = "Chocolate Egg Spot"
 match_center_well_spot = "Center Well Match Spot"  # in the shaft, across from chocolate egg
@@ -124,6 +132,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.can_break_spikes_below]]),
         frog_near_wombat:  # to the right of the bunny mural, drop down
             AWData(AWType.region),
+        hippo_entry:
+            AWData(AWType.region, [[iname.blue_flame, iname.green_flame, iname.pink_flame, iname.violet_flame]]),
         lname.stamp_chest:
             AWData(AWType.location),
         lname.flute_chest:
@@ -160,7 +170,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         starting_after_ghost:  # it would feel weird to call this the central area imo
             AWData(AWType.region, [[iname.firecrackers]]),  # not sure if randoing firecrackers yet
         candle_area:
-            AWData(AWType.region, [["Light All Candles"]]),  # turn this into an event later
+            AWData(AWType.region, [[iname.light_all_candles, iname.bubble]]),  # turn this into an event later
         s_disc_area:
             AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc_hop]]),
         lname.egg_clover:  # in room where you see the status of the candles
@@ -191,6 +201,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.remote]]),
         lname.egg_neon:
             AWData(AWType.location, [[iname.remote, iname.ball]]),
+    },
+    candle_area: {
+        lname.medal_e:
+            AWData(AWType.location),
     },
 
     fish_upper: {
@@ -226,7 +240,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_ancient:  # one room up and left of save point, vines in top right
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop_hard]]),
         fish_lower:  # bubble to go down, disc or remote to activate switches, breakspike to pass icicles in first penguin room
-            AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes], [iname.bubble, iname.disc]]), 
+            AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes], [iname.bubble, iname.disc]]),
+        lname.egg_galaxy:
+            AWData(AWType.location, [[iname.remote, iname.disc]]),
     },        
     fish_tube_room: {  # no location access rules because you need bubble wand to get here anyway
         lname.egg_friendship:  # the green pipe in the fish tube room
@@ -267,6 +283,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         abyss:  # little hole above the fish pipe
             AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.bubble]]),
     },
+    abyss: {
+        uv_lantern_spot:
+            AWData(AWType.region, [[iname.flute, iname.disc], [iname.flute, iname.bubble_short]]),
+    },
 
     bear_area_entry: {
         lname.key_bear_lower:
@@ -286,9 +306,17 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         lname.key_bear_upper:
             AWData(AWType.location),
-        # todo: go back to chinchilla chest on head room with slink
+        lname.egg_zen:
+            AWData(AWType.location, [[iname.slink, iname.bubble], [iname.slink, iname.disc]]),
         bear_dark_maze:  # need one key to open the gate
             AWData(AWType.region, [[iname.key]]),
+        lname.egg_universal:
+            AWData(AWType.location, [[iname.slink, iname.bubble, iname.yoyo],
+                                     [iname.slink, iname.disc, iname.yoyo],
+                                     [iname.slink, iname.bubble, iname.firecrackers],
+                                     [iname.slink, iname.disc, iname.firecrackers]]),
+        lname.egg_value:
+            AWData(AWType.location, [[iname.bubble_long, iname.disc_hop_hard]]),
     },
     bear_future_egg_room: {
         lname.egg_future:  # chinchilla on the moving platforms puzzle room
@@ -723,7 +751,47 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.wheel]]),
     },
 
+    hippo_entry: {
+        lname.activate_hippo_fast_travel:
+            AWData(AWType.location, [[iname.flute]]),
+        lname.lantern_chest:
+            AWData(AWType.location, [[iname.slink, iname.disc, iname.bubble, iname.yoyo]]),
+        hippo_manticore_room:  # can technically use ball instead of yoyo but it's inconsistent
+            AWData(AWType.region, [[iname.lantern, iname.disc, iname.yoyo]]),
+
+    },
+    hippo_manticore_room: {
+        hippo_fireworks:
+            AWData(AWType.region, [[iname.slink, iname.yoyo, iname.disc], [iname.slink, iname.yoyo, iname.bubble]]),
+        hippo_skull_room:
+            AWData(AWType.region, [[iname.slink, iname.yoyo, iname.disc], [iname.slink, iname.yoyo, iname.bubble]]),
+    },
+    hippo_skull_room: {
+        lname.bb_wand_chest:
+            AWData(AWType.location),  # need to die a lot
+    },
+    hippo_fireworks: {
+        lname.victory_first:
+            AWData(AWType.location),
+        home:
+            AWData(AWType.region, [[iname.house_key]]),
+        hippo_skull_room:
+            AWData(AWType.region, [[iname.bubble_short], [iname.disc_hop_hard]]),
+    },
+    home: {
+        hippo_fireworks:
+            AWData(AWType.region, [[iname.house_key]]),
+        lname.bunny_tv:
+            AWData(AWType.location, [[iname.flute]]),
+        lname.fanny_pack_chest:
+            AWData(AWType.location),
+        top_of_the_well:
+            AWData(AWType.region, [[iname.lantern]]),
+    },
+
     top_of_the_well: {
+        home:
+            AWData(AWType.region, [[iname.lantern]]),
         lname.egg_pickled:  # hold right while falling down the well
             AWData(AWType.location),
         chocolate_egg_spot:
@@ -755,12 +823,24 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     fast_travel: {
         starting_area:
             AWData(AWType.region, [[iname.flute]]),
+        bird_area:
+            AWData(AWType.region, [[iname.flute]]),
         fish_west:
             AWData(AWType.region, [[iname.flute]]),
         frog_dark_room:
             AWData(AWType.region, [[iname.activated_frog_fast_travel]]),
         bear_middle_phone_room:
             AWData(AWType.region, [[iname.activated_bear_fast_travel]]),
+        dog_fast_travel_room:
+            AWData(AWType.region, [[iname.activated_dog_fast_travel]]),
+        hippo_entry:
+            AWData(AWType.region, [[iname.activated_hippo_fast_travel]]),
+    },
+    fast_travel_fish_teleport: {
+        uv_lantern_spot:
+            AWData(AWType.region),
+        fast_travel:
+            AWData(AWType.region),
     },
 
     fast_travel_fake: {  # for direct teleport spells
@@ -770,5 +850,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.song_home]]),
         bear_chinchilla_song_room:
             AWData(AWType.region, [[iname.song_chinchilla]]),
+        fast_travel_fish_teleport:
+            AWData(AWType.region, [[iname.song_fish]]),
     },
 }
