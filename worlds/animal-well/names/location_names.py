@@ -153,6 +153,7 @@ activate_frog_fast_travel = "Activate Frog Fast Travel"
 activate_bear_fast_travel = "Activate Bear Fast Travel"
 activate_dog_fast_travel = "Activate Dog Fast Travel"
 activate_hippo_fast_travel = "Activate Hippo Fast Travel"
+activate_fish_fast_travel = "Activate Fish Fast Travel"
 
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Switch for Post Modern Egg"
