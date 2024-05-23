@@ -663,6 +663,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         frog_ostrich_attack:
             AWData(AWType.region, [[iname.yoyo], [iname.ball]]),
+        frog_near_wombat:
+            AWData(AWType.region, [[iname.key]]),  # assuming the key can open it from the left
     },
     frog_under_ostrich_statue: {
         frog_near_wombat:  # may have to go a few screens away to hit a switch, but you don't need items
