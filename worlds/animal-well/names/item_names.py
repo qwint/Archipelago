@@ -61,3 +61,4 @@ can_defeat_ghost = "Can Defeat Ghost"
 ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obviously meant to be
 two_keys = "Two Keys"  # there's one spot that has two key doors adjacent to each other
 tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
+weird_skips = "Weird Skips"  # skips that are questionably in logic and may or may not constitute a difficulty setting later

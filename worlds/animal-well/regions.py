@@ -241,6 +241,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop_hard]]),
         fish_lower:  # bubble to go down, disc or remote to activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes], [iname.bubble, iname.disc]]),
+        lname.activate_fish_fast_travel:
+            AWData(AWType.location, [[iname.flute]]),
+        fast_travel:
+            AWData(AWType.region, [[iname.activated_fish_fast_travel]]),
         lname.egg_galaxy:
             AWData(AWType.location, [[iname.remote, iname.disc]]),
     },        
@@ -262,7 +266,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_goodnight:
             AWData(AWType.location, [[iname.can_defeat_ghost], [iname.event_candle_penguin_lit]]),
     },
-    fish_boss_1: {  # the disc required to clear this room's puzzle is in the entrance reqs , so not duplicated here
+    fish_boss_1: {  # the disc required to clear this room's puzzle is in the entrance reqs, so not duplicated here
         chest_on_spikes_region:  # the one you're supposed to get to after getting the wheel
             AWData(AWType.location, [[iname.bubble_short]]),
         fish_boss_2:
@@ -350,8 +354,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bear_slink_room: {
         iname.slink:
             AWData(AWType.location),
-        bear_transcendental:  # descend, jump into left wall
-            AWData(AWType.region, [[iname.bubble]]),
+        bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath. TODO: too tight to not be disc_hop_hard? It's close.
+            AWData(AWType.region, [[iname.bubble], [iname.disc_hop]]),
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
     },
@@ -392,8 +396,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
     },
     bear_hedgehog_square: {
-        lname.bunny_ghost_dog:  # todo: figure out what rules we need for this
-            AWData(AWType.location, [[iname.disc]]),
+        lname.bunny_ghost_dog:  # okay, hear me out:
+            AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel]]),
         bear_connector_passage:
             AWData(AWType.region, [[iname.slink]]),
     },
@@ -402,8 +406,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         bear_middle_phone_room:
             AWData(AWType.region),
-        bear_match_chest_spot:  # you open some doors starting at the connector and ending at the door to here
-            AWData(AWType.region, [[iname.slink]]),
+        bear_match_chest_spot:  # you open some doors starting at the connector and ending at the door to here. Or, bubble over the wall through the miasma. Will we call this bubble_short?
+            AWData(AWType.region, [[iname.slink], [iname.bubble, iname.tanking_damage], [iname.disc, iname.tanking_damage, iname.weird_skips]]),
     },
     bear_match_chest_spot: {
         lname.match_bear:
@@ -481,7 +485,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     dog_chinchilla_skull: {
         lname.egg_red:
-            AWData(AWType.location, [[iname.firecrackers]])  # use a firecracker
+            AWData(AWType.location, [[iname.firecrackers], [iname.disc]])  # use a firecracker to scare them, or mash discs at them.
     },
     dog_upper: {
         dog_upper_past_lake:
@@ -510,7 +514,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         dog_upper_past_lake:
             AWData(AWType.region, [[iname.bubble_short]]),
         dog_fast_travel_room:
-            AWData(AWType.region, [[iname.can_distract_dogs], [iname.bubble_long]]),
+            AWData(AWType.region, [[iname.can_distract_dogs], [iname.bubble_long], [iname.wheel]]),  # wheel can allow you to crank safely. not usable at most other dogs
     },
     dog_fast_travel_room: {
         dog_under_fast_travel_room:
