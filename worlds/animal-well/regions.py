@@ -75,7 +75,6 @@ dog_elevator = "Dog Elevator"  # east of the flame
 dog_many_switches = "Dog Switches and Bat"  # west of spike room
 dog_upside_down_egg_spot = "Dog Upside Down Egg Spot"
 dog_bat_room = "Dog Bat Room"
-dog_k_medal_plinth = "Dog K. Medal Plinth"  # how you enter the kangaroo room
 dog_under_fast_travel_room = "Dog Room under Fast Travel Door Room"
 dog_fast_travel_room = "Dog Room with Fast Travel Door"
 dog_swordfish_lake_ledge = "Dog Left side of Swordfish Lake"
@@ -604,19 +603,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.switch_next_to_bat_room:
             AWData(AWType.location),
-        dog_k_medal_plinth:
-            AWData(AWType.region, [[iname.can_break_spikes]]),  # todo: verify you can get here with just wheel
-    },
-    dog_k_medal_plinth: {
-        dog_bat_room:
-            AWData(AWType.region),
         lname.egg_service:
             AWData(AWType.location),
         kangaroo_room:
             AWData(AWType.region, [[iname.k_medal, iname.bubble], [iname.k_medal, iname.disc]]),
     },
     kangaroo_room: {
-        dog_k_medal_plinth:
+        dog_bat_room:
             AWData(AWType.region),
         lname.b_ball_chest:
             AWData(AWType.location),
