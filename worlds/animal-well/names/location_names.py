@@ -158,4 +158,5 @@ activate_fish_fast_travel = "Activate Fish Fast Travel"
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Switch for Post Modern Egg"
 switch_next_to_bat_room = "Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
+dog_wheel_flip = "Can Flip Dog Wheel"  # item for you having access to the dog wheel
 victory_first = "First Victory"

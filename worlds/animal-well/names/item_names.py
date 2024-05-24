@@ -48,6 +48,7 @@ defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
 switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
 light_all_candles = "Light all Candles"
+dog_wheel_flip = "Flipped Dog Wheel"
 
 # fake items, for the purposes of rules
 bubble_short = "Bubble Jumping - Short"

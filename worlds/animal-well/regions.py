@@ -84,6 +84,8 @@ dog_above_fast_travel = "Dog Above Fast Travel Room"  # has some of those breako
 dog_mock_disc_shrine = "Dog Mock Disc Shrine"  # and the rooms to the left of it
 kangaroo_room = "Kangaroo Room"
 kangaroo_blocks = "Kangaroo Room Blocks"
+dog_wheel = "Dog Wheel"  # doggo getting swole af
+dog_elevator_upper = "Dog Elevator Upper"  # top of the elevator going up
 
 
 frog_near_wombat = "Frog Area near Groundhog"  # first part of the frog area after you drop down the hole
@@ -655,8 +657,23 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     dog_elevator: {
         lname.switch_for_post_modern_egg:
-            AWData(AWType.location),  # elevator must be going down, need to figure out what to do about that
-        # todo: remember how to get to the dog to swap directions
+            AWData(AWType.location),
+        dog_wheel:
+            AWData(AWType.region, [[iname.remote]]),
+        dog_elevator_upper:
+            AWData(AWType.region, [[iname.dog_wheel_flip]]),
+    },
+    dog_wheel: {
+        # bird_area:
+        #     AWData(AWType.region),
+        lname.dog_wheel_flip:
+            AWData(AWType.region, [[iname.yoyo]]),
+    },
+    dog_elevator_upper: {
+        lname.egg_big:
+            AWData(AWType.location),
+        bear_match_chest_spot:
+            AWData(AWType.region, [[iname.bubble]]),
     },
 
     frog_near_wombat: {
