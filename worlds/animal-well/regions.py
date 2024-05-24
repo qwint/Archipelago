@@ -87,7 +87,6 @@ kangaroo_blocks = "Kangaroo Room Blocks"
 dog_wheel = "Dog Wheel"  # doggo getting swole af
 dog_elevator_upper = "Dog Elevator Upper"  # top of the elevator going up
 
-
 frog_near_wombat = "Frog Area near Groundhog"  # first part of the frog area after you drop down the hole
 frog_under_ostrich_statue = "Frog Area under Ostrich Statue"  # just the dark room basically
 frog_pre_ostrich_attack = "Frog before Ostrich Attack"  # left of dark room, right of ostrich, above dynamite
@@ -108,6 +107,7 @@ hippo_skull_room = "Hippo Skull Room"  # B. B. Wand and the skull pile
 hippo_fireworks = "Hippo Fireworks Room"  # the first ending
 
 home = "Home"
+barcode_bunny = "Barcode Bunny"  # barcode bunny is gotten in two places
 top_of_the_well = "Top of the Well"  # where the warp song takes you, right of the house
 chocolate_egg_spot = "Chocolate Egg Spot"
 match_center_well_spot = "Center Well Match Spot"  # in the shaft, across from chocolate egg
@@ -148,6 +148,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [["16 Eggs", iname.bubble], ["16 Eggs", iname.disc]]),
         lname.top_chest:
             AWData(AWType.location, [["32 Eggs", iname.bubble], ["32 Eggs", iname.disc]]),
+        lname.egg_65:
+            AWData(AWType.location, [["64 Eggs", iname.bubble], ["64 Eggs", iname.disc]]),
+        lname.key_office:  # does this actually require 64 eggs?
+            AWData(AWType.location, [["64 Eggs", iname.bubble, iname.flute], ["64 Eggs", iname.disc, iname.flute]]),
         lname.bunny_duck:  # edit rule if we shuffle songs
             AWData(AWType.location, [[iname.flute]]),
         lname.bunny_mural:
@@ -521,8 +525,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         dog_upper_above_switch_lines:
             AWData(AWType.region, [[iname.can_distract_dogs]]),  # need to get past the 3 dogs
-        lname.bunny_barcode:
-            AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
+        barcode_bunny:  # region since you can get this in two spots
+            AWData(AWType.region, [[iname.flute, iname.song_barcode]]),
         lname.mama_cha:
             AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         # todo: floor is lava
@@ -841,8 +845,14 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.flute]]),
         lname.fanny_pack_chest:
             AWData(AWType.location),
+        barcode_bunny:
+            AWData(AWType.region, [[iname.flute, iname.song_barcode]]),
         top_of_the_well:
             AWData(AWType.region, [[iname.lantern]]),
+    },
+    barcode_bunny: {
+        lname.bunny_barcode:
+            AWData(AWType.location),
     },
 
     top_of_the_well: {
