@@ -33,6 +33,7 @@ song_home = "Top of the Well Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
 song_bobcat = "Bobcat Song"  # idk what we should do with this, but it kinda sucks as it is
 song_fish = "Skeleton Fish Song"  # teleports you to the right side of the lower screen of the fast travel room
+song_barcode = "Barcode Song"  # for barcode bunny
 
 # event items
 activated_bird_fast_travel = "Activated Bird Fast Travel"
