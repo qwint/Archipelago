@@ -14,7 +14,6 @@ class AnimalWellItemData(NamedTuple):
 item_base_id = 11553377
 
 item_table: Dict[str, AnimalWellItemData] = {
-
     # Major progression items
     iname.bubble: AnimalWellItemData(IClass.progression | IClass.useful, 2, "Toys"),  # progressive
     iname.disc: AnimalWellItemData(IClass.progression | IClass.useful, 1, "Toys"),
@@ -29,6 +28,7 @@ item_table: Dict[str, AnimalWellItemData] = {
     iname.wheel: AnimalWellItemData(IClass.progression | IClass.useful, 1, "Toys"),
     iname.firecrackers: AnimalWellItemData(IClass.progression | IClass.useful, 0, "Toys"),
 
+    # Minor progression items and keys
     iname.m_disc: AnimalWellItemData(IClass.progression, 1, "Toys"),
     iname.fanny_pack: AnimalWellItemData(IClass.useful, 1, "Toys"),
 
@@ -49,8 +49,7 @@ item_table: Dict[str, AnimalWellItemData] = {
     iname.violet_flame: AnimalWellItemData(IClass.progression | IClass.useful, 1, "Flames"),
     iname.pink_flame: AnimalWellItemData(IClass.progression | IClass.useful, 1, "Flames"),
 
-    # todo: reorder this so it's the same order as locations.py
-
+    # Eggs
     iname.egg_reference: AnimalWellItemData(IClass.progression_skip_balancing, 1, "Eggs"),
     iname.egg_brown: AnimalWellItemData(IClass.progression_skip_balancing, 1, "Eggs"),
     iname.egg_raw: AnimalWellItemData(IClass.progression_skip_balancing, 1, "Eggs"),
