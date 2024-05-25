@@ -125,6 +125,7 @@ can_break_spikes_below = "Can Break Spikes Below"  # can break spikes but withou
 can_open_flame = "Can Open Flame"  # you can break this with the flute and other items, need to verify which
 disc_hop = "Disc Jumping"  # hopping on a disc in midair without it bouncing first
 disc_hop_hard = "Consecutive Disc Jumps"  # hopping on a disc multiple times, or after a bubble jump
+wheel_hop = "Wheel Jump"  # expanding and retracting wheel midair to grant a double jump
 can_distract_dogs = "Can Distract Dogs"
 can_defeat_ghost = "Can Defeat Ghost"
 ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obviously meant to be
@@ -134,6 +135,7 @@ weird_skips = "Weird Skips"  # skips that are questionably in logic and may or m
 
 # songs, to potentially be randomized
 song_home = "Top of the Well Song"
+song_egg = "Egg Song"
 song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
 song_bobcat = "Bobcat Song"  # idk what we should do with this, but it kinda sucks as it is
 song_fish = "Skeleton Fish Song"  # teleports you to the right side of the lower screen of the fast travel room
