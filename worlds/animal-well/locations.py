@@ -1,9 +1,9 @@
-from typing import Dict, NamedTuple, Set, Optional
+from typing import Dict, NamedTuple, Set, Optional, List
 from .names import location_names as lname
 
 
 class AnimalWellLocationData(NamedTuple):
-    location_groups: Optional[list[str]] = None
+    location_groups: Optional[List[str]] = None
 
 
 location_base_id = 11553377
@@ -157,5 +157,5 @@ location_name_to_id: Dict[str, int] = {name: location_base_id + index for index,
 
 location_name_groups: Dict[str, Set[str]] = {}
 for loc_name, loc_data in location_table.items():
-    if loc_data.location_group:
-        location_name_groups.setdefault(loc_data.location_group, set()).add(loc_name)
+    for location_group in loc_data.location_groups:
+        location_name_groups.setdefault(location_group, set()).add(loc_name)
