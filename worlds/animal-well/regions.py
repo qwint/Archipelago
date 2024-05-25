@@ -1,4 +1,4 @@
-from typing import Dict, List, NamedTuple
+from typing import Dict, List, NamedTuple, Optional
 from enum import IntEnum
 from .names import item_names as iname, location_names as lname
 
@@ -13,6 +13,7 @@ class AWData(NamedTuple):
     type: int  # location or region
     rules: List[List[str]] = []  # how to access it
     # the rules are formatted such that [[wand], [disc, remote]] means you need wand OR you need disc + remote
+    event: Optional[str] = None  # if the location is an event, fill in what item it gives
 
 
 # region names
@@ -28,6 +29,7 @@ bird_below_mouse_statues = "Bird Below Mouse Statues"  # on the way to frog area
 bird_planet_egg_spot = "Bird Planet Egg Spot"
 candle_area = "Squirrel Candle Area"
 match_above_egg_room = "Match Above Egg Room"  # its own region since you can use the dog elevator
+bird_flute_chest = "Bird Flute Chest Room"  # since you can technically get weird with the logic here
 
 fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
 fish_lower = "Fish Lower"
@@ -142,8 +144,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.disc_hop_hard]]),
         lname.stamp_chest:
             AWData(AWType.location),
-        lname.flute_chest:
-            AWData(AWType.location, [["8 Eggs"]]),
+        bird_flute_chest:
+            AWData(AWType.region, [["8 Eggs"]]),
         lname.pencil_chest:
             AWData(AWType.location, [["16 Eggs", iname.bubble], ["16 Eggs", iname.disc], ["16 Eggs", iname.wheel_hop]]),
         lname.top_chest:
@@ -164,6 +166,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
             AWData(AWType.location, [[iname.top]]),
+    },
+    bird_flute_chest: {
+        lname.activate_bird_fast_travel:
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_bird_fast_travel)
+        # path to egg room isn't relevant since it's sphere 1
     },
     bird_capybara_waterfall: {
         lname.egg_sweet:
@@ -258,7 +265,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         fish_lower:  # bubble to go down, disc or remote to activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes], [iname.bubble, iname.remote, iname.wheel], [iname.bubble, iname.disc]]),
         lname.activate_fish_fast_travel:  # vertical implied by access
-            AWData(AWType.location, [[iname.flute]]),
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_fish_fast_travel),
         fast_travel:  # vertical implied by access
             AWData(AWType.region, [[iname.activated_fish_fast_travel]]),
         lname.egg_galaxy:
@@ -277,8 +284,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.disc]]),
         bobcat_room:
             AWData(AWType.region, [[iname.top]]), 
-        lname.candle_fish:
-            AWData(AWType.location, [[iname.disc], [iname.bubble]]),  # spike breaking presumed by access
+        lname.candle_fish:  # spike breaking presumed by access
+            AWData(AWType.location, [[iname.disc], [iname.bubble]], event=iname.event_candle_penguin_lit),
         lname.egg_goodnight:
             AWData(AWType.location, [[iname.can_defeat_ghost], [iname.event_candle_penguin_lit]]),
     },
@@ -399,7 +406,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     bear_middle_phone_room: {
         lname.activate_bear_fast_travel:
-            AWData(AWType.location, [[iname.flute]]),
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_bear_fast_travel),
         fast_travel:
             AWData(AWType.region, [[iname.activated_bear_fast_travel]]),
         lname.egg_chaos:  # in the room with the monkey that throws rocks at you
@@ -470,6 +477,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     bear_chameleon_room_2: {
         bear_middle_phone_room:  # drop down, probably unimportant
             AWData(AWType.region),
+        lname.defeated_chameleon:
+            AWData(AWType.location, event=iname.defeated_chameleon),
         lname.flame_violet:
             AWData(AWType.location, [[iname.can_open_flame]]),
         bear_upper_phone_room:
@@ -549,7 +558,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         dog_under_fast_travel_room:
             AWData(AWType.region),
         lname.activate_dog_fast_travel:
-            AWData(AWType.location, [[iname.flute]]),
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_dog_fast_travel),
         dog_swordfish_lake_ledge:
             AWData(AWType.region),
         dog_upper_past_lake:  # ride bubble down, jump the partial-height wall
@@ -608,7 +617,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.key_dog:
             AWData(AWType.location),
         lname.switch_next_to_bat_room:
-            AWData(AWType.location),
+            AWData(AWType.location, event=iname.switch_next_to_bat_room),
         lname.egg_service:
             AWData(AWType.location),
         kangaroo_room:
@@ -660,7 +669,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     dog_elevator: {
         lname.switch_for_post_modern_egg:
-            AWData(AWType.location),
+            AWData(AWType.location, event=iname.switch_for_post_modern_egg),
         dog_wheel:
             AWData(AWType.region, [[iname.remote]]),
         dog_elevator_upper:
@@ -672,7 +681,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # bird_area:
         #     AWData(AWType.region),
         lname.dog_wheel_flip:
-            AWData(AWType.region, [[iname.yoyo]]),
+            AWData(AWType.region, [[iname.yoyo]], event=iname.dog_wheel_flip),
     },
     dog_elevator_upper: {
         lname.egg_big:
@@ -751,14 +760,15 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     frog_bird_after_yoyo_2: {
         lname.activate_frog_fast_travel:
-            AWData(AWType.location, [[iname.flute]]),
-        lname.key_frog_guard_room_west:
-            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.ball]]),  # you can just throw the ball at their shields lmao
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_frog_fast_travel),
+        lname.key_frog_guard_room_west:  # you can just throw the ball at their shields lmao
+            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.ball]]),
         lname.match_guard_room:  # hit guard then jump off its head, or jump up with mobility
-            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop], [iname.bubble], [iname.ball]]), # todo: top, ball, wheel?
+            AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop],
+                                     [iname.bubble], [iname.ball]]),  # todo: top, ball, wheel?
         # 2 doors in the top right of this region
-        lname.key_frog_guard_room_east: 
-            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute], [iname.ball]]),  # might be doable with flute + disc?
+        lname.key_frog_guard_room_east:  # might be doable with flute + disc?
+            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute], [iname.ball]]),
         frog_dark_room:  # yoyo to open the door, lantern to fall through the bird
             AWData(AWType.region, [[iname.yoyo], [iname.lantern]]),
         frog_ruby_egg_ledge:  # fall through a bird onto it
@@ -814,11 +824,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
 
     hippo_entry: {
         lname.activate_hippo_fast_travel:
-            AWData(AWType.location, [[iname.flute]]),
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_hippo_fast_travel),
         lname.lantern_chest:
             AWData(AWType.location, [[iname.slink, iname.disc, iname.bubble, iname.yoyo]]),
-        hippo_manticore_room:  # can technically use ball instead of yoyo but it's inconsistent
-            AWData(AWType.region, [[iname.lantern, iname.disc, iname.yoyo]]),
+        hippo_manticore_room:  # can technically use ball instead of yoyo, but it's inconsistent
+            AWData(AWType.region, [[iname.lantern, iname.disc, iname.yoyo]]),  # todo: ball_tricky?
 
     },
     hippo_manticore_room: {
@@ -888,12 +898,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     fast_travel: {
-        starting_area:
+        starting_area:  # todo: is the fast travel room the only place to activate the squirrel door?
             AWData(AWType.region, [[iname.flute]]),
-        bird_area:
-            AWData(AWType.region, [[iname.flute]]),
+        bird_flute_chest:
+            AWData(AWType.region, [[iname.activated_bird_fast_travel]]),
         fish_west:
-            AWData(AWType.region, [[iname.flute]]),
+            AWData(AWType.region, [[iname.activated_fish_fast_travel]]),
         frog_dark_room:
             AWData(AWType.region, [[iname.activated_frog_fast_travel]]),
         bear_middle_phone_room:
