@@ -158,7 +158,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_virtual:  # sneaky passage in the top left of the screen with the penguin hedges
             AWData(AWType.location),
         lname.match_above_egg_room:
-            AWData(AWType.location, [[iname.disc], [iname.remote], [iname.bubble_short], [iname.ball_tricky]]),
+            AWData(AWType.location, [[iname.disc], [iname.bubble_short], [iname.ball_tricky]]),
+            # todo: you can theoretically get to this chest by having the switch in the right position and taking the dog elevator down, so turn this into its own region
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
@@ -768,7 +769,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.egg_jade:  # do the puzzle
             AWData(AWType.location),
-        bird_capybara_waterfall:  # fish pipe to the sweet egg room -- note: never relevant. bubble gets you here from sphere 1
+        bird_capybara_waterfall:  # fish pipe to the sweet egg room
             AWData(AWType.region, [[iname.bubble]]),
         frog_ruby_egg_ledge:  # two bubble jumps, a difficult disc use (but no disc hops) or dig out the frog and flute
             AWData(AWType.region, [[iname.bubble_short], [iname.disc], [iname.top, iname.flute]]),
