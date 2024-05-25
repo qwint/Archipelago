@@ -2,12 +2,13 @@
 map_chest = "Map Chest"
 stamp_chest = "Stamp Chest"
 pencil_chest = "Pencil Chest"
+
 b_wand_chest = "B. Wand Chest"
 flute_chest = "Animal Flute Chest"
 slink_chest = "Slink Chest"
 yoyo_chest = "Yoyo Chest"
 mock_disc_chest = "Mock Disc Chest"
-disc_spot = "Wolf Statue Holding Disc"  # rename
+disc_spot = "Wolf Disc Shrine"  # rename
 lantern_chest = "Lantern Chest"
 b_ball_chest = "B. Ball Chest"
 remote_chest = "Remote Chest"
