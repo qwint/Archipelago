@@ -58,3 +58,10 @@ def lit_all_candles(state: CollectionState, player: int) -> bool:
 
 def can_unlock_key_door(state: CollectionState, player: int) -> bool:
     return state.has(iname.key_ring, player) or state.has(iname.key, player, 6)
+
+
+def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
+    player = world.player
+    options = world.options
+
+    pass

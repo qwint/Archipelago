@@ -116,6 +116,8 @@ switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
 switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
 dog_wheel_flip = "Flipped Dog Wheel"
 
+victory_fireworks = "Fireworks Victory"
+
 event_candle_first = "Lit the First Candle"  # rename
 event_candle_dog_dark = "Lit the Dog Area's Dark Room Candle"
 event_candle_dog_switch_box = "Lit the Dog Area's Candle in the Switch Box"

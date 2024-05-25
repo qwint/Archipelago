@@ -3,6 +3,7 @@ from BaseClasses import Region, Location, Item, Tutorial, ItemClassification, Mu
 from .items import item_name_to_id, item_table, item_name_groups, filler_items
 from .locations import location_table, location_name_groups, location_name_to_id
 from .regions import traversal_requirements
+from .rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
 from .names import item_names
 from worlds.AutoWorld import WebWorld, World
@@ -102,7 +103,7 @@ class AnimalWellWorld(World):
         self.multiworld.itempool += aw_items
 
     def create_regions(self) -> None:
-        pass  # will do this later on when I have the effort
+        create_regions_and_set_rules(self)
 
     def set_rules(self) -> None:
         pass  # will do this later on, might do it in create_regions
