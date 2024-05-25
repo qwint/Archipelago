@@ -2,7 +2,6 @@ from typing import Dict, List, Any, Tuple, TypedDict
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification, MultiWorld
 from .items import item_name_to_id, item_table, item_name_groups, filler_items
 from .locations import location_table, location_name_groups, location_name_to_id
-from .regions import traversal_requirements
 from .rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
 from .names import ItemNames
@@ -26,7 +25,7 @@ class AnimalWellWeb(WebWorld):
     option_groups = aw_option_groups
 
 
-class AnimalWellItem(Item):
+class AWItem(Item):
     game: str = "ANIMAL WELL"
 
 
@@ -48,7 +47,7 @@ class AnimalWellWorld(World):
     location_name_to_id = location_name_to_id
 
     ability_unlocks: Dict[str, int]
-    slot_data_items: List[AnimalWellItem]
+    slot_data_items: List[AWItem]
 
     def generate_early(self) -> None:
         # Universal tracker stuff, shouldn't do anything in standard gen
@@ -66,12 +65,12 @@ class AnimalWellWorld(World):
                 self.options.disc_riding.value = passthrough["disc_riding"]
                 self.options.wheel_hopping.value = passthrough["wheel_hopping"]
 
-    def create_item(self, name: str) -> AnimalWellItem:
+    def create_item(self, name: str) -> AWItem:
         item_data = item_table[name]
-        return AnimalWellItem(name, item_data.classification, self.item_name_to_id[name], self.player)
+        return AWItem(name, item_data.classification, self.item_name_to_id[name], self.player)
 
     def create_items(self) -> None:
-        aw_items: List[AnimalWellItem] = []
+        aw_items: List[AWItem] = []
 
         # if we ever shuffle firecrackers, remove this
         self.multiworld.push_precollected(self.create_item(ItemNames.firecrackers))
@@ -93,7 +92,7 @@ class AnimalWellWorld(World):
 
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):
-                aw_item: AnimalWellItem = self.create_item(item_name)
+                aw_item: AWItem = self.create_item(item_name)
                 aw_items.append(aw_item)
 
         self.multiworld.itempool += aw_items
