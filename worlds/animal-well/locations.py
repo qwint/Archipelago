@@ -10,6 +10,7 @@ class AnimalWellLocationData(NamedTuple):
 location_base_id = 11553377
 
 location_table: Dict[str, AnimalWellLocationData] = {
+    # eggs, sorted by row top-to-bottom
     lname.egg_reference: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_brown: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_raw: AnimalWellLocationData("Menu", "Eggs"),
@@ -20,6 +21,7 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_shadow: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_vanity: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_service: AnimalWellLocationData("Menu", "Eggs"),
+
     lname.egg_depraved: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_chaos: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_upside_down: AnimalWellLocationData("Menu", "Eggs"),
@@ -32,6 +34,7 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_orange: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_sour: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_post_modern: AnimalWellLocationData("Menu", "Eggs"),
+
     lname.egg_universal: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_lf: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_zen: AnimalWellLocationData("Menu", "Eggs"),
@@ -46,6 +49,7 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_rain: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_razzle: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_dazzle: AnimalWellLocationData("Menu", "Eggs"),
+
     lname.egg_virtual: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_normal: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_great: AnimalWellLocationData("Menu", "Eggs"),
@@ -60,6 +64,7 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_promise: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_ice: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_fire: AnimalWellLocationData("Menu", "Eggs"),
+
     lname.egg_bubble: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_desert: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_clover: AnimalWellLocationData("Menu", "Eggs"),
@@ -74,6 +79,7 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_obsidian: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_crystal: AnimalWellLocationData("Menu", "Eggs"),
     lname.egg_golden: AnimalWellLocationData("Menu", "Eggs"),
+
     lname.egg_65: AnimalWellLocationData("Menu", "Eggs"),
 }
 
