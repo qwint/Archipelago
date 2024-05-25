@@ -15,8 +15,8 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.disc_spot: AnimalWellLocationData(["Toys"]),
     lname.yoyo_chest: AnimalWellLocationData(["Toys"]),
     lname.slink_chest: AnimalWellLocationData(["Toys"]),
-    lname.flute_chest: AnimalWellLocationData(["Toys"]),
-    lname.top_chest: AnimalWellLocationData(["Toys"]),
+    lname.flute_chest: AnimalWellLocationData(["Toys", "Egg Rewards"]),
+    lname.top_chest: AnimalWellLocationData(["Toys", "Egg Rewards"]),
     lname.lantern_chest: AnimalWellLocationData(["Toys"]),
     lname.uv_lantern_chest: AnimalWellLocationData(["Toys"]),
     lname.b_ball_chest: AnimalWellLocationData(["Toys"]),
@@ -125,12 +125,12 @@ location_table: Dict[str, AnimalWellLocationData] = {
     lname.egg_crystal: AnimalWellLocationData(["Eggs"]),
     lname.egg_golden: AnimalWellLocationData(["Eggs"]),
 
-    lname.egg_65: AnimalWellLocationData(["Eggs"]),
+    lname.egg_65: AnimalWellLocationData(["Eggs", "Egg Rewards"]),
 
     # all locations beyond this point have no cooresponding item in the item pool
     lname.map_chest: AnimalWellLocationData(["Map Items"]),
     lname.stamp_chest: AnimalWellLocationData(["Map Items"]),
-    lname.pencil_chest: AnimalWellLocationData(["Map Items"]),
+    lname.pencil_chest: AnimalWellLocationData(["Map Items", "Egg Rewards"]),
     lname.mama_cha: AnimalWellLocationData(),
     lname.squirrel_acorn: AnimalWellLocationData(),
 
