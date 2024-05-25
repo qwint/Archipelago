@@ -4,7 +4,9 @@ from .items import item_name_to_id, item_table, item_name_groups, filler_items
 from .locations import location_table, location_name_groups, location_name_to_id
 from .regions import traversal_requirements
 from .options import AnimalWellOptions, aw_option_groups
+from .names import item_names
 from worlds.AutoWorld import WebWorld, World
+# todo: remove animal_well_map.pdn
 
 
 class AnimalWellWeb(WebWorld):
@@ -57,6 +59,15 @@ class AnimalWellWorld(World):
             if "ANIMAL WELL" in self.multiworld.re_gen_passthrough:
                 passthrough = self.multiworld.re_gen_passthrough["ANIMAL WELL"]
                 self.options.goal.value = passthrough["goal"]
+                self.options.eggs_needed.value = passthrough["eggs_needed"]
+                self.options.key_ring.value = passthrough["key_ring"]
+                self.options.matchbox.value = passthrough["matchbox"]
+                self.options.evil_egg_location = self.options.evil_egg_location.option_randomized
+                self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
+                self.options.candle_checks.value = passthrough["candle_checks"]
+                self.options.bubble_jumping.value = passthrough["bubble_jumping"]
+                self.options.disc_riding.value = passthrough["disc_riding"]
+                self.options.wheel_hopping.value = passthrough["wheel_hopping"]
 
     def create_item(self, name: str) -> AnimalWellItem:
         item_data = item_table[name]
@@ -65,7 +76,28 @@ class AnimalWellWorld(World):
     def create_items(self) -> None:
         aw_items: List[AnimalWellItem] = []
 
+        # if we ever shuffle firecrackers, remove this
+        self.multiworld.push_precollected(self.create_item(item_names.firecrackers))
+
         items_to_create: Dict[str, int] = {item: data.quantity_in_item_pool for item, data in item_table.items()}
+
+        if self.options.key_ring:
+            items_to_create["Key"] = 0
+            items_to_create["Key Ring"] = 1
+
+        if self.options.matchbox:
+            items_to_create["Match"] = 0
+            items_to_create["Matchbox"] = 1
+
+        # if there are more locations than items, add filler until there are enough items
+        filler_count = len(self.multiworld.get_unfilled_locations(self.player)) - len(aw_items)
+        for _ in range(filler_count):
+            items_to_create[self.get_filler_item_name()] += 1
+
+        for item_name, quantity in items_to_create.items():
+            for _ in range(quantity):
+                aw_item: AnimalWellItem = self.create_item(item_name)
+                aw_items.append(aw_item)
 
         self.multiworld.itempool += aw_items
 
@@ -83,10 +115,13 @@ class AnimalWellWorld(World):
             "goal",
             "65th_egg_location"
             "eggs_needed",
+            "key_ring",
+            "matchbox",
             "bunnies_as_checks",
             "candle_checks",
             "bubble_jumping",
             "disc_riding",
+            "wheel_hopping",
         )
 
     # for the universal tracker, doesn't get called in standard gen

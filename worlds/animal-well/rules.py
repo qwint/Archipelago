@@ -42,9 +42,7 @@ def can_distract_dogs(state: CollectionState, player: int) -> bool:
 
 
 def can_defeat_ghost(state: CollectionState, player: int) -> bool:
-    # for now, we're not shuffling firecrackers, so we can assume you have them. We might do so in the future though
-    # return state.has_any({iname.lantern, iname.firecrackers, iname.match}, player)
-    return True
+    return state.has_any({iname.firecrackers, iname.lantern, iname.match}, player)
 
 
 def can_light_candle(state: CollectionState, player: int) -> bool:
