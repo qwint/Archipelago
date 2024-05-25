@@ -27,6 +27,7 @@ bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladde
 bird_below_mouse_statues = "Bird Below Mouse Statues"  # on the way to frog area, need yoyo
 bird_planet_egg_spot = "Bird Planet Egg Spot"
 candle_area = "Squirrel Candle Area"
+match_above_egg_room = "Match Above Egg Room"  # its own region since you can use the dog elevator
 
 fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
 fish_lower = "Fish Lower"
@@ -157,9 +158,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.remote]]),
         lname.egg_virtual:  # sneaky passage in the top left of the screen with the penguin hedges
             AWData(AWType.location),
-        lname.match_above_egg_room:
-            AWData(AWType.location, [[iname.disc], [iname.bubble_short], [iname.ball_tricky]]),
-            # todo: you can theoretically get to this chest by having the switch in the right position and taking the dog elevator down, so turn this into its own region
+        match_above_egg_room:
+            AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball_tricky]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
@@ -176,6 +176,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         frog_travel_egg_spot:
             AWData(AWType.region, [[iname.top]]),
+    },
+    match_above_egg_room: {
+        lname.match_above_egg_room:
+            AWData(AWType.location),
     },
 
     starting_area: {
@@ -661,6 +665,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.remote]]),
         dog_elevator_upper:
             AWData(AWType.region, [[iname.dog_wheel_flip]]),
+        match_above_egg_room:  # if the switch is flipped right you can just get this chest
+            AWData(AWType.region),
     },
     dog_wheel: {
         # bird_area:
