@@ -116,7 +116,16 @@ switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
 switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
 dog_wheel_flip = "Flipped Dog Wheel"
 
-event_candle_penguin_lit = "Lit the Candle by the Penguins"
+event_candle_first = "Lit the First Candle"  # rename
+event_candle_dog_dark = "Lit the Dog Area's Dark Room Candle"
+event_candle_dog_switch_box = "Lit the Dog Area's Candle in the Switch Box"
+event_candle_dog_many_switches = "Lit the Dog Area's Candle by Many Switches"
+event_candle_dog_disc_switches = "Lit the Dog Area's Candle in Disc Switch Maze"
+event_candle_dog_bat = "Lit the Dog Area's Candle in the Bat Room"
+event_candle_penguin = "Lit the Candle by the Penguins"
+event_candle_frog = "Lit the Frog Area Candle"
+event_candle_bear = "Lit the Bear Area Candle"
+
 light_all_candles = "All Candles Lit"
 
 # fake items, for the purposes of rules

@@ -32,10 +32,8 @@ def can_break_spikes_below(state: CollectionState, player: int) -> bool:
     return state.has_any({iname.yoyo, iname.top, iname.ball, iname.wheel}, player)
 
 
-# todo: verify you can use top or ball to open the flame
-# you can use the flute to open the flame for some reason
 def can_open_flame(state: CollectionState, player: int) -> bool:
-    return state.has_any({iname.flute, iname.disc, iname.yoyo, iname.top, iname.ball}, player)
+    return state.has_any({iname.flute, iname.disc, iname.yoyo, iname.top, iname.ball, iname.wheel}, player)
 
 
 # you can't really distract them with the wheel, but you can get by them with it, so it's the same thing basically
@@ -47,3 +45,18 @@ def can_defeat_ghost(state: CollectionState, player: int) -> bool:
     # for now, we're not shuffling firecrackers, so we can assume you have them. We might do so in the future though
     # return state.has_any({iname.lantern, iname.firecrackers, iname.match}, player)
     return True
+
+
+def can_light_candle(state: CollectionState, player: int) -> bool:
+    return state.has(iname.matchbox, player) or state.has(iname.match, player, 9)
+
+
+def lit_all_candles(state: CollectionState, player: int) -> bool:
+    return state.has_all({iname.event_candle_first, iname.event_candle_dog_dark, iname.event_candle_dog_switch_box,
+                          iname.event_candle_dog_many_switches, iname.event_candle_dog_disc_switches,
+                          iname.event_candle_dog_bat, iname.event_candle_penguin, iname.event_candle_frog,
+                          iname.event_candle_bear}, player)
+
+
+def can_unlock_key_door(state: CollectionState, player: int) -> bool:
+    return state.has(iname.key_ring, player) or state.has(iname.key, player, 6)
