@@ -122,7 +122,7 @@ item_table: Dict[str, AnimalWellItemData] = {
     iname.egg_65: AnimalWellItemData(ItemClassification.progression_skip_balancing, 1, "Eggs"),
 }
 
-item_name_to_id: Dict[str, int] = {name: item_base_id + data.item_id_offset for name, data in item_table.items()}
+item_name_to_id: Dict[str, int] = {name: item_base_id + index for index, name in enumerate(item_table)}
 
 filler_items: List[str] = [name for name, data in item_table.items() if data.classification == ItemClassification.filler]
 
