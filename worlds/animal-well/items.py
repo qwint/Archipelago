@@ -32,14 +32,16 @@ item_table: Dict[str, AnimalWellItemData] = {
 
     iname.m_disc: AnimalWellItemData(ItemClassification.progression, 1, "Toys"),
     iname.fanny_pack: AnimalWellItemData(ItemClassification.useful, 1, "Toys"),
+
     iname.match: AnimalWellItemData(ItemClassification.progression, 9, "Toys"),
+
+    iname.key: AnimalWellItemData(ItemClassification.progression, 6, "Keys"),
+    iname.house_key: AnimalWellItemData(ItemClassification.progression, 1, "Keys"),
+    iname.office_key: AnimalWellItemData(ItemClassification.progression, 1, "Keys"),
 
     iname.e_medal: AnimalWellItemData(ItemClassification.progression, 1, "Keys"),
     iname.s_medal: AnimalWellItemData(ItemClassification.progression, 1, "Keys"),
     iname.k_shard: AnimalWellItemData(ItemClassification.progression, 3, "Keys"),
-    iname.key: AnimalWellItemData(ItemClassification.progression, 6, "Keys"),
-    iname.house_key: AnimalWellItemData(ItemClassification.progression, 1, "Keys"),
-    iname.office_key: AnimalWellItemData(ItemClassification.progression, 1, "Keys"),
 
     iname.blue_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
     iname.green_flame: AnimalWellItemData(ItemClassification.progression, 1, "Flames"),
