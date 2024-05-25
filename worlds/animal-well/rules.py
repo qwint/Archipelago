@@ -1,9 +1,14 @@
 from typing import Dict, TYPE_CHECKING, cast
-from .regions import traversal_requirements
-from BaseClasses import CollectionState
-from .names import item_names as iname, location_names as lname
+from BaseClasses import CollectionState, Region, Location
+from .locations import location_table
+from .regions import traversal_requirements, AWType
+from .names import ItemNames as iname, LocationNames as lname, RegionNames
 if TYPE_CHECKING:
     from . import AnimalWellWorld
+
+
+class AWLocation(Location):
+    game: str = "ANIMAL WELL"
 
 
 # helper functions, idk if we're gonna have more than that here
@@ -60,8 +65,30 @@ def can_unlock_key_door(state: CollectionState, player: int) -> bool:
     return state.has(iname.key_ring, player) or state.has(iname.key, player, 6)
 
 
+def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
+    aw_regions: Dict[str, Region] = {}
+    for region_name in RegionNames:
+        aw_regions[region_name] = Region(region_name, world.player, world.multiworld)
+
+    return aw_regions
+
+
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
-    options = world.options
+    aw_regions = create_aw_regions(world)
 
-    pass
+    for origin_name, destinations in traversal_requirements.items():
+        for destination_name, data in destinations.items():
+            if data.type == AWType.location:
+                if data.event:
+                    location = AWLocation(player, destination_name, address=None, parent=aw_regions[origin_name])
+                    # todo: make function for converting the rules into access rules
+                else:
+                    location = AWLocation(player, destination_name, address=world.location_name_to_id[destination_name])
+                aw_regions[origin_name].locations.append(location)
+            elif data.type == AWType.region:
+                aw_regions[origin_name].connect(aw_regions[destination_name])
+                # todo: make function for converting the rules into access rules
+
+    for region in aw_regions.values():
+        world.multiworld.regions.append(region)

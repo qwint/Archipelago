@@ -5,7 +5,7 @@ from .locations import location_table, location_name_groups, location_name_to_id
 from .regions import traversal_requirements
 from .rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
-from .names import item_names
+from .names import ItemNames
 from worlds.AutoWorld import WebWorld, World
 # todo: remove animal_well_map.pdn
 
@@ -27,10 +27,6 @@ class AnimalWellWeb(WebWorld):
 
 
 class AnimalWellItem(Item):
-    game: str = "ANIMAL WELL"
-
-
-class AnimalWellLocation(Location):
     game: str = "ANIMAL WELL"
 
 
@@ -78,7 +74,7 @@ class AnimalWellWorld(World):
         aw_items: List[AnimalWellItem] = []
 
         # if we ever shuffle firecrackers, remove this
-        self.multiworld.push_precollected(self.create_item(item_names.firecrackers))
+        self.multiworld.push_precollected(self.create_item(ItemNames.firecrackers))
 
         items_to_create: Dict[str, int] = {item: data.quantity_in_item_pool for item, data in item_table.items()}
 
