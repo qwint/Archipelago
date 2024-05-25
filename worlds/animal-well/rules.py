@@ -1,8 +1,8 @@
 from typing import Dict, TYPE_CHECKING, cast
-from BaseClasses import CollectionState, Region, Location
-from .locations import location_table
+from BaseClasses import CollectionState, Region, Location, ItemClassification
 from .regions import traversal_requirements, AWType
-from .names import ItemNames as iname, LocationNames as lname, RegionNames
+from .names import ItemNames as iname, RegionNames
+from . import AWItem
 if TYPE_CHECKING:
     from . import AnimalWellWorld
 
@@ -76,19 +76,18 @@ def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
     aw_regions = create_aw_regions(world)
-
+    # todo: make function for converting the rules into access rules
     for origin_name, destinations in traversal_requirements.items():
         for destination_name, data in destinations.items():
             if data.type == AWType.location:
                 if data.event:
-                    location = AWLocation(player, destination_name, address=None, parent=aw_regions[origin_name])
-                    # todo: make function for converting the rules into access rules
+                    location = AWLocation(player, destination_name, None, aw_regions[origin_name])
+                    location.place_locked_item(AWItem(data.event, ItemClassification.progression, None, player))
                 else:
                     location = AWLocation(player, destination_name, address=world.location_name_to_id[destination_name])
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
                 aw_regions[origin_name].connect(aw_regions[destination_name])
-                # todo: make function for converting the rules into access rules
 
     for region in aw_regions.values():
         world.multiworld.regions.append(region)
