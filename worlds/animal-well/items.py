@@ -1,7 +1,7 @@
 from itertools import groupby
 from typing import Dict, List, Set, NamedTuple
 from BaseClasses import ItemClassification
-from .names import item_names as iname
+from .names import ItemNames as iname
 IClass = ItemClassification  # just to make the lines shorter
 
 

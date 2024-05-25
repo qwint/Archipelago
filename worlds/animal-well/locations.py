@@ -1,9 +1,9 @@
 from typing import Dict, NamedTuple, Set, Optional, List
-from .names import location_names as lname
+from .names import LocationNames as lname
 
 
 class AWLocationData(NamedTuple):
-    location_groups: Optional[List[str]] = None
+    location_groups: List[str] = []
 
 
 location_base_id = 11553377

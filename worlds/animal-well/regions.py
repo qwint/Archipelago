@@ -1,6 +1,6 @@
 from typing import Dict, List, NamedTuple, Optional
 from enum import IntEnum
-from .names import item_names as iname, location_names as lname, region_names as rname
+from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 
 
 # makes it more convenient to put together imo
