@@ -60,6 +60,22 @@ class CandleChecks(DefaultOnToggle):
     display_name = "Candle Checks"
 
 
+class KeyRing(DefaultOnToggle):
+    """
+    Have one keyring which unlocks all normal key doors instead of individual key items.
+    """
+    internal_name = "key_ring"
+    display_name = "Key Ring"
+
+
+class Matchbox(DefaultOnToggle):
+    """
+    Have one matchbox which can light all candles instead of individual match items.
+    """
+    internal_name = "matchbox"
+    display_name = "Matchbox"
+
+
 class BubbleJumping(Choice):
     """
     Include using the standard Bubble Wand and chaining bubble jumps together in logic.
@@ -82,21 +98,33 @@ class DiscRiding(Toggle):
     display_name = "Midair Disc Riding"
 
 
+class WheelHopping(Toggle):
+    """
+    Include toggling the wheel midair to get a double jump in logic.
+    """
+    internal_name = "wheel_hopping"
+    display_name = "Wheel Hopping"
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
     goal: Goal
     eggs_needed: EggsNeeded
+    key_ring: KeyRing
+    matchbox: Matchbox
     evil_egg_location: EvilEggLocation
     bunnies_as_checks: BunniesAsChecks
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
     disc_riding: DiscRiding
+    wheel_hopping: WheelHopping
 
 
 aw_option_groups = [
     OptionGroup("Logic Options", [
         BubbleJumping,
         DiscRiding,
+        WheelHopping,
     ])
 ]
