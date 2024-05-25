@@ -2,12 +2,13 @@
 map_chest = "Map Chest"
 stamp_chest = "Stamp Chest"
 pencil_chest = "Pencil Chest"
+
 b_wand_chest = "B. Wand Chest"
 flute_chest = "Animal Flute Chest"
 slink_chest = "Slink Chest"
 yoyo_chest = "Yoyo Chest"
 mock_disc_chest = "Mock Disc Chest"
-disc_spot = "Wolf Statue Holding Disc"  # rename
+disc_spot = "Wolf Disc Shrine"
 lantern_chest = "Lantern Chest"
 b_ball_chest = "B. Ball Chest"
 remote_chest = "Remote Chest"
@@ -128,6 +129,7 @@ egg_desert = "Desert Egg Chest"  # top of rat lab
 egg_scarlet = "Scarlet Egg Chest"  # by the momma cat, in spikes
 egg_obsidian = "Obsidian Egg Chest"  # behind fish pipe to lower rat lab
 egg_golden = "Golden Egg Chest"  # ostrich wheel puzzle
+
 egg_65 = "65th Egg Chest"  # move to Major Items if Eggsanity becomes a setting
 
 # bnuuy
@@ -149,14 +151,17 @@ bunny_chinchilla_vine = "Chinchilla Bunny"  # the one where the code is covered 
 bunny_file_bud = "Flowering Bunny"  # bunny from file start codes
 
 # event locations
-activate_frog_fast_travel = "Activate Frog Fast Travel"
+activate_bird_fast_travel = "Activate Bird Fast Travel"
 activate_bear_fast_travel = "Activate Bear Fast Travel"
+activate_frog_fast_travel = "Activate Frog Fast Travel"
+activate_squirrel_fast_travel = "Activate Squirrel Fast Travel"
+activate_fish_fast_travel = "Activate Fish Fast Travel"
 activate_dog_fast_travel = "Activate Dog Fast Travel"
 activate_hippo_fast_travel = "Activate Hippo Fast Travel"
-activate_fish_fast_travel = "Activate Fish Fast Travel"
-
+activate_bonefish_fast_travel = "Activate Bone Fish Fast Travel"
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Switch for Post Modern Egg"
 switch_next_to_bat_room = "Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
 dog_wheel_flip = "Can Flip Dog Wheel"  # item for you having access to the dog wheel
+light_all_candles = "Light All Candles"
 victory_first = "First Victory"

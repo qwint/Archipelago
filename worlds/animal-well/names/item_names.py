@@ -1,39 +1,106 @@
 # this file is a reference to the items that will end up going in rule names
-# actual items
-firecrackers = "Firecrackers"
-disc = "Disc"
-flute = "Animal Flute"
+# major unique items
 bubble = "B. Wand"
-bubble_long = "B.B. Wand"  # large amount of jumps, reasonable with B.B. Wand
+flute = "Animal Flute"
 slink = "Slink"
 yoyo = "Yoyo"
-lantern = "Lantern"
-uv = "UV Lantern"
-top = "Top"
-wheel = "Wheel"
-remote = "Remote"
-ball = "B. Ball"
 m_disc = "Mock Disc"
+disc = "Disc"
+lantern = "Lantern"
+ball = "B. Ball"
+remote = "Remote"
+uv = "UV Lantern"
+wheel = "Wheel"
+top = "Top"
+bubble_long = "B.B. Wand"  # large amount of jumps, reasonable with B.B. Wand
+firecrackers = "Firecrackers"
+house_key = "House Key"
+office_key = "Office Key"
 fanny_pack = "F. Pack"
-e_medal = "E. Medal"
 k_shard = "K. Shard"
 k_medal = "K. Medal"  # a fake item. 3 K. Shards exist in pool
 s_medal = "S. Medal"
-match = "Match"
-key = "Key"
-house_key = "House Key"
-office_key = "Office Key"
+e_medal = "E. Medal"
 
+match = "Match"
+matchbox = "Matchbox"  # potentially an item if we want to simplify logic
+
+key = "Key"
+key_ring = "Key Ring"  # potentially an item if we want to simplify logic
+
+# flames
 blue_flame = "B. Flame"  # seahorse
-violet_flame = "V. Flame"  # chameleon
 green_flame = "G. Flame"  # ostritch
 pink_flame = "P. Flame"  # ghost dog
+violet_flame = "V. Flame"  # chameleon
 
-song_home = "Top of the Well Song"
-song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
-song_bobcat = "Bobcat Song"  # idk what we should do with this, but it kinda sucks as it is
-song_fish = "Skeleton Fish Song"  # teleports you to the right side of the lower screen of the fast travel room
-song_barcode = "Barcode Song"  # for barcode bunny
+# eggs, in a particular order but not one that actually matters
+egg_forbidden = "Forbidden Egg"  
+egg_vanity = "Vanity Egg"  
+egg_reference = "Reference Egg"  
+egg_brown = "Brown Egg"  
+egg_service = "Egg As A Service"  
+egg_upside_down = "Upside Down Egg"  
+egg_red = "Red Egg"  
+egg_friendship = "Friendship Egg"  
+egg_plant = "Plant Egg"  
+egg_future = "Future Egg"  
+egg_raw = "Raw Egg" 
+egg_evil = "Evil Egg"  
+egg_orange = "Orange Egg"  
+egg_depraved = "Depraved Egg"  
+egg_sour = "Sour Egg" 
+egg_sweet = "Sweet Egg"  
+egg_crystal = "Crystal Egg"  
+egg_big = "Big Egg"  
+egg_pickled = "Pickled Egg"  
+egg_chocolate = "Chocolate Egg"  
+egg_post_modern = "Post Modern Egg"  
+egg_truth = "Truth Egg" 
+egg_transcendental = "Transcendental Egg"  
+egg_swan = "Swan Egg"  
+egg_shadow = "Shadow Egg"  
+egg_chaos = "Chaos Egg"  
+egg_value = "Value Egg" 
+egg_zen = "Zen Egg"  
+egg_razzle = "Razzle Egg"  
+egg_lf = "Laissez-faire Egg"  
+egg_universal = "Universal Basic Egg" 
+egg_rain = "Rain Egg"  
+egg_holiday = "Holiday Egg"  
+egg_virtual = "Virtual Egg"  
+egg_great = "Great Egg"  
+egg_mystic = "Mystic Egg"  
+egg_normal = "Normal Egg"  
+egg_dazzle = "Dazzle Egg"  
+egg_magic = "Magic Egg"  
+egg_ancient = "Ancient Egg"  
+egg_galaxy = "Galaxy Egg"  
+egg_sunset = "Sunset Egg"  
+egg_goodnight = "Goodnight Egg"  
+egg_brick = "Brick Egg"  
+egg_clover = "Clover Egg"  
+egg_neon = "Neon Egg"  
+egg_ice = "Ice Egg" 
+egg_iridescent = "Iridescent Egg" 
+egg_gorgeous = "Gorgeous Egg"  
+egg_dream = "Dream Egg" 
+egg_travel = "Travel Egg"  
+egg_planet = "Planet Egg"  
+egg_bubble = "Bubble Egg"  
+egg_moon = "Moon Egg"  
+egg_promise = "Promise Egg"
+egg_fire = "Fire Egg"
+egg_sapphire = "Sapphire Egg"
+egg_ruby = "Ruby Egg"
+egg_rust = "Rust Egg"
+egg_jade = "Jade Egg"
+egg_desert = "Desert Egg"
+egg_scarlet = "Scarlet Egg"
+egg_obsidian = "Obsidian Egg"
+egg_golden = "Golden Egg"
+
+egg_65 = "65th Egg"
 
 # event items
 activated_bird_fast_travel = "Activated Bird Fast Travel"
@@ -48,7 +115,7 @@ event_candle_penguin_lit = "Lit the Candle by the Penguins"
 defeated_chameleon = "Defeated Chameleon"
 switch_for_post_modern_egg = "Activated Switch for Post Modern Egg"
 switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
-light_all_candles = "Light all Candles"
+light_all_candles = "All Candles Lit"
 dog_wheel_flip = "Flipped Dog Wheel"
 
 # fake items, for the purposes of rules
@@ -64,3 +131,10 @@ ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obvi
 two_keys = "Two Keys"  # there's one spot that has two key doors adjacent to each other
 tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
 weird_skips = "Weird Skips"  # skips that are questionably in logic and may or may not constitute a difficulty setting later
+
+# songs, to potentially be randomized
+song_home = "Top of the Well Song"
+song_chinchilla = "Chinchilla Song"  # the warp to the chinchilla vine platform bunny
+song_bobcat = "Bobcat Song"  # idk what we should do with this, but it kinda sucks as it is
+song_fish = "Skeleton Fish Song"  # teleports you to the right side of the lower screen of the fast travel room
+song_barcode = "Barcode Song"  # for barcode bunny

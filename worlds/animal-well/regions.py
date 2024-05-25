@@ -18,7 +18,7 @@ class AWData(NamedTuple):
 # region names
 fast_travel_fake = "Fast Travel Mid-Warp"  # for the purpose of not putting all the entrances at the starting region
 starting_area = "Squirrel Main"
-s_disc_area = "Squirrel S. Disc Area"
+s_disc_area = "Squirrel S. Medal Area"
 starting_after_ghost = "Squirrel After Ghost"
 fast_travel = "Fast Travel Room"
 fast_travel_fish_teleport = "Fast Travel Fish Teleport Spot"
