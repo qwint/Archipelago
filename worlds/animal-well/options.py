@@ -12,10 +12,10 @@ class Goal(Choice):
     """
     internal_name = "goal"
     display_name = "Goal"
-    option_fireworks: 1
-    option_bunny_land: 2
-    option_egg_hunt: 3
-    default: 0
+    option_fireworks = 1
+    option_bunny_land = 2
+    option_egg_hunt = 3
+    default = 1
 
 
 class EvilEggLocation(Choice):
@@ -24,9 +24,9 @@ class EvilEggLocation(Choice):
     """
     internal_name = "65th_egg_location"
     display_name = "65th Egg Location"
-    option_randomized: 0
-    option_vanilla: 1
-    default: 1
+    option_randomized = 0
+    option_vanilla = 1
+    default = 1
 
 
 class EggsNeeded(Range):
