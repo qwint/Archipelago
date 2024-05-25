@@ -82,7 +82,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.match_under_mouse_statue:
             AWData(AWType.location),
         lname.egg_planet:
-            AWData(AWType.location),
+            AWData(AWType.location, [[iname.can_break_spikes_below]]),
         rname.frog_travel_egg_spot:
             AWData(AWType.region, [[iname.top]]),
     },
@@ -95,9 +95,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.starting_after_ghost:  # it would feel weird to call this the central area imo
             AWData(AWType.region, [[iname.firecrackers]]),  # not sure if randoing firecrackers yet
         rname.candle_area:
-            AWData(AWType.region, [[iname.light_all_candles, iname.bubble]]),  # turn this into an event later
+            AWData(AWType.region, [[iname.light_all_candles, iname.bubble]]),
         rname.s_disc_area:
-            AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc_hop]]),
+            AWData(AWType.region, [[iname.s_medal, iname.bubble], [iname.s_medal, iname.disc_hop],
+                                   [iname.s_medal, iname.wheel_hop]]),
         lname.egg_clover:  # in room where you see the status of the candles
             AWData(AWType.location),
         lname.match_start_ceiling:
@@ -122,8 +123,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.egg_iridescent:
             AWData(AWType.location, [[iname.remote]]),
-        lname.egg_ice:
-            AWData(AWType.location, [[iname.remote]]),
+        lname.egg_ice:  # bubble long is annoying, maybe consider it harder?
+            AWData(AWType.location, [[iname.remote], [iname.bubble_long]]),
         lname.egg_neon:
             AWData(AWType.location, [[iname.remote, iname.ball]]),
     },
@@ -246,14 +247,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         lname.key_bear_upper:
             AWData(AWType.location),
-        lname.egg_zen:
-            AWData(AWType.location, [[iname.slink, iname.bubble], [iname.slink, iname.disc]]),
+        lname.egg_zen:  # get chest on chinchilla's head, get it to drop it on the button by walking off the right side
+            AWData(AWType.location, [[iname.bubble], [iname.disc], [iname.wheel_hop]]),
         rname.bear_dark_maze:  # need one key to open the gate
             AWData(AWType.region, [[iname.key]]),
         lname.egg_universal:
-            AWData(AWType.location, [[iname.slink, iname.bubble, iname.yoyo],
-                                     [iname.slink, iname.bubble, iname.firecrackers],
-                                     [iname.slink, iname.disc]]),  # disc hits the chinchilla across
+            AWData(AWType.location, [[iname.bubble, iname.yoyo], [iname.bubble, iname.wheel],
+                                     [iname.bubble, iname.firecrackers], [iname.disc], [iname.wheel_hop]]),
         lname.egg_value:
             AWData(AWType.location, [[iname.bubble_long, iname.disc_hop_hard]]),
     },
@@ -458,8 +458,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # todo: floor is lava
         rname.dog_many_switches:
             AWData(AWType.region, [[iname.can_break_spikes]]),  # todo: verify you can do this with wheel
-        rname.dog_under_fast_travel_room:
-            AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short]]),
+        rname.dog_under_fast_travel_room:  # very tight, need to jump from the lower ledge one room to the right
+            AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short], [iname.disc_hop]]),
     },
     rname.dog_under_fast_travel_room: {
         rname.dog_upper_past_lake:
@@ -479,7 +479,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.dog_above_fast_travel:
             AWData(AWType.region, [[iname.slink], [iname.bubble_short]]),
         rname.dog_mock_disc_shrine:
-            AWData(AWType.region, [[iname.slink]]),
+            AWData(AWType.region, [[iname.slink], [iname.wheel_hop]]),
     },
     rname.dog_mock_disc_shrine: {
         lname.egg_raw:
