@@ -1,7 +1,9 @@
-from typing import Dict, List, Any, Tuple, TypedDict
-from BaseClasses import Region, Location, Item, Tutorial, ItemClassification, MultiWorld
+from typing import Dict, List, Any
+from copy import deepcopy
+from BaseClasses import Tutorial
 from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
-from .locations import location_table, location_name_groups, location_name_to_id
+from .locations import location_name_groups, location_name_to_id
+from .regions import AWData, traversal_requirements
 from .rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
 from .names import ItemNames
@@ -42,8 +44,7 @@ class AnimalWellWorld(World):
     item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
 
-    ability_unlocks: Dict[str, int]
-    slot_data_items: List[AWItem]
+    traversal_requirements: Dict[str, Dict[str, AWData]]
 
     def generate_early(self) -> None:
         # Universal tracker stuff, shouldn't do anything in standard gen
@@ -94,6 +95,7 @@ class AnimalWellWorld(World):
         self.multiworld.itempool += aw_items
 
     def create_regions(self) -> None:
+        self.traversal_requirements = deepcopy(traversal_requirements)
         create_regions_and_set_rules(self)
 
     def set_rules(self) -> None:
@@ -103,6 +105,12 @@ class AnimalWellWorld(World):
         return self.random.choice(filler_items)
 
     def fill_slot_data(self) -> Dict[str, Any]:
+        import Utils
+        state = self.multiworld.get_all_state(False)
+        state.update_reachable_regions(self.player)
+        Utils.visualize_regions(self.multiworld.get_region("Menu", self.player), "awtest.puml",
+                                show_entrance_names=True,
+                                highlight_regions=state.reachable_regions[self.player])
         return self.options.as_dict(
             "goal",
             "final_egg_location",
