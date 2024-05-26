@@ -15,7 +15,6 @@ class RegionNames(str, Enum):
     bird_area = "Bird Area"  # the central portion of the map
     bird_capybara_waterfall = "Bird Capybara Waterfall"  # up and right of the ladder
     bird_below_mouse_statues = "Bird Below Mouse Statues"  # on the way to frog area, need yoyo
-    bird_planet_egg_spot = "Bird Planet Egg Spot"
     candle_area = "Squirrel Candle Area"
     match_above_egg_room = "Match Above Egg Room"  # its own region since you can use the dog elevator
     bird_flute_chest = "Bird Flute Chest Room"  # since you can technically get weird with the logic here
@@ -238,8 +237,6 @@ class ItemNames(str, Enum):
     event_candle_frog = "Lit the Frog Area Candle"
     event_candle_bear = "Lit the Bear Area Candle"
 
-    light_all_candles = "All Candles Lit"
-
     # fake items, for the purposes of rules
     bubble_short = "Bubble Jumping - Short"
     can_break_spikes = "Can Break Spikes"
@@ -251,9 +248,8 @@ class ItemNames(str, Enum):
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
     ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obviously meant to be
-    two_keys = "Two Keys"  # there's one spot that has two key doors adjacent to each other
     tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
-    weird_skips = "Weird Skips"  # skips that are questionably in logic and may or may not constitute a difficulty setting later
+    weird_skips = "Weird Skips"  # skips that are questionably in logic and may constitute a difficulty setting later
 
     # songs, to potentially be randomized
     song_home = "Top of the Well Song"
