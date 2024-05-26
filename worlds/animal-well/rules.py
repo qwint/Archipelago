@@ -108,6 +108,7 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     location = AWLocation(player, destination_name, world.location_name_to_id[destination_name],
                                           aw_regions[origin_name])
                 location.access_rule = interpret_rule(data.rules, world)
+                # todo: it so the amount of eggs you need scales based on the egg amount option
                 if data.eggs_required:
                     add_rule(location, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required)
                 aw_regions[origin_name].locations.append(location)
