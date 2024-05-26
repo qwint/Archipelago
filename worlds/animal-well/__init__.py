@@ -74,13 +74,16 @@ class AnimalWellWorld(World):
 
         items_to_create: Dict[str, int] = {item: data.quantity_in_item_pool for item, data in item_table.items()}
 
+        if self.options.goal == self.options.goal.option_fireworks:
+            items_to_create[ItemNames.house_key] = 0
+
         if self.options.key_ring:
-            items_to_create["Key"] = 0
-            items_to_create["Key Ring"] = 1
+            items_to_create[ItemNames.key] = 0
+            items_to_create[ItemNames.key_ring] = 1
 
         if self.options.matchbox:
-            items_to_create["Match"] = 0
-            items_to_create["Matchbox"] = 1
+            items_to_create[ItemNames.match] = 0
+            items_to_create[ItemNames.matchbox] = 1
 
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):
@@ -105,6 +108,7 @@ class AnimalWellWorld(World):
         return self.random.choice(filler_items)
 
     def fill_slot_data(self) -> Dict[str, Any]:
+        # todo: remove this, remove the changes to Utils to make this work
         import Utils
         state = self.multiworld.get_all_state(False)
         state.update_reachable_regions(self.player)
