@@ -1,8 +1,8 @@
-from typing import List, Dict, TYPE_CHECKING, cast
-from BaseClasses import CollectionState, Region, Location, ItemClassification
-from worlds.generic.Rules import CollectionRule
+from typing import List, Dict, TYPE_CHECKING
+from BaseClasses import Region, Location, ItemClassification
+from worlds.generic.Rules import CollectionRule, add_rule
 from .regions import AWType
-from .names import ItemNames as iname, RegionNames
+from .names import ItemNames as iname, LocationNames as lname, RegionNames
 from .items import AWItem
 from .options import AnimalWellOptions
 if TYPE_CHECKING:
@@ -42,20 +42,20 @@ def convert_helper_req(helper_name: str, reqs: List[List[str]]) -> List[List[str
 
 
 def convert_key_req(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
-    if options.key_ring:
+    if not options.key_ring:
         for sublist in reqs:
             for i, req in enumerate(sublist):
-                if req == iname.key:
-                    sublist[i] = iname.key_ring
+                if req == iname.key_ring:
+                    sublist[i] = iname.can_use_keys
     return reqs
 
 
 def convert_match_req(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
-    if options.matchbox:
+    if not options.matchbox:
         for sublist in reqs:
             for i, req in enumerate(sublist):
-                if req == iname.match:
-                    sublist[i] = iname.matchbox
+                if req == iname.matchbox:
+                    sublist[i] = iname.can_use_matches
     return reqs
 
 
@@ -73,16 +73,6 @@ def convert_bubble_req(reqs: List[List[str]], options: AnimalWellOptions) -> Lis
                 if options.bubble_jumping == options.bubble_jumping.option_on:
                     sublist[i] = iname.bubble
     return reqs
-
-
-# todo: figure out what to do with this
-def can_light_candle(state: CollectionState, player: int) -> bool:
-    return state.has(iname.matchbox, player) or state.has(iname.match, player, 9)
-
-
-# todo: figure out what to do with this
-def can_unlock_key_door(state: CollectionState, player: int) -> bool:
-    return state.has(iname.key_ring, player) or state.has(iname.key, player, 6)
 
 
 def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
@@ -118,10 +108,24 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     location = AWLocation(player, destination_name, world.location_name_to_id[destination_name],
                                           aw_regions[origin_name])
                 location.access_rule = interpret_rule(data.rules, world)
+                if data.eggs_required:
+                    add_rule(location, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
-                aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
-                                                rule=interpret_rule(data.rules, world))
+                entrance = aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
+                                                           rule=interpret_rule(data.rules, world))
+                if data.eggs_required:
+                    add_rule(entrance, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required)
+
+    if not world.options.key_ring:
+        location = AWLocation(player, lname.got_all_keys, None, aw_regions[RegionNames.bird_area])
+        location.place_locked_item(AWItem(iname.can_use_keys, ItemClassification.progression, None, player))
+        location.access_rule = lambda state: state.has(iname.key, player, 6)
+
+    if not world.options.matchbox:
+        location = AWLocation(player, lname.got_all_matches, None, aw_regions[RegionNames.bird_area])
+        location.place_locked_item(AWItem(iname.can_use_matches, ItemClassification.progression, None, player))
+        location.access_rule = lambda state: state.has(iname.match, player, 9)
 
     for region in aw_regions.values():
         world.multiworld.regions.append(region)

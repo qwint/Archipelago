@@ -237,6 +237,9 @@ class ItemNames(str, Enum):
     event_candle_frog = "Lit the Frog Area Candle"
     event_candle_bear = "Lit the Bear Area Candle"
 
+    can_use_matches = "Can Use Matches"  # for when you get all of the matches, consumables logic is cool
+    can_use_keys = "Can Use Keys"  # for when you get all of the keys, consumables logic is cool
+
     # fake items, for the purposes of rules
     bubble_short = "Bubble Jumping - Short"
     can_break_spikes = "Can Break Spikes"
@@ -430,4 +433,6 @@ class LocationNames(str, Enum):
     switch_next_to_bat_room = "Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
     dog_wheel_flip = "Can Flip Dog Wheel"  # item for you having access to the dog wheel
     light_all_candles = "Light All Candles"
+    got_all_matches = "Received All Matches"  # for when you get all of the matches, consumables logic is cool
+    got_all_keys = "Received All Keys"  # for when you get all of the keys, consumables logic is cool
     victory_first = "First Victory"
