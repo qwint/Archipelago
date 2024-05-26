@@ -223,7 +223,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.fish_boss_2: {
         lname.flame_blue:
-            AWData(AWType.location, [[iname.can_open_flame]]),
+            AWData(AWType.location, [[iname.can_open_flame]], event=iname.blue_flame),
         rname.bird_area:
             AWData(AWType.region),
         rname.abyss:  # little hole above the fish pipe
@@ -408,7 +408,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.defeated_chameleon:
             AWData(AWType.location, event=iname.defeated_chameleon),
         lname.flame_violet:
-            AWData(AWType.location, [[iname.can_open_flame]]),
+            AWData(AWType.location, [[iname.can_open_flame]], event=iname.violet_flame),
         rname.bear_upper_phone_room:
             AWData(AWType.region),
     },
@@ -421,7 +421,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
 
     rname.dog_area: {
         lname.disc_spot:
-            AWData(AWType.location),  # todo: figure out what to do for this
+            AWData(AWType.location, [[iname.m_disc]], event=iname.disc),  # todo: figure out what to do for this
         lname.candle_dog_dark:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_dark),
         rname.dog_chinchilla_skull:  # hit a switch with any number of things, or bubble up there yourself
@@ -503,7 +503,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
                                      [iname.slink, iname.bubble_short],
                                      [iname.slink, iname.key_ring]]),
         lname.flame_pink:
-            AWData(AWType.location, [[iname.m_disc]]),
+            AWData(AWType.location, [[iname.m_disc, iname.can_open_flame]], event=iname.pink_flame),
     },
     rname.dog_above_fast_travel: {
         lname.egg_brown:
@@ -744,7 +744,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_golden:
             AWData(AWType.location, [[iname.wheel]]),
         lname.flame_green:
-            AWData(AWType.location),
+            AWData(AWType.location, [[iname.can_open_flame]], event=iname.green_flame),
         rname.bobcat_room:
             AWData(AWType.region, [[iname.top]]),
         # bird_area:  # pipe after flame, you need bubble to be here so no need to put the item requirement
