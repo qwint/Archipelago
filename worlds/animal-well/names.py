@@ -2,6 +2,10 @@ from enum import Enum
 
 
 class RegionNames(str, Enum):
+    def __str__(self) -> str:
+        return self.value
+
+    menu = "Menu"
     fast_travel_fake = "Fast Travel Mid-Warp"  # for the purpose of not putting all the entrances at the starting region
     starting_area = "Squirrel Main"
     s_disc_area = "Squirrel S. Medal Area"
@@ -102,7 +106,9 @@ class RegionNames(str, Enum):
 
 
 class ItemNames(str, Enum):
-    # this file is a reference to the items that will end up going in rule names
+    def __str__(self) -> str:
+        return self.value
+
     # major unique items
     bubble = "B. Wand"
     flute = "Animal Flute"
@@ -220,7 +226,7 @@ class ItemNames(str, Enum):
     switch_next_to_bat_room = "Activated Switch next to Bat Room"  # for getting up to the fast travel spot in dog area
     dog_wheel_flip = "Flipped Dog Wheel"
 
-    victory_fireworks = "Fireworks Victory"
+    victory = "Victory"
 
     event_candle_first = "Lit the First Candle"  # rename
     event_candle_dog_dark = "Lit the Dog Area's Dark Room Candle"
@@ -259,6 +265,9 @@ class ItemNames(str, Enum):
 
 
 class LocationNames(str, Enum):
+    def __str__(self) -> str:
+        return self.value
+
     # major unique items
     map_chest = "Map Chest"
     stamp_chest = "Stamp Chest"
@@ -426,4 +435,3 @@ class LocationNames(str, Enum):
     dog_wheel_flip = "Can Flip Dog Wheel"  # item for you having access to the dog wheel
     light_all_candles = "Light All Candles"
     victory_first = "First Victory"
-

@@ -1,6 +1,6 @@
 from typing import Dict, List, Any, Tuple, TypedDict
 from BaseClasses import Region, Location, Item, Tutorial, ItemClassification, MultiWorld
-from .items import item_name_to_id, item_table, item_name_groups, filler_items
+from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
 from .locations import location_table, location_name_groups, location_name_to_id
 from .rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
@@ -23,10 +23,6 @@ class AnimalWellWeb(WebWorld):
     theme = "jungle"
     game = "ANIMAL WELL"
     option_groups = aw_option_groups
-
-
-class AWItem(Item):
-    game: str = "ANIMAL WELL"
 
 
 class AnimalWellWorld(World):
@@ -58,7 +54,7 @@ class AnimalWellWorld(World):
                 self.options.eggs_needed.value = passthrough["eggs_needed"]
                 self.options.key_ring.value = passthrough["key_ring"]
                 self.options.matchbox.value = passthrough["matchbox"]
-                self.options.evil_egg_location = self.options.evil_egg_location.option_randomized
+                self.options.final_egg_location = self.options.final_egg_location.option_randomized
                 self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
                 self.options.candle_checks.value = passthrough["candle_checks"]
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
@@ -85,15 +81,15 @@ class AnimalWellWorld(World):
             items_to_create["Match"] = 0
             items_to_create["Matchbox"] = 1
 
-        # if there are more locations than items, add filler until there are enough items
-        filler_count = len(self.multiworld.get_unfilled_locations(self.player)) - len(aw_items)
-        for _ in range(filler_count):
-            items_to_create[self.get_filler_item_name()] += 1
-
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):
                 aw_item: AWItem = self.create_item(item_name)
                 aw_items.append(aw_item)
+
+        # if there are more locations than items, add filler until there are enough items
+        filler_count = len(self.multiworld.get_unfilled_locations(self.player)) - len(aw_items)
+        for _ in range(filler_count):
+            aw_items.append(self.create_item(self.get_filler_item_name()))
 
         self.multiworld.itempool += aw_items
 
@@ -109,7 +105,7 @@ class AnimalWellWorld(World):
     def fill_slot_data(self) -> Dict[str, Any]:
         return self.options.as_dict(
             "goal",
-            "65th_egg_location"
+            "final_egg_location",
             "eggs_needed",
             "key_ring",
             "matchbox",

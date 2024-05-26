@@ -18,11 +18,11 @@ class Goal(Choice):
     default = 1
 
 
-class EvilEggLocation(Choice):
+class FinalEggLocation(Choice):
     """
     Choose whether the 65th Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring opening the 4th Egg Door to access it.
     """
-    internal_name = "65th_egg_location"
+    internal_name = "final_egg_location"
     display_name = "65th Egg Location"
     option_randomized = 0
     option_vanilla = 1
@@ -113,7 +113,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     eggs_needed: EggsNeeded
     key_ring: KeyRing
     matchbox: Matchbox
-    evil_egg_location: EvilEggLocation
+    final_egg_location: FinalEggLocation
     bunnies_as_checks: BunniesAsChecks
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping

@@ -1,8 +1,8 @@
-from typing import Dict, TYPE_CHECKING, cast
+from typing import List, Dict, Callable, TYPE_CHECKING, cast
 from BaseClasses import CollectionState, Region, Location, ItemClassification
 from .regions import traversal_requirements, AWType
 from .names import ItemNames as iname, RegionNames
-from . import AWItem
+from .items import AWItem
 if TYPE_CHECKING:
     from . import AnimalWellWorld
 
@@ -73,10 +73,14 @@ def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
     return aw_regions
 
 
+def interpret_rule(reqs: List[List[str]]) -> Callable[[CollectionState], bool]:
+
+    return lambda state: True
+
+
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
     aw_regions = create_aw_regions(world)
-    # todo: make function for converting the rules into access rules
     for origin_name, destinations in traversal_requirements.items():
         for destination_name, data in destinations.items():
             if data.type == AWType.location:
@@ -84,10 +88,14 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     location = AWLocation(player, destination_name, None, aw_regions[origin_name])
                     location.place_locked_item(AWItem(data.event, ItemClassification.progression, None, player))
                 else:
-                    location = AWLocation(player, destination_name, address=world.location_name_to_id[destination_name])
+                    location = AWLocation(player, destination_name, world.location_name_to_id[destination_name], aw_regions[origin_name])
+                location.access_rule = interpret_rule(data.rules)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
-                aw_regions[origin_name].connect(aw_regions[destination_name])
+                aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
+                                                rule=interpret_rule(data.rules))
 
     for region in aw_regions.values():
         world.multiworld.regions.append(region)
+
+    world.multiworld.completion_condition[world.player] = lambda state: state.has("Victory", world.player)

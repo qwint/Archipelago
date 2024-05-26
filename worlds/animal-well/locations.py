@@ -1,4 +1,4 @@
-from typing import Dict, NamedTuple, Set, Optional, List
+from typing import Dict, NamedTuple, Set, List
 from .names import LocationNames as lname
 
 
