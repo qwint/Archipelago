@@ -1,8 +1,12 @@
 from itertools import groupby
 from typing import Dict, List, Set, NamedTuple
-from BaseClasses import ItemClassification
+from BaseClasses import ItemClassification, Item
 from .names import ItemNames as iname
 IClass = ItemClassification  # just to make the lines shorter
+
+
+class AWItem(Item):
+    game: str = "ANIMAL WELL"
 
 
 class AWItemData(NamedTuple):
