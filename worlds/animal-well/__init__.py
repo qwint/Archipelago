@@ -3,8 +3,8 @@ from copy import deepcopy
 from BaseClasses import Tutorial
 from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
 from .locations import location_name_groups, location_name_to_id
-from .regions import AWData, traversal_requirements
-from .rules import create_regions_and_set_rules
+from .region_data import AWData, traversal_requirements
+from .regions_and_rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
 from .names import ItemNames
 from worlds.AutoWorld import WebWorld, World
