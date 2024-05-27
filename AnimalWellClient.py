@@ -331,291 +331,291 @@ class AWLocations:
         """
         # major items
         if self.b_wand_chest:
-            ctx.locations_checked.append(lname.b_wand_chest.value)
+            ctx.locations_checked.add(lname.b_wand_chest.value)
         if self.bb_wand_chest:
-            ctx.locations_checked.append(lname.bb_wand_chest.value)
+            ctx.locations_checked.add(lname.bb_wand_chest.value)
         if self.disc_spot:
-            ctx.locations_checked.append(lname.disc_spot.value)
+            ctx.locations_checked.add(lname.disc_spot.value)
         if self.yoyo_chest:
-            ctx.locations_checked.append(lname.yoyo_chest.value)
+            ctx.locations_checked.add(lname.yoyo_chest.value)
         if self.slink_chest:
-            ctx.locations_checked.append(lname.slink_chest.value)
+            ctx.locations_checked.add(lname.slink_chest.value)
         if self.flute_chest:
-            ctx.locations_checked.append(lname.flute_chest.value)
+            ctx.locations_checked.add(lname.flute_chest.value)
         if self.top_chest:
-            ctx.locations_checked.append(lname.top_chest.value)
+            ctx.locations_checked.add(lname.top_chest.value)
         if self.lantern_chest:
-            ctx.locations_checked.append(lname.lantern_chest.value)
+            ctx.locations_checked.add(lname.lantern_chest.value)
         if self.uv_lantern_chest:
-            ctx.locations_checked.append(lname.uv_lantern_chest.value)
+            ctx.locations_checked.add(lname.uv_lantern_chest.value)
         if self.b_ball_chest:
-            ctx.locations_checked.append(lname.b_ball_chest.value)
+            ctx.locations_checked.add(lname.b_ball_chest.value)
         if self.remote_chest:
-            ctx.locations_checked.append(lname.remote_chest.value)
+            ctx.locations_checked.add(lname.remote_chest.value)
         if self.wheel_chest:
-            ctx.locations_checked.append(lname.wheel_chest.value)
+            ctx.locations_checked.add(lname.wheel_chest.value)
 
         if self.mock_disc_chest:
-            ctx.locations_checked.append(lname.mock_disc_chest.value)
+            ctx.locations_checked.add(lname.mock_disc_chest.value)
         if self.fanny_pack_chest:
-            ctx.locations_checked.append(lname.fanny_pack_chest.value)
+            ctx.locations_checked.add(lname.fanny_pack_chest.value)
 
         if self.match_start_ceiling:
-            ctx.locations_checked.append(lname.match_start_ceiling.value)
+            ctx.locations_checked.add(lname.match_start_ceiling.value)
         if self.match_fish_mural:
-            ctx.locations_checked.append(lname.match_fish_mural.value)
+            ctx.locations_checked.add(lname.match_fish_mural.value)
         if self.match_dog_switch_bounce:
-            ctx.locations_checked.append(lname.match_dog_switch_bounce.value)
+            ctx.locations_checked.add(lname.match_dog_switch_bounce.value)
         if self.match_dog_upper_east:
-            ctx.locations_checked.append(lname.match_dog_upper_east.value)
+            ctx.locations_checked.add(lname.match_dog_upper_east.value)
         if self.match_bear:
-            ctx.locations_checked.append(lname.match_bear.value)
+            ctx.locations_checked.add(lname.match_bear.value)
         if self.match_above_egg_room:
-            ctx.locations_checked.append(lname.match_above_egg_room.value)
+            ctx.locations_checked.add(lname.match_above_egg_room.value)
         if self.match_center_well:
-            ctx.locations_checked.append(lname.match_center_well.value)
+            ctx.locations_checked.add(lname.match_center_well.value)
         if self.match_guard_room:
-            ctx.locations_checked.append(lname.match_guard_room.value)
+            ctx.locations_checked.add(lname.match_guard_room.value)
         if self.match_under_mouse_statue:
-            ctx.locations_checked.append(lname.match_under_mouse_statue.value)
+            ctx.locations_checked.add(lname.match_under_mouse_statue.value)
 
         if self.key_bear_lower:
-            ctx.locations_checked.append(lname.key_bear_lower.value)
+            ctx.locations_checked.add(lname.key_bear_lower.value)
         if self.key_bear_upper:
-            ctx.locations_checked.append(lname.key_bear_upper.value)
+            ctx.locations_checked.add(lname.key_bear_upper.value)
         if self.key_chest_mouse_head_lever:
-            ctx.locations_checked.append(lname.key_chest_mouse_head_lever.value)
+            ctx.locations_checked.add(lname.key_chest_mouse_head_lever.value)
         if self.key_frog_guard_room_west:
-            ctx.locations_checked.append(lname.key_frog_guard_room_west.value)
+            ctx.locations_checked.add(lname.key_frog_guard_room_west.value)
         if self.key_frog_guard_room_east:
-            ctx.locations_checked.append(lname.key_frog_guard_room_east.value)
+            ctx.locations_checked.add(lname.key_frog_guard_room_east.value)
         if self.key_dog:
-            ctx.locations_checked.append(lname.key_dog.value)
+            ctx.locations_checked.add(lname.key_dog.value)
         if self.key_house:
-            ctx.locations_checked.append(lname.key_house.value)
+            ctx.locations_checked.add(lname.key_house.value)
         if self.key_office:
-            ctx.locations_checked.append(lname.key_office.value)
+            ctx.locations_checked.add(lname.key_office.value)
 
         if self.medal_e:
-            ctx.locations_checked.append(lname.medal_e.value)
+            ctx.locations_checked.add(lname.medal_e.value)
         if self.medal_s:
-            ctx.locations_checked.append(lname.medal_s.value)
+            ctx.locations_checked.add(lname.medal_s.value)
         if self.medal_k:
-            ctx.locations_checked.append(lname.medal_k.value)
+            ctx.locations_checked.add(lname.medal_k.value)
 
         if self.flame_blue:
-            ctx.locations_checked.append(lname.flame_blue.value)
+            ctx.locations_checked.add(lname.flame_blue.value)
         if self.flame_green:
-            ctx.locations_checked.append(lname.flame_green.value)
+            ctx.locations_checked.add(lname.flame_green.value)
         if self.flame_violet:
-            ctx.locations_checked.append(lname.flame_violet.value)
+            ctx.locations_checked.add(lname.flame_violet.value)
         if self.flame_pink:
-            ctx.locations_checked.append(lname.flame_pink.value)
+            ctx.locations_checked.add(lname.flame_pink.value)
 
         # eggs, sorted by row top-to-bottom
         if self.egg_reference:
-            ctx.locations_checked.append(lname.egg_reference.value)
+            ctx.locations_checked.add(lname.egg_reference.value)
         if self.egg_brown:
-            ctx.locations_checked.append(lname.egg_brown.value)
+            ctx.locations_checked.add(lname.egg_brown.value)
         if self.egg_raw:
-            ctx.locations_checked.append(lname.egg_raw.value)
+            ctx.locations_checked.add(lname.egg_raw.value)
         if self.egg_pickled:
-            ctx.locations_checked.append(lname.egg_pickled.value)
+            ctx.locations_checked.add(lname.egg_pickled.value)
         if self.egg_big:
-            ctx.locations_checked.append(lname.egg_big.value)
+            ctx.locations_checked.add(lname.egg_big.value)
         if self.egg_swan:
-            ctx.locations_checked.append(lname.egg_swan.value)
+            ctx.locations_checked.add(lname.egg_swan.value)
         if self.egg_forbidden:
-            ctx.locations_checked.append(lname.egg_forbidden.value)
+            ctx.locations_checked.add(lname.egg_forbidden.value)
         if self.egg_shadow:
-            ctx.locations_checked.append(lname.egg_shadow.value)
+            ctx.locations_checked.add(lname.egg_shadow.value)
         if self.egg_vanity:
-            ctx.locations_checked.append(lname.egg_vanity.value)
+            ctx.locations_checked.add(lname.egg_vanity.value)
         if self.egg_service:
-            ctx.locations_checked.append(lname.egg_service.value)
+            ctx.locations_checked.add(lname.egg_service.value)
 
         if self.egg_depraved:
-            ctx.locations_checked.append(lname.egg_depraved.value)
+            ctx.locations_checked.add(lname.egg_depraved.value)
         if self.egg_chaos:
-            ctx.locations_checked.append(lname.egg_chaos.value)
+            ctx.locations_checked.add(lname.egg_chaos.value)
         if self.egg_upside_down:
-            ctx.locations_checked.append(lname.egg_upside_down.value)
+            ctx.locations_checked.add(lname.egg_upside_down.value)
         if self.egg_evil:
-            ctx.locations_checked.append(lname.egg_evil.value)
+            ctx.locations_checked.add(lname.egg_evil.value)
         if self.egg_sweet:
-            ctx.locations_checked.append(lname.egg_sweet.value)
+            ctx.locations_checked.add(lname.egg_sweet.value)
         if self.egg_chocolate:
-            ctx.locations_checked.append(lname.egg_chocolate.value)
+            ctx.locations_checked.add(lname.egg_chocolate.value)
         if self.egg_value:
-            ctx.locations_checked.append(lname.egg_value.value)
+            ctx.locations_checked.add(lname.egg_value.value)
         if self.egg_plant:
-            ctx.locations_checked.append(lname.egg_plant.value)
+            ctx.locations_checked.add(lname.egg_plant.value)
         if self.egg_red:
-            ctx.locations_checked.append(lname.egg_red.value)
+            ctx.locations_checked.add(lname.egg_red.value)
         if self.egg_orange:
-            ctx.locations_checked.append(lname.egg_orange.value)
+            ctx.locations_checked.add(lname.egg_orange.value)
         if self.egg_sour:
-            ctx.locations_checked.append(lname.egg_sour.value)
+            ctx.locations_checked.add(lname.egg_sour.value)
         if self.egg_post_modern:
-            ctx.locations_checked.append(lname.egg_post_modern.value)
+            ctx.locations_checked.add(lname.egg_post_modern.value)
 
         if self.egg_universal:
-            ctx.locations_checked.append(lname.egg_universal.value)
+            ctx.locations_checked.add(lname.egg_universal.value)
         if self.egg_lf:
-            ctx.locations_checked.append(lname.egg_lf.value)
+            ctx.locations_checked.add(lname.egg_lf.value)
         if self.egg_zen:
-            ctx.locations_checked.append(lname.egg_zen.value)
+            ctx.locations_checked.add(lname.egg_zen.value)
         if self.egg_future:
-            ctx.locations_checked.append(lname.egg_future.value)
+            ctx.locations_checked.add(lname.egg_future.value)
         if self.egg_friendship:
-            ctx.locations_checked.append(lname.egg_friendship.value)
+            ctx.locations_checked.add(lname.egg_friendship.value)
         if self.egg_truth:
-            ctx.locations_checked.append(lname.egg_truth.value)
+            ctx.locations_checked.add(lname.egg_truth.value)
         if self.egg_transcendental:
-            ctx.locations_checked.append(lname.egg_transcendental.value)
+            ctx.locations_checked.add(lname.egg_transcendental.value)
         if self.egg_ancient:
-            ctx.locations_checked.append(lname.egg_ancient.value)
+            ctx.locations_checked.add(lname.egg_ancient.value)
         if self.egg_magic:
-            ctx.locations_checked.append(lname.egg_magic.value)
+            ctx.locations_checked.add(lname.egg_magic.value)
         if self.egg_mystic:
-            ctx.locations_checked.append(lname.egg_mystic.value)
+            ctx.locations_checked.add(lname.egg_mystic.value)
         if self.egg_holiday:
-            ctx.locations_checked.append(lname.egg_holiday.value)
+            ctx.locations_checked.add(lname.egg_holiday.value)
         if self.egg_rain:
-            ctx.locations_checked.append(lname.egg_rain.value)
+            ctx.locations_checked.add(lname.egg_rain.value)
         if self.egg_razzle:
-            ctx.locations_checked.append(lname.egg_razzle.value)
+            ctx.locations_checked.add(lname.egg_razzle.value)
         if self.egg_dazzle:
-            ctx.locations_checked.append(lname.egg_dazzle.value)
+            ctx.locations_checked.add(lname.egg_dazzle.value)
 
         if self.egg_virtual:
-            ctx.locations_checked.append(lname.egg_virtual.value)
+            ctx.locations_checked.add(lname.egg_virtual.value)
         if self.egg_normal:
-            ctx.locations_checked.append(lname.egg_normal.value)
+            ctx.locations_checked.add(lname.egg_normal.value)
         if self.egg_great:
-            ctx.locations_checked.append(lname.egg_great.value)
+            ctx.locations_checked.add(lname.egg_great.value)
         if self.egg_gorgeous:
-            ctx.locations_checked.append(lname.egg_gorgeous.value)
+            ctx.locations_checked.add(lname.egg_gorgeous.value)
         if self.egg_planet:
-            ctx.locations_checked.append(lname.egg_planet.value)
+            ctx.locations_checked.add(lname.egg_planet.value)
         if self.egg_moon:
-            ctx.locations_checked.append(lname.egg_moon.value)
+            ctx.locations_checked.add(lname.egg_moon.value)
         if self.egg_galaxy:
-            ctx.locations_checked.append(lname.egg_galaxy.value)
+            ctx.locations_checked.add(lname.egg_galaxy.value)
         if self.egg_sunset:
-            ctx.locations_checked.append(lname.egg_sunset.value)
+            ctx.locations_checked.add(lname.egg_sunset.value)
         if self.egg_goodnight:
-            ctx.locations_checked.append(lname.egg_goodnight.value)
+            ctx.locations_checked.add(lname.egg_goodnight.value)
         if self.egg_dream:
-            ctx.locations_checked.append(lname.egg_dream.value)
+            ctx.locations_checked.add(lname.egg_dream.value)
         if self.egg_travel:
-            ctx.locations_checked.append(lname.egg_travel.value)
+            ctx.locations_checked.add(lname.egg_travel.value)
         if self.egg_promise:
-            ctx.locations_checked.append(lname.egg_promise.value)
+            ctx.locations_checked.add(lname.egg_promise.value)
         if self.egg_ice:
-            ctx.locations_checked.append(lname.egg_ice.value)
+            ctx.locations_checked.add(lname.egg_ice.value)
         if self.egg_fire:
-            ctx.locations_checked.append(lname.egg_fire.value)
+            ctx.locations_checked.add(lname.egg_fire.value)
 
         if self.egg_bubble:
-            ctx.locations_checked.append(lname.egg_bubble.value)
+            ctx.locations_checked.add(lname.egg_bubble.value)
         if self.egg_desert:
-            ctx.locations_checked.append(lname.egg_desert.value)
+            ctx.locations_checked.add(lname.egg_desert.value)
         if self.egg_clover:
-            ctx.locations_checked.append(lname.egg_clover.value)
+            ctx.locations_checked.add(lname.egg_clover.value)
         if self.egg_brick:
-            ctx.locations_checked.append(lname.egg_brick.value)
+            ctx.locations_checked.add(lname.egg_brick.value)
         if self.egg_neon:
-            ctx.locations_checked.append(lname.egg_neon.value)
+            ctx.locations_checked.add(lname.egg_neon.value)
         if self.egg_iridescent:
-            ctx.locations_checked.append(lname.egg_iridescent.value)
+            ctx.locations_checked.add(lname.egg_iridescent.value)
         if self.egg_rust:
-            ctx.locations_checked.append(lname.egg_rust.value)
+            ctx.locations_checked.add(lname.egg_rust.value)
         if self.egg_scarlet:
-            ctx.locations_checked.append(lname.egg_scarlet.value)
+            ctx.locations_checked.add(lname.egg_scarlet.value)
         if self.egg_sapphire:
-            ctx.locations_checked.append(lname.egg_sapphire.value)
+            ctx.locations_checked.add(lname.egg_sapphire.value)
         if self.egg_ruby:
-            ctx.locations_checked.append(lname.egg_ruby.value)
+            ctx.locations_checked.add(lname.egg_ruby.value)
         if self.egg_jade:
-            ctx.locations_checked.append(lname.egg_jade.value)
+            ctx.locations_checked.add(lname.egg_jade.value)
         if self.egg_obsidian:
-            ctx.locations_checked.append(lname.egg_obsidian.value)
+            ctx.locations_checked.add(lname.egg_obsidian.value)
         if self.egg_crystal:
-            ctx.locations_checked.append(lname.egg_crystal.value)
+            ctx.locations_checked.add(lname.egg_crystal.value)
         if self.egg_golden:
-            ctx.locations_checked.append(lname.egg_golden.value)
+            ctx.locations_checked.add(lname.egg_golden.value)
 
         if self.egg_65:
-            ctx.locations_checked.append(lname.egg_65.value)
+            ctx.locations_checked.add(lname.egg_65.value)
 
         # map things
         if self.map_chest:
-            ctx.locations_checked.append(lname.map_chest.value)
+            ctx.locations_checked.add(lname.map_chest.value)
         if self.stamp_chest:
-            ctx.locations_checked.append(lname.stamp_chest.value)
+            ctx.locations_checked.add(lname.stamp_chest.value)
         if self.pencil_chest:
-            ctx.locations_checked.append(lname.pencil_chest.value)
+            ctx.locations_checked.add(lname.pencil_chest.value)
 
         # bnnnnuyuy
         if self.bunny_barcode:
-            ctx.locations_checked.append(lname.bunny_barcode.value)
+            ctx.locations_checked.add(lname.bunny_barcode.value)
         if self.bunny_chinchilla_vine:
-            ctx.locations_checked.append(lname.bunny_chinchilla_vine.value)
+            ctx.locations_checked.add(lname.bunny_chinchilla_vine.value)
         if self.bunny_crow:
-            ctx.locations_checked.append(lname.bunny_crow.value)
+            ctx.locations_checked.add(lname.bunny_crow.value)
         if self.bunny_disc_spike:
-            ctx.locations_checked.append(lname.bunny_disc_spike.value)
+            ctx.locations_checked.add(lname.bunny_disc_spike.value)
         if self.bunny_dream:
-            ctx.locations_checked.append(lname.bunny_dream.value)
+            ctx.locations_checked.add(lname.bunny_dream.value)
         if self.bunny_duck:
-            ctx.locations_checked.append(lname.bunny_duck.value)
+            ctx.locations_checked.add(lname.bunny_duck.value)
         if self.bunny_face:
-            ctx.locations_checked.append(lname.bunny_face.value)
+            ctx.locations_checked.add(lname.bunny_face.value)
         if self.bunny_file_bud:
-            ctx.locations_checked.append(lname.bunny_file_bud.value)
+            ctx.locations_checked.add(lname.bunny_file_bud.value)
         if self.bunny_fish:
-            ctx.locations_checked.append(lname.bunny_fish.value)
+            ctx.locations_checked.add(lname.bunny_fish.value)
         if self.bunny_ghost_dog:
-            ctx.locations_checked.append(lname.bunny_ghost_dog.value)
+            ctx.locations_checked.add(lname.bunny_ghost_dog.value)
         if self.bunny_lava:
-            ctx.locations_checked.append(lname.bunny_lava.value)
+            ctx.locations_checked.add(lname.bunny_lava.value)
         if self.bunny_map:
-            ctx.locations_checked.append(lname.bunny_map.value)
+            ctx.locations_checked.add(lname.bunny_map.value)
         if self.bunny_mural:
-            ctx.locations_checked.append(lname.bunny_mural.value)
+            ctx.locations_checked.add(lname.bunny_mural.value)
         if self.bunny_tv:
-            ctx.locations_checked.append(lname.bunny_tv.value)
+            ctx.locations_checked.add(lname.bunny_tv.value)
         if self.bunny_uv:
-            ctx.locations_checked.append(lname.bunny_uv.value)
+            ctx.locations_checked.add(lname.bunny_uv.value)
         if self.bunny_water_spike:
-            ctx.locations_checked.append(lname.bunny_water_spike.value)
+            ctx.locations_checked.add(lname.bunny_water_spike.value)
 
         # candles
         if self.candle_first:
-            ctx.locations_checked.append(lname.candle_first.value)
+            ctx.locations_checked.add(lname.candle_first.value)
         if self.candle_dog_dark:
-            ctx.locations_checked.append(lname.candle_dog_dark.value)
+            ctx.locations_checked.add(lname.candle_dog_dark.value)
         if self.candle_dog_switch_box:
-            ctx.locations_checked.append(lname.candle_dog_switch_box.value)
+            ctx.locations_checked.add(lname.candle_dog_switch_box.value)
         if self.candle_dog_many_switches:
-            ctx.locations_checked.append(lname.candle_dog_many_switches.value)
+            ctx.locations_checked.add(lname.candle_dog_many_switches.value)
         if self.candle_dog_disc_switches:
-            ctx.locations_checked.append(lname.candle_dog_disc_switches.value)
+            ctx.locations_checked.add(lname.candle_dog_disc_switches.value)
         if self.candle_dog_bat:
-            ctx.locations_checked.append(lname.candle_dog_bat.value)
+            ctx.locations_checked.add(lname.candle_dog_bat.value)
         if self.candle_fish:
-            ctx.locations_checked.append(lname.candle_fish.value)
+            ctx.locations_checked.add(lname.candle_fish.value)
         if self.candle_frog:
-            ctx.locations_checked.append(lname.candle_frog.value)
+            ctx.locations_checked.add(lname.candle_frog.value)
         if self.candle_bear:
-            ctx.locations_checked.append(lname.candle_bear.value)
+            ctx.locations_checked.add(lname.candle_bear.value)
 
         # extras
         # if self.mama_cha:
-        #     ctx.locations_checked.append(lname.mama_cha.value)
+        #     ctx.locations_checked.add(lname.mama_cha.value)
         # if self.squirrel_acorn:
-        #     ctx.locations_checked.append(lname.squirrel_acorn.value)
+        #     ctx.locations_checked.add(lname.squirrel_acorn.value)
         # kangaroo medal drops
 
         # TODO finished_game
@@ -624,10 +624,11 @@ class AWLocations:
         for location in ctx.missing_locations:
             if location in ctx.locations_checked:
                 locations_checked.append(location)
-        await ctx.send_msgs([
-            {"cmd": "LocationChecks",
-             "locations": locations_checked}
-        ])
+        if locations_checked:
+            await ctx.send_msgs([
+                {"cmd": "LocationChecks",
+                 "locations": locations_checked}
+            ])
 
 
 class AWItems:
@@ -1121,7 +1122,7 @@ class AnimalWellContext(CommonContext):
         self.messages = {}
         self.locations_array = None
         self.connection_status = CONNECTION_INITIAL_STATUS
-        self.game = 'Animal Well'
+        self.game = 'ANIMAL WELL'
         self.awaiting_game = True
 
     async def server_auth(self, password_requested: bool = False):
