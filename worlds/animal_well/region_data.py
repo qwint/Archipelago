@@ -192,7 +192,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.activated_fish_fast_travel]]),
         lname.egg_galaxy:
             AWData(AWType.location, [[iname.remote, iname.disc]]),
-    },
+    },        
     rname.fish_tube_room: {  # no location access rules because you need bubble wand to get here anyway
         lname.egg_friendship:  # the green pipe in the fish tube room
             AWData(AWType.location),  # tight timing with no midair bubble jumps
@@ -205,7 +205,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.fish_boss_1:  # disc is required to solve both the windbox puzzle and to cross the whale room
             AWData(AWType.region, [[iname.disc]]),
         rname.bobcat_room:
-            AWData(AWType.region, [[iname.top]]),
+            AWData(AWType.region, [[iname.top]]), 
         lname.candle_fish:  # spike breaking presumed by access
             AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
                    loc_type="candle"),
