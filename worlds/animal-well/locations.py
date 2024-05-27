@@ -150,6 +150,17 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_uv: AWLocationData(["Bunnies"]),
     lname.bunny_water_spike: AWLocationData(["Bunnies"]),
 
+    # candles
+    lname.candle_first: AWLocationData(["Candles"]),
+    lname.candle_dog_dark: AWLocationData(["Candles"]),
+    lname.candle_dog_switch_box: AWLocationData(["Candles"]),
+    lname.candle_dog_many_switches: AWLocationData(["Candles"]),
+    lname.candle_dog_disc_switches: AWLocationData(["Candles"]),
+    lname.candle_dog_bat: AWLocationData(["Candles"]),
+    lname.candle_fish: AWLocationData(["Candles"]),
+    lname.candle_frog: AWLocationData(["Candles"]),
+    lname.candle_bear: AWLocationData(["Candles"]),
+
     # extras
     # lname.mama_cha: AWLocationData(),
     # lname.squirrel_acorn: AWLocationData(),
