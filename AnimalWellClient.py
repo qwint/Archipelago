@@ -68,10 +68,10 @@ class AWLocations:
         self.medal_s = False
         self.medal_k = False  # TODO K shard logic
 
-        self.flame_blue = False  # TODO flame logic
-        self.flame_green = False  # TODO flame logic
-        self.flame_violet = False  # TODO flame logic
-        self.flame_pink = False  # TODO flame logic
+        self.flame_blue = False
+        self.flame_green = False
+        self.flame_violet = False
+        self.flame_pink = False
 
         # eggs, sorted by row top-to-bottom
         self.egg_reference = False
@@ -151,33 +151,33 @@ class AWLocations:
         self.pencil_chest = False
 
         # bnnnnuyuy
-        self.bunny_barcode = False  # TODO bunny logic
-        self.bunny_chinchilla_vine = False  # TODO bunny logic
-        self.bunny_crow = False  # TODO bunny logic
-        self.bunny_disc_spike = False  # TODO bunny logic
-        self.bunny_dream = False  # TODO bunny logic
-        self.bunny_duck = False  # TODO bunny logic
-        self.bunny_face = False  # TODO bunny logic
-        self.bunny_file_bud = False  # TODO bunny logic
-        self.bunny_fish = False  # TODO bunny logic
-        self.bunny_ghost_dog = False  # TODO bunny logic
-        self.bunny_lava = False  # TODO bunny logic
-        self.bunny_map = False  # TODO bunny logic
-        self.bunny_mural = False  # TODO bunny logic
-        self.bunny_tv = False  # TODO bunny logic
-        self.bunny_uv = False  # TODO bunny logic
-        self.bunny_water_spike = False  # TODO bunny logic
+        self.bunny_mural = False
+        self.bunny_chinchilla_vine = False
+        self.bunny_water_spike = False
+        self.bunny_map = False
+        self.bunny_uv = False
+        self.bunny_fish = False
+        self.bunny_face = False
+        self.bunny_crow = False
+        self.bunny_duck = False
+        self.bunny_dream = False
+        self.bunny_file_bud = False
+        self.bunny_lava = False
+        self.bunny_tv = False
+        self.bunny_barcode = False
+        self.bunny_ghost_dog = False
+        self.bunny_disc_spike = False
 
         # candles
-        self.candle_first = False  # TODO candle logic
-        self.candle_dog_dark = False  # TODO candle logic
-        self.candle_dog_switch_box = False  # TODO candle logic
-        self.candle_dog_many_switches = False  # TODO candle logic
-        self.candle_dog_disc_switches = False  # TODO candle logic
-        self.candle_dog_bat = False  # TODO candle logic
-        self.candle_fish = False  # TODO candle logic
-        self.candle_frog = False  # TODO candle logic
-        self.candle_bear = False  # TODO candle logic
+        self.candle_first = False
+        self.candle_dog_dark = False
+        self.candle_dog_switch_box = False
+        self.candle_dog_many_switches = False
+        self.candle_dog_disc_switches = False
+        self.candle_dog_bat = False
+        self.candle_fish = False
+        self.candle_frog = False
+        self.candle_bear = False
 
         # extras
         # self.mama_cha = False
@@ -324,6 +324,86 @@ class AWLocations:
         self.egg_crystal = bool(flags >> 98 & 1)  # TODO VERIFY
         self.fanny_pack_chest = bool(flags >> 99 & 1)  # TODO VERIFY
         self.egg_golden = bool(flags >> 100 & 1)  # TODO VERIFY
+
+        # Read Bunnies
+        buffer_size = 4
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x198, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Bunnies State")
+            return
+        flags = struct.unpack('I', buffer)[0]
+        self.bunny_water_spike = bool(flags >> 0 & 1)
+        self.bunny_barcode = bool(flags >> 2 & 1)
+        self.bunny_crow = bool(flags >> 3 & 1)
+        self.bunny_face = bool(flags >> 4 & 1)
+        self.bunny_fish = bool(flags >> 6 & 1)
+        self.bunny_map = bool(flags >> 7 & 1)
+        self.bunny_tv = bool(flags >> 8 & 1)
+        self.bunny_uv = bool(flags >> 9 & 1)
+        self.bunny_file_bud = bool(flags >> 10 & 1)
+        self.bunny_chinchilla_vine = bool(flags >> 11 & 1)
+        self.bunny_mural = bool(flags >> 15 & 1)
+        self.bunny_duck = bool(flags >> 22 & 1)
+        self.bunny_ghost_dog = bool(flags >> 25 & 1)
+        self.bunny_dream = bool(flags >> 28 & 1)
+        self.bunny_lava = bool(flags >> 30 & 1)
+        self.bunny_disc_spike = bool(flags >> 31 & 1)
+
+        # Read Candles
+        buffer_size = 2
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1E0, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Candles State")
+            return
+        flags = struct.unpack('H', buffer)[0]
+        # I am not very confident in these at all
+        self.candle_dog_disc_switches = bool(flags >> 0 & 1)  # TODO VERIFY
+        self.candle_dog_bat = bool(flags >> 1 & 1)  # TODO VERIFY
+        self.candle_dog_switch_box = bool(flags >> 2 & 1)  # TODO VERIFY
+        self.candle_dog_many_switches = bool(flags >> 3 & 1)  # TODO VERIFY
+        self.candle_dog_dark = bool(flags >> 4 & 1)  # TODO VERIFY
+        self.candle_bear = bool(flags >> 5 & 1)  # TODO VERIFY
+        self.candle_first = bool(flags >> 6 & 1)  # TODO VERIFY
+        self.candle_frog = bool(flags >> 7 & 1)  # TODO VERIFY
+        self.candle_fish = bool(flags >> 8 & 1)  # TODO VERIFY
+
+        # Read Flames
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x21E, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Flame State")
+            return
+        self.flame_blue = struct.unpack('I', buffer)[0] >= 4
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x21F, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Flame State")
+            return
+        self.flame_pink = struct.unpack('I', buffer)[0] >= 4
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x220, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Flame State")
+            return
+        self.flame_violet = struct.unpack('I', buffer)[0] >= 4
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x221, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Flame State")
+            return
+        self.flame_green = struct.unpack('I', buffer)[0] >= 4
 
     async def write_to_archipelago(self, ctx):
         """
@@ -558,38 +638,38 @@ class AWLocations:
             ctx.locations_checked.add(lname.pencil_chest.value)
 
         # bnnnnuyuy
-        if self.bunny_barcode:
-            ctx.locations_checked.add(lname.bunny_barcode.value)
-        if self.bunny_chinchilla_vine:
-            ctx.locations_checked.add(lname.bunny_chinchilla_vine.value)
-        if self.bunny_crow:
-            ctx.locations_checked.add(lname.bunny_crow.value)
-        if self.bunny_disc_spike:
-            ctx.locations_checked.add(lname.bunny_disc_spike.value)
-        if self.bunny_dream:
-            ctx.locations_checked.add(lname.bunny_dream.value)
-        if self.bunny_duck:
-            ctx.locations_checked.add(lname.bunny_duck.value)
-        if self.bunny_face:
-            ctx.locations_checked.add(lname.bunny_face.value)
-        if self.bunny_file_bud:
-            ctx.locations_checked.add(lname.bunny_file_bud.value)
-        if self.bunny_fish:
-            ctx.locations_checked.add(lname.bunny_fish.value)
-        if self.bunny_ghost_dog:
-            ctx.locations_checked.add(lname.bunny_ghost_dog.value)
-        if self.bunny_lava:
-            ctx.locations_checked.add(lname.bunny_lava.value)
-        if self.bunny_map:
-            ctx.locations_checked.add(lname.bunny_map.value)
         if self.bunny_mural:
             ctx.locations_checked.add(lname.bunny_mural.value)
-        if self.bunny_tv:
-            ctx.locations_checked.add(lname.bunny_tv.value)
-        if self.bunny_uv:
-            ctx.locations_checked.add(lname.bunny_uv.value)
+        if self.bunny_chinchilla_vine:
+            ctx.locations_checked.add(lname.bunny_chinchilla_vine.value)
         if self.bunny_water_spike:
             ctx.locations_checked.add(lname.bunny_water_spike.value)
+        if self.bunny_map:
+            ctx.locations_checked.add(lname.bunny_map.value)
+        if self.bunny_uv:
+            ctx.locations_checked.add(lname.bunny_uv.value)
+        if self.bunny_fish:
+            ctx.locations_checked.add(lname.bunny_fish.value)
+        if self.bunny_face:
+            ctx.locations_checked.add(lname.bunny_face.value)
+        if self.bunny_crow:
+            ctx.locations_checked.add(lname.bunny_crow.value)
+        if self.bunny_duck:
+            ctx.locations_checked.add(lname.bunny_duck.value)
+        if self.bunny_dream:
+            ctx.locations_checked.add(lname.bunny_dream.value)
+        if self.bunny_file_bud:
+            ctx.locations_checked.add(lname.bunny_file_bud.value)
+        if self.bunny_lava:
+            ctx.locations_checked.add(lname.bunny_lava.value)
+        if self.bunny_tv:
+            ctx.locations_checked.add(lname.bunny_tv.value)
+        if self.bunny_barcode:
+            ctx.locations_checked.add(lname.bunny_barcode.value)
+        if self.bunny_ghost_dog:
+            ctx.locations_checked.add(lname.bunny_ghost_dog.value)
+        if self.bunny_disc_spike:
+            ctx.locations_checked.add(lname.bunny_disc_spike.value)
 
         # candles
         if self.candle_first:
