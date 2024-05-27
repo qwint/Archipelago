@@ -23,7 +23,7 @@ helper_reference: Dict[str, List[str]] = {
 }
 
 
-def convert_helper_req(helper_name: str, reqs: List[List[str]]) -> List[List[str]]:
+def convert_helper_reqs(helper_name: str, reqs: List[List[str]]) -> List[List[str]]:
     new_list_storage: List[List[str]] = []
     for i, sublist in enumerate(reqs):
         for j, req in enumerate(sublist):
@@ -33,6 +33,7 @@ def convert_helper_req(helper_name: str, reqs: List[List[str]]) -> List[List[str
                     new_list[j] = replacement
                     new_list_storage.append(new_list)
                 reqs[i] = []
+                break
 
     for sublist in new_list_storage:
         reqs.append(sublist)
@@ -41,7 +42,7 @@ def convert_helper_req(helper_name: str, reqs: List[List[str]]) -> List[List[str
     return [x for x in reqs if x]
 
 
-def convert_key_req(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
+def convert_key_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     if not options.key_ring:
         for sublist in reqs:
             for i, req in enumerate(sublist):
@@ -50,7 +51,7 @@ def convert_key_req(reqs: List[List[str]], options: AnimalWellOptions) -> List[L
     return reqs
 
 
-def convert_match_req(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
+def convert_match_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     if not options.matchbox:
         for sublist in reqs:
             for i, req in enumerate(sublist):
@@ -59,7 +60,7 @@ def convert_match_req(reqs: List[List[str]], options: AnimalWellOptions) -> List
     return reqs
 
 
-def convert_bubble_req(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
+def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     for sublist in reqs:
         for i, req in enumerate(sublist):
             # turn bubble short into b wand or bb wand based on option chosen
@@ -75,6 +76,38 @@ def convert_bubble_req(reqs: List[List[str]], options: AnimalWellOptions) -> Lis
     return reqs
 
 
+def convert_wheel_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
+    for i, sublist in enumerate(reqs):
+        for j, req in enumerate(sublist):
+            if req == iname.wheel_hop:
+                if options.wheel_hopping:
+                    sublist[j] = iname.wheel
+                else:
+                    reqs[i] = []
+                    break
+    # filter out empty lists
+    return [x for x in reqs if x]
+
+
+def convert_disc_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
+    for i, sublist in reqs:
+        for j, req in enumerate(sublist):
+            if req == iname.disc_hop:
+                if not options.disc_hopping:
+                    reqs[i] = []
+                    break
+                else:
+                    sublist[j] = iname.disc
+            if req == iname.disc_hop_hard:
+                if options.disc_hopping == options.disc_hopping.option_multiple:
+                    sublist[j] = iname.disc
+                else:
+                    reqs[i] = []
+                    break
+    # filter out empty lists
+    return [x for x in reqs if x]
+
+
 def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
     aw_regions: Dict[str, Region] = {}
     for region_name in RegionNames:
@@ -86,10 +119,12 @@ def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
 def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> CollectionRule:
     # todo: check if we actually need to set equal here, or if we can just remove the returns
     # expand the helpers into individual items
-    reqs = convert_key_req(reqs, world.options)
-    reqs = convert_bubble_req(reqs, world.options)
+    reqs = convert_key_reqs(reqs, world.options)
+    reqs = convert_disc_reqs(reqs, world.options)
+    reqs = convert_bubble_reqs(reqs, world.options)
+    reqs = convert_wheel_reqs(reqs, world.options)
     for helper_name in helper_reference.keys():
-        reqs = convert_helper_req(helper_name, reqs)
+        reqs = convert_helper_reqs(helper_name, reqs)
     if not reqs:
         return lambda state: True
     return lambda state: any(state.has_all(sublist, world.player) for sublist in reqs)
@@ -97,6 +132,7 @@ def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> Collectio
 
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
+    egg_ratio = world.options.eggs_needed.value / 64
     aw_regions = create_aw_regions(world)
     for origin_name, destinations in world.traversal_requirements.items():
         for destination_name, data in destinations.items():
@@ -112,13 +148,13 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                 location.access_rule = interpret_rule(data.rules, world)
                 # todo: it so the amount of eggs you need scales based on the egg amount option
                 if data.eggs_required:
-                    add_rule(location, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required)
+                    add_rule(location, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
                 entrance = aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
                                                            rule=interpret_rule(data.rules, world))
                 if data.eggs_required:
-                    add_rule(entrance, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required)
+                    add_rule(entrance, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required * egg_ratio)
 
     if not world.options.key_ring:
         location = AWLocation(player, lname.got_all_keys, None, aw_regions[RegionNames.bird_area])

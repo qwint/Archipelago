@@ -25,7 +25,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.firecracker_first: AWLocationData(["Toys"]),
 
     lname.mock_disc_chest: AWLocationData(["Toys"]),
-    lname.fanny_pack_chest: AWLocationData(),
+    lname.fanny_pack_chest: AWLocationData(["Toys"]),
 
     lname.match_start_ceiling: AWLocationData(["Matches"]),
     lname.match_fish_mural: AWLocationData(["Matches"]),
@@ -127,12 +127,10 @@ location_table: Dict[str, AWLocationData] = {
 
     lname.egg_65: AWLocationData(["Eggs", "Egg Rewards"]),
 
-    # all locations beyond this point have no cooresponding item in the item pool
+    # map things
     lname.map_chest: AWLocationData(["Map Items"]),
     lname.stamp_chest: AWLocationData(["Map Items"]),
     lname.pencil_chest: AWLocationData(["Map Items", "Egg Rewards"]),
-    lname.mama_cha: AWLocationData(),
-    lname.squirrel_acorn: AWLocationData(),
 
     # bnnnnuyuy
     lname.bunny_barcode: AWLocationData(["Bunnies"]),
@@ -151,6 +149,10 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_tv: AWLocationData(["Bunnies"]),
     lname.bunny_uv: AWLocationData(["Bunnies"]),
     lname.bunny_water_spike: AWLocationData(["Bunnies"]),
+
+    # extras
+    # lname.mama_cha: AWLocationData(),
+    # lname.squirrel_acorn: AWLocationData(),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + index for index, name in enumerate(location_table)}
