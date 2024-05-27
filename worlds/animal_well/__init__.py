@@ -6,7 +6,7 @@ from .locations import location_name_groups, location_name_to_id
 from .region_data import AWData, traversal_requirements
 from .regions_and_rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
-from .names import ItemNames
+from .names import ItemNames, LocationNames
 from worlds.AutoWorld import WebWorld, World
 # todo: remove animal_well_map.pdn
 
@@ -63,6 +63,7 @@ class AnimalWellWorld(World):
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
                 self.options.disc_hopping.value = passthrough["disc_hopping"]
                 self.options.wheel_hopping.value = passthrough["wheel_hopping"]
+                self.options.weird_tricks.value = passthrough["weird_tricks"]
 
     def create_regions(self) -> None:
         self.traversal_requirements = deepcopy(traversal_requirements)
@@ -82,6 +83,7 @@ class AnimalWellWorld(World):
 
         if self.options.goal == self.options.goal.option_fireworks:
             items_to_create[ItemNames.house_key] = 0
+            self.get_location(LocationNames.key_house).place_locked_item(self.create_item(ItemNames.house_key))
 
         if self.options.key_ring:
             items_to_create[ItemNames.key] = 0
@@ -90,6 +92,10 @@ class AnimalWellWorld(World):
         if self.options.matchbox:
             items_to_create[ItemNames.match] = 0
             items_to_create[ItemNames.matchbox] = 1
+
+        if self.options.final_egg_location:
+            items_to_create[ItemNames.egg_65] = 0
+            self.get_location(LocationNames.egg_65).place_locked_item(self.create_item(ItemNames.egg_65))
 
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):
@@ -116,7 +122,6 @@ class AnimalWellWorld(World):
                                 highlight_regions=state.reachable_regions[self.player])
         return self.options.as_dict(
             "goal",
-            "final_egg_location",
             "eggs_needed",
             "key_ring",
             "matchbox",
@@ -125,6 +130,7 @@ class AnimalWellWorld(World):
             "bubble_jumping",
             "disc_hopping",
             "wheel_hopping",
+            "weird_tricks",
         )
 
     # for the universal tracker, doesn't get called in standard gen

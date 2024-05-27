@@ -22,7 +22,6 @@ location_table: Dict[str, AWLocationData] = {
     lname.b_ball_chest: AWLocationData(["Toys"]),
     lname.remote_chest: AWLocationData(["Toys"]),
     lname.wheel_chest: AWLocationData(["Toys"]),
-    lname.firecracker_first: AWLocationData(["Toys"]),
 
     lname.mock_disc_chest: AWLocationData(["Toys"]),
     lname.fanny_pack_chest: AWLocationData(["Toys"]),
@@ -164,6 +163,7 @@ location_table: Dict[str, AWLocationData] = {
     # extras
     # lname.mama_cha: AWLocationData(),
     # lname.squirrel_acorn: AWLocationData(),
+    # kangaroo medal drops
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + index for index, name in enumerate(location_table)}
