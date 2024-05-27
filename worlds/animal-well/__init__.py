@@ -44,6 +44,8 @@ class AnimalWellWorld(World):
     item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
 
+    topology_present = True
+
     traversal_requirements: Dict[str, Dict[str, AWData]]
 
     def generate_early(self) -> None:
