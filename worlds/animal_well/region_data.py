@@ -65,7 +65,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_virtual:  # sneaky passage in the top left of the screen with the penguin hedges
             AWData(AWType.location),
         rname.match_above_egg_room:
-            AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball_tricky]]),
+            AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball, iname.weird_tricks]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
@@ -73,7 +73,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.bird_flute_chest: {
         lname.activate_bird_fast_travel:
-            AWData(AWType.location, [[iname.flute]], event=iname.activated_bird_fast_travel)
+            AWData(AWType.location, [[iname.flute]], event=iname.activated_bird_fast_travel),
+        lname.flute_chest:
+            AWData(AWType.location),
         # path to egg room isn't relevant since it's sphere 1
     },
     rname.bird_capybara_waterfall: {
@@ -205,9 +207,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bobcat_room:
             AWData(AWType.region, [[iname.top]]), 
         lname.candle_fish:  # spike breaking presumed by access
-            AWData(AWType.location, [[iname.disc], [iname.bubble]], loc_type="candle"),
+            AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
+                   loc_type="candle"),
         lname.candle_fish_event:  # spike breaking presumed by access
-            AWData(AWType.location, [[iname.disc], [iname.bubble]], event=iname.event_candle_penguin),
+            AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
+                   event=iname.event_candle_penguin),
         lname.egg_goodnight:
             AWData(AWType.location, [[iname.can_defeat_ghost], [iname.event_candle_penguin]]),
     },
@@ -290,9 +294,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bear_chameleon_room_1:
             AWData(AWType.region),
         lname.candle_bear:
-            AWData(AWType.location, [[iname.bubble], [iname.disc]], loc_type="candle"),
+            AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
+                   loc_type="candle"),
         lname.candle_bear_event:
-            AWData(AWType.location, [[iname.bubble], [iname.disc]], event=iname.event_candle_bear),
+            AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
+                   event=iname.event_candle_bear),
         lname.egg_lf:
             AWData(AWType.location, [[iname.firecrackers]]),
     },
@@ -345,9 +351,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_chaos:  # in the room with the monkey that throws rocks at you
             AWData(AWType.location),
         rname.bear_crow_rooms:
-            AWData(AWType.region, [[iname.slink], [iname.ball_tricky]]),
-        rname.bear_match_chest_spot:  # oh hell yeah this is a cool one
-            AWData(AWType.region, [[iname.ball_tricky, iname.disc, iname.weird_skips]]),
+            AWData(AWType.region, [[iname.slink], [iname.ball, iname.weird_tricks]]),
+        rname.bear_match_chest_spot:  # ride a disc, then jump off and throw the ball to the button
+            AWData(AWType.region, [[iname.ball, iname.disc, iname.weird_tricks]]),
     },
     rname.bear_crow_rooms: {
         rname.bear_shadow_egg_spot:  # get across the room with the lifters and the miasma
@@ -355,7 +361,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.bunny_crow:  # it jumps down after a moment
             AWData(AWType.location, [[iname.flute]], loc_type="bunny"),
         rname.bear_hedgehog_square:  # slink needed for puzzle to get to the button
-            AWData(AWType.region, [[iname.slink], [iname.ball_tricky]]),
+            AWData(AWType.region, [[iname.slink], [iname.ball, iname.weird_tricks]]),
     },
     rname.bear_shadow_egg_spot: {
         lname.egg_shadow:
@@ -378,7 +384,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # through the miasma. Will we call this bubble_short?
         rname.bear_match_chest_spot:
             AWData(AWType.region, [[iname.slink], [iname.bubble, iname.tanking_damage],
-                                   [iname.disc, iname.tanking_damage, iname.weird_skips]]),
+                                   [iname.disc, iname.tanking_damage, iname.weird_tricks]]),
     },
     rname.bear_match_chest_spot: {
         lname.match_bear:
@@ -435,7 +441,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_dark),
         rname.dog_chinchilla_skull:  # hit a switch with any number of things, or bubble up there yourself
             AWData(AWType.region, [[iname.bubble], [iname.remote], [iname.disc], [iname.ball],
-                                   [iname.top, iname.weird_skips]]),
+                                   [iname.top, iname.weird_tricks]]),
         rname.dog_upside_down_egg_spot:  # upper right of switch platform room above second dog
             AWData(AWType.region, [[iname.bubble_short]]),
         rname.dog_at_mock_disc:  # you drop down to here, but can't get back up immediately
@@ -452,6 +458,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.remote]]),
     },
     rname.dog_at_mock_disc: {
+        lname.mock_disc_chest:
+            AWData(AWType.location),
         rname.dog_area:  # can leave by letting the dachshund chase you out
             AWData(AWType.region),
         lname.egg_sour:  # when escaping the dachsund, jump up and right out of the tunnel
@@ -525,7 +533,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         lname.egg_crystal:  # my worst one yet
             AWData(AWType.location, [[iname.top, iname.ball, iname.remote, iname.wheel, iname.slink],
-                                     [iname.ball, iname.remote, iname.wheel, iname.disc, iname.weird_skips]]),
+                                     [iname.ball, iname.remote, iname.wheel, iname.disc, iname.weird_tricks]]),
     },
     rname.dog_swordfish_lake_ledge: {
         rname.dog_fast_travel_room:
@@ -533,7 +541,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_forbidden:
             AWData(AWType.location, [[iname.disc], [iname.bubble_long]]),
         lname.bunny_disc_spike:  # not disc hop since you literally need to do this
-            AWData(AWType.location, [[iname.disc], [iname.bubble_long, iname.wheel_hop, iname.weird_skips]],
+            AWData(AWType.location, [[iname.disc], [iname.bubble_long, iname.wheel_hop, iname.weird_tricks]],
                    loc_type="bunny"),
         rname.behind_kangaroo:
             AWData(AWType.region, [[iname.slink]]),
@@ -713,7 +721,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.frog_bird_after_yoyo_2:  # pain in the ass, but you can get up with downwards bubbles
             AWData(AWType.region, [[iname.yoyo], [iname.bubble_long]]),
         rname.frog_worm_shaft_bottom:  # if you fall along the left side, the bird doesn't reach you in time
-            AWData(AWType.region, [[iname.weird_skips], [iname.lantern]]),
+            AWData(AWType.region, [[iname.weird_tricks], [iname.lantern]]),
         lname.egg_sapphire:
             AWData(AWType.location, [[iname.lantern]]),
     },
@@ -803,6 +811,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     rname.hippo_fireworks: {
         lname.victory_first:
             AWData(AWType.location, event=iname.victory),
+        lname.key_house:
+            AWData(AWType.location),
         rname.home:
             AWData(AWType.region, [[iname.house_key]]),
         rname.hippo_skull_room:

@@ -250,9 +250,8 @@ class ItemNames(str, Enum):
     wheel_hop = "Wheel Jump"  # expanding and retracting wheel midair to grant a double jump
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
-    ball_tricky = "Ball Tricky"  # for hitting things with the ball that aren't obviously meant to be
     tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
-    weird_skips = "Weird Skips"  # skips that are questionably in logic and may constitute a difficulty setting later
+    weird_tricks = "Weird Tricks"  # skips that are questionably in logic and may constitute a difficulty setting later
 
     # songs, to potentially be randomized
     song_home = "Top of the Well Song"
@@ -284,8 +283,8 @@ class LocationNames(str, Enum):
     uv_lantern_chest = "UV Lantern Chest"
     wheel_chest = "Wheel Chest"
     top_chest = "Top Chest"
-    bb_wand_chest = "B. B. Wand Chest"
-    firecracker_first = "Pick Up Firecrackers"
+    bb_wand_chest = "B.B. Wand Chest"
+    # firecracker_first = "Pick Up Firecrackers"
     fanny_pack_chest = "Fanny Pack Chest"
     key_house = "House Key Drop"
     key_office = "Office Key Chest"
@@ -446,4 +445,6 @@ class LocationNames(str, Enum):
     light_all_candles = "Light All Candles"
     got_all_matches = "Received All Matches"  # for when you get all of the matches, consumables logic is cool
     got_all_keys = "Received All Keys"  # for when you get all of the keys, consumables logic is cool
+    upgraded_wand = "Upgraded to B.B. Wand"  # for when you get your second b wand, this is a hack
+    k_medal = "Assembled the K. Medal"
     victory_first = "First Victory"

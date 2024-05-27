@@ -6,7 +6,7 @@ from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, 
 class Goal(Choice):
     """
     What you need to do to beat the game.
-    Fireworks requires you to get the 4 flames and defeat the Manticore. The House Key item is removed from the item pool.
+    Fireworks requires you to get the 4 flames and defeat the Manticore. The House Key is placed in its vanilla location.
     Bunny Land requires you to find the 65th Egg, bring it to the incubator, and leave the Well.
     Egg Hunt requires you to collect the amount of eggs you need to open the 4th Egg Door, then open the chest inside.
     """
@@ -48,7 +48,7 @@ class BunniesAsChecks(Choice):
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
     option_off = 0
-    # option_exclude_tedious = 1
+    # option_exclude_tedious = 1  # figure out which are tedious
     # option_all_bunnies = 2
     default = 0
 
@@ -115,6 +115,16 @@ class WheelHopping(Toggle):
     display_name = "Wheel Hopping"
 
 
+class WeirdTricks(Toggle):
+    """
+    Include performing "weird" tricks in the logic.
+    Some of these tricks are difficult, tedious, or inconsistent.
+    Use at your own risk.
+    """
+    internal_name = "weird_tricks"
+    display_name = "Weird Tricks"
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -128,6 +138,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     bubble_jumping: BubbleJumping
     disc_hopping: DiscHopping
     wheel_hopping: WheelHopping
+    weird_tricks: WeirdTricks
 
 
 aw_option_groups = [
@@ -135,5 +146,6 @@ aw_option_groups = [
         BubbleJumping,
         DiscHopping,
         WheelHopping,
+        WeirdTricks,
     ])
 ]
