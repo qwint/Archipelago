@@ -31,7 +31,7 @@ class AWLocations:
         # major items
         self.b_wand_chest = False
         self.bb_wand_chest = False
-        self.disc_spot = False  # TODO disc logic
+        self.disc_spot = False
         self.yoyo_chest = False
         self.slink_chest = False
         self.flute_chest = False
@@ -41,9 +41,8 @@ class AWLocations:
         self.b_ball_chest = False
         self.remote_chest = False
         self.wheel_chest = False
-        # self.firecracker_first = False
 
-        self.mock_disc_chest = False  # TODO possession logic
+        self.mock_disc_chest = False
         self.fanny_pack_chest = False
 
         self.match_start_ceiling = False
@@ -56,14 +55,14 @@ class AWLocations:
         self.match_guard_room = False
         self.match_under_mouse_statue = False
 
-        self.key_bear_lower = False  # TODO find out how many doors have been unlocked
-        self.key_bear_upper = False  # TODO find out how many doors have been unlocked
-        self.key_chest_mouse_head_lever = False  # TODO find out how many doors have been unlocked
-        self.key_frog_guard_room_west = False  # TODO find out how many doors have been unlocked
-        self.key_frog_guard_room_east = False  # TODO find out how many doors have been unlocked
-        self.key_dog = False  # TODO find out how many doors have been unlocked
-        self.key_house = False  # TODO house key logic
-        self.key_office = False  # TODO office key logic
+        self.key_bear_lower = False
+        self.key_bear_upper = False
+        self.key_chest_mouse_head_lever = False
+        self.key_frog_guard_room_west = False
+        self.key_frog_guard_room_east = False
+        self.key_dog = False
+        self.key_house = False
+        self.key_office = False
 
         self.medal_e = False
         self.medal_s = False
@@ -147,9 +146,9 @@ class AWLocations:
         self.egg_65 = False
 
         # map things
-        self.map_chest = False  # TODO map things logic
-        self.stamp_chest = False  # TODO map things logic
-        self.pencil_chest = False  # TODO map things logic
+        self.map_chest = False
+        self.stamp_chest = False
+        self.pencil_chest = False
 
         # bnnnnuyuy
         self.bunny_barcode = False  # TODO bunny logic
@@ -230,7 +229,7 @@ class AWLocations:
         self.egg_chaos = bool(flags >> 14 & 1)
         self.b_ball_chest = bool(flags >> 15 & 1)  # TODO VERIFY
 
-        # self.key_dog = bool(flags >> 16 & 1)  # TODO VERIFY
+        self.key_dog = bool(flags >> 16 & 1)  # TODO VERIFY
         self.egg_upside_down = bool(flags >> 17 & 1)  # TODO VERIFY
         self.egg_evil = bool(flags >> 18 & 1)  # TODO VERIFY
         self.match_dog_upper_east = bool(flags >> 19 & 1)
@@ -242,7 +241,7 @@ class AWLocations:
         self.egg_plant = bool(flags >> 24 & 1)
         self.egg_red = bool(flags >> 25 & 1)
         self.egg_orange = bool(flags >> 26 & 1)  # TODO VERIFY
-        # self.mock_disc_chest = bool(flags >> 27 & 1)  # TODO possession logic VERIFY
+        self.mock_disc_chest = bool(flags >> 27 & 1)  # TODO VERIFY
         self.egg_sour = bool(flags >> 28 & 1)
         self.egg_post_modern = bool(flags >> 29 & 1)
         self.slink_chest = bool(flags >> 30 & 1)
@@ -250,12 +249,12 @@ class AWLocations:
 
         self.egg_lf = bool(flags >> 32 & 1)  # TODO VERIFY
         self.egg_zen = bool(flags >> 33 & 1)
-        # self.key_bear_upper = bool(flags >> 34 & 1)  # TODO find out how many doors have been unlocked
+        self.key_bear_upper = bool(flags >> 34 & 1)  # TODO
         self.egg_future = bool(flags >> 35 & 1)  # TODO VERIFY
         self.egg_friendship = bool(flags >> 36 & 1)
-        # self.disc_spot = bool(flags >> 37 & 1)  # TODO VERIFY
+        self.disc_spot = bool(flags >> 37 & 1)  # TODO VERIFY
         self.match_above_egg_room = bool(flags >> 38 & 1)  # TODO VERIFY
-        # self.key_office = bool(flags >> 39 & 1)  # TODO VERIFY
+        self.key_office = bool(flags >> 39 & 1)  # TODO VERIFY
 
         self.egg_truth = bool(flags >> 40 & 1)  # TODO VERIFY
         self.egg_transcendental = bool(flags >> 41 & 1)  # TODO VERIFY
@@ -266,13 +265,13 @@ class AWLocations:
         self.flute_chest = bool(flags >> 46 & 1)  # TODO VERIFY
         self.egg_65 = bool(flags >> 47 & 1)
 
-        # self.stamp_chest = bool(flags >> 48 & 1)  # TODO VERIFY
-        # self.pencil_chest = bool(flags >> 49 & 1)  # TODO VERIFY
+        self.stamp_chest = bool(flags >> 48 & 1)  # TODO VERIFY
+        self.pencil_chest = bool(flags >> 49 & 1)  # TODO VERIFY
         self.top_chest = bool(flags >> 50 & 1)  # TODO VERIFY
         self.egg_holiday = bool(flags >> 51 & 1)  # TODO VERIFY
         self.egg_rain = bool(flags >> 52 & 1)  # TODO VERIFY
         self.egg_razzle = bool(flags >> 53 & 1)
-        # self.key_bear_lower = bool(flags >> 54 & 1)  # TODO find out how many doors have been unlocked VERIFY
+        self.key_bear_lower = bool(flags >> 54 & 1)  # TODO VERIFY
         self.egg_dazzle = bool(flags >> 55 & 1)
 
         self.match_fish_mural = bool(flags >> 56 & 1)  # TODO VERIFY
@@ -280,8 +279,8 @@ class AWLocations:
         self.egg_normal = bool(flags >> 58 & 1)
         self.egg_great = bool(flags >> 59 & 1)
         self.egg_gorgeous = bool(flags >> 60 & 1)
-        # self.map_chest = bool(flags >> 61 & 1)
-        # self.key_chest_mouse_head_lever = bool(flags >> 62 & 1)  # TODO find out how many doors have been unlocked VERIFY
+        self.map_chest = bool(flags >> 61 & 1)
+        self.key_chest_mouse_head_lever = bool(flags >> 62 & 1)  # TODO VERIFY
         self.match_under_mouse_statue = bool(flags >> 63 & 1)  # TODO VERIFY
 
         self.egg_planet = bool(flags >> 64 & 1)  # TODO VERIFY
@@ -304,8 +303,8 @@ class AWLocations:
 
         self.egg_clover = bool(flags >> 80 & 1)
         self.match_guard_room = bool(flags >> 81 & 1)  # TODO VERIFY
-        # self.key_frog_guard_room_west = bool(flags >> 82 & 1)  # TODO find out how many doors have been unlocked VERIFY
-        # self.key_frog_guard_room_east = bool(flags >> 83 & 1)  # TODO find out how many doors have been unlocked VERIFY
+        self.key_frog_guard_room_west = bool(flags >> 82 & 1)  # TODO VERIFY
+        self.key_frog_guard_room_east = bool(flags >> 83 & 1)  # TODO VERIFY
         self.egg_brick = bool(flags >> 84 & 1)  # TODO VERIFY
         self.egg_neon = bool(flags >> 85 & 1)  # TODO VERIFY
         self.remote_chest = bool(flags >> 86 & 1)  # TODO VERIFY
@@ -331,167 +330,292 @@ class AWLocations:
         Write checked locations to archipelago
         """
         # major items
-        if self.b_wand_chest: ctx.locations_checked.append(lname.b_wand_chest)
-        if self.bb_wand_chest: ctx.locations_checked.append(lname.bb_wand_chest)
-        if self.disc_spot: ctx.locations_checked.append(lname.disc_spot)  # TODO disc logic
-        if self.yoyo_chest: ctx.locations_checked.append(lname.yoyo_chest)
-        if self.slink_chest: ctx.locations_checked.append(lname.slink_chest)
-        if self.flute_chest: ctx.locations_checked.append(lname.flute_chest)
-        if self.top_chest: ctx.locations_checked.append(lname.top_chest)
-        if self.lantern_chest: ctx.locations_checked.append(lname.lantern_chest)
-        if self.uv_lantern_chest: ctx.locations_checked.append(lname.uv_lantern_chest)
-        if self.b_ball_chest: ctx.locations_checked.append(lname.b_ball_chest)
-        if self.remote_chest: ctx.locations_checked.append(lname.remote_chest)
-        if self.wheel_chest: ctx.locations_checked.append(lname.wheel_chest)
-        # if self.firecracker_first: ctx.locations_checked.append(lname.firecracker_first)
+        if self.b_wand_chest:
+            ctx.locations_checked.append(lname.b_wand_chest)
+        if self.bb_wand_chest:
+            ctx.locations_checked.append(lname.bb_wand_chest)
+        if self.disc_spot:
+            ctx.locations_checked.append(lname.disc_spot)
+        if self.yoyo_chest:
+            ctx.locations_checked.append(lname.yoyo_chest)
+        if self.slink_chest:
+            ctx.locations_checked.append(lname.slink_chest)
+        if self.flute_chest:
+            ctx.locations_checked.append(lname.flute_chest)
+        if self.top_chest:
+            ctx.locations_checked.append(lname.top_chest)
+        if self.lantern_chest:
+            ctx.locations_checked.append(lname.lantern_chest)
+        if self.uv_lantern_chest:
+            ctx.locations_checked.append(lname.uv_lantern_chest)
+        if self.b_ball_chest:
+            ctx.locations_checked.append(lname.b_ball_chest)
+        if self.remote_chest:
+            ctx.locations_checked.append(lname.remote_chest)
+        if self.wheel_chest:
+            ctx.locations_checked.append(lname.wheel_chest)
 
-        if self.mock_disc_chest: ctx.locations_checked.append(lname.mock_disc_chest)  # TODO possession logic
-        if self.fanny_pack_chest: ctx.locations_checked.append(lname.fanny_pack_chest)
+        if self.mock_disc_chest:
+            ctx.locations_checked.append(lname.mock_disc_chest)
+        if self.fanny_pack_chest:
+            ctx.locations_checked.append(lname.fanny_pack_chest)
 
-        if self.match_start_ceiling: ctx.locations_checked.append(lname.match_start_ceiling)
-        if self.match_fish_mural: ctx.locations_checked.append(lname.match_fish_mural)
-        if self.match_dog_switch_bounce: ctx.locations_checked.append(lname.match_dog_switch_bounce)
-        if self.match_dog_upper_east: ctx.locations_checked.append(lname.match_dog_upper_east)
-        if self.match_bear: ctx.locations_checked.append(lname.match_bear)
-        if self.match_above_egg_room: ctx.locations_checked.append(lname.match_above_egg_room)
-        if self.match_center_well: ctx.locations_checked.append(lname.match_center_well)
-        if self.match_guard_room: ctx.locations_checked.append(lname.match_guard_room)
-        if self.match_under_mouse_statue: ctx.locations_checked.append(lname.match_under_mouse_statue)
+        if self.match_start_ceiling:
+            ctx.locations_checked.append(lname.match_start_ceiling)
+        if self.match_fish_mural:
+            ctx.locations_checked.append(lname.match_fish_mural)
+        if self.match_dog_switch_bounce:
+            ctx.locations_checked.append(lname.match_dog_switch_bounce)
+        if self.match_dog_upper_east:
+            ctx.locations_checked.append(lname.match_dog_upper_east)
+        if self.match_bear:
+            ctx.locations_checked.append(lname.match_bear)
+        if self.match_above_egg_room:
+            ctx.locations_checked.append(lname.match_above_egg_room)
+        if self.match_center_well:
+            ctx.locations_checked.append(lname.match_center_well)
+        if self.match_guard_room:
+            ctx.locations_checked.append(lname.match_guard_room)
+        if self.match_under_mouse_statue:
+            ctx.locations_checked.append(lname.match_under_mouse_statue)
 
-        if self.key_bear_lower: ctx.locations_checked.append(
-            lname.key_bear_lower)  # TODO find out how many doors have been unlocked
-        if self.key_bear_upper: ctx.locations_checked.append(
-            lname.key_bear_upper)  # TODO find out how many doors have been unlocked
-        if self.key_chest_mouse_head_lever: ctx.locations_checked.append(
-            lname.key_chest_mouse_head_lever)  # TODO find out how many doors have been unlocked
-        if self.key_frog_guard_room_west: ctx.locations_checked.append(
-            lname.key_frog_guard_room_west)  # TODO find out how many doors have been unlocked
-        if self.key_frog_guard_room_east: ctx.locations_checked.append(
-            lname.key_frog_guard_room_east)  # TODO find out how many doors have been unlocked
-        if self.key_dog: ctx.locations_checked.append(lname.key_dog)  # TODO find out how many doors have been unlocked
-        if self.key_house: ctx.locations_checked.append(lname.key_house)  # TODO house key logic
-        if self.key_office: ctx.locations_checked.append(lname.key_office)  # TODO office key logic
+        if self.key_bear_lower:
+            ctx.locations_checked.append(lname.key_bear_lower)
+        if self.key_bear_upper:
+            ctx.locations_checked.append(lname.key_bear_upper)
+        if self.key_chest_mouse_head_lever:
+            ctx.locations_checked.append(lname.key_chest_mouse_head_lever)
+        if self.key_frog_guard_room_west:
+            ctx.locations_checked.append(lname.key_frog_guard_room_west)
+        if self.key_frog_guard_room_east:
+            ctx.locations_checked.append(lname.key_frog_guard_room_east)
+        if self.key_dog:
+            ctx.locations_checked.append(lname.key_dog)
+        if self.key_house:
+            ctx.locations_checked.append(lname.key_house)
+        if self.key_office:
+            ctx.locations_checked.append(lname.key_office)
 
-        if self.medal_e: ctx.locations_checked.append(lname.medal_e)
-        if self.medal_s: ctx.locations_checked.append(lname.medal_s)
-        if self.medal_k: ctx.locations_checked.append(lname.medal_k)  # TODO K shard logic
+        if self.medal_e:
+            ctx.locations_checked.append(lname.medal_e)
+        if self.medal_s:
+            ctx.locations_checked.append(lname.medal_s)
+        if self.medal_k:
+            ctx.locations_checked.append(lname.medal_k)
 
-        if self.flame_blue: ctx.locations_checked.append(lname.flame_blue)  # TODO flame logic
-        if self.flame_green: ctx.locations_checked.append(lname.flame_green)  # TODO flame logic
-        if self.flame_violet: ctx.locations_checked.append(lname.flame_violet)  # TODO flame logic
-        if self.flame_pink: ctx.locations_checked.append(lname.flame_pink)  # TODO flame logic
+        if self.flame_blue:
+            ctx.locations_checked.append(lname.flame_blue)
+        if self.flame_green:
+            ctx.locations_checked.append(lname.flame_green)
+        if self.flame_violet:
+            ctx.locations_checked.append(lname.flame_violet)
+        if self.flame_pink:
+            ctx.locations_checked.append(lname.flame_pink)
 
         # eggs, sorted by row top-to-bottom
-        if self.egg_reference: ctx.locations_checked.append(lname.egg_reference)
-        if self.egg_brown: ctx.locations_checked.append(lname.egg_brown)
-        if self.egg_raw: ctx.locations_checked.append(lname.egg_raw)
-        if self.egg_pickled: ctx.locations_checked.append(lname.egg_pickled)
-        if self.egg_big: ctx.locations_checked.append(lname.egg_big)
-        if self.egg_swan: ctx.locations_checked.append(lname.egg_swan)
-        if self.egg_forbidden: ctx.locations_checked.append(lname.egg_forbidden)
-        if self.egg_shadow: ctx.locations_checked.append(lname.egg_shadow)
-        if self.egg_vanity: ctx.locations_checked.append(lname.egg_vanity)
-        if self.egg_service: ctx.locations_checked.append(lname.egg_service)
+        if self.egg_reference:
+            ctx.locations_checked.append(lname.egg_reference)
+        if self.egg_brown:
+            ctx.locations_checked.append(lname.egg_brown)
+        if self.egg_raw:
+            ctx.locations_checked.append(lname.egg_raw)
+        if self.egg_pickled:
+            ctx.locations_checked.append(lname.egg_pickled)
+        if self.egg_big:
+            ctx.locations_checked.append(lname.egg_big)
+        if self.egg_swan:
+            ctx.locations_checked.append(lname.egg_swan)
+        if self.egg_forbidden:
+            ctx.locations_checked.append(lname.egg_forbidden)
+        if self.egg_shadow:
+            ctx.locations_checked.append(lname.egg_shadow)
+        if self.egg_vanity:
+            ctx.locations_checked.append(lname.egg_vanity)
+        if self.egg_service:
+            ctx.locations_checked.append(lname.egg_service)
 
-        if self.egg_depraved: ctx.locations_checked.append(lname.egg_depraved)
-        if self.egg_chaos: ctx.locations_checked.append(lname.egg_chaos)
-        if self.egg_upside_down: ctx.locations_checked.append(lname.egg_upside_down)
-        if self.egg_evil: ctx.locations_checked.append(lname.egg_evil)
-        if self.egg_sweet: ctx.locations_checked.append(lname.egg_sweet)
-        if self.egg_chocolate: ctx.locations_checked.append(lname.egg_chocolate)
-        if self.egg_value: ctx.locations_checked.append(lname.egg_value)
-        if self.egg_plant: ctx.locations_checked.append(lname.egg_plant)
-        if self.egg_red: ctx.locations_checked.append(lname.egg_red)
-        if self.egg_orange: ctx.locations_checked.append(lname.egg_orange)
-        if self.egg_sour: ctx.locations_checked.append(lname.egg_sour)
-        if self.egg_post_modern: ctx.locations_checked.append(lname.egg_post_modern)
+        if self.egg_depraved:
+            ctx.locations_checked.append(lname.egg_depraved)
+        if self.egg_chaos:
+            ctx.locations_checked.append(lname.egg_chaos)
+        if self.egg_upside_down:
+            ctx.locations_checked.append(lname.egg_upside_down)
+        if self.egg_evil:
+            ctx.locations_checked.append(lname.egg_evil)
+        if self.egg_sweet:
+            ctx.locations_checked.append(lname.egg_sweet)
+        if self.egg_chocolate:
+            ctx.locations_checked.append(lname.egg_chocolate)
+        if self.egg_value:
+            ctx.locations_checked.append(lname.egg_value)
+        if self.egg_plant:
+            ctx.locations_checked.append(lname.egg_plant)
+        if self.egg_red:
+            ctx.locations_checked.append(lname.egg_red)
+        if self.egg_orange:
+            ctx.locations_checked.append(lname.egg_orange)
+        if self.egg_sour:
+            ctx.locations_checked.append(lname.egg_sour)
+        if self.egg_post_modern:
+            ctx.locations_checked.append(lname.egg_post_modern)
 
-        if self.egg_universal: ctx.locations_checked.append(lname.egg_universal)
-        if self.egg_lf: ctx.locations_checked.append(lname.egg_lf)
-        if self.egg_zen: ctx.locations_checked.append(lname.egg_zen)
-        if self.egg_future: ctx.locations_checked.append(lname.egg_future)
-        if self.egg_friendship: ctx.locations_checked.append(lname.egg_friendship)
-        if self.egg_truth: ctx.locations_checked.append(lname.egg_truth)
-        if self.egg_transcendental: ctx.locations_checked.append(lname.egg_transcendental)
-        if self.egg_ancient: ctx.locations_checked.append(lname.egg_ancient)
-        if self.egg_magic: ctx.locations_checked.append(lname.egg_magic)
-        if self.egg_mystic: ctx.locations_checked.append(lname.egg_mystic)
-        if self.egg_holiday: ctx.locations_checked.append(lname.egg_holiday)
-        if self.egg_rain: ctx.locations_checked.append(lname.egg_rain)
-        if self.egg_razzle: ctx.locations_checked.append(lname.egg_razzle)
-        if self.egg_dazzle: ctx.locations_checked.append(lname.egg_dazzle)
+        if self.egg_universal:
+            ctx.locations_checked.append(lname.egg_universal)
+        if self.egg_lf:
+            ctx.locations_checked.append(lname.egg_lf)
+        if self.egg_zen:
+            ctx.locations_checked.append(lname.egg_zen)
+        if self.egg_future:
+            ctx.locations_checked.append(lname.egg_future)
+        if self.egg_friendship:
+            ctx.locations_checked.append(lname.egg_friendship)
+        if self.egg_truth:
+            ctx.locations_checked.append(lname.egg_truth)
+        if self.egg_transcendental:
+            ctx.locations_checked.append(lname.egg_transcendental)
+        if self.egg_ancient:
+            ctx.locations_checked.append(lname.egg_ancient)
+        if self.egg_magic:
+            ctx.locations_checked.append(lname.egg_magic)
+        if self.egg_mystic:
+            ctx.locations_checked.append(lname.egg_mystic)
+        if self.egg_holiday:
+            ctx.locations_checked.append(lname.egg_holiday)
+        if self.egg_rain:
+            ctx.locations_checked.append(lname.egg_rain)
+        if self.egg_razzle:
+            ctx.locations_checked.append(lname.egg_razzle)
+        if self.egg_dazzle:
+            ctx.locations_checked.append(lname.egg_dazzle)
 
-        if self.egg_virtual: ctx.locations_checked.append(lname.egg_virtual)
-        if self.egg_normal: ctx.locations_checked.append(lname.egg_normal)
-        if self.egg_great: ctx.locations_checked.append(lname.egg_great)
-        if self.egg_gorgeous: ctx.locations_checked.append(lname.egg_gorgeous)
-        if self.egg_planet: ctx.locations_checked.append(lname.egg_planet)
-        if self.egg_moon: ctx.locations_checked.append(lname.egg_moon)
-        if self.egg_galaxy: ctx.locations_checked.append(lname.egg_galaxy)
-        if self.egg_sunset: ctx.locations_checked.append(lname.egg_sunset)
-        if self.egg_goodnight: ctx.locations_checked.append(lname.egg_goodnight)
-        if self.egg_dream: ctx.locations_checked.append(lname.egg_dream)
-        if self.egg_travel: ctx.locations_checked.append(lname.egg_travel)
-        if self.egg_promise: ctx.locations_checked.append(lname.egg_promise)
-        if self.egg_ice: ctx.locations_checked.append(lname.egg_ice)
-        if self.egg_fire: ctx.locations_checked.append(lname.egg_fire)
+        if self.egg_virtual:
+            ctx.locations_checked.append(lname.egg_virtual)
+        if self.egg_normal:
+            ctx.locations_checked.append(lname.egg_normal)
+        if self.egg_great:
+            ctx.locations_checked.append(lname.egg_great)
+        if self.egg_gorgeous:
+            ctx.locations_checked.append(lname.egg_gorgeous)
+        if self.egg_planet:
+            ctx.locations_checked.append(lname.egg_planet)
+        if self.egg_moon:
+            ctx.locations_checked.append(lname.egg_moon)
+        if self.egg_galaxy:
+            ctx.locations_checked.append(lname.egg_galaxy)
+        if self.egg_sunset:
+            ctx.locations_checked.append(lname.egg_sunset)
+        if self.egg_goodnight:
+            ctx.locations_checked.append(lname.egg_goodnight)
+        if self.egg_dream:
+            ctx.locations_checked.append(lname.egg_dream)
+        if self.egg_travel:
+            ctx.locations_checked.append(lname.egg_travel)
+        if self.egg_promise:
+            ctx.locations_checked.append(lname.egg_promise)
+        if self.egg_ice:
+            ctx.locations_checked.append(lname.egg_ice)
+        if self.egg_fire:
+            ctx.locations_checked.append(lname.egg_fire)
 
-        if self.egg_bubble: ctx.locations_checked.append(lname.egg_bubble)
-        if self.egg_desert: ctx.locations_checked.append(lname.egg_desert)
-        if self.egg_clover: ctx.locations_checked.append(lname.egg_clover)
-        if self.egg_brick: ctx.locations_checked.append(lname.egg_brick)
-        if self.egg_neon: ctx.locations_checked.append(lname.egg_neon)
-        if self.egg_iridescent: ctx.locations_checked.append(lname.egg_iridescent)
-        if self.egg_rust: ctx.locations_checked.append(lname.egg_rust)
-        if self.egg_scarlet: ctx.locations_checked.append(lname.egg_scarlet)
-        if self.egg_sapphire: ctx.locations_checked.append(lname.egg_sapphire)
-        if self.egg_ruby: ctx.locations_checked.append(lname.egg_ruby)
-        if self.egg_jade: ctx.locations_checked.append(lname.egg_jade)
-        if self.egg_obsidian: ctx.locations_checked.append(lname.egg_obsidian)
-        if self.egg_crystal: ctx.locations_checked.append(lname.egg_crystal)
-        if self.egg_golden: ctx.locations_checked.append(lname.egg_golden)
+        if self.egg_bubble:
+            ctx.locations_checked.append(lname.egg_bubble)
+        if self.egg_desert:
+            ctx.locations_checked.append(lname.egg_desert)
+        if self.egg_clover:
+            ctx.locations_checked.append(lname.egg_clover)
+        if self.egg_brick:
+            ctx.locations_checked.append(lname.egg_brick)
+        if self.egg_neon:
+            ctx.locations_checked.append(lname.egg_neon)
+        if self.egg_iridescent:
+            ctx.locations_checked.append(lname.egg_iridescent)
+        if self.egg_rust:
+            ctx.locations_checked.append(lname.egg_rust)
+        if self.egg_scarlet:
+            ctx.locations_checked.append(lname.egg_scarlet)
+        if self.egg_sapphire:
+            ctx.locations_checked.append(lname.egg_sapphire)
+        if self.egg_ruby:
+            ctx.locations_checked.append(lname.egg_ruby)
+        if self.egg_jade:
+            ctx.locations_checked.append(lname.egg_jade)
+        if self.egg_obsidian:
+            ctx.locations_checked.append(lname.egg_obsidian)
+        if self.egg_crystal:
+            ctx.locations_checked.append(lname.egg_crystal)
+        if self.egg_golden:
+            ctx.locations_checked.append(lname.egg_golden)
 
-        if self.egg_65: ctx.locations_checked.append(lname.egg_65)
+        if self.egg_65:
+            ctx.locations_checked.append(lname.egg_65)
 
         # map things
-        if self.map_chest: ctx.locations_checked.append(lname.map_chest)  # TODO map things logic
-        if self.stamp_chest: ctx.locations_checked.append(lname.stamp_chest)  # TODO map things logic
-        if self.pencil_chest: ctx.locations_checked.append(lname.pencil_chest)  # TODO map things logic
+        if self.map_chest:
+            ctx.locations_checked.append(lname.map_chest)
+        if self.stamp_chest:
+            ctx.locations_checked.append(lname.stamp_chest)
+        if self.pencil_chest:
+            ctx.locations_checked.append(lname.pencil_chest)
 
         # bnnnnuyuy
-        if self.bunny_barcode: ctx.locations_checked.append(lname.bunny_barcode)  # TODO bunny logic
-        if self.bunny_chinchilla_vine: ctx.locations_checked.append(lname.bunny_chinchilla_vine)  # TODO bunny logic
-        if self.bunny_crow: ctx.locations_checked.append(lname.bunny_crow)  # TODO bunny logic
-        if self.bunny_disc_spike: ctx.locations_checked.append(lname.bunny_disc_spike)  # TODO bunny logic
-        if self.bunny_dream: ctx.locations_checked.append(lname.bunny_dream)  # TODO bunny logic
-        if self.bunny_duck: ctx.locations_checked.append(lname.bunny_duck)  # TODO bunny logic
-        if self.bunny_face: ctx.locations_checked.append(lname.bunny_face)  # TODO bunny logic
-        if self.bunny_file_bud: ctx.locations_checked.append(lname.bunny_file_bud)  # TODO bunny logic
-        if self.bunny_fish: ctx.locations_checked.append(lname.bunny_fish)  # TODO bunny logic
-        if self.bunny_ghost_dog: ctx.locations_checked.append(lname.bunny_ghost_dog)  # TODO bunny logic
-        if self.bunny_lava: ctx.locations_checked.append(lname.bunny_lava)  # TODO bunny logic
-        if self.bunny_map: ctx.locations_checked.append(lname.bunny_map)  # TODO bunny logic
-        if self.bunny_mural: ctx.locations_checked.append(lname.bunny_mural)  # TODO bunny logic
-        if self.bunny_tv: ctx.locations_checked.append(lname.bunny_tv)  # TODO bunny logic
-        if self.bunny_uv: ctx.locations_checked.append(lname.bunny_uv)  # TODO bunny logic
-        if self.bunny_water_spike: ctx.locations_checked.append(lname.bunny_water_spike)  # TODO bunny logic
+        if self.bunny_barcode:
+            ctx.locations_checked.append(lname.bunny_barcode)
+        if self.bunny_chinchilla_vine:
+            ctx.locations_checked.append(lname.bunny_chinchilla_vine)
+        if self.bunny_crow:
+            ctx.locations_checked.append(lname.bunny_crow)
+        if self.bunny_disc_spike:
+            ctx.locations_checked.append(lname.bunny_disc_spike)
+        if self.bunny_dream:
+            ctx.locations_checked.append(lname.bunny_dream)
+        if self.bunny_duck:
+            ctx.locations_checked.append(lname.bunny_duck)
+        if self.bunny_face:
+            ctx.locations_checked.append(lname.bunny_face)
+        if self.bunny_file_bud:
+            ctx.locations_checked.append(lname.bunny_file_bud)
+        if self.bunny_fish:
+            ctx.locations_checked.append(lname.bunny_fish)
+        if self.bunny_ghost_dog:
+            ctx.locations_checked.append(lname.bunny_ghost_dog)
+        if self.bunny_lava:
+            ctx.locations_checked.append(lname.bunny_lava)
+        if self.bunny_map:
+            ctx.locations_checked.append(lname.bunny_map)
+        if self.bunny_mural:
+            ctx.locations_checked.append(lname.bunny_mural)
+        if self.bunny_tv:
+            ctx.locations_checked.append(lname.bunny_tv)
+        if self.bunny_uv:
+            ctx.locations_checked.append(lname.bunny_uv)
+        if self.bunny_water_spike:
+            ctx.locations_checked.append(lname.bunny_water_spike)
 
         # candles
-        if self.candle_first: ctx.locations_checked.append(lname.candle_first)  # TODO candle logic
-        if self.candle_dog_dark: ctx.locations_checked.append(lname.candle_dog_dark)  # TODO candle logic
-        if self.candle_dog_switch_box: ctx.locations_checked.append(lname.candle_dog_switch_box)  # TODO candle logic
-        if self.candle_dog_many_switches: ctx.locations_checked.append(
-            lname.candle_dog_many_switches)  # TODO candle logic
-        if self.candle_dog_disc_switches: ctx.locations_checked.append(
-            lname.candle_dog_disc_switches)  # TODO candle logic
-        if self.candle_dog_bat: ctx.locations_checked.append(lname.candle_dog_bat)  # TODO candle logic
-        if self.candle_fish: ctx.locations_checked.append(lname.candle_fish)  # TODO candle logic
-        if self.candle_frog: ctx.locations_checked.append(lname.candle_frog)  # TODO candle logic
-        if self.candle_bear: ctx.locations_checked.append(lname.candle_bear)  # TODO candle logic
+        if self.candle_first:
+            ctx.locations_checked.append(lname.candle_first)
+        if self.candle_dog_dark:
+            ctx.locations_checked.append(lname.candle_dog_dark)
+        if self.candle_dog_switch_box:
+            ctx.locations_checked.append(lname.candle_dog_switch_box)
+        if self.candle_dog_many_switches:
+            ctx.locations_checked.append(lname.candle_dog_many_switches)
+        if self.candle_dog_disc_switches:
+            ctx.locations_checked.append(lname.candle_dog_disc_switches)
+        if self.candle_dog_bat:
+            ctx.locations_checked.append(lname.candle_dog_bat)
+        if self.candle_fish:
+            ctx.locations_checked.append(lname.candle_fish)
+        if self.candle_frog:
+            ctx.locations_checked.append(lname.candle_frog)
+        if self.candle_bear:
+            ctx.locations_checked.append(lname.candle_bear)
 
         # extras
-        # if self.mama_cha: ctx.locations_checked.append(lname.mama_cha)
-        # if self.squirrel_acorn: ctx.locations_checked.append(lname.squirrel_acorn)
+        # if self.mama_cha:
+        #     ctx.locations_checked.append(lname.mama_cha)
+        # if self.squirrel_acorn:
+        #     ctx.locations_checked.append(lname.squirrel_acorn)
         # kangaroo medal drops
 
         # TODO finished_game
@@ -630,8 +754,10 @@ class AWItems:
 
         # Major progression items
         self.bubble = 0
-        if iname.bubble in items: self.bubble += 1
-        if iname.bubble_long in items: self.bubble += 1
+        if iname.bubble in items:
+            self.bubble += 1
+        if iname.bubble_long in items:
+            self.bubble += 1
         # self.disc = iname.disc in items
         self.yoyo = iname.yoyo in items
         self.slink = iname.slink in items
@@ -645,20 +771,20 @@ class AWItems:
         self.firecrackers = iname.firecrackers in items
 
         # Minor progression items and keys
-        self.m_disc = iname.m_disc in items  # TODO possession logic
+        self.m_disc = iname.m_disc in items
         self.fanny_pack = iname.fanny_pack in items
 
         self.match = len([item for item in items if item == iname.match])
         self.matchbox = iname.matchbox in items
 
-        self.key = len([item for item in items if item == iname.key])  # TODO find out how many doors have been unlocked
+        self.key = len([item for item in items if item == iname.key])
         self.key_ring = iname.key_ring in items
         self.house_key = iname.house_key in items
         self.office_key = iname.office_key in items
 
         self.e_medal = iname.e_medal in items
         self.s_medal = iname.s_medal in items
-        self.k_shard = len([item for item in items if item == iname.k_shard])  # TODO K shard logic
+        self.k_shard = len([item for item in items if item == iname.k_shard])
 
         # self.blue_flame = iname.blue_flame in items
         # self.green_flame = iname.green_flame in items
