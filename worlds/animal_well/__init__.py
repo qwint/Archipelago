@@ -64,6 +64,10 @@ class AnimalWellWorld(World):
                 self.options.disc_hopping.value = passthrough["disc_hopping"]
                 self.options.wheel_hopping.value = passthrough["wheel_hopping"]
 
+    def create_regions(self) -> None:
+        self.traversal_requirements = deepcopy(traversal_requirements)
+        create_regions_and_set_rules(self)
+
     def create_item(self, name: str) -> AWItem:
         item_data = item_table[name]
         return AWItem(name, item_data.classification, self.item_name_to_id[name], self.player)
@@ -99,18 +103,11 @@ class AnimalWellWorld(World):
 
         self.multiworld.itempool += aw_items
 
-    def create_regions(self) -> None:
-        self.traversal_requirements = deepcopy(traversal_requirements)
-        create_regions_and_set_rules(self)
-
-    def set_rules(self) -> None:
-        pass  # will do this later on, might do it in create_regions
-
     def get_filler_item_name(self) -> str:
         return self.random.choice(filler_items)
 
     def fill_slot_data(self) -> Dict[str, Any]:
-        # todo: remove this, remove the changes to Utils to make this work
+        # todo: remove this, remove the changes done to Utils
         import Utils
         state = self.multiworld.get_all_state(False)
         state.update_reachable_regions(self.player)
