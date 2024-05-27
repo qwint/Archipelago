@@ -66,7 +66,7 @@ class AWLocations:
 
         self.medal_e = False
         self.medal_s = False
-        self.medal_k = False  # TODO K shard logic
+        # self.medal_k = False
 
         self.flame_blue = False
         self.flame_green = False
@@ -480,8 +480,8 @@ class AWLocations:
             ctx.locations_checked.add(lname.medal_e.value)
         if self.medal_s:
             ctx.locations_checked.add(lname.medal_s.value)
-        if self.medal_k:
-            ctx.locations_checked.add(lname.medal_k.value)
+        # if self.medal_k:
+        #     ctx.locations_checked.add(lname.medal_k.value)
 
         if self.flame_blue:
             ctx.locations_checked.add(lname.flame_blue.value)
@@ -732,20 +732,20 @@ class AWItems:
         self.firecrackers = True
 
         # Minor progression items and keys
-        self.m_disc = False  # TODO possession logic
+        self.m_disc = False
         self.fanny_pack = False
 
         self.match = 0
         self.matchbox = False
 
-        self.key = 0  # TODO find out how many doors have been unlocked
-        self.key_ring = False  # TODO key logic
+        self.key = 0
+        self.key_ring = False
         self.house_key = False
         self.office_key = False
 
         self.e_medal = False
         self.s_medal = False
-        self.k_shard = 0  # TODO K shard logic
+        # self.k_shard = 0
 
         # self.blue_flame = False
         # self.green_flame = False
@@ -865,7 +865,7 @@ class AWItems:
 
         self.e_medal = iname.e_medal.value in items
         self.s_medal = iname.s_medal.value in items
-        self.k_shard = len([item for item in items if item == iname.k_shard.value])
+        # self.k_shard = len([item for item in items if item == iname.k_shard.value])
 
         # self.blue_flame = iname.blue_flame.value in items
         # self.green_flame = iname.green_flame.value in items
@@ -966,6 +966,8 @@ class AWItems:
         flags = struct.unpack('I', buffer)[0]
         inserted_s_medal = bool(flags >> 15 & 1)
         e_medal_inserted = bool(flags >> 16 & 1)
+        no_disc_in_shrine = bool(flags >> 29 & 1)
+        no_disc_in_statue = bool(flags >> 30 & 1)
 
         # Write Quest State
         if self.bubble < 0 or self.bubble > 2:
@@ -1083,6 +1085,21 @@ class AWItems:
                                                          ctypes.byref(bytes_written)):
             logger.warning("Unable to write Eggs")
 
+        # Read Opened Doors?
+        # TODO find how many keys have been used
+        keys_used = 0
+
+        # Write Keys
+        if self.key < 0 or self.key > 6:
+            raise AssertionError("Invalid number of keys %d", self.key)
+        buffer = (self.key - keys_used).to_bytes()
+        if self.key_ring:
+            buffer = (1).to_bytes()
+        bytes_written = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B1, buffer, len(buffer),
+                                                         ctypes.byref(bytes_written)):
+            logger.warning("Unable to write Keys")
+
         # Read Candles Lit
         buffer_size = 2
         buffer = ctypes.create_string_buffer(buffer_size)
@@ -1125,6 +1142,7 @@ class AWItems:
             logger.error("Unable to read Owned Equipment")
             return
         flags = struct.unpack('H', buffer)[0]
+        disc = bool(flags >> 4 & 1)
 
         # Write Owned Equipment
         bits = ("0" +
@@ -1132,7 +1150,7 @@ class AWItems:
                 ("1" if self.flute else "0") +
                 ("1" if self.lantern else "0") +
                 ("1" if self.top else "0") +
-                (str(flags >> 4 & 1)) +
+                ("1" if disc else "0") +
                 ("1" if self.bubble > 0 else "0") +
                 ("1" if self.yoyo else "0") +
                 ("1" if self.slink else "0") +
@@ -1147,18 +1165,14 @@ class AWItems:
                                                          ctypes.byref(bytes_written)):
             logger.warning("Unable to write Owned Equipment")
 
-        # Read Other Items
-        buffer_size = 1
-        buffer = ctypes.create_string_buffer(buffer_size)
-        bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1DE, buffer, buffer_size,
-                                                        ctypes.byref(bytes_read)):
-            logger.error("Unable to read Other Items")
-            return
-        flags = struct.unpack('B', buffer)[0]
+        # TODO VERIFY
+        possess_m_disc = self.m_disc and (
+                (disc and no_disc_in_statue and no_disc_in_shrine) or (
+                    not disc and not no_disc_in_statue and no_disc_in_shrine) or (
+                        not disc and no_disc_in_statue and not no_disc_in_shrine))
 
         # Write Other Items
-        bits = ((str(flags >> 0 & 1)) +
+        bits = (("1" if possess_m_disc else "0") +
                 ("1" if (self.s_medal and not inserted_s_medal) else "0") +
                 "0" +
                 ("1" if self.house_key else "0") +
