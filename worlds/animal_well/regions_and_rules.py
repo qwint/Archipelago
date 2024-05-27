@@ -76,7 +76,7 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
     return reqs
 
 
-def convert_wheel_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
+def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     for i, sublist in enumerate(reqs):
         for j, req in enumerate(sublist):
             if req == iname.wheel_hop:
@@ -85,13 +85,6 @@ def convert_wheel_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Lis
                 else:
                     reqs[i] = []
                     break
-    # filter out empty lists
-    return [x for x in reqs if x]
-
-
-def convert_disc_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
-    for i, sublist in enumerate(reqs):
-        for j, req in enumerate(sublist):
             if req == iname.disc_hop:
                 if not options.disc_hopping:
                     reqs[i] = []
@@ -103,6 +96,13 @@ def convert_disc_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
                     sublist[j] = iname.disc
                 else:
                     reqs[i] = []
+                    break
+            if req == iname.weird_tricks:
+                if not options.weird_tricks:
+                    reqs[i] = []
+                    break
+                else:
+                    del sublist[j]
                     break
     # filter out empty lists
     return [x for x in reqs if x]
@@ -120,9 +120,9 @@ def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> Collectio
     # todo: check if we actually need to set equal here, or if we can just remove the returns
     # expand the helpers into individual items
     reqs = convert_key_reqs(reqs, world.options)
-    reqs = convert_disc_reqs(reqs, world.options)
+    reqs = convert_match_reqs(reqs, world.options)
     reqs = convert_bubble_reqs(reqs, world.options)
-    reqs = convert_wheel_reqs(reqs, world.options)
+    reqs = convert_tech_reqs(reqs, world.options)
     for helper_name in helper_reference.keys():
         reqs = convert_helper_reqs(helper_name, reqs)
     if not reqs:
@@ -148,7 +148,6 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     location = AWLocation(player, destination_name, world.location_name_to_id[destination_name],
                                           aw_regions[origin_name])
                 location.access_rule = interpret_rule(data.rules, world)
-                # todo: it so the amount of eggs you need scales based on the egg amount option
                 if data.eggs_required:
                     add_rule(location, lambda state: state.count_group_unique("Eggs", player) > data.eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
@@ -162,11 +161,24 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
         location = AWLocation(player, lname.got_all_keys, None, aw_regions[RegionNames.bird_area])
         location.place_locked_item(AWItem(iname.can_use_keys, ItemClassification.progression, None, player))
         location.access_rule = lambda state: state.has(iname.key, player, 6)
+        aw_regions[RegionNames.bird_area].locations.append(location)
 
     if not world.options.matchbox:
         location = AWLocation(player, lname.got_all_matches, None, aw_regions[RegionNames.bird_area])
         location.place_locked_item(AWItem(iname.can_use_matches, ItemClassification.progression, None, player))
         location.access_rule = lambda state: state.has(iname.match, player, 9)
+        aw_regions[RegionNames.bird_area].locations.append(location)
+
+    # a little hacky but oh well, it keeps other parts from being more convoluted
+    bbwand = AWLocation(player, lname.upgraded_wand, None, aw_regions[RegionNames.bird_area])
+    bbwand.place_locked_item(AWItem(iname.bubble_long, ItemClassification.progression, None, player))
+    bbwand.access_rule = lambda state: state.has(iname.bubble, player, 2)
+    aw_regions[RegionNames.bird_area].locations.append(bbwand)
+
+    k_medal = AWLocation(player, lname.k_medal, None, aw_regions[RegionNames.bird_area])
+    k_medal.place_locked_item(AWItem(iname.k_medal, ItemClassification.progression, None, player))
+    k_medal.access_rule = lambda state: state.has(iname.k_shard, player, 3)
+    aw_regions[RegionNames.bird_area].locations.append(k_medal)
 
     for region in aw_regions.values():
         world.multiworld.regions.append(region)

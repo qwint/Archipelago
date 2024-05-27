@@ -41,7 +41,6 @@ class AWLocations:
         self.b_ball_chest = False
         self.remote_chest = False
         self.wheel_chest = False
-        # self.firecracker_first = False
 
         # self.mock_disc_chest = False  # TODO possession logic
         self.fanny_pack_chest = False
@@ -329,7 +328,6 @@ class AWLocations:
         if self.b_ball_chest: ctx.locations_checked.append(lname.b_ball_chest)
         if self.remote_chest: ctx.locations_checked.append(lname.remote_chest)
         if self.wheel_chest: ctx.locations_checked.append(lname.wheel_chest)
-        # if self.firecracker_first: ctx.locations_checked.append(lname.firecracker_first)
 
         # if self.mock_disc_chest: ctx.locations_checked.append(lname.mock_disc_chest)
         if self.fanny_pack_chest: ctx.locations_checked.append(lname.fanny_pack_chest)
