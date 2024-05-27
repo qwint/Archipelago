@@ -61,7 +61,7 @@ class AWLocations:
         self.key_frog_guard_room_west = False
         self.key_frog_guard_room_east = False
         self.key_dog = False
-        self.key_house = False
+        self.key_house = False  # TODO House key logic
         self.key_office = False
 
         self.medal_e = False
@@ -658,7 +658,7 @@ class AWItems:
         self.matchbox = False
 
         self.key = 0  # TODO find out how many doors have been unlocked
-        self.key_ring = False
+        self.key_ring = False  # TODO key logic
         self.house_key = False
         self.office_key = False
 
@@ -1028,6 +1028,8 @@ class AWItems:
         if self.match < 0 or self.match > 9:
             raise AssertionError("Invalid number of matches %d", self.match)
         buffer = (self.match - candles_lit).to_bytes()
+        if self.matchbox:
+            buffer = (1).to_bytes()
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B2, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
