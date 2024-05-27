@@ -90,7 +90,7 @@ def convert_wheel_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Lis
 
 
 def convert_disc_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
-    for i, sublist in reqs:
+    for i, sublist in enumerate(reqs):
         for j, req in enumerate(sublist):
             if req == iname.disc_hop:
                 if not options.disc_hopping:
