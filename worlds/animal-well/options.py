@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, TextChoice, PerGameCommonOptions, OptionGroup
+from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup
 
 
 class Goal(Choice):
@@ -13,8 +13,8 @@ class Goal(Choice):
     internal_name = "goal"
     display_name = "Goal"
     option_fireworks = 1
-    option_bunny_land = 2
-    option_egg_hunt = 3
+    # option_bunny_land = 2
+    # option_egg_hunt = 3
     default = 1
 
 
@@ -32,6 +32,7 @@ class FinalEggLocation(Choice):
 class EggsNeeded(Range):
     """
     How many Eggs you need to open the 4th Egg Door.
+    The amount of Eggs you need for the other 3 doors will scale accordingly.
     """
     internal_name = "eggs_needed"
     display_name = "Eggs Required"
@@ -47,12 +48,12 @@ class BunniesAsChecks(Choice):
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
     option_off = 0
-    option_exclude_tedious = 1
-    option_all_bunnies = 2
+    # option_exclude_tedious = 1
+    # option_all_bunnies = 2
     default = 0
 
 
-class CandleChecks(DefaultOnToggle):
+class CandleChecks(Toggle):
     """
     Lighting each of the candles sends a check.
     """
@@ -91,13 +92,19 @@ class BubbleJumping(Choice):
     default = 1
 
 
-class DiscRiding(Toggle):
+class DiscHopping(Choice):
     """
     Include jumping onto the disc without letting it bounce off of a wall first in logic.
-    Exception: The bunny that requires this technique.
+    Single means doing it once from the ground.
+    Multiple means having to chain them in midair.
+    Exception: The bunny that requires you to use this tech.
     """
-    internal_name = "disc_riding"
-    display_name = "Midair Disc Riding"
+    internal_name = "disc_hopping"
+    display_name = "Midair Disc Jumping"
+    option_off = 0
+    option_single = 1
+    option_multiple = 2
+    default = 0
 
 
 class WheelHopping(Toggle):
@@ -119,14 +126,14 @@ class AnimalWellOptions(PerGameCommonOptions):
     bunnies_as_checks: BunniesAsChecks
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
-    disc_riding: DiscRiding
+    disc_hopping: DiscHopping
     wheel_hopping: WheelHopping
 
 
 aw_option_groups = [
     OptionGroup("Logic Options", [
         BubbleJumping,
-        DiscRiding,
+        DiscHopping,
         WheelHopping,
     ])
 ]

@@ -319,6 +319,17 @@ class LocationNames(str, Enum):
     candle_frog = "Frog Candle Switch Carousel"  # to screens to the right of the wombat save point
     candle_bear = "Bear Candle in Dark Maze"
 
+    # candle checks - event versions
+    candle_first_event = "Squirrel First Candle Event"  # the obvious first one
+    candle_dog_dark_event = "Dog Dark Room Candle Event"  # the one in the dark room a few rooms after your first dog encounter
+    candle_dog_switch_box_event = "Dog Boxed Candle Event"
+    candle_dog_many_switches_event = "Dog Candle in Many Switches Room Event"
+    candle_dog_disc_switches_event = "Dog Candle in Disc Switch Maze Event"
+    candle_dog_bat_event = "Dog Candle in Bat Room Event"
+    candle_fish_event = "Fish Candle in Penguin Room Event"
+    candle_frog_event = "Frog Candle Switch Carousel Event"  # to screens to the right of the wombat save point
+    candle_bear_event = "Bear Candle in Dark Maze Event"
+
     # key chests
     key_bear_lower = "Key Chest in Lower Bear"  # early in the green area
     key_bear_upper = "Key Chest in Upper Bear"  # get the chest to land on the chinchilla, maybe rename these two

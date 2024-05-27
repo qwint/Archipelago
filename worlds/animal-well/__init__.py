@@ -3,8 +3,8 @@ from copy import deepcopy
 from BaseClasses import Tutorial
 from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
 from .locations import location_name_groups, location_name_to_id
-from .regions import AWData, traversal_requirements
-from .rules import create_regions_and_set_rules
+from .region_data import AWData, traversal_requirements
+from .regions_and_rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
 from .names import ItemNames
 from worlds.AutoWorld import WebWorld, World
@@ -44,6 +44,8 @@ class AnimalWellWorld(World):
     item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
 
+    topology_present = True
+
     traversal_requirements: Dict[str, Dict[str, AWData]]
 
     def generate_early(self) -> None:
@@ -59,7 +61,7 @@ class AnimalWellWorld(World):
                 self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
                 self.options.candle_checks.value = passthrough["candle_checks"]
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
-                self.options.disc_riding.value = passthrough["disc_riding"]
+                self.options.disc_hopping.value = passthrough["disc_hopping"]
                 self.options.wheel_hopping.value = passthrough["wheel_hopping"]
 
     def create_item(self, name: str) -> AWItem:
@@ -124,7 +126,7 @@ class AnimalWellWorld(World):
             "bunnies_as_checks",
             "candle_checks",
             "bubble_jumping",
-            "disc_riding",
+            "disc_hopping",
             "wheel_hopping",
         )
 
