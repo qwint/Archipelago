@@ -40,7 +40,7 @@ item_table: Dict[str, AWItemData] = {
     iname.match: AWItemData(IClass.progression, 9, 14, "Toys"),
     # iname.matchbox: AWItemData(IClass.progression | IClass.useful, 0, 15, "Toys"),
 
-    iname.key: AWItemData(IClass.progression, 6, 16, "Keys"),
+    # iname.key: AWItemData(IClass.progression, 6, 16, "Keys"),
     # iname.key_ring: AWItemData(IClass.progression | IClass.useful, 0, 17, "Keys"),
     iname.house_key: AWItemData(IClass.progression, 1, 18, "Keys"),
     iname.office_key: AWItemData(IClass.progression, 1, 19, "Keys"),
