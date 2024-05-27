@@ -66,7 +66,7 @@ class AWLocations:
 
         self.medal_e = False
         self.medal_s = False
-        # self.medal_k = False
+        self.medal_k = False  # TODO K shard logic
 
         self.flame_blue = False
         self.flame_green = False
@@ -480,8 +480,8 @@ class AWLocations:
             ctx.locations_checked.add(lname.medal_e.value)
         if self.medal_s:
             ctx.locations_checked.add(lname.medal_s.value)
-        # if self.medal_k:
-        #     ctx.locations_checked.add(lname.medal_k.value)
+        if self.medal_k:
+            ctx.locations_checked.add(lname.medal_k.value)
 
         if self.flame_blue:
             ctx.locations_checked.add(lname.flame_blue.value)
@@ -745,7 +745,7 @@ class AWItems:
 
         self.e_medal = False
         self.s_medal = False
-        # self.k_shard = 0
+        self.k_shard = 0  # TODO K shard logic
 
         # self.blue_flame = False
         # self.green_flame = False
@@ -865,7 +865,7 @@ class AWItems:
 
         self.e_medal = iname.e_medal.value in items
         self.s_medal = iname.s_medal.value in items
-        # self.k_shard = len([item for item in items if item == iname.k_shard.value])
+        self.k_shard = len([item for item in items if item == iname.k_shard.value])
 
         # self.blue_flame = iname.blue_flame.value in items
         # self.green_flame = iname.green_flame.value in items

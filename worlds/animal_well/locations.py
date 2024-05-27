@@ -47,7 +47,7 @@ location_table: Dict[str, AWLocationData] = {
 
     lname.medal_e.value: AWLocationData(["Keys", "Medals"]),
     lname.medal_s.value: AWLocationData(["Keys", "Medals"]),
-    # lname.medal_k.value: AWLocationData(["Keys", "Medals"]),
+    lname.medal_k.value: AWLocationData(["Keys", "Medals"]),
 
     lname.flame_blue.value: AWLocationData(["Flames"]),
     lname.flame_green.value: AWLocationData(["Flames"]),
