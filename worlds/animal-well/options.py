@@ -6,7 +6,7 @@ from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, 
 class Goal(Choice):
     """
     What you need to do to beat the game.
-    Fireworks requires you to get the 4 flames and defeat the Manticore.
+    Fireworks requires you to get the 4 flames and defeat the Manticore. The House Key item is removed from the item pool.
     Bunny Land requires you to find the 65th Egg, bring it to the incubator, and leave the Well.
     Egg Hunt requires you to collect the amount of eggs you need to open the 4th Egg Door, then open the chest inside.
     """
@@ -63,6 +63,7 @@ class CandleChecks(DefaultOnToggle):
 class KeyRing(DefaultOnToggle):
     """
     Have one keyring which unlocks all normal key doors instead of individual key items.
+    Note: Due to how consumable key logic works, if this option is not enabled, you logically require all 6 keys to open any of the key doors.
     """
     internal_name = "key_ring"
     display_name = "Key Ring"
@@ -71,6 +72,7 @@ class KeyRing(DefaultOnToggle):
 class Matchbox(DefaultOnToggle):
     """
     Have one matchbox which can light all candles instead of individual match items.
+    Note: Due to how consumable item logic works, if this option is not enabled, you logically require all 9 matches to light any of the candles.
     """
     internal_name = "matchbox"
     display_name = "Matchbox"
