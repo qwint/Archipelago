@@ -31,7 +31,7 @@ class AWLocations:
         # major items
         self.b_wand_chest = False
         self.bb_wand_chest = False
-        # self.disc_spot = False
+        self.disc_spot = False  # TODO disc logic
         self.yoyo_chest = False
         self.slink_chest = False
         self.flute_chest = False
@@ -43,7 +43,7 @@ class AWLocations:
         self.wheel_chest = False
         # self.firecracker_first = False
 
-        # self.mock_disc_chest = False  # TODO possession logic
+        self.mock_disc_chest = False  # TODO possession logic
         self.fanny_pack_chest = False
 
         self.match_start_ceiling = False
@@ -56,23 +56,23 @@ class AWLocations:
         self.match_guard_room = False
         self.match_under_mouse_statue = False
 
-        # self.key_bear_lower = False  # TODO find out how many doors have been unlocked
-        # self.key_bear_upper = False  # TODO find out how many doors have been unlocked
-        # self.key_chest_mouse_head_lever = False  # TODO find out how many doors have been unlocked
-        # self.key_frog_guard_room_west = False  # TODO find out how many doors have been unlocked
-        # self.key_frog_guard_room_east = False  # TODO find out how many doors have been unlocked
-        # self.key_dog = False  # TODO find out how many doors have been unlocked
-        self.key_house = False
-        # self.key_office = False
+        self.key_bear_lower = False  # TODO find out how many doors have been unlocked
+        self.key_bear_upper = False  # TODO find out how many doors have been unlocked
+        self.key_chest_mouse_head_lever = False  # TODO find out how many doors have been unlocked
+        self.key_frog_guard_room_west = False  # TODO find out how many doors have been unlocked
+        self.key_frog_guard_room_east = False  # TODO find out how many doors have been unlocked
+        self.key_dog = False  # TODO find out how many doors have been unlocked
+        self.key_house = False  # TODO house key logic
+        self.key_office = False  # TODO office key logic
 
         self.medal_e = False
         self.medal_s = False
-        # self.medal_k = False  # TODO K shard logic
+        self.medal_k = False  # TODO K shard logic
 
-        # self.flame_blue = False
-        # self.flame_green = False
-        # self.flame_violet = False
-        # self.flame_pink = False
+        self.flame_blue = False  # TODO flame logic
+        self.flame_green = False  # TODO flame logic
+        self.flame_violet = False  # TODO flame logic
+        self.flame_pink = False  # TODO flame logic
 
         # eggs, sorted by row top-to-bottom
         self.egg_reference = False
@@ -146,30 +146,44 @@ class AWLocations:
 
         self.egg_65 = False
 
-        # all locations beyond this point have no corresponding item in the item pool
-        # self.map_chest = False
-        # self.stamp_chest = False
-        # self.pencil_chest = False
-        # self.mama_cha = False
-        # self.squirrel_acorn = False
+        # map things
+        self.map_chest = False  # TODO map things logic
+        self.stamp_chest = False  # TODO map things logic
+        self.pencil_chest = False  # TODO map things logic
 
         # bnnnnuyuy
-        # self.bunny_barcode = False
-        # self.bunny_chinchilla_vine = False
-        # self.bunny_crow = False
-        # self.bunny_disc_spike = False
-        # self.bunny_dream = False
-        # self.bunny_duck = False
-        # self.bunny_face = False
-        # self.bunny_file_bud = False
-        # self.bunny_fish = False
-        # self.bunny_ghost_dog = False
-        # self.bunny_lava = False
-        # self.bunny_map = False
-        # self.bunny_mural = False
-        # self.bunny_tv = False
-        # self.bunny_uv = False
-        # self.bunny_water_spike = False
+        self.bunny_barcode = False  # TODO bunny logic
+        self.bunny_chinchilla_vine = False  # TODO bunny logic
+        self.bunny_crow = False  # TODO bunny logic
+        self.bunny_disc_spike = False  # TODO bunny logic
+        self.bunny_dream = False  # TODO bunny logic
+        self.bunny_duck = False  # TODO bunny logic
+        self.bunny_face = False  # TODO bunny logic
+        self.bunny_file_bud = False  # TODO bunny logic
+        self.bunny_fish = False  # TODO bunny logic
+        self.bunny_ghost_dog = False  # TODO bunny logic
+        self.bunny_lava = False  # TODO bunny logic
+        self.bunny_map = False  # TODO bunny logic
+        self.bunny_mural = False  # TODO bunny logic
+        self.bunny_tv = False  # TODO bunny logic
+        self.bunny_uv = False  # TODO bunny logic
+        self.bunny_water_spike = False  # TODO bunny logic
+
+        # candles
+        self.candle_first = False  # TODO candle logic
+        self.candle_dog_dark = False  # TODO candle logic
+        self.candle_dog_switch_box = False  # TODO candle logic
+        self.candle_dog_many_switches = False  # TODO candle logic
+        self.candle_dog_disc_switches = False  # TODO candle logic
+        self.candle_dog_bat = False  # TODO candle logic
+        self.candle_fish = False  # TODO candle logic
+        self.candle_frog = False  # TODO candle logic
+        self.candle_bear = False  # TODO candle logic
+
+        # extras
+        # self.mama_cha = False
+        # self.squirrel_acorn = false
+        # kangaroo medal drops
 
     async def read_from_game(self, process_handle, game_slot, start_address: int):
         """
@@ -319,7 +333,7 @@ class AWLocations:
         # major items
         if self.b_wand_chest: ctx.locations_checked.append(lname.b_wand_chest)
         if self.bb_wand_chest: ctx.locations_checked.append(lname.bb_wand_chest)
-        # if self.disc_spot: ctx.locations_checked.append(lname.disc_spot)
+        if self.disc_spot: ctx.locations_checked.append(lname.disc_spot)  # TODO disc logic
         if self.yoyo_chest: ctx.locations_checked.append(lname.yoyo_chest)
         if self.slink_chest: ctx.locations_checked.append(lname.slink_chest)
         if self.flute_chest: ctx.locations_checked.append(lname.flute_chest)
@@ -331,7 +345,7 @@ class AWLocations:
         if self.wheel_chest: ctx.locations_checked.append(lname.wheel_chest)
         # if self.firecracker_first: ctx.locations_checked.append(lname.firecracker_first)
 
-        # if self.mock_disc_chest: ctx.locations_checked.append(lname.mock_disc_chest)
+        if self.mock_disc_chest: ctx.locations_checked.append(lname.mock_disc_chest)  # TODO possession logic
         if self.fanny_pack_chest: ctx.locations_checked.append(lname.fanny_pack_chest)
 
         if self.match_start_ceiling: ctx.locations_checked.append(lname.match_start_ceiling)
@@ -344,23 +358,28 @@ class AWLocations:
         if self.match_guard_room: ctx.locations_checked.append(lname.match_guard_room)
         if self.match_under_mouse_statue: ctx.locations_checked.append(lname.match_under_mouse_statue)
 
-        # if self.key_bear_lower: ctx.locations_checked.append(lname.key_bear_lower)
-        # if self.key_bear_upper: ctx.locations_checked.append(lname.key_bear_upper)
-        # if self.key_chest_mouse_head_lever: ctx.locations_checked.append(lname.key_chest_mouse_head_lever)
-        # if self.key_frog_guard_room_west: ctx.locations_checked.append(lname.key_frog_guard_room_west)
-        # if self.key_frog_guard_room_east: ctx.locations_checked.append(lname.key_frog_guard_room_east)
-        # if self.key_dog: ctx.locations_checked.append(lname.key_dog)
-        if self.key_house: ctx.locations_checked.append(lname.key_house)
-        # if self.key_office: ctx.locations_checked.append(lname.key_office)
+        if self.key_bear_lower: ctx.locations_checked.append(
+            lname.key_bear_lower)  # TODO find out how many doors have been unlocked
+        if self.key_bear_upper: ctx.locations_checked.append(
+            lname.key_bear_upper)  # TODO find out how many doors have been unlocked
+        if self.key_chest_mouse_head_lever: ctx.locations_checked.append(
+            lname.key_chest_mouse_head_lever)  # TODO find out how many doors have been unlocked
+        if self.key_frog_guard_room_west: ctx.locations_checked.append(
+            lname.key_frog_guard_room_west)  # TODO find out how many doors have been unlocked
+        if self.key_frog_guard_room_east: ctx.locations_checked.append(
+            lname.key_frog_guard_room_east)  # TODO find out how many doors have been unlocked
+        if self.key_dog: ctx.locations_checked.append(lname.key_dog)  # TODO find out how many doors have been unlocked
+        if self.key_house: ctx.locations_checked.append(lname.key_house)  # TODO house key logic
+        if self.key_office: ctx.locations_checked.append(lname.key_office)  # TODO office key logic
 
         if self.medal_e: ctx.locations_checked.append(lname.medal_e)
         if self.medal_s: ctx.locations_checked.append(lname.medal_s)
-        # if self.medal_k: ctx.locations_checked.append(lname.medal_k)
+        if self.medal_k: ctx.locations_checked.append(lname.medal_k)  # TODO K shard logic
 
-        # if self.flame_blue: ctx.locations_checked.append(lname.flame_blue)
-        # if self.flame_green: ctx.locations_checked.append(lname.flame_green)
-        # if self.flame_violet: ctx.locations_checked.append(lname.flame_violet)
-        # if self.flame_pink: ctx.locations_checked.append(lname.flame_pink)
+        if self.flame_blue: ctx.locations_checked.append(lname.flame_blue)  # TODO flame logic
+        if self.flame_green: ctx.locations_checked.append(lname.flame_green)  # TODO flame logic
+        if self.flame_violet: ctx.locations_checked.append(lname.flame_violet)  # TODO flame logic
+        if self.flame_pink: ctx.locations_checked.append(lname.flame_pink)  # TODO flame logic
 
         # eggs, sorted by row top-to-bottom
         if self.egg_reference: ctx.locations_checked.append(lname.egg_reference)
@@ -435,42 +454,45 @@ class AWLocations:
         if self.egg_65: ctx.locations_checked.append(lname.egg_65)
 
         # map things
-        # if self.map_chest: ctx.locations_checked.append(lname.map_chest)
-        # if self.stamp_chest: ctx.locations_checked.append(lname.stamp_chest)
-        # if self.pencil_chest: ctx.locations_checked.append(lname.pencil_chest)
+        if self.map_chest: ctx.locations_checked.append(lname.map_chest)  # TODO map things logic
+        if self.stamp_chest: ctx.locations_checked.append(lname.stamp_chest)  # TODO map things logic
+        if self.pencil_chest: ctx.locations_checked.append(lname.pencil_chest)  # TODO map things logic
 
         # bnnnnuyuy
-        # if self.bunny_barcode: ctx.locations_checked.append(lname.bunny_barcode)
-        # if self.bunny_chinchilla_vine: ctx.locations_checked.append(lname.bunny_chinchilla_vine)
-        # if self.bunny_crow: ctx.locations_checked.append(lname.bunny_crow)
-        # if self.bunny_disc_spike: ctx.locations_checked.append(lname.bunny_disc_spike)
-        # if self.bunny_dream: ctx.locations_checked.append(lname.bunny_dream)
-        # if self.bunny_duck: ctx.locations_checked.append(lname.bunny_duck)
-        # if self.bunny_face: ctx.locations_checked.append(lname.bunny_face)
-        # if self.bunny_file_bud: ctx.locations_checked.append(lname.bunny_file_bud)
-        # if self.bunny_fish: ctx.locations_checked.append(lname.bunny_fish)
-        # if self.bunny_ghost_dog: ctx.locations_checked.append(lname.bunny_ghost_dog)
-        # if self.bunny_lava: ctx.locations_checked.append(lname.bunny_lava)
-        # if self.bunny_map: ctx.locations_checked.append(lname.bunny_map)
-        # if self.bunny_mural: ctx.locations_checked.append(lname.bunny_mural)
-        # if self.bunny_tv: ctx.locations_checked.append(lname.bunny_tv)
-        # if self.bunny_uv: ctx.locations_checked.append(lname.bunny_uv)
-        # if self.bunny_water_spike: ctx.locations_checked.append(lname.bunny_water_spike)
+        if self.bunny_barcode: ctx.locations_checked.append(lname.bunny_barcode)  # TODO bunny logic
+        if self.bunny_chinchilla_vine: ctx.locations_checked.append(lname.bunny_chinchilla_vine)  # TODO bunny logic
+        if self.bunny_crow: ctx.locations_checked.append(lname.bunny_crow)  # TODO bunny logic
+        if self.bunny_disc_spike: ctx.locations_checked.append(lname.bunny_disc_spike)  # TODO bunny logic
+        if self.bunny_dream: ctx.locations_checked.append(lname.bunny_dream)  # TODO bunny logic
+        if self.bunny_duck: ctx.locations_checked.append(lname.bunny_duck)  # TODO bunny logic
+        if self.bunny_face: ctx.locations_checked.append(lname.bunny_face)  # TODO bunny logic
+        if self.bunny_file_bud: ctx.locations_checked.append(lname.bunny_file_bud)  # TODO bunny logic
+        if self.bunny_fish: ctx.locations_checked.append(lname.bunny_fish)  # TODO bunny logic
+        if self.bunny_ghost_dog: ctx.locations_checked.append(lname.bunny_ghost_dog)  # TODO bunny logic
+        if self.bunny_lava: ctx.locations_checked.append(lname.bunny_lava)  # TODO bunny logic
+        if self.bunny_map: ctx.locations_checked.append(lname.bunny_map)  # TODO bunny logic
+        if self.bunny_mural: ctx.locations_checked.append(lname.bunny_mural)  # TODO bunny logic
+        if self.bunny_tv: ctx.locations_checked.append(lname.bunny_tv)  # TODO bunny logic
+        if self.bunny_uv: ctx.locations_checked.append(lname.bunny_uv)  # TODO bunny logic
+        if self.bunny_water_spike: ctx.locations_checked.append(lname.bunny_water_spike)  # TODO bunny logic
 
         # candles
-        # if self.candle_first: ctx.locations_checked.append(lname.candle_first)
-        # if self.candle_dog_dark: ctx.locations_checked.append(lname.candle_dog_dark)
-        # if self.candle_dog_switch_box: ctx.locations_checked.append(lname.candle_dog_switch_box)
-        # if self.candle_dog_many_switches: ctx.locations_checked.append(lname.candle_dog_many_switches)
-        # if self.candle_dog_disc_switches: ctx.locations_checked.append(lname.candle_dog_disc_switches)
-        # if self.candle_dog_bat: ctx.locations_checked.append(lname.candle_dog_bat)
-        # if self.candle_fish: ctx.locations_checked.append(lname.candle_fish)
-        # if self.candle_frog: ctx.locations_checked.append(lname.candle_frog)
-        # if self.candle_bear: ctx.locations_checked.append(lname.candle_bear)
+        if self.candle_first: ctx.locations_checked.append(lname.candle_first)  # TODO candle logic
+        if self.candle_dog_dark: ctx.locations_checked.append(lname.candle_dog_dark)  # TODO candle logic
+        if self.candle_dog_switch_box: ctx.locations_checked.append(lname.candle_dog_switch_box)  # TODO candle logic
+        if self.candle_dog_many_switches: ctx.locations_checked.append(
+            lname.candle_dog_many_switches)  # TODO candle logic
+        if self.candle_dog_disc_switches: ctx.locations_checked.append(
+            lname.candle_dog_disc_switches)  # TODO candle logic
+        if self.candle_dog_bat: ctx.locations_checked.append(lname.candle_dog_bat)  # TODO candle logic
+        if self.candle_fish: ctx.locations_checked.append(lname.candle_fish)  # TODO candle logic
+        if self.candle_frog: ctx.locations_checked.append(lname.candle_frog)  # TODO candle logic
+        if self.candle_bear: ctx.locations_checked.append(lname.candle_bear)  # TODO candle logic
 
         # extras
         # if self.mama_cha: ctx.locations_checked.append(lname.mama_cha)
         # if self.squirrel_acorn: ctx.locations_checked.append(lname.squirrel_acorn)
+        # kangaroo medal drops
 
         # TODO finished_game
 
@@ -505,20 +527,20 @@ class AWItems:
         self.firecrackers = True
 
         # Minor progression items and keys
-        # self.m_disc = False  # TODO possession logic
+        self.m_disc = False  # TODO possession logic
         self.fanny_pack = False
 
         self.match = 0
         self.matchbox = False
 
-        # self.key = 0  # TODO find out how many doors have been unlocked
+        self.key = 0  # TODO find out how many doors have been unlocked
         self.key_ring = False
         self.house_key = False
         self.office_key = False
 
         self.e_medal = False
         self.s_medal = False
-        # self.k_shard = 0  # TODO K shard logic
+        self.k_shard = 0  # TODO K shard logic
 
         # self.blue_flame = False
         # self.green_flame = False
@@ -597,8 +619,8 @@ class AWItems:
 
         self.egg_65 = False
 
-        self.firecracker_refill = 0
-        self.big_blue_fruit = 0
+        self.firecracker_refill = 0  # TODO Fill Logic
+        self.big_blue_fruit = 0  # TODO Fill Logic
 
     async def read_from_archipelago(self, ctx):
         """
@@ -623,21 +645,20 @@ class AWItems:
         self.firecrackers = iname.firecrackers in items
 
         # Minor progression items and keys
-        # self.m_disc = iname.m_disc in items
+        self.m_disc = iname.m_disc in items  # TODO possession logic
         self.fanny_pack = iname.fanny_pack in items
 
-        self.match = len([item for item in items if item == iname.match]) - len(
-            [check for check in ctx.locations_checked if "match" in check])
+        self.match = len([item for item in items if item == iname.match])
         self.matchbox = iname.matchbox in items
 
-        # self.key = len([item for item in items if item == iname.key])
+        self.key = len([item for item in items if item == iname.key])  # TODO find out how many doors have been unlocked
         self.key_ring = iname.key_ring in items
         self.house_key = iname.house_key in items
         self.office_key = iname.office_key in items
 
         self.e_medal = iname.e_medal in items
         self.s_medal = iname.s_medal in items
-        # self.k_shard = iname.k_shard in items
+        self.k_shard = len([item for item in items if item == iname.k_shard])  # TODO K shard logic
 
         # self.blue_flame = iname.blue_flame in items
         # self.green_flame = iname.green_flame in items
@@ -716,8 +737,8 @@ class AWItems:
 
         self.egg_65 = iname.egg_65 in items
 
-        # "Firecracker Refill"
-        # "Big Blue Fruit"
+        self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])  # TODO Fill Logic
+        self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])  # TODO Fill Logic
 
     async def write_to_game(self, process_handle, game_slot, start_address: int):
 
