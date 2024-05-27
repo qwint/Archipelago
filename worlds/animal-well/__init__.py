@@ -59,7 +59,7 @@ class AnimalWellWorld(World):
                 self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
                 self.options.candle_checks.value = passthrough["candle_checks"]
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
-                self.options.disc_riding.value = passthrough["disc_riding"]
+                self.options.disc_hopping.value = passthrough["disc_hopping"]
                 self.options.wheel_hopping.value = passthrough["wheel_hopping"]
 
     def create_item(self, name: str) -> AWItem:
@@ -124,7 +124,7 @@ class AnimalWellWorld(World):
             "bunnies_as_checks",
             "candle_checks",
             "bubble_jumping",
-            "disc_riding",
+            "disc_hopping",
             "wheel_hopping",
         )
 

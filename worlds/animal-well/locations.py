@@ -12,7 +12,7 @@ location_table: Dict[str, AWLocationData] = {
     # major items
     lname.b_wand_chest: AWLocationData(["Toys"]),
     lname.bb_wand_chest: AWLocationData(["Toys"]),
-    # lname.disc_spot: AWLocationData(["Toys"]),
+    lname.disc_spot: AWLocationData(["Toys"]),
     lname.yoyo_chest: AWLocationData(["Toys"]),
     lname.slink_chest: AWLocationData(["Toys"]),
     lname.flute_chest: AWLocationData(["Toys", "Egg Rewards"]),
@@ -22,10 +22,10 @@ location_table: Dict[str, AWLocationData] = {
     lname.b_ball_chest: AWLocationData(["Toys"]),
     lname.remote_chest: AWLocationData(["Toys"]),
     lname.wheel_chest: AWLocationData(["Toys"]),
-    # lname.firecracker_first: AWLocationData(["Toys"]),
+    lname.firecracker_first: AWLocationData(["Toys"]),
 
-    # lname.mock_disc_chest: AWLocationData(["Toys"]),
-    lname.fanny_pack_chest: AWLocationData(),
+    lname.mock_disc_chest: AWLocationData(["Toys"]),
+    lname.fanny_pack_chest: AWLocationData(["Toys"]),
 
     lname.match_start_ceiling: AWLocationData(["Matches"]),
     lname.match_fish_mural: AWLocationData(["Matches"]),
@@ -37,23 +37,23 @@ location_table: Dict[str, AWLocationData] = {
     lname.match_guard_room: AWLocationData(["Matches"]),
     lname.match_under_mouse_statue: AWLocationData(["Matches"]),
 
-    # lname.key_bear_lower: AWLocationData(["Keys"]),
-    # lname.key_bear_upper: AWLocationData(["Keys"]),
-    # lname.key_chest_mouse_head_lever: AWLocationData(["Keys"]),
-    # lname.key_frog_guard_room_west: AWLocationData(["Keys"]),
-    # lname.key_frog_guard_room_east: AWLocationData(["Keys"]),
-    # lname.key_dog: AWLocationData(["Keys"]),
-    # lname.key_house: AWLocationData(["Keys"]),
-    # lname.key_office: AWLocationData(["Keys"]),
+    lname.key_bear_lower: AWLocationData(["Keys"]),
+    lname.key_bear_upper: AWLocationData(["Keys"]),
+    lname.key_chest_mouse_head_lever: AWLocationData(["Keys"]),
+    lname.key_frog_guard_room_west: AWLocationData(["Keys"]),
+    lname.key_frog_guard_room_east: AWLocationData(["Keys"]),
+    lname.key_dog: AWLocationData(["Keys"]),
+    lname.key_house: AWLocationData(["Keys"]),
+    lname.key_office: AWLocationData(["Keys"]),
 
     lname.medal_e: AWLocationData(["Keys", "Medals"]),
     lname.medal_s: AWLocationData(["Keys", "Medals"]),
-    # lname.medal_k: AWLocationData(["Keys", "Medals"]),
+    lname.medal_k: AWLocationData(["Keys", "Medals"]),
 
-    # lname.flame_blue: AWLocationData(["Flames"]),
-    # lname.flame_green: AWLocationData(["Flames"]),
-    # lname.flame_violet: AWLocationData(["Flames"]),
-    # lname.flame_pink: AWLocationData(["Flames"]),
+    lname.flame_blue: AWLocationData(["Flames"]),
+    lname.flame_green: AWLocationData(["Flames"]),
+    lname.flame_violet: AWLocationData(["Flames"]),
+    lname.flame_pink: AWLocationData(["Flames"]),
 
     # eggs, sorted by row top-to-bottom
     lname.egg_reference: AWLocationData(["Eggs"]),
@@ -127,30 +127,32 @@ location_table: Dict[str, AWLocationData] = {
 
     lname.egg_65: AWLocationData(["Eggs", "Egg Rewards"]),
 
-    # all locations beyond this point have no corresponding item in the item pool
-    # lname.map_chest: AWLocationData(["Map Items"]),
-    # lname.stamp_chest: AWLocationData(["Map Items"]),
-    # lname.pencil_chest: AWLocationData(["Map Items", "Egg Rewards"]),
-    # lname.mama_cha: AWLocationData(),
-    # lname.squirrel_acorn: AWLocationData(),
+    # map things
+    lname.map_chest: AWLocationData(["Map Items"]),
+    lname.stamp_chest: AWLocationData(["Map Items"]),
+    lname.pencil_chest: AWLocationData(["Map Items", "Egg Rewards"]),
 
     # bnnnnuyuy
-    # lname.bunny_barcode: AWLocationData(["Bunnies"]),
-    # lname.bunny_chinchilla_vine: AWLocationData(["Bunnies"]),
-    # lname.bunny_crow: AWLocationData(["Bunnies"]),
-    # lname.bunny_disc_spike: AWLocationData(["Bunnies"]),
-    # lname.bunny_dream: AWLocationData(["Bunnies"]),
-    # lname.bunny_duck: AWLocationData(["Bunnies"]),
-    # lname.bunny_face: AWLocationData(["Bunnies"]),
-    # lname.bunny_file_bud: AWLocationData(["Bunnies"]),
-    # lname.bunny_fish: AWLocationData(["Bunnies"]),
-    # lname.bunny_ghost_dog: AWLocationData(["Bunnies"]),
-    # lname.bunny_lava: AWLocationData(["Bunnies"]),
-    # lname.bunny_map: AWLocationData(["Bunnies"]),
-    # lname.bunny_mural: AWLocationData(["Bunnies"]),
-    # lname.bunny_tv: AWLocationData(["Bunnies"]),
-    # lname.bunny_uv: AWLocationData(["Bunnies"]),
-    # lname.bunny_water_spike: AWLocationData(["Bunnies"]),
+    lname.bunny_barcode: AWLocationData(["Bunnies"]),
+    lname.bunny_chinchilla_vine: AWLocationData(["Bunnies"]),
+    lname.bunny_crow: AWLocationData(["Bunnies"]),
+    lname.bunny_disc_spike: AWLocationData(["Bunnies"]),
+    lname.bunny_dream: AWLocationData(["Bunnies"]),
+    lname.bunny_duck: AWLocationData(["Bunnies"]),
+    lname.bunny_face: AWLocationData(["Bunnies"]),
+    lname.bunny_file_bud: AWLocationData(["Bunnies"]),
+    lname.bunny_fish: AWLocationData(["Bunnies"]),
+    lname.bunny_ghost_dog: AWLocationData(["Bunnies"]),
+    lname.bunny_lava: AWLocationData(["Bunnies"]),
+    lname.bunny_map: AWLocationData(["Bunnies"]),
+    lname.bunny_mural: AWLocationData(["Bunnies"]),
+    lname.bunny_tv: AWLocationData(["Bunnies"]),
+    lname.bunny_uv: AWLocationData(["Bunnies"]),
+    lname.bunny_water_spike: AWLocationData(["Bunnies"]),
+
+    # extras
+    # lname.mama_cha: AWLocationData(),
+    # lname.squirrel_acorn: AWLocationData(),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + index for index, name in enumerate(location_table)}

@@ -469,8 +469,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.can_distract_dogs]]),  # need to get past the 3 dogs
         # rname.barcode_bunny:  # region since you can get this in two spots
         #     AWData(AWType.region, [[iname.flute, iname.song_barcode]]),
-        lname.mama_cha:
-            AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
+        # lname.mama_cha:  # removing for now, may shuffle later
+        #     AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         # todo: floor is lava
         rname.dog_many_switches:
             AWData(AWType.region, [[iname.can_break_spikes]]),  # todo: verify you can do this with wheel
