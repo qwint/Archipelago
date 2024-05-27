@@ -61,7 +61,7 @@ class AWLocations:
         # self.key_frog_guard_room_west = False  # TODO find out how many doors have been unlocked
         # self.key_frog_guard_room_east = False  # TODO find out how many doors have been unlocked
         # self.key_dog = False  # TODO find out how many doors have been unlocked
-        # self.key_house = False
+        self.key_house = False
         # self.key_office = False
 
         self.medal_e = False
@@ -348,7 +348,7 @@ class AWLocations:
         # if self.key_frog_guard_room_west: ctx.locations_checked.append(lname.key_frog_guard_room_west)
         # if self.key_frog_guard_room_east: ctx.locations_checked.append(lname.key_frog_guard_room_east)
         # if self.key_dog: ctx.locations_checked.append(lname.key_dog)
-        # if self.key_house: ctx.locations_checked.append(lname.key_house)
+        if self.key_house: ctx.locations_checked.append(lname.key_house)
         # if self.key_office: ctx.locations_checked.append(lname.key_office)
 
         if self.medal_e: ctx.locations_checked.append(lname.medal_e)
@@ -507,10 +507,10 @@ class AWItems:
         self.fanny_pack = False
 
         self.match = 0
-        # self.matchbox = False
+        self.matchbox = False
 
         # self.key = 0  # TODO find out how many doors have been unlocked
-        # self.keyring = False
+        self.key_ring = False
         self.house_key = False
         self.office_key = False
 
@@ -595,8 +595,8 @@ class AWItems:
 
         self.egg_65 = False
 
-        # self.firecracker_refill = 0
-        # self.big_blue_fruit = 0
+        self.firecracker_refill = 0
+        self.big_blue_fruit = 0
 
     async def read_from_archipelago(self, ctx):
         """
@@ -626,10 +626,10 @@ class AWItems:
 
         self.match = len([item for item in items if item == iname.match]) - len(
             [check for check in ctx.locations_checked if "match" in check])
-        # self.matchbox = iname.matchbox in items
+        self.matchbox = iname.matchbox in items
 
         # self.key = len([item for item in items if item == iname.key])
-        # self.key_ring = iname.key_ring in items
+        self.key_ring = iname.key_ring in items
         self.house_key = iname.house_key in items
         self.office_key = iname.office_key in items
 

@@ -42,7 +42,7 @@ location_table: Dict[str, AWLocationData] = {
     # lname.key_frog_guard_room_west: AWLocationData(["Keys"]),
     # lname.key_frog_guard_room_east: AWLocationData(["Keys"]),
     # lname.key_dog: AWLocationData(["Keys"]),
-    # lname.key_house: AWLocationData(["Keys"]),
+    lname.key_house: AWLocationData(["Keys"]),
     # lname.key_office: AWLocationData(["Keys"]),
 
     lname.medal_e: AWLocationData(["Keys", "Medals"]),
