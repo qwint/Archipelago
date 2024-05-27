@@ -47,8 +47,8 @@ class BunniesAsChecks(Choice):
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
     option_off = 0
-    option_exclude_tedious = 1
-    option_all_bunnies = 2
+    # option_exclude_tedious = 1
+    # option_all_bunnies = 2
     default = 0
 
 

@@ -101,6 +101,8 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     for origin_name, destinations in world.traversal_requirements.items():
         for destination_name, data in destinations.items():
             if data.type == AWType.location:
+                if world.options.bunnies_as_checks and destination_name.startswith("Bunny"):
+                    continue
                 if data.event:
                     location = AWLocation(player, destination_name, None, aw_regions[origin_name])
                     location.place_locked_item(AWItem(data.event, ItemClassification.progression, None, player))
