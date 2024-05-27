@@ -47,7 +47,7 @@ item_table: Dict[str, AWItemData] = {
 
     iname.e_medal.value: AWItemData(IClass.progression, 1, 20, "Keys"),
     iname.s_medal.value: AWItemData(IClass.progression, 1, 21, "Keys"),
-    iname.k_shard.value: AWItemData(IClass.progression, 3, 22, "Keys"),
+    # iname.k_shard.value: AWItemData(IClass.progression, 3, 22, "Keys"),
 
     # iname.blue_flame.value: AWItemData(IClass.progression | IClass.useful, 1, 23, "Flames"),
     # iname.green_flame.value: AWItemData(IClass.progression | IClass.useful, 1, 24, "Flames"),
