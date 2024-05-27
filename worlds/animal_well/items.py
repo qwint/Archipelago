@@ -34,20 +34,20 @@ item_table: Dict[str, AWItemData] = {
     iname.firecrackers: AWItemData(IClass.progression | IClass.useful, 0, 11, "Toys"),
 
     # Minor progression items and keys
-    # iname.m_disc: AWItemData(IClass.progression | IClass.useful, 1, 12, "Toys"),
+    iname.m_disc: AWItemData(IClass.progression | IClass.useful, 1, 12, "Toys"),
     iname.fanny_pack: AWItemData(IClass.useful, 1, 13, "Toys"),
 
     iname.match: AWItemData(IClass.progression, 9, 14, "Toys"),
     iname.matchbox: AWItemData(IClass.progression | IClass.useful, 0, 15, "Toys"),
 
-    # iname.key: AWItemData(IClass.progression, 6, 16, "Keys"),
+    iname.key: AWItemData(IClass.progression, 6, 16, "Keys"),
     iname.key_ring: AWItemData(IClass.progression | IClass.useful, 0, 17, "Keys"),
     iname.house_key: AWItemData(IClass.progression, 1, 18, "Keys"),
     iname.office_key: AWItemData(IClass.progression, 1, 19, "Keys"),
 
     iname.e_medal: AWItemData(IClass.progression, 1, 20, "Keys"),
     iname.s_medal: AWItemData(IClass.progression, 1, 21, "Keys"),
-    # iname.k_shard: AWItemData(IClass.progression, 3, 22, "Keys"),
+    iname.k_shard: AWItemData(IClass.progression, 3, 22, "Keys"),
 
     # iname.blue_flame: AWItemData(IClass.progression | IClass.useful, 1, 23, "Flames"),
     # iname.green_flame: AWItemData(IClass.progression | IClass.useful, 1, 24, "Flames"),
