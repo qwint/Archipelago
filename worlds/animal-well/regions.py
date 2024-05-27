@@ -421,7 +421,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
 
     rname.dog_area: {
         lname.disc_spot:
-            AWData(AWType.location, [[iname.m_disc]], event=iname.disc),  # todo: figure out what to do for this
+            AWData(AWType.location, [[iname.m_disc]], event=iname.disc),
         lname.candle_dog_dark:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_dark),
         rname.dog_chinchilla_skull:  # hit a switch with any number of things, or bubble up there yourself
