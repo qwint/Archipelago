@@ -1201,7 +1201,7 @@ class AnimalWellContext(CommonContext):
     Animal Well Archipelago context
     """
     command_processor = AnimalWellCommandProcessor
-    items_handling = 0b101  # get sent remote and starting items
+    items_handling = 0b111  # get sent remote and starting items
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
