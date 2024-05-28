@@ -53,21 +53,27 @@ class BunniesAsChecks(Choice):
     default = 0
 
 
-class CandleChecks(Toggle):
+class CandleChecks(Choice):  # choice so we can comment out non-working ones then readd them later
     """
     Lighting each of the candles sends a check.
     """
     internal_name = "candle_checks"
     display_name = "Candle Checks"
+    option_off = 0
+    # option_on = 1
+    default = 0
 
 
-class KeyRing(DefaultOnToggle):
+class KeyRing(Choice):  # choice so we can comment out non-working ones then readd them later
     """
     Have one keyring which unlocks all normal key doors instead of individual key items.
     Note: Due to how consumable key logic works, if this option is not enabled, you logically require all 6 keys to open any of the key doors.
     """
     internal_name = "key_ring"
     display_name = "Key Ring"
+    # option_off = 0
+    option_on = 1
+    default = 1
 
 
 class Matchbox(DefaultOnToggle):
