@@ -102,6 +102,7 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
                     reqs[i] = []
                     break
                 else:
+                    # remove this weird_tricks term, weird_tricks is always last so this won't skip anything
                     del sublist[j]
                     break
     # filter out empty lists
