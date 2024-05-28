@@ -93,7 +93,7 @@ class AnimalWellWorld(World):
             items_to_create[ItemNames.match] = 0
             items_to_create[ItemNames.matchbox] = 1
 
-        if self.options.final_egg_location:
+        if self.options.final_egg_location or self.options.goal == self.options.goal.option_egg_hunt:
             items_to_create[ItemNames.egg_65] = 0
             self.get_location(LocationNames.egg_65).place_locked_item(self.create_item(ItemNames.egg_65))
 
