@@ -218,23 +218,23 @@ class AWLocations:
         self.egg_brown = bool(flags >> 1 & 1)
         self.egg_raw = bool(flags >> 2 & 1)
         self.egg_big = bool(flags >> 3 & 1)
-        self.egg_pickled = bool(flags >> 4 & 1)  # TODO VERIFY
+        self.egg_pickled = bool(flags >> 4 & 1)  # TODO-VERIFY
         self.egg_swan = bool(flags >> 5 & 1)
         self.egg_forbidden = bool(flags >> 6 & 1)
         self.egg_shadow = bool(flags >> 7 & 1)
 
         self.egg_vanity = bool(flags >> 8 & 1)
         self.egg_service = bool(flags >> 9 & 1)
-        # self.mama_cha = bool(flags >> 10 & 1)  # TODO VERIFY
+        # self.mama_cha = bool(flags >> 10 & 1)  # TODO-VERIFY
         self.match_dog_switch_bounce = bool(flags >> 11 & 1)
         self.egg_depraved = bool(flags >> 12 & 1)
-        self.match_bear = bool(flags >> 13 & 1)  # TODO VERIFY
+        self.match_bear = bool(flags >> 13 & 1)  # TODO-VERIFY
         self.egg_chaos = bool(flags >> 14 & 1)
-        self.b_ball_chest = bool(flags >> 15 & 1)  # TODO VERIFY
+        self.b_ball_chest = bool(flags >> 15 & 1)  # TODO-VERIFY
 
-        self.key_dog = bool(flags >> 16 & 1)  # TODO VERIFY
-        self.egg_upside_down = bool(flags >> 17 & 1)  # TODO VERIFY
-        self.egg_evil = bool(flags >> 18 & 1)  # TODO VERIFY
+        self.key_dog = bool(flags >> 16 & 1)  # TODO-VERIFY
+        self.egg_upside_down = bool(flags >> 17 & 1)  # TODO-VERIFY
+        self.egg_evil = bool(flags >> 18 & 1)  # TODO-VERIFY
         self.match_dog_upper_east = bool(flags >> 19 & 1)
         self.egg_sweet = bool(flags >> 20 & 1)
         self.match_center_well = bool(flags >> 21 & 1)
@@ -243,50 +243,50 @@ class AWLocations:
 
         self.egg_plant = bool(flags >> 24 & 1)
         self.egg_red = bool(flags >> 25 & 1)
-        self.egg_orange = bool(flags >> 26 & 1)  # TODO VERIFY
-        self.mock_disc_chest = bool(flags >> 27 & 1)  # TODO VERIFY
+        self.egg_orange = bool(flags >> 26 & 1)  # TODO-VERIFY
+        self.mock_disc_chest = bool(flags >> 27 & 1)  # TODO-VERIFY
         self.egg_sour = bool(flags >> 28 & 1)
         self.egg_post_modern = bool(flags >> 29 & 1)
         self.slink_chest = bool(flags >> 30 & 1)
-        self.egg_universal = bool(flags >> 31 & 1)  # TODO VERIFY
+        self.egg_universal = bool(flags >> 31 & 1)  # TODO-VERIFY
 
-        self.egg_lf = bool(flags >> 32 & 1)  # TODO VERIFY
+        self.egg_lf = bool(flags >> 32 & 1)  # TODO-VERIFY
         self.egg_zen = bool(flags >> 33 & 1)
         self.key_bear_upper = bool(flags >> 34 & 1)  # TODO
-        self.egg_future = bool(flags >> 35 & 1)  # TODO VERIFY
+        self.egg_future = bool(flags >> 35 & 1)  # TODO-VERIFY
         self.egg_friendship = bool(flags >> 36 & 1)
-        self.disc_spot = bool(flags >> 37 & 1)  # TODO VERIFY
-        self.match_above_egg_room = bool(flags >> 38 & 1)  # TODO VERIFY
-        self.key_office = bool(flags >> 39 & 1)  # TODO VERIFY
+        self.disc_spot = bool(flags >> 37 & 1)  # TODO-VERIFY
+        self.match_above_egg_room = bool(flags >> 38 & 1)  # TODO-VERIFY
+        self.key_office = bool(flags >> 39 & 1)  # TODO-VERIFY
 
-        self.egg_truth = bool(flags >> 40 & 1)  # TODO VERIFY
-        self.egg_transcendental = bool(flags >> 41 & 1)  # TODO VERIFY
-        self.medal_s = bool(flags >> 42 & 1)  # TODO VERIFY
+        self.egg_truth = bool(flags >> 40 & 1)  # TODO-VERIFY
+        self.egg_transcendental = bool(flags >> 41 & 1)  # TODO-VERIFY
+        self.medal_s = bool(flags >> 42 & 1)  # TODO-VERIFY
         self.egg_ancient = bool(flags >> 43 & 1)
         self.egg_magic = bool(flags >> 44 & 1)
         self.egg_mystic = bool(flags >> 45 & 1)
-        self.flute_chest = bool(flags >> 46 & 1)  # TODO VERIFY
+        self.flute_chest = bool(flags >> 46 & 1)  # TODO-VERIFY
         self.egg_65 = bool(flags >> 47 & 1)
 
-        self.stamp_chest = bool(flags >> 48 & 1)  # TODO VERIFY
-        self.pencil_chest = bool(flags >> 49 & 1)  # TODO VERIFY
-        self.top_chest = bool(flags >> 50 & 1)  # TODO VERIFY
-        self.egg_holiday = bool(flags >> 51 & 1)  # TODO VERIFY
-        self.egg_rain = bool(flags >> 52 & 1)  # TODO VERIFY
+        self.stamp_chest = bool(flags >> 48 & 1)  # TODO-VERIFY
+        self.pencil_chest = bool(flags >> 49 & 1)  # TODO-VERIFY
+        self.top_chest = bool(flags >> 50 & 1)  # TODO-VERIFY
+        self.egg_holiday = bool(flags >> 51 & 1)  # TODO-VERIFY
+        self.egg_rain = bool(flags >> 52 & 1)  # TODO-VERIFY
         self.egg_razzle = bool(flags >> 53 & 1)
-        self.key_bear_lower = bool(flags >> 54 & 1)  # TODO VERIFY
+        self.key_bear_lower = bool(flags >> 54 & 1)  # TODO-VERIFY
         self.egg_dazzle = bool(flags >> 55 & 1)
 
-        self.match_fish_mural = bool(flags >> 56 & 1)  # TODO VERIFY
+        self.match_fish_mural = bool(flags >> 56 & 1)  # TODO-VERIFY
         self.egg_virtual = bool(flags >> 57 & 1)
         self.egg_normal = bool(flags >> 58 & 1)
         self.egg_great = bool(flags >> 59 & 1)
         self.egg_gorgeous = bool(flags >> 60 & 1)
         self.map_chest = bool(flags >> 61 & 1)
-        self.key_chest_mouse_head_lever = bool(flags >> 62 & 1)  # TODO VERIFY
-        self.match_under_mouse_statue = bool(flags >> 63 & 1)  # TODO VERIFY
+        self.key_chest_mouse_head_lever = bool(flags >> 62 & 1)  # TODO-VERIFY
+        self.match_under_mouse_statue = bool(flags >> 63 & 1)  # TODO-VERIFY
 
-        self.egg_planet = bool(flags >> 64 & 1)  # TODO VERIFY
+        self.egg_planet = bool(flags >> 64 & 1)  # TODO-VERIFY
         self.egg_moon = bool(flags >> 65 & 1)
         self.egg_galaxy = bool(flags >> 66 & 1)
         self.egg_sunset = bool(flags >> 67 & 1)
@@ -295,38 +295,38 @@ class AWLocations:
         self.match_start_ceiling = bool(flags >> 70 & 1)
         self.egg_dream = bool(flags >> 71 & 1)
 
-        self.egg_travel = bool(flags >> 72 & 1)  # TODO VERIFY
+        self.egg_travel = bool(flags >> 72 & 1)  # TODO-VERIFY
         self.egg_promise = bool(flags >> 73 & 1)
         self.egg_ice = bool(flags >> 74 & 1)
-        self.lantern_chest = bool(flags >> 75 & 1)  # TODO VERIFY
+        self.lantern_chest = bool(flags >> 75 & 1)  # TODO-VERIFY
         self.egg_fire = bool(flags >> 76 & 1)
         self.egg_bubble = bool(flags >> 77 & 1)
         self.egg_desert = bool(flags >> 78 & 1)
-        self.wheel_chest = bool(flags >> 79 & 1)  # TODO VERIFY
+        self.wheel_chest = bool(flags >> 79 & 1)  # TODO-VERIFY
 
         self.egg_clover = bool(flags >> 80 & 1)
-        self.match_guard_room = bool(flags >> 81 & 1)  # TODO VERIFY
-        self.key_frog_guard_room_west = bool(flags >> 82 & 1)  # TODO VERIFY
-        self.key_frog_guard_room_east = bool(flags >> 83 & 1)  # TODO VERIFY
-        self.egg_brick = bool(flags >> 84 & 1)  # TODO VERIFY
-        self.egg_neon = bool(flags >> 85 & 1)  # TODO VERIFY
-        self.remote_chest = bool(flags >> 86 & 1)  # TODO VERIFY
+        self.match_guard_room = bool(flags >> 81 & 1)  # TODO-VERIFY
+        self.key_frog_guard_room_west = bool(flags >> 82 & 1)  # TODO-VERIFY
+        self.key_frog_guard_room_east = bool(flags >> 83 & 1)  # TODO-VERIFY
+        self.egg_brick = bool(flags >> 84 & 1)  # TODO-VERIFY
+        self.egg_neon = bool(flags >> 85 & 1)  # TODO-VERIFY
+        self.remote_chest = bool(flags >> 86 & 1)  # TODO-VERIFY
         self.egg_iridescent = bool(flags >> 87 & 1)
 
         self.egg_rust = bool(flags >> 88 & 1)
-        self.egg_scarlet = bool(flags >> 89 & 1)  # TODO VERIFY
-        self.medal_e = bool(flags >> 90 & 1)  # TODO VERIFY
+        self.egg_scarlet = bool(flags >> 89 & 1)  # TODO-VERIFY
+        self.medal_e = bool(flags >> 90 & 1)  # TODO-VERIFY
         self.egg_sapphire = bool(flags >> 91 & 1)
         self.egg_ruby = bool(flags >> 92 & 1)
         self.egg_jade = bool(flags >> 93 & 1)
         self.egg_obsidian = bool(flags >> 94 & 1)
-        self.bb_wand_chest = bool(flags >> 95 & 1)  # TODO VERIFY
+        self.bb_wand_chest = bool(flags >> 95 & 1)  # TODO-VERIFY
 
-        self.yoyo_chest = bool(flags >> 96 & 1)  # TODO VERIFY
-        self.uv_lantern_chest = bool(flags >> 97 & 1)  # TODO VERIFY
-        self.egg_crystal = bool(flags >> 98 & 1)  # TODO VERIFY
-        self.fanny_pack_chest = bool(flags >> 99 & 1)  # TODO VERIFY
-        self.egg_golden = bool(flags >> 100 & 1)  # TODO VERIFY
+        self.yoyo_chest = bool(flags >> 96 & 1)  # TODO-VERIFY
+        self.uv_lantern_chest = bool(flags >> 97 & 1)  # TODO-VERIFY
+        self.egg_crystal = bool(flags >> 98 & 1)  # TODO-VERIFY
+        self.fanny_pack_chest = bool(flags >> 99 & 1)  # TODO-VERIFY
+        self.egg_golden = bool(flags >> 100 & 1)  # TODO-VERIFY
 
         # Read Bunnies
         buffer_size = 4
@@ -364,15 +364,15 @@ class AWLocations:
             return
         flags = struct.unpack('H', buffer)[0]
         # I am not very confident in these at all
-        self.candle_dog_disc_switches = bool(flags >> 0 & 1)  # TODO VERIFY
-        self.candle_dog_bat = bool(flags >> 1 & 1)  # TODO VERIFY
-        self.candle_dog_switch_box = bool(flags >> 2 & 1)  # TODO VERIFY
-        self.candle_dog_many_switches = bool(flags >> 3 & 1)  # TODO VERIFY
-        self.candle_dog_dark = bool(flags >> 4 & 1)  # TODO VERIFY
-        self.candle_bear = bool(flags >> 5 & 1)  # TODO VERIFY
-        self.candle_first = bool(flags >> 6 & 1)  # TODO VERIFY
-        self.candle_frog = bool(flags >> 7 & 1)  # TODO VERIFY
-        self.candle_fish = bool(flags >> 8 & 1)  # TODO VERIFY
+        self.candle_dog_disc_switches = bool(flags >> 0 & 1)  # TODO-VERIFY
+        self.candle_dog_bat = bool(flags >> 1 & 1)  # TODO-VERIFY
+        self.candle_dog_switch_box = bool(flags >> 2 & 1)  # TODO-VERIFY
+        self.candle_dog_many_switches = bool(flags >> 3 & 1)  # TODO-VERIFY
+        self.candle_dog_dark = bool(flags >> 4 & 1)  # TODO-VERIFY
+        self.candle_bear = bool(flags >> 5 & 1)  # TODO-VERIFY
+        self.candle_first = bool(flags >> 6 & 1)  # TODO-VERIFY
+        self.candle_frog = bool(flags >> 7 & 1)  # TODO-VERIFY
+        self.candle_fish = bool(flags >> 8 & 1)  # TODO-VERIFY
 
         # Read Startup State
         buffer_size = 2
@@ -383,7 +383,7 @@ class AWLocations:
             logger.error("Unable to read Startup State")
             return
         flags = struct.unpack('H', buffer)[0]
-        self.key_house = bool(flags >> 4 & 1)  # TODO VERIFY
+        self.key_house = bool(flags >> 4 & 1)  # TODO-VERIFY
 
         # Read Flames
         buffer_size = 1
@@ -1178,7 +1178,7 @@ class AWItems:
                                                          ctypes.byref(bytes_written)):
             logger.warning("Unable to write Owned Equipment")
 
-        # TODO VERIFY
+        # TODO-VERIFY
         possess_m_disc = self.m_disc and (
                 (disc and no_disc_in_statue and no_disc_in_shrine) or
                 (not disc and not no_disc_in_statue and no_disc_in_shrine) or
