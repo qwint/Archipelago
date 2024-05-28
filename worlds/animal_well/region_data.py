@@ -179,8 +179,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
     },
     rname.fish_west: {
-        rname.fish_wand_pit:  # todo: check if you can use disc or something else
-            AWData(AWType.region, [[iname.bubble]]),
+        rname.fish_wand_pit: 
+            AWData(AWType.region, [[iname.bubble], [iname.disc]]),
         lname.egg_ancient:  # one room up and left of save point, vines in top right
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop_hard]]),
         rname.fish_lower:  # bubble to go down, activate switches, breakspike to pass icicles in first penguin room
@@ -260,7 +260,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bear_transcendental:  # might be controversial? it's across a screen transition but only 4 bubbles
             AWData(AWType.region, [[iname.bubble_short], [iname.disc_hop_hard]]),
         rname.bear_kangaroo_waterfall:
-            AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo]]),  # todo: check if top + yoyo can be used
+            AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo], [iname.top, iname.ball], [iname.yoyo, iname.ball, iname.weird_tricks]  ]),
         rname.bear_razzle_egg_spot:
             AWData(AWType.region, [[iname.defeated_chameleon, iname.bubble_short],
                                    [iname.defeated_chameleon, iname.disc_hop_hard]])
@@ -317,7 +317,6 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     rname.bear_slink_room: {
         lname.slink_chest:
             AWData(AWType.location),
-        # TODO: too tight to not be disc_hop_hard? It's close.
         rname.bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath
             AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble],
                                    [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop],
@@ -370,7 +369,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
     },
     rname.bear_hedgehog_square: {
-        lname.bunny_ghost_dog:  # todo: find a route that doesn't require the flute
+        lname.bunny_ghost_dog:  
             AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel]], loc_type="bunny"),
         rname.bear_connector_passage:
             AWData(AWType.region, [[iname.slink]]),
@@ -400,7 +399,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.bear_upper_phone_room: {
         rname.bear_above_chameleon:
-            AWData(AWType.region, [[iname.yoyo]]),  # todo: check if you can do this with ball
+            AWData(AWType.region, [[iname.yoyo], [iname.ball, iname.weird_tricks]]),
     },
     rname.bear_above_chameleon: {  # includes the screens to the right of it
         lname.egg_swan:  # wake one chinchilla, push another
@@ -408,12 +407,15 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # chinchilla can be woken up with flute or firecrackers
         # otters can be distracted with firecrackers, yoyo, or top
         # you need 3 firecrackers minimum if you want to get through without yoyo or flute
+        # alternatively, use ball to hit the two door switches + the trapdoor switch
         rname.bear_shadow_egg_spot:
             AWData(AWType.region, [[iname.top, iname.slink, iname.yoyo, iname.flute],
                                    [iname.top, iname.slink, iname.firecrackers]]),
         rname.bear_chameleon_room_2:
             AWData(AWType.region, [[iname.yoyo, iname.slink, iname.flute],
-                                   [iname.yoyo, iname.slink, iname.firecrackers]]),
+                                   [iname.yoyo, iname.slink, iname.firecrackers],
+                                   [iname.ball, iname.flute, iname.weird_tricks],
+                                   [iname.ball, iname.firecrackers, iname.weird_tricks]]),
     },
     rname.bear_chameleon_room_2: {
         rname.bear_middle_phone_room:  # drop down, probably unimportant
@@ -473,13 +475,14 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.dog_upper: {
         rname.dog_upper_past_lake:
-            AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long]]),  # maybe not long?
+            AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long]]),  # enter this transition with the switch pre-flipped to make sure you can pass the switch box room
         rname.dog_upper_above_switch_lines:
             AWData(AWType.region, [[iname.disc], [iname.remote], [iname.top]]),
         lname.egg_evil:
             AWData(AWType.location, [[iname.flute]]),
     },
     rname.dog_upper_past_lake: {
+        # logical note: there's several items that can get past switch box, but you're logically guaranteed to have one of them to get to this region, so it's not accounted for.
         lname.candle_dog_switch_box:
             AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
         lname.candle_dog_switch_box_event:
@@ -491,9 +494,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # lname.mama_cha:  # removing for now, may shuffle later
         #     AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         lname.bunny_lava:
-            AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type="bunny"),
-        rname.dog_many_switches:
-            AWData(AWType.region, [[iname.ball], [iname.yoyo], [iname.disc], [iname.wheel, iname.bubble]]),
+            AWData(AWType.location, [[iname.remote, iname.bubble_long, iname.can_distract_dogs]], loc_type="bunny"),  # anything other than this exact combo is a weird trick, right?
+        rname.dog_many_switches:  
+            AWData(AWType.region, [[iname.can_break_spikes, iname.bubble], [iname.wheel_hop], [iname.disc], [iname.yoyo], [iname.ball]]),  
         rname.dog_under_fast_travel_room:  # very tight, need to jump from the lower ledge one room to the right
             AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short], [iname.disc_hop]]),
     },
@@ -612,8 +615,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.dog_upper_above_switch_lines_to_upper_east:
             AWData(AWType.region, [[iname.disc], [iname.remote], [iname.top]]),
         rname.dog_upper_past_lake:
-            AWData(AWType.region, [[iname.disc, iname.can_distract_dogs], [iname.remote, iname.can_distract_dogs],
-                                   [iname.top, iname.can_distract_dogs]]),
+            AWData(AWType.region, [[iname.disc], [iname.top],
+                                   [iname.remote, iname.can_distract_dogs]]),
     },
     rname.dog_upper_above_switch_lines_to_upper_east: {
         rname.dog_upper_above_switch_lines:
@@ -716,11 +719,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.yoyo_chest:
             AWData(AWType.location),
         rname.frog_bird_after_yoyo_1:  # can bypass the locked door with bubble jumps + lantern
-            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern]]),  # todo: test if you can use ball
+            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern], [iname.ball, iname.weird_tricks]]),  # todo: test if you can use ball
     },
     rname.frog_bird_after_yoyo_1: {
         rname.frog_bird_after_yoyo_2:  # pain in the ass, but you can get up with downwards bubbles
-            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long]]),
+            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long], [iname.ball, iname.weird_tricks]]),
         rname.frog_worm_shaft_bottom:  # if you fall along the left side, the bird doesn't reach you in time
             AWData(AWType.region, [[iname.weird_tricks], [iname.lantern]]),
         lname.egg_sapphire:
@@ -733,22 +736,23 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.ball]]),
         lname.match_guard_room:  # hit guard then jump off its head, or jump up with mobility
             AWData(AWType.location, [[iname.yoyo], [iname.flute], [iname.disc_hop],
-                                     [iname.bubble], [iname.ball]]),  # todo: top, ball, wheel?
+                                     [iname.bubble], [iname.ball]]),
         # 2 doors in the top right of this region
-        lname.key_frog_guard_room_east:  # might be doable with flute + disc?
-            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute], [iname.ball]]),
+        lname.key_frog_guard_room_east:
+            AWData(AWType.location, [[iname.yoyo], [iname.bubble, iname.flute], 
+                                     [iname.ball], [iname.flute, iname.weird_tricks]]),
         rname.frog_dark_room:  # yoyo to open the door, lantern to fall through the bird
-            AWData(AWType.region, [[iname.yoyo], [iname.lantern]]),
+            AWData(AWType.region, [[iname.yoyo], [iname.lantern], [iname.ball]]),
         rname.frog_ruby_egg_ledge:  # fall through a bird onto it
             AWData(AWType.region, [[iname.lantern]]),
         rname.frog_east_of_fast_travel:  # yoyo to open the door
-            AWData(AWType.region, [[iname.yoyo]]),
+            AWData(AWType.region, [[iname.yoyo], [iname.ball]]),
         rname.frog_pre_ostrich_attack:  # needs 2 keys, but that's never relevant because of consumable key logic
             AWData(AWType.region, [[iname.key_ring]]),
     },
     rname.frog_dark_room: {
         rname.frog_bird_after_yoyo_2:  # jump up at the rust egg with lantern, or use yoyo to open the door
-            AWData(AWType.region, [[iname.lantern], [iname.yoyo]]),  # todo: verify you can yoyo the door open from this side
+            AWData(AWType.region, [[iname.lantern], [iname.yoyo]]),
         lname.egg_rust:  # top left of the dark room
             AWData(AWType.location),
         lname.egg_jade:  # do the puzzle
@@ -759,6 +763,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.bubble_short], [iname.disc], [iname.top, iname.flute]]),
         rname.frog_elevator_and_ostrich_wheel:  # you need these two items to avoid locking checks
             AWData(AWType.region, [[iname.yoyo, iname.bubble]]),
+        rname.fast_travel:
+            AWData(AWType.region, [[iname.activated_frog_fast_travel]])
     },
     rname.frog_ruby_egg_ledge: {
         lname.egg_ruby:  # this whole region just for one egg
