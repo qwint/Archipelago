@@ -12,6 +12,7 @@ import subprocess
 
 import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
+from NetUtils import ClientStatus
 from worlds.animal_well.items import item_name_to_id
 from worlds.animal_well.locations import location_name_to_id
 from worlds.animal_well.names import ItemNames as iname
@@ -711,7 +712,10 @@ class AWLocations:
         #     ctx.locations_checked.add(location_name_to_id[lname.squirrel_acorn.value])
         # kangaroo medal drops
 
-        # TODO finished_game
+        # TODO other victory conditions
+        if not ctx.finished_game and self.key_house:
+            await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+            ctx.finished_game = True
 
         locations_checked = []
         for location in ctx.missing_locations:
