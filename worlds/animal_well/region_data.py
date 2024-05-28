@@ -101,7 +101,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.starting_area: {
         rname.starting_after_ghost:  # it would feel weird to call this the central area imo
-            AWData(AWType.region, [[iname.firecrackers], [iname.event_candle_first], [iname.weird_tricks]]),  # speedrunner trick
+            AWData(AWType.region, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first], [iname.weird_tricks]]),  # speedrunner trick
         rname.candle_area:
             AWData(AWType.region, [[iname.event_candle_first, iname.event_candle_dog_dark,
                                     iname.event_candle_dog_switch_box, iname.event_candle_dog_many_switches,
@@ -121,16 +121,16 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.flute]]),
     },
     rname.starting_after_ghost: {
-        rname.starting_area:
-            AWData(AWType.region),  # with firecracker rando being viable, "start from 4 statue room" may be a path we want to consider, and this will help with that.
+        rname.starting_area:  
+            AWData(AWType.region, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first]]),  # with firecracker rando being viable, "start from 4 statue room" may be a path we want to consider, and this will help with that.
         rname.bird_area:
             AWData(AWType.region),
         lname.candle_first:
             AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
-        lname.candle_first_event:
+        lname.candle_first_event:  # TODO: I don't think it's possible to light this candle without slaying the ghost first? Check, and check all candles for similar logic.
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_first),
         lname.egg_gorgeous:  # up and right of the candle
-            AWData(AWType.location),
+            AWData(AWType.location, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first]]),
         lname.map_chest:
             AWData(AWType.location),
     },
