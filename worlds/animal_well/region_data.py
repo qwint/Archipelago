@@ -260,7 +260,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bear_transcendental:  # might be controversial? it's across a screen transition but only 4 bubbles
             AWData(AWType.region, [[iname.bubble_short], [iname.disc_hop_hard]]),
         rname.bear_kangaroo_waterfall:
-            AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo], [iname.top, iname.ball], [iname.yoyo, iname.ball, iname.weird_tricks]  ]),
+            AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo], [iname.top, iname.ball],
+                                   [iname.yoyo, iname.ball, iname.weird_tricks]]),
         rname.bear_razzle_egg_spot:
             AWData(AWType.region, [[iname.defeated_chameleon, iname.bubble_short],
                                    [iname.defeated_chameleon, iname.disc_hop_hard]])
@@ -474,15 +475,16 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.firecrackers], [iname.disc]])
     },
     rname.dog_upper: {
-        rname.dog_upper_past_lake:
-            AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long]]),  # enter this transition with the switch pre-flipped to make sure you can pass the switch box room
+        rname.dog_upper_past_lake:  # enter with the switch pre-flipped to make sure you can pass the switch box room
+            AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long]]),
         rname.dog_upper_above_switch_lines:
             AWData(AWType.region, [[iname.disc], [iname.remote], [iname.top]]),
         lname.egg_evil:
             AWData(AWType.location, [[iname.flute]]),
     },
     rname.dog_upper_past_lake: {
-        # logical note: there's several items that can get past switch box, but you're logically guaranteed to have one of them to get to this region, so it's not accounted for.
+        # logical note: there's several items that can get past switch box, but you're logically guaranteed
+        # to have one of them to get to this region, so it's accounted for.
         lname.candle_dog_switch_box:
             AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
         lname.candle_dog_switch_box_event:
@@ -494,9 +496,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # lname.mama_cha:  # removing for now, may shuffle later
         #     AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         lname.bunny_lava:
-            AWData(AWType.location, [[iname.remote, iname.bubble_long, iname.can_distract_dogs]], loc_type="bunny"),  # anything other than this exact combo is a weird trick, right?
-        rname.dog_many_switches:  
-            AWData(AWType.region, [[iname.can_break_spikes, iname.bubble], [iname.wheel_hop], [iname.disc], [iname.yoyo], [iname.ball]]),  
+            AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type="bunny"),
+        rname.dog_many_switches:
+            AWData(AWType.region, [[iname.ball], [iname.yoyo], [iname.disc], [iname.wheel, iname.bubble],
+                                   [iname.wheel_hop]]),
         rname.dog_under_fast_travel_room:  # very tight, need to jump from the lower ledge one room to the right
             AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short], [iname.disc_hop]]),
     },
