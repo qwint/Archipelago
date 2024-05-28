@@ -14,13 +14,14 @@ class Goal(Choice):
     display_name = "Goal"
     option_fireworks = 1
     # option_bunny_land = 2
-    # option_egg_hunt = 3
+    option_egg_hunt = 3
     default = 1
 
 
 class FinalEggLocation(Choice):
     """
     Choose whether the 65th Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring opening the 4th Egg Door to access it.
+    This option is forced on if you have the egg hunt goal selected.
     """
     internal_name = "final_egg_location"
     display_name = "65th Egg Location"
@@ -53,21 +54,27 @@ class BunniesAsChecks(Choice):
     default = 0
 
 
-class CandleChecks(Toggle):
+class CandleChecks(Choice):  # choice so we can comment out non-working ones then readd them later
     """
     Lighting each of the candles sends a check.
     """
     internal_name = "candle_checks"
     display_name = "Candle Checks"
+    option_off = 0
+    # option_on = 1
+    default = 0
 
 
-class KeyRing(DefaultOnToggle):
+class KeyRing(Choice):  # choice so we can comment out non-working ones then readd them later
     """
     Have one keyring which unlocks all normal key doors instead of individual key items.
     Note: Due to how consumable key logic works, if this option is not enabled, you logically require all 6 keys to open any of the key doors.
     """
     internal_name = "key_ring"
     display_name = "Key Ring"
+    # option_off = 0
+    option_on = 1
+    default = 1
 
 
 class Matchbox(DefaultOnToggle):
