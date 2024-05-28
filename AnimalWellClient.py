@@ -1105,7 +1105,7 @@ class AWItems:
         # Write Keys
         if self.key < 0 or self.key > 6:
             raise AssertionError("Invalid number of keys %d", self.key)
-        buffer = (self.key - keys_used).to_bytes()
+        buffer = bytes([self.key - keys_used])
         if self.key_ring:
             buffer = (1).to_bytes()
         bytes_written = ctypes.c_ulong(0)
