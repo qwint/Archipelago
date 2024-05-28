@@ -494,9 +494,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # lname.mama_cha:  # removing for now, may shuffle later
         #     AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         lname.bunny_lava:
-            AWData(AWType.location, [[iname.remote, iname.bubble_long, iname.can_distract_dogs]], loc_type="bunny"),  # anything other than this exact combo is a weird trick, right?
-        rname.dog_many_switches:  
-            AWData(AWType.region, [[iname.can_break_spikes, iname.bubble], [iname.wheel_hop], [iname.disc], [iname.yoyo], [iname.ball]]),  
+            AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type="bunny"),
+        rname.dog_many_switches:
+            AWData(AWType.region, [[iname.ball], [iname.yoyo], [iname.disc], [iname.wheel, iname.bubble], [iname.wheel_hop]]),
         rname.dog_under_fast_travel_room:  # very tight, need to jump from the lower ledge one room to the right
             AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short], [iname.disc_hop]]),
     },
