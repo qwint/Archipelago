@@ -63,7 +63,7 @@ class AWLocations:
         self.key_frog_guard_room_west = False
         self.key_frog_guard_room_east = False
         self.key_dog = False
-        self.key_house = False  # TODO House key logic
+        self.key_house = False
         self.key_office = False
 
         self.medal_e = False
@@ -372,6 +372,17 @@ class AWLocations:
         self.candle_first = bool(flags >> 6 & 1)  # TODO VERIFY
         self.candle_frog = bool(flags >> 7 & 1)  # TODO VERIFY
         self.candle_fish = bool(flags >> 8 & 1)  # TODO VERIFY
+
+        # Read Startup State
+        buffer_size = 2
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x21C, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Startup State")
+            return
+        flags = struct.unpack('H', buffer)[0]
+        self.key_house = bool(flags >> 4 & 1)  # TODO VERIFY
 
         # Read Flames
         buffer_size = 1
@@ -1165,9 +1176,9 @@ class AWItems:
 
         # TODO VERIFY
         possess_m_disc = self.m_disc and (
-                (disc and no_disc_in_statue and no_disc_in_shrine) or (
-                not disc and not no_disc_in_statue and no_disc_in_shrine) or (
-                        not disc and no_disc_in_statue and not no_disc_in_shrine))
+                (disc and no_disc_in_statue and no_disc_in_shrine) or
+                (not disc and not no_disc_in_statue and no_disc_in_shrine) or
+                (not disc and no_disc_in_statue and not no_disc_in_shrine))
 
         # Write Other Items
         bits = (("1" if possess_m_disc else "0") +
