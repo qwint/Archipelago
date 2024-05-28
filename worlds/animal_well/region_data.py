@@ -492,7 +492,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         #     AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
         # todo: floor is lava
         rname.dog_many_switches:
-            AWData(AWType.region, [[iname.can_break_spikes]]),  # todo: verify you can do this with wheel
+            AWData(AWType.region, [[iname.ball], [iname.yoyo], [iname.disc], [iname.wheel, iname.bubble]]),
         rname.dog_under_fast_travel_room:  # very tight, need to jump from the lower ledge one room to the right
             AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short], [iname.disc_hop]]),
     },
