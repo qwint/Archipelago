@@ -101,7 +101,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.starting_area: {
         rname.starting_after_ghost:  # it would feel weird to call this the central area imo
-            AWData(AWType.region, [[iname.firecrackers]]),  # not sure if randoing firecrackers yet
+            AWData(AWType.region, [[iname.firecrackers], [iname.event_candle_first], [iname.weird_skips]]),  # speedrunner trick
         rname.candle_area:
             AWData(AWType.region, [[iname.event_candle_first, iname.event_candle_dog_dark,
                                     iname.event_candle_dog_switch_box, iname.event_candle_dog_many_switches,
@@ -121,6 +121,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.flute]]),
     },
     rname.starting_after_ghost: {
+        rname.starting_area:
+            AWData(AWType.region),  # with firecracker rando being viable, "start from 4 statue room" may be a path we want to consider, and this will help with that.
         rname.bird_area:
             AWData(AWType.region),
         lname.candle_first:
