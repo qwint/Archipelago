@@ -101,7 +101,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.starting_area: {
         rname.starting_after_ghost:  # it would feel weird to call this the central area imo
-            AWData(AWType.region, [[iname.firecrackers], [iname.event_candle_first], [iname.weird_skips]]),  # speedrunner trick
+            AWData(AWType.region, [[iname.firecrackers], [iname.event_candle_first], [iname.weird_tricks]]),  # speedrunner trick
         rname.candle_area:
             AWData(AWType.region, [[iname.event_candle_first, iname.event_candle_dog_dark,
                                     iname.event_candle_dog_switch_box, iname.event_candle_dog_many_switches,
