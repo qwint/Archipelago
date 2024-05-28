@@ -14,13 +14,14 @@ class Goal(Choice):
     display_name = "Goal"
     option_fireworks = 1
     # option_bunny_land = 2
-    # option_egg_hunt = 3
+    option_egg_hunt = 3
     default = 1
 
 
 class FinalEggLocation(Choice):
     """
     Choose whether the 65th Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring opening the 4th Egg Door to access it.
+    This option is forced on if you have the egg hunt goal selected.
     """
     internal_name = "final_egg_location"
     display_name = "65th Egg Location"
