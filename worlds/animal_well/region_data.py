@@ -734,7 +734,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_sapphire:
             AWData(AWType.location, [[iname.lantern]]),
     },
-    rname.frog_bird_after_yoyo_2: {
+    rname.frog_bird_after_yoyo_2: {  # this is where the fast travel activator is
         lname.activate_frog_fast_travel:
             AWData(AWType.location, [[iname.flute]], event=iname.activated_frog_fast_travel),
         lname.key_frog_guard_room_west:  # you can just throw the ball at their shields lmao
@@ -770,6 +770,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.yoyo, iname.bubble]]),
         rname.fast_travel:
             AWData(AWType.region, [[iname.activated_frog_fast_travel]])
+    },
+    rname.frog_east_of_fast_travel: {
+        lname.kangaroo_first_spot:
+            AWData(AWType.location, event=iname.k_shard),
+        rname.frog_elevator_and_ostrich_wheel:
+            AWData(AWType.region, [[iname.yoyo, iname.bubble]]),
     },
     rname.frog_ruby_egg_ledge: {
         lname.egg_ruby:  # this whole region just for one egg

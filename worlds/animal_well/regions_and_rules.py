@@ -180,7 +180,8 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
 
     k_medal = AWLocation(player, lname.k_medal, None, aw_regions[RegionNames.bird_area])
     k_medal.place_locked_item(AWItem(iname.k_medal, ItemClassification.progression, None, player))
-    k_medal.access_rule = lambda state: state.has(iname.k_shard, player, 3)
+    k_medal.access_rule = lambda state: state.has(iname.k_shard, player, 3) or state.has(iname.k_medal, player)
+    # remove the k_medal part after frankles has k shards working in chests
     aw_regions[RegionNames.bird_area].locations.append(k_medal)
 
     for region in aw_regions.values():
