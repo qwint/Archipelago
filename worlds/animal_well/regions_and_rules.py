@@ -133,7 +133,7 @@ def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> Collectio
 
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
-    egg_ratio = world.options.eggs_needed.value / 64
+    egg_ratio = 1  # world.options.eggs_needed.value / 64
     aw_regions = create_aw_regions(world)
     for origin_name, destinations in world.traversal_requirements.items():
         for destination_name, data in destinations.items():
@@ -150,13 +150,15 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                                           aw_regions[origin_name])
                 location.access_rule = interpret_rule(data.rules, world)
                 if data.eggs_required:  # swap to count_group_unique in 0.4.7
-                    add_rule(location, lambda state: state.count_group("Eggs", player) > data.eggs_required * egg_ratio)
+                    add_rule(location, lambda state, eggs_required=data.eggs_required:
+                             state.count_group("Eggs", player) >= eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
                 entrance = aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
                                                            rule=interpret_rule(data.rules, world))
                 if data.eggs_required:  # swap to count_group_unique in 0.4.7
-                    add_rule(entrance, lambda state: state.count_group("Eggs", player) > data.eggs_required * egg_ratio)
+                    add_rule(entrance, lambda state, eggs_required=data.eggs_required:
+                             state.count_group("Eggs", player) >= eggs_required * egg_ratio)
 
     if not world.options.key_ring:
         location = AWLocation(player, lname.got_all_keys, None, aw_regions[RegionNames.bird_area])

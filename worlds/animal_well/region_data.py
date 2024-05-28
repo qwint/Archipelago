@@ -879,7 +879,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
 
     rname.fast_travel: {
-        rname.starting_area:  # todo: is the fast travel room the only place to activate the squirrel door?
+        rname.starting_area:
             AWData(AWType.region, [[iname.flute]]),
         rname.bird_flute_chest:
             AWData(AWType.region, [[iname.activated_bird_fast_travel]]),
