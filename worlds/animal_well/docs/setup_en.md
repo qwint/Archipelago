@@ -28,3 +28,4 @@ Connect to the server and start playing.
 ## Notes
 - This is in early Alpha. If you encounter bugs, please report them in the ANIMAL WELL Future Game Design post in the Archipelago discord.
 - When you pick up an item from a chest, it will show the vanilla item. See the ANIMAL WELL Client to see what item you actually found in the chest.
+- There are some options missing, this is known and they will be made available as we get them to function.
