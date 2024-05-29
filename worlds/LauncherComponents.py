@@ -189,7 +189,6 @@ components: List[Component] = [
     # Zillion
     Component('Zillion Client', 'ZillionClient',
               file_identifier=SuffixIdentifier('.apzl')),
-    Component('Animal Well Client', 'AnimalWellClient'),
 
     #MegaMan Battle Network 3
     Component('MMBN3 Client', 'MMBN3Client', file_identifier=SuffixIdentifier('.apbn3'))
