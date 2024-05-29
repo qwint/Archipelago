@@ -979,8 +979,6 @@ class AWItems:
         flags = struct.unpack('I', buffer)[0]
         inserted_s_medal = bool(flags >> 15 & 1)
         e_medal_inserted = bool(flags >> 16 & 1)
-        no_disc_in_shrine = bool(flags >> 29 & 1)
-        no_disc_in_statue = bool(flags >> 30 & 1)
 
         # Write Quest State
         if self.bubble < 0 or self.bubble > 2:
@@ -1155,7 +1153,7 @@ class AWItems:
             logger.error("Unable to read Owned Equipment")
             return
         flags = struct.unpack('H', buffer)[0]
-        disc = bool(flags >> 4 & 1)
+        disc = bool(flags >> 5 & 1)
 
         # Write Owned Equipment
         bits = ("0" +
@@ -1178,11 +1176,19 @@ class AWItems:
                                                          ctypes.byref(bytes_written)):
             logger.warning("Unable to write Owned Equipment")
 
-        # TODO-VERIFY
-        possess_m_disc = self.m_disc and (
-                (disc and no_disc_in_statue and no_disc_in_shrine) or
-                (not disc and not no_disc_in_statue and no_disc_in_shrine) or
-                (not disc and no_disc_in_statue and not no_disc_in_shrine))
+        # Read Other Items
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1DE, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Other Items")
+            return
+        flags = struct.unpack('B', buffer)[0]
+        possess_m_disc = bool(flags >> 0 & 1) or (self.m_disc and ctx.first_m_disc)
+
+        if self.m_disc:
+            ctx.first_m_disc = False
 
         # Write Other Items
         bits = (("1" if possess_m_disc else "0") +
@@ -1266,6 +1272,7 @@ class AnimalWellContext(CommonContext):
         self.game = 'ANIMAL WELL'
         self.used_firecrackers = 0
         self.used_berries = 0
+        self.first_m_disc = True
 
     async def server_auth(self, password_requested: bool = False):
         """
