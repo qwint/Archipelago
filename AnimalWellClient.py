@@ -841,8 +841,8 @@ class AWItems:
 
         self.egg_65 = False
 
-        self.firecracker_refill = 0  # TODO Fill Logic
-        self.big_blue_fruit = 0  # TODO Fill Logic
+        self.firecracker_refill = 0
+        self.big_blue_fruit = 0
 
     async def read_from_archipelago(self, ctx):
         """
@@ -957,10 +957,10 @@ class AWItems:
 
         self.egg_65 = item_name_to_id[iname.egg_65.value] in items
 
-        self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])  # TODO Fill Logic
-        self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])  # TODO Fill Logic
+        self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])
+        self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])
 
-    async def write_to_game(self, process_handle, game_slot, start_address: int):
+    async def write_to_game(self, process_handle, game_slot, start_address: int, ctx):
 
         """
         Write inventory state to the process
@@ -1107,7 +1107,7 @@ class AWItems:
             raise AssertionError("Invalid number of keys %d", self.key)
         buffer = bytes([self.key - keys_used])
         if self.key_ring:
-            buffer = (1).to_bytes()
+            buffer = bytes([1])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B1, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1140,7 +1140,7 @@ class AWItems:
             raise AssertionError("Invalid number of matches %d", self.match)
         buffer = bytes([self.match - candles_lit])
         if self.matchbox:
-            buffer = (1).to_bytes()
+            buffer = bytes([1])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B2, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1199,6 +1199,40 @@ class AWItems:
                                                          ctypes.byref(bytes_written)):
             logger.warning("Unable to write Other Items")
 
+        # Berries
+        berries_to_use = self.big_blue_fruit - ctx.used_berries
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, start_address + 0x1E4, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.warning("Unable to read Total Hearts")
+        total_hearts = struct.unpack('B', buffer)[0]
+        total_hearts += min(berries_to_use, 255)
+        bytes_written = ctypes.c_ulong(0)
+        buffer = bytes([total_hearts])
+        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1E4, buffer, len(buffer),
+                                                         ctypes.byref(bytes_written)):
+            logger.warning("Unable to write Total Hearts")
+        ctx.used_berries = self.big_blue_fruit
+
+        # Firecrackers
+        firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, start_address + 0x1E3, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.warning("Unable to read Total Hearts")
+        total_firecrackers = struct.unpack('B', buffer)[0]
+        total_firecrackers += min(firecrackers_to_use, 6 if self.fanny_pack else 3)
+        bytes_written = ctypes.c_ulong(0)
+        buffer = bytes([total_firecrackers])
+        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1E3, buffer, len(buffer),
+                                                         ctypes.byref(bytes_written)):
+            logger.warning("Unable to write Total Hearts")
+        ctx.used_firecrackers = self.firecracker_refill
+
 
 class AnimalWellCommandProcessor(ClientCommandProcessor):
     """
@@ -1230,6 +1264,8 @@ class AnimalWellContext(CommonContext):
         self.locations_array = None
         self.connection_status = CONNECTION_INITIAL_STATUS
         self.game = 'ANIMAL WELL'
+        self.used_firecrackers = 0
+        self.used_berries = 0
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -1375,7 +1411,7 @@ async def process_sync_task(ctx: AnimalWellContext):
                 await ctx.locations.read_from_game(ctx.process_handle, active_slot, ctx.start_address)
                 await ctx.locations.write_to_archipelago(ctx)
                 await ctx.items.read_from_archipelago(ctx)
-                await ctx.items.write_to_game(ctx.process_handle, active_slot, ctx.start_address)
+                await ctx.items.write_to_game(ctx.process_handle, active_slot, ctx.start_address, ctx)
                 await asyncio.sleep(0.1)
             except ConnectionResetError:
                 logger.debug("Read failed due to Connection Lost, Reconnecting")
