@@ -1,68 +1,31 @@
 # ANIMAL WELL Setup Guide
 
 ## Required Software
-
-- [TUNIC](https://tunicgame.com/) for PC (Steam Deck also supported)
-- [BepInEx (Unity IL2CPP)](https://github.com/BepInEx/BepInEx/releases/tag/v6.0.0-pre.1)
-- [TUNIC Randomizer Mod](https://github.com/silent-destroyer/tunic-randomizer/releases/latest)
+- [ANIMAL WELL](https://www.animalwell.net/) for PC
+- [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
 
 ## Optional Software
-- [TUNIC Randomizer Map Tracker](https://github.com/SapphireSapphic/TunicTracker/releases/latest) (For use with EmoTracker/PopTracker)
-- [TUNIC Randomizer Item Auto-tracker](https://github.com/radicoon/tunic-rando-tracker/releases/latest)
-- [Archipelago Text Client](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
-
-## Installation
-
-### Find Your Relevant Game Directories
-
-Find your TUNIC game installation directory:
-
-- **Steam**: Right click TUNIC in your Steam Library, then *Manage → Browse local files*.<br>
-  - **Steam Deck**: Hold down the power button, tap "Switch to Desktop", then launch Steam from Desktop Mode to access the above option.
-- **PC Game Pass**: In the Xbox PC app, go to the TUNIC game page from your library, click the [...] button next to "Play", then 
-*Manage → Files → Browse...*<br>
-- **Other platforms**: Follow a similar pattern of steps as above to locate your specific game directory.
-
-### Install BepInEx
-
-BepInEx is a general purpose framework for modding Unity games, and is used to run the TUNIC Randomizer.
-
-Download [BepInEx](https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.1/BepInEx_UnityIL2CPP_x64_6.0.0-pre.1.zip).
-
-If playing on Steam Deck, follow this [guide to set up BepInEx via Proton](https://docs.bepinex.dev/articles/advanced/proton_wine.html).
-
-Extract the contents of the BepInEx .zip file into your TUNIC game directory:<br>
-- **Steam**: Steam\steamapps\common\TUNIC<br>
-- **PC Game Pass**: XboxGames\Tunic\Content<br>
-- **Other platforms**: Place into the same folder that the Tunic_Data or Secret Legend_Data folder is found.
-
-Launch the game once and close it to finish the BepInEx installation.
-
-### Install The TUNIC Randomizer Mod
-
-Download the latest release of the [TUNIC Randomizer Mod](https://github.com/silent-destroyer/tunic-randomizer/releases/latest).
-
-Extract the contents of the downloaded .zip file, and find the folder labeled `Tunic Randomizer`.
-
-Copy the `Tunic Randomizer` folder into `BepInEx/plugins` in your TUNIC game installation directory. 
-
-The filepath to the mod should look like `BepInEx/plugins/Tunic Randomizer/TunicRandomizer.dll`<br>
-
-Launch the game, and if everything was installed correctly you should see `Randomizer Mod Ver. x.y.z` in the top left corner of the title screen!
+- [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases/latest)
 
 ## Configure Archipelago Options
 
-### Configure Your YAML File
+### Configure Your YAML File and Generate a Randomized Game
 
-Visit the [TUNIC options page](/games/TUNIC/player-options) to generate a YAML with your selected options.
+Place the `animal_well.apworld` in your `Archipelago/lib/worlds` folder.
+Open up the Archipelago Launcher.
+Click on Generate Template Options.
+Grab the `ANIMAL WELL.yaml` file and place it in your `Archipelago/Players` folder, and customize it to your liking.
+Place any other yamls you would like to generate in this folder as well.
+Run `Generate` from the Archipelago Launcher.
+Upload your generated game (in you `Archipelago/output` folder) at the [Archipelago Uploads page](https://archipelago.gg/uploads), or host locally.
 
-### Configure Your Mod Settings
-Launch the game, and using the menu on the Title Screen select `Archipelago` under `Randomizer Mode`. 
+## Play the Randomized Game
+Launch ANIMAL WELL, and start a new game on an empty save file (or continue from your previous save file that you used for this Archipelago session).
+Open up the Archipelago Launcher, and click on ANIMAL WELL Client.
+Wait patiently for up to 1 minute for it to properly detect your game and find the information it needs. If it takes more than a minute, try closing and reopening both the game and the client.
+Connect to the server and start playing.
 
-Click the button labeled `Edit AP Config`, and fill in *Player*, *Hostname*, *Port*, and *Password* (if required) with the correct information for your room.
-
-Once you've input your information, click the `Close` button. If everything was configured properly, you should see `Status: Connected!` and your chosen game options will be shown under `World Settings`.
-
-An error message will display if the game fails to connect to the server.
-
-Be sure to also look at the in-game options menu for a variety of additional settings, such as enemy randomization!
+## Notes
+- This is in early Alpha. If you encounter bugs, please report them in the ANIMAL WELL Future Game Design post in the Archipelago discord.
+- When you pick up an item from a chest, it will show the vanilla item. See the ANIMAL WELL Client to see what item you actually found in the chest.
+- There are some options missing, this is known and they will be made available as we get them to function.
