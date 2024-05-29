@@ -1225,7 +1225,7 @@ async def get_animal_well_process_handle():
         found = False
         while not found:
             if address % 0x80000 == 0:
-                logger.info("Looking for start address of memory")
+                logger.info("Looking for start address of memory, %d", (address - 0x10000000) / 0x80000)
                 await asyncio.sleep(0.05)
             buffer = ctypes.create_string_buffer(buffer_size)
             bytes_read = ctypes.c_ulong(0)
