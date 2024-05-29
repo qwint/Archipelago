@@ -742,8 +742,8 @@ class AWItems:
 
         self.egg_65 = False
 
-        self.firecracker_refill = 0  # TODO Filler
-        self.big_blue_fruit = 0  # TODO Filler
+        self.firecracker_refill = 0  # TODO Fill Logic
+        self.big_blue_fruit = 0  # TODO Fill Logic
 
     async def read_from_archipelago(self, ctx):
         """
