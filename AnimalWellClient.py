@@ -1031,7 +1031,7 @@ class AWItems:
                        (flags >> 7 & 1) +
                        (flags >> 8 & 1))
 
-        if candles_lit > self.match:
+        if candles_lit > self.match and not self.matchbox:
             raise AssertionError("More candles lit than matches")
 
         # Write Matches
