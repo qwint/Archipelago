@@ -858,8 +858,8 @@ class AWItems:
 
         self.egg_65 = item_name_to_id[iname.egg_65.value] in items
 
-        self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])
-        self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])
+        self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])  # TODO Fill Logic
+        self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])  # TODO Fill Logic
 
     async def write_to_game(self, process_handle, game_slot, start_address: int, ctx):
 
