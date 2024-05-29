@@ -71,11 +71,6 @@ class AWLocations:
         self.medal_s = False
         self.medal_k = False  # TODO K shard logic
 
-        self.flame_blue = False
-        self.flame_green = False
-        self.flame_violet = False
-        self.flame_pink = False
-
         # eggs, sorted by row top-to-bottom
         self.egg_reference = False
         self.egg_brown = False
@@ -171,17 +166,6 @@ class AWLocations:
         self.bunny_ghost_dog = False
         self.bunny_disc_spike = False
 
-        # candles
-        self.candle_first = False
-        self.candle_dog_dark = False
-        self.candle_dog_switch_box = False
-        self.candle_dog_many_switches = False
-        self.candle_dog_disc_switches = False
-        self.candle_dog_bat = False
-        self.candle_fish = False
-        self.candle_frog = False
-        self.candle_bear = False
-
         # extras
         # self.mama_cha = False
         # self.squirrel_acorn = false
@@ -217,8 +201,8 @@ class AWLocations:
         self.egg_reference = bool(flags >> 0 & 1)
         self.egg_brown = bool(flags >> 1 & 1)
         self.egg_raw = bool(flags >> 2 & 1)
-        self.egg_big = bool(flags >> 3 & 1)
-        self.egg_pickled = bool(flags >> 4 & 1)  # TODO-VERIFY
+        self.egg_pickled = bool(flags >> 3 & 1)
+        self.egg_big = bool(flags >> 4 & 1)  # TODO-VERIFY
         self.egg_swan = bool(flags >> 5 & 1)
         self.egg_forbidden = bool(flags >> 6 & 1)
         self.egg_shadow = bool(flags >> 7 & 1)
@@ -268,9 +252,9 @@ class AWLocations:
         self.flute_chest = bool(flags >> 46 & 1)  # TODO-VERIFY
         self.egg_65 = bool(flags >> 47 & 1)
 
-        self.stamp_chest = bool(flags >> 48 & 1)  # TODO-VERIFY
+        self.top_chest = bool(flags >> 48 & 1)  # TODO-VERIFY
         self.pencil_chest = bool(flags >> 49 & 1)  # TODO-VERIFY
-        self.top_chest = bool(flags >> 50 & 1)  # TODO-VERIFY
+        self.stamp_chest = bool(flags >> 50 & 1)
         self.egg_holiday = bool(flags >> 51 & 1)  # TODO-VERIFY
         self.egg_rain = bool(flags >> 52 & 1)  # TODO-VERIFY
         self.egg_razzle = bool(flags >> 53 & 1)
@@ -322,11 +306,11 @@ class AWLocations:
         self.egg_obsidian = bool(flags >> 94 & 1)
         self.bb_wand_chest = bool(flags >> 95 & 1)  # TODO-VERIFY
 
-        self.yoyo_chest = bool(flags >> 96 & 1)  # TODO-VERIFY
-        self.uv_lantern_chest = bool(flags >> 97 & 1)  # TODO-VERIFY
+        self.uv_lantern_chest = bool(flags >> 96 & 1)  # TODO-VERIFY
+        self.yoyo_chest = bool(flags >> 97 & 1)
         self.egg_crystal = bool(flags >> 98 & 1)  # TODO-VERIFY
-        self.fanny_pack_chest = bool(flags >> 99 & 1)  # TODO-VERIFY
-        self.egg_golden = bool(flags >> 100 & 1)  # TODO-VERIFY
+        self.egg_golden = bool(flags >> 99 & 1)  # TODO-VERIFY
+        self.fanny_pack_chest = bool(flags >> 100 & 1)
 
         # Read Bunnies
         buffer_size = 4
@@ -354,26 +338,6 @@ class AWLocations:
         self.bunny_lava = bool(flags >> 30 & 1)
         self.bunny_disc_spike = bool(flags >> 31 & 1)
 
-        # Read Candles
-        buffer_size = 2
-        buffer = ctypes.create_string_buffer(buffer_size)
-        bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1E0, buffer, buffer_size,
-                                                        ctypes.byref(bytes_read)):
-            logger.error("Unable to read Candles State")
-            return
-        flags = struct.unpack('H', buffer)[0]
-        # I am not very confident in these at all
-        self.candle_dog_disc_switches = bool(flags >> 0 & 1)  # TODO-VERIFY
-        self.candle_dog_bat = bool(flags >> 1 & 1)  # TODO-VERIFY
-        self.candle_dog_switch_box = bool(flags >> 2 & 1)  # TODO-VERIFY
-        self.candle_dog_many_switches = bool(flags >> 3 & 1)  # TODO-VERIFY
-        self.candle_dog_dark = bool(flags >> 4 & 1)  # TODO-VERIFY
-        self.candle_bear = bool(flags >> 5 & 1)  # TODO-VERIFY
-        self.candle_first = bool(flags >> 6 & 1)  # TODO-VERIFY
-        self.candle_frog = bool(flags >> 7 & 1)  # TODO-VERIFY
-        self.candle_fish = bool(flags >> 8 & 1)  # TODO-VERIFY
-
         # Read Startup State
         buffer_size = 2
         buffer = ctypes.create_string_buffer(buffer_size)
@@ -383,41 +347,7 @@ class AWLocations:
             logger.error("Unable to read Startup State")
             return
         flags = struct.unpack('H', buffer)[0]
-        self.key_house = bool(flags >> 4 & 1)  # TODO-VERIFY
-
-        # Read Flames
-        buffer_size = 1
-        buffer = ctypes.create_string_buffer(buffer_size)
-        bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x21E, buffer, buffer_size,
-                                                        ctypes.byref(bytes_read)):
-            logger.error("Unable to read Flame State")
-            return
-        self.flame_blue = struct.unpack('B', buffer)[0] >= 4
-        buffer_size = 1
-        buffer = ctypes.create_string_buffer(buffer_size)
-        bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x21F, buffer, buffer_size,
-                                                        ctypes.byref(bytes_read)):
-            logger.error("Unable to read Flame State")
-            return
-        self.flame_pink = struct.unpack('B', buffer)[0] >= 4
-        buffer_size = 1
-        buffer = ctypes.create_string_buffer(buffer_size)
-        bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x220, buffer, buffer_size,
-                                                        ctypes.byref(bytes_read)):
-            logger.error("Unable to read Flame State")
-            return
-        self.flame_violet = struct.unpack('B', buffer)[0] >= 4
-        buffer_size = 1
-        buffer = ctypes.create_string_buffer(buffer_size)
-        bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x221, buffer, buffer_size,
-                                                        ctypes.byref(bytes_read)):
-            logger.error("Unable to read Flame State")
-            return
-        self.flame_green = struct.unpack('B', buffer)[0] >= 4
+        self.key_house = bool(flags >> 4 & 1)
 
     async def write_to_archipelago(self, ctx):
         """
@@ -496,15 +426,6 @@ class AWLocations:
             ctx.locations_checked.add(location_name_to_id[lname.medal_s.value])
         if self.medal_k:
             ctx.locations_checked.add(location_name_to_id[lname.medal_k.value])
-
-        if self.flame_blue:
-            ctx.locations_checked.add(location_name_to_id[lname.flame_blue.value])
-        if self.flame_green:
-            ctx.locations_checked.add(location_name_to_id[lname.flame_green.value])
-        if self.flame_violet:
-            ctx.locations_checked.add(location_name_to_id[lname.flame_violet.value])
-        if self.flame_pink:
-            ctx.locations_checked.add(location_name_to_id[lname.flame_pink.value])
 
         # eggs, sorted by row top-to-bottom
         if self.egg_reference:
@@ -684,26 +605,6 @@ class AWLocations:
             ctx.locations_checked.add(location_name_to_id[lname.bunny_ghost_dog.value])
         if self.bunny_disc_spike:
             ctx.locations_checked.add(location_name_to_id[lname.bunny_disc_spike.value])
-
-        # candles
-        if self.candle_first:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_first.value])
-        if self.candle_dog_dark:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_dog_dark.value])
-        if self.candle_dog_switch_box:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_dog_switch_box.value])
-        if self.candle_dog_many_switches:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_dog_many_switches.value])
-        if self.candle_dog_disc_switches:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_dog_disc_switches.value])
-        if self.candle_dog_bat:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_dog_bat.value])
-        if self.candle_fish:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_fish.value])
-        if self.candle_frog:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_frog.value])
-        if self.candle_bear:
-            ctx.locations_checked.add(location_name_to_id[lname.candle_bear.value])
 
         # extras
         # if self.mama_cha:
@@ -960,7 +861,7 @@ class AWItems:
         self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])  # TODO Fill Logic
         self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])  # TODO Fill Logic
 
-    async def write_to_game(self, process_handle, game_slot, start_address: int):
+    async def write_to_game(self, process_handle, game_slot, start_address: int, ctx):
 
         """
         Write inventory state to the process
@@ -979,8 +880,6 @@ class AWItems:
         flags = struct.unpack('I', buffer)[0]
         inserted_s_medal = bool(flags >> 15 & 1)
         e_medal_inserted = bool(flags >> 16 & 1)
-        no_disc_in_shrine = bool(flags >> 29 & 1)
-        no_disc_in_statue = bool(flags >> 30 & 1)
 
         # Write Quest State
         if self.bubble < 0 or self.bubble > 2:
@@ -1107,7 +1006,7 @@ class AWItems:
             raise AssertionError("Invalid number of keys %d", self.key)
         buffer = bytes([self.key - keys_used])
         if self.key_ring:
-            buffer = (1).to_bytes()
+            buffer = bytes([1])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B1, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1140,7 +1039,7 @@ class AWItems:
             raise AssertionError("Invalid number of matches %d", self.match)
         buffer = bytes([self.match - candles_lit])
         if self.matchbox:
-            buffer = (1).to_bytes()
+            buffer = bytes([1])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B2, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1155,7 +1054,7 @@ class AWItems:
             logger.error("Unable to read Owned Equipment")
             return
         flags = struct.unpack('H', buffer)[0]
-        disc = bool(flags >> 4 & 1)
+        disc = bool(flags >> 5 & 1)
 
         # Write Owned Equipment
         bits = ("0" +
@@ -1178,11 +1077,19 @@ class AWItems:
                                                          ctypes.byref(bytes_written)):
             logger.warning("Unable to write Owned Equipment")
 
-        # TODO-VERIFY
-        possess_m_disc = self.m_disc and (
-                (disc and no_disc_in_statue and no_disc_in_shrine) or
-                (not disc and not no_disc_in_statue and no_disc_in_shrine) or
-                (not disc and no_disc_in_statue and not no_disc_in_shrine))
+        # Read Other Items
+        buffer_size = 1
+        buffer = ctypes.create_string_buffer(buffer_size)
+        bytes_read = ctypes.c_ulong(0)
+        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1DE, buffer, buffer_size,
+                                                        ctypes.byref(bytes_read)):
+            logger.error("Unable to read Other Items")
+            return
+        flags = struct.unpack('B', buffer)[0]
+        possess_m_disc = self.m_disc and (bool(flags >> 0 & 1) or ctx.first_m_disc)
+
+        if self.m_disc:
+            ctx.first_m_disc = False
 
         # Write Other Items
         bits = (("1" if possess_m_disc else "0") +
@@ -1230,6 +1137,7 @@ class AnimalWellContext(CommonContext):
         self.locations_array = None
         self.connection_status = CONNECTION_INITIAL_STATUS
         self.game = 'ANIMAL WELL'
+        self.first_m_disc = True
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -1375,7 +1283,7 @@ async def process_sync_task(ctx: AnimalWellContext):
                 await ctx.locations.read_from_game(ctx.process_handle, active_slot, ctx.start_address)
                 await ctx.locations.write_to_archipelago(ctx)
                 await ctx.items.read_from_archipelago(ctx)
-                await ctx.items.write_to_game(ctx.process_handle, active_slot, ctx.start_address)
+                await ctx.items.write_to_game(ctx.process_handle, active_slot, ctx.start_address, ctx)
                 await asyncio.sleep(0.1)
             except ConnectionResetError:
                 logger.debug("Read failed due to Connection Lost, Reconnecting")
