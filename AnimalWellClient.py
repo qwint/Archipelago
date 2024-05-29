@@ -347,7 +347,7 @@ class AWLocations:
             logger.error("Unable to read Startup State")
             return
         flags = struct.unpack('H', buffer)[0]
-        self.key_house = bool(flags >> 4 & 1)  # TODO-VERIFY
+        self.key_house = bool(flags >> 4 & 1)
 
     async def write_to_archipelago(self, ctx):
         """
