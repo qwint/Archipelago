@@ -447,4 +447,5 @@ class LocationNames(str, Enum):
     got_all_keys = "Received All Keys"  # for when you get all of the keys, consumables logic is cool
     upgraded_wand = "Upgraded to B.B. Wand"  # for when you get your second b wand, this is a hack
     k_medal = "Assembled the K. Medal"
+    kangaroo_first_spot = "Kangaroo First Spot"  # first spot the kangaroo appears
     victory_first = "First Victory"
