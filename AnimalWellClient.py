@@ -268,9 +268,9 @@ class AWLocations:
         self.flute_chest = bool(flags >> 46 & 1)  # TODO-VERIFY
         self.egg_65 = bool(flags >> 47 & 1)
 
-        self.stamp_chest = bool(flags >> 48 & 1)  # TODO-VERIFY
+        self.top_chest = bool(flags >> 48 & 1)  # TODO-VERIFY
         self.pencil_chest = bool(flags >> 49 & 1)  # TODO-VERIFY
-        self.top_chest = bool(flags >> 50 & 1)  # TODO-VERIFY
+        self.stamp_chest = bool(flags >> 50 & 1)
         self.egg_holiday = bool(flags >> 51 & 1)  # TODO-VERIFY
         self.egg_rain = bool(flags >> 52 & 1)  # TODO-VERIFY
         self.egg_razzle = bool(flags >> 53 & 1)
