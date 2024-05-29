@@ -1139,6 +1139,71 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AnimalWellContext):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
+    def _cmd_ring(self):
+        """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
+        if isinstance(self.ctx, AnimalWellContext):
+            if self.ctx.process_handle and self.ctx.start_address:
+
+                game_slot = get_active_game_slot(self.ctx.process_handle, self.ctx.start_address)
+                slot_address = self.ctx.start_address + 0x18 + (0x27010 * game_slot)
+                try:
+                    # Read Quest State
+                    buffer_size = 4
+                    buffer = ctypes.create_string_buffer(buffer_size)
+                    bytes_read = ctypes.c_ulong(0)
+                    if not ctypes.windll.kernel32.ReadProcessMemory(self.ctx.process_handle, slot_address + 0x1EC,
+                                                                    buffer, buffer_size, ctypes.byref(bytes_read)):
+                        logger.error("Unable to read Quest State")
+                        raise ConnectionRefusedError
+
+                    flags = struct.unpack('I', buffer)[0]
+
+                    if bool(flags >> 13 & 1):
+                        logger.info("Removing C. Ring from inventory")
+                    else:
+                        logger.info("Adding C. Ring to inventory. Press F to use")
+
+                    bits = ((str(flags >> 0 & 1)) +
+                            (str(flags >> 1 & 1)) +
+                            (str(flags >> 2 & 1)) +
+                            (str(flags >> 3 & 1)) +
+                            (str(flags >> 4 & 1)) +
+                            (str(flags >> 5 & 1)) +
+                            (str(flags >> 6 & 1)) +
+                            (str(flags >> 7 & 1)) +
+                            (str(flags >> 8 & 1)) +
+                            (str(flags >> 9 & 1)) +
+                            (str(flags >> 10 & 1)) +
+                            (str(flags >> 11 & 1)) +
+                            (str(flags >> 12 & 1)) +
+                            ("0" if bool(flags >> 13 & 1) else "1") +
+                            (str(flags >> 14 & 1)) +
+                            (str(flags >> 15 & 1)) +
+                            (str(flags >> 16 & 1)) +
+                            (str(flags >> 17 & 1)) +
+                            (str(flags >> 18 & 1)) +
+                            (str(flags >> 19 & 1)) +
+                            (str(flags >> 20 & 1)) +
+                            (str(flags >> 21 & 1)) +
+                            (str(flags >> 22 & 1)) +
+                            (str(flags >> 23 & 1)) +
+                            (str(flags >> 24 & 1)) +
+                            (str(flags >> 25 & 1)) +
+                            (str(flags >> 26 & 1)) +
+                            (str(flags >> 27 & 1)) +
+                            (str(flags >> 28 & 1)) +
+                            (str(flags >> 29 & 1)) +
+                            (str(flags >> 30 & 1)) +
+                            (str(flags >> 31 & 1)))[::-1]
+                    buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
+                    bytes_written = ctypes.c_ulong(0)
+                    if not ctypes.windll.kernel32.WriteProcessMemory(self.ctx.process_handle, slot_address + 0x1EC,
+                                                                     buffer, len(buffer), ctypes.byref(bytes_written)):
+                        logger.error("Unable to write Quest State")
+                        raise ConnectionRefusedError
+                except:
+                    logger.error(f"Unable to toggle ring in inventory")
+
 
 class AnimalWellContext(CommonContext):
     """
@@ -1275,7 +1340,7 @@ async def get_animal_well_process_handle():
         raise NotImplementedError
 
 
-async def get_active_game_slot(process_handle, start_address):
+def get_active_game_slot(process_handle, start_address):
     """
     Get the game slot currently being played
     """
@@ -1303,7 +1368,7 @@ async def process_sync_task(ctx: AnimalWellContext):
         error_status = None
         if ctx.process_handle and ctx.start_address:
             try:
-                active_slot = await get_active_game_slot(ctx.process_handle, ctx.start_address)
+                active_slot = get_active_game_slot(ctx.process_handle, ctx.start_address)
                 await ctx.locations.read_from_game(ctx.process_handle, active_slot, ctx.start_address)
                 await ctx.locations.write_to_archipelago(ctx)
                 await ctx.items.read_from_archipelago(ctx)
