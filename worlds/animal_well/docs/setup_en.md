@@ -21,8 +21,8 @@ Upload your generated game (in you `Archipelago/output` folder) at the [Archipel
 
 ## Play the Randomized Game
 Launch ANIMAL WELL, and start a new game on an empty save file (or continue from your previous save file that you used for this Archipelago session).
-Open up the Archipelago Launcher, and click on ANIMAL WELL Client.
-Wait patiently for up to 1 minute for it to properly detect your game and find the information it needs. If it takes more than a minute, try closing and reopening both the game and the client.
+Open up the Archipelago Launcher, and click on ANIMAL WELL Client. Do not open up the ANIMAL WELL Client before doing the previous step.
+Wait patiently for up to 1 minute for it to properly detect your game and find the information it needs to modify it. If it takes more than a minute, try closing and reopening both the game and the client.
 Connect to the server and start playing.
 
 ## Notes
