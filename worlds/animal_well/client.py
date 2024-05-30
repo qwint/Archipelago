@@ -903,9 +903,9 @@ class AWItems:
                 (str(flags >> 6 & 1)) +
                 (str(flags >> 7 & 1)) +
                 (str(flags >> 8 & 1)) +
-                (str(flags >> 9 & 1)) +
-                (str(flags >> 10 & 1)) +
-                (str(flags >> 11 & 1)) +
+                "1" +
+                "1" +
+                "1" +
                 (str(flags >> 12 & 1)) +
                 (str(flags >> 13 & 1)) +
                 (str(flags >> 14 & 1)) +
@@ -1287,6 +1287,22 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
         with open(f"{os.getenv('APPDATA')}\\..\\LocalLow\\Billy Basso\\Animal Well\\AnimalWell.sav", "rb") as savefile:
             slot_1 = bytearray(savefile.read(0x18 + 0x27010))[0x18:]
 
+        # Find best pattern
+        consecutive_start = 0
+        consecutive_length = 0
+        local_length = 0
+        for i in range(len(slot_1)):
+            local_length += 1
+            if slot_1[i] == 0:
+                local_length = 0
+            elif local_length > consecutive_length:
+                consecutive_length = local_length
+                consecutive_start = i - local_length + 1
+
+        logger.info("Found the longest nonzero consecutive memory at %s of length %s", hex(consecutive_start),
+                    hex(consecutive_length))
+        slot_1 = slot_1[consecutive_start: consecutive_start + consecutive_length]
+
         # Preprocess
         bad_chars = [-1] * 256
         for index in range(len(slot_1)):
@@ -1294,8 +1310,16 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
 
         # Search
         address = 0
+        iterations = 0
         found = False
         while not found:
+            iterations += 1
+            if iterations % 0x10000 == 0:
+                await asyncio.sleep(0.05)
+
+            if iterations % 0x80000 == 0:
+                logger.info("Looking for start address of memory, %s", hex(address))
+
             index = len(slot_1) - 1
 
             buffer_size = 1
@@ -1319,9 +1343,11 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
 
             if index < 0:
                 found = True
-                address -= 0x18
+                address -= (0x18 + consecutive_start)  # 10CDF440h
             else:
                 address += max(1, index - bad_chars[int(read_address_plus_index)])
+
+        logger.info("Found start address of memory, %s", hex(address))
 
         # Verify
         buffer_size = 4
@@ -1358,7 +1384,7 @@ def get_active_game_slot(ctx: AnimalWellContext):
             logger.error("Unable to read version information from process")
             raise ConnectionResetError
         slot = struct.unpack('B', buffer)[0]
-        if slot == 1:
+        if slot == 0:
             logger.error("Slot 1 detected, please be in slot 2 or 3")
             raise ConnectionResetError
         return slot
