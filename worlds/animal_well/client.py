@@ -172,17 +172,18 @@ class AWLocations:
         # self.squirrel_acorn = false
         # kangaroo medal drops
 
-    async def read_from_game(self, process_handle, game_slot, start_address: int):
+    def read_from_game(self, ctx):
         """
         Read checked locations from the process
         """
-        slot_address = start_address + 0x18 + (0x27010 * game_slot)
+        active_slot = get_active_game_slot(ctx)
+        slot_address = ctx.start_address + 0x18 + (0x27010 * active_slot)
 
         # Read Chests
         buffer_size = 8
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x120, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x120, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Chests")
             raise ConnectionRefusedError
@@ -192,7 +193,7 @@ class AWLocations:
         buffer_size = 8
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x128, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x128, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Chests")
             raise ConnectionRefusedError
@@ -319,7 +320,7 @@ class AWLocations:
         buffer_size = 4
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x198, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x198, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Bunnies State")
             raise ConnectionRefusedError
@@ -346,7 +347,7 @@ class AWLocations:
         buffer_size = 2
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x21C, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x21C, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Startup State")
             raise ConnectionRefusedError
@@ -750,7 +751,7 @@ class AWItems:
         self.firecracker_refill = 0  # TODO Fill Logic
         self.big_blue_fruit = 0  # TODO Fill Logic
 
-    async def read_from_archipelago(self, ctx):
+    def read_from_archipelago(self, ctx):
         """
         Read inventory state from archipelago
         """
@@ -866,19 +867,20 @@ class AWItems:
         self.firecracker_refill = len([item for item in items if item == "Firecracker Refill"])  # TODO Fill Logic
         self.big_blue_fruit = len([item for item in items if item == "Big Blue Fruit"])  # TODO Fill Logic
 
-    async def write_to_game(self, process_handle, game_slot, start_address: int, ctx):
+    def write_to_game(self, ctx):
 
         """
         Write inventory state to the process
         """
 
-        slot_address = start_address + 0x18 + (0x27010 * game_slot)
+        active_slot = get_active_game_slot(ctx)
+        slot_address = ctx.start_address + 0x18 + (0x27010 * active_slot)
 
         # Read Quest State
         buffer_size = 4
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1EC, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x1EC, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Quest State")
             raise ConnectionRefusedError
@@ -901,9 +903,9 @@ class AWItems:
                 (str(flags >> 6 & 1)) +
                 (str(flags >> 7 & 1)) +
                 (str(flags >> 8 & 1)) +
-                (str(flags >> 9 & 1)) +
-                (str(flags >> 10 & 1)) +
-                (str(flags >> 11 & 1)) +
+                "1" +
+                "1" +
+                "1" +
                 (str(flags >> 12 & 1)) +
                 (str(flags >> 13 & 1)) +
                 (str(flags >> 14 & 1)) +
@@ -926,7 +928,7 @@ class AWItems:
                 (str(flags >> 31 & 1)))[::-1]
         buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
         bytes_written = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1EC, buffer, len(buffer),
+        if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1EC, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
             logger.error("Unable to write Quest State")
             raise ConnectionRefusedError
@@ -1002,7 +1004,7 @@ class AWItems:
                 ("1" if self.egg_golden else "0"))[::-1]
         buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
         bytes_written = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x188, buffer, len(buffer),
+        if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x188, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
             logger.error("Unable to write Eggs")
             raise ConnectionRefusedError
@@ -1020,7 +1022,7 @@ class AWItems:
         if self.key_ring:
             buffer = bytes([1])
         bytes_written = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B1, buffer, len(buffer),
+        if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1B1, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
             logger.error("Unable to write Keys")
             raise ConnectionRefusedError
@@ -1029,7 +1031,7 @@ class AWItems:
         buffer_size = 2
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1E0, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x1E0, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Candles Lit")
             raise ConnectionRefusedError
@@ -1058,7 +1060,7 @@ class AWItems:
         if self.matchbox:
             buffer = bytes([1])
         bytes_written = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1B2, buffer, len(buffer),
+        if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1B2, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
             logger.error("Unable to write Matches")
             raise ConnectionRefusedError
@@ -1067,7 +1069,7 @@ class AWItems:
         buffer_size = 2
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1DC, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x1DC, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Owned Equipment")
             raise ConnectionRefusedError
@@ -1092,7 +1094,7 @@ class AWItems:
                 "000")[::-1]
         buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
         bytes_written = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1DC, buffer, len(buffer),
+        if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1DC, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
             logger.error("Unable to write Owned Equipment")
             raise ConnectionRefusedError
@@ -1101,7 +1103,7 @@ class AWItems:
         buffer_size = 1
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, slot_address + 0x1DE, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, slot_address + 0x1DE, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read Other Items")
             raise ConnectionRefusedError
@@ -1123,7 +1125,7 @@ class AWItems:
                 ("1" if self.fanny_pack else "0"))[::-1]
         buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
         bytes_written = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.WriteProcessMemory(process_handle, slot_address + 0x1DE, buffer, len(buffer),
+        if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1DE, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
             logger.error("Unable to write Other Items")
             raise ConnectionRefusedError
@@ -1143,9 +1145,8 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
         if isinstance(self.ctx, AnimalWellContext):
             if self.ctx.process_handle and self.ctx.start_address:
-
-                game_slot = get_active_game_slot(self.ctx.process_handle, self.ctx.start_address)
-                slot_address = self.ctx.start_address + 0x18 + (0x27010 * game_slot)
+                active_slot = get_active_game_slot(self.ctx)
+                slot_address = self.ctx.start_address + 0x18 + (0x27010 * active_slot)
                 try:
                     # Read Quest State
                     buffer_size = 4
@@ -1218,6 +1219,7 @@ class AnimalWellContext(CommonContext):
         self.process_handle = None
         self.start_address = None
         self.process_sync_task = None
+        self.get_animal_well_process_handle_task = None
         self.locations = AWLocations()
         self.items = AWItems()
         self.messages = {}
@@ -1242,6 +1244,9 @@ class AnimalWellContext(CommonContext):
         from kvui import GameManager
 
         class AnimalWellManager(GameManager):
+            """
+            Animal Well Manager
+            """
             logging_pairs = [
                 ("Client", "Archipelago")
             ]
@@ -1251,7 +1256,7 @@ class AnimalWellContext(CommonContext):
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
 
-async def get_animal_well_process_handle():
+async def get_animal_well_process_handle(ctx: AnimalWellContext):
     """
     Get the process handle of Animal Well
     """
@@ -1280,46 +1285,71 @@ async def get_animal_well_process_handle():
 
         logger.debug("Reading save file data")
         with open(f"{os.getenv('APPDATA')}\\..\\LocalLow\\Billy Basso\\Animal Well\\AnimalWell.sav", "rb") as savefile:
-            file_header = bytearray(savefile.read(24))
-            # Set slot to 0 for comparison purposes
-            file_header[12] = 0
+            slot_1 = bytearray(savefile.read(0x18 + 0x27010))[0x18:]
 
-        # In my experience they're all somewhere after this address
-        address = 0x10000000
-        buffer_size = 8
+        # Find best pattern
+        consecutive_start = 0
+        consecutive_length = 0
+        local_length = 0
+        for i in range(len(slot_1)):
+            local_length += 1
+            if slot_1[i] == 0:
+                local_length = 0
+            elif local_length > consecutive_length:
+                consecutive_length = local_length
+                consecutive_start = i - local_length + 1
+
+        logger.info("Found the longest nonzero consecutive memory at %s of length %s", hex(consecutive_start),
+                    hex(consecutive_length))
+        slot_1 = slot_1[consecutive_start: consecutive_start + consecutive_length]
+
+        # Preprocess
+        bad_chars = [-1] * 256
+        for index in range(len(slot_1)):
+            bad_chars[int(slot_1[index])] = index
+
+        # Search
+        address = 0
+        iterations = 0
         found = False
         while not found:
-            if address % 0x80000 == 0:
-                logger.info("Looking for start address of memory, %d", (address - 0x10000000) / 0x80000)
+            iterations += 1
+            if iterations % 0x10000 == 0:
                 await asyncio.sleep(0.05)
-            buffer = ctypes.create_string_buffer(buffer_size)
-            bytes_read = ctypes.c_ulong(0)
-            if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, address, buffer, buffer_size,
-                                                            ctypes.byref(bytes_read)):
-                address += 4
-                continue
-            process_header = bytearray(struct.unpack('Q', buffer)[0].to_bytes(8, byteorder="little"))
-            buffer = ctypes.create_string_buffer(buffer_size)
-            bytes_read = ctypes.c_ulong(0)
-            if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, address + 8, buffer, buffer_size,
-                                                            ctypes.byref(bytes_read)):
-                address += 4
-                continue
-            process_header.extend(struct.unpack('Q', buffer)[0].to_bytes(8, byteorder="little"))
-            buffer = ctypes.create_string_buffer(buffer_size)
-            bytes_read = ctypes.c_ulong(0)
-            if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, address + 16, buffer, buffer_size,
-                                                            ctypes.byref(bytes_read)):
-                address += 4
-                continue
-            process_header.extend(struct.unpack('Q', buffer)[0].to_bytes(8, byteorder="little"))
-            process_header[12] = 0
-            if bytes(file_header) == bytes(process_header):
-                logger.debug("Found start address %d", address)
-                found = True
-            else:
-                address += 4
 
+            if iterations % 0x80000 == 0:
+                logger.info("Looking for start address of memory, %s", hex(address))
+
+            index = len(slot_1) - 1
+
+            buffer_size = 1
+            buffer = ctypes.create_string_buffer(buffer_size)
+            bytes_read = ctypes.c_ulong(0)
+            if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, address + index, buffer, buffer_size,
+                                                            ctypes.byref(bytes_read)):
+                address += len(slot_1)
+                continue
+            read_address_plus_index = struct.unpack('B', buffer)[0]
+            while index >= 0 and slot_1[index] == read_address_plus_index:
+                index -= 1
+                buffer_size = 1
+                buffer = ctypes.create_string_buffer(buffer_size)
+                bytes_read = ctypes.c_ulong(0)
+                if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, address + index, buffer, buffer_size,
+                                                                ctypes.byref(bytes_read)):
+                    address += len(slot_1)
+                    continue
+                read_address_plus_index = struct.unpack('B', buffer)[0]
+
+            if index < 0:
+                found = True
+                address -= (0x18 + consecutive_start)  # 10CDF440h
+            else:
+                address += max(1, index - bad_chars[int(read_address_plus_index)])
+
+        logger.info("Found start address of memory, %s", hex(address))
+
+        # Verify
         buffer_size = 4
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
@@ -1334,13 +1364,14 @@ async def get_animal_well_process_handle():
             logger.fatal("Animal Well version %d detected, only version 9 supported", version)
             raise NotImplementedError
 
-        return process_handle, address
+        ctx.process_handle = process_handle
+        ctx.start_address = address
     else:
         logger.fatal("Only Windows is implemented right now")
         raise NotImplementedError
 
 
-def get_active_game_slot(process_handle, start_address):
+def get_active_game_slot(ctx: AnimalWellContext):
     """
     Get the game slot currently being played
     """
@@ -1348,11 +1379,14 @@ def get_active_game_slot(process_handle, start_address):
         buffer_size = 1
         buffer = ctypes.create_string_buffer(buffer_size)
         bytes_read = ctypes.c_ulong(0)
-        if not ctypes.windll.kernel32.ReadProcessMemory(process_handle, start_address + 12, buffer, buffer_size,
+        if not ctypes.windll.kernel32.ReadProcessMemory(ctx.process_handle, ctx.start_address + 12, buffer, buffer_size,
                                                         ctypes.byref(bytes_read)):
             logger.error("Unable to read version information from process")
             raise ConnectionResetError
         slot = struct.unpack('B', buffer)[0]
+        if slot == 0:
+            logger.error("Slot 1 detected, please be in slot 2 or 3")
+            raise ConnectionResetError
         return slot
     else:
         logger.fatal("Only Windows is implemented right now")
@@ -1367,12 +1401,12 @@ async def process_sync_task(ctx: AnimalWellContext):
     while not ctx.exit_event.is_set():
         error_status = None
         if ctx.process_handle and ctx.start_address:
+            ctx.get_animal_well_process_handle_task = None
             try:
-                active_slot = get_active_game_slot(ctx.process_handle, ctx.start_address)
-                await ctx.locations.read_from_game(ctx.process_handle, active_slot, ctx.start_address)
+                ctx.locations.read_from_game(ctx)
                 await ctx.locations.write_to_archipelago(ctx)
-                await ctx.items.read_from_archipelago(ctx)
-                await ctx.items.write_to_game(ctx.process_handle, active_slot, ctx.start_address, ctx)
+                ctx.items.read_from_archipelago(ctx)
+                ctx.items.write_to_game(ctx)
                 await asyncio.sleep(0.1)
             except ConnectionResetError as e:
                 logger.debug("Read failed due to Connection Lost, Reconnecting: %s", e)
@@ -1402,8 +1436,9 @@ async def process_sync_task(ctx: AnimalWellContext):
         else:
             try:
                 logger.debug("Attempting to connect to Animal Well")
-                ctx.process_handle, ctx.start_address = await get_animal_well_process_handle()
-                ctx.connection_status = CONNECTION_TENTATIVE_STATUS
+                if ctx.get_animal_well_process_handle_task is None:
+                    ctx.get_animal_well_process_handle_task = asyncio.create_task(get_animal_well_process_handle(ctx))
+                    ctx.connection_status = CONNECTION_TENTATIVE_STATUS
                 await asyncio.sleep(5)
             except ConnectionRefusedError as e:
                 logger.debug("Connection Refused, Trying Again: %s", e)
