@@ -21,7 +21,7 @@ def launch_client():
     launch_subprocess(launch, name="AnimalWellClient")
 
 
-components.append(Component("Animal Well Client", "AnimalWellClient", func=launch_client,
+components.append(Component("ANIMAL WELL Client", "AnimalWellClient", func=launch_client,
                             component_type=Type.CLIENT, icon='Potate'))
 
 icon_paths['Potate'] = local_path('data', 'Potate.png')
