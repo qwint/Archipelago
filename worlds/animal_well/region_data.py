@@ -65,7 +65,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_virtual:  # sneaky passage in the top left of the screen with the penguin hedges
             AWData(AWType.location),
         rname.match_above_egg_room:
-            AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball, iname.weird_tricks]]),
+            AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball, iname.weird_tricks],
+                                   [iname.yoyo, iname.weird_tricks]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
