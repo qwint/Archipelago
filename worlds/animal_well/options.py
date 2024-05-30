@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup
+from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions  # , OptionGroup
 
 
 class Goal(Choice):
@@ -37,9 +37,9 @@ class EggsNeeded(Range):
     """
     internal_name = "eggs_needed"
     display_name = "Eggs Required"
-    range_start = 8
+    range_start = 64
     range_end = 64
-    default = 48
+    default = 64
 
 
 class BunniesAsChecks(Choice):
@@ -148,11 +148,11 @@ class AnimalWellOptions(PerGameCommonOptions):
     weird_tricks: WeirdTricks
 
 
-aw_option_groups = [
-    OptionGroup("Logic Options", [
-        BubbleJumping,
-        DiscHopping,
-        WheelHopping,
-        WeirdTricks,
-    ])
-]
+# aw_option_groups = [
+#     OptionGroup("Logic Options", [
+#         BubbleJumping,
+#         DiscHopping,
+#         WheelHopping,
+#         WeirdTricks,
+#     ])
+# ]
