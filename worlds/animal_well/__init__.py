@@ -8,7 +8,23 @@ from .regions_and_rules import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_groups
 from .names import ItemNames, LocationNames
 from worlds.AutoWorld import WebWorld, World
+from worlds.LauncherComponents import Component, components, icon_paths, launch_subprocess, Type
+from Utils import local_path
 # todo: remove animal_well_map.pdn
+
+
+def launch_client():
+    """
+    Launch the Animal Well Client
+    """
+    from .client import launch
+    launch_subprocess(launch, name="AnimalWellClient")
+
+
+components.append(Component("Animal Well Client", "AnimalWellClient", func=launch_client,
+                            component_type=Type.CLIENT, icon='Potate'))
+
+icon_paths['Potate'] = local_path('data', 'Potate.png')
 
 
 class AnimalWellWeb(WebWorld):
