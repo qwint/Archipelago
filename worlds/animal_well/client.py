@@ -1201,8 +1201,8 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                                                                      buffer, len(buffer), ctypes.byref(bytes_written)):
                         logger.error("Unable to write Quest State")
                         raise ConnectionRefusedError
-                except:
-                    logger.error(f"Unable to toggle ring in inventory")
+                except Exception as e:
+                    logger.error(f"Unable to toggle ring in inventory: %s", e)
 
 
 class AnimalWellContext(CommonContext):
@@ -1374,18 +1374,18 @@ async def process_sync_task(ctx: AnimalWellContext):
                 await ctx.items.read_from_archipelago(ctx)
                 await ctx.items.write_to_game(ctx.process_handle, active_slot, ctx.start_address, ctx)
                 await asyncio.sleep(0.1)
-            except ConnectionResetError:
-                logger.debug("Read failed due to Connection Lost, Reconnecting")
+            except ConnectionResetError as e:
+                logger.debug("Read failed due to Connection Lost, Reconnecting: %s", e)
                 error_status = CONNECTION_RESET_STATUS
                 ctx.process_handle = None
                 ctx.start_address = None
-            except AssertionError or ConnectionAbortedError or NotImplementedError:
-                logger.debug("Read failed due to Connection Lost, Aborting")
+            except AssertionError or ConnectionAbortedError or NotImplementedError as e:
+                logger.debug("Read failed due to Connection Lost, Aborting: %s", e)
                 error_status = CONNECTION_ABORTED_STATUS
                 ctx.process_handle = None
                 ctx.start_address = None
-            except:
-                logger.debug("Read failed due to unexpected error, Aborting")
+            except Exception as e:
+                logger.debug("Read failed due to unexpected error, Aborting: %s", e)
                 ctx.process_handle = None
                 ctx.start_address = None
                 exit(1)
@@ -1405,13 +1405,13 @@ async def process_sync_task(ctx: AnimalWellContext):
                 ctx.process_handle, ctx.start_address = await get_animal_well_process_handle()
                 ctx.connection_status = CONNECTION_TENTATIVE_STATUS
                 await asyncio.sleep(5)
-            except ConnectionRefusedError:
-                logger.debug("Connection Refused, Trying Again")
+            except ConnectionRefusedError as e:
+                logger.debug("Connection Refused, Trying Again: %s", e)
                 ctx.connection_status = CONNECTION_REFUSED_STATUS
                 await asyncio.sleep(5)
                 continue
-            except:
-                logger.debug("Read failed due to unexpected error, Aborting")
+            except Exception as e:
+                logger.debug("Read failed due to unexpected error, Aborting: %s", e)
                 ctx.process_handle = None
                 ctx.start_address = None
                 exit(1)
