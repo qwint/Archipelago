@@ -7,6 +7,7 @@ from .items import AWItem
 from .options import AnimalWellOptions
 if TYPE_CHECKING:
     from . import AnimalWellWorld
+# todo: rename this file to region_scripts
 
 
 class AWLocation(Location):
