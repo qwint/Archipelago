@@ -66,7 +66,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         rname.match_above_egg_room:
             AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball, iname.weird_tricks],
-                                   [iname.yoyo, iname.weird_tricks]]),
+                                   [iname.yoyo]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
@@ -524,7 +524,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.dog_above_fast_travel:
             AWData(AWType.region, [[iname.slink], [iname.bubble_short]]),
         rname.dog_mock_disc_shrine:
-            AWData(AWType.region, [[iname.slink], [iname.wheel_hop]]),
+            AWData(AWType.region, [[iname.slink], [iname.wheel_hop], [iname.top, iname.weird_tricks]]),
     },
     rname.dog_mock_disc_shrine: {
         lname.egg_raw:
