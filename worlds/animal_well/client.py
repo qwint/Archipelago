@@ -1018,9 +1018,10 @@ class AWItems:
             logger.error("Invalid number of keys %d", self.key)
             raise AssertionError
 
-        buffer = bytes([self.key - keys_used])
         if self.key_ring:
             buffer = bytes([1])
+        else:
+            buffer = bytes([self.key - keys_used])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1B1, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1052,9 +1053,10 @@ class AWItems:
             logger.error("Invalid number of matches %d", self.match)
             raise AssertionError
 
-        buffer = bytes([self.match - candles_lit])
         if self.matchbox:
             buffer = bytes([1])
+        else:
+            buffer = bytes([self.match - candles_lit])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1B2, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
