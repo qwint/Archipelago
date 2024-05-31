@@ -132,7 +132,7 @@ def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> Collectio
 
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
-    egg_ratio = 1  # world.options.eggs_needed.value / 64
+    egg_ratio = world.options.eggs_needed.value / 64
     aw_regions = create_aw_regions(world)
     for origin_name, destinations in world.traversal_requirements.items():
         for destination_name, data in destinations.items():
