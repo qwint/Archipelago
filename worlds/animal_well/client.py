@@ -453,10 +453,10 @@ class AWLocations:
                 self.fanny_pack_chest = bool(flags >> 100 & 1)
 
                 # Read Flames
-                # self.flame_blue = ctx.process_handle.read_bool(slot_address + 0x21E)
-                # self.flame_pink = ctx.process_handle.read_bool(slot_address + 0x21F)
-                # self.flame_violet = ctx.process_handle.read_bool(slot_address + 0x220)
-                # self.flame_green = ctx.process_handle.read_bool(slot_address + 0x221)
+                # self.flame_blue = ctx.process_handle.read_bytes(slot_address + 0x21E, 1)[0] >= 4
+                # self.flame_pink = ctx.process_handle.read_bytes(slot_address + 0x21F, 1)[0] >= 4
+                # self.flame_violet = ctx.process_handle.read_bytes(slot_address + 0x220, 1)[0] >= 4
+                # self.flame_green = ctx.process_handle.read_bytes(slot_address + 0x221, 1)[0] >= 4
 
                 # Read Bunnies
                 # flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x198, 4), byteorder="little")
