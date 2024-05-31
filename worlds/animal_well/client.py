@@ -1401,10 +1401,10 @@ async def process_sync_task(ctx: AnimalWellContext):
         if ctx.process_handle and ctx.start_address:
             ctx.get_animal_well_process_handle_task = None
             try:
-                ctx.locations.read_from_game(ctx)
-                await ctx.locations.write_to_archipelago(ctx)
                 ctx.items.read_from_archipelago(ctx)
                 ctx.items.write_to_game(ctx)
+                ctx.locations.read_from_game(ctx)
+                await ctx.locations.write_to_archipelago(ctx)
                 await asyncio.sleep(0.1)
             except ConnectionResetError as e:
                 logger.debug("Read failed due to Connection Lost, Reconnecting: %s", e)
