@@ -14,7 +14,7 @@ class Goal(Choice):
     display_name = "Goal"
     option_fireworks = 1
     # option_bunny_land = 2
-    option_egg_hunt = 3
+    # option_egg_hunt = 3
     default = 1
 
 
