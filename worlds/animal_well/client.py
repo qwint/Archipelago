@@ -1047,10 +1047,6 @@ class AWItems:
                        (flags >> 7 & 1) +
                        (flags >> 8 & 1))
 
-        if candles_lit > self.match and not self.matchbox:
-            logger.error("More candles lit than matches")
-            raise AssertionError
-
         # Write Matches
         if self.match < 0 or self.match > 9:
             logger.error("Invalid number of matches %d", self.match)
