@@ -213,7 +213,7 @@ class AWLocations:
 
         self.medal_e = False
         self.medal_s = False
-        self.medal_k = False  # TODO K shard logic
+        self.medal_k = False
 
         # event only for now until modding tools maybe
         self.flame_blue = False
@@ -871,7 +871,7 @@ class AWItems:
 
         self.e_medal = False
         self.s_medal = False
-        self.k_shard = 0  # TODO K shard logic
+        self.k_shard = 0
 
         # self.blue_flame = False
         # self.green_flame = False
@@ -1281,6 +1281,25 @@ class AWItems:
                         ("1" if self.fanny_pack else "0"))[::-1]  # Fanny Pack
                 buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1DE, buffer, 1)
+
+                # Read K Shards
+                if self.k_shard < 0 or self.k_shard > 3:
+                    raise AssertionError("Invalid number of k shards %d", self.k_shard)
+
+                k_shard_1 = bytes([0])
+                if self.k_shard >= 1:
+                    k_shard_1 = bytes([max(2, ctx.process_handle.read_bytes(slot_address + 0x1FE, 1)[0])])
+                k_shard_2 = bytes([0])
+                if self.k_shard >= 2:
+                    k_shard_2 = bytes([max(2, ctx.process_handle.read_bytes(slot_address + 0x20A, 1)[0])])
+                k_shard_3 = bytes([0])
+                if self.k_shard == 3:
+                    k_shard_3 = bytes([max(2, ctx.process_handle.read_bytes(slot_address + 0x216, 1)[0])])
+
+                # Write K Shards
+                ctx.process_handle.write_bytes(slot_address + 0x1FE, k_shard_1, 1)
+                ctx.process_handle.write_bytes(slot_address + 0x20A, k_shard_2, 1)
+                ctx.process_handle.write_bytes(slot_address + 0x216, k_shard_3, 1)
 
                 # Berries
                 berries_to_use = self.big_blue_fruit - ctx.used_berries
