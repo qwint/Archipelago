@@ -5,7 +5,7 @@ from .items import item_name_to_id, item_table, item_name_groups, filler_items, 
 from .locations import location_name_groups, location_name_to_id
 from .region_data import AWData, traversal_requirements
 from .regions_and_rules import create_regions_and_set_rules
-from .options import AnimalWellOptions  # , aw_option_groups
+from .options import AnimalWellOptions, aw_option_presets  # , aw_option_groups
 from .names import ItemNames, LocationNames
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import Component, components, icon_paths, launch_subprocess, Type
@@ -41,6 +41,7 @@ class AnimalWellWeb(WebWorld):
     theme = "jungle"
     game = "ANIMAL WELL"
     # option_groups = aw_option_groups
+    option_presets = aw_option_presets
 
 
 class AnimalWellWorld(World):
