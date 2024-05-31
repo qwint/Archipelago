@@ -126,6 +126,8 @@ class AnimalWellContext(CommonContext):
         self.start_address = None
         self.connection_status = CONNECTION_INITIAL_STATUS
         self.first_m_disc = True
+        self.used_firecrackers = 0
+        self.used_berries = 0
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -948,8 +950,8 @@ class AWItems:
 
         self.egg_65 = False
 
-        self.firecracker_refill = 0  # TODO Fill Logic
-        self.big_blue_fruit = 0  # TODO Fill Logic
+        self.firecracker_refill = 0
+        self.big_blue_fruit = 0
 
     def read_from_archipelago(self, ctx):
         """
@@ -1279,6 +1281,24 @@ class AWItems:
                         ("1" if self.fanny_pack else "0"))[::-1]  # Fanny Pack
                 buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1DE, buffer, 1)
+
+                # Berries
+                berries_to_use = self.big_blue_fruit - ctx.used_berries
+                total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
+                                              byteorder="little")
+                total_hearts = min(total_hearts + berries_to_use, 255)
+                buffer = bytes([total_hearts])
+                ctx.process_handle.write_bytes(slot_address + 0x1B4, buffer, 1)
+                ctx.used_berries = self.big_blue_fruit
+
+                # Firecrackers
+                firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
+                total_firecrackers = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B3, 1),
+                                                    byteorder="little")
+                total_firecrackers = min(total_firecrackers + firecrackers_to_use, 6 if self.fanny_pack else 3)
+                buffer = bytes([total_firecrackers])
+                ctx.process_handle.write_bytes(slot_address + 0x1B3, buffer, 1)
+                ctx.used_firecrackers = self.firecracker_refill
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
         except pymem.exception.ProcessError as e:
