@@ -304,7 +304,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
                    event=iname.event_candle_bear),
         lname.egg_lf:
-            AWData(AWType.location, [[iname.firecrackers]]),
+            AWData(AWType.location, [[iname.firecrackers, iname.bubble], [iname.firecrackers, iname.disc]]),
     },
     rname.bear_chameleon_room_1: {
         rname.bear_dark_maze:
