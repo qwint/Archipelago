@@ -1021,7 +1021,7 @@ class AWItems:
         if self.key_ring:
             buffer = bytes([1])
         else:
-            buffer = bytes([self.key - keys_used])
+            buffer = bytes([max(0, self.key - keys_used)])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1B1, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1056,7 +1056,7 @@ class AWItems:
         if self.matchbox:
             buffer = bytes([1])
         else:
-            buffer = bytes([self.match - candles_lit])
+            buffer = bytes([max(0, self.match - candles_lit)])
         bytes_written = ctypes.c_ulong(0)
         if not ctypes.windll.kernel32.WriteProcessMemory(ctx.process_handle, slot_address + 0x1B2, buffer, len(buffer),
                                                          ctypes.byref(bytes_written)):
@@ -1401,10 +1401,10 @@ async def process_sync_task(ctx: AnimalWellContext):
         if ctx.process_handle and ctx.start_address:
             ctx.get_animal_well_process_handle_task = None
             try:
-                ctx.items.read_from_archipelago(ctx)
-                ctx.items.write_to_game(ctx)
                 ctx.locations.read_from_game(ctx)
                 await ctx.locations.write_to_archipelago(ctx)
+                ctx.items.read_from_archipelago(ctx)
+                ctx.items.write_to_game(ctx)
                 await asyncio.sleep(0.1)
             except ConnectionResetError as e:
                 logger.debug("Read failed due to Connection Lost, Reconnecting: %s", e)
