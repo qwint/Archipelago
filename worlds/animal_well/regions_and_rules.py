@@ -32,14 +32,14 @@ def convert_helper_reqs(helper_name: str, reqs: List[List[str]]) -> List[List[st
                     new_list = sublist.copy()
                     new_list[j] = replacement
                     new_list_storage.append(new_list)
-                reqs[i] = []
+                reqs[i] = ["False"]
                 break
 
     for sublist in new_list_storage:
         reqs.append(sublist)
 
     # remove empty lists from the reqs
-    return [x for x in reqs if x]
+    return reqs
 
 
 def convert_key_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
@@ -83,11 +83,11 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
                 if options.wheel_hopping:
                     sublist[j] = iname.wheel
                 else:
-                    reqs[i] = []
+                    reqs[i] = ["False"]
                     break
             if req == iname.disc_hop:
                 if not options.disc_hopping:
-                    reqs[i] = []
+                    reqs[i] = ["False"]
                     break
                 else:
                     sublist[j] = iname.disc
@@ -95,18 +95,17 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
                 if options.disc_hopping == options.disc_hopping.option_multiple:
                     sublist[j] = iname.disc
                 else:
-                    reqs[i] = []
+                    reqs[i] = ["False"]
                     break
             if req == iname.weird_tricks:
                 if not options.weird_tricks:
-                    reqs[i] = []
+                    reqs[i] = ["False"]
                     break
                 else:
                     # remove this weird_tricks term, weird_tricks is always last so this won't skip anything
                     del sublist[j]
                     break
-    # filter out empty lists
-    return [x for x in reqs if x]
+    return reqs
 
 
 def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
