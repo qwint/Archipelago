@@ -66,7 +66,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         rname.match_above_egg_room:
             AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball, iname.weird_tricks],
-                                   [iname.yoyo, iname.weird_tricks]]),
+                                   [iname.yoyo]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop]]),
         lname.egg_rain:
@@ -304,7 +304,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
                    event=iname.event_candle_bear),
         lname.egg_lf:
-            AWData(AWType.location, [[iname.firecrackers]]),
+            AWData(AWType.location, [[iname.firecrackers, iname.bubble], [iname.firecrackers, iname.disc]]),
     },
     rname.bear_chameleon_room_1: {
         rname.bear_dark_maze:
@@ -502,7 +502,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type="bunny"),
         rname.dog_many_switches:
             AWData(AWType.region, [[iname.ball], [iname.yoyo], [iname.disc], [iname.wheel, iname.bubble],
-                                   [iname.wheel_hop]]),
+                                   [iname.wheel_hop], [iname.top]]),
         rname.dog_under_fast_travel_room:  # very tight, need to jump from the lower ledge one room to the right
             AWData(AWType.region, [[iname.switch_next_to_bat_room], [iname.bubble_short], [iname.disc_hop]]),
     },
@@ -524,7 +524,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.dog_above_fast_travel:
             AWData(AWType.region, [[iname.slink], [iname.bubble_short]]),
         rname.dog_mock_disc_shrine:
-            AWData(AWType.region, [[iname.slink], [iname.wheel_hop]]),
+            AWData(AWType.region, [[iname.slink], [iname.wheel_hop], [iname.top, iname.weird_tricks]]),
     },
     rname.dog_mock_disc_shrine: {
         lname.egg_raw:
@@ -616,8 +616,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_depraved:  # in the little switch area, you need to take care of the ghost
             AWData(AWType.location, [[iname.disc, iname.can_defeat_ghost],
                                      [iname.remote, iname.can_defeat_ghost],
+                                     [iname.top, iname.can_defeat_ghost],
                                      [iname.disc, iname.event_candle_dog_disc_switches],
-                                     [iname.remote, iname.event_candle_dog_disc_switches]]),
+                                     [iname.remote, iname.event_candle_dog_disc_switches],
+                                     [iname.top, iname.event_candle_dog_disc_switches]]),
         rname.dog_upper_above_switch_lines_to_upper_east:
             AWData(AWType.region, [[iname.disc], [iname.remote], [iname.top]]),
         rname.dog_upper_past_lake:

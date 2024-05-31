@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from typing import Dict, Any
 from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions  # , OptionGroup
 
 
@@ -14,7 +14,7 @@ class Goal(Choice):
     display_name = "Goal"
     option_fireworks = 1
     # option_bunny_land = 2
-    option_egg_hunt = 3
+    # option_egg_hunt = 3
     default = 1
 
 
@@ -156,3 +156,13 @@ class AnimalWellOptions(PerGameCommonOptions):
 #         WeirdTricks,
 #     ])
 # ]
+
+aw_option_presets: Dict[str, Dict[str, Any]] = {
+    "Animal Hell": {
+        "eggs_needed": 64,
+        "bubble_jumping": "on",
+        "disc_hopping": "multiple",
+        "wheel_hopping": True,
+        "weird_tricks": True,
+    },
+}
