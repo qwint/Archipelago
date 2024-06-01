@@ -151,6 +151,8 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                              state.count_group("Eggs", player) >= eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
+                if data.bunny_warp and not world.options.bunny_warps_in_logic and not world.options.bunnies_as_checks:
+                    continue
                 entrance = aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
                                                            rule=interpret_rule(data.rules, world))
                 if data.eggs_required:  # swap to count_group_unique in 0.4.7
