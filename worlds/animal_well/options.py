@@ -13,7 +13,7 @@ class Goal(Choice):
     internal_name = "goal"
     display_name = "Goal"
     option_fireworks = 1
-    # option_bunny_land = 2
+    # option_bunny_land = 2 TODO(Frank-Pasqualini)
     option_egg_hunt = 3
     default = 1
 
@@ -35,6 +35,7 @@ class EggsNeeded(Range):
     """
     How many Eggs you need to open the 4th Egg Door.
     The amount of Eggs you need for the other 3 doors will scale accordingly.
+    TODO(Frank-Pasqualini)
     """
     internal_name = "eggs_needed"
     display_name = "Eggs Required"
@@ -73,7 +74,7 @@ class KeyRing(Choice):  # choice so we can comment out non-working ones then rea
     """
     internal_name = "key_ring"
     display_name = "Key Ring"
-    # option_off = 0
+    option_off = 0
     option_on = 1
     default = 1
 
