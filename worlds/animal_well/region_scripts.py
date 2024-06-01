@@ -133,6 +133,10 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
             if data.type == AWType.location:
                 if not world.options.bunnies_as_checks and data.loc_type == "bunny":
                     continue
+                if (world.options.bunnies_as_checks == world.options.bunnies_as_checks.option_exclude_tedious and
+                        destination_name in [lname.bunny_mural, lname.bunny_dream, lname.bunny_uv,
+                                             lname.bunny_lava]):
+                    continue
                 if not world.options.candle_checks and data.loc_type == "candle":
                     continue
                 if data.event:
