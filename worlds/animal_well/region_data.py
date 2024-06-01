@@ -11,6 +11,7 @@ class AWType(IntEnum):
 class LocType(IntEnum):
     bunny = 1
     candle = 2
+    figure = 3
 
 
 class AWData(NamedTuple):
@@ -162,7 +163,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.bulb_bunny_spot: {
         lname.bunny_file_bud:
-            AWData(AWType.location),
+            AWData(AWType.location, loc_type=LocType.bunny),
         # brings you back to starting area so no need to include the connection back
     },
 
@@ -465,7 +466,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.bear_map_bunny_spot: {
         lname.bunny_map:
-            AWData(AWType.location, [[]], loc_type=LocType.bunny),
+            AWData(AWType.location, loc_type=LocType.bunny),
         rname.bear_kangaroo_waterfall:
             AWData(AWType.region),  # drop down after getting the bunny
     },
@@ -529,7 +530,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # rname.barcode_bunny:  # region since you can get this in two spots
         #     AWData(AWType.region, [[iname.flute, iname.song_barcode]]),
         lname.mama_cha:  # removing for now, may shuffle later
-            AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.figure),  # add song req if we're shuffling songs
         lname.bunny_lava:
             AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type=LocType.bunny),
         rname.dog_many_switches:

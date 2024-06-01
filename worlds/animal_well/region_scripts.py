@@ -139,6 +139,9 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     continue
                 if not world.options.candle_checks and data.loc_type == LocType.candle:
                     continue
+                # not shuffling these yet
+                if data.loc_type == LocType.figure:
+                    continue
                 if data.event:
                     location = AWLocation(player, destination_name, None, aw_regions[origin_name])
                     location.place_locked_item(AWItem(data.event, ItemClassification.progression, None, player))
