@@ -184,8 +184,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     rname.fish_west: {
         rname.fish_wand_pit: 
             AWData(AWType.region, [[iname.bubble], [iname.disc]]),
-        lname.egg_ancient:  # one room up and left of save point, vines in top right
-            AWData(AWType.location, [[iname.bubble], [iname.disc_hop_hard]]),
+        lname.egg_ancient:  # one room up and left of save point, vines in top right  todo: verify
+            AWData(AWType.location, [[iname.bubble_short], [iname.disc_hop_hard], [iname.bubble, iname.disc]]),
         rname.fish_lower:  # bubble to go down, activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
                                    [iname.bubble, iname.remote, iname.wheel], [iname.bubble, iname.disc]]),
