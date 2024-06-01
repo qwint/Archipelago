@@ -166,7 +166,7 @@ class AnimalWellContext(CommonContext):
         Get the game slot currently being played
         """
         if platform.uname()[0] == "Windows":
-            slot = self.process_handle.read_bytes(self.start_address + 12, 1)[0]
+            slot = self.process_handle.read_bytes(self.start_address + 0xC, 1)[0]
             if slot == 0:
                 raise ConnectionResetError("Slot 1 detected, please be in slot 2 or 3")
             return slot
@@ -1230,9 +1230,8 @@ class AWItems:
                 buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x188, buffer, 8)
 
-                # Read Opened Doors?
-                # TODO find how many keys have been used
-                keys_used = 0
+                # Read Opened Doors
+                keys_used = ctx.process_handle.read_bytes(slot_address + 0x1AA, 1)[0]
 
                 # Write Keys
                 if self.key < 0 or self.key > 6:
