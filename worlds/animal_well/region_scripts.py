@@ -7,7 +7,6 @@ from .items import AWItem
 from .options import AnimalWellOptions
 if TYPE_CHECKING:
     from . import AnimalWellWorld
-# todo: rename this file to region_scripts
 
 
 class AWLocation(Location):
@@ -33,7 +32,7 @@ def convert_helper_reqs(helper_name: str, reqs: List[List[str]]) -> List[List[st
                     new_list = sublist.copy()
                     new_list[j] = replacement
                     new_list_storage.append(new_list)
-                reqs[i] = ["False"]
+                del reqs[i]
                 break
 
     for sublist in new_list_storage:
@@ -78,34 +77,28 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
 
 
 def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
-    for i, sublist in enumerate(reqs):
-        for j, req in enumerate(sublist):
-            if req == iname.wheel_hop:
-                if options.wheel_hopping:
-                    sublist[j] = iname.wheel
-                else:
-                    reqs[i] = ["False"]
-                    break
-            if req == iname.disc_hop:
-                if not options.disc_hopping:
-                    reqs[i] = ["False"]
-                    break
-                else:
-                    sublist[j] = iname.disc
-            if req == iname.disc_hop_hard:
-                if options.disc_hopping == options.disc_hopping.option_multiple:
-                    sublist[j] = iname.disc
-                else:
-                    reqs[i] = ["False"]
-                    break
-            if req == iname.weird_tricks:
-                if not options.weird_tricks:
-                    reqs[i] = ["False"]
-                    break
-                else:
-                    # remove this weird_tricks term, weird_tricks is always last so this won't skip anything
-                    del sublist[j]
-                    break
+    # these convert [[wheel_hop], [disc]] to either [[wheel], [disc]] or [[disc]]
+    # and convert [[disc_hop_hard]] to either [[disc]] or []
+    reqs = [
+        [iname.wheel if item == iname.wheel_hop else item for item in sublist]
+        for sublist in reqs
+        if not (iname.wheel_hop in sublist and not options.wheel_hopping)
+    ]
+    reqs = [
+        [iname.disc if item == iname.disc_hop else item for item in sublist]
+        for sublist in reqs
+        if not (iname.disc_hop in sublist and not options.disc_hopping)
+    ]
+    reqs = [
+        [iname.disc if item == iname.disc_hop_hard else item for item in sublist]
+        for sublist in reqs
+        if not (iname.disc_hop_hard in sublist and not options.disc_hopping == options.disc_hopping.option_multiple)
+    ]
+    reqs = [
+        [None if item == iname.weird_tricks else item for item in sublist]
+        for sublist in reqs
+        if not (iname.weird_tricks in sublist and not options.weird_tricks)
+    ]
     return reqs
 
 
