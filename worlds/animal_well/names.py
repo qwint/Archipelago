@@ -294,7 +294,6 @@ class LocationNames(str, Enum):
 
     # minor unique items
     mama_cha = "Mama Cha Chest"  # the same place as the barcode bunny at grass bowl
-    squirrel_acorn = "Steal Squirrel's Acorn"
 
     # match chests
     match_start_ceiling = "Match in Tutorial Chest"

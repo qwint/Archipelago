@@ -14,7 +14,7 @@ class Goal(Choice):
     display_name = "Goal"
     option_fireworks = 1
     # option_bunny_land = 2
-    # option_egg_hunt = 3
+    option_egg_hunt = 3
     default = 1
 
 
@@ -49,8 +49,8 @@ class BunniesAsChecks(Choice):
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
     option_off = 0
-    # option_exclude_tedious = 1  # figure out which are tedious
-    # option_all_bunnies = 2
+    option_exclude_tedious = 1  # figure out which are tedious
+    option_all_bunnies = 2
     default = 0
 
 
@@ -61,7 +61,7 @@ class CandleChecks(Choice):  # choice so we can comment out non-working ones the
     internal_name = "candle_checks"
     display_name = "Candle Checks"
     option_off = 0
-    # option_on = 1
+    option_on = 1
     default = 0
 
 
