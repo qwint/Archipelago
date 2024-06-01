@@ -30,6 +30,7 @@ class FinalEggLocation(Choice):
     default = 1
 
 
+# todo: client needs work to get this to work with other values
 class EggsNeeded(Range):
     """
     How many Eggs you need to open the 4th Egg Door.
@@ -49,7 +50,7 @@ class BunniesAsChecks(Choice):
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
     option_off = 0
-    option_exclude_tedious = 1  # figure out which are tedious
+    # option_exclude_tedious = 1  # figure out which are tedious
     option_all_bunnies = 2
     default = 0
 
