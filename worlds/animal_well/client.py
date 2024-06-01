@@ -334,9 +334,7 @@ class AWLocations:
         self.candle_bear = False
 
         # extras
-        # self.mama_cha = False
-        # self.squirrel_acorn = false
-        # kangaroo medal drops
+        self.mama_cha = False
 
     def read_from_game(self, ctx):
         """
@@ -361,7 +359,7 @@ class AWLocations:
 
                 self.egg_vanity = bool(flags >> 8 & 1)
                 self.egg_service = bool(flags >> 9 & 1)
-                # self.mama_cha = bool(flags >> 10 & 1)
+                self.mama_cha = bool(flags >> 10 & 1)
                 self.match_dog_switch_bounce = bool(flags >> 11 & 1)
                 self.egg_depraved = bool(flags >> 12 & 1)
                 self.match_bear = bool(flags >> 13 & 1)
@@ -465,42 +463,44 @@ class AWLocations:
                 self.fanny_pack_chest = bool(flags >> 100 & 1)
 
                 # Read Flames
-                # self.flame_blue = ctx.process_handle.read_bytes(slot_address + 0x21E, 1)[0] >= 4
-                # self.flame_pink = ctx.process_handle.read_bytes(slot_address + 0x21F, 1)[0] >= 4
-                # self.flame_violet = ctx.process_handle.read_bytes(slot_address + 0x220, 1)[0] >= 4
-                # self.flame_green = ctx.process_handle.read_bytes(slot_address + 0x221, 1)[0] >= 4
+                self.flame_blue = ctx.process_handle.read_bytes(slot_address + 0x21E, 1)[0] >= 4
+                self.flame_pink = ctx.process_handle.read_bytes(slot_address + 0x21F, 1)[0] >= 4
+                self.flame_violet = ctx.process_handle.read_bytes(slot_address + 0x220, 1)[0] >= 4
+                self.flame_green = ctx.process_handle.read_bytes(slot_address + 0x221, 1)[0] >= 4
 
                 # Read Bunnies
-                # flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x198, 4), byteorder="little")
-                #
-                # self.bunny_water_spike = bool(flags >> 0 & 1)
-                # self.bunny_barcode = bool(flags >> 2 & 1)
-                # self.bunny_crow = bool(flags >> 3 & 1)
-                # self.bunny_face = bool(flags >> 4 & 1)
-                # self.bunny_fish = bool(flags >> 6 & 1)
-                # self.bunny_map = bool(flags >> 7 & 1)
-                # self.bunny_tv = bool(flags >> 8 & 1)
-                # self.bunny_uv = bool(flags >> 9 & 1)
-                # self.bunny_file_bud = bool(flags >> 10 & 1)
-                # self.bunny_chinchilla_vine = bool(flags >> 11 & 1)
-                # self.bunny_mural = bool(flags >> 15 & 1)
-                # self.bunny_duck = bool(flags >> 22 & 1)
-                # self.bunny_ghost_dog = bool(flags >> 25 & 1)
-                # self.bunny_dream = bool(flags >> 28 & 1)
-                # self.bunny_lava = bool(flags >> 30 & 1)
-                # self.bunny_disc_spike = bool(flags >> 31 & 1)
+                flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x198, 4), byteorder="little")
+                self.bunny_water_spike = bool(flags >> 0 & 1)
+                self.bunny_barcode = bool(flags >> 2 & 1)
+                self.bunny_crow = bool(flags >> 3 & 1)
+                self.bunny_face = bool(flags >> 4 & 1)
+                self.bunny_fish = bool(flags >> 6 & 1)
+                self.bunny_map = bool(flags >> 7 & 1)
+
+                self.bunny_tv = bool(flags >> 8 & 1)
+                self.bunny_uv = bool(flags >> 9 & 1)
+                self.bunny_file_bud = bool(flags >> 10 & 1)
+                self.bunny_chinchilla_vine = bool(flags >> 11 & 1)
+                self.bunny_mural = bool(flags >> 15 & 1)
+
+                self.bunny_duck = bool(flags >> 22 & 1)
+                self.bunny_ghost_dog = bool(flags >> 25 & 1)
+                self.bunny_dream = bool(flags >> 28 & 1)
+                self.bunny_lava = bool(flags >> 30 & 1)
+                self.bunny_disc_spike = bool(flags >> 31 & 1)
 
                 # Read Candles (I am not very confident in these at all)
-                # flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1E0, 2), byteorder="little")
-                # self.candle_dog_disc_switches = bool(flags >> 0 & 1)
-                # self.candle_dog_bat = bool(flags >> 1 & 1)
-                # self.candle_dog_switch_box = bool(flags >> 2 & 1)
-                # self.candle_dog_many_switches = bool(flags >> 3 & 1)
-                # self.candle_dog_dark = bool(flags >> 4 & 1)
-                # self.candle_bear = bool(flags >> 5 & 1)
-                # self.candle_first = bool(flags >> 6 & 1)
-                # self.candle_frog = bool(flags >> 7 & 1)
-                # self.candle_fish = bool(flags >> 8 & 1)
+                flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1E0, 2), byteorder="little")
+                self.candle_dog_disc_switches = bool(flags >> 0 & 1)
+                self.candle_dog_bat = bool(flags >> 1 & 1)
+                self.candle_dog_switch_box = bool(flags >> 2 & 1)
+                self.candle_dog_many_switches = bool(flags >> 3 & 1)
+                self.candle_dog_dark = bool(flags >> 4 & 1)
+                self.candle_bear = bool(flags >> 5 & 1)
+                self.candle_first = bool(flags >> 6 & 1)
+                self.candle_frog = bool(flags >> 7 & 1)
+
+                self.candle_fish = bool(flags >> 8 & 1)
 
                 # Read Startup State
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x21C, 2), byteorder="little")
@@ -818,11 +818,8 @@ class AWLocations:
                 ctx.locations_checked.add(location_name_to_id[lname.candle_bear.value])
 
             # extras
-            # if self.mama_cha:
-            #     ctx.locations_checked.add(location_name_to_id[lname.mama_cha.value])
-            # if self.squirrel_acorn:
-            #     ctx.locations_checked.add(location_name_to_id[lname.squirrel_acorn.value])
-            # kangaroo medal drops
+            if self.mama_cha:
+                ctx.locations_checked.add(location_name_to_id[lname.mama_cha.value])
 
             if "goal" not in ctx.slot_data or ctx.slot_data["goal"] == 1:
                 if not ctx.finished_game and self.key_house:
@@ -960,7 +957,7 @@ class AWItems:
         self.firecracker_refill = 0
         self.big_blue_fruit = 0
 
-    def read_from_archipelago(self, ctx):
+    async def read_from_archipelago(self, ctx):
         """
         Read inventory state from archipelago
         """
@@ -1071,6 +1068,27 @@ class AWItems:
             self.egg_obsidian = item_name_to_id[iname.egg_obsidian.value] in items
             self.egg_crystal = item_name_to_id[iname.egg_crystal.value] in items
             self.egg_golden = item_name_to_id[iname.egg_golden.value] in items
+
+            if "goal" in ctx.slot_data and ctx.slot_data["goal"] == 3:
+                if (not ctx.finished_game and
+                        self.egg_reference and self.egg_brown and self.egg_raw and self.egg_pickled and
+                        self.egg_big and self.egg_swan and self.egg_forbidden and self.egg_shadow and
+                        self.egg_vanity and self.egg_service and self.egg_depraved and self.egg_chaos and
+                        self.egg_upside_down and self.egg_evil and self.egg_sweet and self.egg_chocolate and
+                        self.egg_value and self.egg_plant and self.egg_red and self.egg_orange and
+                        self.egg_sour and self.egg_post_modern and self.egg_universal and self.egg_lf and
+                        self.egg_zen and self.egg_future and self.egg_friendship and self.egg_truth and
+                        self.egg_transcendental and self.egg_ancient and self.egg_magic and self.egg_mystic and
+                        self.egg_holiday and self.egg_rain and self.egg_razzle and self.egg_dazzle and
+                        self.egg_virtual and self.egg_normal and self.egg_great and self.egg_gorgeous and
+                        self.egg_planet and self.egg_moon and self.egg_galaxy and self.egg_sunset and
+                        self.egg_goodnight and self.egg_dream and self.egg_travel and self.egg_promise and
+                        self.egg_ice and self.egg_fire and self.egg_bubble and self.egg_desert and
+                        self.egg_clover and self.egg_brick and self.egg_neon and self.egg_iridescent and
+                        self.egg_rust and self.egg_scarlet and self.egg_sapphire and self.egg_ruby and
+                        self.egg_jade and self.egg_obsidian and self.egg_crystal and self.egg_golden):
+                    await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+                    ctx.finished_game = True
 
             self.egg_65 = item_name_to_id[iname.egg_65.value] in items
 
@@ -1496,7 +1514,7 @@ async def process_sync_task(ctx: AnimalWellContext):
 
             locations.read_from_game(ctx)
             await locations.write_to_archipelago(ctx)
-            items.read_from_archipelago(ctx)
+            await items.read_from_archipelago(ctx)
             items.write_to_game(ctx)
         await asyncio.sleep(0.1)
 

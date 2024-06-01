@@ -1,4 +1,5 @@
 from typing import Dict, NamedTuple, Set, List
+
 from .names import LocationNames as lname
 
 
@@ -163,9 +164,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.candle_bear.value: AWLocationData(130, ["Candles"]),
 
     # extras
-    # lname.mama_cha.value: AWLocationData(),
-    # lname.squirrel_acorn.value: AWLocationData(),
-    # kangaroo medal drops
+    lname.mama_cha.value: AWLocationData(131, ["Extras"]),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + index for index, name in enumerate(location_table)}
