@@ -8,6 +8,7 @@ class RegionNames(str, Enum):
     menu = "Menu"
     fast_travel_fake = "Fast Travel Mid-Warp"  # for the purpose of not putting all the entrances at the starting region
     starting_area = "Squirrel Main"
+    bulb_bunny_spot = "Squirrel Bulb Bunny Spot"
     s_disc_area = "Squirrel S. Medal Area"
     starting_after_ghost = "Squirrel After Ghost"
     fast_travel = "Fast Travel Room"
@@ -18,6 +19,7 @@ class RegionNames(str, Enum):
     candle_area = "Squirrel Candle Area"
     match_above_egg_room = "Match Above Egg Room"  # its own region since you can use the dog elevator
     bird_flute_chest = "Bird Flute Chest Room"  # since you can technically get weird with the logic here
+    water_spike_bunny_spot = "Water Spike Bunny Spot"
 
     fish_upper = "Fish Upper"  # everything prior to the bubble wand chest
     fish_lower = "Fish Lower"
@@ -52,6 +54,7 @@ class RegionNames(str, Enum):
     bear_chameleon_room_2 = "Bear Chameleon Boss Room before Flame"
     bear_razzle_egg_spot = "Bear Razzle Egg Spot"
     bear_truth_egg_spot = "Bear Truth Egg Spot"
+    bear_map_bunny_spot = "Bear Map Bunny Spot"
 
     dog_area = "Dog Main"
     dog_chinchilla_skull = "Dog Chinchilla Skull Room"
@@ -415,7 +418,7 @@ class LocationNames(str, Enum):
     bunny_map = "Doodle Bunny"
     bunny_uv = "Invisible Bunny"
     bunny_fish = "Fish Bunny"  # rename?
-    bunny_face = "Evil Bunny"  # rename, it's the face ghost
+    bunny_face = "Face Bunny"  # rename, it's the face ghost
     bunny_crow = "Singing Bunny"
     bunny_duck = "Green Bunny"  # rename?
     bunny_dream = "Imaginary Bunny"

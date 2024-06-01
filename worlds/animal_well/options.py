@@ -55,6 +55,15 @@ class BunniesAsChecks(Choice):
     default = 0
 
 
+class BunnyWarpsInLogic(Toggle):
+    """
+    Include the songs that warp you to Bunny spots in logic.
+    If you have Bunnies as Checks enabled, this option is automatically enabled.
+    """
+    internal_name = "bunny_warps_in_logic"
+    display_name = "Bunny Warps in Logic"
+
+
 class CandleChecks(Choice):  # choice so we can comment out non-working ones then readd them later
     """
     Lighting each of the candles sends a check.
@@ -139,6 +148,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     matchbox: Matchbox
     final_egg_location: FinalEggLocation
     bunnies_as_checks: BunniesAsChecks
+    bunny_warps_in_logic: BunnyWarpsInLogic
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
     disc_hopping: DiscHopping
@@ -158,9 +168,10 @@ class AnimalWellOptions(PerGameCommonOptions):
 aw_option_presets: Dict[str, Dict[str, Any]] = {
     "Animal Hell": {
         "eggs_needed": 64,
-        "bubble_jumping": "on",
-        "disc_hopping": "multiple",
+        "bubble_jumping": BubbleJumping.option_on,
+        "disc_hopping": DiscHopping.option_multiple,
         "wheel_hopping": True,
         "weird_tricks": True,
+        "bunnies_as_checks": BunniesAsChecks.option_all_bunnies
     },
 }
