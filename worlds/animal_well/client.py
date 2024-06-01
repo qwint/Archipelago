@@ -125,6 +125,7 @@ class AnimalWellContext(CommonContext):
         self.process_handle = None
         self.start_address = None
         self.connection_status = CONNECTION_INITIAL_STATUS
+        self.slot_data = {}
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
@@ -155,6 +156,11 @@ class AnimalWellContext(CommonContext):
 
         self.ui = AnimalWellManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+
+    def on_package(self, cmd: str, args: dict):
+        if cmd == 'Connected':
+            self.slot_data = args.get("slot_data", {})
+            print(self.slot_data)
 
     def get_active_game_slot(self) -> int:
         """
@@ -745,8 +751,9 @@ class AWLocations:
             if self.egg_golden:
                 ctx.locations_checked.add(location_name_to_id[lname.egg_golden.value])
 
-            if self.egg_65:
-                ctx.locations_checked.add(location_name_to_id[lname.egg_65.value])
+            if "final_egg_location" not in ctx.slot_data or ctx.slot_data["final_egg_location"] == 1:
+                if self.egg_65:
+                    ctx.locations_checked.add(location_name_to_id[lname.egg_65.value])
 
             # map things
             if self.map_chest:
@@ -817,10 +824,10 @@ class AWLocations:
             #     ctx.locations_checked.add(location_name_to_id[lname.squirrel_acorn.value])
             # kangaroo medal drops
 
-            # TODO other victory conditions
-            if not ctx.finished_game and self.key_house:
-                await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
-                ctx.finished_game = True
+            if "goal" not in ctx.slot_data or ctx.slot_data["goal"] == 1:
+                if not ctx.finished_game and self.key_house:
+                    await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+                    ctx.finished_game = True
 
             locations_checked = []
             for location in ctx.missing_locations:
@@ -1092,6 +1099,10 @@ class AWItems:
                 if self.bubble < 0 or self.bubble > 2:
                     raise AssertionError("Invalid number of bubble wand upgrades %d", self.bubble)
 
+                egg_65 = self.egg_65
+                if "final_egg_location" not in ctx.slot_data or ctx.slot_data["final_egg_location"] == 1:
+                    egg_65 = bool(flags >> 20 & 1)
+
                 bits = ((str(flags >> 0 & 1)) +  # House Opened
                         (str(flags >> 1 & 1)) +  # Office Opened
                         (str(flags >> 2 & 1)) +  # Closet Opened
@@ -1112,7 +1123,7 @@ class AWItems:
                         (str(flags >> 17 & 1)) +  # Wings Acquired
                         (str(flags >> 18 & 1)) +  # Woke Up
                         ("1" if self.bubble == 2 else "0") +  # B.B. Wand Upgrade
-                        ("1" if self.egg_65 else "0") +  # Egg 65 Collected
+                        ("1" if egg_65 else "0") +  # Egg 65 Collected
                         (str(flags >> 21 & 1)) +  # All Candles Lit
                         (str(flags >> 22 & 1)) +  # Singularity Active
                         (str(flags >> 23 & 1)) +  # Manticore Egg Placed
