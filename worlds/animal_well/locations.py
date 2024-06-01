@@ -48,7 +48,7 @@ location_table: Dict[str, AWLocationData] = {
 
     lname.medal_e.value: AWLocationData(31, ["Keys", "Medals"]),
     lname.medal_s.value: AWLocationData(32, ["Keys", "Medals"]),
-    lname.medal_k.value: AWLocationData(33, ["Keys", "Medals"]),
+    # lname.medal_k.value: AWLocationData(33, ["Keys", "Medals"]),
 
     # event only for now until modding tools maybe
     lname.flame_blue.value: AWLocationData(34, ["Flames"]),
@@ -163,9 +163,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.candle_bear.value: AWLocationData(130, ["Candles"]),
 
     # extras
-    # lname.mama_cha.value: AWLocationData(),
-    # lname.squirrel_acorn.value: AWLocationData(),
-    # kangaroo medal drops
+    lname.mama_cha.value: AWLocationData(131, ["Extras"]),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + index for index, name in enumerate(location_table)}
