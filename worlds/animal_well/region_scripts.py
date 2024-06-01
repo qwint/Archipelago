@@ -1,7 +1,7 @@
 from typing import List, Dict, TYPE_CHECKING
 from BaseClasses import Region, Location, ItemClassification
 from worlds.generic.Rules import CollectionRule, add_rule
-from .region_data import AWType
+from .region_data import AWType, LocType
 from .names import ItemNames as iname, LocationNames as lname, RegionNames
 from .items import AWItem
 from .options import AnimalWellOptions
@@ -131,13 +131,13 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     for origin_name, destinations in world.traversal_requirements.items():
         for destination_name, data in destinations.items():
             if data.type == AWType.location:
-                if not world.options.bunnies_as_checks and data.loc_type == "bunny":
+                if not world.options.bunnies_as_checks and data.loc_type == LocType.bunny:
                     continue
                 if (world.options.bunnies_as_checks == world.options.bunnies_as_checks.option_exclude_tedious and
                         destination_name in [lname.bunny_mural, lname.bunny_dream, lname.bunny_uv,
                                              lname.bunny_lava]):
                     continue
-                if not world.options.candle_checks and data.loc_type == "candle":
+                if not world.options.candle_checks and data.loc_type == LocType.candle:
                     continue
                 if data.event:
                     location = AWLocation(player, destination_name, None, aw_regions[origin_name])
