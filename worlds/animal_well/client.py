@@ -455,11 +455,11 @@ class AWLocations:
                 self.egg_obsidian = bool(flags >> 94 & 1)
                 self.bb_wand_chest = bool(flags >> 95 & 1)
 
-                self.egg_golden = bool(flags >> 96 & 1)
                 self.yoyo_chest = bool(flags >> 97 & 1)
                 self.uv_lantern_chest = bool(flags >> 98 & 1)
                 self.egg_crystal = bool(flags >> 99 & 1)
                 self.fanny_pack_chest = bool(flags >> 100 & 1)
+                self.egg_golden = bool(flags >> 101 & 1)
 
                 # Read Flames
                 self.flame_blue = ctx.process_handle.read_bytes(slot_address + 0x21E, 1)[0] >= 4
