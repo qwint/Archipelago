@@ -34,6 +34,5 @@ Please do not overuse the Cheater's Ring, only use it in a situation you cannot 
 Yes! To find what they are, type `/item_groups` or `/location_groups` into the ANIMAL WELL Client, or the Archipelago Text Client while connected to an ANIMAL WELL session.
 
 ## What are the current known issues?
-Filler items do not work, as they have not been implemented yet. You will need to use your imagination.
 The client rarely fails for no discernable reason when opening a chest. We do not know why yet. If it fails, please let us know in the discord and send us your log file (in your `Archipelago/logs` folder). We may ask you to troubleshoot a few things as well.
 Some yaml options are missing. This is intentional. They don't work yet.
