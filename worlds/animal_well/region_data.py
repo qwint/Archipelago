@@ -276,8 +276,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location),
         lname.egg_zen:  # get chest on chinchilla's head, get it to drop it on the button by walking off the right side
             AWData(AWType.location, [[iname.bubble], [iname.disc], [iname.wheel_hop]]),
-        rname.bear_dark_maze:  # need one key to open the gate
-            AWData(AWType.region, [[iname.key_ring]]),
+        rname.bear_dark_maze:  # need one key to open the gate, or do downward bubbles to get to the button
+            AWData(AWType.region, [[iname.key_ring], [iname.bubble_short, iname.weird_tricks],
+                                   [iname.ball, iname.weird_tricks]]),  # or hit it with a ball
         lname.egg_universal:
             AWData(AWType.location, [[iname.bubble, iname.yoyo], [iname.bubble, iname.wheel],
                                      [iname.bubble, iname.firecrackers], [iname.disc], [iname.wheel_hop]]),
@@ -788,8 +789,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_desert:  # up the elevator, bottom right of dangerous elevator room
             AWData(AWType.location),  # you need yoyo and bubble to get to this check logically
             # if you have yoyo, you can swap the mouse direction and lock yourself out of the check without bubbles
-        lname.egg_obsidian:  # bounce disc between the moving walls
-            AWData(AWType.location, [[iname.disc]]),
+        lname.egg_obsidian:  # bounce disc between the moving walls, or do some cursed bubble jumps
+            AWData(AWType.location, [[iname.disc], [iname.bubble_short, iname.weird_tricks]]),
         lname.egg_golden:
             AWData(AWType.location, [[iname.wheel]]),
         lname.flame_green:
@@ -816,8 +817,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.lantern_chest:
             AWData(AWType.location, [[iname.slink, iname.disc, iname.bubble, iname.yoyo]]),
         rname.hippo_manticore_room:  # can technically use ball instead of yoyo, but it's inconsistent
-            AWData(AWType.region, [[iname.lantern, iname.disc, iname.yoyo]]),  # todo: ball_tricky?
-
+            AWData(AWType.region, [[iname.lantern, iname.disc, iname.yoyo]]),  # todo: ball + weird tricks?
     },
     rname.hippo_manticore_room: {
         rname.hippo_fireworks:

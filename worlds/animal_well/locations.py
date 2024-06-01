@@ -129,9 +129,9 @@ location_table: Dict[str, AWLocationData] = {
     lname.egg_65.value: AWLocationData(102, ["Eggs", "Egg Rewards"]),
 
     # map things
-    lname.map_chest.value: AWLocationData(103, ["Map Items"]),
-    lname.stamp_chest.value: AWLocationData(104, ["Map Items"]),
-    lname.pencil_chest.value: AWLocationData(105, ["Map Items", "Egg Rewards"]),
+    lname.map_chest.value: AWLocationData(103, []),
+    lname.stamp_chest.value: AWLocationData(104, []),
+    lname.pencil_chest.value: AWLocationData(105, ["Egg Rewards"]),
 
     # bnnnnuyuy - commented until modding tools
     lname.bunny_mural.value: AWLocationData(106, ["Bunnies"]),
@@ -163,7 +163,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.candle_bear.value: AWLocationData(130, ["Candles"]),
 
     # extras
-    lname.mama_cha.value: AWLocationData(131, ["Extras"]),
+    lname.mama_cha.value: AWLocationData(131, []),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + index for index, name in enumerate(location_table)}
