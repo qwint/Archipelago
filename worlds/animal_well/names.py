@@ -288,7 +288,7 @@ class LocationNames(str, Enum):
     fanny_pack_chest = "Fanny Pack Chest"
     key_house = "House Key Drop"
     key_office = "Office Key Chest"
-    medal_k = "K. Medal Shard Bag"  # you need three to open the kangaroo door
+    # medal_k = "K. Medal Shard Bag"  # you need three to open the kangaroo door
     medal_s = "S. Medal Chest"
     medal_e = "E. Medal Chest"
 

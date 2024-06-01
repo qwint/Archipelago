@@ -219,7 +219,7 @@ class AWLocations:
 
         self.medal_e = False
         self.medal_s = False
-        self.medal_k = False
+        # self.medal_k = False
 
         # event only for now until modding tools maybe
         self.flame_blue = False
@@ -604,8 +604,8 @@ class AWLocations:
                 ctx.locations_checked.add(location_name_to_id[lname.medal_e.value])
             if self.medal_s:
                 ctx.locations_checked.add(location_name_to_id[lname.medal_s.value])
-            if self.medal_k:
-                ctx.locations_checked.add(location_name_to_id[lname.medal_k.value])
+            # if self.medal_k:
+            #     ctx.locations_checked.add(location_name_to_id[lname.medal_k.value])
 
             # event only for now until modding tools maybe
             if self.flame_blue:
