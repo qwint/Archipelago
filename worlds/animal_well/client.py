@@ -160,7 +160,6 @@ class AnimalWellContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd == 'Connected':
             self.slot_data = args.get("slot_data", {})
-            print(self.slot_data)
 
     def get_active_game_slot(self) -> int:
         """
