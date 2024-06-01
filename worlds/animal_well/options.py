@@ -30,12 +30,11 @@ class FinalEggLocation(Choice):
     default = 1
 
 
-# todo: client needs work to get this to work with other values
+# todo: client needs work to get this to work with other values - TODO(Frank-Pasqualini)
 class EggsNeeded(Range):
     """
     How many Eggs you need to open the 4th Egg Door.
     The amount of Eggs you need for the other 3 doors will scale accordingly.
-    TODO(Frank-Pasqualini)
     """
     internal_name = "eggs_needed"
     display_name = "Eggs Required"
@@ -67,16 +66,13 @@ class CandleChecks(Choice):  # choice so we can comment out non-working ones the
     default = 0
 
 
-class KeyRing(Choice):  # choice so we can comment out non-working ones then readd them later
+class KeyRing(DefaultOnToggle):
     """
     Have one keyring which unlocks all normal key doors instead of individual key items.
     Note: Due to how consumable key logic works, if this option is not enabled, you logically require all 6 keys to open any of the key doors.
     """
     internal_name = "key_ring"
     display_name = "Key Ring"
-    option_off = 0
-    option_on = 1
-    default = 1
 
 
 class Matchbox(DefaultOnToggle):
