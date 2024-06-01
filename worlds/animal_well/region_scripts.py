@@ -129,6 +129,11 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     egg_ratio = world.options.eggs_needed.value / 64
     aw_regions = create_aw_regions(world)
     for origin_name, destinations in world.traversal_requirements.items():
+        # don't create these regions if bunny warps are not in logic
+        if not world.options.bunny_warps_in_logic and origin_name in [RegionNames.bulb_bunny_spot,
+                                                                      RegionNames.bear_map_bunny_spot,
+                                                                      RegionNames.bear_chinchilla_song_room]:
+            continue
         for destination_name, data in destinations.items():
             if data.type == AWType.location:
                 if not world.options.bunnies_as_checks and data.loc_type == LocType.bunny:
