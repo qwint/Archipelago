@@ -709,8 +709,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.disc, iname.lantern], [iname.bubble, iname.lantern]]),
             # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird
             # I was getting this 90% of the time, not sure it's intuitive? make it logical and put it in the tricks FAQ.
-        lname.egg_promise:  # under spikes in 3 bird room
-            AWData(AWType.location, [[iname.lantern, iname.can_break_spikes_below]]),
+        lname.egg_promise:  # under spikes in 3 bird room, solve puzzle then can break spikes without bird in the way
+            AWData(AWType.location, [[iname.can_break_spikes_below]]),
         rname.frog_under_ostrich_statue:  # after hitting the switch, no items needed
             AWData(AWType.region),
         rname.frog_travel_egg_spot:
