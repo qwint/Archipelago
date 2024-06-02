@@ -11,9 +11,9 @@ class AWTestBase(WorldTestBase):
 
 
 class TestAccess(AWTestBase):
-    # test that you can't get to the B. Ball chest until you have the K. Medal or the Ball
+    # test that you can't get to the B. Ball chest until you have the K. Shards or the Ball
     def test_bball_access(self) -> None:
-        self.collect_all_but([iname.ball, iname.k_shard, iname.k_medal])  # why does this collect events???
+        self.collect_all_but([iname.ball, iname.k_shard])
         self.assertFalse(self.can_reach_location(lname.b_ball_chest))
         self.collect_by_name([iname.k_shard])
         self.assertTrue(self.can_reach_location(lname.b_ball_chest))
