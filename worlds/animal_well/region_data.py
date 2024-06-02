@@ -187,7 +187,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         lname.egg_sunset:  # break the spikes in the room to the right of the fish warp
-            AWData(AWType.location, [[iname.can_break_spikes_below], [iname.can_break_spikes, iname.wheel],
+            AWData(AWType.location, [[iname.can_break_spikes, iname.wheel], [iname.ball], [iname.yoyo],
                                      [iname.disc_hop]]),
         rname.water_spike_bunny_spot:
             AWData(AWType.region, [[iname.bubble_long]]),
@@ -330,7 +330,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
                    event=iname.event_candle_bear),
         lname.egg_lf:
-            AWData(AWType.location, [[iname.firecrackers, iname.bubble], [iname.firecrackers, iname.disc]]),
+            AWData(AWType.location, [[iname.firecrackers, iname.bubble], [iname.firecrackers, iname.disc],
+                                     [iname.firecrackers, iname.wheel_hop]]),
     },
     rname.bear_chameleon_room_1: {
         rname.bear_dark_maze:
@@ -760,7 +761,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.yoyo_chest:
             AWData(AWType.location),
         rname.frog_bird_after_yoyo_1:  # can bypass the locked door with bubble jumps + lantern
-            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern], [iname.ball, iname.weird_tricks]]),  # todo: test if you can use ball
+            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern], [iname.ball, iname.weird_tricks],
+                                   [iname.bubble_long, iname.weird_tricks]]),  # spam bubbles then jump up the left side
     },
     rname.frog_bird_after_yoyo_1: {
         rname.frog_bird_after_yoyo_2:  # pain in the ass, but you can get up with downwards bubbles
