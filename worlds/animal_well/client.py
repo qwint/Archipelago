@@ -488,18 +488,18 @@ class AWLocations:
                 self.bunny_lava = bool(flags >> 30 & 1)
                 self.bunny_disc_spike = bool(flags >> 31 & 1)
 
-                # Read Candles (I am not very confident in these at all)
+                # Read Candles
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1E0, 2), byteorder="little")
-                self.candle_dog_disc_switches = bool(flags >> 0 & 1)
-                self.candle_dog_bat = bool(flags >> 1 & 1)
-                self.candle_dog_switch_box = bool(flags >> 2 & 1)
-                self.candle_dog_many_switches = bool(flags >> 3 & 1)
+                self.candle_dog_bat = bool(flags >> 0 & 1)
+                self.candle_dog_disc_switches = bool(flags >> 1 & 1)
+                self.candle_dog_many_switches = bool(flags >> 2 & 1)
+                self.candle_dog_switch_box = bool(flags >> 3 & 1)
                 self.candle_dog_dark = bool(flags >> 4 & 1)
                 self.candle_bear = bool(flags >> 5 & 1)
-                self.candle_first = bool(flags >> 6 & 1)
-                self.candle_frog = bool(flags >> 7 & 1)
+                self.candle_fish = bool(flags >> 6 & 1)
+                self.candle_first = bool(flags >> 7 & 1)
 
-                self.candle_fish = bool(flags >> 8 & 1)
+                self.candle_frog = bool(flags >> 8 & 1)
 
                 # Read Startup State
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x21C, 2), byteorder="little")
