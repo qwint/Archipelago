@@ -8,13 +8,20 @@ class AWType(IntEnum):
     region = 2
 
 
+class LocType(IntEnum):
+    bunny = 1
+    candle = 2
+    figure = 3
+
+
 class AWData(NamedTuple):
     type: int  # location or region
     rules: List[List[str]] = [[]]  # how to access it
     # the rules are formatted such that [[wand], [disc, remote]] means you need wand OR you need disc + remote
-    loc_type: Optional[str] = None
+    loc_type: Optional[int] = None
     eggs_required: int = 0
     event: Optional[str] = None  # if the location is an event, fill in what item it gives
+    bunny_warp: bool = False  # if it's a spot you need the flute to get to for a bunny
 
 
 # instructions for contributors:
@@ -59,9 +66,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.bubble_short, iname.flute], [iname.disc, iname.flute],
                                      [iname.bubble, iname.wheel_hop, iname.flute]]),
         lname.bunny_duck:  # edit rule if we shuffle songs
-            AWData(AWType.location, [[iname.flute]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.bunny),
         lname.bunny_mural:
-            AWData(AWType.location, [[iname.remote]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.remote]], loc_type=LocType.bunny),
+        lname.bunny_uv:  # probably only need uv for it
+            AWData(AWType.location, [[iname.uv]], loc_type=LocType.bunny),
         lname.egg_virtual:  # sneaky passage in the top left of the screen with the penguin hedges
             AWData(AWType.location),
         rname.match_above_egg_room:
@@ -117,19 +126,22 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.match_start_ceiling:
             AWData(AWType.location),
         lname.bunny_face:
-            AWData(AWType.location, [[iname.flute]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.bunny),
+        lname.bunny_dream:
+            AWData(AWType.location, loc_type=LocType.bunny),
         rname.fast_travel_fake:
             AWData(AWType.region, [[iname.flute]]),
     },
     rname.starting_after_ghost: {
-        rname.starting_area:  
-            AWData(AWType.region, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first]]),  # with firecracker rando being viable, "start from 4 statue room" may be a path we want to consider, and this will help with that.
+        # with firecracker rando being viable, "start from 4 statue room" may be a path we want to consider
+        rname.starting_area:
+            AWData(AWType.region, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first]]),
         rname.bird_area:
             AWData(AWType.region),
         lname.candle_first:
-            AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
-        lname.candle_first_event:  # TODO: I don't think it's possible to light this candle without slaying the ghost first? Check, and check all candles for similar logic.
-            AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_first),
+            AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
+        lname.candle_first_event:
+            AWData(AWType.location, [[iname.firecrackers, iname.matchbox]], event=iname.event_candle_first),
         lname.egg_gorgeous:  # up and right of the candle
             AWData(AWType.location, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first]]),
         lname.map_chest:
@@ -149,6 +161,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.medal_e:
             AWData(AWType.location),
     },
+    rname.bulb_bunny_spot: {
+        lname.bunny_file_bud:
+            AWData(AWType.location, loc_type=LocType.bunny),
+        # brings you back to starting area so no need to include the connection back
+    },
 
     rname.fish_upper: {
         rname.fish_wand_pit:  # enter the fish wand pit
@@ -156,7 +173,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.match_fish_mural:  # right at the start, just some platforming
             AWData(AWType.location),
         lname.bunny_fish:
-            AWData(AWType.location, [[iname.flute]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.bunny),
         # upper right of fish mural room leads to Virtual Egg, which you can get itemless
         # upper right of first bubble room leads to a door that requires a button hit on both sides
         lname.egg_mystic:  # avoid the fireball thrower, hit some buttons
@@ -170,8 +187,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         lname.egg_sunset:  # break the spikes in the room to the right of the fish warp
-            AWData(AWType.location, [[iname.can_break_spikes_below], [iname.can_break_spikes, iname.wheel],
+            AWData(AWType.location, [[iname.can_break_spikes, iname.wheel], [iname.ball], [iname.yoyo],
                                      [iname.disc_hop]]),
+        rname.water_spike_bunny_spot:
+            AWData(AWType.region, [[iname.bubble_long]]),
     },
     rname.fish_wand_pit: {
         # fish_upper:  # commented out because not logically relevant
@@ -211,7 +230,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.top]]), 
         lname.candle_fish:  # spike breaking presumed by access
             AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
-                   loc_type="candle"),
+                   loc_type=LocType.candle),
         lname.candle_fish_event:  # spike breaking presumed by access
             AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
                    event=iname.event_candle_penguin),
@@ -241,6 +260,12 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.abyss:  # little hole above the fish pipe
             AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.wheel_hop],
                                    [iname.top, iname.e_medal, iname.bubble]]),
+    },
+    rname.water_spike_bunny_spot: {
+        lname.bunny_water_spike:  # bubble_long is covered by the region access rule
+            AWData(AWType.location, loc_type=LocType.bunny),
+        rname.starting_after_ghost:
+            AWData(AWType.region),
     },
     rname.abyss: {
         rname.abyss_lower:
@@ -291,7 +316,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.bear_chinchilla_song_room: {
         lname.bunny_chinchilla_vine:
-            AWData(AWType.location, loc_type="bunny"),
+            AWData(AWType.location, loc_type=LocType.bunny),
         rname.bear_future_egg_room:
             AWData(AWType.region),
     },
@@ -300,12 +325,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         lname.candle_bear:
             AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
-                   loc_type="candle"),
+                   loc_type=LocType.candle),
         lname.candle_bear_event:
             AWData(AWType.location, [[iname.bubble, iname.matchbox], [iname.disc, iname.matchbox]],
                    event=iname.event_candle_bear),
         lname.egg_lf:
-            AWData(AWType.location, [[iname.firecrackers, iname.bubble], [iname.firecrackers, iname.disc]]),
+            AWData(AWType.location, [[iname.firecrackers, iname.bubble], [iname.firecrackers, iname.disc],
+                                     [iname.firecrackers, iname.wheel_hop]]),
     },
     rname.bear_chameleon_room_1: {
         rname.bear_dark_maze:
@@ -363,7 +389,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bear_shadow_egg_spot:  # get across the room with the lifters and the miasma
             AWData(AWType.region, [[iname.slink], [iname.lantern], [iname.tanking_damage]]),
         lname.bunny_crow:  # it jumps down after a moment
-            AWData(AWType.location, [[iname.flute]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.bunny),
         rname.bear_hedgehog_square:  # slink needed for puzzle to get to the button
             AWData(AWType.region, [[iname.slink], [iname.ball, iname.weird_tricks]]),
     },
@@ -375,7 +401,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.bear_hedgehog_square: {
         lname.bunny_ghost_dog:  
-            AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel]],
+                   loc_type=LocType.bunny),
         rname.bear_connector_passage:
             AWData(AWType.region, [[iname.slink]]),
     },
@@ -438,12 +465,18 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bear_dark_maze:
             AWData(AWType.region),
     },
+    rname.bear_map_bunny_spot: {
+        lname.bunny_map:
+            AWData(AWType.location, loc_type=LocType.bunny),
+        rname.bear_kangaroo_waterfall:
+            AWData(AWType.region),  # drop down after getting the bunny
+    },
 
     rname.dog_area: {
         lname.disc_spot:
             AWData(AWType.location, [[iname.m_disc]], event=iname.disc),
         lname.candle_dog_dark:
-            AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
+            AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
         lname.candle_dog_dark_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_dark),
         rname.dog_chinchilla_skull:  # hit a switch with any number of things, or bubble up there yourself
@@ -490,7 +523,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # logical note: there's several items that can get past switch box, but you're logically guaranteed
         # to have one of them to get to this region, so it's accounted for.
         lname.candle_dog_switch_box:
-            AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
+            AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
         lname.candle_dog_switch_box_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_switch_box),
         rname.dog_upper_above_switch_lines:
@@ -498,9 +531,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         # rname.barcode_bunny:  # region since you can get this in two spots
         #     AWData(AWType.region, [[iname.flute, iname.song_barcode]]),
         lname.mama_cha:  # removing for now, may shuffle later
-            AWData(AWType.location, [[iname.flute]]),  # add song req if we're shuffling songs
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.figure),  # add song req if we're shuffling songs
         lname.bunny_lava:
-            AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.bubble_long, iname.remote]], loc_type=LocType.bunny),
         rname.dog_many_switches:
             AWData(AWType.region, [[iname.ball], [iname.yoyo], [iname.disc], [iname.wheel, iname.bubble],
                                    [iname.wheel_hop], [iname.top]]),
@@ -553,7 +586,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.disc], [iname.bubble_long]]),
         lname.bunny_disc_spike:  # not disc hop since you literally need to do this
             AWData(AWType.location, [[iname.disc], [iname.bubble_long, iname.wheel_hop, iname.weird_tricks]],
-                   loc_type="bunny"),
+                   loc_type=LocType.bunny),
         rname.behind_kangaroo:
             AWData(AWType.region, [[iname.slink]]),
     },
@@ -567,17 +600,17 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.dog_many_switches: {
         lname.candle_dog_many_switches:
-            AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
+            AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
         lname.candle_dog_many_switches_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_many_switches),
-        rname.dog_upside_down_egg_spot:
-            AWData(AWType.region, [[iname.remote]]),
+        rname.dog_upside_down_egg_spot:  # throw a disc or top at a switch
+            AWData(AWType.region, [[iname.remote], [iname.disc], [iname.top]]),
         rname.dog_bat_room:
             AWData(AWType.region),
     },
     rname.dog_bat_room: {
         lname.candle_dog_bat:
-            AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
+            AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
         lname.candle_dog_bat_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_bat),
         lname.key_dog:
@@ -610,7 +643,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.disc], [iname.remote], [iname.top]]),
         lname.candle_dog_disc_switches:
             AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.remote, iname.matchbox],
-                                     [iname.top, iname.matchbox]], loc_type="candle"),
+                                     [iname.top, iname.matchbox]], loc_type=LocType.candle),
         lname.candle_dog_disc_switches_event:
             AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.remote, iname.matchbox],
                                      [iname.top, iname.matchbox]], event=iname.event_candle_dog_disc_switches),
@@ -670,15 +703,15 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
 
     rname.frog_near_wombat: {
         lname.candle_frog:
-            AWData(AWType.location, [[iname.matchbox]], loc_type="candle"),
+            AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
         lname.candle_frog_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_frog),
         lname.egg_moon:  # the one with all the mouse heads
             AWData(AWType.location, [[iname.disc, iname.lantern], [iname.bubble, iname.lantern]]),
             # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird
             # I was getting this 90% of the time, not sure it's intuitive? make it logical and put it in the tricks FAQ.
-        lname.egg_promise:  # under spikes in 3 bird room
-            AWData(AWType.location, [[iname.lantern, iname.can_break_spikes_below]]),
+        lname.egg_promise:  # under spikes in 3 bird room, solve puzzle then can break spikes without bird in the way
+            AWData(AWType.location, [[iname.can_break_spikes_below]]),
         rname.frog_under_ostrich_statue:  # after hitting the switch, no items needed
             AWData(AWType.region),
         rname.frog_travel_egg_spot:
@@ -728,7 +761,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.yoyo_chest:
             AWData(AWType.location),
         rname.frog_bird_after_yoyo_1:  # can bypass the locked door with bubble jumps + lantern
-            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern], [iname.ball, iname.weird_tricks]]),  # todo: test if you can use ball
+            AWData(AWType.region, [[iname.yoyo], [iname.bubble_long, iname.lantern], [iname.ball, iname.weird_tricks],
+                                   [iname.bubble_long, iname.weird_tricks]]),  # spam bubbles then jump up the left side
     },
     rname.frog_bird_after_yoyo_1: {
         rname.frog_bird_after_yoyo_2:  # pain in the ass, but you can get up with downwards bubbles
@@ -843,7 +877,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.hippo_fireworks:
             AWData(AWType.region, [[iname.house_key]]),
         lname.bunny_tv:
-            AWData(AWType.location, [[iname.flute]], loc_type="bunny"),
+            AWData(AWType.location, [[iname.flute]], loc_type=LocType.bunny),
         lname.fanny_pack_chest:
             AWData(AWType.location),
         rname.barcode_bunny:  # add song req if we do song shuffle
@@ -853,7 +887,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.barcode_bunny: {
         lname.bunny_barcode:
-            AWData(AWType.location, loc_type="bunny"),
+            AWData(AWType.location, loc_type=LocType.bunny),
     },
 
     rname.top_of_the_well: {
@@ -922,9 +956,13 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),  # probably never randomizing fast travel song, so no rule
         rname.top_of_the_well:  # add song req if we do song shuffle
             AWData(AWType.region),
-        rname.bear_chinchilla_song_room:
-            AWData(AWType.region),  # add song req if we do song shuffle
         rname.fast_travel_fish_teleport:  # to the little enclosure on the right side of the fast travel room
             AWData(AWType.region),  # add song req if we do song shuffle
+        rname.bear_chinchilla_song_room:
+            AWData(AWType.region, bunny_warp=True),  # add song req if we do song shuffle
+        rname.bear_map_bunny_spot:
+            AWData(AWType.region, bunny_warp=True),
+        rname.bulb_bunny_spot:
+            AWData(AWType.region, bunny_warp=True),
     },
 }

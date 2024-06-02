@@ -66,6 +66,10 @@ class AnimalWellWorld(World):
     traversal_requirements: Dict[str, Dict[str, AWData]]
 
     def generate_early(self) -> None:
+        # if these options conflict, override -- player is warned in the option description
+        if not self.options.bunny_warps_in_logic and self.options.bunnies_as_checks:
+            self.options.bunny_warps_in_logic.value = True
+
         # Universal tracker stuff, shouldn't do anything in standard gen
         if hasattr(self.multiworld, "re_gen_passthrough"):
             if "ANIMAL WELL" in self.multiworld.re_gen_passthrough:

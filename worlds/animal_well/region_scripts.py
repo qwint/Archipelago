@@ -1,7 +1,7 @@
 from typing import List, Dict, TYPE_CHECKING
 from BaseClasses import Region, Location, ItemClassification
 from worlds.generic.Rules import CollectionRule, add_rule
-from .region_data import AWType
+from .region_data import AWType, LocType
 from .names import ItemNames as iname, LocationNames as lname, RegionNames
 from .items import AWItem
 from .options import AnimalWellOptions
@@ -129,11 +129,23 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     egg_ratio = world.options.eggs_needed.value / 64
     aw_regions = create_aw_regions(world)
     for origin_name, destinations in world.traversal_requirements.items():
+        # don't create these regions if bunny warps are not in logic
+        if not world.options.bunny_warps_in_logic and origin_name in [RegionNames.bulb_bunny_spot,
+                                                                      RegionNames.bear_map_bunny_spot,
+                                                                      RegionNames.bear_chinchilla_song_room]:
+            continue
         for destination_name, data in destinations.items():
             if data.type == AWType.location:
-                if not world.options.bunnies_as_checks and data.loc_type == "bunny":
+                if not world.options.bunnies_as_checks and data.loc_type == LocType.bunny:
                     continue
-                if not world.options.candle_checks and data.loc_type == "candle":
+                if (world.options.bunnies_as_checks == world.options.bunnies_as_checks.option_exclude_tedious and
+                        destination_name in [lname.bunny_mural, lname.bunny_dream, lname.bunny_uv,
+                                             lname.bunny_lava]):
+                    continue
+                if not world.options.candle_checks and data.loc_type == LocType.candle:
+                    continue
+                # not shuffling these yet
+                if data.loc_type == LocType.figure:
                     continue
                 if data.event:
                     location = AWLocation(player, destination_name, None, aw_regions[origin_name])
@@ -147,6 +159,8 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                              state.count_group("Eggs", player) >= eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
+                if data.bunny_warp and not world.options.bunny_warps_in_logic and not world.options.bunnies_as_checks:
+                    continue
                 entrance = aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
                                                            rule=interpret_rule(data.rules, world))
                 if data.eggs_required:  # swap to count_group_unique in 0.4.7

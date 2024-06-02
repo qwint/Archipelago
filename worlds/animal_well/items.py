@@ -144,8 +144,10 @@ item_name_groups: Dict[str, Set[str]] = {
 }
 
 # # extra groups for the purpose of aliasing items
-# extra_groups: Dict[str, Set[str]] = {
-#     "Laurels": {"Hero's Laurels"},
-# }
-#
-# item_name_groups.update(extra_groups)
+extra_groups: Dict[str, Set[str]] = {
+    "Flute": {"Animal Flute"},
+    "Wand": {"B. Wand"},
+    "Ball": {"B. Ball"},
+}
+
+item_name_groups.update(extra_groups)

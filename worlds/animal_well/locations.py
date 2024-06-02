@@ -151,7 +151,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_ghost_dog.value: AWLocationData(120, ["Bunnies"]),
     lname.bunny_disc_spike.value: AWLocationData(121, ["Bunnies"]),
 
-    # candles - commented until modding tools
+    # candles
     lname.candle_first.value: AWLocationData(122, ["Candles"]),
     lname.candle_dog_dark.value: AWLocationData(123, ["Candles"]),
     lname.candle_dog_switch_box.value: AWLocationData(124, ["Candles"]),
