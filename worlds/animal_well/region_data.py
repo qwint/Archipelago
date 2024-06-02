@@ -602,8 +602,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.location, [[iname.matchbox]], loc_type=LocType.candle),
         lname.candle_dog_many_switches_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_many_switches),
-        rname.dog_upside_down_egg_spot:
-            AWData(AWType.region, [[iname.remote]]),
+        rname.dog_upside_down_egg_spot:  # throw a disc or top at a switch
+            AWData(AWType.region, [[iname.remote], [iname.disc], [iname.top]]),
         rname.dog_bat_room:
             AWData(AWType.region),
     },
