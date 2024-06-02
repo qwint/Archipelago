@@ -620,7 +620,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.egg_service:
             AWData(AWType.location),
         rname.kangaroo_room:
-            AWData(AWType.region, [[iname.k_medal, iname.bubble], [iname.k_medal, iname.disc]]),
+            AWData(AWType.region),  # this one is done in region scripts to account for the number of k shards
     },
     rname.kangaroo_room: {
         rname.dog_bat_room:
