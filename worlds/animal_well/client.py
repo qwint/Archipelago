@@ -1345,6 +1345,11 @@ class AWItems:
                 buffer = bytes([total_firecrackers])
                 ctx.process_handle.write_bytes(slot_address + 0x1B3, buffer, 1)
                 ctx.used_firecrackers = self.firecracker_refill
+
+                # setting death count to 37 to always have the b.b. wand chest accessible
+                buffer = 37
+                buffer = buffer.to_bytes(2, byteorder="little")
+                ctx.process_handle.write_bytes(slot_address + 0x1E4, buffer, 2)
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
         except pymem.exception.ProcessError as e:
