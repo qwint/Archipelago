@@ -941,7 +941,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.fast_travel_fish_teleport: {
         rname.uv_lantern_spot:
-            AWData(AWType.region),
+            AWData(AWType.region, [[iname.bubble], [iname.disc], [iname.wheel_hop]]),
         rname.fast_travel:
             AWData(AWType.region),
     },
