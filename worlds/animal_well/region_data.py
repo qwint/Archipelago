@@ -836,8 +836,6 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         #     AWData(AWType.region),
     },
     rname.bobcat_room: {
-        rname.frog_elevator_and_ostrich_wheel:  # todo: check if you can actually use top to get in here backwards
-            AWData(AWType.region, [[iname.top, iname.yoyo, iname.bubble]]),
         rname.fish_lower:
             AWData(AWType.region, [[iname.top]]),
         lname.wheel_chest:  # add bobcat song if we do song shuffle
