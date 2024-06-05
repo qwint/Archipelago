@@ -427,8 +427,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),  # wall is flush, just hold left
         # top_of_the_well:  # unnecessary because of the connection from match center spot
         #     AWData(AWType.region, [[iname.bubble_long]]),
-        rname.bear_upper_phone_room:  # todo: see if ball can go through wooden platforms
-            AWData(AWType.region, [[iname.slink, iname.yoyo]]),
+        rname.bear_upper_phone_room:
+            AWData(AWType.region, [[iname.slink, iname.yoyo],
+                                   [iname.slink, iname.ball, iname.weird_tricks],
+                                   [iname.yoyo, iname.ball, iname.weird_tricks]  # throw the ball in the yoyo pipe then run left with yoyo or slink
+                                   ]),
     },
     rname.bear_upper_phone_room: {
         rname.bear_above_chameleon:
