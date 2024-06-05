@@ -21,7 +21,7 @@ class AWData(NamedTuple):
     loc_type: Optional[int] = None
     eggs_required: int = 0
     event: Optional[str] = None  # if the location is an event, fill in what item it gives
-    bunny_warp: bool = False  # if it's a spot you need the flute to get to for a bunny
+    bunny_warp: bool = False  # flag for entrances not to make if bunny warp logic is off
 
 
 # instructions for contributors:
@@ -111,7 +111,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     },
     rname.starting_area: {
         rname.starting_after_ghost:  # it would feel weird to call this the central area imo
-            AWData(AWType.region, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first], [iname.weird_tricks]]),  # speedrunner trick
+            AWData(AWType.region, [[iname.firecrackers], [iname.lantern], [iname.event_candle_first],
+                                   [iname.weird_tricks]]),  # speedrunner trick
         rname.candle_area:
             AWData(AWType.region, [[iname.event_candle_first, iname.event_candle_dog_dark,
                                     iname.event_candle_dog_switch_box, iname.event_candle_dog_many_switches,
@@ -318,7 +319,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.bunny_chinchilla_vine:
             AWData(AWType.location, loc_type=LocType.bunny),
         rname.bear_future_egg_room:
-            AWData(AWType.region),
+            AWData(AWType.region, bunny_warp=True),
     },
     rname.bear_dark_maze: {
         rname.bear_chameleon_room_1:
@@ -469,7 +470,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.bunny_map:
             AWData(AWType.location, loc_type=LocType.bunny),
         rname.bear_kangaroo_waterfall:
-            AWData(AWType.region),  # drop down after getting the bunny
+            AWData(AWType.region, bunny_warp=True),  # drop down after getting the bunny
     },
 
     rname.dog_area: {
@@ -959,10 +960,10 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.fast_travel_fish_teleport:  # to the little enclosure on the right side of the fast travel room
             AWData(AWType.region),  # add song req if we do song shuffle
         rname.bear_chinchilla_song_room:
-            AWData(AWType.region, bunny_warp=True),  # add song req if we do song shuffle
+            AWData(AWType.region),  # add song req if we do song shuffle
         rname.bear_map_bunny_spot:
-            AWData(AWType.region, bunny_warp=True),
+            AWData(AWType.region),
         rname.bulb_bunny_spot:
-            AWData(AWType.region, bunny_warp=True),
+            AWData(AWType.region),
     },
 }
