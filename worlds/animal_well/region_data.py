@@ -204,7 +204,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     rname.fish_west: {
         rname.fish_wand_pit: 
             AWData(AWType.region, [[iname.bubble], [iname.disc]]),
-        lname.egg_ancient:  # one room up and left of save point, vines in top right. Getting with single bubble IS possible but it's significantly more tight than doing bubble_short so I'm gonna say it's not logical
+        lname.egg_ancient:  # one room up and left of save point, vines in top right
+        # single bubble possible, but it's much tighter than doing bubble_short, so it's not logical
             AWData(AWType.location, [[iname.bubble_short], [iname.disc_hop_hard], [iname.bubble, iname.disc]]),
         rname.fish_lower:  # bubble to go down, activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
@@ -430,8 +431,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         rname.bear_upper_phone_room:
             AWData(AWType.region, [[iname.slink, iname.yoyo],
                                    [iname.slink, iname.ball, iname.weird_tricks],
-                                   [iname.yoyo, iname.ball, iname.weird_tricks]  # throw the ball in the yoyo pipe then run left with yoyo or slink
-                                   ]),
+                                   # throw the ball in the yoyo pipe then run left with yoyo or slink
+                                   [iname.yoyo, iname.ball, iname.weird_tricks]]),
     },
     rname.bear_upper_phone_room: {
         rname.bear_above_chameleon:
@@ -852,17 +853,20 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.activate_hippo_fast_travel:
             AWData(AWType.location, [[iname.flute]], event=iname.activated_hippo_fast_travel),
         lname.lantern_chest:
-            AWData(AWType.location, [[iname.slink, iname.disc, iname.yoyo], [iname.lantern], [iname.ball, iname.slink, iname.weird_tricks]]),
+            AWData(AWType.location, [[iname.slink, iname.disc, iname.yoyo], [iname.lantern],
+                                     [iname.ball, iname.slink, iname.weird_tricks]]),
         rname.hippo_manticore_room:
             AWData(AWType.region, [[iname.lantern, iname.yoyo, iname.disc], 
                                    [iname.lantern, iname.yoyo, iname.wheel_hop, iname.tanking_damage],
-                                   [iname.lantern, iname.yoyo, iname.bubble, iname.tanking_damage],  # running into the miasma with yoyo out can hit the rightmost button
+                                   # running into the miasma with yoyo out can hit the rightmost button
+                                   [iname.lantern, iname.yoyo, iname.bubble, iname.tanking_damage],
                                    [iname.lantern, iname.ball, iname.wheel_hop, iname.weird_tricks], 
-                                   [iname.lantern, iname.ball, iname.bubble, iname.weird_tricks], 
-                                   [iname.lantern, iname.ball, iname.disc, iname.weird_tricks],  # all buttons can be hit with ball with enough patience
-                                   [iname.lantern, iname.ball, iname.wheel_hop, iname.yoyo], 
-                                   [iname.lantern, iname.ball, iname.bubble, iname.yoyo]  # weird tricks really only justified for the yoyo loop button. ball can hit rightmost button easy
-                                   ]),  
+                                   [iname.lantern, iname.ball, iname.bubble, iname.weird_tricks],
+                                   # all buttons can be hit with ball with enough patience
+                                   [iname.lantern, iname.ball, iname.disc, iname.weird_tricks],
+                                   [iname.lantern, iname.ball, iname.wheel_hop, iname.yoyo],
+                                   # weird tricks for the yoyo loop button. ball can hit rightmost button easy
+                                   [iname.lantern, iname.ball, iname.bubble, iname.yoyo]]),
     },
     rname.hippo_manticore_room: {
         rname.hippo_fireworks:
