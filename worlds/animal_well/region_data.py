@@ -204,7 +204,7 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     rname.fish_west: {
         rname.fish_wand_pit: 
             AWData(AWType.region, [[iname.bubble], [iname.disc]]),
-        lname.egg_ancient:  # one room up and left of save point, vines in top right  todo: verify
+        lname.egg_ancient:  # one room up and left of save point, vines in top right. Getting with single bubble IS possible but it's significantly more tight than doing bubble_short so I'm gonna say it's not logical
             AWData(AWType.location, [[iname.bubble_short], [iname.disc_hop_hard], [iname.bubble, iname.disc]]),
         rname.fish_lower:  # bubble to go down, activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
@@ -427,8 +427,11 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),  # wall is flush, just hold left
         # top_of_the_well:  # unnecessary because of the connection from match center spot
         #     AWData(AWType.region, [[iname.bubble_long]]),
-        rname.bear_upper_phone_room:  # todo: see if ball can go through wooden platforms
-            AWData(AWType.region, [[iname.slink, iname.yoyo]]),
+        rname.bear_upper_phone_room:
+            AWData(AWType.region, [[iname.slink, iname.yoyo],
+                                   [iname.slink, iname.ball, iname.weird_tricks],
+                                   [iname.yoyo, iname.ball, iname.weird_tricks]  # throw the ball in the yoyo pipe then run left with yoyo or slink
+                                   ]),
     },
     rname.bear_upper_phone_room: {
         rname.bear_above_chameleon:
@@ -528,9 +531,9 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.candle_dog_switch_box_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_switch_box),
         rname.dog_upper_above_switch_lines:
-            AWData(AWType.region, [[iname.can_distract_dogs]]),  # need to get past the 3 dogs
-        # rname.barcode_bunny:  # region since you can get this in two spots
-        #     AWData(AWType.region, [[iname.flute, iname.song_barcode]]),
+            AWData(AWType.region, [[iname.can_distract_dogs], [iname.tanking_damage]]),  # need to get past the 3 dogs
+        rname.barcode_bunny:  # region since you can get this in two spots
+            AWData(AWType.region, [[iname.flute]]),
         lname.mama_cha:  # removing for now, may shuffle later
             AWData(AWType.location, [[iname.flute]], loc_type=LocType.figure),  # add song req if we're shuffling songs
         lname.bunny_lava:
@@ -659,7 +662,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region, [[iname.disc], [iname.remote], [iname.top]]),
         rname.dog_upper_past_lake:
             AWData(AWType.region, [[iname.disc], [iname.top],
-                                   [iname.remote, iname.can_distract_dogs]]),
+                                   [iname.remote, iname.can_distract_dogs],
+                                   [iname.remote, iname.tanking_damage]]),
     },
     rname.dog_upper_above_switch_lines_to_upper_east: {
         rname.dog_upper_above_switch_lines:
@@ -848,9 +852,17 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
         lname.activate_hippo_fast_travel:
             AWData(AWType.location, [[iname.flute]], event=iname.activated_hippo_fast_travel),
         lname.lantern_chest:
-            AWData(AWType.location, [[iname.slink, iname.disc, iname.bubble, iname.yoyo]]),
-        rname.hippo_manticore_room:  # can technically use ball instead of yoyo, but it's inconsistent
-            AWData(AWType.region, [[iname.lantern, iname.disc, iname.yoyo]]),  # todo: ball + weird tricks?
+            AWData(AWType.location, [[iname.slink, iname.disc, iname.yoyo], [iname.lantern], [iname.ball, iname.slink, iname.weird_tricks]]),
+        rname.hippo_manticore_room:
+            AWData(AWType.region, [[iname.lantern, iname.yoyo, iname.disc], 
+                                   [iname.lantern, iname.yoyo, iname.wheel_hop, iname.tanking_damage],
+                                   [iname.lantern, iname.yoyo, iname.bubble, iname.tanking_damage],  # running into the miasma with yoyo out can hit the rightmost button
+                                   [iname.lantern, iname.ball, iname.wheel_hop, iname.weird_tricks], 
+                                   [iname.lantern, iname.ball, iname.bubble, iname.weird_tricks], 
+                                   [iname.lantern, iname.ball, iname.disc, iname.weird_tricks],  # all buttons can be hit with ball with enough patience
+                                   [iname.lantern, iname.ball, iname.wheel_hop, iname.yoyo], 
+                                   [iname.lantern, iname.ball, iname.bubble, iname.yoyo]  # weird tricks really only justified for the yoyo loop button. ball can hit rightmost button easy
+                                   ]),  
     },
     rname.hippo_manticore_room: {
         rname.hippo_fireworks:
@@ -912,8 +924,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
     rname.match_center_well_spot: {
         lname.match_center_well:  # across from the chocolate egg
             AWData(AWType.location),
-        rname.chocolate_egg_spot:  # todo: verify that this needs bubble short
-            AWData(AWType.region, [[iname.disc, iname.remote], [iname.bubble_short, iname.remote]]),
+        rname.chocolate_egg_spot:  
+            AWData(AWType.region, [[iname.disc, iname.remote], [iname.bubble, iname.remote]]),
         rname.bear_match_chest_spot:
             AWData(AWType.region, [[iname.bubble_long]]),
         rname.top_of_the_well:
