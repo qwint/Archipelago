@@ -1113,9 +1113,6 @@ class AWItems:
                 inserted_e_medal = bool(flags >> 16 & 1)
 
                 # Write Quest State
-                if self.bubble < 0 or self.bubble > 2:
-                    raise AssertionError("Invalid number of bubble wand upgrades %d", self.bubble)
-
                 egg_65 = self.egg_65
                 if "final_egg_location" not in ctx.slot_data or ctx.slot_data["final_egg_location"] == 1:
                     egg_65 = bool(flags >> 20 & 1)
@@ -1139,7 +1136,7 @@ class AWItems:
                         ("1" if inserted_e_medal == 2 else "0") +  # Inserted E Medal
                         (str(flags >> 17 & 1)) +  # Wings Acquired
                         (str(flags >> 18 & 1)) +  # Woke Up
-                        ("1" if self.bubble == 2 else "0") +  # B.B. Wand Upgrade
+                        ("1" if self.bubble > 1 else "0") +  # B.B. Wand Upgrade
                         ("1" if egg_65 else "0") +  # Egg 65 Collected
                         (str(flags >> 21 & 1)) +  # All Candles Lit
                         (str(flags >> 22 & 1)) +  # Singularity Active
@@ -1234,9 +1231,6 @@ class AWItems:
                 keys_used = ctx.process_handle.read_bytes(slot_address + 0x1AA, 1)[0]
 
                 # Write Keys
-                if self.key < 0 or self.key > 6:
-                    raise AssertionError("Invalid number of keys %d", self.key)
-
                 if self.key_ring:
                     buffer = bytes([1])
                 else:
@@ -1257,9 +1251,6 @@ class AWItems:
                                (flags >> 8 & 1))
 
                 # Write Matches
-                if self.match < 0 or self.match > 9:
-                    raise AssertionError("Invalid number of matches %d", self.match)
-
                 if self.matchbox:
                     buffer = bytes([1])
                 else:
@@ -1310,9 +1301,6 @@ class AWItems:
                 ctx.process_handle.write_bytes(slot_address + 0x1DE, buffer, 1)
 
                 # Read K Shards
-                if self.k_shard < 0 or self.k_shard > 3:
-                    raise AssertionError("Invalid number of k shards %d", self.k_shard)
-
                 k_shard_1 = bytes([0])
                 if self.k_shard >= 1:
                     k_shard_1 = bytes([max(2, ctx.process_handle.read_bytes(slot_address + 0x1FE, 1)[0])])
@@ -1320,7 +1308,7 @@ class AWItems:
                 if self.k_shard >= 2:
                     k_shard_2 = bytes([max(2, ctx.process_handle.read_bytes(slot_address + 0x20A, 1)[0])])
                 k_shard_3 = bytes([0])
-                if self.k_shard == 3:
+                if self.k_shard >= 3:
                     k_shard_3 = bytes([max(2, ctx.process_handle.read_bytes(slot_address + 0x216, 1)[0])])
 
                 # Write K Shards
