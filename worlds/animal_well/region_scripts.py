@@ -119,8 +119,6 @@ def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> Collectio
     reqs = convert_tech_reqs(reqs, world.options)
     for helper_name in helper_reference.keys():
         reqs = convert_helper_reqs(helper_name, reqs)
-    if not reqs:
-        return lambda state: True
     return lambda state: any(state.has_all(sublist, world.player) for sublist in reqs)
 
 
