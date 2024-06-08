@@ -582,7 +582,8 @@ traversal_requirements: Dict[str, Dict[str, AWData]] = {
             AWData(AWType.region),
         lname.egg_crystal:  # my worst one yet
             AWData(AWType.location, [[iname.top, iname.ball, iname.remote, iname.wheel, iname.slink],
-                                     [iname.ball, iname.remote, iname.wheel, iname.disc, iname.weird_tricks]]),
+                                     [iname.top, iname.ball, iname.remote, iname.wheel, iname.disc,
+                                      iname.weird_tricks]]),
     },
     rname.dog_swordfish_lake_ledge: {
         rname.dog_fast_travel_room:
