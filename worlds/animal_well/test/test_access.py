@@ -18,10 +18,22 @@ class TestAccess(AWTestBase):
         self.collect_by_name([iname.k_shard])
         self.assertTrue(self.can_reach_location(lname.b_ball_chest))
 
+    def test_truth_egg_access(self) -> None:
+        self.collect_all_but([iname.disc, iname.m_disc])
+        self.assertFalse(self.can_reach_location(lname.egg_truth))
+        self.collect_by_name([iname.m_disc])
+        self.assertTrue(self.can_reach_location(lname.egg_truth))
+
+    def test_flute_chest_access(self) -> None:
+        self.assertFalse(self.can_reach_location(lname.flute_chest))
+        self.collect_by_name([iname.egg_lf, iname.egg_red, iname.egg_ice, iname.egg_big,
+                              iname.egg_golden, iname.egg_bubble, iname.egg_moon, iname.egg_virtual])
+        self.assertTrue(self.can_reach_location(lname.flute_chest))
+
 
 class TestBunnyAccess(AWTestBase):
     options = {
-        "bunnies_as_checks": "all_bunnies"
+        "bunnies_as_checks": "all_bunnies",
     }
 
     # test that the B.B. Wand event functions properly
@@ -30,3 +42,15 @@ class TestBunnyAccess(AWTestBase):
         self.assertFalse(self.can_reach_location(lname.bunny_water_spike))
         self.collect_by_name([iname.bubble]),
         self.assertTrue(self.can_reach_location(lname.bunny_water_spike))
+
+
+class TestDiscHopHard(AWTestBase):
+    options = {
+        "disc_hopping": "multiple",
+    }
+
+    # test that you require the disc only to get to the truth egg if multiple disc hops are enabled
+    def test_truth_egg(self) -> None:
+        self.assertFalse(self.can_reach_location(lname.egg_truth))
+        self.collect_by_name([iname.m_disc])
+        self.assertTrue(self.can_reach_location(lname.egg_truth))
