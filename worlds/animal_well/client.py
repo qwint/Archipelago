@@ -1132,8 +1132,8 @@ class AWItems:
                         (str(flags >> 12 & 1)) +  # Chameleon Defeated
                         (str(flags >> 13 & 1)) +  # C Ring Collected
                         (str(flags >> 14 & 1)) +  # Eaten By Chameleon
-                        ("1" if inserted_s_medal == 2 else "0") +  # Inserted S Medal
-                        ("1" if inserted_e_medal == 2 else "0") +  # Inserted E Medal
+                        ("1" if inserted_s_medal else "0") +  # Inserted S Medal
+                        ("1" if inserted_e_medal else "0") +  # Inserted E Medal
                         (str(flags >> 17 & 1)) +  # Wings Acquired
                         (str(flags >> 18 & 1)) +  # Woke Up
                         ("1" if self.bubble > 1 else "0") +  # B.B. Wand Upgrade
