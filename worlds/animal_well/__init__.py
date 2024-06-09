@@ -1,6 +1,6 @@
 from typing import Dict, List, Any
 from copy import deepcopy
-from BaseClasses import Tutorial, ItemClassification
+from BaseClasses import Tutorial, ItemClassification, LocationProgressType
 from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
 from .locations import location_name_groups, location_name_to_id
 from .region_data import AWData, traversal_requirements
@@ -89,6 +89,10 @@ class AnimalWellWorld(World):
     def create_regions(self) -> None:
         self.traversal_requirements = deepcopy(traversal_requirements)
         create_regions_and_set_rules(self)
+
+        if self.options.exclude_wheel_chest:
+            self.multiworld.get_location(LocationNames.wheel_chest, self.player).progress_type \
+                = LocationProgressType.EXCLUDED
 
     def create_item(self, name: str) -> AWItem:
         item_data = item_table[name]

@@ -136,6 +136,14 @@ class WeirdTricks(Toggle):
     display_name = "Weird Tricks"
 
 
+class ExcludeBobcat(DefaultOnToggle):
+    """
+    Exclude the Wheel chest, to avoid having to play the long song.
+    """
+    internal_name = "exclude_wheel_chest"
+    display_name = "Exclude Wheel Chest"
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -151,6 +159,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     disc_hopping: DiscHopping
     wheel_hopping: WheelHopping
     weird_tricks: WeirdTricks
+    exclude_wheel_chest: ExcludeBobcat
 
 
 # aw_option_groups = [
