@@ -30,6 +30,11 @@ class TestAccess(AWTestBase):
                               iname.egg_golden, iname.egg_bubble, iname.egg_moon, iname.egg_virtual])
         self.assertTrue(self.can_reach_location(lname.flute_chest))
 
+    def test_depraved_egg_access(self) -> None:
+        self.assertFalse(self.can_reach_location(lname.egg_depraved))
+        self.collect_by_name([iname.remote])
+        self.assertTrue(self.can_reach_location(lname.egg_depraved))
+
 
 class TestBunnyAccess(AWTestBase):
     options = {
