@@ -5,7 +5,7 @@ from .items import item_name_to_id, item_table, item_name_groups, filler_items, 
 from .locations import location_name_groups, location_name_to_id
 from .region_data import AWData, traversal_requirements
 from .region_scripts import create_regions_and_set_rules
-from .options import AnimalWellOptions, aw_option_presets  # , aw_option_groups
+from .options import AnimalWellOptions, aw_option_presets, Goal, FinalEggLocation  # , aw_option_groups
 from .names import ItemNames, LocationNames
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import Component, components, icon_paths, launch_subprocess, Type
@@ -78,7 +78,7 @@ class AnimalWellWorld(World):
                 self.options.eggs_needed.value = passthrough["eggs_needed"]
                 self.options.key_ring.value = passthrough["key_ring"]
                 self.options.matchbox.value = passthrough["matchbox"]
-                self.options.final_egg_location = self.options.final_egg_location.option_randomized
+                self.options.random_final_egg_location = FinalEggLocation.option_true
                 self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
                 self.options.candle_checks.value = passthrough["candle_checks"]
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
@@ -102,9 +102,13 @@ class AnimalWellWorld(World):
 
         items_to_create: Dict[str, int] = {item: data.quantity_in_item_pool for item, data in item_table.items()}
 
-        if self.options.goal == self.options.goal.option_fireworks:
+        if self.options.goal == Goal.option_fireworks:
             items_to_create[ItemNames.house_key] = 0
             self.get_location(LocationNames.key_house).place_locked_item(self.create_item(ItemNames.house_key))
+
+        if not self.options.random_final_egg_location or self.options.goal == Goal.option_egg_hunt:
+            items_to_create[ItemNames.egg_65] = 0
+            self.get_location(LocationNames.egg_65).place_locked_item(self.create_item(ItemNames.egg_65))
 
         if self.options.key_ring:
             items_to_create[ItemNames.key] = 0
@@ -113,10 +117,6 @@ class AnimalWellWorld(World):
         if self.options.matchbox:
             items_to_create[ItemNames.match] = 0
             items_to_create[ItemNames.matchbox] = 1
-
-        # if self.options.final_egg_location or self.options.goal == self.options.goal.option_egg_hunt:
-        #     items_to_create[ItemNames.egg_65] = 0
-        #     self.get_location(LocationNames.egg_65).place_locked_item(self.create_item(ItemNames.egg_65))
 
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):

@@ -12,10 +12,11 @@ import pymem
 import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
-from worlds.animal_well.items import item_name_to_id
-from worlds.animal_well.locations import location_name_to_id
-from worlds.animal_well.names import ItemNames as iname
-from worlds.animal_well.names import LocationNames as lname
+from typing import Dict
+from .items import item_name_to_id
+from .locations import location_name_to_id, location_table, AWLocationData
+from .names import ItemNames as iname, LocationNames as lname
+from .options import FinalEggLocation
 
 CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
 CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
@@ -158,7 +159,7 @@ class AnimalWellContext(CommonContext):
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
     def on_package(self, cmd: str, args: dict):
-        if cmd == 'Connected':
+        if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
 
     def get_active_game_slot(self) -> int:
@@ -335,6 +336,10 @@ class AWLocations:
         # extras
         self.mama_cha = False
 
+        self.loc_dict: Dict[bool, AWLocationData] = {
+            self.b_wand_chest: location_table[lname.b_wand_chest],
+        }
+
     def read_from_game(self, ctx):
         """
         Read checked locations from the process
@@ -473,16 +478,17 @@ class AWLocations:
                 self.bunny_barcode = bool(flags >> 2 & 1)
                 self.bunny_crow = bool(flags >> 3 & 1)
                 self.bunny_face = bool(flags >> 4 & 1)
+
                 self.bunny_fish = bool(flags >> 6 & 1)
                 self.bunny_map = bool(flags >> 7 & 1)
-
                 self.bunny_tv = bool(flags >> 8 & 1)
                 self.bunny_uv = bool(flags >> 9 & 1)
+
                 self.bunny_file_bud = bool(flags >> 10 & 1)
                 self.bunny_chinchilla_vine = bool(flags >> 11 & 1)
                 self.bunny_mural = bool(flags >> 15 & 1)
-
                 self.bunny_duck = bool(flags >> 22 & 1)
+
                 self.bunny_ghost_dog = bool(flags >> 25 & 1)
                 self.bunny_dream = bool(flags >> 28 & 1)
                 self.bunny_lava = bool(flags >> 30 & 1)
@@ -498,7 +504,6 @@ class AWLocations:
                 self.candle_bear = bool(flags >> 5 & 1)
                 self.candle_fish = bool(flags >> 6 & 1)
                 self.candle_first = bool(flags >> 7 & 1)
-
                 self.candle_frog = bool(flags >> 8 & 1)
 
                 # Read Startup State
@@ -750,7 +755,8 @@ class AWLocations:
             if self.egg_golden:
                 ctx.locations_checked.add(location_name_to_id[lname.egg_golden.value])
 
-            if "final_egg_location" not in ctx.slot_data or ctx.slot_data["final_egg_location"] == 1:
+            # FinalEggLocation false means it is vanilla, true means it's randomized
+            if FinalEggLocation.internal_name not in ctx.slot_data or not ctx.slot_data[FinalEggLocation.internal_name]:
                 if self.egg_65:
                     ctx.locations_checked.add(location_name_to_id[lname.egg_65.value])
 
@@ -1114,7 +1120,8 @@ class AWItems:
 
                 # Write Quest State
                 egg_65 = self.egg_65
-                if "final_egg_location" not in ctx.slot_data or ctx.slot_data["final_egg_location"] == 1:
+                if (FinalEggLocation.internal_name not in ctx.slot_data
+                        or not ctx.slot_data[FinalEggLocation.internal_name]):
                     egg_65 = bool(flags >> 20 & 1)
 
                 bits = ((str(flags >> 0 & 1)) +  # House Opened
