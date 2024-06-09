@@ -336,9 +336,9 @@ class AWLocations:
         # extras
         self.mama_cha = False
 
-        self.loc_dict: Dict[bool, AWLocationData] = {
-            self.b_wand_chest: location_table[lname.b_wand_chest],
-        }
+        self.loc_dict: Dict[str, bool] = {}
+        for loc_name in location_table.keys():
+            self.loc_dict[loc_name] = False
 
     def read_from_game(self, ctx):
         """
@@ -1411,7 +1411,7 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
                 bad_chars[pattern[i]] = i
 
             # Search
-            address = 0
+            address = 0x10000000
             iterations = 0
             while True:
                 try:

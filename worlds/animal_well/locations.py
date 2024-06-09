@@ -4,11 +4,11 @@ from .names import LocationNames as lname
 
 
 class ByteSect(IntEnum):
-    items: 1
-    flames: 2
-    bunnies: 3
-    candles: 4
-    house_key: 5
+    items = 1
+    flames = 2
+    bunnies = 3
+    candles = 4
+    house_key = 5
 
 
 class AWLocationData(NamedTuple):
