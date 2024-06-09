@@ -32,7 +32,8 @@ def convert_helper_reqs(helper_name: str, reqs: List[List[str]]) -> List[List[st
                     new_list = sublist.copy()
                     new_list[j] = replacement
                     new_list_storage.append(new_list)
-                del reqs[i]
+                # replace the starter list with one of the storage lists to keep it from skipping an entry
+                reqs[i] = new_list_storage.pop()
                 break
 
     for sublist in new_list_storage:
