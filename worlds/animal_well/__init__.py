@@ -1,6 +1,6 @@
 from typing import Dict, List, Any
 from copy import deepcopy
-from BaseClasses import Tutorial
+from BaseClasses import Tutorial, ItemClassification
 from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
 from .locations import location_name_groups, location_name_to_id
 from .region_data import AWData, traversal_requirements
@@ -94,6 +94,11 @@ class AnimalWellWorld(World):
         item_data = item_table[name]
         return AWItem(name, item_data.classification, self.item_name_to_id[name], self.player)
 
+    # for making an item with a diff item classification
+    def create_item_alt(self, name: str, iclass: ItemClassification) -> AWItem:
+        item_data = item_table[name]
+        return AWItem(name, iclass, self.item_name_to_id[name], self.player)
+
     def create_items(self) -> None:
         aw_items: List[AWItem] = []
 
@@ -117,6 +122,11 @@ class AnimalWellWorld(World):
         if self.options.matchbox:
             items_to_create[ItemNames.match] = 0
             items_to_create[ItemNames.matchbox] = 1
+
+        # UV Lamp isn't needed for anything if bunnies as checks is off
+        if not self.options.bunnies_as_checks:
+            items_to_create[ItemNames.uv] = 0
+            aw_items.append(self.create_item_alt(ItemNames.uv, ItemClassification.useful))
 
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):
