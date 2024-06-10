@@ -166,7 +166,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.mama_cha.value: AWLocationData(131, []),
 }
 
-location_name_to_id: Dict[str, int] = {name: location_base_id + data.index for name, data in location_table.items()}
+location_name_to_id: Dict[str, int] = {name: location_base_id + data.offset for name, data in location_table.items()}
 
 location_name_groups: Dict[str, Set[str]] = {}
 for loc_name, loc_data in location_table.items():
