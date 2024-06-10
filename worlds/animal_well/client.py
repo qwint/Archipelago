@@ -834,8 +834,7 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
                 bad_chars[pattern[i]] = i
 
             # Search
-            # todo: change this back
-            address = 0x10000000
+            address = 0
             iterations = 0
             while True:
                 try:
