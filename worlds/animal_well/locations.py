@@ -42,7 +42,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.match_fish_mural.value: AWLocationData(15, ByteSect.items, 56, ["Matches"]),
     lname.match_dog_switch_bounce.value: AWLocationData(16, ByteSect.items, 11, ["Matches"]),
     lname.match_dog_upper_east.value: AWLocationData(17, ByteSect.items, 19, ["Matches"]),
-    lname.match_bear.value: AWLocationData(18, 13, ByteSect.items, ["Matches"]),
+    lname.match_bear.value: AWLocationData(18, ByteSect.items, 13, ["Matches"]),
     lname.match_above_egg_room.value: AWLocationData(19, ByteSect.items, 38, ["Matches"]),
     lname.match_center_well.value: AWLocationData(20, ByteSect.items, 21, ["Matches"]),
     lname.match_guard_room.value: AWLocationData(21, ByteSect.items, 81, ["Matches"]),
