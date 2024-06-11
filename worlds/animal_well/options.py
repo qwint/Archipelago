@@ -18,16 +18,13 @@ class Goal(Choice):
     default = 1
 
 
-class FinalEggLocation(Choice):
+class FinalEggLocation(Toggle):
     """
     Choose whether the 65th Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring opening the 4th Egg Door to access it.
     This option is forced on if you have the egg hunt goal selected.
     """
-    internal_name = "final_egg_location"
-    display_name = "65th Egg Location"
-    option_randomized = 0
-    option_vanilla = 1
-    default = 1
+    internal_name = "random_final_egg_location"
+    display_name = "Randomize Final Egg"
 
 
 # todo: client needs work to get this to work with other values - TODO(Frank-Pasqualini)
@@ -139,6 +136,14 @@ class WeirdTricks(Toggle):
     display_name = "Weird Tricks"
 
 
+class ExcludeBobcat(DefaultOnToggle):
+    """
+    Exclude the Wheel chest, to avoid having to play the long song.
+    """
+    internal_name = "exclude_wheel_chest"
+    display_name = "Exclude Wheel Chest"
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -146,7 +151,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     eggs_needed: EggsNeeded
     key_ring: KeyRing
     matchbox: Matchbox
-    final_egg_location: FinalEggLocation
+    random_final_egg_location: FinalEggLocation
     bunnies_as_checks: BunniesAsChecks
     bunny_warps_in_logic: BunnyWarpsInLogic
     candle_checks: CandleChecks
@@ -154,6 +159,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     disc_hopping: DiscHopping
     wheel_hopping: WheelHopping
     weird_tricks: WeirdTricks
+    exclude_wheel_chest: ExcludeBobcat
 
 
 # aw_option_groups = [

@@ -1,12 +1,12 @@
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Union
 from copy import deepcopy
-from BaseClasses import Tutorial
+from BaseClasses import Tutorial, ItemClassification, LocationProgressType
 from .items import item_name_to_id, item_table, item_name_groups, filler_items, AWItem
 from .locations import location_name_groups, location_name_to_id
 from .region_data import AWData, traversal_requirements
 from .region_scripts import create_regions_and_set_rules
-from .options import AnimalWellOptions, aw_option_presets  # , aw_option_groups
-from .names import ItemNames, LocationNames
+from .options import AnimalWellOptions, aw_option_presets, Goal, FinalEggLocation  # , aw_option_groups
+from .names import ItemNames, LocationNames, RegionNames
 from worlds.AutoWorld import WebWorld, World
 from worlds.LauncherComponents import Component, components, icon_paths, launch_subprocess, Type
 from Utils import local_path
@@ -63,7 +63,7 @@ class AnimalWellWorld(World):
 
     topology_present = True
 
-    traversal_requirements: Dict[str, Dict[str, AWData]]
+    traversal_requirements: Dict[Union[LocationNames, RegionNames], Dict[Union[LocationNames, RegionNames], AWData]]
 
     def generate_early(self) -> None:
         # if these options conflict, override -- player is warned in the option description
@@ -78,7 +78,7 @@ class AnimalWellWorld(World):
                 self.options.eggs_needed.value = passthrough["eggs_needed"]
                 self.options.key_ring.value = passthrough["key_ring"]
                 self.options.matchbox.value = passthrough["matchbox"]
-                self.options.final_egg_location = self.options.final_egg_location.option_randomized
+                self.options.random_final_egg_location = FinalEggLocation.option_true
                 self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
                 self.options.candle_checks.value = passthrough["candle_checks"]
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
@@ -90,33 +90,46 @@ class AnimalWellWorld(World):
         self.traversal_requirements = deepcopy(traversal_requirements)
         create_regions_and_set_rules(self)
 
+        if self.options.exclude_wheel_chest:
+            self.multiworld.get_location(LocationNames.wheel_chest.value, self.player).progress_type \
+                = LocationProgressType.EXCLUDED
+
     def create_item(self, name: str) -> AWItem:
         item_data = item_table[name]
         return AWItem(name, item_data.classification, self.item_name_to_id[name], self.player)
+
+    # for making an item with a diff item classification
+    def create_item_alt(self, name: str, iclass: ItemClassification) -> AWItem:
+        return AWItem(name, iclass, self.item_name_to_id[name], self.player)
 
     def create_items(self) -> None:
         aw_items: List[AWItem] = []
 
         # if we ever shuffle firecrackers, remove this
-        self.multiworld.push_precollected(self.create_item(ItemNames.firecrackers))
+        self.multiworld.push_precollected(self.create_item(ItemNames.firecrackers.value))
 
         items_to_create: Dict[str, int] = {item: data.quantity_in_item_pool for item, data in item_table.items()}
 
-        if self.options.goal == self.options.goal.option_fireworks:
-            items_to_create[ItemNames.house_key] = 0
-            self.get_location(LocationNames.key_house).place_locked_item(self.create_item(ItemNames.house_key))
+        if self.options.goal == Goal.option_fireworks:
+            items_to_create[ItemNames.house_key.value] = 0
+            self.get_location(LocationNames.key_house.value).place_locked_item(self.create_item(ItemNames.house_key.value))
+
+        if not self.options.random_final_egg_location or self.options.goal == Goal.option_egg_hunt:
+            items_to_create[ItemNames.egg_65.value] = 0
+            self.get_location(LocationNames.egg_65.value).place_locked_item(self.create_item(ItemNames.egg_65.value))
 
         if self.options.key_ring:
-            items_to_create[ItemNames.key] = 0
-            items_to_create[ItemNames.key_ring] = 1
+            items_to_create[ItemNames.key.value] = 0
+            items_to_create[ItemNames.key_ring.value] = 1
 
         if self.options.matchbox:
-            items_to_create[ItemNames.match] = 0
-            items_to_create[ItemNames.matchbox] = 1
+            items_to_create[ItemNames.match.value] = 0
+            items_to_create[ItemNames.matchbox.value] = 1
 
-        # if self.options.final_egg_location or self.options.goal == self.options.goal.option_egg_hunt:
-        #     items_to_create[ItemNames.egg_65] = 0
-        #     self.get_location(LocationNames.egg_65).place_locked_item(self.create_item(ItemNames.egg_65))
+        # UV Lamp isn't needed for anything if bunnies as checks is off
+        if not self.options.bunnies_as_checks:
+            items_to_create[ItemNames.uv.value] = 0
+            aw_items.append(self.create_item_alt(ItemNames.uv.value, ItemClassification.useful))
 
         for item_name, quantity in items_to_create.items():
             for _ in range(quantity):
