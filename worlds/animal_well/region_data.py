@@ -718,7 +718,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             # bubble short or maybe just bubble? You have to shoot down at the apex of your jump, feels weird
             # I was getting this 90% of the time, not sure it's intuitive? make it logical and put it in the tricks FAQ.
         lname.egg_promise:  # under spikes in 3 bird room, solve puzzle then can break spikes without bird in the way
-            AWData(AWType.location, [[iname.can_break_spikes_below]]),
+            # weird tricks: fall onto spikes while throwing disc to the left with good timing to break a path
+            AWData(AWType.location, [[iname.can_break_spikes_below], [iname.disc, iname.weird_tricks]]),
         rname.frog_under_ostrich_statue:  # after hitting the switch, no items needed
             AWData(AWType.region),
         rname.frog_travel_egg_spot:
