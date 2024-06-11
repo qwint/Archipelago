@@ -189,7 +189,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.bubble]]),
         lname.egg_sunset:  # break the spikes in the room to the right of the fish warp
             AWData(AWType.location, [[iname.can_break_spikes, iname.wheel], [iname.ball], [iname.yoyo],
-                                     [iname.disc_hop]]),
+                                     [iname.disc]]),  # throw the disc while falling
         rname.water_spike_bunny_spot:
             AWData(AWType.region, [[iname.bubble_long]]),
     },
