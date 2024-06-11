@@ -1,4 +1,4 @@
-from typing import Dict, List, NamedTuple, Optional
+from typing import Dict, List, NamedTuple, Optional, Union
 from enum import IntEnum
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 
@@ -32,7 +32,7 @@ class AWData(NamedTuple):
 # reason: we will probably change the names of things, so this'll make it easier
 # if you want to add something like an event to a rule, do so, that's fine
 # this is to set them apart from the rest for now, just making it easier as we write it initially
-traversal_requirements: Dict[str, Dict[str, AWData]] = {
+traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWData]] = {
     rname.bird_area: {
         rname.fish_upper:
             AWData(AWType.region),

@@ -1,4 +1,4 @@
-from typing import List, Dict, TYPE_CHECKING
+from typing import List, Dict, TYPE_CHECKING, cast
 from BaseClasses import Region, Location, ItemClassification
 from worlds.generic.Rules import CollectionRule, add_rule
 from .region_data import AWType, LocType
@@ -131,12 +131,14 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     aw_regions = create_aw_regions(world)
     egg_group = [x for x in world.item_name_groups["Eggs"] if x != iname.egg_65.value]  # egg 65 doesn't open egg doors
     for origin_name, destinations in world.traversal_requirements.items():
+        origin_name = cast(str, origin_name.value)
         # don't create these regions if bunny warps are not in logic
         if not options.bunny_warps_in_logic and origin_name in [rname.bulb_bunny_spot,
                                                                 rname.bear_map_bunny_spot,
                                                                 rname.bear_chinchilla_song_room]:
             continue
         for destination_name, data in destinations.items():
+            destination_name = cast(str, destination_name.value)
             if data.type == AWType.location:
                 if not options.bunnies_as_checks and data.loc_type == LocType.bunny:
                     continue
