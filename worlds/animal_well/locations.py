@@ -152,7 +152,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_uv.value: AWLocationData(110, ByteSect.bunnies, 9, ["Bunnies"]),
     lname.bunny_fish.value: AWLocationData(111, ByteSect.bunnies, 6, ["Bunnies"]),
     lname.bunny_face.value: AWLocationData(112, ByteSect.bunnies, 4, ["Bunnies"]),
-    lname.bunny_crow.value: AWLocationData(113, ByteSect.bunnies, 3, ["Bunnies"]),
+    lname.bunny_crow.value: AWLocationData(113, ByteSect.bunnies, 31, ["Bunnies"]),
     lname.bunny_duck.value: AWLocationData(114, ByteSect.bunnies, 22, ["Bunnies"]),
     lname.bunny_dream.value: AWLocationData(115, ByteSect.bunnies, 28, ["Bunnies"]),
     lname.bunny_file_bud.value: AWLocationData(116, ByteSect.bunnies, 10, ["Bunnies"]),
@@ -160,7 +160,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_tv.value: AWLocationData(118, ByteSect.bunnies, 8, ["Bunnies"]),
     lname.bunny_barcode.value: AWLocationData(119, ByteSect.bunnies, 2, ["Bunnies"]),
     lname.bunny_ghost_dog.value: AWLocationData(120, ByteSect.bunnies, 25, ["Bunnies"]),
-    lname.bunny_disc_spike.value: AWLocationData(121, ByteSect.bunnies, 31, ["Bunnies"]),
+    lname.bunny_disc_spike.value: AWLocationData(121, ByteSect.bunnies, 3, ["Bunnies"]),
 
     # candles
     lname.candle_first.value: AWLocationData(122, ByteSect.candles, 7, ["Candles"]),
