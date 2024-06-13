@@ -43,6 +43,7 @@ class EggsNeeded(Range):
 class BunniesAsChecks(Choice):
     """
     Include the secret bunnies as checks.
+    Exclude Tedious removes the Mural, Dream, UV, and Floor is Lava bunnies.
     """
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
