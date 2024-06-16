@@ -188,8 +188,9 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         lname.egg_sunset:  # break the spikes in the room to the right of the fish warp
-            AWData(AWType.location, [[iname.can_break_spikes, iname.wheel], [iname.ball], [iname.yoyo],
-                                     [iname.disc, iname.weird_tricks]]),  # throw the disc while falling
+            AWData(AWType.location, [[iname.ball], [iname.yoyo], [iname.top], [iname.wheel, iname.disc],
+                                     [iname.disc, iname.weird_tricks],  # throw the disc while falling
+                                     [iname.wheel, iname.weird_tricks]]),  # wheel while moving into the gap
         rname.water_spike_bunny_spot:
             AWData(AWType.region, [[iname.bubble_long]]),
     },
