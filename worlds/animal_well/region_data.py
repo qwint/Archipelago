@@ -354,7 +354,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath
             AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble],
                                    [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop],
-                                   [iname.ball, iname.disc_hop], [iname.ball, iname.disc_hop]]),
+                                   [iname.ball, iname.disc_hop], [iname.ball, iname.bubble]]),
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
     },
@@ -440,8 +440,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.yoyo], [iname.ball, iname.weird_tricks]]),
     },
     rname.bear_above_chameleon: {  # includes the screens to the right of it
-        lname.egg_swan:  # wake one chinchilla, push another
-            AWData(AWType.location, [[iname.flute, iname.disc], [iname.firecrackers]]),
+        lname.egg_swan:  # wake one chinchilla, lure upper one right, run left
+            AWData(AWType.location, [[iname.flute], [iname.firecrackers]]),
         # chinchilla can be woken up with flute or firecrackers
         # otters can be distracted with firecrackers, yoyo, or top
         # you need 3 firecrackers minimum if you want to get through without yoyo or flute
