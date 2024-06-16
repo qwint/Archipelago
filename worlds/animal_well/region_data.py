@@ -558,7 +558,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.activate_dog_fast_travel:
             AWData(AWType.location, [[iname.flute]], event=iname.activated_dog_fast_travel),
         rname.dog_swordfish_lake_ledge:
-            AWData(AWType.region),
+            AWData(AWType.region, [[iname.disc], [iname.bubble_long]]),
         rname.dog_upper_past_lake:  # ride bubble down, jump the partial-height wall
             AWData(AWType.region, [[iname.bubble]]),
         rname.dog_above_fast_travel:
