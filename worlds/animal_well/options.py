@@ -137,12 +137,13 @@ class WeirdTricks(Toggle):
     display_name = "Weird Tricks"
 
 
-class ExcludeBobcat(DefaultOnToggle):
+class ExcludeSongChests(DefaultOnToggle):
     """
-    Exclude the Wheel chest, to avoid having to play the long song.
+    Exclude the Wheel chest and Office Key chests, so that you don't have to play their songs.
+    They will contain either filler or traps.
     """
-    internal_name = "exclude_wheel_chest"
-    display_name = "Exclude Wheel Chest"
+    internal_name = "exclude_song_chests"
+    display_name = "Exclude Song Chests"
 
 
 @dataclass
@@ -160,7 +161,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     disc_hopping: DiscHopping
     wheel_hopping: WheelHopping
     weird_tricks: WeirdTricks
-    exclude_wheel_chest: ExcludeBobcat
+    exclude_song_chests: ExcludeSongChests
 
 
 # aw_option_groups = [
