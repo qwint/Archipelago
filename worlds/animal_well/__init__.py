@@ -90,8 +90,10 @@ class AnimalWellWorld(World):
         self.traversal_requirements = deepcopy(traversal_requirements)
         create_regions_and_set_rules(self)
 
-        if self.options.exclude_wheel_chest:
+        if self.options.exclude_song_chests:
             self.multiworld.get_location(LocationNames.wheel_chest.value, self.player).progress_type \
+                = LocationProgressType.EXCLUDED
+            self.multiworld.get_location(LocationNames.key_office.value, self.player).progress_type \
                 = LocationProgressType.EXCLUDED
 
     def create_item(self, name: str) -> AWItem:
