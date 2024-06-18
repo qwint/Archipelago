@@ -373,6 +373,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location, [[iname.top, iname.switch_for_post_modern_egg]]),
         rname.bear_truth_egg_spot:  # throw disc to the right after jumping down the waterfall
             AWData(AWType.region, [[iname.disc]]),
+        rname.bear_transcendental:  # todo: figure out which bubble, which disc option
+            AWData(AWtype.region, [[iname.wheel_hop], [iname.bubble]]),
     },
     rname.bear_truth_egg_spot: {
         lname.egg_truth:
