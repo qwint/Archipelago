@@ -235,7 +235,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
                    loc_type=LocType.candle),
         lname.candle_fish_event:  # spike breaking presumed by access
-            AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox]],
+            AWData(AWType.location, [[iname.disc, iname.matchbox], [iname.bubble, iname.matchbox],
+                                     [iname.wheel_hop, iname.matchbox]],
                    event=iname.event_candle_penguin),
         lname.egg_goodnight:
             AWData(AWType.location, [[iname.can_defeat_ghost], [iname.event_candle_penguin]]),
@@ -292,10 +293,11 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.bubble_short], [iname.disc_hop_hard]]),
         rname.bear_kangaroo_waterfall:
             AWData(AWType.region, [[iname.slink], [iname.top, iname.yoyo], [iname.top, iname.ball],
-                                   [iname.yoyo, iname.ball, iname.weird_tricks]]),
+                                   [iname.ball, iname.weird_tricks]]),  # stand on left button, throw ball neutral
         rname.bear_razzle_egg_spot:
             AWData(AWType.region, [[iname.defeated_chameleon, iname.bubble_short],
-                                   [iname.defeated_chameleon, iname.disc_hop_hard]])
+                                   [iname.defeated_chameleon, iname.disc_hop_hard],
+                                   [iname.defeated_chameleon, iname.wheel_hop]]),
     },
     rname.bear_capybara_and_below: {
         rname.bear_future_egg_room:
@@ -561,8 +563,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.disc], [iname.bubble_long]]),
         rname.dog_upper_past_lake:  # ride bubble down, jump the partial-height wall
             AWData(AWType.region, [[iname.bubble]]),
-        rname.dog_above_fast_travel:
-            AWData(AWType.region, [[iname.slink], [iname.bubble_short]]),
+        rname.dog_above_fast_travel:  # disc: go across lake, then go back at higher elevation
+            AWData(AWType.region, [[iname.slink], [iname.bubble_short], [iname.disc]]),
         rname.dog_mock_disc_shrine:
             AWData(AWType.region, [[iname.slink], [iname.wheel_hop], [iname.top, iname.weird_tricks]]),
     },
@@ -834,7 +836,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             # if you have yoyo, you can swap the mouse direction and lock yourself out of the check without bubbles
         lname.egg_obsidian:  # bounce disc between the moving walls, or do some cursed bubble jumps
             AWData(AWType.location, [[iname.disc], [iname.bubble_short, iname.weird_tricks]]),
-        lname.egg_golden:
+        lname.egg_golden:  # todo: verify whether these are simultaneous buttons or regular
             AWData(AWType.location, [[iname.wheel]]),
         lname.flame_green:
             AWData(AWType.location, [[iname.can_open_flame]], event=iname.green_flame),
