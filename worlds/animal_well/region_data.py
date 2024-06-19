@@ -228,7 +228,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.fish_west:
             AWData(AWType.region, [[iname.bubble]]),  # fish pipe left of the save point
         rname.fish_boss_1:  # disc is required to solve both the windbox puzzle and to cross the whale room
-            AWData(AWType.region, [[iname.disc], [iname.weird_skips]]),  # position on ladder just right
+            AWData(AWType.region, [[iname.disc], [iname.weird_tricks]]),  # position on ladder just right
         rname.bobcat_room:
             AWData(AWType.region, [[iname.top]]), 
         lname.candle_fish:  # spike breaking presumed by access
@@ -374,7 +374,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.bear_truth_egg_spot:  # throw disc to the right after jumping down the waterfall
             AWData(AWType.region, [[iname.disc]]),
         rname.bear_transcendental:  # todo: figure out which bubble, which disc option
-            AWData(AWtype.region, [[iname.wheel_hop], [iname.bubble]]),
+            AWData(AWType.region, [[iname.wheel_hop], [iname.bubble]]),
     },
     rname.bear_truth_egg_spot: {
         lname.egg_truth:
