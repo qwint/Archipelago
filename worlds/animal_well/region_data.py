@@ -278,8 +278,9 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     rname.abyss_lower: {
         # abyss:  # should never be relevant
         #     AWData(AWType.region, [[iname.top, iname.bubble], [iname.bubble_long]]),
-        rname.uv_lantern_spot:
-            AWData(AWType.region, [[iname.flute, iname.disc], [iname.flute, iname.bubble_short]]),
+        rname.uv_lantern_spot:  # for bubble, blow bubble at flute spot, then jump on left or right platform
+            AWData(AWType.region, [[iname.flute, iname.disc], [iname.flute, iname.bubble], 
+                                   [iname.flute, iname.wheel_hop]]),
         lname.activate_bonefish_fast_travel:
             AWData(AWType.location, [[iname.flute]], event=iname.activated_bonefish_fast_travel),
     },
