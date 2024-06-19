@@ -261,7 +261,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location, [[iname.can_open_flame]], event=iname.blue_flame),
         rname.bird_area:
             AWData(AWType.region),
-        rname.abyss:  # little hole above the fish pipe
+        rname.abyss:  # little hole above the fish pipe todo: verify if you can just jump in off the bubbles
             AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.wheel_hop],
                                    [iname.top, iname.e_medal, iname.bubble]]),
     },
@@ -312,8 +312,10 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_universal:
             AWData(AWType.location, [[iname.bubble, iname.yoyo], [iname.bubble, iname.wheel],
                                      [iname.bubble, iname.firecrackers], [iname.disc], [iname.wheel_hop]]),
-        lname.egg_value:
-            AWData(AWType.location, [[iname.bubble_short], [iname.disc]]),
+        lname.egg_value:  # todo: see if flute knocks down hedgehogs
+            AWData(AWType.location, [[iname.bubble_short, iname.firecrackers], [iname.disc, iname.firecrackers], 
+                                     [iname.disc_hop_hard], 
+                                     [iname.ball, iname.bubble_short, iname.weird_tricks], [iname.ball, iname.disc, iname.weird_tricks]]),
     },
     rname.bear_future_egg_room: {
         lname.egg_future:  # chinchilla on the moving platforms puzzle room
@@ -593,7 +595,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     rname.dog_swordfish_lake_ledge: {
         rname.dog_fast_travel_room:
             AWData(AWType.region, [[iname.disc]]),
-        lname.egg_forbidden:
+        lname.egg_forbidden:  # todo: verify you can do this with just b wand
             AWData(AWType.location, [[iname.disc], [iname.bubble_long]]),
         lname.bunny_disc_spike:  # not disc hop since you literally need to do this
             AWData(AWType.location, [[iname.disc], [iname.bubble_long, iname.wheel_hop, iname.weird_tricks]],
@@ -615,7 +617,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.candle_dog_many_switches_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_many_switches),
         rname.dog_upside_down_egg_spot:  # throw a disc or top at a switch
-            AWData(AWType.region, [[iname.remote], [iname.disc], [iname.top]]),
+            AWData(AWType.region, [[iname.remote], [iname.disc], [iname.top], 
+                                   [iname.ball, iname.weird_tricks]]),
         rname.dog_bat_room:
             AWData(AWType.region),
     },
@@ -876,10 +879,10 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
                                    [iname.lantern, iname.ball, iname.bubble, iname.yoyo]]),
     },
     rname.hippo_manticore_room: {
-        rname.hippo_fireworks:
-            AWData(AWType.region, [[iname.slink, iname.yoyo, iname.disc], [iname.slink, iname.yoyo, iname.bubble]]),
+        rname.hippo_fireworks:  # todo: verify you need disc
+            AWData(AWType.region, [[iname.slink, iname.yoyo, iname.disc]]),
         rname.hippo_skull_room:
-            AWData(AWType.region, [[iname.slink, iname.yoyo, iname.disc], [iname.slink, iname.yoyo, iname.bubble]]),
+            AWData(AWType.region, [[iname.slink, iname.yoyo, iname.disc]]),
     },
     rname.hippo_skull_room: {
         lname.bb_wand_chest:
