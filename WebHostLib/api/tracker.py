@@ -20,7 +20,10 @@ def tracker_data(tracker: UUID):
         abort(404)
 
     tracker_data = TrackerData(room)
+    return jsonify(output_tracker_data(tracker_data))
 
+
+def output_tracker_data(tracker_data: TrackerData):
     all_players: Dict[int, List[int]] = tracker_data.get_all_players()
 
     groups: Dict[int, Dict[int, Dict[str, Union[str, List[int]]]]] = {}
@@ -139,8 +142,7 @@ def tracker_data(tracker: UUID):
     }
     """Slot data for each player."""
 
-    return jsonify(
-        {
+    return {
             "groups": groups,
             "player_names": player_names,
             "player_aliases": player_aliases,
@@ -153,4 +155,4 @@ def tracker_data(tracker: UUID):
             "connection_timers": connection_timers,
             "player_status": player_status,
             "slot_data": encode(slot_data),
-        })
+        }

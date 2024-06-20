@@ -53,11 +53,28 @@ class TrackerData:
     _multisave: Dict[str, Any]
     _tracker_cache: Dict[str, Any]
 
-    def __init__(self, room: Room):
+    def __init__(self, room: Room, multidatapath=None):
         """Initialize a new RoomMultidata object for the current room."""
-        self.room = room
-        self._multidata = Context.decompress(room.seed.multidata)
-        self._multisave = restricted_loads(room.multisave) if room.multisave else {}
+        if room:
+            self.room = room
+            self._multidata = Context.decompress(room.seed.multidata)
+            self._multisave = restricted_loads(room.multisave) if room.multisave else {}
+        else:
+            self.room = room
+            if multidatapath.lower().endswith(".zip"):
+                import zipfile
+                with zipfile.ZipFile(multidatapath) as zf:
+                    for file in zf.namelist():
+                        if file.endswith(".archipelago"):
+                            data = zf.read(file)
+                            break
+                    else:
+                        raise Exception("No .archipelago found in archive.")
+            else:
+                with open(multidatapath, 'rb') as f:
+                    data = f.read()
+            self._multidata = Context.decompress(data)
+            self._multisave = {}
         self._tracker_cache = {}
 
         self.item_name_to_id: Dict[str, Dict[str, int]] = {}
@@ -71,7 +88,11 @@ class TrackerData:
             game_name: KeyedDefaultDict(lambda code: f"Unknown Game {game_name} - Location (ID: {code})")
         })
         for game, game_package in self._multidata["datapackage"].items():
-            game_package = restricted_loads(GameDataPackage.get(checksum=game_package["checksum"]).data)
+            if room:
+                game_package = restricted_loads(GameDataPackage.get(checksum=game_package["checksum"]).data)
+            else:
+                import worlds
+                game_package = worlds.network_data_package["games"][game]
             self.item_id_to_name[game] = KeyedDefaultDict(lambda code: f"Unknown Item (ID: {code})", {
                 id: name for name, id in game_package["item_name_to_id"].items()})
             self.location_id_to_name[game] = KeyedDefaultDict(lambda code: f"Unknown Location (ID: {code})", {
