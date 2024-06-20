@@ -53,28 +53,16 @@ class TrackerData:
     _multisave: Dict[str, Any]
     _tracker_cache: Dict[str, Any]
 
-    def __init__(self, room: Room, multidatapath=None):
+    def __init__(self, room: Room, data=None, save=None):
         """Initialize a new RoomMultidata object for the current room."""
         if room:
             self.room = room
             self._multidata = Context.decompress(room.seed.multidata)
             self._multisave = restricted_loads(room.multisave) if room.multisave else {}
         else:
-            self.room = room
-            if multidatapath.lower().endswith(".zip"):
-                import zipfile
-                with zipfile.ZipFile(multidatapath) as zf:
-                    for file in zf.namelist():
-                        if file.endswith(".archipelago"):
-                            data = zf.read(file)
-                            break
-                    else:
-                        raise Exception("No .archipelago found in archive.")
-            else:
-                with open(multidatapath, 'rb') as f:
-                    data = f.read()
-            self._multidata = Context.decompress(data)
-            self._multisave = {}
+            self.room = None
+            self._multidata = data
+            self._multisave = save
         self._tracker_cache = {}
 
         self.item_name_to_id: Dict[str, Dict[str, int]] = {}

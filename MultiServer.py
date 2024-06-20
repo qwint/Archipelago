@@ -487,6 +487,7 @@ class Context:
 
         # sorted access spheres
         self.spheres = decoded_obj.get("spheres", [])
+        self.tracker_data = decoded_obj
 
     # saving
 
@@ -757,6 +758,26 @@ class Context:
         targets: typing.Set[Client] = set(self.stored_data_notification_clients[key])
         if targets:
             self.broadcast(targets, [{"cmd": "SetReply", "key": key, "value": self.client_game_state[team, slot]}])
+
+    def tracker_api(self):
+        import json
+        from WebHostLib.api.tracker import output_tracker_data
+        from WebHostLib.tracker import TrackerData
+
+        # from https://stackoverflow.com/a/11875813
+        def json_serial(obj):
+            """JSON serializer for objects not serializable by default json code"""
+            from datetime import date, datetime
+
+            if isinstance(obj, (datetime, date)):
+                return obj.isoformat()
+            raise TypeError ("Type %s not serializable" % type(obj))
+        # from Utils import open_filename
+
+        # filetypes = (("Multiworld data", (".archipelago", ".zip")),)
+        # data_filename = open_filename("Select multiworld data", filetypes)
+
+        return json.loads(json.dumps(output_tracker_data(TrackerData(None, self.tracker_data, self.get_save())), default=json_serial))
 
 
 def update_aliases(ctx: Context, team: int):
@@ -1739,6 +1760,10 @@ async def process_client_cmd(ctx: Context, client: Client, args: dict):
         else:
             await ctx.send_msgs(client, [{"cmd": "DataPackage",
                                           "data": {"games": ctx.gamespackage}}])
+
+    elif cmd == "Tracker":
+        await ctx.send_msgs(client, [{"cmd": "TrackerData",
+                                      "data": ctx.tracker_api()}])
 
     elif client.auth:
         if cmd == "ConnectUpdate":

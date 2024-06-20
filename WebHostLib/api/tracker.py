@@ -154,5 +154,5 @@ def output_tracker_data(tracker_data: TrackerData):
             "activity_timers": activity_timers,
             "connection_timers": connection_timers,
             "player_status": player_status,
-            "slot_data": encode(slot_data),
+            "slot_data": slot_data,
         }
