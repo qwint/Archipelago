@@ -253,7 +253,8 @@ class ItemNames(str, Enum):
     wheel_hop = "Wheel Jump"  # expanding and retracting wheel midair to grant a double jump
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
-    tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
+    # rename tanking_damage's string when we have enough spots to make it viable as an option or something
+    tanking_damage = "Weird Tricks"  # for spots you can get to by taking up to 3 hearts of damage
     weird_tricks = "Weird Tricks"  # skips that are questionably in logic and may constitute a difficulty setting later
 
     # songs, to potentially be randomized
@@ -417,16 +418,16 @@ class LocationNames(str, Enum):
     bunny_mural = "Community Bunny"
     bunny_map = "Doodle Bunny"
     bunny_uv = "Invisible Bunny"
-    bunny_fish = "Fish Bunny"  # rename?
-    bunny_face = "Face Bunny"  # rename, it's the face ghost
+    bunny_fish = "Fish Bunny"
+    bunny_face = "Face Bunny"
     bunny_crow = "Singing Bunny"
-    bunny_duck = "Green Bunny"  # rename?
+    bunny_duck = "Illusion Bunny"
     bunny_dream = "Imaginary Bunny"
     bunny_lava = "Lava Bunny"  # floor is lava
-    bunny_tv = "Flashing Bunny"  # rename?
-    bunny_ghost_dog = "Ghost Bunny"  # rename
-    bunny_disc_spike = "Disc Spike Bunny"  # rename
-    bunny_water_spike = "Water Spike Bunny"  # rename
+    bunny_tv = "Flashing Bunny"
+    bunny_ghost_dog = "Statue Bunny"  # ghost dog bunny
+    bunny_disc_spike = "Disc Spike Bunny"
+    bunny_water_spike = "Water Spike Bunny"
     bunny_barcode = "Paper Bunny"  # printer or barcode both get you it
     bunny_chinchilla_vine = "Chinchilla Bunny"  # the one where the code is covered by vines
     bunny_file_bud = "Flowering Bunny"  # bunny from file start codes

@@ -18,16 +18,13 @@ class Goal(Choice):
     default = 1
 
 
-class FinalEggLocation(Choice):
+class FinalEggLocation(Toggle):
     """
     Choose whether the 65th Egg is shuffled into the multiworld item pool or placed in its vanilla location, requiring opening the 4th Egg Door to access it.
     This option is forced on if you have the egg hunt goal selected.
     """
-    internal_name = "final_egg_location"
-    display_name = "65th Egg Location"
-    option_randomized = 0
-    option_vanilla = 1
-    default = 1
+    internal_name = "random_final_egg_location"
+    display_name = "Randomize Final Egg"
 
 
 # todo: client needs work to get this to work with other values - TODO(Frank-Pasqualini)
@@ -46,6 +43,7 @@ class EggsNeeded(Range):
 class BunniesAsChecks(Choice):
     """
     Include the secret bunnies as checks.
+    Exclude Tedious removes the Mural, Dream, UV, and Floor is Lava bunnies.
     """
     internal_name = "bunnies_as_checks"
     display_name = "Bunnies as Checks"
@@ -139,6 +137,15 @@ class WeirdTricks(Toggle):
     display_name = "Weird Tricks"
 
 
+class ExcludeSongChests(DefaultOnToggle):
+    """
+    Exclude the Wheel chest and Office Key chests, so that you don't have to play their songs.
+    They will contain either filler or traps.
+    """
+    internal_name = "exclude_song_chests"
+    display_name = "Exclude Song Chests"
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -146,7 +153,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     eggs_needed: EggsNeeded
     key_ring: KeyRing
     matchbox: Matchbox
-    final_egg_location: FinalEggLocation
+    random_final_egg_location: FinalEggLocation
     bunnies_as_checks: BunniesAsChecks
     bunny_warps_in_logic: BunnyWarpsInLogic
     candle_checks: CandleChecks
@@ -154,6 +161,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     disc_hopping: DiscHopping
     wheel_hopping: WheelHopping
     weird_tricks: WeirdTricks
+    exclude_song_chests: ExcludeSongChests
 
 
 # aw_option_groups = [

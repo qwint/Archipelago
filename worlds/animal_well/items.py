@@ -130,7 +130,7 @@ item_table: Dict[str, AWItemData] = {
     "Big Blue Fruit": AWItemData(IClass.filler, 0, 93, "Filler"),
 }
 
-item_name_to_id: Dict[str, int] = {name: item_base_id + index for index, name in enumerate(item_table)}
+item_name_to_id: Dict[str, int] = {name: item_base_id + data.offset for name, data in item_table.items()}
 
 filler_items: List[str] = [name for name, data in item_table.items() if data.classification == IClass.filler]
 

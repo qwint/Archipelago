@@ -1,10 +1,11 @@
-from typing import List, Dict, TYPE_CHECKING
+from typing import List, Dict, TYPE_CHECKING, cast
 from BaseClasses import Region, Location, ItemClassification
 from worlds.generic.Rules import CollectionRule, add_rule
 from .region_data import AWType, LocType
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .items import AWItem
-from .options import AnimalWellOptions
+from .options import AnimalWellOptions, BunniesAsChecks, BubbleJumping, DiscHopping
+
 if TYPE_CHECKING:
     from . import AnimalWellWorld
 
@@ -32,7 +33,8 @@ def convert_helper_reqs(helper_name: str, reqs: List[List[str]]) -> List[List[st
                     new_list = sublist.copy()
                     new_list[j] = replacement
                     new_list_storage.append(new_list)
-                del reqs[i]
+                # replace the starter list with one of the storage lists to keep it from skipping an entry
+                reqs[i] = new_list_storage.pop()
                 break
 
     for sublist in new_list_storage:
@@ -71,7 +73,7 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
                     sublist[i] = iname.bubble_long
             # turn bb wand into b wand if you have the hardest option on
             if req == iname.bubble_long:
-                if options.bubble_jumping == options.bubble_jumping.option_on:
+                if options.bubble_jumping == BubbleJumping.option_on:
                     sublist[i] = iname.bubble
     return reqs
 
@@ -92,7 +94,7 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
     reqs = [
         [iname.disc if item == iname.disc_hop_hard else item for item in sublist]
         for sublist in reqs
-        if not (iname.disc_hop_hard in sublist and not options.disc_hopping == options.disc_hopping.option_multiple)
+        if not (iname.disc_hop_hard in sublist and not options.disc_hopping == DiscHopping.option_multiple)
     ]
     reqs = [
         [None if item == iname.weird_tricks else item for item in sublist]
@@ -119,31 +121,32 @@ def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> Collectio
     reqs = convert_tech_reqs(reqs, world.options)
     for helper_name in helper_reference.keys():
         reqs = convert_helper_reqs(helper_name, reqs)
-    if not reqs:
-        return lambda state: True
     return lambda state: any(state.has_all(sublist, world.player) for sublist in reqs)
 
 
 def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
     player = world.player
-    egg_ratio = world.options.eggs_needed.value / 64
+    options = world.options
+    egg_ratio = options.eggs_needed.value / 64
     aw_regions = create_aw_regions(world)
     egg_group = [x for x in world.item_name_groups["Eggs"] if x != iname.egg_65.value]  # egg 65 doesn't open egg doors
     for origin_name, destinations in world.traversal_requirements.items():
+        origin_name = cast(str, origin_name.value)
         # don't create these regions if bunny warps are not in logic
-        if not world.options.bunny_warps_in_logic and origin_name in [rname.bulb_bunny_spot,
-                                                                      rname.bear_map_bunny_spot,
-                                                                      rname.bear_chinchilla_song_room]:
+        if not options.bunny_warps_in_logic and origin_name in [rname.bulb_bunny_spot,
+                                                                rname.bear_map_bunny_spot,
+                                                                rname.bear_chinchilla_song_room]:
             continue
         for destination_name, data in destinations.items():
+            destination_name = cast(str, destination_name.value)
             if data.type == AWType.location:
-                if not world.options.bunnies_as_checks and data.loc_type == LocType.bunny:
+                if not options.bunnies_as_checks and data.loc_type == LocType.bunny:
                     continue
-                if (world.options.bunnies_as_checks == world.options.bunnies_as_checks.option_exclude_tedious and
+                if (options.bunnies_as_checks == BunniesAsChecks.option_exclude_tedious and
                         destination_name in [lname.bunny_mural, lname.bunny_dream, lname.bunny_uv,
                                              lname.bunny_lava]):
                     continue
-                if not world.options.candle_checks and data.loc_type == LocType.candle:
+                if not options.candle_checks and data.loc_type == LocType.candle:
                     continue
                 # not shuffling these yet
                 if data.loc_type == LocType.figure:
@@ -160,7 +163,7 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                              state.count_group("Eggs", player) >= eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
-                if data.bunny_warp and not world.options.bunny_warps_in_logic and not world.options.bunnies_as_checks:
+                if data.bunny_warp and not options.bunny_warps_in_logic and not options.bunnies_as_checks:
                     continue
                 entrance = aw_regions[origin_name].connect(connecting_region=aw_regions[destination_name],
                                                            rule=interpret_rule(data.rules, world))
@@ -168,13 +171,13 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     add_rule(entrance, lambda state, eggs_required=data.eggs_required:
                              state.count_group("Eggs", player) >= eggs_required * egg_ratio)
 
-    if not world.options.key_ring:
+    if not options.key_ring:
         location = AWLocation(player, lname.got_all_keys, None, aw_regions[rname.bird_area])
         location.place_locked_item(AWItem(iname.can_use_keys, ItemClassification.progression, None, player))
         location.access_rule = lambda state: state.has(iname.key, player, 6)
         aw_regions[rname.bird_area].locations.append(location)
 
-    if not world.options.matchbox:
+    if not options.matchbox:
         location = AWLocation(player, lname.got_all_matches, None, aw_regions[rname.bird_area])
         location.place_locked_item(AWItem(iname.can_use_matches, ItemClassification.progression, None, player))
         location.access_rule = lambda state: state.has(iname.match, player, 9)
