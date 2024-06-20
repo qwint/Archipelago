@@ -227,8 +227,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     rname.fish_lower: {
         rname.fish_west:
             AWData(AWType.region, [[iname.bubble]]),  # fish pipe left of the save point
-        rname.fish_boss_1:  # disc is required to solve both the windbox puzzle and to cross the whale room
-            AWData(AWType.region, [[iname.disc], [iname.weird_tricks]]),  # position on ladder just right
+        rname.fish_boss_1:  # weird_trick: reflect water while standing on ladder to skip disc req. Other requirements are for passing whale room w/o disc
+            AWData(AWType.region, [[iname.disc], [iname.weird_tricks, iname.bubble_long], [iname.weird_tricks, iname.wheel_hop, iname.ball], [iname.weird_tricks, iname.bubble, iname.ball]]),
         rname.bobcat_room:
             AWData(AWType.region, [[iname.top]]), 
         lname.candle_fish:  # spike breaking presumed by access
@@ -261,9 +261,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location, [[iname.can_open_flame]], event=iname.blue_flame),
         rname.bird_area:
             AWData(AWType.region),
-        rname.abyss:  # little hole above the fish pipe todo: verify if you can just jump in off the bubbles
-            AWData(AWType.region, [[iname.top, iname.e_medal, iname.disc], [iname.top, iname.e_medal, iname.wheel_hop],
-                                   [iname.top, iname.e_medal, iname.bubble]]),
+        rname.abyss:  # little hole above the fish pipe. you can jump there w/o vertical if you land on the fish pipe first
+            AWData(AWType.region, [[iname.top, iname.e_medal]]),
     },
     rname.water_spike_bunny_spot: {
         lname.bunny_water_spike:  # bubble_long is covered by the region access rule
@@ -392,8 +391,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location),
         rname.bear_crow_rooms:
             AWData(AWType.region, [[iname.slink], [iname.ball, iname.weird_tricks]]),
-        rname.bear_match_chest_spot:  # ride a disc, then jump off and throw the ball to the button
-            AWData(AWType.region, [[iname.ball, iname.disc, iname.weird_tricks]]),
+        rname.bear_match_chest_spot:  # shoots some hoops! throw the ball to the button. can be done without vertical if you throw early
+            AWData(AWType.region, [[iname.ball, iname.weird_tricks]]),
     },
     rname.bear_crow_rooms: {
         rname.bear_shadow_egg_spot:  # get across the room with the lifters and the miasma
@@ -842,8 +841,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             # if you have yoyo, you can swap the mouse direction and lock yourself out of the check without bubbles
         lname.egg_obsidian:  # bounce disc between the moving walls, or do some cursed bubble jumps
             AWData(AWType.location, [[iname.disc], [iname.bubble_short, iname.weird_tricks]]),
-        lname.egg_golden:  # todo: verify whether these are simultaneous buttons or regular
-            AWData(AWType.location, [[iname.wheel]]),
+        lname.egg_golden:  # simultaneous buttons. Need an item to hold it down. I don't think top is unintuitive enough to warrant weird, but disc definitely is.
+            AWData(AWType.location, [[iname.wheel, iname.slink], [iname.wheel, iname.top], [iname.wheel, iname.disc, iname.weird_tricks]]),
         lname.flame_green:
             AWData(AWType.location, [[iname.can_open_flame]], event=iname.green_flame),
         rname.bobcat_room:
