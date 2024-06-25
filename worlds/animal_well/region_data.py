@@ -906,7 +906,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.fanny_pack_chest:
             AWData(AWType.location),
         rname.barcode_bunny:  # add song req if we do song shuffle
-            AWData(AWType.region, [[iname.flute]]),
+            AWData(AWType.region, [[iname.flute, iname.office_key]]),
         rname.top_of_the_well:
             AWData(AWType.region, [[iname.lantern]]),
     },
