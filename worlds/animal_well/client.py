@@ -842,9 +842,9 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
                             hex(max_length))
 
                 # Preprocess
-                m = len(pattern)
+                patternLength = len(pattern)
                 bad_chars = [-1] * 256
-                for i in range(m):
+                for i in range(patternLength):
                     bad_chars[pattern[i]] = i
 
                 # Search
@@ -858,7 +858,7 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
                         if iterations % 0x80000 == 0:
                             logger.info("Looking for start address of memory, %s", hex(address))
 
-                        i = m - 1
+                        i = patternLength - 1
 
                         while i >= 0 and pattern[i] == process_handle.read_bytes(address + i, 1)[0]:
                             i -= 1
@@ -882,9 +882,6 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
 
             ctx.process_handle = process_handle
             ctx.start_address = address
-
-
-            #ctypes.windll.user32.MessageBoxW(0, "Your text", "Your title", 1)
         else:
             raise NotImplementedError("Only Windows is implemented right now")
     except pymem.exception.ProcessNotFound as e:
