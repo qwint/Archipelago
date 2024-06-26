@@ -809,7 +809,7 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             logger.info("Searching for 'Animal Well.exe' module in process memory...")
             awModule = next(f for f in list(process_handle.list_modules()) if f.name.startswith("Animal Well.exe"))
             if awModule:
-                logger.info("Found it: Name(%s), EntryPoint(%s), BaseOfDll(%s)", awModule.name, hex(awModule.EntryPoint), hex(awModule.lpBaseOfDll))
+                logger.info("Found it: Name(%s), BaseOfDll(%s)", awModule.name, hex(awModule.EntryPoint), hex(awModule.lpBaseOfDll))
 
                 pointerAddress = awModule.lpBaseOfDll + 0x02BD5308
                 logger.info("Attempting to find start address via pointer at %s", hex(pointerAddress))
