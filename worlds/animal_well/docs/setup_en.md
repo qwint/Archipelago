@@ -30,3 +30,4 @@ Upload your generated game (in you `Archipelago/output` folder) at the [Archipel
 - This is in early Alpha. If you encounter bugs, please report them in the ANIMAL WELL Future Game Design post in the Archipelago discord.
 - When you pick up an item from a chest, it will show the vanilla item. See the ANIMAL WELL Client to see what item you actually found in the chest. Sometimes, this will affect your currently equipped item. Open the inventory to manually select a different item if this happens.
 - There are some options missing. This is known, and they will be made available as we get them to function.
+- See the [ANIMAL WELL Game Info Page](https://github.com/ScipioWright/Archipelago-SW/blob/animal-well/worlds/animal_well/docs/en_ANIMAL%20WELL.md) for more information.
