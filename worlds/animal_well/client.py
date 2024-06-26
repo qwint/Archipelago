@@ -806,56 +806,70 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             process_handle = pymem.Pymem("Animal Well.exe")
             logger.debug("Found PID %d", process_handle.process_id)
 
-            savefile_location = \
-                rf"C:\Users\{os.getenv('USERNAME')}\AppData\LocalLow\Billy Basso\Animal Well\AnimalWell.sav"
-            logger.debug("Reading save file data from default location: %s", savefile_location)
-            with open(savefile_location, "rb") as savefile:
-                slot_1 = bytearray(savefile.read(HEADER_LENGTH + SAVE_SLOT_LENGTH))[HEADER_LENGTH:]
+            logger.info("Searching for 'Animal Well.exe' module in process memory...")
+            awModule = next(f for f in list(process_handle.list_modules()) if f.name.startswith("Animal Well.exe"))
+            if awModule:
+                logger.info("Found it: Name(%s), EntryPoint(%s), BaseOfDll(%s)", awModule.name, hex(awModule.EntryPoint), hex(awModule.lpBaseOfDll))
 
-            # Find best pattern
-            consecutive_start = 0
-            max_length = 0
-            current_length = 0
-            for i in range(len(slot_1)):
-                current_length += 1
-                if slot_1[i] == 0:
-                    current_length = 0
-                elif current_length > max_length:
-                    max_length = current_length
-                    consecutive_start = i - current_length + 1
-            pattern = slot_1[consecutive_start: consecutive_start + max_length]
-            logger.debug("Found the longest nonzero consecutive memory at %s of length %s", hex(consecutive_start),
-                         hex(max_length))
+                pointerAddress = awModule.lpBaseOfDll + 0x02BD5308
+                logger.info("Attempting to find start address via pointer at %s", hex(pointerAddress))
 
-            # Preprocess
-            m = len(pattern)
-            bad_chars = [-1] * 256
-            for i in range(m):
-                bad_chars[pattern[i]] = i
+                pointer = process_handle.read_uint(pointerAddress)
+                logger.info("start address of memory: %s + 0x400 = %s", hex(pointer), hex(pointer + 0x400))
 
-            # Search
-            address = 0
-            iterations = 0
-            while True:
-                try:
-                    iterations += 1
-                    if iterations % 0x10000 == 0:
-                        await asyncio.sleep(0.05)
-                    if iterations % 0x80000 == 0:
-                        logger.info("Looking for start address of memory, %s", hex(address))
+                address = pointer + 0x400
 
-                    i = m - 1
+            if address is None:
+                savefile_location = \
+                    rf"C:\Users\{os.getenv('USERNAME')}\AppData\LocalLow\Billy Basso\Animal Well\AnimalWell.sav"
+                logger.debug("Reading save file data from default location: %s", savefile_location)
+                with open(savefile_location, "rb") as savefile:
+                    slot_1 = bytearray(savefile.read(HEADER_LENGTH + SAVE_SLOT_LENGTH))[HEADER_LENGTH:]
 
-                    while i >= 0 and pattern[i] == process_handle.read_bytes(address + i, 1)[0]:
-                        i -= 1
+                # Find best pattern
+                consecutive_start = 0
+                max_length = 0
+                current_length = 0
+                for i in range(len(slot_1)):
+                    current_length += 1
+                    if slot_1[i] == 0:
+                        current_length = 0
+                    elif current_length > max_length:
+                        max_length = current_length
+                        consecutive_start = i - current_length + 1
+                pattern = slot_1[consecutive_start: consecutive_start + max_length]
+                logger.debug("Found the longest nonzero consecutive memory at %s of length %s", hex(consecutive_start),
+                            hex(max_length))
 
-                    if i < 0:
-                        address -= (HEADER_LENGTH + consecutive_start)
-                        break
-                    else:
-                        address += max(1, i - bad_chars[process_handle.read_bytes(address + i, 1)[0]])
-                except pymem.exception.MemoryReadError:
-                    address += max_length
+                # Preprocess
+                m = len(pattern)
+                bad_chars = [-1] * 256
+                for i in range(m):
+                    bad_chars[pattern[i]] = i
+
+                # Search
+                address = 0
+                iterations = 0
+                while True:
+                    try:
+                        iterations += 1
+                        if iterations % 0x10000 == 0:
+                            await asyncio.sleep(0.05)
+                        if iterations % 0x80000 == 0:
+                            logger.info("Looking for start address of memory, %s", hex(address))
+
+                        i = m - 1
+
+                        while i >= 0 and pattern[i] == process_handle.read_bytes(address + i, 1)[0]:
+                            i -= 1
+
+                        if i < 0:
+                            address -= (HEADER_LENGTH + consecutive_start)
+                            break
+                        else:
+                            address += max(1, i - bad_chars[process_handle.read_bytes(address + i, 1)[0]])
+                    except pymem.exception.MemoryReadError:
+                        address += max_length
 
             logger.info("Found start address of memory, %s", hex(address))
 
@@ -868,6 +882,9 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
 
             ctx.process_handle = process_handle
             ctx.start_address = address
+
+
+            #ctypes.windll.user32.MessageBoxW(0, "Your text", "Your title", 1)
         else:
             raise NotImplementedError("Only Windows is implemented right now")
     except pymem.exception.ProcessNotFound as e:
