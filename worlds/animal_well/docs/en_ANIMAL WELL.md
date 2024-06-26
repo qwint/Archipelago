@@ -7,6 +7,7 @@ The [player options page for this game](../player-options) contains all the opti
 
 ## I haven't played ANIMAL WELL before.
 It is recommended to play the vanilla game first. The randomizer will spoil mechanics, items, and the locations of secrets.
+We recommend you find all of the eggs, all of the equipment items, and as many bunnies as you can before playing this randomizer.
 
 ## What does randomization do to this game?
 All items you can find in chests (eggs, toys, keys, matches) are shuffled into the item pool.
@@ -17,14 +18,16 @@ There will be alternate goals later in development.
 
 ## How many checks are in ANIMAL WELL?
 There are around 100 checks in ANIMAL WELL. The amount varies based on a few options, and there will likely be more options in the future to increase the number of locations.
-When we have finalized these options, this document will be updated to reflect the actual numbers.
+When we have finalized these options, this doc will be updated to reflect the actual numbers.
 
 ## What do items from other worlds look like in ANIMAL WELL?
 Currently, the appearance of items found in chests matches their vanilla contents. You will need to look at the Client to see what was in the chest.
 This will be revised later on.
 
 ## Is there a tracker pack?
-Currently, there is no tracker pack. You can use the Universal Tracker to see what is in logic.
+There is a [Poptracker Pack](https://github.com/SporyTike/ANIMAL-WELL-AP-Tracker/releases/latest) which was made by SporyTike.
+If you find issues in the tracker pack, please let them know about them.
+Universal Tracker can be used as well, and will not have any issues while using it.
 
 ## What should I know regarding logic?
 Locations that may softlock you (such as the B. Wand chest) are included in logic. To escape these softlocks, you can either quit to menu and continue (the chest will appear closed, but you will have already sent the check, so it's fine), or you can type `/ring` into the ANIMAL WELL Client to give yourself the Cheater's Ring, which you can use to escape the softlock.
