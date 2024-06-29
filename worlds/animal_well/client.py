@@ -750,7 +750,8 @@ class AWItems:
                 berries_to_use = self.big_blue_fruit - ctx.used_berries
                 total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
                                               byteorder="little")
-                total_hearts = min(total_hearts + berries_to_use, 255)
+                # berries_to_use multiplied by 3 to always give you +3 hearts
+                total_hearts = min(total_hearts + berries_to_use * 3, 255)
                 buffer = bytes([total_hearts])
                 ctx.process_handle.write_bytes(slot_address + 0x1B4, buffer, 1)
                 ctx.used_berries = self.big_blue_fruit
