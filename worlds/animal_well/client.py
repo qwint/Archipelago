@@ -759,7 +759,8 @@ class AWItems:
                 firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
                 total_firecrackers = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B3, 1),
                                                     byteorder="little")
-                total_firecrackers = min(total_firecrackers + firecrackers_to_use, 6 if self.fanny_pack else 3)
+                # multiply firecrackers to use by 6 so that it always fills up your inventory
+                total_firecrackers = min(total_firecrackers + firecrackers_to_use * 6, 6 if self.fanny_pack else 3)
                 buffer = bytes([total_firecrackers])
                 ctx.process_handle.write_bytes(slot_address + 0x1B3, buffer, 1)
                 ctx.used_firecrackers = self.firecracker_refill
