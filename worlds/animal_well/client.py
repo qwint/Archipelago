@@ -127,6 +127,9 @@ class AnimalWellContext(CommonContext):
         self.start_address = None
         self.connection_status = CONNECTION_INITIAL_STATUS
         self.slot_data = {}
+        self.slot_number: int = -1
+        # used to delay starting the loop until we can see the data storage values
+        self.got_data_storage: bool = False
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
@@ -746,25 +749,58 @@ class AWItems:
                 ctx.process_handle.write_bytes(slot_address + 0x20A, k_shard_2, 1)
                 ctx.process_handle.write_bytes(slot_address + 0x216, k_shard_3, 1)
 
-                # Berries
-                berries_to_use = self.big_blue_fruit - ctx.used_berries
-                total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
-                                              byteorder="little")
-                # berries_to_use multiplied by 3 to always give you +3 hearts
-                total_hearts = min(total_hearts + berries_to_use * 3, 255)
-                buffer = bytes([total_hearts])
-                ctx.process_handle.write_bytes(slot_address + 0x1B4, buffer, 1)
-                ctx.used_berries = self.big_blue_fruit
+                # string used for the data storage keys
+                used_berries_string = f"{ctx.slot_number}|used_berries"
+                used_firecrackers_string = f"{ctx.slot_number}|used_firecrackers"
 
-                # Firecrackers
-                firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
-                total_firecrackers = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B3, 1),
-                                                    byteorder="little")
-                # multiply firecrackers to use by 6 so that it always fills up your inventory
-                total_firecrackers = min(total_firecrackers + firecrackers_to_use * 6, 6 if self.fanny_pack else 3)
-                buffer = bytes([total_firecrackers])
-                ctx.process_handle.write_bytes(slot_address + 0x1B3, buffer, 1)
-                ctx.used_firecrackers = self.firecracker_refill
+                if not ctx.got_data_storage:
+                    Utils.async_start(ctx.send_msgs([{
+                        "cmd": "Get",
+                        "keys": [used_berries_string,
+                                 used_firecrackers_string,]
+                    }]))
+                    if used_berries_string in ctx.stored_data:
+                        ctx.got_data_storage = True
+                        self.big_blue_fruit = ctx.used_berries = ctx.stored_data[used_berries_string]
+                        self.firecracker_refill = ctx.used_firecrackers = ctx.stored_data[used_firecrackers_string]
+                else:
+                    # Berries
+                    berries_to_use = self.big_blue_fruit - ctx.used_berries
+                    total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
+                                                  byteorder="little")
+                    # berries_to_use multiplied by 3 to always give you +3 hearts
+                    total_hearts = min(total_hearts + berries_to_use * 3, 255)
+                    buffer = bytes([total_hearts])
+                    ctx.process_handle.write_bytes(slot_address + 0x1B4, buffer, 1)
+                    ctx.used_berries = self.big_blue_fruit
+                    # update data storage so that we don't re-receive the berry on reconnect
+                    if ctx.used_berries > ctx.stored_data[used_berries_string]:
+                        Utils.async_start(ctx.send_msgs([{
+                            "cmd": "Set",
+                            "key": used_berries_string,
+                            "default": 0,
+                            "want_reply": True,
+                            "operations": [{"operation": "replace", "value": ctx.used_berries}]
+                        }]))
+
+                    # Firecrackers
+                    firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
+                    total_firecrackers = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B3, 1),
+                                                        byteorder="little")
+                    # multiply firecrackers to use by 6 so that it always fills up your inventory
+                    total_firecrackers = min(total_firecrackers + firecrackers_to_use * 6, 6 if self.fanny_pack else 3)
+                    buffer = bytes([total_firecrackers])
+                    ctx.process_handle.write_bytes(slot_address + 0x1B3, buffer, 1)
+                    ctx.used_firecrackers = self.firecracker_refill
+                    # update data storage so that we don't re-receive the firecracker on reconnect
+                    if ctx.used_firecrackers > ctx.stored_data[used_firecrackers_string]:
+                        Utils.async_start(ctx.send_msgs([{
+                            "cmd": "Set",
+                            "key": used_firecrackers_string,
+                            "default": 0,
+                            "want_reply": True,
+                            "operations": [{"operation": "replace", "value": ctx.used_firecrackers}]
+                        }]))
 
                 # setting death count to 37 to always have the b.b. wand chest accessible
                 buffer = 37
