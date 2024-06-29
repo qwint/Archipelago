@@ -70,11 +70,13 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
                 if options.bubble_jumping:
                     sublist[i] = iname.bubble
                 else:
-                    sublist[i] = iname.bubble_long
+                    sublist[i] = iname.bubble_long_real
             # turn bb wand into b wand if you have the hardest option on
             if req == iname.bubble_long:
                 if options.bubble_jumping == BubbleJumping.option_on:
                     sublist[i] = iname.bubble
+                else:
+                    sublist[i] = iname.bubble_long_real
     return reqs
 
 

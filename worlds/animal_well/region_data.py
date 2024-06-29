@@ -564,7 +564,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.activate_dog_fast_travel:
             AWData(AWType.location, [[iname.flute]], event=iname.activated_dog_fast_travel),
         rname.dog_swordfish_lake_ledge:
-            AWData(AWType.region, [[iname.disc], [iname.bubble_long]]),
+            AWData(AWType.region, [[iname.disc], [iname.bubble_long_real], [iname.bubble_long, iname.weird_tricks]]),
         rname.dog_upper_past_lake:  # ride bubble down, jump the partial-height wall
             AWData(AWType.region, [[iname.bubble]]),
         rname.dog_above_fast_travel:  # disc: go across lake, then go back at higher elevation
@@ -595,8 +595,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     rname.dog_swordfish_lake_ledge: {
         rname.dog_fast_travel_room:
             AWData(AWType.region, [[iname.disc]]),
-        lname.egg_forbidden:  # todo: verify you can do this with just b wand
-            AWData(AWType.location, [[iname.disc], [iname.bubble_long]]),
+        lname.egg_forbidden:
+            AWData(AWType.location),
         lname.bunny_disc_spike:  # not disc hop since you literally need to do this
             AWData(AWType.location, [[iname.disc], [iname.bubble_long, iname.wheel_hop, iname.weird_tricks]],
                    loc_type=LocType.bunny),

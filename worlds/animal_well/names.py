@@ -124,7 +124,7 @@ class ItemNames(str, Enum):
     uv = "UV Lantern"
     wheel = "Wheel"
     top = "Top"
-    bubble_long = "B.B. Wand"  # large amount of jumps, reasonable with B.B. Wand
+    bubble_long_real = "B.B. Wand"
     firecrackers = "Firecrackers"
     house_key = "House Key"
     office_key = "Office Key"
@@ -245,6 +245,7 @@ class ItemNames(str, Enum):
 
     # fake items, for the purposes of rules
     bubble_short = "Bubble Jumping - Short"
+    bubble_long = "Bubble Jumping - Long"
     can_break_spikes = "Can Break Spikes"
     can_break_spikes_below = "Can Break Spikes Below"  # can break spikes but without disc basically
     can_open_flame = "Can Open Flame"  # you can break this with the flute and other items, need to verify which
