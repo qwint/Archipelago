@@ -826,8 +826,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.activated_frog_fast_travel]])
     },
     rname.frog_east_of_fast_travel: {
-        lname.kangaroo_first_spot:
-            AWData(AWType.location, event=iname.k_shard),
+        # lname.kangaroo_first_spot:
+        #     AWData(AWType.location),
         rname.frog_elevator_and_ostrich_wheel:
             AWData(AWType.region, [[iname.yoyo, iname.bubble]]),
     },
