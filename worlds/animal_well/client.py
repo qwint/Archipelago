@@ -765,6 +765,12 @@ class AWItems:
                         self.firecracker_refill = ctx.used_firecrackers = ctx.stored_data[used_firecrackers_string]
                 else:
                     # Berries
+                    # null checking since it caused issues before
+                    if not self.big_blue_fruit:
+                        self.big_blue_fruit = 0
+                    if not ctx.used_berries:
+                        ctx.used_berries = 0
+
                     berries_to_use = self.big_blue_fruit - ctx.used_berries
                     total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
                                                   byteorder="little")
@@ -784,6 +790,12 @@ class AWItems:
                         }]))
 
                     # Firecrackers
+                    # null checking since it caused issues before
+                    if not self.firecracker_refill:
+                        self.firecracker_refill = 0
+                    if not ctx.used_firecrackers:
+                        ctx.used_firecrackers = 0
+
                     firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
                     total_firecrackers = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B3, 1),
                                                         byteorder="little")
