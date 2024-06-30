@@ -780,7 +780,8 @@ class AWItems:
                     ctx.process_handle.write_bytes(slot_address + 0x1B4, buffer, 1)
                     ctx.used_berries = self.big_blue_fruit
                     # update data storage so that we don't re-receive the berry on reconnect
-                    if ctx.used_berries > ctx.stored_data[used_berries_string]:
+                    stored_berries = ctx.stored_data[used_berries_string] or 0
+                    if ctx.used_berries > stored_berries:
                         Utils.async_start(ctx.send_msgs([{
                             "cmd": "Set",
                             "key": used_berries_string,
@@ -805,7 +806,8 @@ class AWItems:
                     ctx.process_handle.write_bytes(slot_address + 0x1B3, buffer, 1)
                     ctx.used_firecrackers = self.firecracker_refill
                     # update data storage so that we don't re-receive the firecracker on reconnect
-                    if ctx.used_firecrackers > ctx.stored_data[used_firecrackers_string]:
+                    stored_firecrackers = ctx.stored_data[used_firecrackers_string] or 0
+                    if ctx.used_firecrackers > stored_firecrackers:
                         Utils.async_start(ctx.send_msgs([{
                             "cmd": "Set",
                             "key": used_firecrackers_string,
