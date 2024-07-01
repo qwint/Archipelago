@@ -783,6 +783,7 @@ class AWItems:
                     if not ctx.used_berries:
                         ctx.used_berries = 0
 
+                    # sometimes used_berries ends up bigger than big_blue_fruit, same with firecrackers
                     berries_to_use = max(self.big_blue_fruit - ctx.used_berries, 0)
                     total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
                                                   byteorder="little")
