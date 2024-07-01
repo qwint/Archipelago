@@ -783,7 +783,7 @@ class AWItems:
                     if not ctx.used_berries:
                         ctx.used_berries = 0
 
-                    berries_to_use = self.big_blue_fruit - ctx.used_berries
+                    berries_to_use = max(self.big_blue_fruit - ctx.used_berries, 0)
                     total_hearts = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B4, 1),
                                                   byteorder="little")
                     # berries_to_use multiplied by 3 to always give you +3 hearts
@@ -809,7 +809,7 @@ class AWItems:
                     if not ctx.used_firecrackers:
                         ctx.used_firecrackers = 0
 
-                    firecrackers_to_use = self.firecracker_refill - ctx.used_firecrackers
+                    firecrackers_to_use = max(self.firecracker_refill - ctx.used_firecrackers, 0)
                     total_firecrackers = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1B3, 1),
                                                         byteorder="little")
                     # multiply firecrackers to use by 6 so that it always fills up your inventory
