@@ -6,6 +6,7 @@ Based (read: copied almost wholesale and edited) off the Zelda1 Client.
 import asyncio
 import os
 import platform
+import traceback
 
 import pymem
 
@@ -96,18 +97,22 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         except pymem.exception.ProcessError as e:
             logger.error("%s", e)
             self.ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
         except pymem.exception.MemoryReadError as e:
             logger.error("%s", e)
             self.ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
         except pymem.exception.MemoryWriteError as e:
             logger.error("%s", e)
             self.ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
         except Exception as e:
             logger.fatal("An unknown error has occurred: %s", e)
             self.ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
 
@@ -224,22 +229,27 @@ class AWLocations:
         except pymem.exception.ProcessError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except pymem.exception.MemoryReadError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except ConnectionResetError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except NotImplementedError as e:
             logger.fatal("%s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except Exception as e:
             logger.fatal("An unknown error has occurred: %s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
     async def write_to_archipelago(self, ctx):
@@ -268,6 +278,7 @@ class AWLocations:
         except Exception as e:
             logger.fatal("An unknown error has occurred: %s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
 
@@ -528,6 +539,7 @@ class AWItems:
         except Exception as e:
             logger.fatal("An unknown error has occurred: %s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
     def write_to_game(self, ctx):
@@ -825,26 +837,32 @@ class AWItems:
         except pymem.exception.ProcessError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except pymem.exception.MemoryReadError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except pymem.exception.MemoryWriteError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except ConnectionResetError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except NotImplementedError as e:
             logger.fatal("%s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
         except Exception as e:
             logger.fatal("An unknown error has occurred: %s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
+            traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
 
@@ -940,30 +958,37 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
     except pymem.exception.ProcessNotFound as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
     except pymem.exception.CouldNotOpenProcess as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
     except pymem.exception.ProcessError as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
     except pymem.exception.MemoryReadError as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
     except FileNotFoundError as e:
         logger.fatal("%s", e)
         ctx.connection_status = CONNECTION_ABORTED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
     except NotImplementedError as e:
         logger.fatal("%s", e)
         ctx.connection_status = CONNECTION_ABORTED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
     except Exception as e:
         logger.fatal("An unknown error has occurred: %s", e)
         ctx.connection_status = CONNECTION_ABORTED_STATUS
+        traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
 
