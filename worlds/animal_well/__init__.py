@@ -22,9 +22,9 @@ def launch_client():
 
 
 components.append(Component("ANIMAL WELL Client", "AnimalWellClient", func=launch_client,
-                            component_type=Type.CLIENT, icon='Potate'))
+                            component_type=Type.CLIENT, icon="Potate"))
 
-icon_paths['Potate'] = local_path('data', 'Potate.png')
+icon_paths["Potate"] = local_path("data", "Potate.png")
 
 
 class AnimalWellWeb(WebWorld):
@@ -40,7 +40,7 @@ class AnimalWellWeb(WebWorld):
     ]
     theme = "jungle"
     game = "ANIMAL WELL"
-    # option_groups = aw_option_groups
+    option_groups = aw_option_groups
     option_presets = aw_option_presets
 
 
