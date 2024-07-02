@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Dict, Any
-from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions  # , OptionGroup
+from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup
 
 
 class Goal(Choice):
@@ -164,14 +164,14 @@ class AnimalWellOptions(PerGameCommonOptions):
     exclude_song_chests: ExcludeSongChests
 
 
-# aw_option_groups = [
-#     OptionGroup("Logic Options", [
-#         BubbleJumping,
-#         DiscHopping,
-#         WheelHopping,
-#         WeirdTricks,
-#     ])
-# ]
+aw_option_groups = [
+    OptionGroup("Logic Options", [
+        BubbleJumping,
+        DiscHopping,
+        WheelHopping,
+        WeirdTricks,
+    ])
+]
 
 aw_option_presets: Dict[str, Dict[str, Any]] = {
     "Animal Hell": {
