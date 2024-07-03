@@ -22,13 +22,13 @@ class Component:
     type: Type
     script_name: Optional[str]
     frozen_name: Optional[str]
-    icon: str  # just the name, no suffix
+    icon: Optional[Tuple[str, bytes]]  # just the name, no suffix
     cli: bool
     func: Optional[Callable]
     file_identifier: Optional[Callable[[str], bool]]
 
     def __init__(self, display_name: str, script_name: Optional[str] = None, frozen_name: Optional[str] = None,
-                 cli: bool = False, icon: str = 'icon', component_type: Optional[Type] = None,
+                 cli: bool = False, icon: Optional[Tuple[str, bytes]] = None, component_type: Optional[Type] = None,
                  func: Optional[Callable] = None, file_identifier: Optional[Callable[[str], bool]] = None):
         self.display_name = display_name
         self.script_name = script_name
@@ -51,6 +51,14 @@ class Component:
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.display_name})"
+
+    def build_texture(self):
+        if self.icon:
+            if not hasattr(self, "image"):
+                print(self.image)  # find a better way to fail lol
+            import io
+            from kivy.core.image import Image
+            self.image.texture = Image(io.BytesIO(self.icon[1]), ext=self.icon[0]).texture
 
 
 processes = weakref.WeakSet()
@@ -157,6 +165,12 @@ def install_apworld(apworld_path: str = "") -> None:
         Utils.messagebox("Install complete.", f"Installed APWorld from {source}.")
 
 
+icon_paths = {
+    'icon': local_path('data', 'icon.png'),
+    'mcicon': local_path('data', 'mcicon.png'),
+    'discord': local_path('data', 'discord-mark-blue.png'),
+}
+
 components: List[Component] = [
     # Launcher
     Component('Launcher', 'Launcher', component_type=Type.HIDDEN),
@@ -170,7 +184,7 @@ components: List[Component] = [
               file_identifier=SuffixIdentifier('.apladx')),
     Component('LttP Adjuster', 'LttPAdjuster'),
     # Minecraft
-    Component('Minecraft Client', 'MinecraftClient', icon='mcicon', cli=True,
+    Component('Minecraft Client', 'MinecraftClient', icon=("png", open(icon_paths["mcicon"], "rb").read()), cli=True,
               file_identifier=SuffixIdentifier('.apmc')),
     # Ocarina of Time
     Component('OoT Client', 'OoTClient',
@@ -193,10 +207,3 @@ components: List[Component] = [
     #MegaMan Battle Network 3
     Component('MMBN3 Client', 'MMBN3Client', file_identifier=SuffixIdentifier('.apbn3'))
 ]
-
-
-icon_paths = {
-    'icon': local_path('data', 'icon.png'),
-    'mcicon': local_path('data', 'mcicon.png'),
-    'discord': local_path('data', 'discord-mark-blue.png'),
-}

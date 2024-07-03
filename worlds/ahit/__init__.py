@@ -15,15 +15,18 @@ from worlds.LauncherComponents import Component, components, icon_paths, launch_
 from Utils import local_path
 
 
+def data_path(file_name: str):
+    import pkgutil
+    return pkgutil.get_data(__name__, "data/" + file_name)
+
+
 def launch_client():
     from .Client import launch
     launch_subprocess(launch, name="AHITClient")
 
 
 components.append(Component("A Hat in Time Client", "AHITClient", func=launch_client,
-                            component_type=Type.CLIENT, icon='yatta'))
-
-icon_paths['yatta'] = local_path('data', 'yatta.png')
+                            component_type=Type.CLIENT, icon=("png", data_path("yatta.png"))))
 
 
 class AWebInTime(WebWorld):

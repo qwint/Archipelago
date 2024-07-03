@@ -19,7 +19,7 @@ import sys
 import webbrowser
 from os.path import isfile
 from shutil import which
-from typing import Callable, Sequence, Union, Optional
+from typing import Callable, Sequence, Union, Optional, Tuple
 
 import Utils
 import settings
@@ -101,8 +101,8 @@ components.extend([
     Component("Open host.yaml", func=open_host_yaml),
     Component("Open Patch", func=open_patch),
     Component("Generate Template Options", func=generate_yamls),
-    Component("Discord Server", icon="discord", func=lambda: webbrowser.open("https://discord.gg/8Z65BR2")),
-    Component("Unrated/18+ Discord Server", icon="discord", func=lambda: webbrowser.open("https://discord.gg/fqvNCCRsu4")),
+    Component("Discord Server", icon=("png", open(icon_paths["mcicon"], "rb").read()), func=lambda: webbrowser.open("https://discord.gg/8Z65BR2")),
+    Component("Unrated/18+ Discord Server", icon=("png", open(icon_paths["mcicon"], "rb").read()), func=lambda: webbrowser.open("https://discord.gg/fqvNCCRsu4")),
     Component("Browse Files", func=browse_files),
 ])
 
@@ -198,14 +198,19 @@ def run_gui():
                 button = Button(text=component.display_name, size_hint_y=None, height=40)
                 button.component = component
                 button.bind(on_release=self.component_action)
-                if component.icon != "icon":
-                    image = AsyncImage(source=icon_paths[component.icon],
+                if component.icon:
+                    image = AsyncImage(source="",  # texture=build_texture(component.icon),
                                        size=(38, 38), size_hint=(None, 1), pos=(5, 0))
+                    component.image = image
                     box_layout = RelativeLayout(size_hint_y=None, height=40)
                     box_layout.add_widget(button)
                     box_layout.add_widget(image)
                     return box_layout
                 return button
+
+            async def build_textures():
+                for component in components:
+                    component.build_texture()
 
             # clear before repopulating
             assert self._tool_layout and self._client_layout, "must call `build` first"
@@ -230,6 +235,7 @@ def run_gui():
                 # column 2
                 if client:
                     self._client_layout.layout.add_widget(build_button(client[1]))
+            build_textures()
 
         def build(self):
             self.container = ContainerLayout()
