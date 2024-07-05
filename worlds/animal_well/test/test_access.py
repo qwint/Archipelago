@@ -43,7 +43,7 @@ class TestBunnyAccess(AWTestBase):
 
     # test that the B.B. Wand event functions properly
     def test_bubble_long(self) -> None:
-        self.collect_all_but([iname.bubble, iname.bubble_long]),
+        self.collect_all_but([iname.bubble, iname.bubble_long_real]),
         self.assertFalse(self.can_reach_location(lname.bunny_water_spike))
         self.collect_by_name([iname.bubble]),
         self.assertTrue(self.can_reach_location(lname.bunny_water_spike))
