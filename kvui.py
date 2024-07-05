@@ -3,6 +3,8 @@ import logging
 import sys
 import typing
 import re
+import io
+import pkgutil
 from collections import deque
 
 if sys.platform == "win32":
@@ -35,6 +37,7 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.core.clipboard import Clipboard
 from kivy.core.text.markup import MarkupLabel
+from kivy.core.image import ImageLoader, ImageLoaderBase, ImageData
 from kivy.base import ExceptionHandler, ExceptionManager
 from kivy.clock import Clock
 from kivy.factory import Factory
@@ -768,6 +771,42 @@ class HintLog(RecycleView):
         for element in self.children[0].children:
             max_height = max(child.texture_size[1] for child in element.children)
             element.height = max_height
+
+
+class ImageLoaderPkgutil(ImageLoaderBase):
+    def load(self, filename):
+        # take off the "data:" prefix and the ".ap" suffix
+        module, path = filename[5:-3].split("|")
+        data = pkgutil.get_data(module, path)
+        return self._bytes_to_data(data)
+
+    def _bytes_to_data(self, data):
+        from PIL import Image as PImage
+        p_im = PImage.open(io.BytesIO(data)).convert("RGBA")
+        im_d = ImageData(p_im.size[0], p_im.size[1], p_im.mode.lower(), p_im.tobytes())
+        return [im_d]
+
+    @staticmethod
+    def extensions():
+        return ("ap",)
+
+    # @staticmethod
+    # def can_load_memory():
+    #     return True
+
+
+# grab the default loader method so we can override it but use it as a fallback
+DefaultLoad = ImageLoader.load
+
+
+def load_override(filename, default_load=DefaultLoad, **kwargs):
+    if filename[-3:] == ".ap":
+        return ImageLoaderPkgutil(filename)
+    else:
+        return default_load(filename, **kwargs)
+
+
+ImageLoader.load = load_override
 
 
 class E(ExceptionHandler):

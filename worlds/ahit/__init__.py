@@ -23,7 +23,7 @@ def launch_client():
 components.append(Component("A Hat in Time Client", "AHITClient", func=launch_client,
                             component_type=Type.CLIENT, icon='yatta'))
 
-icon_paths['yatta'] = local_path('data', 'yatta.png')
+icon_paths['yatta'] = f"data:{__name__}|data/yatta.png.ap"
 
 
 class AWebInTime(WebWorld):
