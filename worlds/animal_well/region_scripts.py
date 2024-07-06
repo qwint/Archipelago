@@ -163,7 +163,7 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                 location.access_rule = interpret_rule(data.rules, world)
                 if data.eggs_required:  # swap to count_from_list_unique in 0.5.0
                     add_rule(location, lambda state, eggs_required=data.eggs_required:
-                             state.count_group("Eggs", player) >= eggs_required * egg_ratio)
+                             state.count_from_list_unique(egg_group, player) >= eggs_required * egg_ratio)
                 aw_regions[origin_name].locations.append(location)
             elif data.type == AWType.region:
                 if data.bunny_warp and not options.bunny_warps_in_logic and not options.bunnies_as_checks:
