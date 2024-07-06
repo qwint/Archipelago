@@ -188,7 +188,7 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
 
     # a little hacky but oh well, it keeps other parts from being more convoluted
     bbwand = AWLocation(player, lname.upgraded_wand, None, aw_regions[rname.bird_area])
-    bbwand.place_locked_item(AWItem(iname.bubble_long, ItemClassification.progression, None, player))
+    bbwand.place_locked_item(AWItem(iname.bubble_long_real, ItemClassification.progression, None, player))
     bbwand.access_rule = lambda state: state.has(iname.bubble, player, 2)
     aw_regions[rname.bird_area].locations.append(bbwand)
 
