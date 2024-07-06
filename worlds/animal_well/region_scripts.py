@@ -4,7 +4,7 @@ from worlds.generic.Rules import CollectionRule, add_rule
 from .region_data import AWType, LocType
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .items import AWItem
-from .options import AnimalWellOptions, BunniesAsChecks, BubbleJumping, DiscHopping
+from .options import AnimalWellOptions, BunniesAsChecks, BubbleJumping, DiscHopping, WheelHopping
 
 if TYPE_CHECKING:
     from . import AnimalWellWorld
@@ -90,6 +90,11 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
         if not (iname.wheel_hop in sublist and not options.wheel_hopping)
     ]
     reqs = [
+        [iname.wheel if item == iname.wheel_hop_hard else item for item in sublist]
+        for sublist in reqs
+        if not (iname.wheel_hop_hard in sublist and not options.wheel_hopping == WheelHopping.option_advanced)
+    ]
+    reqs = [
         [iname.disc if item == iname.disc_hop else item for item in sublist]
         for sublist in reqs
         if not (iname.disc_hop in sublist and not options.disc_hopping)
@@ -114,7 +119,7 @@ def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
     return aw_regions
 
 
-# basicaly any(all(individual requirements))
+# basically any(all(individual requirements))
 def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> CollectionRule:
     # todo: check if we actually need to set equal here, or if we can just remove the returns
     # expand the helpers into individual items
