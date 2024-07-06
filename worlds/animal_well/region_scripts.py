@@ -80,7 +80,6 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
     return reqs
 
 
-# todo: double check the parentheses aren't inverting what we're looking for
 def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     # these convert [[wheel_hop], [disc]] to either [[wheel], [disc]] or [[disc]]
     # and convert [[disc_hop_hard]] to either [[disc]] or []
