@@ -119,12 +119,19 @@ class DiscHopping(Choice):
     default = 0
 
 
-class WheelHopping(Toggle):
+class WheelHopping(Choice):
     """
     Include toggling the wheel midair to get a double jump in logic.
+    Simple means doing it once midair to "double jump".
+    Advanced also adds more complicated tech, such as wall hug jumps.
+    Note: Tricks using wheel desyncs or wrong warps are not ever considered logical.
     """
     internal_name = "wheel_hopping"
     display_name = "Wheel Hopping"
+    option_off = 0
+    option_simple = 1
+    option_advanced = 2
+    default = 0
 
 
 class WeirdTricks(Toggle):
@@ -178,7 +185,7 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "eggs_needed": 64,
         "bubble_jumping": BubbleJumping.option_on,
         "disc_hopping": DiscHopping.option_multiple,
-        "wheel_hopping": True,
+        "wheel_hopping": WheelHopping.option_advanced,
         "weird_tricks": True,
         "bunnies_as_checks": BunniesAsChecks.option_all_bunnies
     },

@@ -252,6 +252,7 @@ class ItemNames(str, Enum):
     disc_hop = "Disc Jumping"  # hopping on a disc in midair without it bouncing first
     disc_hop_hard = "Consecutive Disc Jumps"  # hopping on a disc multiple times, or after a bubble jump
     wheel_hop = "Wheel Jump"  # expanding and retracting wheel midair to grant a double jump
+    wheel_hop_hard = "Advanced Wheel Jump"  # using other wheel exploits, such as wall climbs, to get access to areas that wheel jumps can't do alone 
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
     # rename tanking_damage's string when we have enough spots to make it viable as an option or something
