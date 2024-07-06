@@ -200,7 +200,7 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
         world.multiworld.regions.append(region)
 
     # special handling to deal with a quantity required
-    world.multiworld.get_entrance(rname.dog_bat_room.value + " -> " + rname.kangaroo_room, player).access_rule = \
+    world.multiworld.get_entrance(rname.dog_bat_room.value + " -> " + rname.kangaroo_room.value, player).access_rule = \
         lambda state: (state.has(iname.k_shard.value, player, 3) 
                        and (state.has_any({iname.disc.value, iname.bubble.value}, player)
                             or (state.has(iname.wheel.value, player) and options.wheel_hopping)))
