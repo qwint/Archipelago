@@ -256,7 +256,7 @@ class ItemNames(str, Enum):
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
     # rename tanking_damage's string when we have enough spots to make it viable as an option or something
-    tanking_damage = "Weird Tricks"  # for spots you can get to by taking up to 3 hearts of damage
+    tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
     weird_tricks = "Weird Tricks"  # skips that are questionably in logic and may constitute a difficulty setting later
 
     # songs, to potentially be randomized

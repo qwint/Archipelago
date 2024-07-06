@@ -108,6 +108,12 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
         for sublist in reqs
         if not (iname.weird_tricks in sublist and not options.weird_tricks)
     ]
+    # convert tanking damage to weird tricks for now
+    reqs = [
+        [None if item == iname.tanking_damage else item for item in sublist]
+        for sublist in reqs
+        if not (iname.tanking_damage in sublist and not options.weird_tricks)
+    ]
     return reqs
 
 
@@ -120,7 +126,6 @@ def create_aw_regions(world: "AnimalWellWorld") -> Dict[str, Region]:
 
 # basically any(all(individual requirements))
 def interpret_rule(reqs: List[List[str]], world: "AnimalWellWorld") -> CollectionRule:
-    # todo: check if we actually need to set equal here, or if we can just remove the returns
     # expand the helpers into individual items
     reqs = convert_key_reqs(reqs, world.options)
     reqs = convert_match_reqs(reqs, world.options)
