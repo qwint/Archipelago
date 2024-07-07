@@ -121,13 +121,13 @@ class DiscHopping(Choice):
 
 class WheelHopping(Choice):
     """
-    Include toggling the wheel midair to get a double jump in logic.
-    Simple means doing it once midair to "double jump".
-    Advanced also adds more complicated tech, such as wall hug jumps.
+    Include some tricks that involve using the wheel in unconventional ways.
+    Simple means toggling wheel midair to "double jump", or mashing against walls to climb them.
+    Advanced also adds more complicated tech, such as braking on walls or climbing walls out of jumps.
     Note: Tricks using wheel desyncs or wrong warps are not ever considered logical.
     """
-    internal_name = "wheel_hopping"
-    display_name = "Wheel Hopping"
+    internal_name = "wheel_tricks"
+    display_name = "Wheel Tricks"
     option_off = 0
     option_simple = 1
     option_advanced = 2
@@ -185,7 +185,7 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "eggs_needed": 64,
         "bubble_jumping": BubbleJumping.option_on,
         "disc_hopping": DiscHopping.option_multiple,
-        "wheel_hopping": WheelHopping.option_advanced,
+        "wheel_tricks": WheelHopping.option_advanced,
         "weird_tricks": True,
         "bunnies_as_checks": BunniesAsChecks.option_all_bunnies
     },

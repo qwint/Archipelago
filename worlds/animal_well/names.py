@@ -104,6 +104,7 @@ class RegionNames(str, Enum):
     barcode_bunny = "Barcode Bunny"  # barcode bunny is gotten in two places
     top_of_the_well = "Top of the Well"  # where the warp song takes you, right of the house
     chocolate_egg_spot = "Chocolate Egg Spot"
+    value_egg_spot = "Value Egg Spot" 
     match_center_well_spot = "Center Well Match Spot"  # in the shaft, across from chocolate egg
 
 
@@ -251,8 +252,9 @@ class ItemNames(str, Enum):
     can_open_flame = "Can Open Flame"  # you can break this with the flute and other items, need to verify which
     disc_hop = "Disc Jumping"  # hopping on a disc in midair without it bouncing first
     disc_hop_hard = "Consecutive Disc Jumps"  # hopping on a disc multiple times, or after a bubble jump
-    wheel_hop = "Wheel Jump"  # expanding and retracting wheel midair to grant a double jump
-    wheel_hop_hard = "Advanced Wheel Jump"  # using other wheel exploits, such as wall climbs, to get access to areas that wheel jumps can't do alone 
+    wheel_hop = "Wheel Hop"  # expanding and retracting wheel midair to grant a double jump
+    wheel_climb = "Wheel Climb"  # hugging a wall and mashing the jump button to get vertical
+    wheel_hard = "Advanced Wheel Techniques"  # using other wheel exploits, such as wall stalls, to get access to areas that wheel jumps/climbs can't do alone 
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
     # rename tanking_damage's string when we have enough spots to make it viable as an option or something
