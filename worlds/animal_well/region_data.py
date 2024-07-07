@@ -498,7 +498,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.candle_dog_dark_event:
             AWData(AWType.location, [[iname.matchbox]], event=iname.event_candle_dog_dark),
         rname.dog_chinchilla_skull:  # hit a switch with any number of things, or jump up there yourself
-            AWData(AWType.region, [[iname.bubble], [iname.remote], [iname.disc], [iname.ball], [iname.wheel_hop]
+            AWData(AWType.region, [[iname.bubble], [iname.remote], [iname.disc], [iname.ball], [iname.wheel_hop],
                                    [iname.top, iname.weird_tricks]]),
         rname.dog_upside_down_egg_spot:  # upper right of switch platform room above second dog
             AWData(AWType.region, [[iname.bubble_short]]),
