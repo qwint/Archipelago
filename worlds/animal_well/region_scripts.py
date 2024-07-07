@@ -86,12 +86,17 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
     reqs = [
         [iname.wheel if item == iname.wheel_hop else item for item in sublist]
         for sublist in reqs
-        if not (iname.wheel_hop in sublist and not options.wheel_hopping)
+        if not (iname.wheel_hop in sublist and not options.wheel_hopping)  
     ]
     reqs = [
-        [iname.wheel if item == iname.wheel_hop_hard else item for item in sublist]
+        [iname.wheel if item == iname.wheel_climb else item for item in sublist]
         for sublist in reqs
-        if not (iname.wheel_hop_hard in sublist and not options.wheel_hopping == WheelHopping.option_advanced)
+        if not (iname.wheel_climb in sublist and not options.wheel_hopping)
+    ]
+    reqs = [
+        [iname.wheel if item == iname.wheel_hard else item for item in sublist]
+        for sublist in reqs
+        if not (iname.wheel_hard in sublist and not options.wheel_hopping == WheelHopping.option_advanced)
     ]
     reqs = [
         [iname.disc if item == iname.disc_hop else item for item in sublist]
