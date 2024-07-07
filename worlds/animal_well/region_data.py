@@ -427,6 +427,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region),
         rname.bear_middle_phone_room:
             AWData(AWType.region),
+        # starting here, use slink to open a path to open the door to the match chest
         rname.bear_match_chest_spot:
             AWData(AWType.region, [[iname.slink]]),
     },
