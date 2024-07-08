@@ -785,7 +785,7 @@ class ApAsyncImage(AsyncImage):
 class ImageLoaderPkgutil(ImageLoaderBase):
     def load(self, filename):
         # take off the "ap:" prefix
-        module, path = filename[3:].split("|")
+        module, path = filename[3:].split("/", 1)
         data = pkgutil.get_data(module, path)
         return self._bytes_to_data(data)
 
