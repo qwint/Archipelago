@@ -64,6 +64,7 @@ from kivy.uix.recycleboxlayout import RecycleBoxLayout
 from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 from kivy.animation import Animation
 from kivy.uix.popup import Popup
+from kivy.uix.image import AsyncImage
 
 fade_in_animation = Animation(opacity=0, duration=0) + Animation(opacity=1, duration=0.25)
 
@@ -773,10 +774,18 @@ class HintLog(RecycleView):
             element.height = max_height
 
 
+class ApAsyncImage(AsyncImage):
+    def is_uri(self, filename):
+        if filename[:3] == "ap:":
+            return True
+        else:
+            return super().is_uri(filename)
+
+
 class ImageLoaderPkgutil(ImageLoaderBase):
     def load(self, filename):
-        # take off the "data:" prefix and the ".ap" suffix
-        module, path = filename[5:-3].split("|")
+        # take off the "ap:" prefix
+        module, path = filename[3:].split("|")
         data = pkgutil.get_data(module, path)
         return self._bytes_to_data(data)
 
@@ -786,21 +795,13 @@ class ImageLoaderPkgutil(ImageLoaderBase):
         im_d = ImageData(p_im.size[0], p_im.size[1], p_im.mode.lower(), p_im.tobytes())
         return [im_d]
 
-    @staticmethod
-    def extensions():
-        return ("ap",)
-
-    # @staticmethod
-    # def can_load_memory():
-    #     return True
-
 
 # grab the default loader method so we can override it but use it as a fallback
 DefaultLoad = ImageLoader.load
 
 
 def load_override(filename, default_load=DefaultLoad, **kwargs):
-    if filename[-3:] == ".ap":
+    if filename[:3] == "ap:":
         return ImageLoaderPkgutil(filename)
     else:
         return default_load(filename, **kwargs)
