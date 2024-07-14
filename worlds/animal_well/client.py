@@ -7,6 +7,7 @@ import asyncio
 import os
 import platform
 import traceback
+import time
 
 import pymem
 
@@ -14,10 +15,11 @@ import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
 from typing import Dict
-from .items import item_name_to_id
-from .locations import location_name_to_id, location_table, ByteSect
+from .items import item_name_to_id, item_id_to_name
+from .locations import location_name_to_id, location_id_to_name, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal
+from .patch import Patch
 
 CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
 CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
@@ -55,8 +57,10 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
 
                         if bool(flags >> 13 & 1):
                             logger.info("Removing C. Ring from inventory")
+                            display_to_client(self.ctx, "Removing C. Ring from inventory")
                         else:
                             logger.info("Adding C. Ring to inventory. Press F to use")
+                            display_to_client(self.ctx, "Adding C. Ring to inventory. Press F key (or R3 on gamepad) to use.")
 
                         bits = ((str(flags >> 0 & 1)) +  # House Opened
                                 (str(flags >> 1 & 1)) +  # Office Opened
@@ -130,6 +134,7 @@ class AnimalWellContext(CommonContext):
         self.get_animal_well_process_handle_task = None
         self.process_handle = None
         self.start_address = None
+        self.base_of_aw_module = None
         self.connection_status = CONNECTION_INITIAL_STATUS
         self.slot_data = {}
         self.slot_number: int = -1
@@ -138,6 +143,46 @@ class AnimalWellContext(CommonContext):
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
+        self.last_game_state = 0
+        self.custom_memory_space = None
+        self.revertable_patches = []
+        self.game_draw_routine_string_addr = None
+        self.game_draw_routine_string_size = 256
+        self.game_draw_routine_x_pos_addr = None
+        self.last_message_time = 0
+        self.message_timeout = 6
+        self.step_and_time_display_original_values = {
+            0x504fb: 2.0,
+            0x504ff: 2.0,
+            0x5053e: 6,
+            0x50543: 6,
+            0x5055a: 7,
+            0x5055f: 5,
+            0x50417: 310.0,
+            0x5041b: 3.0,
+            0x5044f: 280,
+            0x50454: 5,
+            0x50481: 278,
+            0x50486: 6,
+            0x504b3: 279,
+            0x504b8: 5
+        }
+        self.step_and_time_display_updated_values = {
+            0x504fb: 2.0,
+            0x504ff: 2.0 + 5,
+            0x5053e: 6,
+            0x50543: 6 + 5,
+            0x5055a: 7,
+            0x5055f: 5 + 5,
+            0x50417: 310.0,
+            0x5041b: 3.0 + 5,
+            0x5044f: 280,
+            0x50454: 5 + 5,
+            0x50481: 278,
+            0x50486: 6 + 5,
+            0x504b3: 279,
+            0x504b8: 5 + 5
+        }
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -170,6 +215,60 @@ class AnimalWellContext(CommonContext):
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
 
+        try:
+            def parseIds(data):
+                for item in data:
+                    if 'type' in item and 'text' in item:
+                        if item['type'] == 'player_id':
+                            item['text'] = self.player_names[int(item['text'])]
+                        elif item['type'] == 'item_id':
+                            item['text'] = item_id_to_name[int(item['text'])]
+                        elif item['type'] == 'location_id':
+                            item['text'] = location_id_to_name[int(item['text'])]
+
+                return data
+
+            if cmd == "PrintJSON":
+                msgType = args.get("type")
+                if msgType == "Chat":
+                    display_to_client(self, "".join(o['text'] for o in parseIds(args.get("data"))))
+                elif msgType == "Hint":
+                    text = "".join(o['text'] for o in parseIds(args.get("data")))
+                    display_to_client(self, text)
+                elif msgType == "Join":
+                    display_to_client(self, args.get('data')[0]['text'])
+                elif msgType == "CommandResult":
+                    display_to_client(self, args.get('data')[0]['text'])
+                elif msgType == "Tutorial":
+                    pass
+                elif msgType == "ItemSend":
+                    data = parseIds(args.get('data'))
+                    text = "".join(o['text'] for o in data).replace(')', '').replace('(', 'at ')
+                    display_to_client(self, text)
+                elif msgType == "Countdown":
+                    # {'cmd': 'PrintJSON', 'data': [{'text': '[Server]: GO'}], 'type': 'Countdown', 'countdown': 0}
+                    text = "".join(o['text'] for o in args.get('data'))
+                    display_to_client(self, text)
+                else:
+                    logger.info("Unhandled type of PrintJSON: [{}]: {}".format(msgType, args))
+            elif cmd == "Retrieved":
+                logger.info(f"[{cmd}]: {args}")
+            elif cmd == "ReceivedItems":
+                items = args.get("items")
+            elif cmd == "RoomUpdate":
+                checked_locations = args.get("checked_locations")
+            elif cmd == "Bounced":
+                pass
+            elif cmd == "RoomInfo":
+                pass
+            elif cmd == "Connected":
+                display_to_client(self, 'AP Client: Connected! AP Server: Connected!')
+            else:
+                logger.info("Unknown Command: [{}]: {}".format(cmd, args))
+        except Exception as e:
+            logger.error("Error while parsing Package from AP: %s", e)
+            logger.info('Package details: {}'.format(args))
+
     def get_active_game_slot(self) -> int:
         """
         Get the game slot currently being played
@@ -181,7 +280,26 @@ class AnimalWellContext(CommonContext):
             return slot
         else:
             raise NotImplementedError("Only Windows is implemented right now")
+    def check_if_in_game(self) -> bool:
+        """
+        Checks if the game is currently running or is still in the main menu
+        """
+        current_game_state = self.process_handle.read_uchar(self.start_address + 0x750cc)
 
+        if current_game_state != self.last_game_state:
+            self.last_game_state = current_game_state
+            if current_game_state == 1:
+                logger.info(f'Game currently displaying the splash screens. Deferring until new game is started or saved game is loaded...')
+            elif current_game_state == 2:
+                logger.info(f'Game currently displaying the main menu. Deferring until new game is started or saved game is loaded...')
+            elif current_game_state == 3:
+                logger.info(f'Game currently displaying the new game intro scene. Deferring until new game is started or saved game is loaded...')
+            elif current_game_state == 4:
+                logger.info(f'Game is now loaded and running!')
+            else:
+                logger.info(f'Game currently in unknown game state {current_game_state}. Deferring until new game is started or saved game is loaded...')
+
+        return current_game_state == 4
 
 class AWLocations:
     """
@@ -200,6 +318,8 @@ class AWLocations:
         """
         try:
             if platform.uname()[0] == "Windows":
+                if not ctx.check_if_in_game(): return
+
                 active_slot = ctx.get_active_game_slot()
                 slot_address = ctx.start_address + HEADER_LENGTH + (SAVE_SLOT_LENGTH * active_slot)
 
@@ -548,8 +668,12 @@ class AWItems:
         """
         try:
             if platform.uname()[0] == "Windows":
+                if not ctx.check_if_in_game(): return
+
                 active_slot = ctx.get_active_game_slot()
                 slot_address = ctx.start_address + HEADER_LENGTH + (SAVE_SLOT_LENGTH * active_slot)
+
+                ctx.process_handle.write_bytes(ctx.start_address + 0xE, b'\x00', 1) # no checksum manticores allowed!
 
                 # Read Quest State
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1EC, 4), byteorder="little")
@@ -866,6 +990,21 @@ class AWItems:
             traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
+def display_to_client(ctx: AnimalWellContext, text: str):
+    try:
+        if type(text) != "str":
+            text = str(text)
+
+        if ctx.game_draw_routine_string_addr != None:
+            newStringBuffer = f"{text:.120}".encode('utf-16le') + b'\x00\x00'
+            ctx.process_handle.write_bytes(ctx.game_draw_routine_string_addr, newStringBuffer, len(newStringBuffer))
+
+            if text != '':
+                ctx.last_message_time = time.time()
+            else:
+                ctx.last_message_time = 0
+    except Exception as e:
+        logger.error("Error while attempting to display text to client: %s", e)
 
 async def get_animal_well_process_handle(ctx: AnimalWellContext):
     """
@@ -879,19 +1018,155 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             logger.debug("Found PID %d", process_handle.process_id)
 
             logger.info("Searching for 'Animal Well.exe' module in process memory...")
-            aw_module = next(f for f in list(process_handle.list_modules()) if f.name.startswith("Animal Well.exe"))
-            if aw_module:
-                logger.info("Found it: Name(%s), BaseOfDll(%s)", aw_module.name, hex(aw_module.lpBaseOfDll))
+            awModule = next(f for f in list(process_handle.list_modules()) if f.name.startswith("Animal Well.exe"))
 
-                pointer_address = aw_module.lpBaseOfDll + 0x02BD5308
-                logger.info("Attempting to find start address via pointer at %s", hex(pointer_address))
+            if awModule:
+                logger.info(f'Found it: Name({awModule.name}), BaseOfDll({hex(awModule.lpBaseOfDll)})')
 
-                pointer = process_handle.read_uint(pointer_address)
-                logger.info("start address of memory: %s + 0x400 = %s", hex(pointer), hex(pointer + 0x400))
+                ctx.base_of_aw_module = awModule.lpBaseOfDll
+
+                pointerAddress = awModule.lpBaseOfDll + 0x02BD5308
+                logger.info(f'Attempting to find start address via pointer at {hex(pointerAddress)}')
+
+                pointer = process_handle.read_uint(pointerAddress)
+                logger.info(f'start address of memory: {hex(pointer)} + 0x400 = {hex(pointer + 0x400)}')
 
                 address = pointer + 0x400
 
-            if not address:
+                custom_space_size = 0x10000
+                ctx.custom_memory_space = process_handle.allocate(custom_space_size)
+                current_custom_space_offset = ctx.custom_memory_space
+
+                # region Existing Functions
+                draw_small_text_function = ctx.base_of_aw_module + 0x6E3F0
+                push_shader_to_stack = ctx.base_of_aw_module + 0x17840
+                pop_shader_from_stack = ctx.base_of_aw_module + 0x178A0
+                push_color_to_stack = ctx.base_of_aw_module + 0x177D0
+                pop_color_from_stack = ctx.base_of_aw_module + 0x17830
+                pop_from_other_stack = ctx.base_of_aw_module + 0x17920
+                set_tall_text_mode = ctx.base_of_aw_module + 0x6DC00
+                set_current_color = ctx.base_of_aw_module + 0x177B0
+                set_current_shader = ctx.base_of_aw_module + 0x1A280
+                # endregion
+
+                # region Main Menu Randomizer Title Draw Patch
+                main_menu_draw_string_size = 80
+
+                main_menu_draw_injection_address = ctx.base_of_aw_module + 0x1f025
+
+                ctx.main_menu_draw_string_addr = current_custom_space_offset
+                current_custom_space_offset += main_menu_draw_string_size + 0x10
+
+                main_menu_draw_routine_address = current_custom_space_offset
+
+                main_menu_draw_trampoline = (Patch('main_menu_draw_trampoline', main_menu_draw_injection_address, process_handle)
+                                             .mov_to_rax(main_menu_draw_routine_address).jmp_rax().nop(3))
+
+                title_text_x = 190              # below the right side of the ANIMAL WELL logo
+                title_text_y = 74
+                title_text_color = 0xff44ffff
+                title_text_shader = 0x0f        # 07 and 0f are both good options, 07 shows more of the background through it (values over 0x34 will crash)
+                title_text_tall_font = 0x00     # 01 to use a TALL font
+                main_menu_draw_patch = (Patch('main_menu_draw_randomizer_info', main_menu_draw_routine_address, process_handle)
+                                        .mov_ecx(0x0f).mov_to_rax(set_current_shader).call_rax()
+                                        .mov_ecx(0xff000000).mov_to_rax(set_current_color).call_rax()
+                                        .mov_ecx(title_text_tall_font).mov_to_rax(set_tall_text_mode).call_rax()
+                                        .mov_ecx(title_text_x).mov_edx(title_text_y - 1).mov_to_rax(ctx.main_menu_draw_string_addr).mov_rax_to_r8().mov_to_rax(draw_small_text_function).call_rax()
+                                        .mov_ecx(0x0).mov_to_rax(set_tall_text_mode).call_rax()
+                                        .mov_ecx(title_text_shader).mov_to_rax(set_current_shader).call_rax()
+                                        .mov_ecx(title_text_color).mov_to_rax(set_current_color).call_rax()
+                                        .mov_ecx(title_text_tall_font).mov_to_rax(set_tall_text_mode).call_rax()
+                                        .mov_ecx(title_text_x).mov_edx(title_text_y).mov_to_rax(ctx.main_menu_draw_string_addr).mov_rax_to_r8().mov_to_rax(draw_small_text_function).call_rax()
+                                        .mov_ecx(0x0).mov_to_rax(set_tall_text_mode).call_rax()
+                                        .mov_to_rax(pop_shader_from_stack).call_rax()
+                                        .mov_to_rax(pop_color_from_stack).call_rax()
+                                        .mov_to_rax(pop_from_other_stack).call_rax()
+                                        .mov_to_rax(main_menu_draw_injection_address + len(main_menu_draw_trampoline.byte_list)).jmp_rax())
+
+                current_custom_space_offset += len(main_menu_draw_patch) + 0x10
+
+                title_screen_text = 'AP Randomizer'.encode('utf-16le')
+                process_handle.write_bytes(ctx.main_menu_draw_string_addr, title_screen_text, len(title_screen_text))
+
+                logger.info('Applying main menu draw patches...')
+
+                main_menu_draw_patch.apply()
+
+                if main_menu_draw_trampoline.apply():
+                    ctx.revertable_patches.append(main_menu_draw_trampoline)
+                # endregion
+
+
+                # region In-game Client Text Display Patch
+                ctx.draw_routine_string_size = 100
+
+                game_draw_injection_address = ctx.base_of_aw_module + 0x5068b
+
+                ctx.game_draw_routine_string_addr = current_custom_space_offset
+                current_custom_space_offset += ctx.draw_routine_string_size + 0x10
+
+                ctx.game_draw_routine_x_pos_addr = current_custom_space_offset
+                current_custom_space_offset += ctx.draw_routine_string_size + 0x4
+
+                game_draw_code_address = current_custom_space_offset
+
+                draw_trampoline_patch = Patch('game_draw_trampoline', game_draw_injection_address, process_handle)
+                draw_trampoline_patch.mov_to_rax(game_draw_code_address).jmp_rax()
+
+                for offset, value in ctx.step_and_time_display_updated_values.items():
+                    if type(value) == int:
+                        process_handle.write_uint(ctx.base_of_aw_module + offset, value)
+                    elif type(value) == float:
+                        process_handle.write_float(ctx.base_of_aw_module + offset, value)
+
+                client_text_display_x = 1
+                client_text_display_y = 1               # lines the text up with the very top tile row
+                # TODO: store the display color somewhere so we can change it appropriate to each message we show
+                client_text_display_color = 0xffffaaaa  # format is aabbggrr (alpha, blue, green, red)
+                # 0x29: foreground, ignore lights, color. 0x21: foreground, glowing, white. 0x1f: foreground, glowing, color. (values over 0x34 will crash)
+                client_text_display_shader = 0x1f
+
+                draw_patch = (Patch('game_draw_client_text', game_draw_code_address, process_handle)
+                              .mov_ecx(client_text_display_shader).mov_to_rax(push_shader_to_stack).call_rax()
+                              .mov_ecx(client_text_display_color).mov_to_rax(push_color_to_stack).call_rax()
+                              .mov_ecx(client_text_display_x).mov_edx(client_text_display_y).mov_to_rax(ctx.game_draw_routine_string_addr).mov_rax_to_r8()
+                              .mov_to_rax(draw_small_text_function).call_rax()
+                              .mov_to_rax(pop_color_from_stack).call_rax()
+                              .mov_to_rax(pop_shader_from_stack).call_rax()
+                              .add_rsp(0x00000198).pop_rbx().pop_rbp().pop_rdi().pop_rsi().pop_r12()
+                              .mov_to_rax(game_draw_injection_address + 0xd).jmp_rax())
+
+                current_custom_space_offset += len(draw_patch) + 0x10
+
+                default_in_game_message = 'AP Client: Connected! AP Server: Not Connected!'.encode('utf-16le')
+                process_handle.write_bytes(ctx.game_draw_routine_string_addr, default_in_game_message, len(default_in_game_message))
+                ctx.last_message_time = time.time()
+                #endregion
+
+                logger.info('Applying in-game draw patches...')
+
+                draw_patch.apply()
+
+                if draw_trampoline_patch.apply():
+                    ctx.revertable_patches.append(draw_trampoline_patch)
+                #endregion
+
+                logger.info('Misc patches...')
+
+                room_filter_override_patch_enabled = False
+                if room_filter_override_patch_enabled:
+                    room_filter_override_shader = 0x14
+                    logger.info('Applying room filter override patch...')
+                    room_filter_override_patch = (Patch('room_filter_override', ctx.base_of_aw_module + 0x2e26, process_handle).mov_to_eax(room_filter_override_shader).nop(1))
+                                                  # .add_bytes(b'\xb8' + room_filter_override_shader.to_bytes(4, 'little') + b'\x90'))
+                    if room_filter_override_patch.apply():
+                        ctx.revertable_patches.append(room_filter_override_patch)
+
+                # mural bytes at slot + 0x26eaf
+                # default mural bytes at 0x142094600
+                # solved bunny bytes = bytearray.fromhex('37 00 00 00 40 01 05 00 00 00 0C 00 40 00 40 46 05 0C 18 09 08 01 90 31 40 46 05 37 F4 07 48 04 40 0E 40 19 01 0C F0 03 32 09 00 02 00 59 00 18 F4 07 02 48 00 02 00 54 05 44 98 09 02 98 01 08 00 55 14 10 80 00 0E 42 00 58 05 15 52 20 8C 00 32 82 00 55 55 55 50 82 8C 08 82 80 40 55 55 55 55 81 88 32 88 80 50 55 55 55 55 81 88 C0 88 80 54 55 55 55 55 20 20 88 88 20 54 55 55 55 15 20 20 20 8C 23 54 55 55 55 E5 EF 23 2C EF FE 56 55 55 55 E5 FF EF EF BE FD 56 55 55 55 E5 FF FF BB 7B F6 54 55 55 55 01 FC E7 EE EF F9 50 55 55 55 00 F0 99 BB BE EF 43 55 55 15 00 FF E6 EE FB BE 0F 00 00 00 FC BF BB BB')
+
+            if address is None:
                 savefile_location = \
                     rf"C:\Users\{os.getenv('USERNAME')}\AppData\LocalLow\Billy Basso\Animal Well\AnimalWell.sav"
                 logger.debug("Reading save file data from default location: %s", savefile_location)
@@ -1030,6 +1305,11 @@ async def process_sync_task(ctx: AnimalWellContext):
             await locations.write_to_archipelago(ctx)
             await items.read_from_archipelago(ctx)
             items.write_to_game(ctx)
+
+            if ctx.last_message_time != 0:
+                if time.time() - ctx.last_message_time >= ctx.message_timeout:
+                    display_to_client(ctx, '')
+
         await asyncio.sleep(0.1)
 
 
@@ -1057,6 +1337,19 @@ def launch():
         await ctx.exit_event.wait()
         ctx.server_address = None
         await ctx.shutdown()
+
+        logger.info('Reverting any patches that we can...')
+        for patch in ctx.revertable_patches:
+            if patch.patch_applied:
+                patch.revert()
+
+        for offset, value in ctx.step_and_time_display_original_values.items():
+            if type(value) == int:
+                ctx.process_handle.write_uint(ctx.base_of_aw_module + offset, value)
+            elif type(value) == float:
+                ctx.process_handle.write_float(ctx.base_of_aw_module + offset, value)
+
+        ctx.custom_memory_space = None          # TODO: Free this memory back when we're unhooking from AW
 
         if ctx.process_sync_task:
             ctx.process_sync_task.cancel()

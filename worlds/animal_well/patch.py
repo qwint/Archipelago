@@ -126,6 +126,10 @@ class Patch:
         self.add_bytes(b'\x0f\x87' + diff.to_bytes(4, 'little'))
         return self
 
+    def mov_to_eax(self, value):
+        self.add_bytes(b'\xb8' + value.to_bytes(4, 'little'))
+        return self
+
     def mov_to_rax(self, value): #10
         self.add_bytes(b'\x48\xb8' + value.to_bytes(8, 'little'))
         return self
