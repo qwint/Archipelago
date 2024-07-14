@@ -1128,6 +1128,10 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
 
                 draw_patch = (Patch('game_draw_client_text', game_draw_code_address, process_handle)
                               .mov_ecx(client_text_display_shader).mov_to_rax(push_shader_to_stack).call_rax()
+                              .mov_ecx(0xff000000).mov_to_rax(push_color_to_stack).call_rax()
+                              .mov_ecx(client_text_display_x + 1).mov_edx(client_text_display_y).mov_to_rax(ctx.game_draw_routine_string_addr).mov_rax_to_r8()
+                              .mov_to_rax(draw_small_text_function).call_rax()
+                              .mov_to_rax(pop_color_from_stack).call_rax()
                               .mov_ecx(client_text_display_color).mov_to_rax(push_color_to_stack).call_rax()
                               .mov_ecx(client_text_display_x).mov_edx(client_text_display_y).mov_to_rax(ctx.game_draw_routine_string_addr).mov_rax_to_r8()
                               .mov_to_rax(draw_small_text_function).call_rax()
