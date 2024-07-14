@@ -131,6 +131,7 @@ item_table: Dict[str, AWItemData] = {
 }
 
 item_name_to_id: Dict[str, int] = {name: item_base_id + data.offset for name, data in item_table.items()}
+item_id_to_name: Dict[int, str] = {item_base_id + data.offset: name for name, data in item_table.items()}
 
 filler_items: List[str] = [name for name, data in item_table.items() if data.classification == IClass.filler]
 
