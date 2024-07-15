@@ -184,7 +184,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_normal:  # hidden wall in lower left of first bubble room
             AWData(AWType.location),
         lname.egg_dazzle:  # little obstacle course, feels like the bubble jump tutorial?
-            AWData(AWType.location, [[iname.bubble], [iname.disc, iname.wheel]]),
+            AWData(AWType.location, [[iname.bubble], [iname.disc, iname.wheel], [iname.disc_hop_hard]]),
         rname.fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         lname.egg_sunset:  # break the spikes in the room to the right of the fish warp
@@ -211,7 +211,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
                                      [iname.wheel_hard], [iname.bubble, iname.disc]]),
         rname.fish_lower:  # bubble to go down, activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
-                                   [iname.remote, iname.wheel_hard], [iname.bubble, iname.disc]]),
+                                   [iname.remote, iname.wheel_hard], [iname.disc, iname.wheel_hard, iname.weird_tricks]  # throwing disc to hit switch while wheel stalling is very tight
+                                   [iname.bubble, iname.disc]]),
         lname.activate_fish_fast_travel:  # vertical implied by access
             AWData(AWType.location, [[iname.flute]], event=iname.activated_fish_fast_travel),
         rname.fast_travel:  # vertical implied by access
@@ -439,7 +440,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.match_center_well_spot:
             AWData(AWType.region),  # wall is flush, just hold left
         rname.bear_truth_egg_spot:
-            AWData(AWType.region, [[iname.wheel_hard]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.weird_tricks]]),
         # top_of_the_well:  # unnecessary because of the connection from match center spot
         #     AWData(AWType.region, [[iname.bubble_long]]),
         rname.bear_upper_phone_room:
@@ -928,13 +929,13 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_pickled:  # hold right while falling down the well
             AWData(AWType.location),
         rname.chocolate_egg_spot:
-            AWData(AWType.region, [[iname.bubble]]),  # wall juts out, need bubble
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble]]),  # wall juts out, need bubble
         rname.match_center_well_spot:
             AWData(AWType.region),  # wall is flush, just hold left
         rname.bear_match_chest_spot:
-            AWData(AWType.region, [[iname.wheel_hard]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble]]),
         rname.bear_truth_egg_spot:
-            AWData(AWType.region, [[iname.wheel_hard]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.weird_tricks]]),
     },
     rname.chocolate_egg_spot: {
         lname.egg_chocolate:  # across from center well match
@@ -946,7 +947,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.top_of_the_well:
             AWData(AWType.region, [[iname.bubble_long], [iname.wheel_hard]]),
         rname.bear_truth_egg_spot:
-            AWData(AWType.region, [[iname.wheel_hard]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.weird_tricks]]),
     },
     rname.match_center_well_spot: {
         lname.match_center_well:  # across from the chocolate egg
@@ -958,7 +959,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.top_of_the_well:
             AWData(AWType.region, [[iname.bubble_long], [iname.wheel_hard]]),
         rname.bear_truth_egg_spot:
-            AWData(AWType.region, [[iname.wheel_hard]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.weird_tricks]]),
     },
 
     rname.fast_travel: {
