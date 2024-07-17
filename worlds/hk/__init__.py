@@ -163,7 +163,7 @@ class HKWorld(World):
 
     As the enigmatic Knight, you’ll traverse the depths, unravel its mysteries and conquer its evils.
     """  # from https://www.hollowknight.com
-    game: str = "Hollow Knight"
+    game: str = "Hollow Knight OG"
     options_dataclass = HKOptions
     options: HKOptions
     settings: typing.ClassVar[HollowKnightSettings]
