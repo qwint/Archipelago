@@ -211,7 +211,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
                                      [iname.wheel_hard], [iname.bubble, iname.disc]]),
         rname.fish_lower:  # bubble to go down, activate switches, breakspike to pass icicles in first penguin room
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
-                                   [iname.remote, iname.wheel_hard], [iname.disc, iname.wheel_hard, iname.weird_tricks]  # throwing disc to hit switch while wheel stalling is very tight
+                                   [iname.remote, iname.wheel_hard], [iname.disc, iname.wheel_hard, iname.weird_tricks],  # throwing disc to hit switch while wheel stalling is very tight
                                    [iname.bubble, iname.disc]]),
         lname.activate_fish_fast_travel:  # vertical implied by access
             AWData(AWType.location, [[iname.flute]], event=iname.activated_fish_fast_travel),
