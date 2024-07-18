@@ -440,6 +440,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.match_center_well_spot:
             AWData(AWType.region),  # wall is flush, just hold left
         rname.bear_truth_egg_spot:
+            # fall down the shaft, catch yourself on a bubble, and jump right quickly before the bird pops it
             AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.weird_tricks]]),
         # top_of_the_well:  # unnecessary because of the connection from match center spot
         #     AWData(AWType.region, [[iname.bubble_long]]),
