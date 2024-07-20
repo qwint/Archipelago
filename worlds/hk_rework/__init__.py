@@ -60,15 +60,37 @@ gamename = "Hollow Knight"
 base_id = 0x1000000
 
 
+class HK_state_diff(NamedTuple):
+    shadeskip: int
+    # shade health needed, 0 if unneeded
+
+    damage: int
+    # health needed for damage boosts
+
+    twister_required: bool
+    # shortcut logic if any step in a spell skip needs 4 casts
+
+    total_casts: int
+    # shortcut logic for the total casts for all steps in spell stalls
+
+    before: bool
+    # determined in parsing that we have beforesoul
+
+    after: bool
+    # determined in parsing that we have afteresoul
+
+
 class HKClause(NamedTuple):
     hk_item_requirements: Counter[str]
     hk_region_requirements: List[str]
+    hk_state_requirements: HK_state_diff
     hk_state_modifiers: Any  # figure this out later
 
 
 default_hk_rule = HKClause(
     hk_item_requirements=Counter({"True": 1}),
     hk_region_requirements=[],
+    hk_state_requirements=HK_state_diff(shadeskip=0, damage=0, twister_required=False, total_casts=0, before=False, after=False),
     hk_state_modifiers=[],
     )
 
@@ -106,7 +128,7 @@ class HKLocation(Location):
         for clause in self.hk_rule:
             if state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements) \
-                    and state._hk_any_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
+                    and state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
                 return True
         # no clause was True,
         return False
@@ -154,7 +176,7 @@ class HKEntrance(Entrance):
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
-                if state._hk_any_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
+                if state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
                     state._hk_apply_state_to_region(self, clause.hk_state_modifiers)
                     valid_clauses[index] = True
 
@@ -474,41 +496,105 @@ class HKWorld(RandomizerCoreWorld):
 
             return False, ret
 
+        def parse_refill_logic(reqs: List[str], valid_keys) -> bool:
+            # i'm only expecting one req but it may be an empty list
+            if reqs:
+                key = reqs[0].split(":")[1]  # grab the second half
+                if key in valid_keys:
+                    return True
+            return False
+
+        def parse_cast_logic(req: str, valid_keys) -> Tuple[List[int], bool, bool]:
+            search = re.search(r".*\[(.*)\]", req)
+            if not search:
+                # assume it means 1 cast
+                return [1], False, False
+            params = search.groups(1)[0].split(",")
+            casts = [int(cast) for cast in params if not cast.startswith("before") and not cast.startswith("after")]
+            before = parse_refill_logic([i for i in params if i.startswith("before")], valid_keys)
+            after = parse_refill_logic([i for i in params if i.startswith("after")], valid_keys)
+            return casts, before, after
+
         import re
         assert rule != []
         hk_rule = []
         for clause in rule:
             item_requirements = clause["item_requirements"]
             skip_clause = False
+            shadeskips = [0]
+            damage = [0]
+            casts = [0]
+            before = False
+            after = False
+            valid_keys = {key for key in ("ROOMSOUL", "AREASOUL", "MAPAREASOUL")}
+            # TODO with ER change this logic
+            if self.options.RandomizeCharms:  # TODO confirm
+                valid_keys.update("ITEMSOUL")
+
             for req in clause["state_modifiers"]:
                 # "$CASTSPELL", "$EQUIPPEDCHARM", "$SHRIEKPOGO", "$SHADESKIP", "$BENCHRESET", "$TAKEDAMAGE", "$HOTSPRINGRESET", "$STAGSTATEMODIFIER", "$SLOPEBALL", "$WARPTOSTART", "$FLOWERGET", "NOFLOWER=FALSE"
                 if req.startswith("$EQUIPPEDCHARM"):
                     charm = re.search(r"\$EQUIPPEDCHARM\[(.*)\]", req).group(1)
                     if charm == "Kingsoul":
                         charm = "WHITEFRAGMENT"
-                    item_requirements.append(charm)
+                        item_requirements.append(charm)
 
-                # TODO confirm the rest of this is required
-                if req.startswith("$SHRIEKPOGO"):
-                    if True or not self.options.ShriekPogo:  # currently unsupported
-                        skip_clause = True
-                    item_requirements.append("SCREAM>1")
                 if req.startswith("$SHADESKIP"):
                     if not self.options.ShadeSkips:
                         skip_clause = True
+                    else:
+                        search = re.search(r".*\[(.*)HITS\]", req)
+                        if not search:
+                            shadeskip.append(1)
+                        else:
+                            shadeskip.append(search.groups(1)[0])
+
+                if req.startswith("$CASTSPELL"):
+                    # any skips will be marked, this covers dive uses too
+                    c, b, a = parse_cast_logic(req, valid_keys)
+                    casts += c
+                    before = b if b else before
+                    after = a if a else after
+                if req.startswith("$SHRIEKPOGO"):
+                    if True or not self.options.ShriekPogo:  # currently unsupported
+                        skip_clause = True
+                    else:
+                        c, b, a = parse_cast_logic(req, valid_keys)
+                        casts += c
+                        before = b if b else before
+                        after = a if a else after
+                        item_requirements.append("SCREAM>1")
                 if req.startswith("$SLOPEBALL"):
                     if True or not self.options.SlopeBall:  # currently unsupported
                         skip_clause = True
-                    item_requirements.append("FIREBALL")
+                    else:
+                        c, b, a = parse_cast_logic(req, valid_keys)
+                        casts += c
+                        before = b if b else before
+                        after = a if a else after
+                        item_requirements.append("FIREBALL")
                     # can roll back to vs in mod
                 # handled in logic directly
-                # if req.startswith("$TAKEDAMAGE"):
-                #     if not self.options.DamageBoosts:
-                #         skip_clause = True
+                if req.startswith("$TAKEDAMAGE"):
+                    search = re.search(r".*\[(.*)HITS\]", req)
+                    if not search:
+                        damage.append(1)
+                    else:
+                        damage.append(search.groups(1)[0])
+                    # if not self.options.DamageBoosts:
+                    #     skip_clause = True
 
             # checking for a False condidtion before and after item parsing for short circuiting
             if skip_clause:
                 continue
+            state_requirements = HK_state_diff(
+                shadeskip=max(*shadeskips, 0),
+                damage=max(*damage, 0),
+                twister_required=any(cast > 3 for cast in casts),
+                total_casts=sum(casts),
+                before=before,
+                after=after,
+                )
             skip_clause, items = parse_item_logic(item_requirements)
             if skip_clause:
                 continue
@@ -518,6 +604,7 @@ class HKWorld(RandomizerCoreWorld):
             hk_rule.append(HKClause(
                 hk_item_requirements=items,
                 hk_region_requirements=clause["location_requirements"],  # TODO: update
+                hk_state_requirements=state_requirements,
                 hk_state_modifiers=clause["state_modifiers"],
                 ))
 

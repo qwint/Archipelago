@@ -11,21 +11,9 @@ if TYPE_CHECKING:
 default_state = ([], Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0}))
 FULL_SOUL = 12
 BASE_NOTCHES = 3
-charm_name_to_id = {name: index for index, name in enumerate(charm_names)}  # if name in ("Spell_Twister", "Fragile_Heart")}
-
-
-class HK_state_diff(NamedTuple):
-    shadeskip: int
-    # shade health needed, 0 if unneeded
-
-    damage: int
-    # health needed for damage boosts
-
-    twister_required: bool
-    # shortcut logic if any step in a spell skip needs 4 casts
-
-    total_casts: int
-    # shortcut logic for the total casts for all steps in spell stalls
+BASE_HEALTH = 4
+charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(charm_names)}  # if name in ("Spell_Twister", "Fragile_Heart")}
+                    # TODO >:(
 
 
 class HKLogicMixin(LogicMixin):
@@ -83,8 +71,11 @@ class HKLogicMixin(LogicMixin):
         need_soul = False
         need_health = False
 
-        TEST_fake_state = HK_state_diff(shadeskip=0, damage=0, twister_required=False, total_casts=0)
-        state_requirement = TEST_fake_state
+        # TODO cleanup
+        # print(state_requirement)
+        # from . import HK_state_diff
+        # TEST_fake_state = HK_state_diff(shadeskip=0, damage=0, twister_required=False, total_casts=0, before=False, after=False)
+        # state_requirement = TEST_fake_state
 
         # doing early for short circuiting
         if state_requirement.shadeskip > 0 and parent_state["SHADESPENT"] > 0:
@@ -141,7 +132,7 @@ class HKLogicMixin(LogicMixin):
             self.multiworld.worlds[player].charm_costs[charm_name_to_id[charm]]
             for charm in potential_charms
             ]
-        if not avaible_notches >= sum(potential_costs):
+        if not potential_charms or not avaliable_notches >= sum(potential_costs):
             return False, []
         else:
             new_state = deepcopy(parent_state)  # .copy()
