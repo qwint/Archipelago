@@ -105,8 +105,8 @@ class HKLocation(Location):
 
         for clause in self.hk_rule:
             if state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements):  # \
-                    # and state._hk_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
+                    and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements) \
+                    and state._hk_any_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
                 return True
         # no clause was True,
         return False
@@ -154,10 +154,12 @@ class HKEntrance(Entrance):
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
-                if state._hk_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
+                if state._hk_any_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
                     state._hk_apply_diff_to_region(self, clause.hk_state_modifiers)
                     valid_clauses[index] = True
 
+        if self.parent_region == "Menu":
+            print(valid_clauses)
         if any(clause for clause in valid_clauses.values()):
             return True
         else:
@@ -510,6 +512,9 @@ class HKWorld(RandomizerCoreWorld):
             skip_clause, items = parse_item_logic(item_requirements)
             if skip_clause:
                 continue
+            for item in items:
+                assert item == "FALSE" or item in item_effects or item in logic_items or item in event_locations, \
+                 f"{item} not found in advancements"
             hk_rule.append(HKClause(
                 hk_item_requirements=items,
                 hk_region_requirements=clause["location_requirements"],  # TODO: update
