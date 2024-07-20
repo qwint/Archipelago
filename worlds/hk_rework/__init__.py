@@ -139,7 +139,7 @@ class HKEntrance(Entrance):
     def access_rule(self, state: CollectionState) -> bool:
         # TODO pass on states and return True
         if self.hk_rule == default_hk_rule:
-            state._hk_apply_diff_to_region(self, None)
+            state._hk_apply_state_to_region(self, None)
             return True
         if not state._hk_entrance_clause_cache[self.player].get(self.name, None):
             # if there's no cache for this entrance, make one with everything False
@@ -149,13 +149,13 @@ class HKEntrance(Entrance):
         valid_clauses = {}
         for index, clause in enumerate(self.hk_rule):
             if state._hk_entrance_clause_cache[self.player][self.name][index]:
-                state._hk_apply_diff_to_region(self, clause.hk_state_modifiers)
+                state._hk_apply_state_to_region(self, clause.hk_state_modifiers)
                 valid_clauses[index] = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
                 if state._hk_any_state_valid_for_region(clause.hk_state_modifiers, self.parent_region):
-                    state._hk_apply_diff_to_region(self, clause.hk_state_modifiers)
+                    state._hk_apply_state_to_region(self, clause.hk_state_modifiers)
                     valid_clauses[index] = True
 
         if self.parent_region == "Menu":

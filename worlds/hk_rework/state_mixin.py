@@ -18,6 +18,9 @@ class HK_state_diff(NamedTuple):
     shadeskip: int
     # shade health needed, 0 if unneeded
 
+    damage: int
+    # health needed for damage boosts
+
     twister_required: bool
     # shortcut logic if any step in a spell skip needs 4 casts
 
@@ -80,7 +83,7 @@ class HKLogicMixin(LogicMixin):
         need_soul = False
         need_health = False
 
-        TEST_fake_state = HK_state_diff(shadeskip=0, twister_required=False, total_casts=0)
+        TEST_fake_state = HK_state_diff(shadeskip=0, damage=0, twister_required=False, total_casts=0)
         state_requirement = TEST_fake_state
 
         # doing early for short circuiting
@@ -171,9 +174,6 @@ class HKLogicMixin(LogicMixin):
         player = region.player
         parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, [])
 
-        if len(parent_resource_state) > 0:
-            # if we don't even have default state then the region is inaccessible
-            return False
         for resource_state in parent_resource_state:
             accessible, _ = self._hk_check_state_valid(player, state_requirement, resource_state[0], resource_state[1])
             if accessible:
@@ -183,7 +183,7 @@ class HKLogicMixin(LogicMixin):
         # if we got this far without returning True then we ran out of options
         return False
 
-    def _hk_apply_state_to_region(self, state_requirement, parent_region, target_region) -> bool:
+    def _hk_apply_state_to_region(self, entrance, state_requirement) -> bool:
         """
         Full logic to find all minimum viable states to access an entrance,
         Find any possible better states,
@@ -198,10 +198,17 @@ class HKLogicMixin(LogicMixin):
         # if parent_resource_state is None:
         #     self._hk_per_player_resource_states[region.player][region.name] = []
         #     parent_resource_state = []
+        player = entrance.player
+        parent_region = entrance.parent_region
+        target_region = entrance.connected_region
 
-        player = parent_region.player
         parent_resource_state = self._hk_per_player_resource_states[player].get(parent_region.name, [])
         target_resource_states = []
+
+        # TODO short circuit if there is no state changes
+        if not state_requirement:
+            self._hk_per_player_resource_states[player][target_region.name] = [default_state]
+            return True
 
         if len(parent_resource_state) > 0:
             # if we don't even have default state then the region is inaccessible
@@ -289,63 +296,63 @@ class HKLogicMixin(LogicMixin):
             # return True
 
 
-    def _hk_apply_diff_to_region(self, entrance, state_modifiers) -> bool:
-        player = entrance.player
-        parent_region = entrance.parent_region
-        target_region = entrance.connected_region
-        temp_state = deepcopy(self._hk_per_player_resource_states[player][parent_region.name])  # .copy()
-        # diff = clause.hk_state_modifiers
+def _hk_apply_diff_to_region(self, entrance, state_modifiers) -> bool:
+    player = entrance.player
+    parent_region = entrance.parent_region
+    target_region = entrance.connected_region
+    temp_state = deepcopy(self._hk_per_player_resource_states[player][parent_region.name])  # .copy()
+    # diff = clause.hk_state_modifiers
 
-        # TODO fix
-        # for delta in state_modifiers:
-        #     if delta == "$BENCHRESET":
-        #         temp_state.DAMAGE = 0
-        #         if self.has("Salubra's_Blessing", player):
-        #             temp_state.SPENTSOUL = 0
-        #         temp_state.SHADESPENT = 0
-        #         temp_state.EQUIPPEDCHARMS = 0
-        #     elif delta.startswith("$CASTSPELL"):  # or $SHRIEKPOGO or $SLOPEBALL
-        #         # check for []
-        #         # split insides on ,
-        #         # already have removed before/afters that are not relevant (leave x,before,after)
-        #         if "before" in split_strings:
-        #             temp_state.SPENTSOUL = 0
-        #         for x in [x for x in split_strings if x not in ("before", "after")]:
-        #             temp_state.SPENTSOUL += x*3  # alter based on if twister available
-        #         if "after" in split_strings:
-        #             temp_state.SPENTSOUL = 0
-        #     elif delta == "$FLOWERGET":
-        #         # ?
-        #         pass
-        #     elif delta == "$HOTSPRINGRESET":
-        #         temp_state.DAMAGE = 0
-        #         temp_state.SPENTSOUL = 0
-        #     elif delta.startswith("$SHADESKIP"):
-        #         # assume is valid was already called
-        #         temp_state.SHADESPENT = True
-        #     elif delta == "$STAGSTATEMODIFIER":
-        #         temp_state.NOFLOWER = True
-        #     elif delta.startswith("$WARPTOSTART"):
-        #         temp_state.SPENTSOUL = 0
-        #         temp_state.DAMAGE = 0
-        #         temp_state.NOFLOWER = True
-        #     elif delta.startswith("$TAKEDAMAGE"):
-        #         if "[" in delta:
-        #             damage = 1  # TODO
-        #             temp_state.DAMAGE + damage
-        #         else:
-        #             temp_state.DAMAGE + 1
-        #     elif delta == "NOFLOWER=FALSE":
-        #         # assume validity was already checked
-        #         pass
-        #     else:
-        #         raise f"unknown state {delta}"
+    # TODO fix
+    # for delta in state_modifiers:
+    #     if delta == "$BENCHRESET":
+    #         temp_state.DAMAGE = 0
+    #         if self.has("Salubra's_Blessing", player):
+    #             temp_state.SPENTSOUL = 0
+    #         temp_state.SHADESPENT = 0
+    #         temp_state.EQUIPPEDCHARMS = 0
+    #     elif delta.startswith("$CASTSPELL"):  # or $SHRIEKPOGO or $SLOPEBALL
+    #         # check for []
+    #         # split insides on ,
+    #         # already have removed before/afters that are not relevant (leave x,before,after)
+    #         if "before" in split_strings:
+    #             temp_state.SPENTSOUL = 0
+    #         for x in [x for x in split_strings if x not in ("before", "after")]:
+    #             temp_state.SPENTSOUL += x*3  # alter based on if twister available
+    #         if "after" in split_strings:
+    #             temp_state.SPENTSOUL = 0
+    #     elif delta == "$FLOWERGET":
+    #         # ?
+    #         pass
+    #     elif delta == "$HOTSPRINGRESET":
+    #         temp_state.DAMAGE = 0
+    #         temp_state.SPENTSOUL = 0
+    #     elif delta.startswith("$SHADESKIP"):
+    #         # assume is valid was already called
+    #         temp_state.SHADESPENT = True
+    #     elif delta == "$STAGSTATEMODIFIER":
+    #         temp_state.NOFLOWER = True
+    #     elif delta.startswith("$WARPTOSTART"):
+    #         temp_state.SPENTSOUL = 0
+    #         temp_state.DAMAGE = 0
+    #         temp_state.NOFLOWER = True
+    #     elif delta.startswith("$TAKEDAMAGE"):
+    #         if "[" in delta:
+    #             damage = 1  # TODO
+    #             temp_state.DAMAGE + damage
+    #         else:
+    #             temp_state.DAMAGE + 1
+    #     elif delta == "NOFLOWER=FALSE":
+    #         # assume validity was already checked
+    #         pass
+    #     else:
+    #         raise f"unknown state {delta}"
 
 
-        # assume true for now
-        self._hk_per_player_resource_states[player][target_region.name] = default_state
-        improved = True
-        return improved
+    # assume true for now
+    self._hk_per_player_resource_states[player][target_region.name] = [default_state]
+    improved = True
+    return improved
 
     # last iteration
     # def _hk_resource_state_eval_method(self, entrance):  # -> Tuple[accessible, deltas]:
