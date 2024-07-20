@@ -8,7 +8,7 @@ from copy import deepcopy
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-default_state = ([], Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0}))
+default_state = ([], Counter({"DAMAGE": 0, "SPENTSHADE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0}))
 FULL_SOUL = 12
 BASE_NOTCHES = 3
 BASE_HEALTH = 4
@@ -71,14 +71,8 @@ class HKLogicMixin(LogicMixin):
         need_soul = False
         need_health = False
 
-        # TODO cleanup
-        # print(state_requirement)
-        # from . import HK_state_diff
-        # TEST_fake_state = HK_state_diff(shadeskip=0, damage=0, twister_required=False, total_casts=0, before=False, after=False)
-        # state_requirement = TEST_fake_state
-
         # doing early for short circuiting
-        if state_requirement.shadeskip > 0 and parent_state["SHADESPENT"] > 0:
+        if state_requirement.shadeskip > 0 and parent_state["SPENTSHADE"] > 0:
             return False, []
         # twister_required if an individual step requires more than default cast count
         if state_requirement.twister_required and not twister:
@@ -97,7 +91,8 @@ class HKLogicMixin(LogicMixin):
             # every 3 vessles we get 1/3 of full soul
             bonus_soul = FULL_SOUL * (self.count("Soul_Vessle", player) / 9)
             total_soul = FULL_SOUL + bonus_soul
-            if not total_soul >= soul_spend + parent_state["SPENTSOUL"]:
+            # if we have a beforesoul we just need to compare spent to max
+            if not total_soul >= soul_spend + (0 if state_requirement.before else parent_state["SPENTSOUL"]):
                 need_soul = True
 
         # if we didn't need to improve anything this is a valid state
@@ -174,7 +169,7 @@ class HKLogicMixin(LogicMixin):
         # if we got this far without returning True then we ran out of options
         return False
 
-    def _hk_apply_state_to_region(self, entrance, state_requirement) -> bool:
+    def _hk_apply_state_to_region(self, entrance, clause: "HKClause") -> bool:
         """
         Full logic to find all minimum viable states to access an entrance,
         Find any possible better states,
@@ -182,13 +177,6 @@ class HKLogicMixin(LogicMixin):
         See if they improve the target region,
         if so mark all exits as sweepable
         """
-
-        # parent_resource_state = self._hk_per_player_resource_states[region.player].get(region.name, None)
-
-        # # if the parent region isn't in the cache just add it as an empty list
-        # if parent_resource_state is None:
-        #     self._hk_per_player_resource_states[region.player][region.name] = []
-        #     parent_resource_state = []
         player = entrance.player
         parent_region = entrance.parent_region
         target_region = entrance.connected_region
@@ -197,15 +185,15 @@ class HKLogicMixin(LogicMixin):
         target_resource_states = []
 
         # TODO short circuit if there is no state changes
-        if not state_requirement:
+        if not clause:
             self._hk_per_player_resource_states[player][target_region.name] = [default_state]
             return True
 
-        if len(parent_resource_state) > 0:
+        if len(parent_resource_state) == 0:
             # if we don't even have default state then the region is inaccessible
             return False
         for resource_state in parent_resource_state:
-            accessible, new_charms = self._hk_check_state_valid(player, state_requirement, resource_state[0], resource_state[1])
+            accessible, new_charms = self._hk_check_state_valid(player, clause.hk_state_requirements, resource_state[0], resource_state[1])
             if accessible:
                 if new_charms:
                     target_resource_states.append(self._hk_add_charms_to_state(player, resource_state, new_charms))
@@ -217,8 +205,46 @@ class HKLogicMixin(LogicMixin):
             # if we have a target and no valid states we ran out of options
             return False
         else:
+            previous_states = self._hk_per_player_resource_states[player].get(target_region.name, [])
+            self._hk_per_player_resource_states[player][target_region.name] = previous_states + target_resource_states
+            return True
+
             # apply the valid states and return True
-            self._hk_per_player_resource_states[player][target_region.name] += target_resource_states
+            for resource_state in target_resource_states:
+                if clause.hk_state_requirements.after:
+                    # since we already proved we can, we can skip soul calc
+                    resource_state[1]["SPENTSOUL"] = 0
+                else:
+                    # TODO make a new twister state if we can to save soul
+                    spent_soul = 0 if clause.hk_state_requirements.before else resource_state[1]["SPENTSOUL"]
+                    cast_multi = 3 if "Spell_Twister" in resource_state[0] else 4
+                    spent_soul += cast_multi * clause.hk_state_requirements.total_casts
+                    resource_state[1]["SPENTSOUL"] = spent_soul
+
+                if clause.hk_state_requirements.shadeskip > 0:
+                    resource_state[1]["SPENTSHADE"] += 1
+
+                resource_state[1]["DAMAGE"] += clause.hk_state_requirements.damage
+
+                for modifier in clause.hk_state_modifiers:
+                    # assume we can already apply them, so just apply blindly and add to target
+                    if modifier == "$BENCHRESET":
+                        resource_state[1]["DAMAGE"] = 0
+                        resource_state[1]["SPENTSHADE"] = 0
+                        # reset charms
+                    if modifier == "$FLOWERGET":
+                        resource_state[1]["NOFLOWER"] = 0
+                    if modifier == "$HOTSPRINGRESET":
+                        resource_state[1]["DAMAGE"] = 0
+                        resource_state[1]["SPENTSHADE"] = 0
+                    if modifier == "$STAGSTATEMODIFIER":
+                        resource_state[1]["NOFLOWER"] = 1
+                    if modifier == "$WARPTOSTART":
+                        resource_state[1]["DAMAGE"] = 0
+                        resource_state[1]["SPENTSHADE"] = 0
+                        resource_state[1]["NOFLOWER"] = 1
+
+                self._hk_per_player_resource_states[player][target_region.name] += resource_state
             # TODO if improved mark all its exits sweepable
             return True
 

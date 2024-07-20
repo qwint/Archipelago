@@ -171,13 +171,13 @@ class HKEntrance(Entrance):
         valid_clauses = {}
         for index, clause in enumerate(self.hk_rule):
             if state._hk_entrance_clause_cache[self.player][self.name][index]:
-                state._hk_apply_state_to_region(self, clause.hk_state_modifiers)
+                state._hk_apply_state_to_region(self, clause)
                 valid_clauses[index] = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
                 if state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
-                    state._hk_apply_state_to_region(self, clause.hk_state_modifiers)
+                    state._hk_apply_state_to_region(self, clause)
                     valid_clauses[index] = True
 
         if self.parent_region == "Menu":
