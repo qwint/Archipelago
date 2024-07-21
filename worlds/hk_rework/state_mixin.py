@@ -205,8 +205,7 @@ class HKLogicMixin(LogicMixin):
             # if we have a target and no valid states we ran out of options
             return False
         else:
-            previous_states = self._hk_per_player_resource_states[player].get(target_region.name, [])
-            self._hk_per_player_resource_states[player][target_region.name] = previous_states + target_resource_states
+            self._hk_per_player_resource_states[player][target_region.name] = [default_state]
             return True
 
             # apply the valid states and return True
