@@ -19,12 +19,12 @@ class RandomizerCoreWorld(World):
 
     def get_connections(self) -> "List[Tuple(str, str, Optional[Any])]":
         return [
-            (region["name"], exit["target"], exit["logic"])
+            (region["name"], exit["Target"], exit["Logic"])
             for region in self.rc_regions for exit in region["exits"]
             ]
 
     def get_location_map(self) -> "List[Tuple(str, str, Optional[Any])]":
-        rule_lookup = {location["name"]: location["logic"] for location in self.rc_locations}
+        rule_lookup = {location["name"]: location["Logic"] for location in self.rc_locations}
         return [(region["name"], location, rule_lookup[location]) for region in self.rc_regions for location in region["locations"]]
 
 # # black box methods
