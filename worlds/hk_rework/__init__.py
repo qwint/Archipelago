@@ -266,7 +266,7 @@ class HKWorld(RandomizerCoreWorld):
         self.add_shop_locations()
 
         # TODO remove once proper can_reach get into region_data
-        self.multiworld.get_location("Can_Visit_Lemm", self.player).access_rule = lambda state: state.can_reach("Ruins1_27[left1]", "Region", self.player)
+        # self.multiworld.get_location("Can_Visit_Lemm", self.player).access_rule = lambda state: state.can_reach("Ruins1_27[left1]", "Region", self.player)
         # TODO confirm we don't have to handle the other exclusions
         if "King_Fragment" in self.white_palace_exclusions():
             self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
@@ -603,7 +603,7 @@ class HKWorld(RandomizerCoreWorld):
                  f"{item} not found in advancements"
             hk_rule.append(HKClause(
                 hk_item_requirements=items,
-                hk_region_requirements=clause["location_requirements"],  # TODO: update
+                hk_region_requirements=clause["region_requirements"],
                 hk_state_requirements=state_requirements,
                 hk_state_modifiers=clause["state_modifiers"],
                 ))
@@ -629,7 +629,7 @@ class HKWorld(RandomizerCoreWorld):
         logic = [
                     {
                         "item_requirements": [],
-                        "location_requirements": [],
+                        "region_requirements": [],
                         "state_modifiers": []
                     }
                 ]
@@ -693,10 +693,10 @@ class HKWorld(RandomizerCoreWorld):
             location_list.append("Focus")
 
         # TODO remove this bandaid
-        if "Whispering_Root-Greenpath" in location_list:
-            location_list.remove("Whispering_Root-Greenpath")
-        if "Whispering_Root-Greenpath" in self.event_locations:
-            self.event_locations.remove("Whispering_Root-Greenpath")
+        # if "Whispering_Root-Greenpath" in location_list:
+        #     location_list.remove("Whispering_Root-Greenpath")
+        # if "Whispering_Root-Greenpath" in self.event_locations:
+        #     self.event_locations.remove("Whispering_Root-Greenpath")
 
         # build out the map per location in the list
         location_map = [(region["name"], location, self.rule_lookup[location]) for region in self.rc_regions for location in region["locations"] if location in location_list]
