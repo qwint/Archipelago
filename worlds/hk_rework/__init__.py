@@ -127,7 +127,7 @@ class HKLocation(Location):
 
         for clause in self.hk_rule:
             if state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements) \
+                    and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements) \
                     and state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
                 return True
         # no clause was True,
@@ -174,7 +174,7 @@ class HKEntrance(Entrance):
                 state._hk_apply_state_to_region(self, clause)
                 valid_clauses[index] = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach(region, "Region", self.player) for region in clause.hk_region_requirements):
+                    and all(state.can_reach_reagion(region, self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
                 if state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
                     state._hk_apply_state_to_region(self, clause)
@@ -665,8 +665,9 @@ class HKWorld(RandomizerCoreWorld):
         # options not handled in pool_options
         if self.options.RandomizeElevatorPass:
             location_list.append("Elevator_Pass")
-        else:
-            self.event_locations.append("Elevator_Pass")
+        # logic if random elevators is off just checks region access instead
+        # else:
+        #     self.event_locations.append("Elevator_Pass")
 
         if self.options.SplitCrystalHeart:
             if "Crystal_Heart" in location_list:
