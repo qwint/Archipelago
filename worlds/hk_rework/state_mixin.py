@@ -158,7 +158,10 @@ class HKLogicMixin(LogicMixin):
     def _hk_any_state_valid_for_region(self, state_requirement, region) -> bool:
         """Minimal check that any resource state for a parent region can be used to access a Location by state requirement"""
         player = region.player
-        parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, [])
+        parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, None)
+        if parent_resource_state is None:
+            region.can_reach(self)
+            parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, [])
 
         for resource_state in parent_resource_state:
             accessible, _ = self._hk_check_state_valid(player, state_requirement, resource_state[0], resource_state[1])
