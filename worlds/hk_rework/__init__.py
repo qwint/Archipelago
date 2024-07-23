@@ -64,34 +64,40 @@ class HK_state_diff(NamedTuple):
     shadeskip: int
     # shade health needed, 0 if unneeded
 
-    damage: int
-    # health needed for damage boosts
+    # damage: int
+    # # health needed for damage boosts
 
     twister_required: bool
     # shortcut logic if any step in a spell skip needs 4 casts
 
-    total_casts: int
-    # shortcut logic for the total casts for all steps in spell stalls
+    # total_casts: int
+    # # shortcut logic for the total casts for all steps in spell stalls
 
-    before: bool
-    # determined in parsing that we have beforesoul
+    # before: bool
+    # # determined in parsing that we have beforesoul
 
-    after: bool
-    # determined in parsing that we have afteresoul
+    # after: bool
+    # # determined in parsing that we have afteresoul
 
 
 class HKClause(NamedTuple):
-    hk_item_requirements: Counter[str]
+    # lists of strings are resource state keys that need to be modified
+    # dicts of str, int are values that need to be applied to resource state
+    hk_item_requirements: Dict[str, int]
     hk_region_requirements: List[str]
     hk_state_requirements: HK_state_diff
-    hk_state_modifiers: Any  # figure this out later
+    hk_before_resets: List[str]
+    hk_after_resets: List[str]
+    hk_state_modifiers: Dict[str, int]  # figure this out later
 
 
 default_hk_rule = HKClause(
-    hk_item_requirements=Counter({"True": 1}),
+    hk_item_requirements={"True": 1},
     hk_region_requirements=[],
-    hk_state_requirements=HK_state_diff(shadeskip=0, damage=0, twister_required=False, total_casts=0, before=False, after=False),
-    hk_state_modifiers=[],
+    hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False),  # damage=0, total_casts=0, before=False, after=False),
+    hk_before_resets=[],
+    hk_after_resets=[],
+    hk_state_modifiers={},
     )
 
 
@@ -127,9 +133,9 @@ class HKLocation(Location):
 
         for clause in self.hk_rule:
             if state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements) \
-                    and state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
-                return True
+                    and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
+                if state._hk_apply_and_validate_state(clause, self.parent_region):
+                    return True
         # no clause was True,
         return False
 
@@ -161,7 +167,7 @@ class HKEntrance(Entrance):
     def access_rule(self, state: CollectionState) -> bool:
         # TODO pass on states and return True
         if self.hk_rule == default_hk_rule:
-            state._hk_apply_state_to_region(self, None)
+            state._hk_apply_and_validate_state(default_hk_rule, self.parent_region, target_region=self.connected_region)
             return True
         if not state._hk_entrance_clause_cache[self.player].get(self.name, None):
             # if there's no cache for this entrance, make one with everything False
@@ -171,13 +177,14 @@ class HKEntrance(Entrance):
         valid_clauses = {}
         for index, clause in enumerate(self.hk_rule):
             if state._hk_entrance_clause_cache[self.player][self.name][index]:
-                state._hk_apply_state_to_region(self, clause)
+                state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region)
                 valid_clauses[index] = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach_reagion(region, self.player) for region in clause.hk_region_requirements):
+                    and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
-                if state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
-                    state._hk_apply_state_to_region(self, clause)
+                if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
+                # if state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
+                #     state._hk_apply_state_to_region(self, clause)
                     valid_clauses[index] = True
 
         if self.parent_region == "Menu":
@@ -526,6 +533,8 @@ class HKWorld(RandomizerCoreWorld):
             casts = [0]
             before = False
             after = False
+            after_resets = []
+            add_dict = Counter()
             valid_keys = {key for key in ("ROOMSOUL", "AREASOUL", "MAPAREASOUL")}
             # TODO with ER change this logic
             if self.options.RandomizeCharms:  # TODO confirm
@@ -533,36 +542,59 @@ class HKWorld(RandomizerCoreWorld):
 
             for req in clause["state_modifiers"]:
                 # "$CASTSPELL", "$EQUIPPEDCHARM", "$SHRIEKPOGO", "$SHADESKIP", "$BENCHRESET", "$TAKEDAMAGE", "$HOTSPRINGRESET", "$STAGSTATEMODIFIER", "$SLOPEBALL", "$WARPTOSTART", "$FLOWERGET", "NOFLOWER=FALSE"
+                if req == "$BENCHRESET":
+                    after_resets.append("DAMAGE")
+                    after_resets.append("SPENTSHADE")
+                    # reset charms
+                elif req == "$FLOWERGET":
+                    after_resets.append("NOFLOWER")
+                elif req == "$HOTSPRINGRESET":
+                    after_resets.append("DAMAGE")
+                    after_resets.append("CASTSUSED")
+                elif req == "$STAGSTATEMODIFIER":
+                    add_dict["NOFLOWER"] += 1
+                elif req == "$WARPTOSTART":
+                    after_resets.append("DAMAGE")
+                    after_resets.append("SPENTSHADE")
+                    add_dict["NOFLOWER"] += 1
+
                 if req.startswith("$EQUIPPEDCHARM"):
                     charm = re.search(r"\$EQUIPPEDCHARM\[(.*)\]", req).group(1)
                     if charm == "Kingsoul":
                         charm = "WHITEFRAGMENT"
-                        item_requirements.append(charm)
+                    item_requirements.append(charm)
 
                 if req.startswith("$SHADESKIP"):
                     if not self.options.ShadeSkips:
                         skip_clause = True
                     else:
                         search = re.search(r".*\[(.*)HITS\]", req)
+                        add_dict["SPENTSHADE"] += 1
                         if not search:
-                            shadeskip.append(1)
+                            shadeskips.append(1)
                         else:
-                            shadeskip.append(search.groups(1)[0])
+                            shadeskips.append(int(search.groups(1)[0]))
 
                 if req.startswith("$CASTSPELL"):
                     # any skips will be marked, this covers dive uses too
                     c, b, a = parse_cast_logic(req, valid_keys)
                     casts += c
+                    add_dict["CASTSUSED"] += sum(c)
                     before = b if b else before
                     after = a if a else after
+                    if a:
+                        after_resets.append("CASTSUSED")
                 if req.startswith("$SHRIEKPOGO"):
                     if True or not self.options.ShriekPogo:  # currently unsupported
                         skip_clause = True
                     else:
                         c, b, a = parse_cast_logic(req, valid_keys)
                         casts += c
+                        add_dict["CASTSUSED"] += sum(c)
                         before = b if b else before
                         after = a if a else after
+                        if a:
+                            after_resets.append("CASTSUSED")
                         item_requirements.append("SCREAM>1")
                 if req.startswith("$SLOPEBALL"):
                     if True or not self.options.SlopeBall:  # currently unsupported
@@ -570,8 +602,11 @@ class HKWorld(RandomizerCoreWorld):
                     else:
                         c, b, a = parse_cast_logic(req, valid_keys)
                         casts += c
+                        add_dict["CASTSUSED"] += sum(c)
                         before = b if b else before
                         after = a if a else after
+                        if a:
+                            after_resets.append("CASTSUSED")
                         item_requirements.append("FIREBALL")
                     # can roll back to vs in mod
                 # handled in logic directly
@@ -579,8 +614,10 @@ class HKWorld(RandomizerCoreWorld):
                     search = re.search(r".*\[(.*)HITS\]", req)
                     if not search:
                         damage.append(1)
+                        add_dict["DAMAGE"] += 1
                     else:
                         damage.append(search.groups(1)[0])
+                        add_dict["DAMAGE"] += int(search.groups(1)[0])
                     # if not self.options.DamageBoosts:
                     #     skip_clause = True
 
@@ -589,11 +626,11 @@ class HKWorld(RandomizerCoreWorld):
                 continue
             state_requirements = HK_state_diff(
                 shadeskip=max(*shadeskips, 0),
-                damage=max(*damage, 0),
+                # damage=max(*damage, 0),
                 twister_required=any(cast > 3 for cast in casts),
-                total_casts=sum(casts),
-                before=before,
-                after=after,
+                # total_casts=sum(casts),
+                # before=before,
+                # after=after,
                 )
             skip_clause, items = parse_item_logic(item_requirements)
             if skip_clause:
@@ -602,10 +639,13 @@ class HKWorld(RandomizerCoreWorld):
                 assert item == "FALSE" or item in item_effects or item in logic_items or item in event_locations, \
                  f"{item} not found in advancements"
             hk_rule.append(HKClause(
-                hk_item_requirements=items,
+                hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
+                hk_before_resets=["SPENTSOUL"] if before else [],
+                hk_after_resets=after_resets,
+                hk_state_modifiers=dict(add_dict),
                 hk_state_requirements=state_requirements,
-                hk_state_modifiers=clause["state_modifiers"],
+                # hk_state_modifiers=clause["state_modifiers"],
                 ))
 
         # TODO seems unnecessary now that default_hk_rule exists
@@ -666,8 +706,8 @@ class HKWorld(RandomizerCoreWorld):
         if self.options.RandomizeElevatorPass:
             location_list.append("Elevator_Pass")
         # logic if random elevators is off just checks region access instead
-        # else:
-        #     self.event_locations.append("Elevator_Pass")
+        else:
+            self.event_locations.append("Elevator_Pass")
 
         if self.options.SplitCrystalHeart:
             if "Crystal_Heart" in location_list:
@@ -976,6 +1016,11 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.edit_effects(state, item.player, item.name, add=True)
 
+            if item.name == "Vessel_Fragment":
+                prog_items["TOTAL_SOUL"] = 12 + (4 * int(prog_items["Vessel_Fragment"] / 3))
+            if item.name == "Mask_Shard":
+                prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
+                prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
         return change
 
     def remove(self, state, item: HKItem) -> bool:
@@ -999,6 +1044,11 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.edit_effects(state, item.player, item.name, add=False)
 
+            if item.name == "Vessel_Fragment":
+                prog_items["TOTAL_SOUL"] = 12 + (4 * int(prog_items["Vessel_Fragment"] / 3))
+            if item.name == "Mask_Shard":
+                prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
+                prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
         return change
 
     def fill_slot_data(self):
