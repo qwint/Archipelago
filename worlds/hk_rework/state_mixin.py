@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
 default_state = ([], Counter({"DAMAGE": 0, "SPENTSHADE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0}))
-FULL_SOUL = 12
+BASE_SOUL = 12
 BASE_NOTCHES = 3
 BASE_HEALTH = 4
 charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(charm_names)}  # if name in ("Spell_Twister", "Fragile_Heart")}
@@ -38,6 +38,10 @@ class HKLogicMixin(LogicMixin):
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
         self._hk_free_entrances = {player: set() for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
+        for player in players:
+            self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
+            self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
+            self.prog_items[player]["SHADE_HEALTH"] = max(int(BASE_HEALTH/2), 1)
 
     def copy_mixin(self, other) -> CollectionState:
         other._hk_per_player_resource_states = self._hk_per_player_resource_states
@@ -61,198 +65,289 @@ class HKLogicMixin(LogicMixin):
                 return False
         return True
 
-    def _hk_check_state_valid(self, player, state_requirement, parent_charms, parent_state) -> Tuple[bool, List[str]]:
-        """Intented to quickly check with a given set of charms can we suffice the requirements"""
-        twister = "Spell_Twister" in parent_charms
-        joni = "Joni's_Blessing" in parent_charms
-        heart = "Fragile_Heart" in parent_charms
+    # def _hk_check_state_valid(self, player, state_requirement, parent_charms, parent_state) -> Tuple[bool, List[str]]:
+    #     """Intented to quickly check with a given set of charms can we suffice the requirements"""
+    #     twister = "Spell_Twister" in parent_charms
+    #     joni = "Joni's_Blessing" in parent_charms
+    #     heart = "Fragile_Heart" in parent_charms
 
-        # use these for later to know what we need to improve to make the state valid
-        need_soul = False
-        need_health = False
+    #     # use these for later to know what we need to improve to make the state valid
+    #     need_soul = False
+    #     need_health = False
 
-        # doing early for short circuiting
-        if state_requirement.shadeskip > 0 and parent_state["SPENTSHADE"] > 0:
-            return False, []
-        # twister_required if an individual step requires more than default cast count
-        if state_requirement.twister_required and not twister:
-            return False, []
+    #     # doing early for short circuiting
+    #     if state_requirement.shadeskip > 0 and parent_state["SPENTSHADE"] > 0:
+    #         return False, []
+    #     # twister_required if an individual step requires more than default cast count
+    #     if state_requirement.twister_required and not twister:
+    #         return False, []
 
-        # check to see if we have the required shade/player health for the state changes
-        if not self._hk_check_healths(player, state_requirement, parent_state, joni=joni, heart=heart):
-            need_health = True
+    #     # check to see if we have the required shade/player health for the state changes
+    #     if not self._hk_check_healths(player, state_requirement, parent_state, joni=joni, heart=heart):
+    #         need_health = True
 
-        # already checked if twister is required so we can assume each step is doable
-        # only need to calculate full spend
-        if state_requirement.total_casts > 0:
-            cast_multi = 3 if twister else 4
-            soul_spend = state_requirement.total_casts * cast_multi
+    #     # already checked if twister is required so we can assume each step is doable
+    #     # only need to calculate full spend
+    #     if state_requirement.total_casts > 0:
+    #         cast_multi = 3 if twister else 4
+    #         soul_spend = state_requirement.total_casts * cast_multi
 
-            # every 3 vessles we get 1/3 of full soul
-            bonus_soul = FULL_SOUL * (self.count("Soul_Vessle", player) / 9)
-            total_soul = FULL_SOUL + bonus_soul
-            # if we have a beforesoul we just need to compare spent to max
-            if not total_soul >= soul_spend + (0 if state_requirement.before else parent_state["SPENTSOUL"]):
-                need_soul = True
+    #         # every 3 vessles we get 1/3 of full soul
+    #         bonus_soul = FULL_SOUL * (self.count("Soul_Vessle", player) / 9)
+    #         total_soul = FULL_SOUL + bonus_soul
+    #         # if we have a beforesoul we just need to compare spent to max
+    #         if not total_soul >= soul_spend + (0 if state_requirement.before else parent_state["SPENTSOUL"]):
+    #             need_soul = True
 
-        # if we didn't need to improve anything this is a valid state
-        if not need_soul and not need_health:
-            return True, []
+    #     # if we didn't need to improve anything this is a valid state
+    #     if not need_soul and not need_health:
+    #         return True, []
 
-        # calculate how many notches we can fill with charms to fix issues
-        avaliable_notches = BASE_NOTCHES + self.count("Charm_Notch", player) - parent_state["SPENTNOTCHES"]
-        if not avaliable_notches:
-            return False, []
+    #     # calculate how many notches we can fill with charms to fix issues
+    #     avaliable_notches = BASE_NOTCHES + self.count("Charm_Notch", player) - parent_state["SPENTNOTCHES"]
+    #     if not avaliable_notches:
+    #         return False, []
 
-        # find which charms we need to fix issues, short circuit if we already have them
-        potential_charms = []
-        if need_soul:
-            if twister:
-                # we already have it equipped, short circuit; should stop recursion depth > 1
-                return False, []
-            if self.has("Spell_Twister", player):
-                potential_charms.append("Spell_Twister")
-        if need_health:
-            if heart:
-                # we already have it equipped, short circuit; should stop recursion depth > 1
-                return False, []
-            # make sure if we only have fragile heart that we can fix it
-            heart_counts = self.count_from_list(["Fragile_Heart", "Unbreakable_Heart"], player)
-            if heart_counts > 1 or (heart_counts > 0 and self.has("Can_Repair_Fragile_Charms", player)):
-                potential_charms.append("Fragile_Heart")
+    #     # find which charms we need to fix issues, short circuit if we already have them
+    #     potential_charms = []
+    #     if need_soul:
+    #         if twister:
+    #             # we already have it equipped, short circuit; should stop recursion depth > 1
+    #             return False, []
+    #         if self.has("Spell_Twister", player):
+    #             potential_charms.append("Spell_Twister")
+    #     if need_health:
+    #         if heart:
+    #             # we already have it equipped, short circuit; should stop recursion depth > 1
+    #             return False, []
+    #         # make sure if we only have fragile heart that we can fix it
+    #         heart_counts = self.count_from_list(["Fragile_Heart", "Unbreakable_Heart"], player)
+    #         if heart_counts > 1 or (heart_counts > 0 and self.has("Can_Repair_Fragile_Charms", player)):
+    #             potential_charms.append("Fragile_Heart")
 
-        # find the costs for the charms we need and apply them to a new state to re-call self
-        # short circuting if they cannot all be equipped
-        potential_costs = [
-            self.multiworld.worlds[player].charm_costs[charm_name_to_id[charm]]
-            for charm in potential_charms
-            ]
-        if not potential_charms or not avaliable_notches >= sum(potential_costs):
-            return False, []
-        else:
-            new_state = deepcopy(parent_state)  # .copy()
-            new_charms = deepcopy(parent_charms)  # .copy()
-            for charm, cost in ((charm, cost) for charm, cost in zip(potential_charms, potential_costs)):
-                new_state["SPENTNOTCHES"] += cost
-                new_charms.append(charm)
-            improved_check = self._hk_check_state_valid(
-                player,
-                state_requirement,
-                new_charms,
-                new_state,
-                )
+    #     # find the costs for the charms we need and apply them to a new state to re-call self
+    #     # short circuting if they cannot all be equipped
+    #     potential_costs = [
+    #         self.multiworld.worlds[player].charm_costs[charm_name_to_id[charm]]
+    #         for charm in potential_charms
+    #         ]
+    #     if not potential_charms or not avaliable_notches >= sum(potential_costs):
+    #         return False, []
+    #     else:
+    #         new_state = deepcopy(parent_state)  # .copy()
+    #         new_charms = deepcopy(parent_charms)  # .copy()
+    #         for charm, cost in ((charm, cost) for charm, cost in zip(potential_charms, potential_costs)):
+    #             new_state["SPENTNOTCHES"] += cost
+    #             new_charms.append(charm)
+    #         improved_check = self._hk_check_state_valid(
+    #             player,
+    #             state_requirement,
+    #             new_charms,
+    #             new_state,
+    #             )
 
-            if improved_check:
-                return True, new_charms
-            else:
-                return False, []
+    #         if improved_check:
+    #             return True, new_charms
+    #         else:
+    #             return False, []
 
-    def _hk_add_charms_to_state(self, player, resource_state, charms) -> Tuple[List[str], Counter]:
-        """Returns a new state blob including the listed charms and their costs"""
-        new_resource_state = deepcopy(resource_state)
-        new_resource_state[0] += charms
-        for charm in charms:
-            new_resource_state[1]["SPENTNOTCHES"] += self.multiworld.worlds[player].charm_costs[charm_name_to_id[charm]]
-        return new_resource_state
+    # def _hk_add_charms_to_state(self, player, resource_state, charms) -> Tuple[List[str], Counter]:
+    #     """Returns a new state blob including the listed charms and their costs"""
+    #     new_resource_state = deepcopy(resource_state)
+    #     new_resource_state[0] += charms
+    #     for charm in charms:
+    #         new_resource_state[1]["SPENTNOTCHES"] += self.multiworld.worlds[player].charm_costs[charm_name_to_id[charm]]
+    #     return new_resource_state
 
-    def _hk_any_state_valid_for_region(self, state_requirement, region) -> bool:
-        """Minimal check that any resource state for a parent region can be used to access a Location by state requirement"""
+    # def _hk_any_state_valid_for_region(self, state_requirement, region) -> bool:
+    #     """Minimal check that any resource state for a parent region can be used to access a Location by state requirement"""
+    #     player = region.player
+    #     parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, None)
+    #     if parent_resource_state is None:
+    #         region.can_reach(self)
+    #         parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, [])
+
+    #     for resource_state in parent_resource_state:
+    #         accessible, _ = self._hk_check_state_valid(player, state_requirement, resource_state[0], resource_state[1])
+    #         if accessible:
+    #             # we can short circuit on any accessible
+    #             return True
+
+    #     # if we got this far without returning True then we ran out of options
+    #     return False
+
+    # def _hk_apply_state_to_region(self, entrance, clause: "HKClause") -> bool:
+    #     """
+    #     Full logic to find all minimum viable states to access an entrance,
+    #     Find any possible better states,
+    #     Apply to the target region,
+    #     See if they improve the target region,
+    #     if so mark all exits as sweepable
+    #     """
+    #     player = entrance.player
+    #     parent_region = entrance.parent_region
+    #     target_region = entrance.connected_region
+
+    #     parent_resource_state = self._hk_per_player_resource_states[player].get(parent_region.name, [])
+    #     target_resource_states = []
+
+    #     # TODO short circuit if there is no state changes
+    #     if not clause:
+    #         self._hk_per_player_resource_states[player][target_region.name] = [default_state]
+    #         return True
+
+    #     if len(parent_resource_state) == 0:
+    #         # if we don't even have default state then the region is inaccessible
+    #         return False
+    #     for resource_state in parent_resource_state:
+    #         accessible, new_charms = self._hk_check_state_valid(player, clause.hk_state_requirements, resource_state[0], resource_state[1])
+    #         if accessible:
+    #             if new_charms:
+    #                 target_resource_states.append(self._hk_add_charms_to_state(player, resource_state, new_charms))
+    #             else:
+    #                 target_resource_states.append(resource_state)
+    #                 # TODO check if we need to forward 'better' states with charms equipped anyways
+
+    #     if len(target_resource_states) == 0:
+    #         # if we have a target and no valid states we ran out of options
+    #         return False
+    #     else:
+    #         self._hk_per_player_resource_states[player][target_region.name] = [default_state]
+    #         return True
+
+    #         # apply the valid states and return True
+    #         for resource_state in target_resource_states:
+    #             if clause.hk_state_requirements.after:
+    #                 # since we already proved we can, we can skip soul calc
+    #                 resource_state[1]["SPENTSOUL"] = 0
+    #             else:
+    #                 # TODO make a new twister state if we can to save soul
+    #                 spent_soul = 0 if clause.hk_state_requirements.before else resource_state[1]["SPENTSOUL"]
+    #                 cast_multi = 3 if "Spell_Twister" in resource_state[0] else 4
+    #                 spent_soul += cast_multi * clause.hk_state_requirements.total_casts
+    #                 resource_state[1]["SPENTSOUL"] = spent_soul
+
+    #             if clause.hk_state_requirements.shadeskip > 0:
+    #                 resource_state[1]["SPENTSHADE"] += 1
+
+    #             resource_state[1]["DAMAGE"] += clause.hk_state_requirements.damage
+
+    #             for modifier in clause.hk_state_modifiers:
+    #                 # assume we can already apply them, so just apply blindly and add to target
+    #                 if modifier == "$BENCHRESET":
+    #                     resource_state[1]["DAMAGE"] = 0
+    #                     resource_state[1]["SPENTSHADE"] = 0
+    #                     # reset charms
+    #                 if modifier == "$FLOWERGET":
+    #                     resource_state[1]["NOFLOWER"] = 0
+    #                 if modifier == "$HOTSPRINGRESET":
+    #                     resource_state[1]["DAMAGE"] = 0
+    #                     resource_state[1]["SPENTSHADE"] = 0
+    #                 if modifier == "$STAGSTATEMODIFIER":
+    #                     resource_state[1]["NOFLOWER"] = 1
+    #                 if modifier == "$WARPTOSTART":
+    #                     resource_state[1]["DAMAGE"] = 0
+    #                     resource_state[1]["SPENTSHADE"] = 0
+    #                     resource_state[1]["NOFLOWER"] = 1
+
+    #             self._hk_per_player_resource_states[player][target_region.name] += resource_state
+    #         # TODO if improved mark all its exits sweepable
+    #         return True
+
+    def _hk_apply_and_validate_state(self, clause: "HKClause", region, target_region=None) -> bool:
         player = region.player
-        parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, None)
-        if parent_resource_state is None:
-            region.can_reach(self)
-            parent_resource_state = self._hk_per_player_resource_states[player].get(region.name, [])
+        requires_shadeskip = clause.hk_state_requirements.shadeskip
+        requies_twister = clause.hk_state_requirements.twister_required
+        avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
 
-        for resource_state in parent_resource_state:
-            accessible, _ = self._hk_check_state_valid(player, state_requirement, resource_state[0], resource_state[1])
-            if accessible:
-                # we can short circuit on any accessible
+        any_true = False
+        if target_region:
+            target_states = self._hk_per_player_resource_states[player].get(target_region.name, [])
+            self._hk_per_player_resource_states[player][target_region.name] = target_states
+            persist = True
+        else:
+            persist = False
+
+        if avaliable_states is None:
+            region.can_reach(self)
+            avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+        if requires_shadeskip:
+            avaliable_states = [state for state in avaliable_states if not state[1]["SPENTSHADE"]]
+        if False and requies_twister:
+            # TODO do black magic here
+            self.has("Spell_Twister", player)
+
+        if not avaliable_states:
+            # no valid parent states
+            return False
+
+        for state_tuple in avaliable_states:
+            state = state_tuple[1]
+            # if state["SPENTSHADE"] > 0 and state["SPENTSHADE"] > 0:
+            #     # we don't have our shade and need to use it
+            #     continue
+            # TODO see if we can remove the charm list
+            for reset_key in clause.hk_before_resets:
+                state[reset_key] = 0
+            for key, value in clause.hk_state_modifiers.items():
+                state[key] += value
+            # can't do this because it simplifies and makes our defaultstate None
+            # state += clause.hk_state_modifiers
+            for reset_key in clause.hk_after_resets:
+                state[reset_key] = 0
+
+            if not self.prog_items[player]["TOTAL_HEALTH"] > state["DAMAGE"]:
+                # breakpoint()
+                continue
+            if not self.prog_items[player]["SHADE_HEALTH"] >= state["SPENTSHADE"]:
+                # breakpoint()
+                continue
+            if not self.prog_items[player]["TOTAL_SOUL"] >= state["SPENTSOUL"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
+                # breakpoint()
+                continue
+
+            if persist:
+                any_true = True
+                # self._hk_per_player_resource_states[player][target_region.name] = [default_state]
+                # continue
+                self._hk_per_player_resource_states[player][target_region.name].append(([], state))
+            else:
+                # we only need one success
                 return True
 
-        # if we got this far without returning True then we ran out of options
-        return False
-
-    def _hk_apply_state_to_region(self, entrance, clause: "HKClause") -> bool:
-        """
-        Full logic to find all minimum viable states to access an entrance,
-        Find any possible better states,
-        Apply to the target region,
-        See if they improve the target region,
-        if so mark all exits as sweepable
-        """
-        player = entrance.player
-        parent_region = entrance.parent_region
-        target_region = entrance.connected_region
-
-        parent_resource_state = self._hk_per_player_resource_states[player].get(parent_region.name, [])
-        target_resource_states = []
-
-        # TODO short circuit if there is no state changes
-        if not clause:
-            self._hk_per_player_resource_states[player][target_region.name] = [default_state]
+        if any_true and persist:
+            # breakpoint()
+            simplify(self, target_region)
             return True
-
-        if len(parent_resource_state) == 0:
-            # if we don't even have default state then the region is inaccessible
-            return False
-        for resource_state in parent_resource_state:
-            accessible, new_charms = self._hk_check_state_valid(player, clause.hk_state_requirements, resource_state[0], resource_state[1])
-            if accessible:
-                if new_charms:
-                    target_resource_states.append(self._hk_add_charms_to_state(player, resource_state, new_charms))
-                else:
-                    target_resource_states.append(resource_state)
-                    # TODO check if we need to forward 'better' states with charms equipped anyways
-
-        if len(target_resource_states) == 0:
-            # if we have a target and no valid states we ran out of options
-            return False
         else:
-            self._hk_per_player_resource_states[player][target_region.name] = [default_state]
-            return True
+            return False
 
-            # apply the valid states and return True
-            for resource_state in target_resource_states:
-                if clause.hk_state_requirements.after:
-                    # since we already proved we can, we can skip soul calc
-                    resource_state[1]["SPENTSOUL"] = 0
-                else:
-                    # TODO make a new twister state if we can to save soul
-                    spent_soul = 0 if clause.hk_state_requirements.before else resource_state[1]["SPENTSOUL"]
-                    cast_multi = 3 if "Spell_Twister" in resource_state[0] else 4
-                    spent_soul += cast_multi * clause.hk_state_requirements.total_casts
-                    resource_state[1]["SPENTSOUL"] = spent_soul
-
-                if clause.hk_state_requirements.shadeskip > 0:
-                    resource_state[1]["SPENTSHADE"] += 1
-
-                resource_state[1]["DAMAGE"] += clause.hk_state_requirements.damage
-
-                for modifier in clause.hk_state_modifiers:
-                    # assume we can already apply them, so just apply blindly and add to target
-                    if modifier == "$BENCHRESET":
-                        resource_state[1]["DAMAGE"] = 0
-                        resource_state[1]["SPENTSHADE"] = 0
-                        # reset charms
-                    if modifier == "$FLOWERGET":
-                        resource_state[1]["NOFLOWER"] = 0
-                    if modifier == "$HOTSPRINGRESET":
-                        resource_state[1]["DAMAGE"] = 0
-                        resource_state[1]["SPENTSHADE"] = 0
-                    if modifier == "$STAGSTATEMODIFIER":
-                        resource_state[1]["NOFLOWER"] = 1
-                    if modifier == "$WARPTOSTART":
-                        resource_state[1]["DAMAGE"] = 0
-                        resource_state[1]["SPENTSHADE"] = 0
-                        resource_state[1]["NOFLOWER"] = 1
-
-                self._hk_per_player_resource_states[player][target_region.name] += resource_state
-            # TODO if improved mark all its exits sweepable
-            return True
+        # TODO black magic
+        if False and persist:
+            simplify(target_region)
+            if self._hk_per_player_resource_states[player][target_region.name] > target_states:
+                self._hk_per_player_sweepable_entrances[player] += [exit.name for exit in target.exits]
 
 
+def simplify(state, region):
+    def ge(state1, state2) -> bool:
+        return all(state1[key] >= state2[key] for key in state2.keys())
 
-## old code
+    previous_states = state._hk_per_player_resource_states[region.player][region.name]
+    if len(previous_states) == 1:
+        return
+    output_states = []  # previous_states.copy()
+    for charms, counter in previous_states:
+        if len(output_states) == 0:
+            output_states.append((charms, counter))
+            continue
+
+        if any(not ge(counter, c) for _, c in output_states):
+            output_states.append((charms, counter))
+
+    state._hk_per_player_resource_states[region.player][region.name] = output_states
+
+
 # ["Spell_Twister"] if need_soul else ["Fragile_Heart", "Lifeblood_Heart", "Lifeblood_Core"]
 
 
