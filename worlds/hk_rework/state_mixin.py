@@ -88,7 +88,7 @@ class HKLogicMixin(LogicMixin):
                 continue
             if not self.prog_items[player]["SHADE_HEALTH"] >= state["SPENTSHADE"]:
                 continue
-            if not self.prog_items[player]["TOTAL_SOUL"] >= state["SPENTSOUL"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
+            if not self.prog_items[player]["TOTAL_SOUL"] >= state["SPENTCASTS"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
                 # TODO switch to SPENTCASTS
                 continue
 
@@ -102,19 +102,22 @@ class HKLogicMixin(LogicMixin):
                 # we only need one success
                 return True
 
-        if any_true and persist:
-            # breakpoint()
-            simplify(self, target_region)
-            return True
-        else:
-            return False
+        # if any_true and persist:
+        #     # breakpoint()
+        #     simplify(self, target_region)
+        #     return True
+        # else:
+        #     return False
 
         # TODO black magic
         if any_true and persist:
             simplify(self, target_region)
             # after a simplify if there are more or any different states then there are new states that should be swept
             if self._hk_per_player_resource_states[player][target_region.name] != target_states:
-                self._hk_per_player_sweepable_entrances[player] += [exit.name for exit in target.exits]
+                self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
+            return True
+        else:
+            return False
 
 
 def simplify(state, region):
