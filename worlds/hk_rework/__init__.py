@@ -278,12 +278,11 @@ class HKWorld(RandomizerCoreWorld):
         if "King_Fragment" in self.white_palace_exclusions():
             self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
 
+        location_to_option = {location: option for option, keys in pool_options.items() for location in keys[1]}
+        location_to_option["Elevator_Pass"] = "RandomizeElevatorPass"
         for location, costs in vanilla_location_costs.items():
-            try:
+            if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
                 self.multiworld.get_location(location, self.player).costs = costs
-            except KeyError as e:
-                print(f"could not find location {location}")
-                raise e
 
     def create_items(self):
         super().create_items()
@@ -317,24 +316,19 @@ class HKWorld(RandomizerCoreWorld):
 
     # TODO revisit all this create location code and see if some can be abstracted
     def add_all_events(self):
-        # Vanilla placements of the following items have no impact on logic, thus we can avoid creating these items and
-        # locations entirely when the option to randomize them is disabled.
-        logicless_options = {
-            "RandomizeVesselFragments", "RandomizeGeoChests", "RandomizeJunkPitChests", "RandomizeRelics",
-            "RandomizeMaps", "RandomizeJournalEntries", "RandomizeGeoRocks", "RandomizeBossGeo",
-            "RandomizeLoreTablets", "RandomizeSoulTotems", "RandomizeLifebloodCocoons",
-        }
+        # lookup table of locations that need to be created with their item like events but need ids like non-events
+        if self.options.AddUnshuffledLocations:
+            unshuffled_location_lookup = {
+                location if location not in self.created_multi_locations else f"{location}_{item}": option
+                for option, pairs in pool_options.items()
+                for item, location in zip(pairs[0], pairs[1])
+                # TODO double check logic
+                }
+        else:
+            unshuffled_location_lookup = {}
 
         # meant to add events used in logic and to add any non-randomized item/locations as events
         # also makes the unshuffled ap items if add_unshuffled is true
-        unshuffled_location_lookup = {
-            location if location not in self.created_multi_locations else f"{location}_{item}": option
-            for option, pairs in pool_options.items()
-            for item, location in zip(pairs[0], pairs[1])
-            if (self.options.AddUnshuffledLocations and option not in logicless_options)
-            # TODO double check logic
-            }
-
         for event_location in self.event_locations:
             def create_location(location: Tuple[str, Optional[int]], rule: Any, item: Optional[Tuple[str, Optional[int]]], region: "Region"):
                 loc = self.location_class(self.player, location[0], location[1], region)
@@ -391,6 +385,7 @@ class HKWorld(RandomizerCoreWorld):
             region.locations.append(loc)
 
     def add_shop_locations(self):
+        # TODO logicless event items that get culled don't take up shop space
         for shop, locations in self.created_multi_locations.items():
             for index in range(len(locations), getattr(self.options, shop_to_option[shop]).value):
             # start index may be important if we pre-create unshuffled items in shops
@@ -474,6 +469,7 @@ class HKWorld(RandomizerCoreWorld):
 
 # black box methods
     def create_rule(self, rule: Any) -> List[HKClause]:
+        # TODO consider caching on these as they should be deterministic
         def parse_item_logic(reqs: list) -> Tuple[bool, Counter[str]]:  # Mapping[str, int]:
             # handle both keys of item name and keys of itemname>count
             ret: Counter[str] = Counter()
@@ -529,10 +525,8 @@ class HKWorld(RandomizerCoreWorld):
             item_requirements = clause["item_requirements"]
             skip_clause = False
             shadeskips = [0]
-            damage = [0]
             casts = [0]
             before = False
-            after = False
             after_resets = []
             add_dict = Counter()
             valid_keys = {key for key in ("ROOMSOUL", "AREASOUL", "MAPAREASOUL")}
@@ -581,7 +575,6 @@ class HKWorld(RandomizerCoreWorld):
                     casts += c
                     add_dict["CASTSUSED"] += sum(c)
                     before = b if b else before
-                    after = a if a else after
                     if a:
                         after_resets.append("CASTSUSED")
                 if req.startswith("$SHRIEKPOGO"):
@@ -592,7 +585,6 @@ class HKWorld(RandomizerCoreWorld):
                         casts += c
                         add_dict["CASTSUSED"] += sum(c)
                         before = b if b else before
-                        after = a if a else after
                         if a:
                             after_resets.append("CASTSUSED")
                         item_requirements.append("SCREAM>1")
@@ -604,33 +596,25 @@ class HKWorld(RandomizerCoreWorld):
                         casts += c
                         add_dict["CASTSUSED"] += sum(c)
                         before = b if b else before
-                        after = a if a else after
                         if a:
                             after_resets.append("CASTSUSED")
                         item_requirements.append("FIREBALL")
                     # can roll back to vs in mod
-                # handled in logic directly
+
                 if req.startswith("$TAKEDAMAGE"):
+                    # no skip_clause because damageboosts are tracked differently
                     search = re.search(r".*\[(.*)HITS\]", req)
                     if not search:
-                        damage.append(1)
                         add_dict["DAMAGE"] += 1
                     else:
-                        damage.append(search.groups(1)[0])
                         add_dict["DAMAGE"] += int(search.groups(1)[0])
-                    # if not self.options.DamageBoosts:
-                    #     skip_clause = True
 
             # checking for a False condidtion before and after item parsing for short circuiting
             if skip_clause:
                 continue
             state_requirements = HK_state_diff(
-                shadeskip=max(*shadeskips, 0),
-                # damage=max(*damage, 0),
+                shadeskip=max(*shadeskips, 0),  # highest health shadeskip needed for this clause
                 twister_required=any(cast > 3 for cast in casts),
-                # total_casts=sum(casts),
-                # before=before,
-                # after=after,
                 )
             skip_clause, items = parse_item_logic(item_requirements)
             if skip_clause:
@@ -641,20 +625,12 @@ class HKWorld(RandomizerCoreWorld):
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
-                hk_before_resets=["SPENTSOUL"] if before else [],
+                hk_before_resets=["SPENTSOUL", "CASTSUSED"] if before else [],
                 hk_after_resets=after_resets,
                 hk_state_modifiers=dict(add_dict),
                 hk_state_requirements=state_requirements,
-                # hk_state_modifiers=clause["state_modifiers"],
                 ))
 
-        # TODO seems unnecessary now that default_hk_rule exists
-        # if len(hk_rule) == 0:
-        #     return [HKClause(  # this rule can never be satisfied based on Options
-        #         hk_item_requirements={"FALSE": 1},
-        #         hk_region_requirements=[],  # TODO: update
-        #         hk_state_modifiers=[],
-        #         )]
         return hk_rule
 
     def set_rule(self, spot, rule):
@@ -684,6 +660,14 @@ class HKWorld(RandomizerCoreWorld):
         return connection_map
 
     def get_location_map(self) -> "List[Tuple[str, str, Optional[Any]]]":
+        # Vanilla placements of the following items have no impact on logic, thus we can avoid creating these items and
+        # locations entirely when the option to randomize them is disabled.
+        logicless_options = {
+            "RandomizeVesselFragments", "RandomizeGeoChests", "RandomizeJunkPitChests", "RandomizeRelics",
+            "RandomizeMaps", "RandomizeJournalEntries", "RandomizeGeoRocks", "RandomizeBossGeo",
+            "RandomizeLoreTablets", "RandomizeSoulTotems", "RandomizeLifebloodCocoons",
+        }
+
         # make our location_list off of location per option
         # and add any necessary location for logic to event_locations to be create later
         exclusions = self.white_palace_exclusions()
@@ -691,14 +675,15 @@ class HKWorld(RandomizerCoreWorld):
             location if location not in self.created_multi_locations else f"{location}_{item}"
             for option, pairs in pool_options.items()
             for item, location in zip(pairs[0], pairs[1])
-            if not getattr(self.options, option)
+            # TODO confirm logic
+            if (not getattr(self.options, option) and (option not in logicless_options or self.options.AddUnshuffledLocations))
             or location in exclusions
             ]
         location_list = [
             location
             for option, pairs in pool_options.items()
             for location in pairs[1]
-            if location not in self.event_locations  # getattr(self.options, option)
+            if location not in self.event_locations and getattr(self.options, option)
             and location not in self.created_multi_locations
             ]
 
