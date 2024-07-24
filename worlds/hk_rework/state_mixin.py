@@ -83,15 +83,17 @@ class HKLogicMixin(LogicMixin):
                 state[reset_key] = 0
             for key, value in clause.hk_state_modifiers.items():
                 state[key] += value
-            for reset_key in clause.hk_after_resets:
-                state[reset_key] = 0
 
             if not self.prog_items[player]["TOTAL_HEALTH"] > state["DAMAGE"]:
                 continue
             if not self.prog_items[player]["SHADE_HEALTH"] >= state["SPENTSHADE"]:
                 continue
             if not self.prog_items[player]["TOTAL_SOUL"] >= state["SPENTSOUL"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
+                # TODO switch to SPENTCASTS
                 continue
+
+            for reset_key in clause.hk_after_resets:
+                state[reset_key] = 0
 
             if persist:
                 any_true = True
