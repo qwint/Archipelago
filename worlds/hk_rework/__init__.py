@@ -296,7 +296,7 @@ class HKWorld(RandomizerCoreWorld):
 
         self.handle_starting_inventory()
         self.apply_costsanity()
-        # self.sort_shops_by_cost()
+        self.sort_shops_by_cost()
 
 # extra handling
     def add_vanilla_connections(self):
@@ -1056,6 +1056,8 @@ class HKWorld(RandomizerCoreWorld):
     def sort_shops_by_cost(self):
         for shop, locations in self.created_multi_locations.items():
             randomized_locations = list(loc for loc in locations if not loc.vanilla)
+            if not randomized_locations:
+                return
             prices = sorted(
                 (loc.costs for loc in randomized_locations),
                 key=lambda costs: (len(costs),) + tuple(costs.values())
