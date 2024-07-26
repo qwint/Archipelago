@@ -89,8 +89,8 @@ class HKLogicMixin(LogicMixin):
             if not self.prog_items[player]["SHADE_HEALTH"] >= state["SPENTSHADE"]:
                 continue
             if not self.prog_items[player]["TOTAL_SOUL"] >= state["SPENTCASTS"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
-                # TODO switch to SPENTCASTS
                 continue
+            # TODO charm+notch calcs
 
             for reset_key in clause.hk_after_resets:
                 state[reset_key] = 0
@@ -102,7 +102,6 @@ class HKLogicMixin(LogicMixin):
                 # we only need one success
                 return True
 
-        # TODO black magic
         if any_true and persist:
             simplify(self, target_region)
             # after a simplify if there are more or any different states then there are new states that should be swept
@@ -114,6 +113,8 @@ class HKLogicMixin(LogicMixin):
             return False
 
     def sweep_for_resource_state(self, player):
+        # TODO assume not stale and only evaluate true clauses
+        # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
             # random pop but i don't really care
             entrance = self._hk_per_player_sweepable_entrances[player].pop()
