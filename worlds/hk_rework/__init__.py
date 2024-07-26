@@ -4,7 +4,7 @@ import operator
 
 from copy import deepcopy
 from collections import Counter
-from typing import List, Dict, Any, Tuple, NamedTuple, Optional, cast
+from typing import List, Dict, Any, Tuple, NamedTuple, Optional, cast, Set
 
 from BaseClasses import Location, Item, ItemClassification, Tutorial, CollectionState, MultiWorld, Region, Entrance, LocationProgressType
 from worlds.AutoWorld import WebWorld
@@ -683,6 +683,8 @@ class HKWorld(RandomizerCoreWorld):
         # make our location_list off of location per option
         # and add any necessary location for logic to event_locations to be create later
         exclusions = self.white_palace_exclusions()
+        if "King_Fragment" in exclusions:
+            exclusions.remove("King_Fragment")
         self.event_locations += [
             location if location not in self.created_multi_locations else f"{location}_{item}"
             for option, pairs in pool_options.items()
@@ -749,6 +751,8 @@ class HKWorld(RandomizerCoreWorld):
         if self.options.RemoveSpellUpgrades:
             junk.update(("Abyss_Shriek", "Shade_Soul", "Descending_Dark"))
         exclusions = self.white_palace_exclusions()
+        if "King_Fragment" in exclusions:
+            exclusions.remove("King_Fragment")
         junk.update(exclusions)
 
         # build out item_table (including counts) by option, excluding items in junk
@@ -931,7 +935,7 @@ class HKWorld(RandomizerCoreWorld):
                     for loc in locations:
                         spoiler_handle.write(f"\n{loc}: {loc.item} costing {loc.cost_text()}")
 
-    def white_palace_exclusions(self):
+    def white_palace_exclusions(self) -> Set[str]:
         path_of_pain_locations = {
             "Soul_Totem-Path_of_Pain_Below_Thornskip",
             "Lore_Tablet-Path_of_Pain_Entrance",
