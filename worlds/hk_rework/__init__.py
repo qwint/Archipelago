@@ -64,37 +64,33 @@ class HK_state_diff(NamedTuple):
     shadeskip: int
     # shade health needed, 0 if unneeded
 
-    # damage: int
-    # # health needed for damage boosts
-
     twister_required: bool
     # shortcut logic if any step in a spell skip needs 4 casts
 
-    # total_casts: int
-    # # shortcut logic for the total casts for all steps in spell stalls
-
-    # before: bool
-    # # determined in parsing that we have beforesoul
-
-    # after: bool
-    # # determined in parsing that we have afteresoul
-
 
 class HKClause(NamedTuple):
-    # lists of strings are resource state keys that need to be modified
-    # dicts of str, int are values that need to be applied to resource state
+    # Dict of item: count for state.has_all_counts()
     hk_item_requirements: Dict[str, int]
+
+    # list of regions that need to reachable
     hk_region_requirements: List[str]
+
+    # other requirements for ad hoc short circuit logic
     hk_state_requirements: HK_state_diff
+
+    # state keys to be reset when the spot is checked before/after applying state_modifiers
     hk_before_resets: List[str]
     hk_after_resets: List[str]
-    hk_state_modifiers: Dict[str, int]  # figure this out later
+
+    # state keys and the values to add when the spot is checked
+    hk_state_modifiers: Dict[str, int]
 
 
+# default logicless rule for short circuting
 default_hk_rule = [HKClause(
     hk_item_requirements={"True": 1},
     hk_region_requirements=[],
-    hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False),  # damage=0, total_casts=0, before=False, after=False),
+    hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False),
     hk_before_resets=[],
     hk_after_resets=[],
     hk_state_modifiers={},
@@ -115,7 +111,7 @@ class HKLocation(Location):
         super(HKLocation, self).__init__(player, name, code if code else None, parent)
         self.basename = basename or name
         self.vanilla = vanilla
-        self.set_hk_rule(default_hk_rule)
+        self.set_hk_rule(default_hk_rule)  # expect to be set later
         if costs:
             self.costs = dict(costs)
             self.sort_costs()
@@ -165,7 +161,7 @@ class HKEntrance(Entrance):
 
     def __init__(self, *args, **kwargs):
         super(HKEntrance, self).__init__(*args, **kwargs)
-        self.set_hk_rule(default_hk_rule)
+        self.set_hk_rule(default_hk_rule)  # expect to be set later
 
     def set_hk_rule(self, rules: List[HKClause]):
         self.hk_rule = rules
@@ -177,7 +173,6 @@ class HKEntrance(Entrance):
                 multiworld.register_indirect_condition(reg, self)
 
     def access_rule(self, state: CollectionState) -> bool:
-        # TODO pass on states and return True
         if self.hk_rule == default_hk_rule:
             state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
             return True
@@ -195,8 +190,6 @@ class HKEntrance(Entrance):
                     and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
                 if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
-                # if state._hk_any_state_valid_for_region(clause.hk_state_requirements, self.parent_region):
-                #     state._hk_apply_state_to_region(self, clause)
                     valid_clauses[index] = True
 
         if self.parent_region == "Menu":
@@ -284,9 +277,6 @@ class HKWorld(RandomizerCoreWorld):
         self.add_all_events()
         self.add_shop_locations()
 
-        # TODO remove once proper can_reach get into region_data
-        # self.multiworld.get_location("Can_Visit_Lemm", self.player).access_rule = lambda state: state.can_reach("Ruins1_27[left1]", "Region", self.player)
-        # TODO confirm we don't have to handle the other exclusions
         if "King_Fragment" in self.white_palace_exclusions():
             self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
 
@@ -326,7 +316,6 @@ class HKWorld(RandomizerCoreWorld):
             region2 = self.multiworld.get_region(connection[1], self.player)
             region1.connect(region2, connection[2])
 
-    # TODO revisit all this create location code and see if some can be abstracted
     def add_all_events(self):
         # lookup table of locations that need to be created with their item like events but need ids like non-events
         if self.options.AddUnshuffledLocations:
@@ -396,65 +385,41 @@ class HKWorld(RandomizerCoreWorld):
             loc = create_location((event_location, code), rule, item, region)
             region.locations.append(loc)
 
+    def add_shop_location(self, shop, index):
+        lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
+        # fix because Salubra_(Requires_Charms) isn't actually in the source data
+
+        costs = None
+        if shop in shop_cost_types:
+            costs = {
+                term: self.random.randint(*self.ranges[term])
+                for term in shop_cost_types[shop]
+            }
+
+        rule = self.rule_lookup[lookup_shop]
+        region = self.multiworld.get_region(self.region_lookup[lookup_shop], self.player)
+        location_name = f"{shop}_{index+1}"
+        code = self.location_name_to_id[location_name]
+
+        loc = self.location_class(self.player, location_name, code, region)
+        if rule:
+            self.set_rule(loc, self.create_rule(rule))
+        if costs:
+            loc.costs = costs
+            loc.sort_costs()
+        self.created_multi_locations[shop].append(loc)
+        loc.basename = shop  # for costsanity pool checking
+        region.locations.append(loc)
+
     def add_shop_locations(self):
         # TODO logicless event items that get culled don't take up shop space
         for shop, locations in self.created_multi_locations.items():
             for index in range(len(locations), getattr(self.options, shop_to_option[shop]).value):
-            # start index may be important if we pre-create unshuffled items in shops
-                lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
-                # fix because Salubra_(Requires_Charms) isn't actually in the source data
-
-                costs = None
-                if shop in shop_cost_types:
-                    costs = {
-                        term: self.random.randint(*self.ranges[term])
-                        for term in shop_cost_types[shop]
-                    }
-
-                rule = self.rule_lookup[lookup_shop]
-                region = self.multiworld.get_region(self.region_lookup[lookup_shop], self.player)
-                location_name = f"{shop}_{index+1}"
-                code = self.location_name_to_id[location_name]
-
-                loc = self.location_class(self.player, location_name, code, region, )
-                if rule:
-                    self.set_rule(loc, self.create_rule(rule))
-                if costs:
-                    loc.costs = costs
-                    loc.sort_costs()
-                self.created_multi_locations[shop].append(loc)
-                loc.basename = shop  # for costsanity pool checking
-                region.locations.append(loc)
+                # start index may be important if we pre-create unshuffled items in shops
+                self.add_shop_location(shop, index)
         self.add_extra_shop_locations(self.options.ExtraShopSlots.value)
 
     def add_extra_shop_locations(self, count):
-        def create_location(shop):
-            lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
-            # fix because Salubra_(Requires_Charms) isn't actually in the source data
-
-            costs = None
-            if shop in shop_cost_types:
-                costs = {
-                    term: self.random.randint(*self.ranges[term])
-                    for term in shop_cost_types[shop]
-                }
-
-            rule = self.rule_lookup[lookup_shop]
-            region = self.multiworld.get_region(self.region_lookup[lookup_shop], self.player)
-            index = len(self.created_multi_locations[shop])
-            location_name = f"{shop}_{index+1}"
-            code = self.location_name_to_id[location_name]
-
-            loc = self.location_class(self.player, location_name, code, region)
-            if rule:
-                self.set_rule(loc, self.create_rule(rule))
-            if costs:
-                loc.costs = costs
-                loc.sort_costs()
-            self.created_multi_locations[shop].append(loc)
-            loc.basename = shop  # for costsanity pool checking
-            region.locations.append(loc)
-
         # Add additional shop items, as needed.
         if count > 0:
             shops = list(shop for shop, locations in self.created_multi_locations.items() if len(locations) < 16)
@@ -464,7 +429,8 @@ class HKWorld(RandomizerCoreWorld):
             if shops:
                 for _ in range(count):
                     shop = self.random.choice(shops)
-                    loc = create_location(shop)
+                    index = len(self.created_multi_locations[shop])
+                    loc = self.add_shop_location(shop, index)
                     if len(self.created_multi_locations[shop]) >= 16:
                         shops.remove(shop)
                         if not shops:
@@ -481,7 +447,7 @@ class HKWorld(RandomizerCoreWorld):
 
 # black box methods
     def create_rule(self, rule: Any) -> List[HKClause]:
-        # TODO consider caching on these as they should be deterministic
+        # TODO consider caching on these as they should be deterministic, but they need options so only deterministic per world
         def parse_item_logic(reqs: list) -> Tuple[bool, Counter[str]]:  # Mapping[str, int]:
             # handle both keys of item name and keys of itemname>count
             ret: Counter[str] = Counter()
@@ -645,7 +611,8 @@ class HKWorld(RandomizerCoreWorld):
 
         return hk_rule
 
-    def set_rule(self, spot, rule):
+    @staticmethod
+    def set_rule(spot, rule):
         # set hk_rule instead of access_rule because our Location class defines a custom access_rule
         spot.set_hk_rule(rule)
 
@@ -731,12 +698,6 @@ class HKWorld(RandomizerCoreWorld):
 
         if self.options.RandomizeFocus:
             location_list.append("Focus")
-
-        # TODO remove this bandaid
-        # if "Whispering_Root-Greenpath" in location_list:
-        #     location_list.remove("Whispering_Root-Greenpath")
-        # if "Whispering_Root-Greenpath" in self.event_locations:
-        #     self.event_locations.remove("Whispering_Root-Greenpath")
 
         # build out the map per location in the list
         location_map = [(region["name"], location, self.rule_lookup[location]) for region in self.rc_regions for location in region["locations"] if location in location_list]
@@ -984,7 +945,8 @@ class HKWorld(RandomizerCoreWorld):
                 exclusions.update(white_palace_events)
         return exclusions
 
-    def edit_effects(self, state, player: int, item: str, add: bool):
+    @staticmethod
+    def edit_effects(state, player: int, item: str, add: bool):
         for effect_name, effect_value in item_effects.get(item, {}).items():
             if add:
                 state.prog_items[player][effect_name] += effect_value
