@@ -102,23 +102,22 @@ class HKLogicMixin(LogicMixin):
                 # we only need one success
                 return True
 
-        # if any_true and persist:
-        #     # breakpoint()
-        #     simplify(self, target_region)
-        #     return True
-        # else:
-        #     return False
-
         # TODO black magic
         if any_true and persist:
             simplify(self, target_region)
             # after a simplify if there are more or any different states then there are new states that should be swept
             if self._hk_per_player_resource_states[player][target_region.name] != target_states:
                 self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
+                self.sweep_for_resource_state(player)
             return True
         else:
             return False
 
+    def sweep_for_resource_state(self, player):
+        while self._hk_per_player_sweepable_entrances[player]:
+            # random pop but i don't really care
+            entrance = self._hk_per_player_sweepable_entrances[player].pop()
+            self.can_reach_entrance(entrance, player)
 
 def simplify(state, region):
     def ge(state1, state2) -> bool:
