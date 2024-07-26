@@ -91,14 +91,14 @@ class HKClause(NamedTuple):
     hk_state_modifiers: Dict[str, int]  # figure this out later
 
 
-default_hk_rule = HKClause(
+default_hk_rule = [HKClause(
     hk_item_requirements={"True": 1},
     hk_region_requirements=[],
     hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False),  # damage=0, total_casts=0, before=False, after=False),
     hk_before_resets=[],
     hk_after_resets=[],
     hk_state_modifiers={},
-    )
+    )]
 
 
 class HKLocation(Location):
@@ -115,12 +115,15 @@ class HKLocation(Location):
         super(HKLocation, self).__init__(player, name, code if code else None, parent)
         self.basename = basename or name
         self.vanilla = vanilla
-        self.hk_rule = default_hk_rule
+        self.set_hk_rule(default_hk_rule)
         if costs:
             self.costs = dict(costs)
             self.sort_costs()
         else:
             self.costs = None
+
+    def set_hk_rule(self, rules: List[HKClause]):
+        self.hk_rule = rules
 
     def access_rule(self, state: CollectionState) -> bool:
         if self.costs:
@@ -162,12 +165,21 @@ class HKEntrance(Entrance):
 
     def __init__(self, *args, **kwargs):
         super(HKEntrance, self).__init__(*args, **kwargs)
-        self.hk_rule = default_hk_rule
+        self.set_hk_rule(default_hk_rule)
+
+    def set_hk_rule(self, rules: List[HKClause]):
+        self.hk_rule = rules
+        indirection_connections = [region for clause in rules for region in clause.hk_region_requirements]
+        if indirection_connections:
+            multiworld = self.parent_region.multiworld
+            for region in indirection_connections:
+                reg = multiworld.get_region(region, self.player)
+                multiworld.register_indirect_condition(reg, self)
 
     def access_rule(self, state: CollectionState) -> bool:
         # TODO pass on states and return True
         if self.hk_rule == default_hk_rule:
-            state._hk_apply_and_validate_state(default_hk_rule, self.parent_region, target_region=self.connected_region)
+            state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
             return True
         if not state._hk_entrance_clause_cache[self.player].get(self.name, None):
             # if there's no cache for this entrance, make one with everything False
@@ -635,7 +647,7 @@ class HKWorld(RandomizerCoreWorld):
 
     def set_rule(self, spot, rule):
         # set hk_rule instead of access_rule because our Location class defines a custom access_rule
-        spot.hk_rule = rule
+        spot.set_hk_rule(rule)
 
     def get_connections(self) -> "List[Tuple[str, str, Optional[Any]]]":
         from .ExtractedData import starts
