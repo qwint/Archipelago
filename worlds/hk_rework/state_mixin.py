@@ -119,6 +119,7 @@ class HKLogicMixin(LogicMixin):
             entrance = self._hk_per_player_sweepable_entrances[player].pop()
             self.can_reach_entrance(entrance, player)
 
+
 def simplify(state, region):
     def ge(state1, state2) -> bool:
         return all(state1[key] >= state2[key] for key in state2.keys())
