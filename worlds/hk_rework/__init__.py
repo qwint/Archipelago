@@ -174,11 +174,12 @@ class HKEntrance(Entrance):
 
     def access_rule(self, state: CollectionState) -> bool:
         if self.hk_rule == default_hk_rule:
+            state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
             state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
             return True
-        if not state._hk_entrance_clause_cache[self.player].get(self.name, None):
+        if self.name not in state._hk_entrance_clause_cache[self.player]:
             # if there's no cache for this entrance, make one with everything False
-            state._hk_entrance_clause_cache[self.player][self.name] = {index: False for index in range(len(self.hk_rule))}
+            state._hk_entrance_clause_cache[self.player][self.name] = {index: False for index, _ in enumerate(self.hk_rule)}
 
         # check every clause, caching item state accessibility
         valid_clauses = {}
@@ -989,6 +990,8 @@ class HKWorld(RandomizerCoreWorld):
     def remove(self, state, item: HKItem) -> bool:
         change = super(HKWorld, self).remove(state, item)
         if change:
+            state._hk_entrance_clause_cache[item.player] = {}
+            state._hk_per_player_sweepable_entrances[item.player] = {entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits}
             prog_items = state.prog_items[item.player]
             if item.name in {"Left_Mothwing_Cloak", "Right_Mothwing_Cloak"}:
                 # reset dash effects to 0 and recalc

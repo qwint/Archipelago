@@ -51,9 +51,21 @@ class HKLogicMixin(LogicMixin):
 
     def _hk_apply_and_validate_state(self, clause: "HKClause", region, target_region=None) -> bool:
         player = region.player
-        requires_shadeskip = clause.hk_state_requirements.shadeskip
-        requies_twister = clause.hk_state_requirements.twister_required
         avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
+
+        if avaliable_states is None:
+            region.can_reach(self)
+            avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+
+        if not avaliable_states:
+            # no valid parent states
+            return False
+
+        if clause.hk_state_requirements.shadeskip:
+            avaliable_states = [state for state in avaliable_states if not state[1]["SPENTSHADE"]]
+        if False and clause.hk_state_requirements.twister_required:
+            # TODO do black magic here
+            self.has("Spell_Twister", player)
 
         any_true = False
         if target_region:
@@ -63,46 +75,33 @@ class HKLogicMixin(LogicMixin):
         else:
             persist = False
 
-        if avaliable_states is None:
-            region.can_reach(self)
-            avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
-        if requires_shadeskip:
-            avaliable_states = [state for state in avaliable_states if not state[1]["SPENTSHADE"]]
-        if False and requies_twister:
-            # TODO do black magic here
-            self.has("Spell_Twister", player)
-
-        if not avaliable_states:
-            # no valid parent states
-            return False
-
         for state_tuple in avaliable_states:
-            state = state_tuple[1]
+            resource_state = state_tuple[1]
             # TODO see if we can remove the charm list
             for reset_key in clause.hk_before_resets:
-                state[reset_key] = 0
+                resource_state[reset_key] = 0
             for key, value in clause.hk_state_modifiers.items():
-                state[key] += value
+                resource_state[key] += value
 
-            if not self.prog_items[player]["TOTAL_HEALTH"] > state["DAMAGE"]:
+            if not self.prog_items[player]["TOTAL_HEALTH"] > resource_state["DAMAGE"]:
                 continue
-            if not self.prog_items[player]["SHADE_HEALTH"] >= state["SPENTSHADE"]:
+            if not self.prog_items[player]["SHADE_HEALTH"] >= resource_state["SPENTSHADE"]:
                 continue
-            if not self.prog_items[player]["TOTAL_SOUL"] >= state["SPENTCASTS"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
+            if not self.prog_items[player]["TOTAL_SOUL"] >= resource_state["SPENTCASTS"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
                 continue
             # TODO charm+notch calcs
 
             for reset_key in clause.hk_after_resets:
-                state[reset_key] = 0
+                resource_state[reset_key] = 0
 
             if persist:
                 any_true = True
-                self._hk_per_player_resource_states[player][target_region.name].append(([], state))
+                self._hk_per_player_resource_states[player][target_region.name].append(([], resource_state))
             else:
                 # we only need one success
                 return True
 
-        if any_true and persist:
+        if any_true:  # and persist:  # non-persist would have returned by now if true
             simplify(self, target_region)
             # after a simplify if there are more or any different states then there are new states that should be swept
             if self._hk_per_player_resource_states[player][target_region.name] != target_states:
@@ -113,18 +112,30 @@ class HKLogicMixin(LogicMixin):
             return False
 
     def sweep_for_resource_state(self, player):
-        # TODO assume not stale and only evaluate true clauses
+        # assume not stale and only evaluate true clauses
         # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
             # random pop but i don't really care
-            entrance = self._hk_per_player_sweepable_entrances[player].pop()
-            self.can_reach_entrance(entrance, player)
+            entrance_name = self._hk_per_player_sweepable_entrances[player].pop()
+            if entrance_name not in self._hk_entrance_clause_cache[player]:
+                # then we haven't done a single can_reach on it, let normal sweep handle that
+                continue
+
+            entrance = self.multiworld.get_entrance(entrance_name, player)
+            for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
+                self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
+
+        # while self._hk_per_player_sweepable_entrances[player]:
+        #     # random pop but i don't really care
+        #     entrance = self._hk_per_player_sweepable_entrances[player].pop()
+        #     self.can_reach_entrance(entrance, player)
+
+
+def ge(state1, state2) -> bool:
+    return all(state1[key] >= state2[key] for key in state2.keys())
 
 
 def simplify(state, region):
-    def ge(state1, state2) -> bool:
-        return all(state1[key] >= state2[key] for key in state2.keys())
-
     previous_states = state._hk_per_player_resource_states[region.player][region.name]
     if len(previous_states) == 1:
         return
