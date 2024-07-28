@@ -16,7 +16,7 @@ from .region_data import regions, transitions, locations
 from .Options import hollow_knight_options, hollow_knight_randomize_options, Goal, WhitePalace, CostSanity, \
     shop_to_option, HKOptions
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
-from .Charms import names as charm_names
+from .Charms import names as charm_names, charm_name_to_id
 
 from .ExtractedData import pool_options, logic_options, items as extracted_items, logic_items, item_effects, multi_locations
 from .Items import item_name_groups, item_name_to_id, location_name_to_id  # item_table, lookup_type_to_names, item_name_groups
@@ -67,6 +67,9 @@ class HK_state_diff(NamedTuple):
     twister_required: bool
     # shortcut logic if any step in a spell skip needs 4 casts
 
+    add_charms: Dict[str, int]
+    # dict of charms that need to be in state and their costs
+
 
 class HKClause(NamedTuple):
     # Dict of item: count for state.has_all_counts()
@@ -90,7 +93,7 @@ class HKClause(NamedTuple):
 default_hk_rule = [HKClause(
     hk_item_requirements={"True": 1},
     hk_region_requirements=[],
-    hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False),
+    hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False, add_charms={}),
     hk_before_resets=[],
     hk_after_resets=[],
     hk_state_modifiers={},
@@ -372,7 +375,6 @@ class HKWorld(RandomizerCoreWorld):
                     loc.costs = costs.pop()
                     loc.sort_costs()
                     loc.vanilla = True
-                    # TODO remove/rework based on how sort_shops_by_cost ends up
                     # setting vanilla=True so shop sorting doesn't shuffle the price around
                 self.created_multi_locations[shop].append(loc)
                 loc.basename = shop  # for costsanity pool checking
@@ -508,6 +510,7 @@ class HKWorld(RandomizerCoreWorld):
             before = False
             after_resets = []
             add_dict = Counter()
+            add_charms = {}
             valid_keys = {key for key in ("ROOMSOUL", "AREASOUL", "MAPAREASOUL")}
             # TODO with ER change this logic
             if self.options.RandomizeCharms:  # TODO confirm
@@ -518,6 +521,7 @@ class HKWorld(RandomizerCoreWorld):
                 if req == "$BENCHRESET":
                     after_resets.append("DAMAGE")
                     after_resets.append("SPENTSHADE")
+                    after_resets.append("SPENTNOTCHES")
                     # reset charms
                 elif req == "$FLOWERGET":
                     after_resets.append("NOFLOWER")
@@ -531,13 +535,19 @@ class HKWorld(RandomizerCoreWorld):
                     after_resets.append("SPENTSHADE")
                     add_dict["NOFLOWER"] += 1
 
-                if req.startswith("$EQUIPPEDCHARM"):
+                elif req.startswith("$EQUIPPEDCHARM"):
                     charm = re.search(r"\$EQUIPPEDCHARM\[(.*)\]", req).group(1)
                     if charm == "Kingsoul":
-                        charm = "WHITEFRAGMENT"
-                    item_requirements.append(charm)
+                        item_requirements.append("WHITEFRAGMENT>1")
+                        add_charms[charm] = self.charm_costs[charm_name_to_id[charm]]
+                    elif charm == "Void_Heart":
+                        item_requirements.append("WHITEFRAGMENT>2")
+                        add_charms[charm] = 0
+                    else:
+                        item_requirements.append(charm)
+                        add_charms[charm] = self.charm_costs[charm_name_to_id[charm]]
 
-                if req.startswith("$SHADESKIP"):
+                elif req.startswith("$SHADESKIP"):
                     if not self.options.ShadeSkips:
                         skip_clause = True
                     else:
@@ -548,7 +558,7 @@ class HKWorld(RandomizerCoreWorld):
                         else:
                             shadeskips.append(int(search.groups(1)[0]))
 
-                if req.startswith("$CASTSPELL"):
+                elif req.startswith("$CASTSPELL"):
                     # any skips will be marked, this covers dive uses too
                     c, b, a = parse_cast_logic(req, valid_keys)
                     casts += c
@@ -556,7 +566,7 @@ class HKWorld(RandomizerCoreWorld):
                     before = b if b else before
                     if a:
                         after_resets.append("CASTSUSED")
-                if req.startswith("$SHRIEKPOGO"):
+                elif req.startswith("$SHRIEKPOGO"):
                     if True or not self.options.ShriekPogo:  # currently unsupported
                         skip_clause = True
                     else:
@@ -567,7 +577,7 @@ class HKWorld(RandomizerCoreWorld):
                         if a:
                             after_resets.append("CASTSUSED")
                         item_requirements.append("SCREAM>1")
-                if req.startswith("$SLOPEBALL"):
+                elif req.startswith("$SLOPEBALL"):
                     if True or not self.options.SlopeBall:  # currently unsupported
                         skip_clause = True
                     else:
@@ -580,7 +590,7 @@ class HKWorld(RandomizerCoreWorld):
                         item_requirements.append("FIREBALL")
                     # can roll back to vs in mod
 
-                if req.startswith("$TAKEDAMAGE"):
+                elif req.startswith("$TAKEDAMAGE"):
                     # no skip_clause because damageboosts are tracked differently
                     search = re.search(r".*\[(.*)HITS\]", req)
                     if not search:
@@ -591,10 +601,18 @@ class HKWorld(RandomizerCoreWorld):
             # checking for a False condidtion before and after item parsing for short circuiting
             if skip_clause:
                 continue
+            if any(cast > 3 for cast in casts):
+                # twister required
+                charm = "Spell_Twister"
+                item_requirements.append(charm)
+                add_charms[charm] = self.charm_costs[charm_name_to_id[charm]]
+
             state_requirements = HK_state_diff(
                 shadeskip=max(*shadeskips, 0),  # highest health shadeskip needed for this clause
-                twister_required=any(cast > 3 for cast in casts),
+                twister_required=None,  # any(cast > 3 for cast in casts),
+                add_charms=add_charms,
                 )
+
             skip_clause, items = parse_item_logic(item_requirements)
             if skip_clause:
                 continue
@@ -769,7 +787,7 @@ class HKWorld(RandomizerCoreWorld):
             multiworld.completion_condition[player] = lambda state: _hk_can_beat_thk(state, player) or _hk_can_beat_radiance(state, player)
 
     def get_item_classification(self, name: str) -> ItemClassification:
-        item_type = extracted_items[name]
+        item_type = extracted_items.get(name, None)
 
         progression_charms = {
             # Baldur Killers
@@ -985,6 +1003,9 @@ class HKWorld(RandomizerCoreWorld):
             if item.name == "Mask_Shard":
                 prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
                 prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
+            if item.name == "Charm_Notch":
+                # TODO consider switching to += 1
+                prog_items["TOTAL_NOTCHES"] = 3 + prog_items["Charm_Notch"]
         return change
 
     def remove(self, state, item: HKItem) -> bool:
@@ -1015,6 +1036,9 @@ class HKWorld(RandomizerCoreWorld):
             if item.name == "Mask_Shard":
                 prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
                 prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
+            if item.name == "Charm_Notch":
+                # TODO consider switching to -= 1
+                prog_items["TOTAL_NOTCHES"] = 3 + prog_items["Charm_Notch"]
         return change
 
     def fill_slot_data(self):
