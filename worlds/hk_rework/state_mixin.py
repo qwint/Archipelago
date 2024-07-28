@@ -1,19 +1,18 @@
 from BaseClasses import MultiWorld, CollectionState, Region
 from typing import TYPE_CHECKING, Tuple, NamedTuple, Dict, Set, Any, List
 from worlds.AutoWorld import LogicMixin
-from .Charms import names as charm_names
+from .Charms import names as charm_names, charm_name_to_id
 from collections import Counter
 from copy import deepcopy
+from Utils import KeyedDefaultDict
 
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-default_state = ([], Counter({"DAMAGE": 0, "SPENTSHADE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0}))
+default_state = ({}, Counter({"DAMAGE": 0, "SPENTSHADE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0}))
 BASE_SOUL = 12
 BASE_NOTCHES = 3
 BASE_HEALTH = 4
-charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(charm_names)}  # if name in ("Spell_Twister", "Fragile_Heart")}
-                    # TODO >:(
 
 
 class HKLogicMixin(LogicMixin):
@@ -34,7 +33,7 @@ class HKLogicMixin(LogicMixin):
     def init_mixin(self, multiworld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
-        self._hk_per_player_resource_states = {player: {"Menu": [default_state]} for player in players}  # {player: {init_state: [start_region]} for player in players}
+        self._hk_per_player_resource_states = {player: KeyedDefaultDict(lambda region: [default_state] if region == "Menu" else []) for player in players}  # {player: {init_state: [start_region]} for player in players}
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
         self._hk_free_entrances = {player: set() for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
@@ -42,6 +41,7 @@ class HKLogicMixin(LogicMixin):
             self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
             self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
             self.prog_items[player]["SHADE_HEALTH"] = max(int(BASE_HEALTH/2), 1)
+            self.prog_items[player]["TOTAL_NOTCHES"] = BASE_NOTCHES
 
     def copy_mixin(self, other) -> CollectionState:
         other._hk_per_player_resource_states = self._hk_per_player_resource_states
@@ -51,21 +51,23 @@ class HKLogicMixin(LogicMixin):
 
     def _hk_apply_and_validate_state(self, clause: "HKClause", region, target_region=None) -> bool:
         player = region.player
-        avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
+        # avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
 
-        if avaliable_states is None:
-            region.can_reach(self)
-            avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+        # if avaliable_states is None:
+        #     region.can_reach(self)
+        #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+        avaliable_states = self._hk_per_player_resource_states[player][region.name]
+        # loses the can_reach parent call, potentially re-add it?
+
+        if clause.hk_state_requirements.shadeskip:
+            avaliable_states = [state for state in avaliable_states if not state[1]["SPENTSHADE"]]
+        # if False and clause.hk_state_requirements.twister_required:
+        #     # TODO do black magic here
+        #     self.has("Spell_Twister", player)
 
         if not avaliable_states:
             # no valid parent states
             return False
-
-        if clause.hk_state_requirements.shadeskip:
-            avaliable_states = [state for state in avaliable_states if not state[1]["SPENTSHADE"]]
-        if False and clause.hk_state_requirements.twister_required:
-            # TODO do black magic here
-            self.has("Spell_Twister", player)
 
         any_true = False
         if target_region:
@@ -75,28 +77,47 @@ class HKLogicMixin(LogicMixin):
         else:
             persist = False
 
-        for state_tuple in avaliable_states:
-            resource_state = state_tuple[1]
+        for charms, resource_state in avaliable_states:
+            # resource_state = state_tuple[1]
+            # charms = state_tuple[0]
             # TODO see if we can remove the charm list
             for reset_key in clause.hk_before_resets:
                 resource_state[reset_key] = 0
             for key, value in clause.hk_state_modifiers.items():
                 resource_state[key] += value
 
+            # if a resource state requirement cannot be sufficed, blindly add charms to fix it
+            # if the charm validation fails because we are missing the charm or not enough notches
+            # then the state would have been skipped anyways
             if not self.prog_items[player]["TOTAL_HEALTH"] > resource_state["DAMAGE"]:
                 continue
             if not self.prog_items[player]["SHADE_HEALTH"] >= resource_state["SPENTSHADE"]:
                 continue
-            if not self.prog_items[player]["TOTAL_SOUL"] >= resource_state["SPENTCASTS"] * (3 if "Spell_Twister" in state_tuple[0] else 4):
+            if not self.prog_items[player]["TOTAL_SOUL"] >= resource_state["SPENTCASTS"] * (3 if "Spell_Twister" in charms else 4):
                 continue
+            # first check if we have spots for overcharming
+            if not self.prog_items[player]["TOTAL_NOTCHES"] >= sum(charms.values()):
+                continue
+
+                # TODO implement overcharming and its effects on DAMAGE
+                # if we can take off one charm and have one notch free we can overcharm
+                # if self.prog_items[player]["TOTAL_NOTCHES"] > sum(charms.values()) - max(charms.values()):
+                    # resource_state["OVERCHARMED"] = 1
+                    # # recheck damage with overcharm effects
+                    # if not self.prog_items[player]["TOTAL_HEALTH"] > 2 * resource_state["DAMAGE"]:
+                    #     continue
+                # continue
+
             # TODO charm+notch calcs
 
             for reset_key in clause.hk_after_resets:
                 resource_state[reset_key] = 0
+            if "SPENTNOTCHES" in clause.hk_after_resets:
+                charms = {}
 
             if persist:
                 any_true = True
-                self._hk_per_player_resource_states[player][target_region.name].append(([], resource_state))
+                self._hk_per_player_resource_states[player][target_region.name].append((charms, resource_state))
             else:
                 # we only need one success
                 return True

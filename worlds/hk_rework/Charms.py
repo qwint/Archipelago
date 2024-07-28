@@ -45,3 +45,6 @@ names: List[str] = [
     "Weaversong",
     "Grimmchild"
 ]
+
+charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(names)}
+                    # TODO >:(
