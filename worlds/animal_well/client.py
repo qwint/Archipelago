@@ -261,7 +261,7 @@ class AWLocations:
                 if status:
                     ctx.locations_checked.add(location_name_to_id[loc_name])
 
-            if "goal" not in ctx.slot_data or ctx.slot_data["goal"] == Goal.option_fireworks:
+            if ctx.slot_data.get("goal", None) == Goal.option_fireworks:
                 if not ctx.finished_game and self.loc_statuses[lname.key_house]:
                     await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                     ctx.finished_game = True
