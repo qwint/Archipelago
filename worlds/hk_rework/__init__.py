@@ -974,6 +974,17 @@ class HKWorld(RandomizerCoreWorld):
                 if state.prog_items[player][effect_name] < 1:
                     del (state.prog_items[player][effect_name])
 
+    @staticmethod
+    def set_resource_thresholds(prog_items, item_name):
+        if item_name == "Vessel_Fragment":
+            prog_items["TOTAL_SOUL"] = 12 + (4 * int(prog_items["Vessel_Fragment"] / 3))
+        elif item_name == "Mask_Shard":
+            prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
+            prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
+        elif item_name == "Charm_Notch":
+            # TODO consider switching to += 1
+            prog_items["TOTAL_NOTCHES"] = 3 + prog_items["Charm_Notch"]
+
     def collect(self, state, item: HKItem) -> bool:
         change = super(HKWorld, self).collect(state, item)
         if change:
@@ -997,15 +1008,7 @@ class HKWorld(RandomizerCoreWorld):
                         ([max(prog_items["RIGHTDASH"], prog_items["LEFTDASH"])] * 2)    
             else:
                 self.edit_effects(state, item.player, item.name, add=True)
-
-            if item.name == "Vessel_Fragment":
-                prog_items["TOTAL_SOUL"] = 12 + (4 * int(prog_items["Vessel_Fragment"] / 3))
-            if item.name == "Mask_Shard":
-                prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
-                prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
-            if item.name == "Charm_Notch":
-                # TODO consider switching to += 1
-                prog_items["TOTAL_NOTCHES"] = 3 + prog_items["Charm_Notch"]
+            self.set_resource_thresholds(prog_items, item.name)
         return change
 
     def remove(self, state, item: HKItem) -> bool:
@@ -1031,14 +1034,7 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.edit_effects(state, item.player, item.name, add=False)
 
-            if item.name == "Vessel_Fragment":
-                prog_items["TOTAL_SOUL"] = 12 + (4 * int(prog_items["Vessel_Fragment"] / 3))
-            if item.name == "Mask_Shard":
-                prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
-                prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
-            if item.name == "Charm_Notch":
-                # TODO consider switching to -= 1
-                prog_items["TOTAL_NOTCHES"] = 3 + prog_items["Charm_Notch"]
+            self.set_resource_thresholds(prog_items, item.name)
         return change
 
     def fill_slot_data(self):
