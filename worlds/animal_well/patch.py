@@ -320,12 +320,12 @@ class Patch:
         self.add_bytes(b'\x0f\x87' + diff.to_bytes(4, 'little'))
         return self
 
-    def jmp_near_offset(self, address):
+    def jmp_near_offset(self, offset):
         """
         Jumps a specific number of bytes from the NEXT instruction
         5 bytes
         """
-        diff = address - (self.get_patch_end() + 5)
+        diff = offset
         self.add_bytes(b'\xe9' + (diff).to_bytes(4, 'little', signed=True))
         return self
 

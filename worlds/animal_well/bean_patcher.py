@@ -333,7 +333,7 @@ class Bean_Patcher:
         This patch adds a text display at the top of the screen that displays messages that the AP Client receives. It additionally pushes the steps and time counters
         lower on the screen to make room for the new text display. This patch can also be extended in the future to display other things in-game.
         """
-        self.draw_routine_string_size = 100
+        self.draw_routine_string_size = 400
 
         game_draw_injection_address = self.module_base + 0x5068b
 
