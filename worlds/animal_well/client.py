@@ -207,33 +207,50 @@ class AnimalWellContext(CommonContext):
                 elif msgType == "Join":
                     self.display_text_in_client(args.get('data')[0]['text'])
                 elif msgType == "CommandResult":
-                    self.display_text_in_client(args.get('data')[0]['text'])
+                    pass
                 elif msgType == "Tutorial":
                     pass
+                elif msgType == "ItemCheat":
+                    self.display_text_in_client(args.get("data")[0]["text"])
                 elif msgType == "ItemSend":
-                    data = parseIds(args.get('data'))
-                    text = "".join(o['text'] for o in data).replace(')', '').replace('(', 'at ')
+                    destination_player_id = args["receiving"]
+                    source_player_id = args["item"][2]  # it's a tuple, so we can't index by name
+                    self_slot: int = self.slot
+                    # we don't want to display every item message, just ones relevant to us
+                    if self_slot not in [source_player_id, destination_player_id]:
+                        return
+                    item_id = args["item"][0]
+                    location_id = args["item"][1]
+                    # classification = args["item"][3]  # may use later if we can color-code them in-game
+                    item_name = self.item_names.lookup_in_slot(item_id, destination_player_id)
+                    location_name = self.location_names.lookup_in_slot(location_id, source_player_id)
+                    text = "Error occurred, report to ANIMAL WELL AP devs"
+                    if self_slot == source_player_id:
+                        destination_player_name = self.player_names[destination_player_id] if destination_player_id.isnumeric() else destination_player_id
+                        text = f"You sent {item_name} to {destination_player_name} from {location_name}!"
+                    if self_slot == destination_player_id:
+                        source_player_name = self.player_names[source_player_id] if source_player_id.isnumeric() else source_player_id
+                        text = f"{source_player_name} sent you your {item_name}!"
+                    if self_slot == source_player_id and self_slot == destination_player_id:
+                        text = f"You found your {item_name} at {location_name}!"
                     self.display_text_in_client(text)
                 elif msgType == "Countdown":
-                    # {'cmd': 'PrintJSON', 'data': [{'text': '[Server]: GO'}], 'type': 'Countdown', 'countdown': 0}
                     text = "".join(o['text'] for o in args.get('data'))
                     self.display_text_in_client(text)
                 else:
                     logger.info("Unhandled type of PrintJSON: [{}]: {}".format(msgType, args))
-            elif cmd == "Retrieved":
-                logger.info(f"[{cmd}]: {args}")
             elif cmd == "ReceivedItems":
                 items = args.get("items")
             elif cmd == "RoomUpdate":
                 checked_locations = args.get("checked_locations")
-            elif cmd == "Bounced":
-                pass
             elif cmd == "RoomInfo":
                 pass
             elif cmd == "Connected":
                 self.display_text_in_client('AP Client: Connected! AP Server: Connected!')
-            else:
-                logger.info("Unknown Command: [{}]: {}".format(cmd, args))
+            elif cmd == "SetReply":
+                pass
+            elif cmd == "None":
+                self.display_text_in_client(args.get("data")[0]["text"])
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
             logger.info('Package details: {}'.format(args))
