@@ -41,6 +41,31 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AnimalWellContext):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
+    def _cmd_room_palette(self, val = ''):
+        if isinstance(self.ctx, AnimalWellContext):
+            if val == '':
+                self.ctx.bean_patcher.toggle_room_palette_override()
+            elif val == 'off':
+                logger.info(f'Disabling room palette...')
+                self.ctx.bean_patcher.disable_room_palette_override()
+            elif val.isnumeric():
+                logger.info(f'Enabling room palette {val}...')
+                self.ctx.bean_patcher.enable_room_palette_override(int(val))
+            else:
+                logger.info(f'Enabling room palette 0x14...')
+                self.ctx.bean_patcher.enable_room_palette_override(0x14)
+
+    def _cmd_fullbright(self, val = ''):
+        if isinstance(self.ctx, AnimalWellContext):
+            if val == '':
+                self.ctx.bean_patcher.toggle_fullbright()
+            elif val == 'off':
+                logger.info(f'Disabling fullbright...')
+                self.ctx.bean_patcher.disable_fullbright()
+            else:
+                logger.info(f'Enabling fullbright...')
+                self.ctx.bean_patcher.enable_fullbright()
+
     def _cmd_ring(self):
         """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
         try:
