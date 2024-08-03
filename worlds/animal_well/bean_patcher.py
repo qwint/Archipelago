@@ -497,13 +497,12 @@ class Bean_Patcher:
         pause_menu_patch_update_option_text = (Patch('pause_menu_patch_update_option_text', current_custom_space_offset, self.process)
                                                .mov_to_rsp_offset(0x50, 1)
                                                .mov_to_rsp_offset(0x58, 5)
-                                               .mov_to_rsp_offset(0x60, 0x72)  # 69 -> blocked
-                                               # .mov_to_rsp_offset(0x68, 0xc)  # 73 -> locked
-                                               .mov_to_rax(0xc)  # 73 -> locked
+                                               .mov_to_rsp_offset(0x60, 4) # 0x4 is "Pre-Alpha", we'll update it with our new text
+                                               # 0x69 -> blocked, 0x72 -> wake up, 0x73 -> locked, 0xae -> beacon, 0xb2 -> travel
+                                               .mov_to_rax(0xc)
                                                .mov_rax_to_rsp_offset(0x68)
                                                .jmp_far(0x140043cdf)  # 84 -> control panel
-                                               .nop(0x10)  # ae -> beacon
-                                               )  # b2 -> travel
+                                               .nop(0x10))
 
         current_custom_space_offset += len(pause_menu_patch_update_option_text)
 
@@ -519,6 +518,16 @@ class Bean_Patcher:
         pause_menu_patch_update_option_text_trampoline = (Patch('pause_menu_patch_update_option_text_trampoline', 0x140043cc4, self.process)
                                                           .jmp_far(pause_menu_patch_update_option_text.base_address)
                                                           .nop(0xd))
+
+        warp_to_hub_text = 'warp to hub'.encode('utf-16le') + b'\x00\x00'
+
+        self.process.write_bytes(current_custom_space_offset, warp_to_hub_text, len(warp_to_hub_text))
+        self.process.write_bytes(0x142D93F00, current_custom_space_offset.to_bytes(8, 'little', signed=False), 8)
+
+        current_custom_space_offset += len(warp_to_hub_text)
+
+        # pause_menu_replace_pre_alpha_patch = (Patch('pause_menu_replace_pre_alpha_patch', 0x142d93f00, self.process)
+        #                                      .add_bytes())
 
         pause_menu_increase_option_count_1_patch = (Patch('pause_menu_increase_option_count_1_patch', 0x140043cf7, self.process)
                                                     .add_bytes(b'\x02'))
