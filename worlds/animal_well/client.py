@@ -185,24 +185,23 @@ class AnimalWellContext(CommonContext):
             self.slot_data = args.get("slot_data", {})
 
         try:
-            def parseIds(data):
+            def parse_ids(data):
                 for item in data:
                     if 'type' in item and 'text' in item:
                         if item['type'] == 'player_id':
-                            item['text'] = self.player_names[int(item['text'])]
+                            item['text'] = self.player_names[int(item['text'])] if item['text'].isnumeric() else item['text']
                         elif item['type'] == 'item_id':
-                            item['text'] = item_id_to_name[int(item['text'])]
+                            item['text'] = item_id_to_name[int(item['text'])] if item['text'].isnumeric() else item['text']
                         elif item['type'] == 'location_id':
-                            item['text'] = location_id_to_name[int(item['text'])]
-
+                            item['text'] = location_id_to_name[int(item['text'])] if item['text'].isnumeric() else item['text']
                 return data
 
             if cmd == "PrintJSON":
                 msgType = args.get("type")
                 if msgType == "Chat":
-                    self.display_text_in_client("".join(o['text'] for o in parseIds(args.get("data"))))
+                    self.display_text_in_client("".join(o['text'] for o in parse_ids(args.get("data"))))
                 elif msgType == "Hint":
-                    text = "".join(o['text'] for o in parseIds(args.get("data")))
+                    text = "".join(o['text'] for o in parse_ids(args.get("data")))
                     self.display_text_in_client(text)
                 elif msgType == "Join":
                     self.display_text_in_client(args.get('data')[0]['text'])
