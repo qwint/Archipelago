@@ -211,8 +211,6 @@ class AnimalWellContext(CommonContext):
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
     def on_package(self, cmd: str, args: dict):
-        logger.info(f'Package received: {args}')
-
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
             self.display_text_in_client('Connected to the AP server!')
@@ -225,7 +223,6 @@ class AnimalWellContext(CommonContext):
                     # TODO: Move ignoring lines starting with ! into a setting of some sort
                     text = args.get('data')[0]['text']
                     self.display_text_in_client(f'{text}')
-
                 elif msgType == "Hint":
                     if args.get('receiving') == self.slot:
                         player_slot = args.get('item').player
@@ -233,20 +230,16 @@ class AnimalWellContext(CommonContext):
                         location_name = self.location_names.lookup_in_slot(args.get('item').location, player_slot)
                         text = f'Hint: Your {item_name} is at {location_name}.'
                         self.display_text_in_client(text)
-
                 elif msgType == "Join":
                     self.display_text_in_client(args.get('data')[0]['text'])
-
                 elif msgType == "Part":
                     self.display_text_in_client(args.get('data')[0]['text'])
-
                 elif msgType == "ItemCheat":
                     if args.get('receiving') != self.slot:
                         return
                     item_name = self.item_names.lookup_in_game(args.get('item').item)
                     text = f'You received your {item_name}.'
                     self.display_text_in_client(text)
-
                 elif msgType == "ItemSend":
                     destination_player_id = args["receiving"]
                     source_player_id = args["item"][2]  # it's a tuple, so we can't index by name
@@ -269,23 +262,9 @@ class AnimalWellContext(CommonContext):
                     if self_slot == source_player_id and self_slot == destination_player_id:
                         text = f"You found your {item_name} at {location_name}!"
                     self.display_text_in_client(text)
-
                 elif msgType == "Countdown":
                     text = "".join(o['text'] for o in args.get('data'))
                     self.display_text_in_client(text)
-
-            elif cmd == "ReceivedItems":
-                items = args.get("items")
-
-            elif cmd == "RoomUpdate":
-                checked_locations = args.get("checked_locations")
-
-            elif cmd == "RoomInfo":
-                pass
-
-            elif cmd == "SetReply":
-                pass
-
             elif cmd == "None":
                 self.display_text_in_client(args.get("data")[0]["text"])
 
