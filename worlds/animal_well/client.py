@@ -1198,8 +1198,8 @@ def launch():
         ctx.server_address = None
         await ctx.shutdown()
 
-        if Bean_Patcher != None:
-            Bean_Patcher.revert_patches()
+        if ctx.bean_patcher != None and len(ctx.bean_patcher.revertable_patches) > 0:
+            ctx.bean_patcher.revert_patches()
 
         if ctx.process_sync_task:
             ctx.process_sync_task.cancel()
