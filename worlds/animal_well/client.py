@@ -265,6 +265,10 @@ class AnimalWellContext(CommonContext):
                 elif msgType == "Countdown":
                     text = "".join(o['text'] for o in args.get('data'))
                     self.display_text_in_client(text)
+                elif msgType == "CommandResult":
+                    pass
+                elif msgType == "Tutorial":
+                    pass
             elif cmd == "ReceivedItems":
                 items = args.get("items")
             elif cmd == "RoomUpdate":

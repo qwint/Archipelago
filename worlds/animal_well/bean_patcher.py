@@ -325,7 +325,7 @@ class Bean_Patcher:
 
         self.generate_room_palette_override_patch()
 
-        self.apply_input_reader_patch()
+        # self.apply_input_reader_patch()
 
         self.apply_pause_menu_patch()
 
