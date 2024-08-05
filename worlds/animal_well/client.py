@@ -265,6 +265,14 @@ class AnimalWellContext(CommonContext):
                 elif msgType == "Countdown":
                     text = "".join(o['text'] for o in args.get('data'))
                     self.display_text_in_client(text)
+            elif cmd == "ReceivedItems":
+                items = args.get("items")
+            elif cmd == "RoomUpdate":
+                checked_locations = args.get("checked_locations")
+            elif cmd == "RoomInfo":
+                pass
+            elif cmd == "SetReply":
+                pass
             elif cmd == "None":
                 self.display_text_in_client(args.get("data")[0]["text"])
 
@@ -1149,9 +1157,6 @@ async def process_sync_task(ctx: AnimalWellContext):
                 logger.info("Successfully Connected to Animal Well")
                 ctx.connection_status = CONNECTION_CONNECTED_STATUS
                 logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-                await ctx.connect('localhost')
-                ctx.auth = 'Player1'
-                await ctx.send_connect()
 
             locations.read_from_game(ctx)
             await locations.write_to_archipelago(ctx)
