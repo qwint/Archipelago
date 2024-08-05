@@ -233,6 +233,7 @@ class Bean_Patcher:
 
         self.game_draw_routine_string_addr = None
         self.game_draw_routine_string_size = 256
+        self.game_draw_routine_default_string = 'Connected to the Well'
 
         self.game_draw_symbol_x_address = None
         self.game_draw_symbol_y_address = None
@@ -421,7 +422,7 @@ class Bean_Patcher:
          .add_rsp(0x00000198).pop_rbx().pop_rbp().pop_rdi().pop_rsi().pop_r12()
          .mov_to_rax(game_draw_injection_address + 0xd).jmp_rax())
         self.custom_memory_current_offset += len(draw_patch) + 0x10
-        default_in_game_message = 'AP Client: Connected! AP Server: Not Connected!'.encode('utf-16le')
+        default_in_game_message = self.game_draw_routine_default_string.encode('utf-16le')
         self.process.write_bytes(self.game_draw_routine_string_addr, default_in_game_message, len(default_in_game_message))
         self.last_message_time = time()
         if self.log_debug_info: self.log_info(f'Applying in-game draw patches...\n{draw_patch}')
@@ -656,14 +657,45 @@ class Bean_Patcher:
         if disable_fannypack_get_dialog_patch.apply(): self.revertable_patches.append(disable_fannypack_get_dialog_patch)
 
     def apply_receive_item_patch(self):
-        # TODO: GiveItemPatch
         """
-                Set up a piece of code that runs in the normal gameloop that checks a location in memory to see if that location has a value. If it does, that routine will
-                trigger getAnItem with the provided itemId, position(for eggs only), and locationId. LocationId will default to 0xff, as negative numbers do not trigger changes
-                to the bytes that store which chests have already been opened. After this getAnItem, that location in memory is cleared, preventing the routine from attempting
-                to give the item to the player again. This class will keep a buffer of items to receive and will automatically only set the item byte when it is currently 0,
-                this will ensure that an item is never skipped if multiple arrive at the same exact time.
-                """
+        Set up a piece of code that runs in the normal gameloop that checks a location in memory to see if that location has a value. If it does, that routine will
+        trigger getAnItem with the provided itemId, position(for eggs only), and locationId. LocationId will default to 0xff, as negative numbers do not trigger changes
+        to the bytes that store which chests have already been opened. After this getAnItem, that location in memory is cleared, preventing the routine from attempting
+        to give the item to the player again. This class will keep a buffer of items to receive and will automatically only set the item byte when it is currently 0,
+        this will ensure that an item is never skipped if multiple arrive at the same exact time.
+
+        # Relevant item Ids:
+        # Unused: Stethoscope 0x14c, Cake 0x20,
+        # Upgrades: FannyPack 0x30C, Stopwatch 0x19a, Pedometer 0x108, CRing 0xa1, BBWand 0x2c4,
+        # Figs: MamaCha 0x32b, RabbitFig 0x332, SouvenirCup 0xe7,
+        # Other: EMedal 0x2a7, SMedal 0x1d5, Pencil 0x1ba, Map 0xd6, Stamps 0x95, Normal Key 0x28, Match 0x29
+        # Equipment: Top 0x27a, Ball 0x27d, Wheel 0x283, Remote 0x1d2, Slink 0x1a1, Yoyo 0x14e, UV 0x143, Bubble 0xa2, Flute 0xa9, Lantern 0x6d
+        # Quest: Egg65 0x2c7, OfficeKey 0x269, QuestionKey 0x26a, MDisc 0x17e
+        # Egg: 0x5a
+        """
+        # receive_item_patch = (Patch('receive_item', self.custom_memory_current_offset, self.process)
+        #                       .get_key_pressed(0x48)
+        #                       .cmp_al1_byte(0)
+        #                       .je_near(0x80)
+        #                       .push_rcx().push_rdx().push_r8().push_r9()
+        #                       .warp(self.application_state_address + 0x93670, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
+        #                       # .get_an_item(slot_address, 0x14c, 0x00, 0xff)
+        #                       .pop_r9().pop_r8().pop_rdx().pop_rcx()
+        #                       .nop(0x80)
+        #                       .mov_edi(0x841c)
+        #                       .mov_from_absolute_address_to_rax(0x1420949D0).movq_rax_to_xmm6()
+        #                       .mov_from_absolute_address_to_rax(0x1420949F4).movq_rax_to_xmm7()
+        #                       .jmp_far(0x14003B7FD)
+        #                       )
+        # self.custom_memory_current_offset += len(receive_item_patch)
+        # if self.log_debug_info: self.log_info(f'Applying input_reader_patch...\n{receive_item_patch}')
+        # if receive_item_patch.apply():
+        #     self.revertable_patches.append(receive_item_patch)
+        # input_reader_trampoline = (Patch('input_reader_trampoline', 0x14003B7D1, self.process)
+        #                            .jmp_far(receive_item_patch.base_address).nop(2))
+        # if self.log_debug_info: self.log_info(f'Applying input_reader_trampoline...\n{input_reader_trampoline}')
+        # if input_reader_trampoline.apply():
+        #     self.revertable_patches.append(input_reader_trampoline)
 
     def enable_fullbright(self):
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:

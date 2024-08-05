@@ -6,6 +6,7 @@ Based (read: copied almost wholesale and edited) off the Zelda1 Client.
 import asyncio
 import os
 import platform
+import random
 import traceback
 
 import pymem
@@ -14,8 +15,8 @@ import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
 from typing import Dict
-from .items import item_name_to_id, item_id_to_name
-from .locations import location_name_to_id, location_id_to_name, location_table, ByteSect
+from .items import item_name_to_id
+from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal
 from .bean_patcher import Bean_Patcher
@@ -48,6 +49,10 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             elif val == 'off':
                 logger.info(f'Disabling room palette...')
                 self.ctx.bean_patcher.disable_room_palette_override()
+            elif val == 'random':
+                random_value = random.randrange(0, 31)
+                logger.info(f'Randomizing room palette to {random_value}...')
+                self.ctx.bean_patcher.enable_room_palette_override(random_value)
             elif val.isnumeric():
                 logger.info(f'Enabling room palette {val}...')
                 self.ctx.bean_patcher.enable_room_palette_override(int(val))
@@ -206,36 +211,42 @@ class AnimalWellContext(CommonContext):
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
     def on_package(self, cmd: str, args: dict):
+        logger.info(f'Package received: {args}')
+
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
+            self.display_text_in_client('Connected to the AP server!')
 
         try:
-            def parse_ids(data):
-                for item in data:
-                    if 'type' in item and 'text' in item:
-                        if item['type'] == 'player_id':
-                            item['text'] = self.player_names[int(item['text'])] if item['text'].isnumeric() else item['text']
-                        elif item['type'] == 'item_id':
-                            item['text'] = item_id_to_name[int(item['text'])] if item['text'].isnumeric() else item['text']
-                        elif item['type'] == 'location_id':
-                            item['text'] = location_id_to_name[int(item['text'])] if item['text'].isnumeric() else item['text']
-                return data
-
             if cmd == "PrintJSON":
                 msgType = args.get("type")
-                if msgType == "Chat":
-                    self.display_text_in_client("".join(o['text'] for o in parse_ids(args.get("data"))))
+
+                if msgType == "Chat" and not args.get('message').startswith('!'):
+                    # TODO: Move ignoring lines starting with ! into a setting of some sort
+                    text = args.get('data')[0]['text']
+                    self.display_text_in_client(f'{text}')
+
                 elif msgType == "Hint":
-                    text = "".join(o['text'] for o in parse_ids(args.get("data")))
-                    self.display_text_in_client(text)
+                    if args.get('receiving') == self.slot:
+                        player_slot = args.get('item').player
+                        item_name = self.item_names.lookup_in_slot(args.get('item').item, player_slot)
+                        location_name = self.location_names.lookup_in_slot(args.get('item').location, player_slot)
+                        text = f'Hint: Your {item_name} is at {location_name}.'
+                        self.display_text_in_client(text)
+
                 elif msgType == "Join":
                     self.display_text_in_client(args.get('data')[0]['text'])
-                elif msgType == "CommandResult":
-                    pass
-                elif msgType == "Tutorial":
-                    pass
+
+                elif msgType == "Part":
+                    self.display_text_in_client(args.get('data')[0]['text'])
+
                 elif msgType == "ItemCheat":
-                    self.display_text_in_client(args.get("data")[0]["text"])
+                    if args.get('receiving') != self.slot:
+                        return
+                    item_name = self.item_names.lookup_in_game(args.get('item').item)
+                    text = f'You received your {item_name}.'
+                    self.display_text_in_client(text)
+
                 elif msgType == "ItemSend":
                     destination_player_id = args["receiving"]
                     source_player_id = args["item"][2]  # it's a tuple, so we can't index by name
@@ -250,31 +261,34 @@ class AnimalWellContext(CommonContext):
                     location_name = self.location_names.lookup_in_slot(location_id, source_player_id)
                     text = "Error occurred, report to ANIMAL WELL AP devs"
                     if self_slot == source_player_id:
-                        destination_player_name = self.player_names[destination_player_id] if destination_player_id.isnumeric() else destination_player_id
+                        destination_player_name = self.player_names[destination_player_id]
                         text = f"You sent {item_name} to {destination_player_name} from {location_name}!"
                     if self_slot == destination_player_id:
-                        source_player_name = self.player_names[source_player_id] if source_player_id.isnumeric() else source_player_id
+                        source_player_name = self.player_names[source_player_id]
                         text = f"{source_player_name} sent you your {item_name}!"
                     if self_slot == source_player_id and self_slot == destination_player_id:
                         text = f"You found your {item_name} at {location_name}!"
                     self.display_text_in_client(text)
+
                 elif msgType == "Countdown":
                     text = "".join(o['text'] for o in args.get('data'))
                     self.display_text_in_client(text)
-                else:
-                    logger.info("Unhandled type of PrintJSON: [{}]: {}".format(msgType, args))
+
             elif cmd == "ReceivedItems":
                 items = args.get("items")
+
             elif cmd == "RoomUpdate":
                 checked_locations = args.get("checked_locations")
+
             elif cmd == "RoomInfo":
                 pass
-            elif cmd == "Connected":
-                self.display_text_in_client('AP Client: Connected! AP Server: Connected!')
+
             elif cmd == "SetReply":
                 pass
+
             elif cmd == "None":
                 self.display_text_in_client(args.get("data")[0]["text"])
+
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
             logger.info('Package details: {}'.format(args))
@@ -1156,6 +1170,9 @@ async def process_sync_task(ctx: AnimalWellContext):
                 logger.info("Successfully Connected to Animal Well")
                 ctx.connection_status = CONNECTION_CONNECTED_STATUS
                 logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
+                await ctx.connect('localhost')
+                ctx.auth = 'Player1'
+                await ctx.send_connect()
 
             locations.read_from_game(ctx)
             await locations.write_to_archipelago(ctx)
