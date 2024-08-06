@@ -1,4 +1,5 @@
 import unittest
+from copy import deepcopy
 
 from worlds.AutoWorld import AutoWorldRegister, call_all
 from . import setup_solo_multiworld
@@ -34,7 +35,7 @@ class TestBase(unittest.TestCase):
                         multiworld.state.collect(item)
                         self.assertEqual(base_state, multiworld.state.prog_items)
 
-                multiworld.state.prog_items = empty_prog_items
+                multiworld.state.prog_items = deepcopy(empty_prog_items)
 
     def test_item_name_group_has_valid_item(self):
         """Test that all item name groups contain valid items. """
