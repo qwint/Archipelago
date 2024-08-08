@@ -588,6 +588,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
                                      [iname.slink, iname.key_ring]]),
         lname.flame_pink:
             AWData(AWType.location, [[iname.m_disc, iname.can_open_flame]], event=iname.pink_flame),
+        rname.dog_upper_east:
+            AWData(AWType.region),  # hit one-way switch to go down
     },
     rname.dog_above_fast_travel: {
         lname.egg_brown:
