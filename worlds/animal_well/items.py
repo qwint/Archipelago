@@ -35,7 +35,7 @@ item_table: Dict[str, AWItemData] = {
 
     # Minor progression items and keys
     iname.m_disc.value: AWItemData(IClass.progression | IClass.useful, 1, 12, "Toys"),
-    iname.fanny_pack.value: AWItemData(IClass.useful, 1, 13, "Toys"),
+    iname.fanny_pack.value: AWItemData(IClass.useful, 1, 13),
 
     iname.match.value: AWItemData(IClass.progression, 9, 14, "Toys"),
     iname.matchbox.value: AWItemData(IClass.progression | IClass.useful, 0, 15, "Toys"),
