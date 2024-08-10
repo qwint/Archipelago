@@ -68,6 +68,13 @@ class Patch:
         self.byte_list += bytes
         return self
 
+    def xor_rax_rax(self):
+        """
+        Exclusive OR's RAX against RAX (clears RAX)
+        3 bytes
+        """
+        return self.add_bytes(b'\x48\x31\xc0')
+
     def xor_ecx_ecx(self):
         """
         Exclusive OR's ECX against ECX (clears ECX)
@@ -197,6 +204,13 @@ class Patch:
         """
         return self.add_bytes(b'\x90' * count)
 
+    def mov_rbx(self, value):
+        """
+        Moves a 64-bit value to RBX
+        10 bytes
+        """
+        return self.add_bytes(b'\x48\xbb' + value.to_bytes(8, 'little'))
+
     def mov_ecx(self, value):
         """
         Moves a 32-bit value to ECX
@@ -231,6 +245,20 @@ class Patch:
         10 bytes
         """
         return self.add_bytes(b'\x49\xb8' + value.to_bytes(8, 'little'))
+
+    def mov_from_absolute_address_to_r8(self, address):
+        """
+        Moves a 64-bit value from the absolute 64-bit address to R8
+        13 bytes
+        """
+        return self.mov_from_absolute_address_to_rax(address).mov_rax_to_r8()
+
+    def mov_from_absolute_address_to_r9(self, address):
+        """
+        Moves a 64-bit value from the absolute 64-bit address to R9
+        13 bytes
+        """
+        return self.mov_from_absolute_address_to_rax(address).mov_rax_to_r9()
 
     def mov_r9(self, value):
         """
@@ -346,24 +374,45 @@ class Patch:
 
     def jl_short(self, offset):
         """
-        Jumps an 8-bit distance if first operand was lesser than the second operand in the last CMP
+        Jumps an 8-bit distance if first operand was less than the second operand in the last CMP
         2 bytes
         """
         return self.add_bytes(b'\x7c' + offset.to_bytes(1, 'little'))
 
     def jl_near(self, offset):
         """
-        Jumps a 32-bit distance if first operand was lesser than the second operand in the last CMP
+        Jumps a 32-bit distance if first operand was less than the second operand in the last CMP
         6 bytes
         """
         return self.add_bytes(b'\x0f\x8c' + offset.to_bytes(4, 'little'))
 
     def jl_far(self, address):
         """
-        Jumps to a specific 64-bit address if first operand was lesser than the second operand in the last CMP
+        Jumps to a specific 64-bit address if first operand was less than the second operand in the last CMP
         21 bytes
         """
         return self.jl_short(5).jmp_near_offset(0x0e).jmp_far(address)
+
+    def jnl_short(self, offset):
+        """
+        Jumps an 8-bit distance if first operand was NOT less than the second operand in the last CMP
+        2 bytes
+        """
+        return self.add_bytes(b'\x7d' + offset.to_bytes(1, 'little'))
+
+    def jnl_near(self, offset):
+        """
+        Jumps a 32-bit distance if first operand was NOT less than the second operand in the last CMP
+        6 bytes
+        """
+        return self.add_bytes(b'\x0f\x8d' + offset.to_bytes(4, 'little'))
+
+    def jnl_far(self, address):
+        """
+        Jumps to a specific 64-bit address if first operand was NOT less than the second operand in the last CMP
+        21 bytes
+        """
+        return self.jnl_short(5).jmp_near_offset(0x0e).jmp_far(address)
 
     def je_near(self, distance):
         """
@@ -438,12 +487,33 @@ class Patch:
         """
         return self.add_bytes(b'\x48\x8b\x10')
 
+    def mov_rax_to_address_in_rbx(self):
+        """
+        Moves a 64-bit value from RAX to the address specified in RBX
+        3 bytes
+        """
+        return self.add_bytes(b'\x48\x89\x03')
+
+    def mov_rax_to_rdx(self):
+        """
+        Moves a 64-bit value from RAX to RDX
+        3 bytes
+        """
+        return self.add_bytes(b'\x48\x8b\xd0')
+
     def mov_rax_to_r8(self):
         """
         Moves a 64-bit value from RAX to R8
         3 bytes
         """
         return self.add_bytes(b'\x4c\x8b\xc0')
+
+    def mov_rax_to_r9(self):
+        """
+        Moves a 64-bit value from RAX to R9
+        3 bytes
+        """
+        return self.add_bytes(b'\x4c\x8b\xc8')
 
     def movq_rax_to_xmm6(self):
         """
