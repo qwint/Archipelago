@@ -1,16 +1,16 @@
 from time import time
-
-from typing import List
+from typing import List, Optional
 
 from .patch import *
 
+
 # Extending the Patch class with some Animal Well specific methods
 class Patch(Patch):
-    def push_shader_to_stack(self, shaderId):
+    def push_shader_to_stack(self, shader_id):
         """
         Pushes a new shader to the shader stack
         """
-        return self.mov_ecx(shaderId).call_via_rax(push_shader_to_stack)
+        return self.mov_ecx(shader_id).call_via_rax(push_shader_to_stack)
 
     def pop_shader_from_stack(self):
         """
@@ -44,12 +44,12 @@ class Patch(Patch):
         """
         return self.mov_ecx(value).call_via_rax(set_tall_text_mode)
 
-    def set_current_shader(self, shaderId):
+    def set_current_shader(self, shader_id):
         """
         Sets the shader on the top of the stack
-        shaderId: which shader to switch to
+        shader_id: which shader to switch to
         """
-        return self.mov_ecx(shaderId).call_via_rax(set_current_shader)
+        return self.mov_ecx(shader_id).call_via_rax(set_current_shader)
 
     def set_current_color(self, color):
         """
@@ -58,58 +58,60 @@ class Patch(Patch):
         """
         return self.mov_ecx(color).call_via_rax(set_current_color)
 
-    def draw_small_text(self, x, y, textAddress):
+    def draw_small_text(self, x, y, text_address):
         """
         Draw text on the screen using the current shader, color, and tall text mode
         x: x position
         y: y position
-        textAddress: location in the process's memory where the Unicode text is stored
+        text_address: location in the process's memory where the Unicode text is stored
         """
-        return self.mov_ecx(x).mov_edx(y).mov_to_rax(textAddress).mov_rax_to_r8().call_via_rax(draw_small_text)
+        return self.mov_ecx(x).mov_edx(y).mov_to_rax(text_address).mov_rax_to_r8().call_via_rax(draw_small_text)
 
-    def draw_symbol(self, x, y, spriteId, frame, arg5, arg6, arg7):
+    def draw_symbol(self, x, y, sprite_id, frame, arg5, arg6, arg7):
         """
         Draw a symbol on the screen using the current shader and color
         x: x position
         y: y position
-        spriteId: id of the sprite to draw
+        sprite_id: id of the sprite to draw
         frame: either which frame of an animation to display or which subsprite
         arg5: idk
         arg6: idk
         arg7: idk
         """
-        return self.mov_ecx(x).mov_edx(y).mov_r8(spriteId).mov_r9(frame).push(0).push(arg7).push(arg6).push(arg5).push(0).push(0).push(0).push(0).call_far(draw_symbol).add_rsp(0x40)
+        return (self.mov_ecx(x).mov_edx(y).mov_r8(sprite_id).mov_r9(frame).push(0).push(arg7).push(arg6).push(arg5)
+                .push(0).push(0).push(0).push(0).call_far(draw_symbol).add_rsp(0x40))
 
-    def draw_symbol_pointer_x_and_y(self, xAddress, yAddress, spriteId, frame, arg5, arg6, arg7):
+    def draw_symbol_pointer_x_and_y(self, x_address, y_address, sprite_id, frame, arg5, arg6, arg7):
         """
         Draw a symbol on the screen using the current shader and color, at a location stored in the process's memory
-        xAddress: the address in the process's memory where the x position is stored
-        yAddress: the address in the process's memory where the y position is stored
-        spriteId: id of the sprite to draw
+        x_address: the address in the process's memory where the x position is stored
+        y_address: the address in the process's memory where the y position is stored
+        sprite_id: id of the sprite to draw
         frame: either which frame of an animation to display or which subsprite
         arg5: idk
         arg6: idk
         arg7: idk
         """
-        return (self.mov_to_rax(xAddress).mov_rax_pointer_contents_to_rcx().mov_to_rax(yAddress).mov_rax_pointer_contents_to_rdx()
-                .mov_r8(spriteId).mov_r9(frame).push(0).push(arg7).push(arg6).push(arg5).push(0).push(0).push(0).push(0).call_far(draw_symbol).add_rsp(0x40))
+        return (self.mov_to_rax(x_address).mov_rax_pointer_contents_to_rcx().mov_to_rax(y_address)
+                .mov_rax_pointer_contents_to_rdx().mov_r8(sprite_id).mov_r9(frame).push(0).push(arg7).push(arg6)
+                .push(arg5).push(0).push(0).push(0).push(0).call_far(draw_symbol).add_rsp(0x40))
 
-    def warp(self, player, roomX, roomY, tileX, tileY, map):
+    def warp(self, player, room_x, room_y, tile_x, tile_y, map_to_warp):
         """
         Warps the player to a specific room and tile
         player: pointer to the player in the process's memory
-        roomX: the X coordinate of the room to warp to
-        roomY: the Y coordinate of the room to warp to
-        tileX: the X coordinate of the tile to warp the player to
-        tileY: the Y coordinate of the tile to warp the player to
-        map: which map to warp to
+        room_x: the X coordinate of the room to warp to
+        room_y: the Y coordinate of the room to warp to
+        tile_x: the X coordinate of the tile to warp the player to
+        tile_y: the Y coordinate of the tile to warp the player to
+        map_to_warp: which map to warp to
         56 bytes
         """
         return (self
                 .mov_rcx(player)
-                .mov_rdx((roomY << 32) + roomX)
-                .mov_r8((tileY << 32) + tileX)
-                .mov_r9(map)
+                .mov_rdx((room_y << 32) + room_x)
+                .mov_r8((tile_y << 32) + tile_x)
+                .mov_r9(map_to_warp)
                 .call_far(warp))
 
     def get_key_pressed(self, key):
@@ -117,38 +119,39 @@ class Patch(Patch):
                 .mov_ecx(key)
                 .call_far(get_key_pressed))
 
-    def get_an_item(self, save_slot_address, itemId, eggPosition = 0, locationId = 0xff):
+    def get_an_item(self, save_slot_address, item_id, egg_position=0, location_id=0xff):
         return (self
                 .mov_rcx(save_slot_address)
-                .mov_rdx(itemId)
-                .mov_r8(eggPosition)
-                .mov_r9(locationId)
+                .mov_rdx(item_id)
+                .mov_r8(egg_position)
+                .mov_r9(location_id)
                 .call_far(get_an_item))
 
-    def get_sprite(self, spriteId):
+    def get_sprite(self, sprite_id):
         """
-        Retrieves a sprite based on its spriteId
+        Retrieves a sprite based on its sprite_id
         """
-        return self.mov_cl(spriteId).call_via_rax(get_sprite)
+        return self.mov_cl(sprite_id).call_via_rax(get_sprite)
+
 
 # region FunctionOffsets
 # Accurate as of AW file version 1.0.0.18
-draw_small_text: int             = 0x14006E3F0
-draw_symbol: int                 = 0x14006A6C0
-draw_sprite: int                 = 0x14001AEC0
-get_sprite: int                  = 0x140063CA0
-push_shader_to_stack: int        = 0x140017840
-pop_shader_from_stack: int       = 0x1400178A0
-push_color_to_stack: int         = 0x1400177D0
-pop_color_from_stack: int        = 0x140017830
-pop_from_position_stack: int     = 0x140017920
-set_tall_text_mode: int          = 0x14006DC00
-set_current_color: int           = 0x1400177B0
-set_current_shader: int          = 0x14001A280
-get_key_pressed: int             = 0x140011C70
-get_gamepad_button_pressed: int  = 0x140011EA0
-get_an_item: int                 = 0x1400C15C0
-warp: int                        = 0x140074DD0
+draw_small_text: int = 0x14006E3F0
+draw_symbol: int = 0x14006A6C0
+draw_sprite: int = 0x14001AEC0
+get_sprite: int = 0x140063CA0
+push_shader_to_stack: int = 0x140017840
+pop_shader_from_stack: int = 0x1400178A0
+push_color_to_stack: int = 0x1400177D0
+pop_color_from_stack: int = 0x140017830
+pop_from_position_stack: int = 0x140017920
+set_tall_text_mode: int = 0x14006DC00
+set_current_color: int = 0x1400177B0
+set_current_shader: int = 0x14001A280
+get_key_pressed: int = 0x140011C70
+get_gamepad_button_pressed: int = 0x140011EA0
+get_an_item: int = 0x1400C15C0
+warp: int = 0x140074DD0
 # endregion
 
 # region OtherOffsets
@@ -192,7 +195,8 @@ SAVE_SLOT_LENGTH = 0x27010
 CUSTOM_MEMORY_SIZE = 0x20000
 # endregion
 
-class Bean_Patcher:
+
+class BeanPatcher:
     def set_logger(self, logger):
         self.logger = logger
         return self
@@ -206,36 +210,40 @@ class Bean_Patcher:
         return self
 
     def log_info(self, text):
-        if self.logger != None:
+        if self.logger is not None:
             self.logger.info(text)
         return self
 
     def log_error(self, text):
-        if self.logger != None:
+        if self.logger is not None:
             self.logger.error(text)
         return self
 
     def __init__(self, process=None, logger=None):
         self.process = process
         self.attached_to_process = False
+        self.name = None
 
         self.logger = logger
         self.log_debug_info = True
 
+        self.aw_module = None
         self.module_base = 0
         self.application_state_address = 0
         self.last_game_state = 0
         self.custom_memory_base = None
-        self.custom_memory_current_offset = None
+        self.custom_memory_current_offset: Optional[int] = None
+        self.main_menu_draw_string_addr: Optional[int] = None
 
-        self.revertable_patches: List[Patch]  = []
-        self.fullbright_patch: Patch = None
-        self.room_palette_override_patch: Patch = None
+        self.revertable_patches: List[Patch] = []
+        self.fullbright_patch: Patch
+        self.room_palette_override_patch: Optional[Patch] = None
         self.room_palette_override_shader: int = 0x16
 
+        self.draw_routine_string_size: int = 0
         self.game_draw_routine_string_addr = None
         self.game_draw_routine_string_size = 256
-        self.game_draw_routine_default_string = 'Connected to the Well'
+        self.game_draw_routine_default_string = "Connected to the Well"
 
         self.game_draw_symbol_x_address = None
         self.game_draw_symbol_y_address = None
@@ -253,6 +261,8 @@ class Bean_Patcher:
         self.unstuck_pos_x = 0x1a
         self.unstuck_pos_y = 0x74
         self.unstuck_map = 0
+
+        self.fullbright_patch: Optional[Patch] = None
 
     def get_current_save_slot(self):
         if not self.attached_to_process:
@@ -284,32 +294,36 @@ class Bean_Patcher:
 
         return self.application_state_address + 0x93670
 
-    def attach_to_process(self, process=None):
-        if process != None:
+    def attach_to_process(self, process=None) -> bool:
+        if process is not None:
             self.process = process
 
-        if process == None:
-            self.log_error('No process handle provided. Cannot attach to process!')
+        if process is None:
+            self.log_error("No process handle provided. Cannot attach to process!")
             self.attached_to_process = False
             return False
 
-        if self.log_debug_info: self.log_info("Searching for 'Animal Well.exe' module in process memory...")
+        if self.log_debug_info:
+            self.log_info("Searching for 'Animal Well.exe' module in process memory...")
         self.aw_module = next(f for f in list(self.process.list_modules()) if f.name.startswith("Animal Well.exe"))
 
-        if self.aw_module == None:
-            self.log_error(f'Failed to find Animal Well module within the Animal Well process!')
+        if self.aw_module is None:
+            self.log_error(f"Failed to find Animal Well module within the Animal Well process!")
             self.attached_to_process = False
-            return
+            return False
 
-        if self.log_debug_info: self.log_info(f'Found it: Name({self.aw_module.name}), BaseOfDll({hex(self.aw_module.lpBaseOfDll)})')
+        if self.log_debug_info:
+            self.log_info(f"Found it: Name({self.aw_module.name}), BaseOfDll({hex(self.aw_module.lpBaseOfDll)})")
 
         self.module_base = self.aw_module.lpBaseOfDll
 
         application_state_pointer_address = self.module_base + 0x02BD5308
-        if self.log_debug_info: self.log_info(f'Attempting to find start address via pointer at {hex(application_state_pointer_address)}')
+        if self.log_debug_info:
+            self.log_info(f"Attempting to find start address via pointer at {hex(application_state_pointer_address)}")
 
         self.application_state_address = self.process.read_uint(application_state_pointer_address)
-        if self.log_debug_info: self.log_info(f'application_state address: {hex(self.application_state_address)}')
+        if self.log_debug_info:
+            self.log_info(f"application_state address: {hex(self.application_state_address)}")
 
         self.application_state_address = self.application_state_address
         self.attached_to_process = True
@@ -318,15 +332,17 @@ class Bean_Patcher:
 
     def apply_patches(self):
         if not self.attached_to_process:
-            self.log_error('Cannot apply patches, not attached to Animal Well process!')
+            self.log_error("Cannot apply patches, not attached to Animal Well process!")
             return False
 
-        if self.log_debug_info: self.log_info('Applying patches...')
+        if self.log_debug_info:
+            self.log_info("Applying patches...")
 
         self.custom_memory_base = self.process.allocate(CUSTOM_MEMORY_SIZE)
         self.custom_memory_current_offset = self.custom_memory_base
 
-        if self.log_debug_info: self.log_info(f'Custom memory space: {hex(self.custom_memory_base)}, length of {hex(CUSTOM_MEMORY_SIZE)}')
+        if self.log_debug_info:
+            self.log_info(f"Custom memory space: {hex(self.custom_memory_base)}, length of {hex(CUSTOM_MEMORY_SIZE)}")
 
         self.apply_main_menu_draw_patch()
 
@@ -334,7 +350,8 @@ class Bean_Patcher:
 
         self.apply_disable_anticheat_patch()
 
-        if self.log_debug_info: self.log_info('Misc patches...')
+        if self.log_debug_info:
+            self.log_info("Misc patches...")
 
         self.generate_room_palette_override_patch()
 
@@ -350,9 +367,9 @@ class Bean_Patcher:
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
-        # solved bunny bytes = bytearray.fromhex('37 00 00 00 40 01 05 00 00 00 0C 00 40 00 40 46 05 0C 18 09 08 01 90 31 40 46 05 37 F4 07 48 04 40 0E 40 19 01 0C F0 03 32 09 00 02 00 59 00 18 F4 07 02 48 00 02 00 54 05 44 98 09 02 98 01 08 00 55 14 10 80 00 0E 42 00 58 05 15 52 20 8C 00 32 82 00 55 55 55 50 82 8C 08 82 80 40 55 55 55 55 81 88 32 88 80 50 55 55 55 55 81 88 C0 88 80 54 55 55 55 55 20 20 88 88 20 54 55 55 55 15 20 20 20 8C 23 54 55 55 55 E5 EF 23 2C EF FE 56 55 55 55 E5 FF EF EF BE FD 56 55 55 55 E5 FF FF BB 7B F6 54 55 55 55 01 FC E7 EE EF F9 50 55 55 55 00 F0 99 BB BE EF 43 55 55 15 00 FF E6 EE FB BE 0F 00 00 00 FC BF BB BB')
+        # solved bunny bytes = bytearray.fromhex("37 00 00 00 40 01 05 00 00 00 0C 00 40 00 40 46 05 0C 18 09 08 01 90 31 40 46 05 37 F4 07 48 04 40 0E 40 19 01 0C F0 03 32 09 00 02 00 59 00 18 F4 07 02 48 00 02 00 54 05 44 98 09 02 98 01 08 00 55 14 10 80 00 0E 42 00 58 05 15 52 20 8C 00 32 82 00 55 55 55 50 82 8C 08 82 80 40 55 55 55 55 81 88 32 88 80 50 55 55 55 55 81 88 C0 88 80 54 55 55 55 55 20 20 88 88 20 54 55 55 55 15 20 20 20 8C 23 54 55 55 55 E5 EF 23 2C EF FE 56 55 55 55 E5 FF EF EF BE FD 56 55 55 55 E5 FF FF BB 7B F6 54 55 55 55 01 FC E7 EE EF F9 50 55 55 55 00 F0 99 BB BE EF 43 55 55 15 00 FF E6 EE FB BE 0F 00 00 00 FC BF BB BB")
 
-        self.log_info('Patches applied successfully!')
+        self.log_info("Patches applied successfully!")
         
         return True
 
@@ -360,19 +377,19 @@ class Bean_Patcher:
         """
             This patch displays the text "AP Randomizer" on the title screen.
         """
-        title_screen_text = 'AP Randomizer'.encode('utf-16le') + b'\x00'
+        title_screen_text = "AP Randomizer".encode("utf-16le") + b"\x00"
         main_menu_draw_injection_address = self.module_base + 0x1f025
         self.main_menu_draw_string_addr = self.custom_memory_current_offset
         self.custom_memory_current_offset += len(title_screen_text)
         main_menu_draw_routine_address = self.custom_memory_current_offset
-        main_menu_draw_trampoline = (Patch('main_menu_draw_trampoline', main_menu_draw_injection_address, self.process)
+        main_menu_draw_trampoline = (Patch("main_menu_draw_trampoline", main_menu_draw_injection_address, self.process)
                                      .mov_to_rax(main_menu_draw_routine_address).jmp_rax().nop(3))
         title_text_x = 190  # below the right side of the ANIMAL WELL logo
         title_text_y = 74
         title_text_color = 0xff44ffff
         title_text_shader = 0x0f  # 07 and 0f are both good options, 07 shows more of the background through it (values over 0x34 will crash)
         title_text_tall_font = 0x00  # 01 to use a TALL font
-        main_menu_draw_patch = (Patch('main_menu_draw_randomizer_info', main_menu_draw_routine_address, self.process)
+        main_menu_draw_patch = (Patch("main_menu_draw_randomizer_info", main_menu_draw_routine_address, self.process)
                                 .set_current_shader(0x0f)
                                 .set_current_color(0xff000000)
                                 .set_tall_text_mode(title_text_tall_font)
@@ -385,10 +402,12 @@ class Bean_Patcher:
                                 .pop_shader_from_stack()
                                 .pop_color_from_stack()
                                 .pop_from_position_stack()
-                                .mov_to_rax(main_menu_draw_injection_address + len(main_menu_draw_trampoline.byte_list)).jmp_rax())
+                                .mov_to_rax(main_menu_draw_injection_address + len(main_menu_draw_trampoline.byte_list))
+                                .jmp_rax())
         self.custom_memory_current_offset += len(main_menu_draw_patch) + 0x10
         self.process.write_bytes(self.main_menu_draw_string_addr, title_screen_text, len(title_screen_text))
-        if self.log_debug_info: self.log_info('Applying main menu draw patches...')
+        if self.log_debug_info:
+            self.log_info("Applying main menu draw patches...")
         main_menu_draw_patch.apply()
         if main_menu_draw_trampoline.apply():
             self.revertable_patches.append(main_menu_draw_trampoline)
@@ -396,8 +415,9 @@ class Bean_Patcher:
 
     def apply_in_game_draw_patch(self):
         """
-        This patch adds a text display at the top of the screen that displays messages that the AP Client receives. It additionally pushes the steps and time counters
-        lower on the screen to make room for the new text display. This patch can also be extended in the future to display other things in-game.
+        This patch adds a text display at the top of the screen that displays messages that the AP Client receives.
+        It additionally pushes the steps and time counters lower on the screen to make room for the new text display.
+        This patch can also be extended in the future to display other things in-game.
         """
         self.draw_routine_string_size = 400
         game_draw_injection_address = self.module_base + 0x5068b
@@ -408,12 +428,12 @@ class Bean_Patcher:
         # self.game_draw_symbol_y_address = self.custom_memory_current_offset
         # self.custom_memory_current_offset += 4
         game_draw_code_address = self.custom_memory_current_offset
-        draw_trampoline_patch = (Patch('game_draw_trampoline', game_draw_injection_address, self.process)
+        draw_trampoline_patch = (Patch("game_draw_trampoline", game_draw_injection_address, self.process)
                                  .mov_to_rax(game_draw_code_address).jmp_rax().nop())
         for offset, value in STEP_AND_TIME_DISPLAY_UPDATED_VALUES.items():
-            if type(value) == int:
+            if value is int:
                 self.process.write_uint(self.module_base + offset, value)
-            elif type(value) == float:
+            elif value is float:
                 self.process.write_float(self.module_base + offset, value)
         client_text_display_x = 1
         client_text_display_y = 1  # lines the text up with the very top tile row
@@ -422,109 +442,132 @@ class Bean_Patcher:
         # 0x29: foreground, ignore lights, color. 0x21: foreground, glowing, white. 0x1f: foreground, glowing, color. (values over 0x34 will crash)
         client_text_display_shader = 0x1f
         # draw_bean_echo_patch_enabled = False
-        draw_patch = (Patch('game_draw_client_text', game_draw_code_address, self.process)
-                      .push_shader_to_stack(client_text_display_shader)
-                      .push_color_to_stack(0xff000000)
-                      .draw_small_text(client_text_display_x - 1, client_text_display_y, self.game_draw_routine_string_addr)
-                      .pop_color_from_stack()
-                      .push_color_to_stack(client_text_display_color)
-                      .draw_small_text(client_text_display_x, client_text_display_y, self.game_draw_routine_string_addr))
+        draw_patch = (
+            Patch("game_draw_client_text", game_draw_code_address, self.process)
+            .push_shader_to_stack(client_text_display_shader)
+            .push_color_to_stack(0xff000000)
+            .draw_small_text(client_text_display_x - 1, client_text_display_y, self.game_draw_routine_string_addr)
+            .pop_color_from_stack()
+            .push_color_to_stack(client_text_display_color)
+            .draw_small_text(client_text_display_x, client_text_display_y, self.game_draw_routine_string_addr))
         (draw_patch.pop_color_from_stack()
          .pop_shader_from_stack()
          .nop(0x200)
          .add_rsp(0x00000198).pop_rbx().pop_rbp().pop_rdi().pop_rsi().pop_r12()
          .mov_to_rax(game_draw_injection_address + 0xd).jmp_rax())
         self.custom_memory_current_offset += len(draw_patch) + 0x10
-        default_in_game_message = self.game_draw_routine_default_string.encode('utf-16le')
+        default_in_game_message = self.game_draw_routine_default_string.encode("utf-16le")
         self.process.write_bytes(self.game_draw_routine_string_addr, default_in_game_message, len(default_in_game_message))
         self.last_message_time = time()
-        if self.log_debug_info: self.log_info(f'Applying in-game draw patches...\n{draw_patch}')
+        if self.log_debug_info:
+            self.log_info(f"Applying in-game draw patches...\n{draw_patch}")
         draw_patch.apply()
         if draw_trampoline_patch.apply():
             self.revertable_patches.append(draw_trampoline_patch)
 
     def apply_pause_menu_patch(self):
         """
-        This set of patches updates the pause menu to have a new "Warp to hub" option. When selected, this option warps the bean back to the flame statue room.
+        This set of patches updates the pause menu to have a new "Warp to hub" option.
+        When selected, this option warps the bean back to the flame statue room.
         Useful for getting out of potential softlocks.
         """
-        pause_menu_patch_update_option_text = (Patch('pause_menu_patch_update_option_text', self.custom_memory_current_offset, self.process)
-                                               .mov_to_rsp_offset(0x50, 1)
-                                               .mov_to_rsp_offset(0x58, 5)
-                                               .mov_to_rsp_offset(0x60, 4)  # 0x4 is "Pre-Alpha", we'll update it with our new text
-                                               # 0x69 -> blocked, 0x72 -> wake up, 0x73 -> locked, 0xae -> beacon, 0xb2 -> travel
-                                               .mov_to_rax(0xc)
-                                               .mov_rax_to_rsp_offset(0x68)
-                                               .jmp_far(0x140043cdf)  # 84 -> control panel
-                                               .nop(0x10))
+        pause_menu_patch_update_option_text = (
+            Patch("pause_menu_patch_update_option_text", self.custom_memory_current_offset, self.process)
+            .mov_to_rsp_offset(0x50, 1)
+            .mov_to_rsp_offset(0x58, 5)
+            .mov_to_rsp_offset(0x60, 4)  # 0x4 is "Pre-Alpha", we'll update it with our new text
+            # 0x69 -> blocked, 0x72 -> wake up, 0x73 -> locked, 0xae -> beacon, 0xb2 -> travel
+            .mov_to_rax(0xc)
+            .mov_rax_to_rsp_offset(0x68)
+            .jmp_far(0x140043cdf)  # 84 -> control panel
+            .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_patch_update_option_text)
-        pause_menu_resume_and_warp_patch = (Patch('pause_menu_resume_and_warp_patch', self.custom_memory_current_offset, self.process)
-                                            .mov_from_absolute_address_to_eax(self.player_address + 0x5D)  # get player state
-                                            .cmp_eax(5)  # only allow warp while idle, walking, jumping, falling, or climbing a ladder
-                                            .jnl_short(56)
-                                            .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
-                                            .pop_r9().pop_r8().pop_rdx().pop_rcx()
-                                            .mov_to_rax(self.application_state_address)
-                                            .jmp_far(0x140044223)
-                                            .nop(0x10))
+        pause_menu_resume_and_warp_patch = (
+            Patch("pause_menu_resume_and_warp_patch", self.custom_memory_current_offset, self.process)
+            .mov_from_absolute_address_to_eax(self.player_address + 0x5D)  # get player state
+            .cmp_eax(5)  # only allow warp while idle, walking, jumping, falling, or climbing a ladder
+            .jnl_short(56)
+            .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
+            .pop_r9().pop_r8().pop_rdx().pop_rcx()
+            .mov_to_rax(self.application_state_address)
+            .jmp_far(0x140044223)
+            .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_resume_and_warp_patch)
-        pause_menu_patch_update_option_text_trampoline = (Patch('pause_menu_patch_update_option_text_trampoline', 0x140043cc4, self.process)
-                                                          .jmp_far(pause_menu_patch_update_option_text.base_address)
-                                                          .nop(0xd))
-        warp_to_hub_text = 'warp to hub'.encode('utf-16le') + b'\x00\x00'
+        pause_menu_patch_update_option_text_trampoline = (
+            Patch("pause_menu_patch_update_option_text_trampoline", 0x140043cc4, self.process)
+            .jmp_far(pause_menu_patch_update_option_text.base_address)
+            .nop(0xd))
+        warp_to_hub_text = "warp to hub".encode("utf-16le") + b"\x00\x00"
         self.process.write_bytes(self.custom_memory_current_offset, warp_to_hub_text, len(warp_to_hub_text))
-        self.process.write_bytes(0x142D93F00, self.custom_memory_current_offset.to_bytes(8, 'little', signed=False), 8)
+        self.process.write_bytes(0x142D93F00, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8)
         self.custom_memory_current_offset += len(warp_to_hub_text)
-        pause_menu_increase_option_count_1_patch = (Patch('pause_menu_increase_option_count_1_patch', 0x140043cf7, self.process)
-                                                    .add_bytes(b'\x02'))
-        pause_menu_increase_option_count_2_patch = (Patch('pause_menu_increase_option_count_2_patch', 0x140044052, self.process)
-                                                    .add_bytes(b'\x03'))
-        pause_menu_on_confirm_patch = (Patch('pause_menu_on_confirm_patch', self.custom_memory_current_offset, self.process)
-                                       .call_far(0x14006ec30)
-                                       .push_rcx().push_rdx().push_r8().push_r9()
-                                       .mov_from_absolute_address_to_eax(self.application_state_address + 0x93610)
-                                       .cmp_eax(2)
-                                       .je_far(pause_menu_resume_and_warp_patch.base_address)
-                                       .pop_r9().pop_r8().pop_rdx().pop_rcx()
-                                       .mov_rdx(self.application_state_address)
-                                       .cmp_ebx(0xe10)
-                                       .jl_far(0x140044391)
-                                       .jmp_far(0x14004435b)
-                                       .nop(0x10)
-                                       )
+        pause_menu_increase_option_count_1_patch = (
+            Patch("pause_menu_increase_option_count_1_patch", 0x140043cf7, self.process)
+            .add_bytes(b"\x02"))
+        pause_menu_increase_option_count_2_patch = (
+            Patch("pause_menu_increase_option_count_2_patch", 0x140044052, self.process)
+            .add_bytes(b"\x03"))
+        pause_menu_on_confirm_patch = (
+            Patch("pause_menu_on_confirm_patch", self.custom_memory_current_offset, self.process)
+            .call_far(0x14006ec30)
+            .push_rcx().push_rdx().push_r8().push_r9()
+            .mov_from_absolute_address_to_eax(self.application_state_address + 0x93610)
+            .cmp_eax(2)
+            .je_far(pause_menu_resume_and_warp_patch.base_address)
+            .pop_r9().pop_r8().pop_rdx().pop_rcx()
+            .mov_rdx(self.application_state_address)
+            .cmp_ebx(0xe10)
+            .jl_far(0x140044391)
+            .jmp_far(0x14004435b)
+            .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_on_confirm_patch)
-        pause_menu_patch_on_confirm_trampoline_patch = (Patch('pause_menu_patch_on_confirm_trampoline_patch', 0x140044347, self.process)
-                                                        .jmp_far(pause_menu_on_confirm_patch.base_address)
-                                                        .nop(6)
-                                                        )
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_resume_and_warp_patch...\n{pause_menu_resume_and_warp_patch}')
+        pause_menu_patch_on_confirm_trampoline_patch = (
+            Patch("pause_menu_patch_on_confirm_trampoline_patch", 0x140044347, self.process)
+            .jmp_far(pause_menu_on_confirm_patch.base_address)
+            .nop(6))
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_resume_and_warp_patch..."
+                          f"\n{pause_menu_resume_and_warp_patch}")
         if pause_menu_resume_and_warp_patch.apply():
             self.revertable_patches.append(pause_menu_resume_and_warp_patch)
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_patch_update_option_text...\n{pause_menu_patch_update_option_text}')
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_patch_update_option_text..."
+                          f"\n{pause_menu_patch_update_option_text}")
         if pause_menu_patch_update_option_text.apply():
             self.revertable_patches.append(pause_menu_patch_update_option_text)
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_patch_update_option_text_trampoline...\n{pause_menu_patch_update_option_text_trampoline}')
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_patch_update_option_text_trampoline..."
+                          f"\n{pause_menu_patch_update_option_text_trampoline}")
         if pause_menu_patch_update_option_text_trampoline.apply():
             self.revertable_patches.append(pause_menu_patch_update_option_text_trampoline)
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_increase_option_count_1_patch...\n{pause_menu_increase_option_count_1_patch}')
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_increase_option_count_1_patch..."
+                          f"\n{pause_menu_increase_option_count_1_patch}")
         if pause_menu_increase_option_count_1_patch.apply():
             self.revertable_patches.append(pause_menu_increase_option_count_1_patch)
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_increase_option_count_2_patch...\n{pause_menu_increase_option_count_2_patch}')
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_increase_option_count_2_patch..."
+                          f"\n{pause_menu_increase_option_count_2_patch}")
         if pause_menu_increase_option_count_2_patch.apply():
             self.revertable_patches.append(pause_menu_increase_option_count_2_patch)
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_on_confirm_patch...\n{pause_menu_on_confirm_patch}')
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_on_confirm_patch..."
+                          f"\n{pause_menu_on_confirm_patch}")
         if pause_menu_on_confirm_patch.apply():
             self.revertable_patches.append(pause_menu_on_confirm_patch)
-        if self.log_debug_info: self.log_info(f'Applying pause_menu_patch_on_confirm_trampoline_patch...\n{pause_menu_patch_on_confirm_trampoline_patch}')
+        if self.log_debug_info:
+            self.log_info(f"Applying pause_menu_patch_on_confirm_trampoline_patch..."
+                          f"\n{pause_menu_patch_on_confirm_trampoline_patch}")
         if pause_menu_patch_on_confirm_trampoline_patch.apply():
             self.revertable_patches.append(pause_menu_patch_on_confirm_trampoline_patch)
 
     def apply_input_reader_patch(self):
         """
-        This patch enables watching for additional input beyond just the default controls and triggers functions when the expected button is pressed.
+        This patch enables watching for additional input beyond just the default controls and triggers functions
+        when the expected button is pressed.
         Originally used as a Warp To Hub command before the Pause Menu patch was implemented.
         """
-        # input_reader_patch = (Patch('input_reader_patch', 0x140133c00, self.process)
+        # input_reader_patch = (Patch("input_reader_patch", 0x140133c00, self.process)
         #                        .push_r15().push_r14().push_rsi().push_rdi().push_rbp().push_rbx()#.mov_to_rax(self.application_state_address + 0x93670)
         #                        .nop(0x100).pop_rbx().pop_rbp().pop_rdi().pop_rsi().pop_r14().pop_r15().mov_to_eax(0x27168).call_far(0x140104800).jmp_far(0x14003B679) #.nop(0x100)
         #                        )
@@ -553,7 +596,7 @@ class Bean_Patcher:
         # Equipment: Top 0x27a, Ball 0x27d, Wheel 0x283, Remote 0x1d2, Slink 0x1a1, Yoyo 0x14e, UV 0x143, Bubble 0xa2, Flute 0xa9, Lantern 0x6d
         # Quest: Egg65 0x2c7, OfficeKey 0x269, QuestionKey 0x26a, MDisc 0x17e
         # Egg: 0x5a
-        input_reader_patch = (Patch('input_reader_patch', self.custom_memory_current_offset, self.process)
+        input_reader_patch = (Patch("input_reader_patch", self.custom_memory_current_offset, self.process)
                               .get_key_pressed(0x48)
                               .cmp_al1_byte(0)
                               .je_near(0x80)
@@ -562,7 +605,7 @@ class Bean_Patcher:
                               .cmp_eax(5)  # only allow warp while idle, walking, jumping, falling, or climbing a ladder
                               .jnl_short(56)
                               .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
-                              #.get_an_item(slot_address, 0x14c, 0x00, 0xff)
+                              # .get_an_item(slot_address, 0x14c, 0x00, 0xff)
                               .pop_r9().pop_r8().pop_rdx().pop_rcx()
                               .nop(0x80)
                               .mov_edi(0x841c)
@@ -571,27 +614,31 @@ class Bean_Patcher:
                               .jmp_far(0x14003B7FD)
                               )
         self.custom_memory_current_offset += len(input_reader_patch)
-        if self.log_debug_info: self.log_info(f'Applying input_reader_patch...\n{input_reader_patch}')
+        if self.log_debug_info:
+            self.log_info(f"Applying input_reader_patch...\n{input_reader_patch}")
         if input_reader_patch.apply():
             self.revertable_patches.append(input_reader_patch)
-        input_reader_trampoline = (Patch('input_reader_trampoline', 0x14003B7D1, self.process)
+        input_reader_trampoline = (Patch("input_reader_trampoline", 0x14003B7D1, self.process)
                                    .jmp_far(input_reader_patch.base_address).nop(2))
-        if self.log_debug_info: self.log_info(f'Applying input_reader_trampoline...\n{input_reader_trampoline}')
+        if self.log_debug_info:
+            self.log_info(f"Applying input_reader_trampoline...\n{input_reader_trampoline}")
         if input_reader_trampoline.apply():
             self.revertable_patches.append(input_reader_trampoline)
 
     def apply_disable_anticheat_patch(self):
         """
-        Disables the built-in anti-cheat that rolls back changes that occur to the player outside of the 'frame' function.
+        Disables the built-in anti-cheat that rolls back changes that occur to the player outside the frame function.
         """
         frame_anticheat_address = self.module_base + 0x6048A
         frame_anticheat_complete_address = self.module_base + 0x605B3
-        disable_anticheat_patch = Patch('disable_anti-cheat', frame_anticheat_address, self.process).jmp_far(frame_anticheat_complete_address)
-        if self.log_debug_info: self.log_info(f'Disabling anti-cheat...\n{disable_anticheat_patch}')
+        disable_anticheat_patch = Patch(
+            "disable_anti-cheat", frame_anticheat_address, self.process).jmp_far(frame_anticheat_complete_address)
+        if self.log_debug_info:
+            self.log_info(f"Disabling anti-cheat...\n{disable_anticheat_patch}")
         if disable_anticheat_patch.apply():
             self.revertable_patches.append(disable_anticheat_patch)
 
-    def enable_room_palette_override(self, palette = 0x14):
+    def enable_room_palette_override(self, palette=0x14):
         if self.room_palette_override_patch is None:
             return
 
@@ -600,15 +647,17 @@ class Bean_Patcher:
 
         self.room_palette_override_shader = palette
 
-        if self.log_debug_info: self.log_info(f'Applying room palette override patch...')
-        self.room_palette_override_patch.byte_list = b'\xb8' + self.room_palette_override_shader.to_bytes(4, 'little') + b'\x90'
+        if self.log_debug_info:
+            self.log_info(f"Applying room palette override patch...")
+        self.room_palette_override_patch.byte_list = b"\xb8" + self.room_palette_override_shader.to_bytes(4, "little") + b"\x90"
         self.room_palette_override_patch.apply()
 
     def disable_room_palette_override(self):
         if self.room_palette_override_patch is None or not self.room_palette_override_patch.patch_applied:
             return
 
-        if self.log_debug_info: self.log_info(f'Reverting room palette override patch...')
+        if self.log_debug_info:
+            self.log_info(f"Reverting room palette override patch...")
         self.room_palette_override_patch.revert()
 
     def toggle_room_palette_override(self):
@@ -625,63 +674,92 @@ class Bean_Patcher:
         Forces every room to use the specified palette. Adds a little extra visual variety to randomizer runs.
         """
         self.room_palette_override_shader = 0x14
-        if self.log_debug_info: self.log_info('Applying room palette override patch...')
-        self.room_palette_override_patch = (Patch('override_room_palette', self.module_base + 0x2e26, self.process).mov_to_eax(self.room_palette_override_shader).nop(1))
+        if self.log_debug_info:
+            self.log_info("Applying room palette override patch...")
+        self.room_palette_override_patch = (
+            Patch("override_room_palette", self.module_base + 0x2e26, self.process)
+            .mov_to_eax(self.room_palette_override_shader).nop(1))
 
     def apply_item_collection_patches(self):
         """
-        disable_chest_item_patch disables receiving items when you open chests. This means you will no longer get incorrect dialog boxes or have your selected equipment
-        change when opening a chest that normally would contain a piece of equipment.
+        disable_chest_item_patch disables receiving items when you open chests. This means you will no longer get
+        incorrect dialog boxes or have your selected equipment change when opening a chest that normally would contain
+        a piece of equipment.
 
-        All the other patches here disable the dialog boxes that show up when you receive an item. Instead, you'll still get the item like normal and have your selected
-        equipment automatically updated, and you'll still get the icon of the item over the bean's head, making it clear what items you received but reducing situations
-        where you might be performing a trick when receiving a piece of equipment from another player's game.
+        All the other patches here disable the dialog boxes that show up when you receive an item.
+        Instead, you"ll still get the item like normal and have your selected equipment automatically updated,
+        and you"ll still get the icon of the item over the bean"s head, making it clear what items you received
+        but reducing situations where you might be performing a trick when receiving a piece of equipment from
+        another player"s game.
         """
-        disable_chest_item_patch = Patch('disable_chest_item', 0x1400c2871, self.process).xor_r8d_r8d().xor_edx_edx().nop(3)
-        disable_item_get_dialog_patch = Patch('disable_item_get_dialog', 0x1400c2161, self.process).nop(5)
+        disable_chest_item_patch = Patch("disable_chest_item", 0x1400c2871, self.process).xor_r8d_r8d().xor_edx_edx().nop(3)
+        disable_item_get_dialog_patch = Patch("disable_item_get_dialog", 0x1400c2161, self.process).nop(5)
         # match, pencil, stethoscope, officeKey, stamps, pedometer, rabbitFig, mockDisc, cake, regularKey, stopwatch, sMedal, eMedal, questionKey
-        disable_egg_get_dialog_patch = Patch('disable_egg_get_dialog', 0x1400c24a3, self.process).nop(5)
-        disable_lantern_get_dialog_patch = Patch('disable_lantern_get_dialog', 0x1400c1c82, self.process).nop(5)
-        disable_flute_get_dialog_patch = Patch('disable_flute_get_dialog', 0x1400c2241, self.process).nop(5)
-        disable_bubble_get_dialog_patch = Patch('disable_bubble_get_dialog', 0x1400c21ea, self.process).nop(5)
-        disable_uv_get_dialog_patch = Patch('disable_uv_get_dialog', 0x1400c1cd9, self.process).nop(5)
-        disable_yoyo_get_dialog_patch = Patch('disable_yoyo_get_dialog', 0x1400c1f21, self.process).nop(5)
-        disable_slink_get_dialog_patch = Patch('disable_slink_get_dialog', 0x1400c1bc0, self.process).nop(5)
-        disable_remote_get_dialog_patch = Patch('disable_remote_get_dialog', 0x1400c211a, self.process).nop(5)
-        disable_wheel_get_dialog_patch = Patch('disable_wheel_get_dialog', 0x1400c22c8, self.process).nop(5)
-        disable_wheel_get_without_saving_cats_dialog_patch = Patch('disable_wheel_get_without_saving_cats_dialog', 0x1400c20b2, self.process).nop(5)
-        disable_ball_get_dialog_patch = Patch('disable_ball_get_dialog', 0x1400c200d, self.process).nop(5)
-        disable_top_get_dialog_patch = Patch('disable_top_get_dialog', 0x1400c1fb6, self.process).nop(5)
-        disable_egg65_get_dialog_patch = Patch('disable_egg65_get_dialog', 0x1400c18be, self.process).nop(5)
-        disable_bbwand_get_dialog_patch = Patch('disable_bbwand_get_dialog', 0x1400c1d75, self.process).nop(5)
-        disable_fannypack_get_dialog_patch = Patch('disable_fannypack_get_dialog', 0x1400c1e81, self.process).nop(5)
-        if self.log_debug_info: self.log_info(f'Applying disable_chest_item_patch patch...\n{disable_chest_item_patch}')
-        if disable_chest_item_patch.apply(): self.revertable_patches.append(disable_chest_item_patch)
-        if self.log_debug_info: self.log_info(f'Applying disable item get dialog patches...')
-        if disable_item_get_dialog_patch.apply(): self.revertable_patches.append(disable_item_get_dialog_patch)
-        if disable_egg_get_dialog_patch.apply(): self.revertable_patches.append(disable_egg_get_dialog_patch)
-        if disable_lantern_get_dialog_patch.apply(): self.revertable_patches.append(disable_lantern_get_dialog_patch)
-        if disable_flute_get_dialog_patch.apply(): self.revertable_patches.append(disable_flute_get_dialog_patch)
-        if disable_bubble_get_dialog_patch.apply(): self.revertable_patches.append(disable_bubble_get_dialog_patch)
-        if disable_uv_get_dialog_patch.apply(): self.revertable_patches.append(disable_uv_get_dialog_patch)
-        if disable_yoyo_get_dialog_patch.apply(): self.revertable_patches.append(disable_yoyo_get_dialog_patch)
-        if disable_slink_get_dialog_patch.apply(): self.revertable_patches.append(disable_slink_get_dialog_patch)
-        if disable_remote_get_dialog_patch.apply(): self.revertable_patches.append(disable_remote_get_dialog_patch)
-        if disable_wheel_get_dialog_patch.apply(): self.revertable_patches.append(disable_wheel_get_dialog_patch)
-        if disable_wheel_get_without_saving_cats_dialog_patch.apply(): self.revertable_patches.append(disable_wheel_get_without_saving_cats_dialog_patch)
-        if disable_ball_get_dialog_patch.apply(): self.revertable_patches.append(disable_ball_get_dialog_patch)
-        if disable_top_get_dialog_patch.apply(): self.revertable_patches.append(disable_top_get_dialog_patch)
-        if disable_egg65_get_dialog_patch.apply(): self.revertable_patches.append(disable_egg65_get_dialog_patch)
-        if disable_bbwand_get_dialog_patch.apply(): self.revertable_patches.append(disable_bbwand_get_dialog_patch)
-        if disable_fannypack_get_dialog_patch.apply(): self.revertable_patches.append(disable_fannypack_get_dialog_patch)
+        disable_egg_get_dialog_patch = Patch("disable_egg_get_dialog", 0x1400c24a3, self.process).nop(5)
+        disable_lantern_get_dialog_patch = Patch("disable_lantern_get_dialog", 0x1400c1c82, self.process).nop(5)
+        disable_flute_get_dialog_patch = Patch("disable_flute_get_dialog", 0x1400c2241, self.process).nop(5)
+        disable_bubble_get_dialog_patch = Patch("disable_bubble_get_dialog", 0x1400c21ea, self.process).nop(5)
+        disable_uv_get_dialog_patch = Patch("disable_uv_get_dialog", 0x1400c1cd9, self.process).nop(5)
+        disable_yoyo_get_dialog_patch = Patch("disable_yoyo_get_dialog", 0x1400c1f21, self.process).nop(5)
+        disable_slink_get_dialog_patch = Patch("disable_slink_get_dialog", 0x1400c1bc0, self.process).nop(5)
+        disable_remote_get_dialog_patch = Patch("disable_remote_get_dialog", 0x1400c211a, self.process).nop(5)
+        disable_wheel_get_dialog_patch = Patch("disable_wheel_get_dialog", 0x1400c22c8, self.process).nop(5)
+        disable_wheel_get_without_saving_cats_dialog_patch = Patch("disable_wheel_get_without_saving_cats_dialog", 0x1400c20b2, self.process).nop(5)
+        disable_ball_get_dialog_patch = Patch("disable_ball_get_dialog", 0x1400c200d, self.process).nop(5)
+        disable_top_get_dialog_patch = Patch("disable_top_get_dialog", 0x1400c1fb6, self.process).nop(5)
+        disable_egg65_get_dialog_patch = Patch("disable_egg65_get_dialog", 0x1400c18be, self.process).nop(5)
+        disable_bbwand_get_dialog_patch = Patch("disable_bbwand_get_dialog", 0x1400c1d75, self.process).nop(5)
+        disable_fannypack_get_dialog_patch = Patch("disable_fannypack_get_dialog", 0x1400c1e81, self.process).nop(5)
+        if self.log_debug_info:
+            self.log_info(f"Applying disable_chest_item_patch patch...\n{disable_chest_item_patch}")
+        if disable_chest_item_patch.apply():
+            self.revertable_patches.append(disable_chest_item_patch)
+        if self.log_debug_info:
+            self.log_info(f"Applying disable item get dialog patches...")
+        if disable_item_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_item_get_dialog_patch)
+        if disable_egg_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_egg_get_dialog_patch)
+        if disable_lantern_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_lantern_get_dialog_patch)
+        if disable_flute_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_flute_get_dialog_patch)
+        if disable_bubble_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_bubble_get_dialog_patch)
+        if disable_uv_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_uv_get_dialog_patch)
+        if disable_yoyo_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_yoyo_get_dialog_patch)
+        if disable_slink_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_slink_get_dialog_patch)
+        if disable_remote_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_remote_get_dialog_patch)
+        if disable_wheel_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_wheel_get_dialog_patch)
+        if disable_wheel_get_without_saving_cats_dialog_patch.apply():
+            self.revertable_patches.append(disable_wheel_get_without_saving_cats_dialog_patch)
+        if disable_ball_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_ball_get_dialog_patch)
+        if disable_top_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_top_get_dialog_patch)
+        if disable_egg65_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_egg65_get_dialog_patch)
+        if disable_bbwand_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_bbwand_get_dialog_patch)
+        if disable_fannypack_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_fannypack_get_dialog_patch)
 
     def apply_receive_item_patch(self):
         """
-        Set up a piece of code that runs in the normal gameloop that checks a location in memory to see if that location has a value. If it does, that routine will
-        trigger getAnItem with the provided itemId, position(for eggs only), and locationId. LocationId will default to 0xff, as negative numbers do not trigger changes
-        to the bytes that store which chests have already been opened. After this getAnItem, that location in memory is cleared, preventing the routine from attempting
-        to give the item to the player again. This class will keep a buffer of items to receive and will automatically only set the item byte when it is currently 0,
-        this will ensure that an item is never skipped if multiple arrive at the same exact time.
+        Set up a piece of code that runs in the normal gameloop that checks a location in memory to see if that
+        location has a value. If it does, that routine will trigger getAnItem with the provided item_id,
+        position(for eggs only), and location_id.
+        LocationId will default to 0xff, as negative numbers do not trigger changes to the bytes that store which
+        chests have already been opened.
+        After this getAnItem, that location in memory is cleared, preventing the routine from attempting to give the
+        item to the player again.
+        This class will keep a buffer of items to receive and will automatically only set the item byte when it is
+        currently 0, this will ensure that an item is never skipped if multiple arrive at the same exact time.
 
         # Relevant item Ids:
         # Unused: Stethoscope 0x14c, Cake 0x20,
@@ -692,7 +770,7 @@ class Bean_Patcher:
         # Quest: Egg65 0x2c7, OfficeKey 0x269, QuestionKey 0x26a, MDisc 0x17e
         # Egg: 0x5a
         """
-        # receive_item_patch = (Patch('receive_item', self.custom_memory_current_offset, self.process)
+        # receive_item_patch = (Patch("receive_item", self.custom_memory_current_offset, self.process)
         #                       .get_key_pressed(0x48)
         #                       .cmp_al1_byte(0)
         #                       .je_near(0x80)
@@ -707,32 +785,34 @@ class Bean_Patcher:
         #                       .jmp_far(0x14003B7FD)
         #                       )
         # self.custom_memory_current_offset += len(receive_item_patch)
-        # if self.log_debug_info: self.log_info(f'Applying input_reader_patch...\n{receive_item_patch}')
+        # if self.log_debug_info: self.log_info(f"Applying input_reader_patch...\n{receive_item_patch}")
         # if receive_item_patch.apply():
         #     self.revertable_patches.append(receive_item_patch)
-        # input_reader_trampoline = (Patch('input_reader_trampoline', 0x14003B7D1, self.process)
+        # input_reader_trampoline = (Patch("input_reader_trampoline", 0x14003B7D1, self.process)
         #                            .jmp_far(receive_item_patch.base_address).nop(2))
-        # if self.log_debug_info: self.log_info(f'Applying input_reader_trampoline...\n{input_reader_trampoline}')
+        # if self.log_debug_info: self.log_info(f"Applying input_reader_trampoline...\n{input_reader_trampoline}")
         # if input_reader_trampoline.apply():
         #     self.revertable_patches.append(input_reader_trampoline)
 
-    def enable_fullbright(self):
+    def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:
-            return
+            return None
 
-        if self.log_debug_info: self.log_info(f'Applying fullbright patch...')
+        if self.log_debug_info:
+            self.log_info(f"Applying fullbright patch...")
         self.fullbright_patch.apply()
 
-    def disable_fullbright(self):
+    def disable_fullbright(self) -> None:
         if self.fullbright_patch is None or not self.fullbright_patch.patch_applied:
-            return
+            return None
 
-        if self.log_debug_info: self.log_info(f'Reverting fullbright patch...')
+        if self.log_debug_info:
+            self.log_info(f"Reverting fullbright patch...")
         self.fullbright_patch.revert()
 
-    def toggle_fullbright(self):
+    def toggle_fullbright(self) -> None:
         if self.fullbright_patch is None:
-            return
+            return None
 
         if self.fullbright_patch.patch_applied:
             self.fullbright_patch.revert()
@@ -741,18 +821,20 @@ class Bean_Patcher:
 
     def generate_fullbright_patch(self):
         """
-        This patch disables darkness in the game, causing all rooms to be equally lit across all tiles. Mostly useful for debugging.
+        This patch disables darkness in the game, causing all rooms to be equally lit across all tiles.
+        Mostly useful for debugging.
         """
-        self.fullbright_patch = Patch('fullbright', 0x140102e63, self.process).add_bytes(b'\xeb\x19')
+        self.fullbright_patch = Patch("fullbright", 0x140102e63, self.process).add_bytes(b"\xeb\x19")
 
     def revert_patches(self):
         if not self.attached_to_process:
-            self.log_error('Cannot revert patches, not attached to Animal Well process!')
+            self.log_error("Cannot revert patches, not attached to Animal Well process!")
             return False
 
-        if self.log_debug_info: self.log_info('Reverting patches...')
+        if self.log_debug_info:
+            self.log_info("Reverting patches...")
 
-        self.log_info('Reverting any patches that we can...')
+        self.log_info("Reverting any patches that we can...")
         for patch in self.revertable_patches:
             if patch.patch_applied:
                 patch.revert()
@@ -762,15 +844,15 @@ class Bean_Patcher:
         self.room_palette_override_patch = None
 
         for offset, value in STEP_AND_TIME_DISPLAY_ORIGINAL_VALUES.items():
-            if type(value) == int:
+            if value is int:
                 self.process.write_uint(self.module_base + offset, value)
-            elif type(value) == float:
+            elif value is float:
                 self.process.write_float(self.module_base + offset, value)
 
         self.custom_memory_base = None  # TODO: Free this memory back when we're unhooking from AW
         self.custom_memory_current_offset = None
 
-        self.log_info('Patches reverted successfully!')
+        self.log_info("Patches reverted successfully!")
 
     def read_from_game(self):
         if not self.attached_to_process:
@@ -778,7 +860,7 @@ class Bean_Patcher:
 
         self.current_frame = self.process.read_uint(self.application_state_address + 0x9360c)
         if self.current_frame != self.last_frame:
-            while (len(self.player_position_history) >= 60):
+            while len(self.player_position_history) >= 60:
                 self.player_position_history.pop(0)
 
             player_x_pos = int(self.process.read_float(self.application_state_address + 0x93670))  # 92e70
@@ -790,39 +872,40 @@ class Bean_Patcher:
         if not self.attached_to_process:
             return
 
-        if self.game_draw_symbol_x_address != None and self.game_draw_symbol_y_address != None and len(self.player_position_history) > 0:
+        if (self.game_draw_symbol_x_address is not None 
+                and self.game_draw_symbol_y_address is not None
+                and len(self.player_position_history) > 0):
             self.process.write_uint(self.game_draw_symbol_x_address, self.player_position_history[0][0])
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
     def tick(self):
         if self.last_message_time != 0:
             if time() - self.last_message_time >= self.message_timeout:
-                self.display_to_client('')
+                self.display_to_client("")
 
-    def display_dialog(self, text: str, title: str = '', actionText: str = ''):
+    def display_dialog(self, text: str, title: str = "", action_text: str = ""):
         try:
-            if self.process != None and self.application_state_address != None:
-                text = f'{text:.255}'.encode('utf-16le') + b'\x00\x00'
-                title = f'{title:.15}'.encode('utf-16le') + b'\x00\x00'
-                actionText = f'{actionText:.15}'.encode('utf-16le') + b'\x00\x00'
+            if self.process is not None and self.application_state_address is not None:
+                text = f"{text:.255}".encode("utf-16le") + b"\x00\x00"
+                title = f"{title:.15}".encode("utf-16le") + b"\x00\x00"
+                action_text = f"{action_text:.15}".encode("utf-16le") + b"\x00\x00"
                 self.process.write_bytes(self.application_state_address + 0xA84B8, text, len(text))
                 self.process.write_bytes(self.application_state_address + 0xA84B8 + 0x200, title, len(title))
-                self.process.write_bytes(self.application_state_address + 0xA84B8 + 0x240, actionText, len(actionText))
-                self.process.write_bytes(self.application_state_address + 0xA84B8 + 0x4a0, b'\x00', 1)
-                self.process.write_bytes(self.application_state_address + 0xA84B4, b'\x01', 1)
+                self.process.write_bytes(self.application_state_address + 0xA84B8 + 0x240, action_text, len(action_text))
+                self.process.write_bytes(self.application_state_address + 0xA84B8 + 0x4a0, b"\x00", 1)
+                self.process.write_bytes(self.application_state_address + 0xA84B4, b"\x01", 1)
         except Exception as e:
-            self.log_error(f'Error while attempting to trigger dialog box on client: {e}')
+            self.log_error(f"Error while attempting to trigger dialog box on client: {e}")
 
     def display_to_client(self, text: str):
         try:
-            if type(text) != "str":
-                text = str(text)
+            text = str(text)
 
-            if self.game_draw_routine_string_addr != None:
-                newStringBuffer = f"{text:.120}".encode('utf-16le') + b'\x00\x00'
-                self.process.write_bytes(self.game_draw_routine_string_addr, newStringBuffer, len(newStringBuffer))
+            if self.game_draw_routine_string_addr is not None:
+                new_string_buffer = f"{text:.120}".encode("utf-16le") + b"\x00\x00"
+                self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
 
-                if text != '':
+                if text != "":
                     self.last_message_time = time()
                 else:
                     self.last_message_time = 0
