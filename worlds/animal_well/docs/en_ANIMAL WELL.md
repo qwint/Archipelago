@@ -27,11 +27,10 @@ This will be revised later on.
 ## Is there a tracker pack?
 There is a [Poptracker Pack](https://github.com/SporyTike/ANIMAL-WELL-AP-Tracker/releases/latest) which was made by SporyTike.
 If you find issues in the tracker pack, please let them know about them.
-Universal Tracker can be used as well, and will not have any issues while using it.
+Universal Tracker is also an option, and will not run into any of its common issues.
 
 ## What should I know regarding logic?
-Locations that may softlock you (such as the B. Wand chest) are included in logic. To escape these softlocks, you can either quit to menu and continue (the chest will appear closed, but you will have already sent the check, so it's fine), or you can type `/ring` into the ANIMAL WELL Client to give yourself the Cheater's Ring, which you can use to escape the softlock.
-Please do not overuse the Cheater's Ring, only use it in a situation you cannot otherwise escape from. This command will be removed from the Client when we find a better solution.
+Locations that may softlock you (such as the B. Wand chest) are included in logic. To escape these softlocks, you can either quit to menu and continue (the chest will appear closed, but you will have already sent the check, so it's fine), or you can use the Warp to Hub button in the pause menu.
 
 ## Does this game have item and location groups?
 Yes! To find what they are, type `/item_groups` or `/location_groups` into the ANIMAL WELL Client, or the Archipelago Text Client while connected to an ANIMAL WELL session.
