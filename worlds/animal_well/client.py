@@ -174,6 +174,7 @@ class AnimalWellContext(CommonContext):
         self.used_firecrackers = 0
         self.used_berries = 0
         self.bean_patcher = Bean_Patcher().set_logger(logger)
+        self.bean_patcher.game_draw_routine_default_string = 'Connected to the well...'
 
     def display_dialog(self, text: str, title: str, action_text: str = ''):
         if self.bean_patcher != None and self.bean_patcher.attached_to_process:

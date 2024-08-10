@@ -103,8 +103,10 @@ class Patch(Patch):
         tileX: the X coordinate of the tile to warp the player to
         tileY: the Y coordinate of the tile to warp the player to
         map: which map to warp to
+        56 bytes
         """
-        return (self.mov_rcx(player)
+        return (self
+                .mov_rcx(player)
                 .mov_rdx((roomY << 32) + roomX)
                 .mov_r8((tileY << 32) + tileX)
                 .mov_r9(map)
@@ -270,6 +272,17 @@ class Bean_Patcher:
             return None
 
         return self.application_state_address + 0x400 + HEADER_LENGTH + (SAVE_SLOT_LENGTH * current_save_slot)
+
+    @property
+    def player_address(self):
+        if not self.attached_to_process:
+            self.log_error("Can't get player data address without being attached to a process.")
+            return None
+        if self.application_state_address is None or self.application_state_address == 0:
+            self.log_error("Can't get player data address without knowing the application state's address.")
+            return None
+
+        return self.application_state_address + 0x93670
 
     def attach_to_process(self, process=None):
         if process != None:
@@ -446,7 +459,10 @@ class Bean_Patcher:
                                                .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_patch_update_option_text)
         pause_menu_resume_and_warp_patch = (Patch('pause_menu_resume_and_warp_patch', self.custom_memory_current_offset, self.process)
-                                            .warp(self.application_state_address + 0x93670, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
+                                            .mov_from_absolute_address_to_eax(self.player_address + 0x5D)  # get player state
+                                            .cmp_eax(5)  # only allow warp while idle, walking, jumping, falling, or climbing a ladder
+                                            .jnl_short(56)
+                                            .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
                                             .pop_r9().pop_r8().pop_rdx().pop_rcx()
                                             .mov_to_rax(self.application_state_address)
                                             .jmp_far(0x140044223)
@@ -542,8 +558,11 @@ class Bean_Patcher:
                               .cmp_al1_byte(0)
                               .je_near(0x80)
                               .push_rcx().push_rdx().push_r8().push_r9()
-                              .warp(self.application_state_address + 0x93670, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
-                              # .get_an_item(slot_address, 0x14c, 0x00, 0xff)
+                              .mov_from_absolute_address_to_eax(self.player_address + 0x5D)  # get player state
+                              .cmp_eax(5)  # only allow warp while idle, walking, jumping, falling, or climbing a ladder
+                              .jnl_short(56)
+                              .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
+                              #.get_an_item(slot_address, 0x14c, 0x00, 0xff)
                               .pop_r9().pop_r8().pop_rdx().pop_rcx()
                               .nop(0x80)
                               .mov_edi(0x841c)
@@ -678,7 +697,7 @@ class Bean_Patcher:
         #                       .cmp_al1_byte(0)
         #                       .je_near(0x80)
         #                       .push_rcx().push_rdx().push_r8().push_r9()
-        #                       .warp(self.application_state_address + 0x93670, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
+        #                       .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
         #                       # .get_an_item(slot_address, 0x14c, 0x00, 0xff)
         #                       .pop_r9().pop_r8().pop_rdx().pop_rcx()
         #                       .nop(0x80)
