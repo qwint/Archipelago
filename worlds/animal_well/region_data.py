@@ -306,16 +306,21 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region),
         lname.key_bear_upper:
             AWData(AWType.location),
-        lname.egg_zen:  # get chest on chinchilla's head, get it to drop it on the button by walking off the right side
-            AWData(AWType.location, [[iname.bubble], [iname.disc], [iname.wheel_hop]]),
+        rname.zen_egg_spot:
+            AWData(AWType.region, [[iname.bubble], [iname.disc], [iname.wheel_hop]]),
         rname.bear_dark_maze:  # need one key to open the gate, or do downward bubbles to get to the button
             AWData(AWType.region, [[iname.key_ring], [iname.bubble_short, iname.weird_tricks],
                                    [iname.ball, iname.weird_tricks]]),  # or hit it with a ball
-        lname.egg_universal:
-            AWData(AWType.location, [[iname.bubble, iname.yoyo], [iname.bubble, iname.wheel],
-                                     [iname.bubble, iname.firecrackers], [iname.disc], [iname.wheel_hop]]),
         rname.value_egg_spot:
             AWData(AWType.region, [[iname.bubble_short], [iname.disc], [iname.wheel_climb]]),
+    },
+    rname.zen_egg_spot: {
+        lname.egg_zen:
+            AWData(AWType.location),
+        lname.egg_universal:
+            AWData(AWType.location, [[iname.firecrackers], [iname.yoyo], [iname.disc], [iname.wheel]]),
+        rname.bear_capybara_and_below:  # just drop down into the chinchilla room. key chest handled there.
+            AWData(AWType.region)
     },
     rname.value_egg_spot: {  # broke this one out into its own region because the reqs were getting really big
         lname.egg_value:
@@ -382,6 +387,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.disc]]),
         rname.bear_transcendental:  # todo: figure out which bubble, which disc option
             AWData(AWType.region, [[iname.wheel_hop], [iname.bubble]]),
+        rname.zen_egg_spot:  # secret pathway just before middle phone room
+            AWData(AWType.region, [[iname.top]]),
     },
     rname.bear_truth_egg_spot: {
         lname.egg_truth:
@@ -436,7 +443,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.match_bear:
             AWData(AWType.location),
         rname.chocolate_egg_spot:
-            AWData(AWType.region, [[iname.bubble]]),  # wall juts out, need bubble
+            AWData(AWType.region, [[iname.bubble], [iname.wheel_hard]]),  # wall juts out, need bubble
         rname.match_center_well_spot:
             AWData(AWType.region),  # wall is flush, just hold left
         rname.bear_truth_egg_spot:
@@ -585,6 +592,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_raw:
             AWData(AWType.location, [[iname.slink, iname.disc_hop_hard],
                                      [iname.slink, iname.bubble_short],
+                                     [iname.slink, iname.wheel_hop],
                                      [iname.slink, iname.key_ring]]),
         lname.flame_pink:
             AWData(AWType.location, [[iname.m_disc, iname.can_open_flame]], event=iname.pink_flame),
@@ -598,10 +606,11 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location, [[iname.slink, iname.disc]]),
         rname.dog_fast_travel_room:
             AWData(AWType.region),
-        lname.egg_crystal:  # my worst one yet
+        lname.egg_crystal:
             AWData(AWType.location, [[iname.top, iname.ball, iname.remote, iname.wheel, iname.slink],
-                                     [iname.top, iname.ball, iname.remote, iname.wheel, iname.disc,
-                                      iname.weird_tricks]]),
+                                     [iname.top, iname.ball, iname.remote, iname.wheel, iname.disc, iname.weird_tricks],  # rooby's version
+                                     [iname.top, iname.wheel_hop, iname.weird_tricks],  # 8's version
+                                     [iname.top, iname.wheel, iname.bubble_long, iname.weird_tricks]]),  # 8's OTHER version
     },
     rname.dog_swordfish_lake_ledge: {
         rname.dog_fast_travel_room:
