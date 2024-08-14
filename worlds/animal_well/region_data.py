@@ -609,7 +609,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_crystal:
             AWData(AWType.location, [[iname.top, iname.ball, iname.remote, iname.wheel, iname.slink],
                                      [iname.top, iname.ball, iname.remote, iname.wheel, iname.disc, iname.weird_tricks],  # rooby's version
-                                     [iname.top, iname.wheel_hop, iname.weird_tricks]]),  # 8's version
+                                     [iname.top, iname.wheel_hop, iname.weird_tricks],  # 8's version
+                                     [iname.top, iname.wheel, iname.bubble_long, iname.weird_tricks]]),  # 8's OTHER version
     },
     rname.dog_swordfish_lake_ledge: {
         rname.dog_fast_travel_room:
