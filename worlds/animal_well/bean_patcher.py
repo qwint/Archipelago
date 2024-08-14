@@ -365,12 +365,14 @@ class BeanPatcher:
 
         self.apply_receive_item_patch()
 
+        self.apply_skip_credits_patch()
+
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
         # solved bunny bytes = bytearray.fromhex("37 00 00 00 40 01 05 00 00 00 0C 00 40 00 40 46 05 0C 18 09 08 01 90 31 40 46 05 37 F4 07 48 04 40 0E 40 19 01 0C F0 03 32 09 00 02 00 59 00 18 F4 07 02 48 00 02 00 54 05 44 98 09 02 98 01 08 00 55 14 10 80 00 0E 42 00 58 05 15 52 20 8C 00 32 82 00 55 55 55 50 82 8C 08 82 80 40 55 55 55 55 81 88 32 88 80 50 55 55 55 55 81 88 C0 88 80 54 55 55 55 55 20 20 88 88 20 54 55 55 55 15 20 20 20 8C 23 54 55 55 55 E5 EF 23 2C EF FE 56 55 55 55 E5 FF EF EF BE FD 56 55 55 55 E5 FF FF BB 7B F6 54 55 55 55 01 FC E7 EE EF F9 50 55 55 55 00 F0 99 BB BE EF 43 55 55 15 00 FF E6 EE FB BE 0F 00 00 00 FC BF BB BB")
 
         self.log_info("Patches applied successfully!")
-        
+
         return True
 
     def apply_main_menu_draw_patch(self):
@@ -794,6 +796,19 @@ class BeanPatcher:
         # if input_reader_trampoline.apply():
         #     self.revertable_patches.append(input_reader_trampoline)
 
+    def apply_skip_credits_patch(self):
+        """
+        Disables the credits by NOPing out a check that checks if the credits timer is still running,
+        effectively jumping to the end of the credits instantly when they start rolling.
+        """
+        skip_credits_address = self.module_base + 0x476D9
+        skip_credits_patch = Patch(
+            "skip_credits", skip_credits_address, self.process).nop(2)
+        if self.log_debug_info:
+            self.log_info(f"Disabling credits...\n{skip_credits_patch}")
+        if skip_credits_patch.apply():
+            self.revertable_patches.append(skip_credits_patch)
+
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:
             return None
@@ -872,7 +887,7 @@ class BeanPatcher:
         if not self.attached_to_process:
             return
 
-        if (self.game_draw_symbol_x_address is not None 
+        if (self.game_draw_symbol_x_address is not None
                 and self.game_draw_symbol_y_address is not None
                 and len(self.player_position_history) > 0):
             self.process.write_uint(self.game_draw_symbol_x_address, self.player_position_history[0][0])
