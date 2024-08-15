@@ -192,7 +192,8 @@ STEP_AND_TIME_DISPLAY_UPDATED_VALUES = {
 # region Other Constants
 HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
-CUSTOM_MEMORY_SIZE = 0x20000
+CUSTOM_MEMORY_SIZE = 0x40000
+CUSTOM_STAMPS = 255
 # endregion
 
 
@@ -264,6 +265,8 @@ class BeanPatcher:
 
         self.fullbright_patch: Optional[Patch] = None
 
+        self.tracker_stamps_addr: Optional[int] = None
+
     def get_current_save_slot(self):
         if not self.attached_to_process:
             self.log_error("Can't get current save slot without being attached to a process.")
@@ -293,6 +296,17 @@ class BeanPatcher:
             return None
 
         return self.application_state_address + 0x93670
+
+    @property
+    def stamps_address(self):
+        if not self.attached_to_process:
+            self.log_error("Can't get stamps address without being attached to a process.")
+            return None
+        if self.tracker_stamps_addr is None or self.tracker_stamps_addr == 0:
+            self.log_error("Can't get stamps address, patch not applied.")
+            return None
+
+        return self.tracker_stamps_addr
 
     def attach_to_process(self, process=None) -> bool:
         if process is not None:
@@ -366,6 +380,8 @@ class BeanPatcher:
         self.apply_receive_item_patch()
 
         self.apply_skip_credits_patch()
+
+        self.apply_redirect_stamps_patch()
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
@@ -808,6 +824,20 @@ class BeanPatcher:
             self.log_info(f"Disabling credits...\n{skip_credits_patch}")
         if skip_credits_patch.apply():
             self.revertable_patches.append(skip_credits_patch)
+
+    def apply_redirect_stamps_patch(self):
+        """
+        Redirects stamps to a custom array of the in-game tracker.
+        """
+        self.tracker_stamps_addr = self.custom_memory_current_offset
+        self.custom_memory_current_offset += CUSTOM_STAMPS * 6
+        redirect_stamps_address = self.module_base + 0x42AEE
+        redirect_stamps_patch = Patch(
+            "redirect_stamps", redirect_stamps_address, self.process).mov_rdi(self.tracker_stamps_addr+4).nop(3)
+        if self.log_debug_info:
+            self.log_info(f"Applying in-game tracker patch...\n{redirect_stamps_patch}")
+        if redirect_stamps_patch.apply():
+            self.revertable_patches.append(redirect_stamps_patch)
 
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:

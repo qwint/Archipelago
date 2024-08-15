@@ -9,12 +9,13 @@ import platform
 import random
 import traceback
 
+from typing import Dict, List
+
 import pymem
 
 import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
-from typing import Dict
 from .items import item_name_to_id
 from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
@@ -30,7 +31,7 @@ CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
 
 HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
-
+CUSTOM_STAMPS = 255
 
 class AnimalWellCommandProcessor(ClientCommandProcessor):
     """
@@ -149,6 +150,25 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
 
+class Stamp:
+    def __init__(self, x, y, type=0):
+        self.x = x
+        self.y = y
+        self.type = type
+
+    def data(self):
+        return self.x.to_bytes(2, byteorder="little") + self.y.to_bytes(2, byteorder="little") + self.type.to_bytes(2, byteorder="little")
+
+class Tile:
+    def __init__(self, room_x, room_y, x, y):
+        self.room_x = room_x
+        self.room_y = room_y
+        self.x = x
+        self.y = y
+
+    def stamp(self, type=0):
+        return Stamp(self.room_x*40 + self.x - 3, self.room_y*22 + self.y - 4, type)
+
 class AnimalWellContext(CommonContext):
     """
     Animal Well Archipelago context
@@ -175,6 +195,7 @@ class AnimalWellContext(CommonContext):
         self.used_berries = 0
         self.bean_patcher = BeanPatcher().set_logger(logger)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
+        self.stamps = []
 
     def display_dialog(self, text: str, title: str, action_text: str = ""):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
@@ -296,6 +317,36 @@ class AnimalWellContext(CommonContext):
             return slot
         else:
             raise NotImplementedError("Only Windows is implemented right now")
+
+    def get_tiles(self, tile_type, map_id=0) -> List[Tile]:
+        #logger.info(f"Searching for tiles {tile}")
+        out = []
+        if self.start_address is None:
+            return out
+        #logger.info(f"Start address {self.start_address:X}")
+        base_addr = 0x142BD8E30
+        map_addr = int.from_bytes(self.process_handle.read_bytes(base_addr, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
+        room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
+        #logger.info(f"Found map {map} at {map_addr:X} with {room_count} rooms")
+        for room_idx in range(room_count):
+            room_addr = map_addr + 4 + room_idx*(8+2*22*40*4)
+            room_x = int.from_bytes(self.process_handle.read_bytes(room_addr, 1), byteorder="little")
+            room_y = int.from_bytes(self.process_handle.read_bytes(room_addr + 1, 1), byteorder="little")
+            #logger.info(f"Found room {room_x},{room_y} at {room_addr:X}")
+            for y in range(22):
+                for x in range(40):
+                    tile_addr = room_addr + 8 + y*40*4 + x*4
+                    room_tile = int.from_bytes(self.process_handle.read_bytes(tile_addr, 2), byteorder="little")
+                    if tile_type == room_tile:
+                        #logger.info(f"Found {room_tile} at {tile_addr:X} in {room_x},{room_y} {x},{y}")
+                        out.append(Tile(room_x, room_y, x, y))
+        return out
+
+    def get_stamps(self, tile_type, stamp_type, map_id=0) -> List[Stamp]:
+        out = []
+        for tile in self.get_tiles(tile_type, map_id):
+            out.append(tile.stamp(stamp_type))
+        return out
 
     def check_if_in_game(self) -> bool:
         """
@@ -990,7 +1041,60 @@ class AWItems:
                 buffer = buffer.to_bytes(2, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1E4, buffer, 2)
 
+                # set map stamps to check locations
+                # TODO: this proof of concept code currently just creates some kind of stamp for all locations
+                if not ctx.stamps:
+                    ctx.stamps.extend(ctx.get_stamps(162, 0)) # chest stamp, b.wand
+                    ctx.stamps.extend(ctx.get_stamps(708, 0)) # chest stamp, b.b.wand
+                    ctx.stamps.extend(ctx.get_stamps(381, 2)) # skull stamp, disc
+                    ctx.stamps[-1].x += 3 # offset dog statue position
+                    ctx.stamps[-1].y += 5
+                    '''ctx.stamps.extend(ctx.get_stamps(334, 0)) # chest stamp, yoyo
+                    ctx.stamps.extend(ctx.get_stamps(417, 0)) # chest stamp, slink
+                    ctx.stamps.extend(ctx.get_stamps(169, 0)) # chest stamp, flute
+                    ctx.stamps.extend(ctx.get_stamps(634, 0)) # chest stamp, top
+                    ctx.stamps.extend(ctx.get_stamps(109, 0)) # chest stamp, lantern
+                    ctx.stamps.extend(ctx.get_stamps(323, 0)) # chest stamp, uv
+                    ctx.stamps.extend(ctx.get_stamps(637, 0)) # chest stamp, ball
+                    ctx.stamps.extend(ctx.get_stamps(466, 0)) # chest stamp, remote
+                    ctx.stamps.extend(ctx.get_stamps(643, 0)) # chest stamp, wheel
+
+                    ctx.stamps.extend(ctx.get_stamps(382, 0)) # chest stamp, mock disc
+                    ctx.stamps.extend(ctx.get_stamps(780, 0)) # chest stamp, fanny pack
+
+                    ctx.stamps.extend(ctx.get_stamps(41, 5)) # chest stamp, match
+                    ctx.stamps.extend(ctx.get_stamps(40, 0)) # chest stamp, key
+
+                    ctx.stamps.extend(ctx.get_stamps(679, 0)) # chest stamp, e.medal
+                    ctx.stamps.extend(ctx.get_stamps(469, 0)) # chest stamp, s.medal
+
+                    # flames are marked on map anyway
+                    #ctx.stamps.extend(ctx.get_stamps(627, 5)) # skull stamp, flames'''
+
+                    ctx.stamps.extend(ctx.get_stamps(90, 0)) # chest stamp, eggs
+                    ctx.stamps.extend(ctx.get_stamps(711, 0)) # chest stamp, 65th egg
+
+                    '''ctx.stamps.extend(ctx.get_stamps(214, 0)) # chest stamp, map
+                    ctx.stamps.extend(ctx.get_stamps(149, 0)) # chest stamp, stamps (hey that's me)
+                    ctx.stamps.extend(ctx.get_stamps(442, 0)) # chest stamp, pencil
+
+                    #ctx.stamps.extend(ctx.get_stamps(550, 0)) # heart stamp, generic bunny (not all are collectable)
+                    #ctx.stamps.extend(ctx.get_stamps(580, 0)) # heart stamp, duck bunny
+                    #ctx.stamps.extend(ctx.get_stamps(798, 0)) # heart stamp, dog bunny statue
+
+                    ctx.stamps.extend(ctx.get_stamps(37, 5)) # flame stamp, candles
+
+                    #ctx.stamps.extend(ctx.get_stamps(811, 0)) # chest stamp, mama cha fig
+
+                    # ctx.stamps.extend(ctx.get_stamps(, 0)) # chest stamp,'''
+
+                buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
+                ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)
+
                 if ctx.bean_patcher is not None:
+                    if ctx.bean_patcher.stamps_address is not None:
+                        for idx,stamp in enumerate(ctx.stamps):
+                            ctx.process_handle.write_bytes(ctx.bean_patcher.stamps_address + idx*6, stamp.data(), 6)
                     ctx.bean_patcher.write_to_game()
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
