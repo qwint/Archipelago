@@ -882,6 +882,11 @@ class AWItems:
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1DE, 1), byteorder="little")
                 possess_m_disc = self.m_disc and (bool(flags >> 0 & 1) or ctx.first_m_disc)
                 if self.m_disc:
+                    if ctx.first_m_disc:
+                        quest = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1EC, 8), byteorder="little")
+                        quest |= 0x60000000
+                        buffer = quest.to_bytes(8, byteorder="little")
+                        ctx.process_handle.write_bytes(slot_address + 0x1EC, buffer, 8)
                     ctx.first_m_disc = False
 
                 # Write Other Items
