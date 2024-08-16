@@ -160,7 +160,8 @@ class Stamp:
         return self.x.to_bytes(2, byteorder="little") + self.y.to_bytes(2, byteorder="little") + self.type.to_bytes(2, byteorder="little")
 
 class Tile:
-    def __init__(self, room_x, room_y, x, y):
+    def __init__(self, map_id, room_x, room_y, x, y):
+        self.map = map_id
         self.room_x = room_x
         self.room_y = room_y
         self.x = x
@@ -196,6 +197,7 @@ class AnimalWellContext(CommonContext):
         self.bean_patcher = BeanPatcher().set_logger(logger)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
         self.stamps = []
+        self.tiles = {}
 
     def display_dialog(self, text: str, title: str, action_text: str = ""):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
@@ -318,35 +320,50 @@ class AnimalWellContext(CommonContext):
         else:
             raise NotImplementedError("Only Windows is implemented right now")
 
-    def get_tiles(self, tile_type, map_id=0) -> List[Tile]:
-        #logger.info(f"Searching for tiles {tile}")
-        out = []
+    def get_tiles(self, tile_types, map_id=0):
         if self.start_address is None:
-            return out
-        #logger.info(f"Start address {self.start_address:X}")
+            return
         base_addr = 0x142BD8E30
         map_addr = int.from_bytes(self.process_handle.read_bytes(base_addr, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
         room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
-        #logger.info(f"Found map {map} at {map_addr:X} with {room_count} rooms")
         for room_idx in range(room_count):
             room_addr = map_addr + 4 + room_idx*(8+2*22*40*4)
             room_x = int.from_bytes(self.process_handle.read_bytes(room_addr, 1), byteorder="little")
             room_y = int.from_bytes(self.process_handle.read_bytes(room_addr + 1, 1), byteorder="little")
-            #logger.info(f"Found room {room_x},{room_y} at {room_addr:X}")
             for y in range(22):
                 for x in range(40):
                     tile_addr = room_addr + 8 + y*40*4 + x*4
                     room_tile = int.from_bytes(self.process_handle.read_bytes(tile_addr, 2), byteorder="little")
-                    if tile_type == room_tile:
-                        #logger.info(f"Found {room_tile} at {tile_addr:X} in {room_x},{room_y} {x},{y}")
-                        out.append(Tile(room_x, room_y, x, y))
-        return out
+                    if room_tile in tile_types:
+                        if room_tile not in self.tiles:
+                            self.tiles[room_tile] = []
+                        self.tiles[room_tile].append(Tile(map_id, room_x, room_y, x, y))
 
-    def get_stamps(self, tile_type, stamp_type, map_id=0) -> List[Stamp]:
-        out = []
-        for tile in self.get_tiles(tile_type, map_id):
-            out.append(tile.stamp(stamp_type))
-        return out
+    def get_tiles_for_locations(self):
+        tile_ids = []
+        for loc in location_table.values():
+            if not loc.tracker:
+                continue
+            if not loc.tracker.tile in tile_ids:
+                tile_ids.append(loc.tracker.tile)
+        self.get_tiles(tile_ids)
+        logger.info(f"Found {len(self.tiles)} tile locations to track")
+        # TODO: sort by room and pos
+
+    def get_stamps_for_locations(self):
+        if not self.tiles:
+            self.get_tiles_for_locations()
+        self.stamps.clear()
+        tiles_done = []
+        for loc in location_table.values():
+            if not loc.tracker or loc.tracker.tile not in self.tiles or loc.tracker.tile in tiles_done:
+                continue
+            for tile in self.tiles[loc.tracker.tile]:
+                self.stamps.append(tile.stamp(loc.tracker.stamp))
+                self.stamps[-1].x += loc.tracker.stamp_x
+                self.stamps[-1].y += loc.tracker.stamp_y
+            tiles_done.append(loc.tracker.tile)
+        logger.info(f"Found {len(self.stamps)} stamps to track")
 
     def check_if_in_game(self) -> bool:
         """
@@ -1042,51 +1059,9 @@ class AWItems:
                 ctx.process_handle.write_bytes(slot_address + 0x1E4, buffer, 2)
 
                 # set map stamps to check locations
-                # TODO: this proof of concept code currently just creates some kind of stamp for all locations
+                # TODO: this proof of concept code doesn't have logic, but creates stamps for all locations
                 if not ctx.stamps:
-                    ctx.stamps.extend(ctx.get_stamps(162, 0)) # chest stamp, b.wand
-                    ctx.stamps.extend(ctx.get_stamps(708, 0)) # chest stamp, b.b.wand
-                    ctx.stamps.extend(ctx.get_stamps(381, 2)) # skull stamp, disc
-                    ctx.stamps[-1].x += 3 # offset dog statue position
-                    ctx.stamps[-1].y += 5
-                    '''ctx.stamps.extend(ctx.get_stamps(334, 0)) # chest stamp, yoyo
-                    ctx.stamps.extend(ctx.get_stamps(417, 0)) # chest stamp, slink
-                    ctx.stamps.extend(ctx.get_stamps(169, 0)) # chest stamp, flute
-                    ctx.stamps.extend(ctx.get_stamps(634, 0)) # chest stamp, top
-                    ctx.stamps.extend(ctx.get_stamps(109, 0)) # chest stamp, lantern
-                    ctx.stamps.extend(ctx.get_stamps(323, 0)) # chest stamp, uv
-                    ctx.stamps.extend(ctx.get_stamps(637, 0)) # chest stamp, ball
-                    ctx.stamps.extend(ctx.get_stamps(466, 0)) # chest stamp, remote
-                    ctx.stamps.extend(ctx.get_stamps(643, 0)) # chest stamp, wheel
-
-                    ctx.stamps.extend(ctx.get_stamps(382, 0)) # chest stamp, mock disc
-                    ctx.stamps.extend(ctx.get_stamps(780, 0)) # chest stamp, fanny pack
-
-                    ctx.stamps.extend(ctx.get_stamps(41, 5)) # chest stamp, match
-                    ctx.stamps.extend(ctx.get_stamps(40, 0)) # chest stamp, key
-
-                    ctx.stamps.extend(ctx.get_stamps(679, 0)) # chest stamp, e.medal
-                    ctx.stamps.extend(ctx.get_stamps(469, 0)) # chest stamp, s.medal
-
-                    # flames are marked on map anyway
-                    #ctx.stamps.extend(ctx.get_stamps(627, 5)) # skull stamp, flames'''
-
-                    ctx.stamps.extend(ctx.get_stamps(90, 0)) # chest stamp, eggs
-                    ctx.stamps.extend(ctx.get_stamps(711, 0)) # chest stamp, 65th egg
-
-                    '''ctx.stamps.extend(ctx.get_stamps(214, 0)) # chest stamp, map
-                    ctx.stamps.extend(ctx.get_stamps(149, 0)) # chest stamp, stamps (hey that's me)
-                    ctx.stamps.extend(ctx.get_stamps(442, 0)) # chest stamp, pencil
-
-                    #ctx.stamps.extend(ctx.get_stamps(550, 0)) # heart stamp, generic bunny (not all are collectable)
-                    #ctx.stamps.extend(ctx.get_stamps(580, 0)) # heart stamp, duck bunny
-                    #ctx.stamps.extend(ctx.get_stamps(798, 0)) # heart stamp, dog bunny statue
-
-                    ctx.stamps.extend(ctx.get_stamps(37, 5)) # flame stamp, candles
-
-                    #ctx.stamps.extend(ctx.get_stamps(811, 0)) # chest stamp, mama cha fig
-
-                    # ctx.stamps.extend(ctx.get_stamps(, 0)) # chest stamp,'''
+                    ctx.get_stamps_for_locations()
 
                 buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)

@@ -106,6 +106,7 @@ class RegionNames(str, Enum):
     chocolate_egg_spot = "Chocolate Egg Spot"
     value_egg_spot = "Value Egg Spot" 
     match_center_well_spot = "Center Well Match Spot"  # in the shaft, across from chocolate egg
+    zen_egg_spot = "Zen Egg Spot"  # contains zen egg and universal basic egg
 
 
 class ItemNames(str, Enum):
