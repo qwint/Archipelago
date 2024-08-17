@@ -347,8 +347,9 @@ class AnimalWellContext(CommonContext):
             if not loc.tracker.tile in tile_ids:
                 tile_ids.append(loc.tracker.tile)
         self.get_tiles(tile_ids)
-        logger.info(f"Found {len(self.tiles)} tile locations to track")
-        # TODO: sort by room and pos
+        for tile in self.tiles:
+            self.tiles[tile].sort(key=lambda item: (item.room_y, item.room_x, item.y, item.x))
+        logger.info(f"Found {len(self.tiles)} tile types to track")
 
     def get_stamps_for_locations(self):
         if not self.tiles:
@@ -363,7 +364,7 @@ class AnimalWellContext(CommonContext):
                 self.stamps[-1].x += loc.tracker.stamp_x
                 self.stamps[-1].y += loc.tracker.stamp_y
             tiles_done.append(loc.tracker.tile)
-        logger.info(f"Found {len(self.stamps)} stamps to track")
+        logger.info(f"Found {len(self.stamps)} stamp locations to track")
 
     def check_if_in_game(self) -> bool:
         """
