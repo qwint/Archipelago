@@ -1199,8 +1199,12 @@ def launch():
         """
         main function
         """
+        import sys
+        args = sys.argv[1:]
+        if "ANIMAL WELL Client" in args:
+            args.remove("ANIMAL WELL Client")
         parser = get_base_parser()
-        args = parser.parse_args()
+        args = parser.parse_args(args)
 
         ctx = AnimalWellContext(args.connect, args.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
