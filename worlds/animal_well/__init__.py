@@ -28,7 +28,7 @@ def launch_client():
 components.append(Component("ANIMAL WELL Client", func=launch_client,
                             component_type=Type.CLIENT, icon="Potate"))
 
-icon_paths["Potate"] = f"ap:{__name__}/data/Potate.png"
+icon_paths["Potate"] = f"ap:{__name__}/Potate.png"
 
 
 class AnimalWellWeb(WebWorld):
