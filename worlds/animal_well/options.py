@@ -62,15 +62,12 @@ class BunnyWarpsInLogic(Toggle):
     display_name = "Bunny Warps in Logic"
 
 
-class CandleChecks(Choice):  # choice so we can comment out non-working ones then readd them later
+class CandleChecks(Toggle):
     """
     Lighting each of the candles sends a check.
     """
     internal_name = "candle_checks"
     display_name = "Candle Checks"
-    option_off = 0
-    option_on = 1
-    default = 0
 
 
 class KeyRing(DefaultOnToggle):

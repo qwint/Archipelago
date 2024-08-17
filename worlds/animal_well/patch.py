@@ -6,6 +6,7 @@ class Patch:
     byte_list = b''
     original_bytes = b''
     patch_applied = False
+
     def __init__(self, name, base_address, process=None):
         self.name = name
         self.base_address = base_address
