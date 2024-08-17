@@ -1,8 +1,8 @@
-from typing import Dict, List, Set
+from typing import Dict, Set
 from enum import IntEnum
 
 from .locations import location_name_to_id
-from .region_data import AWData, AWType, LocType, traversal_requirements
+from .region_data import AWType, LocType, traversal_requirements
 from .region_scripts import helper_reference
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic, CandleChecks,
@@ -17,7 +17,6 @@ class CheckStatus(IntEnum):
 
 
 class AnimalWellTracker:
-    # todo: when hooking this in, have these get set based on the options sent in slot data, or read it directly
     player_options: Dict[str, int] = {
         Goal.internal_name: 0,
         EggsNeeded.internal_name: 64,
@@ -35,16 +34,18 @@ class AnimalWellTracker:
     # key is location name, value is its spot status. Can change the key later to something else if wanted
     check_logic_status: Dict[str, int] = {loc_name: 0 for loc_name in location_name_to_id.keys()}
 
-    # the player's current inventory, including event items, excluding eggs
+    # the player's current inventory, including event items and the 65th egg, excluding eggs
     full_inventory: Set[str] = set()
-    egg_count: int = 0
+    # update these manually
+    # egg_tracker is a set instead of an int to properly deal with duplicates from get_item, start inventory, etc.
+    egg_tracker: Set[str] = set()
     upgraded_b_wand: bool = False
-    has_all_keys: bool = False
-    has_all_matches: bool = False
+    key_count: int = 0
+    match_count: int = 0
 
-    regions_in_logic: Set[str] = [rname.menu]
+    regions_in_logic: Set[str] = {rname.menu}
     # includes regions accessible in logic
-    regions_out_of_logic: Set[str] = [rname.menu]
+    regions_out_of_logic: Set[str] = {rname.menu}
 
     # update check_logic_status and the regions logic status
     # set in_logic to True for regions_in_logic, False for regions_out_of_logic
@@ -64,6 +65,8 @@ class AnimalWellTracker:
                         continue
                 # bools are ints
                 if destination_data.type == AWType.location:
+                    if destination_data.event:
+                        self.check_logic_status.setdefault(str(destination_name), 0)
                     if self.check_logic_status[destination_name] >= 1 + in_logic:
                         continue
                     # skip bunnies that aren't included in the location pool
@@ -85,7 +88,7 @@ class AnimalWellTracker:
                         met = True
                         break
 
-                if self.egg_count < destination_data.eggs_required:
+                if len(self.egg_tracker) < destination_data.eggs_required:
                     met = False
 
                 if met:
@@ -100,16 +103,16 @@ class AnimalWellTracker:
     def update_inventory_with_events(self) -> None:
         for origin, destinations in traversal_requirements.items():
             for destination_name, destination_data in destinations.items():
-                if destination_data.event and self.check_logic_status[destination_name] == CheckStatus.checked:
+                if destination_data.event and self.check_logic_status.get(destination_name, 0) == CheckStatus.checked:
                     self.full_inventory.add(destination_data.event)
 
     def put_logic_items_in_inventory(self) -> None:
         # hacky but whatever
         if self.upgraded_b_wand:
             self.full_inventory.add(iname.bubble_long_real)
-        if self.has_all_keys:
+        if self.key_count >= 6:
             self.full_inventory.add(iname.key_ring)
-        if self.has_all_matches:
+        if self.match_count >= 9:
             self.full_inventory.add(iname.matchbox)
 
         if iname.bubble_long_real in self.full_inventory:
@@ -153,3 +156,4 @@ class AnimalWellTracker:
         self.update_inventory_with_events()
         self.update_spots_status(in_logic=True)
         self.update_spots_status(in_logic=False)
+        print(self.check_logic_status)

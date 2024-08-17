@@ -15,11 +15,12 @@ import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
 from typing import Dict
-from .items import item_name_to_id
+from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
+from .logic_tracker import AnimalWellTracker, CheckStatus
 
 CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
 CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
@@ -175,6 +176,7 @@ class AnimalWellContext(CommonContext):
         self.used_berries = 0
         self.bean_patcher = BeanPatcher().set_logger(logger)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
+        self.logic_tracker = AnimalWellTracker()
 
     def display_dialog(self, text: str, title: str, action_text: str = ""):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
@@ -215,6 +217,11 @@ class AnimalWellContext(CommonContext):
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
             self.display_text_in_client("Connected to the AP server!")
+            for option_name, option_value in self.slot_data.items():
+                self.logic_tracker.player_options[option_name] = option_value
+            for location_id in args.get("checked_locations"):
+                location_name = self.location_names.lookup_in_slot(location_id)
+                self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
 
         try:
             if cmd == "PrintJSON":
@@ -272,10 +279,30 @@ class AnimalWellContext(CommonContext):
                     pass
             elif cmd == "ReceivedItems":
                 # items = args.get("items")
-                pass
+                for item in args.get("items"):
+                    item_name = self.item_names.lookup_in_slot(item.item)
+                    if item_name == iname.key.value:
+                        self.logic_tracker.key_count += 1
+                    elif item_name == iname.match.value:
+                        self.logic_tracker.match_count += 1
+                    elif item_name == iname.bubble.value:
+                        if item_name in self.logic_tracker.full_inventory:
+                            self.logic_tracker.upgraded_b_wand = True
+                        else:
+                            self.logic_tracker.full_inventory.add(item_name)
+                    elif item_name in item_name_groups["Eggs"]:
+                        if item_name == iname.egg_65.value:
+                            self.logic_tracker.full_inventory.add(item_name)
+                        else:
+                            self.logic_tracker.egg_tracker.add(item_name)
+                    else:
+                        self.logic_tracker.full_inventory.add(item_name)
+                self.logic_tracker.update_checks_and_regions()
+
             elif cmd == "RoomUpdate":
-                # checked_locations = args.get("checked_locations")
-                pass
+                for location_id in args.get("checked_locations"):
+                    location_name = self.location_names.lookup_in_slot(location_id)
+                    self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
                 pass
             elif cmd == "SetReply":
