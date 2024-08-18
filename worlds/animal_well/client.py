@@ -375,24 +375,28 @@ class AnimalWellContext(CommonContext):
             if not loc.tracker.tile in tile_ids:
                 tile_ids.append(loc.tracker.tile)
         self.get_tiles(tile_ids)
-        for tile in self.tiles:
-            self.tiles[tile].sort(key=lambda item: (item.room_y, item.room_x, item.y, item.x))
-        logger.info(f"Found {len(self.tiles)} tile types to track")
+        for tiles in self.tiles.values():
+            tiles.sort(key=lambda item: (item.room_y, item.room_x, item.y, item.x))
+        #logger.info(f"Found {len(self.tiles)} tile types to track")
 
     def get_stamps_for_locations(self):
         if not self.tiles:
             self.get_tiles_for_locations()
         self.stamps.clear()
         tiles_done = []
-        for loc in location_table.values():
-            if not loc.tracker or loc.tracker.tile not in self.tiles or loc.tracker.tile in tiles_done:
+        for name,loc in location_table.items():
+            if not loc.tracker or loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1:
                 continue
-            for tile in self.tiles[loc.tracker.tile]:
-                self.stamps.append(tile.stamp(loc.tracker.stamp))
-                self.stamps[-1].x += loc.tracker.stamp_x
-                self.stamps[-1].y += loc.tracker.stamp_y
-            tiles_done.append(loc.tracker.tile)
-        logger.info(f"Found {len(self.stamps)} stamp locations to track")
+            stamp = loc.tracker.stamp
+            status = self.logic_tracker.check_logic_status[name]
+            if status == 3:
+                continue
+            elif status != 2:
+                stamp = 7
+            self.stamps.append(self.tiles[loc.tracker.tile][loc.tracker.index].stamp(stamp))
+            self.stamps[-1].x += loc.tracker.stamp_x
+            self.stamps[-1].y += loc.tracker.stamp_y
+        #logger.info(f"Found {len(self.stamps)} stamp locations to track")
 
     def check_if_in_game(self) -> bool:
         """
@@ -1089,8 +1093,7 @@ class AWItems:
 
                 # set map stamps to check locations
                 # TODO: this proof of concept code doesn't have logic, but creates stamps for all locations
-                if not ctx.stamps:
-                    ctx.get_stamps_for_locations()
+                ctx.get_stamps_for_locations()
 
                 buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)
