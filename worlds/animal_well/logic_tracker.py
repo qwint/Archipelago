@@ -52,6 +52,7 @@ class AnimalWellTracker:
     def update_spots_status(self, in_logic: bool) -> None:
         regions_set = self.regions_in_logic if in_logic else self.regions_out_of_logic
         region_count = len(regions_set)
+        inventory_count = len(self.full_inventory)
         for origin, destinations in traversal_requirements.items():
             if origin not in regions_set:
                 continue
@@ -83,7 +84,6 @@ class AnimalWellTracker:
                     if len(req_list) == 0:
                         met = True
                         break
-                    # todo: make sure this actually works
                     if set(req_list).issubset(self.full_inventory):
                         met = True
                         break
@@ -96,8 +96,11 @@ class AnimalWellTracker:
                         regions_set.add(destination_name)
                     elif destination_data.type == AWType.location:
                         self.check_logic_status[destination_name] = CheckStatus.out_of_logic + in_logic
-        # if the length of the region set changed, loop through again
-        if region_count != len(regions_set):
+                        if destination_data.event:
+                            self.full_inventory.add(destination_data.event)
+                            self.check_logic_status[destination_name] = CheckStatus.checked
+        # if the length of the region set or inventory changed, loop through again
+        if region_count != len(regions_set) or inventory_count != len(self.full_inventory):
             self.update_spots_status(in_logic)
 
     def update_inventory_with_events(self) -> None:
