@@ -116,7 +116,7 @@ class DiscHopping(Choice):
     default = 0
 
 
-class WheelHopping(Choice):
+class WheelTricks(Choice):
     """
     Include some tricks that involve using the wheel in unconventional ways.
     Simple means toggling wheel midair to "double jump", or mashing against walls to climb them.
@@ -163,7 +163,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     candle_checks: CandleChecks
     bubble_jumping: BubbleJumping
     disc_hopping: DiscHopping
-    wheel_hopping: WheelHopping
+    wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
 
@@ -172,7 +172,7 @@ aw_option_groups = [
     OptionGroup("Logic Options", [
         BubbleJumping,
         DiscHopping,
-        WheelHopping,
+        WheelTricks,
         WeirdTricks,
     ])
 ]
@@ -182,7 +182,7 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "eggs_needed": 64,
         "bubble_jumping": BubbleJumping.option_on,
         "disc_hopping": DiscHopping.option_multiple,
-        "wheel_tricks": WheelHopping.option_advanced,
+        "wheel_tricks": WheelTricks.option_advanced,
         "weird_tricks": True,
         "bunnies_as_checks": BunniesAsChecks.option_all_bunnies
     },

@@ -87,7 +87,7 @@ class AnimalWellWorld(World):
                 self.options.candle_checks.value = passthrough["candle_checks"]
                 self.options.bubble_jumping.value = passthrough["bubble_jumping"]
                 self.options.disc_hopping.value = passthrough["disc_hopping"]
-                self.options.wheel_hopping.value = passthrough["wheel_hopping"]
+                self.options.wheel_tricks.value = passthrough["wheel_tricks"]
                 self.options.weird_tricks.value = passthrough["weird_tricks"]
 
     def create_regions(self) -> None:
@@ -170,7 +170,7 @@ class AnimalWellWorld(World):
             "candle_checks",
             "bubble_jumping",
             "disc_hopping",
-            "wheel_hopping",
+            "wheel_tricks",
             "weird_tricks",
         )
 

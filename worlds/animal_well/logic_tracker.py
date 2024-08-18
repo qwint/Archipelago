@@ -6,7 +6,7 @@ from .region_data import AWType, LocType, traversal_requirements
 from .region_scripts import helper_reference
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic, CandleChecks,
-                      BubbleJumping, DiscHopping, WheelHopping, WeirdTricks)
+                      BubbleJumping, DiscHopping, WheelTricks, WeirdTricks)
 
 
 class CheckStatus(IntEnum):
@@ -27,7 +27,7 @@ class AnimalWellTracker:
         CandleChecks.internal_name: 1,
         BubbleJumping.internal_name: 2,
         DiscHopping.internal_name: 2,
-        WheelHopping.internal_name: 2,
+        WheelTricks.internal_name: 2,
         WeirdTricks.internal_name: 1,
     }
 
@@ -136,10 +136,10 @@ class AnimalWellTracker:
             self.out_of_logic_full_inventory.add(iname.wheel_hop)
             self.out_of_logic_full_inventory.add(iname.wheel_climb)
             self.out_of_logic_full_inventory.add(iname.wheel_hard)
-            if self.player_options[WheelHopping.internal_name] >= WheelHopping.option_simple:
+            if self.player_options[WheelTricks.internal_name] >= WheelTricks.option_simple:
                 self.full_inventory.add(iname.wheel_hop)
                 self.full_inventory.add(iname.wheel_climb)
-            if self.player_options[WheelHopping.internal_name] >= WheelHopping.option_advanced:
+            if self.player_options[WheelTricks.internal_name] >= WheelTricks.option_advanced:
                 self.full_inventory.add(iname.wheel_hard)
 
         # this is temporary -- remove if we detect when the player has traded the mock disc for the real disc
