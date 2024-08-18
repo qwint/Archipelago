@@ -387,12 +387,15 @@ class AnimalWellContext(CommonContext):
         for name,loc in location_table.items():
             if not loc.tracker or loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1:
                 continue
+            # TODO: Patch in colors using the logic status in the unused nibble of the stamp type instead of questionmarks
             stamp = loc.tracker.stamp
             status = self.logic_tracker.check_logic_status[name]
-            if status == 3:
+            if status == CheckStatus.checked:
                 continue
-            elif status != 2:
+            if status == CheckStatus.unreachable:
                 stamp = 7
+            elif status == CheckStatus.out_of_logic:
+                stamp = 4
             self.stamps.append(self.tiles[loc.tracker.tile][loc.tracker.index].stamp(stamp))
             self.stamps[-1].x += loc.tracker.stamp_x
             self.stamps[-1].y += loc.tracker.stamp_y
