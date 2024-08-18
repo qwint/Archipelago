@@ -69,18 +69,9 @@ class AnimalWellTracker:
                             and not self.player_options[BunnyWarpsInLogic.internal_name]):
                         continue
                 if destination_data.type == AWType.location:
+                    # events aren't in location_name_to_id, so give them a key here
                     if destination_data.event:
                         self.check_logic_status.setdefault(str(destination_name), 0)
-                    # figures aren't checks right now, so just don't show them
-                    if destination_data.loc_type == LocType.figure:
-                        self.check_logic_status[destination_name] = CheckStatus.dont_show
-                    # skip bunnies that aren't included in the location pool
-                    elif (destination_data.loc_type == LocType.bunny
-                          and (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off
-                               or (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
-                                   and destination_name in [lname.bunny_mural, lname.bunny_dream,
-                                                            lname.bunny_uv, lname.bunny_lava]))):
-                        self.check_logic_status[destination_name] = CheckStatus.dont_show
                     # we ignore these and rely on the event version
                     elif destination_data.loc_type == LocType.candle:
                         continue
@@ -180,7 +171,24 @@ class AnimalWellTracker:
 
     def clear_inventories(self) -> None:
         self.full_inventory.clear()
-        self.check_logic_status = {loc_name: 0 for loc_name in location_name_to_id.keys()}
         self.out_of_logic_full_inventory.clear()
+        self.check_logic_status = {loc_name: 0 for loc_name in location_name_to_id.keys()}
         self.regions_in_logic = {rname.starting_area}
         self.regions_out_of_logic = {rname.starting_area}
+
+    # mark all checks that should not show up as hidden
+    def mark_hidden_locations(self) -> None:
+        for origin, destinations in traversal_requirements.items():
+            for destination_name, destination_data in destinations.items():
+                if destination_data.type == AWType.location:
+                    # figures aren't checks right now, so just don't show them
+                    if destination_data.loc_type == LocType.figure:
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+                    # skip bunnies that aren't included in the location pool
+                    elif destination_data.loc_type == LocType.bunny:
+                        if self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off:
+                            self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+                        if (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
+                                and destination_name in [lname.bunny_mural, lname.bunny_dream,
+                                                         lname.bunny_uv, lname.bunny_lava]):
+                            self.check_logic_status[destination_name] = CheckStatus.dont_show.value
