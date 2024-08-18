@@ -220,6 +220,7 @@ class AnimalWellContext(CommonContext):
             self.logic_tracker.clear_inventories()
             for option_name, option_value in self.slot_data.items():
                 self.logic_tracker.player_options[option_name] = option_value
+            self.logic_tracker.mark_hidden_locations()
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
