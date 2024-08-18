@@ -8,6 +8,7 @@ import os
 import platform
 import random
 import traceback
+import struct
 
 from typing import Dict, List
 
@@ -153,13 +154,13 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
 
 
 class Stamp:
-    def __init__(self, x, y, type=0):
+    def __init__(self, x, y, stamp_type=0):
         self.x = x
         self.y = y
-        self.type = type
+        self.type = stamp_type
 
     def data(self):
-        return self.x.to_bytes(2, byteorder="little") + self.y.to_bytes(2, byteorder="little") + self.type.to_bytes(2, byteorder="little")
+        return struct.pack("<hhh", self.x, self.y, self.type)
 
 class Tile:
     def __init__(self, map_id, room_x, room_y, x, y):
@@ -376,7 +377,7 @@ class AnimalWellContext(CommonContext):
         for loc in location_table.values():
             if not loc.tracker:
                 continue
-            if not loc.tracker.tile in tile_ids:
+            if not loc.tracker.tile in tile_ids and loc.tracker.tile > 0:
                 tile_ids.append(loc.tracker.tile)
         self.get_tiles(tile_ids)
         for tiles in self.tiles.values():
@@ -387,9 +388,8 @@ class AnimalWellContext(CommonContext):
         if not self.tiles:
             self.get_tiles_for_locations()
         self.stamps.clear()
-        tiles_done = []
         for name,loc in location_table.items():
-            if not loc.tracker or loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1:
+            if not loc.tracker or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
                 continue
             """stamp = loc.tracker.stamp
             status = self.logic_tracker.check_logic_status[name]
@@ -401,9 +401,29 @@ class AnimalWellContext(CommonContext):
                 stamp = 4"""
             # bake logic status into the stamp type for colored stamps patch to read
             stamp = loc.tracker.stamp + (self.logic_tracker.check_logic_status[name] << 4)
-            self.stamps.append(self.tiles[loc.tracker.tile][loc.tracker.index].stamp(stamp))
-            self.stamps[-1].x += loc.tracker.stamp_x
-            self.stamps[-1].y += loc.tracker.stamp_y
+            if name == lname.bunny_uv.value:
+                pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x754a8 + 0x30ec8, 8))
+                bunny_x = int(pos[0]/8)
+                bunny_y = int(pos[1]/8)
+                self.stamps.append(Stamp(bunny_x, bunny_y, stamp))
+                self.stamps[-1].x += loc.tracker.stamp_x
+                self.stamps[-1].y += loc.tracker.stamp_y
+            elif name == lname.bunny_dream.value:
+                if self.logic_tracker.check_logic_status[name] != CheckStatus.in_logic:
+                    continue
+                pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670, 8))
+                room = struct.unpack("<ii", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670 + 0x20, 8))
+                bean_x = int(pos[0]/8) + int(room[0])*40
+                bean_y = int(pos[1]/8) + int(room[1])*22
+                self.stamps.append(Stamp(bean_x, bean_y, stamp))
+                self.stamps[-1].x += loc.tracker.stamp_x
+                self.stamps[-1].y += loc.tracker.stamp_y
+            elif loc.tracker.tile in self.tiles and len(self.tiles[loc.tracker.tile]) > loc.tracker.index:
+                self.stamps.append(self.tiles[loc.tracker.tile][loc.tracker.index].stamp(stamp))
+                self.stamps[-1].x += loc.tracker.stamp_x
+                self.stamps[-1].y += loc.tracker.stamp_y
+            else:
+                self.stamps.append(Stamp(loc.tracker.stamp_x, loc.tracker.stamp_y, stamp))
         #logger.info(f"Found {len(self.stamps)} stamp locations to track")
 
     def check_if_in_game(self) -> bool:

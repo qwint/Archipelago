@@ -45,7 +45,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.mock_disc_chest.value: AWLocationData(12, ByteSect.items, 27, ["Toys"], AWTracker(382)),
     lname.fanny_pack_chest.value: AWLocationData(13, ByteSect.items, 100, ["Toys"], AWTracker(780)),
 
-    lname.match_start_ceiling.value: AWLocationData(14, ByteSect.items, 70, ["Matches"], AWTracker(41, 0, 0, 0, 7)), #TODO: indexes?
+    lname.match_start_ceiling.value: AWLocationData(14, ByteSect.items, 70, ["Matches"], AWTracker(41, 0, 0, 0, 7)),
     lname.match_fish_mural.value: AWLocationData(15, ByteSect.items, 56, ["Matches"], AWTracker(41, 0, 0, 0, 5)),
     lname.match_dog_switch_bounce.value: AWLocationData(16, ByteSect.items, 11, ["Matches"], AWTracker(41, 0, 0, 0, 0)),
     lname.match_dog_upper_east.value: AWLocationData(17, ByteSect.items, 19, ["Matches"], AWTracker(41, 0, 0, 0, 2)),
@@ -55,7 +55,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.match_guard_room.value: AWLocationData(21, ByteSect.items, 81, ["Matches"], AWTracker(41, 0, 0, 0, 8)),
     lname.match_under_mouse_statue.value: AWLocationData(22, ByteSect.items, 63, ["Matches"], AWTracker(41, 0, 0, 0, 6)),
 
-    lname.key_bear_lower.value: AWLocationData(23, ByteSect.items, 54, ["Keys"], AWTracker(40, 0, 0, 0, 2)), #TODO: indexes?
+    lname.key_bear_lower.value: AWLocationData(23, ByteSect.items, 54, ["Keys"], AWTracker(40, 0, 0, 0, 2)),
     lname.key_bear_upper.value: AWLocationData(24, ByteSect.items, 34, ["Keys"], AWTracker(40, 0, 0, 0, 1)),
     lname.key_chest_mouse_head_lever.value: AWLocationData(25, ByteSect.items, 62, ["Keys"], AWTracker(40, 0, 0, 0, 3)),
     lname.key_frog_guard_room_west.value: AWLocationData(26, ByteSect.items, 82, ["Keys"], AWTracker(40, 0, 0, 0, 4)),
@@ -152,23 +152,23 @@ location_table: Dict[str, AWLocationData] = {
     lname.stamp_chest.value: AWLocationData(104, ByteSect.items, 50, [], AWTracker(149)),
     lname.pencil_chest.value: AWLocationData(105, ByteSect.items, 49, ["Egg Rewards"], AWTracker(442)),
 
-    # bnnnnuyuy
-    lname.bunny_mural.value: AWLocationData(106, ByteSect.bunnies, 15, ["Bunnies"]),
-    lname.bunny_chinchilla_vine.value: AWLocationData(107, ByteSect.bunnies, 11, ["Bunnies"]),
-    lname.bunny_water_spike.value: AWLocationData(108, ByteSect.bunnies, 0, ["Bunnies"]),
-    lname.bunny_map.value: AWLocationData(109, ByteSect.bunnies, 7, ["Bunnies"]),
-    lname.bunny_uv.value: AWLocationData(110, ByteSect.bunnies, 9, ["Bunnies"]),
-    lname.bunny_fish.value: AWLocationData(111, ByteSect.bunnies, 6, ["Bunnies"]),
-    lname.bunny_face.value: AWLocationData(112, ByteSect.bunnies, 4, ["Bunnies"]),
-    lname.bunny_crow.value: AWLocationData(113, ByteSect.bunnies, 31, ["Bunnies"]),
-    lname.bunny_duck.value: AWLocationData(114, ByteSect.bunnies, 22, ["Bunnies"]),
-    lname.bunny_dream.value: AWLocationData(115, ByteSect.bunnies, 28, ["Bunnies"]),
-    lname.bunny_file_bud.value: AWLocationData(116, ByteSect.bunnies, 10, ["Bunnies"]),
-    lname.bunny_lava.value: AWLocationData(117, ByteSect.bunnies, 30, ["Bunnies"]),
-    lname.bunny_tv.value: AWLocationData(118, ByteSect.bunnies, 8, ["Bunnies"]),
-    lname.bunny_barcode.value: AWLocationData(119, ByteSect.bunnies, 2, ["Bunnies"]),
-    lname.bunny_ghost_dog.value: AWLocationData(120, ByteSect.bunnies, 25, ["Bunnies"]),
-    lname.bunny_disc_spike.value: AWLocationData(121, ByteSect.bunnies, 3, ["Bunnies"]),
+    # bnnnnuyuyooooom
+    lname.bunny_mural.value: AWLocationData(106, ByteSect.bunnies, 15, ["Bunnies"], AWTracker(293, 1, 0, 2)),
+    lname.bunny_chinchilla_vine.value: AWLocationData(107, ByteSect.bunnies, 11, ["Bunnies"], AWTracker(0, 1, 83, 198)),
+    lname.bunny_water_spike.value: AWLocationData(108, ByteSect.bunnies, 0, ["Bunnies"], AWTracker(0, 1, 402, 266)),
+    lname.bunny_map.value: AWLocationData(109, ByteSect.bunnies, 7, ["Bunnies"], AWTracker(0, 1, 544, 147)),
+    lname.bunny_uv.value: AWLocationData(110, ByteSect.bunnies, 9, ["Bunnies"], AWTracker(0, 1, 0, -4)),
+    lname.bunny_fish.value: AWLocationData(111, ByteSect.bunnies, 6, ["Bunnies"], AWTracker(0, 1, 327, 264)),
+    lname.bunny_face.value: AWLocationData(112, ByteSect.bunnies, 4, ["Bunnies"], AWTracker(117, 1, -1, 2, 10)),
+    lname.bunny_crow.value: AWLocationData(113, ByteSect.bunnies, 31, ["Bunnies"], AWTracker(0, 1, 604, 112)),
+    lname.bunny_duck.value: AWLocationData(114, ByteSect.bunnies, 22, ["Bunnies"], AWTracker(580, 1, 2, 1)),
+    lname.bunny_dream.value: AWLocationData(115, ByteSect.bunnies, 28, ["Bunnies"], AWTracker(0, 1, -3, -13)),
+    lname.bunny_file_bud.value: AWLocationData(116, ByteSect.bunnies, 10, ["Bunnies"], AWTracker(0, 1, 241, 287)),
+    lname.bunny_lava.value: AWLocationData(117, ByteSect.bunnies, 30, ["Bunnies"], AWTracker(0, 1, 279, 146)),
+    lname.bunny_tv.value: AWLocationData(118, ByteSect.bunnies, 8, ["Bunnies"], AWTracker(485, 1, -4, -2)),
+    lname.bunny_barcode.value: AWLocationData(119, ByteSect.bunnies, 2, ["Bunnies"], AWTracker(0, 1, 269, 147)),
+    lname.bunny_ghost_dog.value: AWLocationData(120, ByteSect.bunnies, 25, ["Bunnies"], AWTracker(798, 1, 2, 4)),
+    lname.bunny_disc_spike.value: AWLocationData(121, ByteSect.bunnies, 3, ["Bunnies"], AWTracker(0, 1, 83, 87)),
 
     # candles
     lname.candle_first.value: AWLocationData(122, ByteSect.candles, 7, ["Candles"], AWTracker(37, 5, 0, 0, 7)),
