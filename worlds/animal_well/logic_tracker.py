@@ -75,12 +75,13 @@ class AnimalWellTracker:
                     if destination_data.loc_type == LocType.figure:
                         self.check_logic_status[destination_name] = CheckStatus.dont_show
                     # skip bunnies that aren't included in the location pool
-                    elif (destination_data.loc_type == LocType.bunny
-                          and (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off
-                               or (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
-                                   and destination_name in [lname.bunny_mural, lname.bunny_dream,
-                                                            lname.bunny_uv, lname.bunny_lava]))):
-                        self.check_logic_status[destination_name] = CheckStatus.dont_show
+                    elif destination_data.loc_type == LocType.bunny:
+                        if self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off:
+                            self.check_logic_status[destination_name] = CheckStatus.dont_show
+                        if (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
+                                and destination_name in [lname.bunny_mural, lname.bunny_dream,
+                                                         lname.bunny_uv, lname.bunny_lava]):
+                            self.check_logic_status[destination_name] = CheckStatus.dont_show
                     # we ignore these and rely on the event version
                     elif destination_data.loc_type == LocType.candle:
                         continue
