@@ -14,6 +14,7 @@ class CheckStatus(IntEnum):
     out_of_logic = 1
     in_logic = 2
     checked = 3
+    dont_show = 4  # for locations that should be hidden outright
 
 
 class AnimalWellTracker:
@@ -70,18 +71,21 @@ class AnimalWellTracker:
                 if destination_data.type == AWType.location:
                     if destination_data.event:
                         self.check_logic_status.setdefault(str(destination_name), 0)
-                    # bools are ints
-                    if self.check_logic_status[destination_name] >= 1 + in_logic:
-                        continue
+                    # figures aren't checks right now, so just don't show them
+                    if destination_data.loc_type == LocType.figure:
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show
                     # skip bunnies that aren't included in the location pool
-                    if (destination_data.loc_type == LocType.bunny
-                        and (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off
-                             or (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
-                                 and destination_name in [lname.bunny_mural, lname.bunny_dream,
-                                                          lname.bunny_uv, lname.bunny_lava]))):
-                        self.check_logic_status[destination_name] = CheckStatus.checked
+                    elif (destination_data.loc_type == LocType.bunny
+                          and (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off
+                               or (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
+                                   and destination_name in [lname.bunny_mural, lname.bunny_dream,
+                                                            lname.bunny_uv, lname.bunny_lava]))):
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show
                     # we ignore these and rely on the event version
                     elif destination_data.loc_type == LocType.candle:
+                        continue
+                    # bools are ints
+                    if self.check_logic_status[destination_name] >= 1 + in_logic:
                         continue
 
                 met: bool = False
@@ -176,6 +180,7 @@ class AnimalWellTracker:
 
     def clear_inventories(self) -> None:
         self.full_inventory.clear()
+        self.check_logic_status = {loc_name: 0 for loc_name in location_name_to_id.keys()}
         self.out_of_logic_full_inventory.clear()
         self.regions_in_logic = {rname.starting_area}
         self.regions_out_of_logic = {rname.starting_area}

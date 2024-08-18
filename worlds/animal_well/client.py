@@ -217,9 +217,9 @@ class AnimalWellContext(CommonContext):
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
             self.display_text_in_client("Connected to the AP server!")
+            self.logic_tracker.clear_inventories()
             for option_name, option_value in self.slot_data.items():
                 self.logic_tracker.player_options[option_name] = option_value
-            self.logic_tracker.clear_inventories()
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
