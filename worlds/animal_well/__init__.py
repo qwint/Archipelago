@@ -166,6 +166,7 @@ class AnimalWellWorld(World):
             "key_ring",
             "matchbox",
             "bunnies_as_checks",
+            "bunny_warps_in_logic",
             "candle_checks",
             "bubble_jumping",
             "disc_hopping",
