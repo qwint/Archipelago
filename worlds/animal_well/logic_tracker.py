@@ -25,10 +25,10 @@ class AnimalWellTracker:
         BunniesAsChecks.internal_name: 2,
         BunnyWarpsInLogic.internal_name: 1,
         CandleChecks.internal_name: 1,
-        BubbleJumping.internal_name: 2,
-        DiscHopping.internal_name: 2,
-        WheelTricks.internal_name: 2,
-        WeirdTricks.internal_name: 1,
+        BubbleJumping.internal_name: 1,
+        DiscHopping.internal_name: 0,
+        WheelTricks.internal_name: 0,
+        WeirdTricks.internal_name: 0,
     }
 
     # key is location name, value is its spot status. Can change the key later to something else if wanted
