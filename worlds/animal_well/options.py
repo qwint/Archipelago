@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, Any
-from Options import DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup
+from Options import (DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup,
+                     Visibility)
 
 
 class Goal(Choice):
@@ -150,6 +151,19 @@ class ExcludeSongChests(DefaultOnToggle):
     display_name = "Exclude Song Chests"
 
 
+class WheelHopping(Choice):
+    """
+    Included temporarily for backwards compatibility.
+    """
+    internal_name = "wheel_hopping"
+    display_name = "Wheel Hopping"
+    option_off = 0
+    option_simple = 1
+    option_advanced = 2
+    default = 0
+    visibility = Visibility.none
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -166,6 +180,8 @@ class AnimalWellOptions(PerGameCommonOptions):
     wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
+
+    wheel_hopping: WheelHopping
 
 
 aw_option_groups = [
