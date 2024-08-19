@@ -83,6 +83,11 @@ def launch_textclient():
     launch_subprocess(CommonClient.run_as_textclient, name="TextClient")
 
 
+def launch_apworld_directory():
+    import apworld_directory
+    launch_subprocess(apworld_directory.launch, name="Apworld Directory")
+
+
 def _install_apworld(apworld_src: str = "") -> Optional[Tuple[pathlib.Path, pathlib.Path]]:
     if not apworld_src:
         apworld_src = open_filename('Select APWorld file to install', (('APWorld', ('.apworld',)),))
@@ -165,6 +170,7 @@ components: List[Component] = [
               file_identifier=SuffixIdentifier('.archipelago', '.zip')),
     Component('Generate', 'Generate', cli=True),
     Component("Install APWorld", func=install_apworld, file_identifier=SuffixIdentifier(".apworld")),
+    Component("Browse Apworld Directory", func=launch_apworld_directory),
     Component('Text Client', 'CommonClient', 'ArchipelagoTextClient', func=launch_textclient),
     Component('Links Awakening DX Client', 'LinksAwakeningClient',
               file_identifier=SuffixIdentifier('.apladx')),
