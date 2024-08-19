@@ -863,7 +863,7 @@ class BeanPatcher:
                 0x5B, 0x00,
                 0x18, 0x00, # replace heart (0x5c) with bunny head
                 0x3E, 0x00, # replace skull (0x5d) with disc shape
-                0x5E, 0x00,
+                0x25, 0x00, # replace shard (0x5e) with candle
                 0x5F, 0x00,
                 0x60, 0x00,
                 0x9D, 0x02,

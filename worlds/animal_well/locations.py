@@ -70,10 +70,10 @@ location_table: Dict[str, AWLocationData] = {
     # lname.medal_k.value: AWLocationData(33, ["Keys", "Medals"]),
 
     # event only for now until modding tools maybe
-    lname.flame_blue.value: AWLocationData(34, ByteSect.flames, 0x21E, ["Flames"]),
-    lname.flame_green.value: AWLocationData(35, ByteSect.flames, 0x21F, ["Flames"]),
-    lname.flame_violet.value: AWLocationData(36, ByteSect.flames, 0x220, ["Flames"]),
-    lname.flame_pink.value: AWLocationData(37, ByteSect.flames, 0x221, ["Flames"]),
+    lname.flame_blue.value: AWLocationData(34, ByteSect.flames, 0x21E, ["Flames"], AWTracker(627, 5, 1, -2, 2)),
+    lname.flame_green.value: AWLocationData(35, ByteSect.flames, 0x21F, ["Flames"], AWTracker(627, 5, 1, -2, 3)),
+    lname.flame_violet.value: AWLocationData(36, ByteSect.flames, 0x220, ["Flames"], AWTracker(627, 5, 1, -2, 1)),
+    lname.flame_pink.value: AWLocationData(37, ByteSect.flames, 0x221, ["Flames"], AWTracker(627, 5, 1, -2, 0)),
 
     # eggs, sorted by row top-to-bottom
     lname.egg_reference.value: AWLocationData(38, ByteSect.items, 0, ["Eggs"], AWTracker(90, 0, 0, 0, 0)),
@@ -162,7 +162,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_face.value: AWLocationData(112, ByteSect.bunnies, 4, ["Bunnies"], AWTracker(117, 1, -1, 2, 10)),
     lname.bunny_crow.value: AWLocationData(113, ByteSect.bunnies, 31, ["Bunnies"], AWTracker(0, 1, 604, 112)),
     lname.bunny_duck.value: AWLocationData(114, ByteSect.bunnies, 22, ["Bunnies"], AWTracker(580, 1, 2, 1)),
-    lname.bunny_dream.value: AWLocationData(115, ByteSect.bunnies, 28, ["Bunnies"], AWTracker(0, 1, -3, -13)),
+    lname.bunny_dream.value: AWLocationData(115, ByteSect.bunnies, 28, ["Bunnies"], AWTracker(0, 1, 297, 335)),
     lname.bunny_file_bud.value: AWLocationData(116, ByteSect.bunnies, 10, ["Bunnies"], AWTracker(0, 1, 241, 287)),
     lname.bunny_lava.value: AWLocationData(117, ByteSect.bunnies, 30, ["Bunnies"], AWTracker(0, 1, 279, 146)),
     lname.bunny_tv.value: AWLocationData(118, ByteSect.bunnies, 8, ["Bunnies"], AWTracker(485, 1, -4, -2)),
@@ -171,15 +171,15 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_disc_spike.value: AWLocationData(121, ByteSect.bunnies, 3, ["Bunnies"], AWTracker(0, 1, 83, 87)),
 
     # candles
-    lname.candle_first.value: AWLocationData(122, ByteSect.candles, 7, ["Candles"], AWTracker(37, 5, 0, 0, 7)),
-    lname.candle_dog_dark.value: AWLocationData(123, ByteSect.candles, 4, ["Candles"], AWTracker(37, 5, 0, 0, 4)),
-    lname.candle_dog_switch_box.value: AWLocationData(124, ByteSect.candles, 3, ["Candles"], AWTracker(37, 5, 0, 0, 3)),
-    lname.candle_dog_many_switches.value: AWLocationData(125, ByteSect.candles, 2, ["Candles"], AWTracker(37, 5, 0, 0, 2)),
-    lname.candle_dog_disc_switches.value: AWLocationData(126, ByteSect.candles, 1, ["Candles"], AWTracker(37, 5, 0, 0, 1)),
-    lname.candle_dog_bat.value: AWLocationData(127, ByteSect.candles, 0, ["Candles"], AWTracker(37, 5, 0, 0, 0)),
-    lname.candle_fish.value: AWLocationData(128, ByteSect.candles, 6, ["Candles"], AWTracker(37, 5, 0, 0, 6)),
-    lname.candle_frog.value: AWLocationData(129, ByteSect.candles, 8, ["Candles"], AWTracker(37, 5, 0, 0, 8)),
-    lname.candle_bear.value: AWLocationData(130, ByteSect.candles, 5, ["Candles"], AWTracker(37, 5, 0, 0, 5)),
+    lname.candle_first.value: AWLocationData(122, ByteSect.candles, 7, ["Candles"], AWTracker(37, 3, -1, -3, 7)),
+    lname.candle_dog_dark.value: AWLocationData(123, ByteSect.candles, 4, ["Candles"], AWTracker(37, 3, -1, -3, 4)),
+    lname.candle_dog_switch_box.value: AWLocationData(124, ByteSect.candles, 3, ["Candles"], AWTracker(37, 3, -1, -3, 3)),
+    lname.candle_dog_many_switches.value: AWLocationData(125, ByteSect.candles, 2, ["Candles"], AWTracker(37, 3, -1, -3, 2)),
+    lname.candle_dog_disc_switches.value: AWLocationData(126, ByteSect.candles, 1, ["Candles"], AWTracker(37, 3, -1, -3, 1)),
+    lname.candle_dog_bat.value: AWLocationData(127, ByteSect.candles, 0, ["Candles"], AWTracker(37, 3, -1, -3, 0)),
+    lname.candle_fish.value: AWLocationData(128, ByteSect.candles, 6, ["Candles"], AWTracker(37, 3, -1, -3, 6)),
+    lname.candle_frog.value: AWLocationData(129, ByteSect.candles, 8, ["Candles"], AWTracker(37, 3, -1, -3, 8)),
+    lname.candle_bear.value: AWLocationData(130, ByteSect.candles, 5, ["Candles"], AWTracker(37, 3, -1, -3, 5)),
 
     # extras
     lname.mama_cha.value: AWLocationData(131, ByteSect.items, 10, [], AWTracker(811)),

@@ -354,11 +354,12 @@ class AnimalWellContext(CommonContext):
         else:
             raise NotImplementedError("Only Windows is implemented right now")
 
+    # TODO: This is very slow and hangs the client for a few seconds on AW connection, but it only runs once
+    # Only fetches foreground tiles, which means AWTracker can't use bg tiles in location searches
     def get_tiles(self, tile_types, map_id=0):
         if self.start_address is None:
             return
-        base_addr = 0x142BD8E30
-        map_addr = int.from_bytes(self.process_handle.read_bytes(base_addr, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
+        map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.module_base + 0x2BD8E30, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
         room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
         for room_idx in range(room_count):
             room_addr = map_addr + 4 + room_idx*(8+2*22*40*4)
@@ -392,16 +393,8 @@ class AnimalWellContext(CommonContext):
         for name,loc in location_table.items():
             if not loc.tracker or name not in self.logic_tracker.check_logic_status or self.logic_tracker.check_logic_status[name] == CheckStatus.dont_show or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
                 continue
-            """stamp = loc.tracker.stamp
-            status = self.logic_tracker.check_logic_status[name]
-            if status == CheckStatus.checked:
-                continue
-            if status == CheckStatus.unreachable:
-                stamp = 7
-            elif status == CheckStatus.out_of_logic:
-                stamp = 4"""
             # bake logic status into the stamp type for colored stamps patch to read
-            stamp = loc.tracker.stamp + (self.logic_tracker.check_logic_status[name] << 4)
+            stamp = loc.tracker.stamp | (self.logic_tracker.check_logic_status[name] << 4)
             if name == lname.bunny_uv.value:
                 pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x754a8 + 0x30ec8, 8))
                 bunny_x = int(pos[0]/8)
@@ -409,16 +402,15 @@ class AnimalWellContext(CommonContext):
                 self.stamps.append(Stamp(bunny_x, bunny_y, stamp))
                 self.stamps[-1].x += loc.tracker.stamp_x
                 self.stamps[-1].y += loc.tracker.stamp_y
-            elif name == lname.bunny_dream.value:
-                if self.logic_tracker.check_logic_status[name] != CheckStatus.in_logic:
-                    continue
-                pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670, 8))
-                room = struct.unpack("<ii", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670 + 0x20, 8))
-                bean_x = int(pos[0]/8) + int(room[0])*40
-                bean_y = int(pos[1]/8) + int(room[1])*22
-                self.stamps.append(Stamp(bean_x, bean_y, stamp))
-                self.stamps[-1].x += loc.tracker.stamp_x
-                self.stamps[-1].y += loc.tracker.stamp_y
+            # TODO: Dream Bunny is banished to the wake up room pending options to enable bean tracking
+            #elif name == lname.bunny_dream.value:
+            #    if self.logic_tracker.check_logic_status[name] != CheckStatus.in_logic:
+            #        continue
+            #    pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670, 8))
+            #    room = struct.unpack("<ii", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670 + 0x20, 8))
+            #    bean_x = int(pos[0]/8) + int(room[0])*40
+            #    bean_y = int(pos[1]/8) + int(room[1])*22
+            #    self.stamps.append(Stamp(bean_x-3, bean_y-13, stamp))"""
             elif loc.tracker.tile in self.tiles and len(self.tiles[loc.tracker.tile]) > loc.tracker.index:
                 self.stamps.append(self.tiles[loc.tracker.tile][loc.tracker.index].stamp(stamp))
                 self.stamps[-1].x += loc.tracker.stamp_x
@@ -1123,8 +1115,7 @@ class AWItems:
                 buffer = buffer.to_bytes(2, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1E4, buffer, 2)
 
-                # set map stamps to check locations
-                # TODO: this proof of concept code doesn't have logic, but creates stamps for all locations
+                # set in-game tracker map stamps to check locations
                 ctx.get_stamps_for_locations()
 
                 buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
