@@ -1,5 +1,5 @@
 from time import time
-from typing import List, Optional, Callable
+from typing import List, Optional, Callable, Any, Awaitable
 
 from .patch import *
 
@@ -252,7 +252,7 @@ class BeanPatcher:
         self.room_palette_override_shader: int = 0x16
 
         self.bean_has_died_address: int = 0
-        self.on_bean_death_function: Optional[Callable] = None
+        self.on_bean_death_function: Optional[Callable[[Any], Awaitable[Any]]] = None
 
         self.draw_routine_string_size: int = 0
         self.game_draw_routine_string_addr = None
@@ -956,7 +956,7 @@ class BeanPatcher:
             self.process.write_uint(self.game_draw_symbol_x_address, self.player_position_history[0][0])
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
-    def tick(self):
+    async def tick(self):
         if self.last_message_time != 0:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
@@ -965,7 +965,7 @@ class BeanPatcher:
             if self.process.read_bool(self.bean_has_died_address):
                 self.process.write_bool(self.bean_has_died_address, False)
                 if self.on_bean_death_function is not None:
-                    self.on_bean_death_function()
+                    await self.on_bean_death_function()
 
     def display_dialog(self, text: str, title: str = "", action_text: str = ""):
         try:

@@ -176,6 +176,7 @@ class AnimalWellWorld(World):
             "disc_hopping",
             "wheel_tricks",
             "weird_tricks",
+            "deathlink",
         )
 
     # for the universal tracker, doesn't get called in standard gen
