@@ -299,6 +299,8 @@ class AnimalWellContext(CommonContext):
                             self.logic_tracker.out_of_logic_full_inventory.add(item_name)
                         else:
                             self.logic_tracker.egg_tracker.add(item_name)
+                    elif item_name == iname.k_shard.value:
+                        self.logic_tracker.k_shard_count += 1
                     else:
                         self.logic_tracker.full_inventory.add(item_name)
                         self.logic_tracker.out_of_logic_full_inventory.add(item_name)
