@@ -18,7 +18,7 @@ from typing import Dict
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
-from .options import FinalEggLocation, Goal
+from .options import FinalEggLocation, Goal, Deathlink
 from .bean_patcher import BeanPatcher
 from .logic_tracker import AnimalWellTracker, CheckStatus
 
@@ -204,6 +204,9 @@ class AnimalWellContext(CommonContext):
 
     def on_bean_death(self):
         self.display_text_in_client("You died")
+        if self.slot_data.get("deathlink", None):
+            #Send Deathlink Package
+            pass
 
     async def server_auth(self, password_requested: bool = False):
         """

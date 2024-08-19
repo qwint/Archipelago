@@ -163,6 +163,12 @@ class WheelHopping(Choice):
     default = 0
     visibility = Visibility.none
 
+class Deathlink(Choice):
+    """
+    Dying causes other players to die. If other players die, you die.
+    """
+    internal_name = "deathlink"
+    display_name = "Deathlink"
 
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
@@ -180,6 +186,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
+    deathlink: Deathlink
 
     wheel_hopping: WheelHopping
 
@@ -200,6 +207,7 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "disc_hopping": DiscHopping.option_multiple,
         "wheel_tricks": WheelTricks.option_advanced,
         "weird_tricks": True,
-        "bunnies_as_checks": BunniesAsChecks.option_all_bunnies
+        "bunnies_as_checks": BunniesAsChecks.option_all_bunnies,
+        "deathlink": False
     },
 }
