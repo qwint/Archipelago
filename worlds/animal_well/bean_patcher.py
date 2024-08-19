@@ -266,7 +266,7 @@ class BeanPatcher:
         self.fullbright_patch: Optional[Patch] = None
 
         self.tracker_stamps_addr: Optional[int] = None
-        self.tracker_colors_addr: Optional[int] = None
+        self.tracker_icons_addr: Optional[int] = None
 
     def get_current_save_slot(self):
         if not self.attached_to_process:
@@ -849,35 +849,49 @@ class BeanPatcher:
         then removed before handing the stamp type back to the game.
         """
         injection_address = self.module_base + 0x42ce8
-        self.tracker_colors_addr = self.custom_memory_current_offset
-        color_array = (
-            Patch("tracker_colors", self.tracker_colors_addr, self.process)
+        self.tracker_icons_addr = self.custom_memory_current_offset
+        tracker_icons_patch = (
+            Patch("tracker_icons", self.tracker_icons_addr, self.process)
             .add_bytes(bytearray([
-                0xCC, 0x00, 0x00, 0xFF,
-                0xDD, 0xAA, 0x00, 0xFF,
-                0x00, 0xEE, 0x00, 0xFF,
-                0x66, 0x66, 0x66, 0xCC]))
-            )
-        color_array.apply()
-        self.custom_memory_current_offset += 4 * 4
+                # 4 custom colors for CheckStatus 0-3 respectively
+                0xCC, 0x00, 0x00, 0xFF, # red, unreachable
+                0xDD, 0xAA, 0x00, 0xFF, # orange, out_of_logic
+                0x00, 0xEE, 0x00, 0xFF, # green, in_logic
+                0x66, 0x66, 0x66, 0xCC, # gray, checked
+
+                # 8 custom map icons for stamp ids 0-7 respectively, u16 tile id
+                0x5B, 0x00,
+                0x18, 0x00, # replace heart (0x5c) with bunny head
+                0x3E, 0x00, # replace skull (0x5d) with disc shape
+                0x5E, 0x00,
+                0x5F, 0x00,
+                0x60, 0x00,
+                0x9D, 0x02,
+                0x9E, 0x02
+            ])))
+        self.custom_memory_current_offset += len(tracker_icons_patch)
+
         code_address = self.custom_memory_current_offset
-        trampoline_patch = (Patch("tracker_color_trampoline", injection_address, self.process)
+        tracker_trampoline_patch = (Patch("tracker_color_trampoline", injection_address, self.process)
                                  .mov_to_rax(code_address).jmp_rax().nop())
-        color_patch = (
+        tracker_color_patch = (
             Patch("tracker_color_patch", code_address, self.process)
             .add_bytes(bytearray([0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x48, 0x0F, 0xBE, 0x07, 0x49, 0xBD]))
-            .add_bytes(self.tracker_colors_addr.to_bytes(8, "little"))
+            .add_bytes(self.tracker_icons_addr.to_bytes(8, "little"))
             .add_bytes(bytearray([0x49, 0xC7, 0xC6, 0x0F, 0x00, 0x00, 0x00, 0x49, 0xC7, 0xC7, 0xF0, 0x00, 0x00, 0x00, 0x49, 0x21, 0xC7, 0x4C, 0x21, 0xF0, 0x50, 0x49, 0xC1, 0xEF, 0x02, 0x4D, 0x01, 0xFD, 0x41, 0x8B, 0x4D, 0x00]))
             .call_via_rax(set_current_color)
             .add_bytes(bytearray([0x58, 0x41, 0x5D, 0x41, 0x5E, 0x41, 0x5F]))
+            .add_bytes(bytearray([0x49, 0xBE]))
+            .add_bytes((self.tracker_icons_addr+16).to_bytes(8, "little"))
             .jmp_far(self.module_base + 0x42b20)
             )
-        self.custom_memory_current_offset += len(trampoline_patch) + len(color_patch)
+        self.custom_memory_current_offset += len(tracker_color_patch)
         if self.log_debug_info:
-            self.log_info(f"Applying colored tracker stamp patch...\n{color_patch}")
-        color_patch.apply()
-        if trampoline_patch.apply():
-            self.revertable_patches.append(trampoline_patch)
+            self.log_info(f"Applying colored tracker stamp patches...")
+        tracker_icons_patch.apply()
+        tracker_color_patch.apply()
+        if tracker_trampoline_patch.apply():
+            self.revertable_patches.append(tracker_trampoline_patch)
 
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:

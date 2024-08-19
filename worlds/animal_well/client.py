@@ -390,7 +390,7 @@ class AnimalWellContext(CommonContext):
             self.get_tiles_for_locations()
         self.stamps.clear()
         for name,loc in location_table.items():
-            if not loc.tracker or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
+            if not loc.tracker or name not in self.logic_tracker.check_logic_status or self.logic_tracker.check_logic_status[name] == CheckStatus.dont_show or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
                 continue
             """stamp = loc.tracker.stamp
             status = self.logic_tracker.check_logic_status[name]

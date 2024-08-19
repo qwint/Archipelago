@@ -31,7 +31,7 @@ location_table: Dict[str, AWLocationData] = {
     # major items
     lname.b_wand_chest.value: AWLocationData(0, ByteSect.items, 68, ["Toys"], AWTracker(162)),
     lname.bb_wand_chest.value: AWLocationData(1, ByteSect.items, 95, ["Toys"], AWTracker(708)),
-    lname.disc_spot.value: AWLocationData(2, ByteSect.items, 37, ["Toys"], AWTracker(381, 2, 3, 5)),
+    lname.disc_spot.value: AWLocationData(2, ByteSect.items, 37, ["Toys"], AWTracker(381, 2, 2, 4)),
     lname.yoyo_chest.value: AWLocationData(3, ByteSect.items, 97, ["Toys"], AWTracker(334)),
     lname.slink_chest.value: AWLocationData(4, ByteSect.items, 30, ["Toys"], AWTracker(417)),
     lname.flute_chest.value: AWLocationData(5, ByteSect.items, 46, ["Toys", "Egg Rewards"], AWTracker(169)),
