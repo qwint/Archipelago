@@ -7,6 +7,7 @@ import asyncio
 import os
 import platform
 import random
+import time
 import traceback
 
 import pymem
@@ -43,21 +44,10 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AnimalWellContext):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
-    def _cmd_set_player_state(self, val="0"):
-        if isinstance(self.ctx, AnimalWellContext):
-            if not val.isnumeric():
-                logger.info(f"Invalid player state input: {val}. Please use a number between 0 and 255")
-                return
-
-            val = int(val)
-
-            if val > 0xff:
-                logger.info(f"Invalid player state input: {val}. Please use a number between 0 and 255")
-                return
-
-            self.ctx.bean_patcher.set_player_state(int(val))
-
     def _cmd_room_palette(self, val=""):
+        """
+        Sets an override for room palettes. Accepts a number between 0 and 31, "off" to disable, or "random" to pick a room palette at random.
+        """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
                 self.ctx.bean_patcher.toggle_room_palette_override()
@@ -76,6 +66,9 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                 self.ctx.bean_patcher.enable_room_palette_override(0x14)
 
     def _cmd_fullbright(self, val=""):
+        """
+        Toggles fullbright mode, which disabled darkness and lights all tiles equally.
+        """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
                 self.ctx.bean_patcher.toggle_fullbright()
@@ -173,6 +166,7 @@ class AnimalWellContext(CommonContext):
         self.slot_number: int = -1
         self.current_game_state = -1
         self.last_game_state = -1
+        self.last_death_link: float = time.time()
         # used to delay starting the loop until we can see the data storage values
         self.got_data_storage: bool = False
         self.first_m_disc = True
@@ -192,10 +186,10 @@ class AnimalWellContext(CommonContext):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
             self.bean_patcher.display_to_client(text)
 
-    def on_bean_death(self):
+    async def on_bean_death(self):
         self.display_text_in_client("You died")
-        if self.slot_data.get("deathlink", None):
-            self.send_death()
+        if self.slot_data.get("deathlink", None) == 1:
+            await self.send_death("BEAN DEAD.")
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -327,14 +321,25 @@ class AnimalWellContext(CommonContext):
                 pass
             elif cmd == "None":
                 self.display_text_in_client(args.get("data")[0]["text"])
+            elif cmd == "Bounced":
+                tags = args.get("tags", [])
+
+                if "DeathLink" in tags and self.last_death_link != args["data"]["time"]:
+                    self.on_deathlink(args["data"])
 
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
             logger.info("Package details: {}".format(args))
 
     def on_deathlink(self, data: Dict[str, Any]) -> None:
+        self.last_death_link = max(data["time"], self.last_death_link)
+        text = data.get("cause", "")
+
+        if text:
+            logger.info(f"DeathLink: {text}")
+        else:
+            logger.info(f"DeathLink: Received from {data['source']}")
         self.bean_patcher.set_player_state(5)
-        return super().on_deathlink(data)
 
     def get_active_game_slot(self) -> int:
         """
@@ -1191,7 +1196,7 @@ async def process_sync_task(ctx: AnimalWellContext):
             items.write_to_game(ctx)
 
             if ctx.bean_patcher is not None and ctx.bean_patcher.attached_to_process:
-                ctx.bean_patcher.tick()
+                await ctx.bean_patcher.tick()
 
         await asyncio.sleep(0.1)
 
