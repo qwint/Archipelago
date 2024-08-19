@@ -163,7 +163,7 @@ class WheelHopping(Choice):
     default = 0
     visibility = Visibility.none
 
-class Deathlink(Choice):
+class Deathlink(Toggle):
     """
     Dying causes other players to die. If other players die, you die.
     """

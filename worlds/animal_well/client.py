@@ -14,7 +14,7 @@ import pymem
 import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
-from typing import Dict
+from typing import Dict, Any
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
@@ -195,8 +195,7 @@ class AnimalWellContext(CommonContext):
     def on_bean_death(self):
         self.display_text_in_client("You died")
         if self.slot_data.get("deathlink", None):
-            #Send Deathlink Package
-            pass
+            self.send_death()
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -332,6 +331,10 @@ class AnimalWellContext(CommonContext):
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
             logger.info("Package details: {}".format(args))
+
+    def on_deathlink(self, data: Dict[str, Any]) -> None:
+        self.bean_patcher.set_player_state(5)
+        return super().on_deathlink(data)
 
     def get_active_game_slot(self) -> int:
         """
