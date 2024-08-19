@@ -44,6 +44,20 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AnimalWellContext):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
+    def _cmd_set_player_state(self, val="0"):
+        if isinstance(self.ctx, AnimalWellContext):
+            if not val.isnumeric():
+                logger.info(f"Invalid player state input: {val}. Please use a number between 0 and 255")
+                return
+
+            val = int(val)
+
+            if val > 0xff:
+                logger.info(f"Invalid player state input: {val}. Please use a number between 0 and 255")
+                return
+
+            self.ctx.bean_patcher.set_player_state(int(val))
+
     def _cmd_room_palette(self, val=""):
         """
         Sets an override for room palettes. Accepts a number between 0 and 31, "off" to disable, or "random" to pick a room palette at random.
@@ -187,8 +201,8 @@ class AnimalWellContext(CommonContext):
             self.bean_patcher.display_to_client(text)
 
     async def on_bean_death(self):
-        self.display_text_in_client("You died")
-        if self.slot_data.get("deathlink", None) == 1:
+        self.display_text_in_client("You died.")
+        if self.slot_data.get("death_link", None) == 1:
             await self.send_death("BEAN DEAD.")
 
     async def server_auth(self, password_requested: bool = False):
