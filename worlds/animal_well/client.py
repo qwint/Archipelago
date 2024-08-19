@@ -43,6 +43,20 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AnimalWellContext):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
+    def _cmd_set_player_state(self, val="0"):
+        if isinstance(self.ctx, AnimalWellContext):
+            if not val.isnumeric():
+                logger.info(f"Invalid player state input: {val}. Please use a number between 0 and 255")
+                return
+
+            val = int(val)
+
+            if val > 0xff:
+                logger.info(f"Invalid player state input: {val}. Please use a number between 0 and 255")
+                return
+
+            self.ctx.bean_patcher.set_player_state(int(val))
+
     def _cmd_room_palette(self, val=""):
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
@@ -164,7 +178,9 @@ class AnimalWellContext(CommonContext):
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
-        self.bean_patcher = BeanPatcher().set_logger(logger)
+        self.bean_patcher = BeanPatcher()
+        self.bean_patcher.set_logger(logger)
+        self.bean_patcher.set_bean_death_function(self.on_bean_death)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
         self.logic_tracker = AnimalWellTracker()
 
@@ -175,6 +191,9 @@ class AnimalWellContext(CommonContext):
     def display_text_in_client(self, text: str):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
             self.bean_patcher.display_to_client(text)
+
+    def on_bean_death(self):
+        self.display_text_in_client("You died")
 
     async def server_auth(self, password_requested: bool = False):
         """
