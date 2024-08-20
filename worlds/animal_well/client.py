@@ -236,7 +236,7 @@ class AnimalWellContext(CommonContext):
                 elif msg_type == "Hint":
                     if args.get("receiving") == self.slot:
                         player_slot = args.get("item").player
-                        item_name = self.item_names.lookup_in_slot(args.get("item").item, player_slot)
+                        item_name = self.item_names.lookup_in_slot(args.get("item").item, self.slot)
                         location_name = self.location_names.lookup_in_slot(args.get("item").location, player_slot)
                         text = f"Hint: Your {item_name} is at {location_name}."
                         self.display_text_in_client(text)
