@@ -865,7 +865,8 @@ class AWItems:
 
                 # Write Keys
                 if self.key_ring:
-                    buffer = bytes([1])
+                    # always show real amount of key doors left unopened for a quick and easy way to check how many you have left
+                    buffer = bytes([max(0, 6 - keys_used)])
                 else:
                     buffer = bytes([max(0, self.key - keys_used)])
                 ctx.process_handle.write_bytes(slot_address + 0x1B1, buffer, 1)
@@ -885,7 +886,8 @@ class AWItems:
 
                 # Write Matches
                 if self.matchbox:
-                    buffer = bytes([1])
+                    # always show real amount of candles left unlit for a quick and easy way to check how many you have left
+                    buffer = bytes([max(0, 9 - candles_lit)])
                 else:
                     buffer = bytes([max(0, self.match - candles_lit)])
                 ctx.process_handle.write_bytes(slot_address + 0x1B2, buffer, 1)
