@@ -848,7 +848,7 @@ class AWItems:
                         (str(flags >> 7 & 1)) +  # Unknown
                         (str(flags >> 8 & 1)) +  # Switch State
                         "1" +  # Map Collected
-                        "1" +  # Stamps Collected
+                        "0" +  # Stamps Collected
                         "1" +  # Pencil Collected
                         (str(flags >> 12 & 1)) +  # Chameleon Defeated
                         (str(flags >> 13 & 1)) +  # C Ring Collected
