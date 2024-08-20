@@ -915,6 +915,12 @@ class AWItems:
                 buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1DC, buffer, 2)
 
+                # select firecrackers if firecrackers is unlocked and no other equipment is selected,
+                # since picking up other equipment before firecrackers doesn't set the selected equipment,
+                # and firecrackers is given by default anyway
+                if ctx.process_handle.read_bytes(slot_address + 0x1EA, 1)[0] == 0 and self.firecrackers:
+                    ctx.process_handle.write_bytes(slot_address + 0x1EA, b"\x01", 1)
+
                 # Read Other Items
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1DE, 1), byteorder="little")
                 possess_m_disc = self.m_disc and (bool(flags >> 0 & 1) or ctx.first_m_disc)
