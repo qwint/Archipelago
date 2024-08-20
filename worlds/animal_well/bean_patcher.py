@@ -712,6 +712,8 @@ class BeanPatcher:
         disable_egg65_get_dialog_patch = Patch("disable_egg65_get_dialog", 0x1400c18be, self.process).nop(5)
         disable_bbwand_get_dialog_patch = Patch("disable_bbwand_get_dialog", 0x1400c1d75, self.process).nop(5)
         disable_fannypack_get_dialog_patch = Patch("disable_fannypack_get_dialog", 0x1400c1e81, self.process).nop(5)
+        disable_firecracker_get_dialog_patch = Patch("disable_firecracker_get_dialog", 0x14002cb59, self.process).nop(5)
+        disable_mockdisc_flags_check_patch = Patch("disable_mockdisc_flags_check", 0x1400c1003, self.process).add_bytes(bytearray([0xEB]))
         if self.log_debug_info:
             self.log_info(f"Applying disable_chest_item_patch patch...\n{disable_chest_item_patch}")
         if disable_chest_item_patch.apply():
@@ -750,6 +752,10 @@ class BeanPatcher:
             self.revertable_patches.append(disable_bbwand_get_dialog_patch)
         if disable_fannypack_get_dialog_patch.apply():
             self.revertable_patches.append(disable_fannypack_get_dialog_patch)
+        if disable_firecracker_get_dialog_patch.apply():
+            self.revertable_patches.append(disable_firecracker_get_dialog_patch)
+        if disable_mockdisc_flags_check_patch.apply():
+            self.revertable_patches.append(disable_mockdisc_flags_check_patch)
 
     def apply_receive_item_patch(self):
         """
