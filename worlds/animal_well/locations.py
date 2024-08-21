@@ -71,9 +71,9 @@ location_table: Dict[str, AWLocationData] = {
 
     # event only for now until modding tools maybe
     lname.flame_blue.value: AWLocationData(34, ByteSect.flames, 0x21E, ["Flames"], AWTracker(627, 5, 1, -2, 2)),
-    lname.flame_green.value: AWLocationData(35, ByteSect.flames, 0x21F, ["Flames"], AWTracker(627, 5, 1, -2, 3)),
+    lname.flame_pink.value: AWLocationData(37, ByteSect.flames, 0x21F, ["Flames"], AWTracker(627, 5, 1, -2, 0)),
     lname.flame_violet.value: AWLocationData(36, ByteSect.flames, 0x220, ["Flames"], AWTracker(627, 5, 1, -2, 1)),
-    lname.flame_pink.value: AWLocationData(37, ByteSect.flames, 0x221, ["Flames"], AWTracker(627, 5, 1, -2, 0)),
+    lname.flame_green.value: AWLocationData(35, ByteSect.flames, 0x221, ["Flames"], AWTracker(627, 5, 1, -2, 3)),
 
     # eggs, sorted by row top-to-bottom
     lname.egg_reference.value: AWLocationData(38, ByteSect.items, 0, ["Eggs"], AWTracker(90, 0, 0, 0, 0)),
@@ -187,20 +187,20 @@ location_table: Dict[str, AWLocationData] = {
 
 # mostly for the logic tracker
 events_table: Dict[str, AWLocationData] = {
-    lname.candle_first_event.value: AWLocationData(None, ByteSect.candles, 7),
-    lname.candle_dog_dark_event.value: AWLocationData(None, ByteSect.candles, 4),
-    lname.candle_dog_switch_box_event.value: AWLocationData(None, ByteSect.candles, 3),
-    lname.candle_dog_many_switches_event.value: AWLocationData(None, ByteSect.candles, 2),
-    lname.candle_dog_disc_switches_event.value: AWLocationData(None, ByteSect.candles, 1),
-    lname.candle_dog_bat_event.value: AWLocationData(None, ByteSect.candles, 0),
-    lname.candle_fish_event.value: AWLocationData(None, ByteSect.candles, 6),
-    lname.candle_frog_event.value: AWLocationData(None, ByteSect.candles, 8),
-    lname.candle_bear_event.value: AWLocationData(None, ByteSect.candles, 5),
+    lname.candle_first_event.value: AWLocationData(None, ByteSect.candles, 7, ["Candles"], AWTracker(37, 3, -1, -3, 7)),
+    lname.candle_dog_dark_event.value: AWLocationData(None, ByteSect.candles, 4, ["Candles"], AWTracker(37, 3, -1, -3, 4)),
+    lname.candle_dog_switch_box_event.value: AWLocationData(None, ByteSect.candles, 3, ["Candles"], AWTracker(37, 3, -1, -3, 3)),
+    lname.candle_dog_many_switches_event.value: AWLocationData(None, ByteSect.candles, 2, ["Candles"], AWTracker(37, 3, -1, -3, 2)),
+    lname.candle_dog_disc_switches_event.value: AWLocationData(None, ByteSect.candles, 1, ["Candles"], AWTracker(37, 3, -1, -3, 1)),
+    lname.candle_dog_bat_event.value: AWLocationData(None, ByteSect.candles, 0, ["Candles"], AWTracker(37, 3, -1, -3, 0)),
+    lname.candle_fish_event.value: AWLocationData(None, ByteSect.candles, 6, ["Candles"], AWTracker(37, 3, -1, -3, 6)),
+    lname.candle_frog_event.value: AWLocationData(None, ByteSect.candles, 8, ["Candles"], AWTracker(37, 3, -1, -3, 6)),
+    lname.candle_bear_event.value: AWLocationData(None, ByteSect.candles, 5, ["Candles"], AWTracker(37, 3, -1, -3, 5)),
 
-    lname.flame_blue.value: AWLocationData(None, ByteSect.flames, 0x21E, ["Flames"]),
-    lname.flame_green.value: AWLocationData(None, ByteSect.flames, 0x21F, ["Flames"]),
-    lname.flame_violet.value: AWLocationData(None, ByteSect.flames, 0x220, ["Flames"]),
-    lname.flame_pink.value: AWLocationData(None, ByteSect.flames, 0x221, ["Flames"]),
+    lname.flame_blue.value: AWLocationData(None, ByteSect.flames, 0x21E, ["Flames"], AWTracker(627, 5, 1, -2, 2)),
+    lname.flame_pink.value: AWLocationData(None, ByteSect.flames, 0x21F, ["Flames"], AWTracker(627, 5, 1, -2, 0)),
+    lname.flame_violet.value: AWLocationData(None, ByteSect.flames, 0x220, ["Flames"], AWTracker(627, 5, 1, -2, 1)),
+    lname.flame_green.value: AWLocationData(None, ByteSect.flames, 0x221, ["Flames"], AWTracker(627, 5, 1, -2, 3)),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + data.offset for name, data in location_table.items()}

@@ -20,7 +20,7 @@ from NetUtils import ClientStatus
 from operator import countOf
 
 from .items import item_name_to_id, item_name_groups
-from .locations import location_name_to_id, location_table, ByteSect
+from .locations import location_name_to_id, location_table, events_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
@@ -399,7 +399,7 @@ class AnimalWellContext(CommonContext):
         if not self.tiles:
             self.get_tiles_for_locations()
         self.stamps.clear()
-        for name,loc in location_table.items():
+        for name,loc in (location_table | events_table).items():
             if not loc.tracker or name not in self.logic_tracker.check_logic_status or self.logic_tracker.check_logic_status[name] == CheckStatus.dont_show or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
                 continue
             # bake logic status into the stamp type for colored stamps patch to read
