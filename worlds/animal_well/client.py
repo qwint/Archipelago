@@ -265,7 +265,7 @@ class AnimalWellContext(CommonContext):
                 elif msg_type == "Hint":
                     if args.get("receiving") == self.slot:
                         player_slot = args.get("item").player
-                        item_name = self.item_names.lookup_in_slot(args.get("item").item, player_slot)
+                        item_name = self.item_names.lookup_in_slot(args.get("item").item, self.slot)
                         location_name = self.location_names.lookup_in_slot(args.get("item").location, player_slot)
                         text = f"Hint: Your {item_name} is at {location_name}."
                         self.display_text_in_client(text)
@@ -328,6 +328,8 @@ class AnimalWellContext(CommonContext):
                             self.logic_tracker.out_of_logic_full_inventory.add(item_name)
                         else:
                             self.logic_tracker.egg_tracker.add(item_name)
+                    elif item_name == iname.k_shard.value:
+                        self.logic_tracker.k_shard_count += 1
                     else:
                         self.logic_tracker.full_inventory.add(item_name)
                         self.logic_tracker.out_of_logic_full_inventory.add(item_name)
@@ -478,6 +480,8 @@ class AWLocations:
                 self.byte_sect_dict: Dict[int, int] = {
                     ByteSect.items.value:
                         int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x120, 16), byteorder="little"),
+                    ByteSect.flames.value:
+                        int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x21e, 16), byteorder="little"),
                     ByteSect.bunnies.value:
                         int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x198, 4), byteorder="little"),
                     ByteSect.candles.value:
@@ -492,6 +496,8 @@ class AWLocations:
                     if loc_data.byte_section == ByteSect.flames:
                         self.loc_statuses[loc_name] = (
                                 ctx.process_handle.read_bytes(slot_address + loc_data.byte_offset, 1)[0] >= 4)
+                        if self.loc_statuses[loc_name]:
+                            ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked
                         continue
 
                     self.loc_statuses[loc_name] = (
@@ -960,7 +966,8 @@ class AWItems:
 
                 # Write Keys
                 if self.key_ring:
-                    buffer = bytes([1])
+                    # always show real amount of key doors left unopened for a quick and easy way to check how many you have left
+                    buffer = bytes([max(0, 6 - keys_used)])
                 else:
                     buffer = bytes([max(0, self.key - keys_used)])
                 ctx.process_handle.write_bytes(slot_address + 0x1B1, buffer, 1)
@@ -980,7 +987,8 @@ class AWItems:
 
                 # Write Matches
                 if self.matchbox:
-                    buffer = bytes([1])
+                    # always show real amount of candles left unlit for a quick and easy way to check how many you have left
+                    buffer = bytes([max(0, 9 - candles_lit)])
                 else:
                     buffer = bytes([max(0, self.match - candles_lit)])
                 ctx.process_handle.write_bytes(slot_address + 0x1B2, buffer, 1)
@@ -1009,6 +1017,12 @@ class AWItems:
                         (str(flags >> 15 & 1)))[::-1]  # Pad
                 buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1DC, buffer, 2)
+
+                # select firecrackers if firecrackers is unlocked and no other equipment is selected,
+                # since picking up other equipment before firecrackers doesn't set the selected equipment,
+                # and firecrackers is given by default anyway
+                if ctx.process_handle.read_bytes(slot_address + 0x1EA, 1)[0] == 0 and self.firecrackers:
+                    ctx.process_handle.write_bytes(slot_address + 0x1EA, b"\x01", 1)
 
                 # Read Other Items
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1DE, 1), byteorder="little")

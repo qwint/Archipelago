@@ -45,6 +45,7 @@ class AnimalWellTracker:
     upgraded_b_wand: bool = False
     key_count: int = 0
     match_count: int = 0
+    k_shard_count: int = 0
 
     regions_in_logic: Set[str] = {rname.menu}
     # includes regions accessible in logic
@@ -72,9 +73,6 @@ class AnimalWellTracker:
                     # events aren't in location_name_to_id, so give them a key here
                     if destination_data.event:
                         self.check_logic_status.setdefault(str(destination_name), 0)
-                    # we ignore these and rely on the event version
-                    elif destination_data.loc_type == LocType.candle:
-                        continue
                     # bools are ints
                     if self.check_logic_status[destination_name] >= 1 + in_logic:
                         continue
@@ -92,12 +90,18 @@ class AnimalWellTracker:
                 if len(self.egg_tracker) < destination_data.eggs_required:
                     met = False
 
+                if origin == rname.dog_bat_room and destination_name == rname.kangaroo_room:
+                    if self.k_shard_count < 3:
+                        met = False
+
                 if met:
                     if destination_data.type == AWType.region:
                         regions_set.add(destination_name)
                     elif destination_data.type == AWType.location:
                         self.check_logic_status[destination_name] = CheckStatus.out_of_logic + in_logic
-                        if destination_data.event and "Candle" not in destination_name:
+                        # candle and flame are added in client.py when they are found
+                        if (destination_data.event and "Candle" not in destination_name
+                                and "Flame" not in destination_name):
                             inventory_set.add(destination_data.event)
                             self.check_logic_status[destination_name] = CheckStatus.checked
         # if the length of the region set or inventory changed, loop through again
@@ -172,6 +176,10 @@ class AnimalWellTracker:
     def clear_inventories(self) -> None:
         self.full_inventory.clear()
         self.out_of_logic_full_inventory.clear()
+        self.upgraded_b_wand = False
+        self.key_count = 0
+        self.match_count = 0
+        self.k_shard_count = 0
         self.check_logic_status = {loc_name: 0 for loc_name in location_name_to_id.keys()}
         self.regions_in_logic = {rname.starting_area}
         self.regions_out_of_logic = {rname.starting_area}
@@ -192,3 +200,6 @@ class AnimalWellTracker:
                                 and destination_name in [lname.bunny_mural, lname.bunny_dream,
                                                          lname.bunny_uv, lname.bunny_lava]):
                             self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+                    # we ignore these and rely on the event version
+                    elif destination_data.loc_type == LocType.candle:
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show
