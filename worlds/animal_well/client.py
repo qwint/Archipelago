@@ -192,7 +192,7 @@ class AnimalWellContext(CommonContext):
 
     async def on_bean_death(self):
         self.display_text_in_client("You died")
-        if self.slot_data.get("deathlink", None) == 1:
+        if self.slot_data.get("death_link", None) == 1:
             await self.send_death("BEAN DEAD.")
 
     async def server_auth(self, password_requested: bool = False):
