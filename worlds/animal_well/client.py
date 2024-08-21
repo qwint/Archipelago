@@ -79,6 +79,22 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                 logger.info(f"Enabling fullbright...")
                 self.ctx.bean_patcher.enable_fullbright()
 
+    def _cmd_deathlink(self, val=""):
+        """
+        Toggles deathlink.
+        """
+        if isinstance(self.ctx, AnimalWellContext):
+            if val == "":
+                self.ctx.slot_data["deathlink"] = (0 if self.ctx.slot_data.get("deathlink", None) == 1 else 1)
+            elif val == "off":
+                self.ctx.slot_data["deathlink"] = 0
+            elif val == "on":
+                self.ctx.slot_data["deathlink"] = 1
+
+            status_text = "Deathlink is now " + ("ENABLED" if self.ctx.slot_data.get("deathlink", None) == 1 else "DISABLED")
+            self.ctx.display_text_in_client(status_text)
+            logger.info(status_text)
+
     def _cmd_ring(self):
         """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
         try:
@@ -325,7 +341,7 @@ class AnimalWellContext(CommonContext):
             elif cmd == "Bounced":
                 tags = args.get("tags", [])
 
-                if "DeathLink" in tags and self.last_death_link != args["data"]["time"]:
+                if "DeathLink" in tags and self.last_death_link != args["data"]["time"] and self.slot_data.get("deathlink", None) == 1:
                     self.on_deathlink(args["data"])
 
         except Exception as e:
