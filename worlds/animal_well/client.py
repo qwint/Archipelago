@@ -233,7 +233,7 @@ class AnimalWellContext(CommonContext):
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
-            Utils.async_start(self.update_death_link(self.slot_data.get("deathlink", None) == 1))
+            Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
 
         try:
             if cmd == "PrintJSON":
