@@ -391,6 +391,7 @@ class AWLocations:
                                 ctx.process_handle.read_bytes(slot_address + loc_data.byte_offset, 1)[0] >= 4)
                         if self.loc_statuses[loc_name]:
                             ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked
+                            # todo: put the flame in the inventory and out of logic inventory
                         continue
 
                     self.loc_statuses[loc_name] = (
