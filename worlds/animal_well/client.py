@@ -869,7 +869,8 @@ class AWItems:
 
                 # Write Keys
                 if self.key_ring:
-                    buffer = bytes([1])
+                    # always show real amount of key doors left unopened for a quick and easy way to check how many you have left
+                    buffer = bytes([max(0, 6 - keys_used)])
                 else:
                     buffer = bytes([max(0, self.key - keys_used)])
                 ctx.process_handle.write_bytes(slot_address + 0x1B1, buffer, 1)
@@ -889,7 +890,8 @@ class AWItems:
 
                 # Write Matches
                 if self.matchbox:
-                    buffer = bytes([1])
+                    # always show real amount of candles left unlit for a quick and easy way to check how many you have left
+                    buffer = bytes([max(0, 9 - candles_lit)])
                 else:
                     buffer = bytes([max(0, self.match - candles_lit)])
                 ctx.process_handle.write_bytes(slot_address + 0x1B2, buffer, 1)
@@ -918,6 +920,12 @@ class AWItems:
                         (str(flags >> 15 & 1)))[::-1]  # Pad
                 buffer = int(bits, 2).to_bytes((len(bits) + 7) // 8, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1DC, buffer, 2)
+
+                # select firecrackers if firecrackers is unlocked and no other equipment is selected,
+                # since picking up other equipment before firecrackers doesn't set the selected equipment,
+                # and firecrackers is given by default anyway
+                if ctx.process_handle.read_bytes(slot_address + 0x1EA, 1)[0] == 0 and self.firecrackers:
+                    ctx.process_handle.write_bytes(slot_address + 0x1EA, b"\x01", 1)
 
                 # Read Other Items
                 flags = int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1DE, 1), byteorder="little")
