@@ -174,7 +174,8 @@ class AnimalWellContext(CommonContext):
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
-        self.bean_patcher = BeanPatcher().set_logger(logger)
+        from . import AnimalWellWorld
+        self.bean_patcher = BeanPatcher().set_logger(logger).set_version_string(AnimalWellWorld.version_string)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
         self.logic_tracker = AnimalWellTracker()
 
