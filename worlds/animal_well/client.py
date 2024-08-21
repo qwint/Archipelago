@@ -1236,8 +1236,13 @@ async def process_sync_task(ctx: AnimalWellContext):
 
             if ctx.bean_patcher is not None and ctx.bean_patcher.attached_to_process:
                 ctx.bean_patcher.tick()
+                if cmd := ctx.bean_patcher.get_cmd():
+                    if cmd[0] == '/':
+                        ctx.command_processor(ctx)(cmd)
+                    else:
+                        ctx.command_processor(ctx).default(cmd)
 
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(1/30)
 
 
 def launch():

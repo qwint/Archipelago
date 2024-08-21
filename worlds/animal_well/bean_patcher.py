@@ -1,8 +1,36 @@
+import string
+
 from time import time
 from typing import List, Optional
 
 from .patch import *
 
+keymap = {
+    0x20: [' ', ' '],
+
+    0x30: ['0', ')'],
+    0x31: ['1', '!'],
+    0x32: ['2', '@'],
+    0x33: ['3', '#'],
+    0x34: ['4', '$'],
+    0x35: ['5', '%'],
+    0x36: ['6', '^'],
+    0x37: ['7', '&'],
+    0x38: ['8', '*'],
+    0x39: ['9', '('],
+
+    0xba: [';', ':'],
+    0xbb: ['=', '+'],
+    0xbc: [',', '<'],
+    0xbd: ['-', '_'],
+    0xbe: ['.', '>'],
+    0xbf: ['/', '?'],
+
+    0xdb: ['[', '{'],
+    0xdc: ['\\', '|'],
+    0xdd: [']', '}'],
+    0xde: ['\'', '"'],
+}
 
 # Extending the Patch class with some Animal Well specific methods
 class Patch(Patch):
@@ -263,6 +291,13 @@ class BeanPatcher:
         self.unstuck_map = 0
 
         self.fullbright_patch: Optional[Patch] = None
+
+        self.cmd_prompt = False
+        self.cmd = ""
+        self.cmd_ready = False
+        self.cmd_patch = []
+        self.cmd_keys = None
+        self.cmd_keys_old = None
 
     def get_current_save_slot(self):
         if not self.attached_to_process:
@@ -906,6 +941,76 @@ class BeanPatcher:
         if self.last_message_time != 0:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
+
+    def key_pressed(self, key):
+        if self.cmd_keys is None or self.cmd_keys_old is None:
+            return False
+        return self.cmd_keys[key] & 1 != self.cmd_keys_old[key] & 1
+
+    def key_down(self, key):
+        if self.cmd_keys is None:
+            return False
+        return self.cmd_keys[key] & 0x80 == 0x80
+
+    def run_cmd_prompt(self):
+        self.cmd_keys = self.process.read_bytes(self.module_base + 0x2bd5a10, 0xff)
+        self.update_cmd_prompt()
+        self.cmd_keys_old = self.cmd_keys
+
+    def update_cmd_prompt(self):
+        if not self.cmd_prompt and (self.key_pressed(0xc0) or self.key_pressed(0xdc)): # console keys
+            self.cmd_prompt = True
+        if self.cmd_prompt:
+            old_length = len(self.cmd)
+            if not self.cmd_patch:
+                self.cmd = ""
+                self.display_dialog(f"> {self.cmd}", "")
+                self.cmd_patch.append(Patch("block_keyboard", self.module_base + 0x11c82, self.process, True).nop(2))
+                for patch in self.cmd_patch:
+                    patch.apply()
+            else:
+                if self.key_pressed(0xd): # enter
+                    for patch in self.cmd_patch:
+                        patch.revert()
+                    self.cmd_patch.clear()
+                    self.cmd_prompt = False
+                    self.process.write_bytes(self.application_state_address + 0xA84B4, b"\x00", 1)
+                    self.cmd_ready = True
+                    return
+                elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc): # esc, console keys
+                    for patch in self.cmd_patch:
+                        patch.revert()
+                    self.cmd_patch.clear()
+                    self.cmd_prompt = False
+                    self.cmd = ""
+                    self.process.write_bytes(self.application_state_address + 0xA84B4, b"\x00", 1)
+                    return
+                elif self.key_pressed(0x8): # backspace
+                    self.cmd = self.cmd[:-1]
+                else:
+                    for key in range(0x08, 0xff):
+                        if self.key_pressed(key) and self.key_down(key):
+                            if chr(key) in string.ascii_uppercase:
+                                if not self.key_down(0x10):
+                                    key += 0x20
+                                self.cmd += chr(key)
+                            elif key in keymap:
+                                char = keymap[key][self.key_down(0x10)]
+                                self.cmd += char
+                if len(self.cmd) != old_length:
+                    cmd = '\n'.join(self.cmd[i:i+50] for i in range(0, len(self.cmd), 50))
+                    text = f"> {cmd:.250}".encode("utf-16le") + b"\x00\x00"
+                    self.process.write_bytes(self.application_state_address + 0xA84B8, text, len(text))
+
+    def get_cmd(self):
+        self.run_cmd_prompt()
+        if self.cmd_ready:
+            self.cmd_ready = False
+            cmd = self.cmd.strip()
+            self.cmd = ""
+            if cmd:
+                return cmd
+        return None
 
     def display_dialog(self, text: str, title: str = "", action_text: str = ""):
         try:
