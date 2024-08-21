@@ -5,32 +5,53 @@ from typing import List, Optional
 
 from .patch import *
 
-keymap = {
-    0x20: [' ', ' '],
-
-    0x30: ['0', ')'],
-    0x31: ['1', '!'],
-    0x32: ['2', '@'],
-    0x33: ['3', '#'],
-    0x34: ['4', '$'],
-    0x35: ['5', '%'],
-    0x36: ['6', '^'],
-    0x37: ['7', '&'],
-    0x38: ['8', '*'],
-    0x39: ['9', '('],
-
-    0xba: [';', ':'],
-    0xbb: ['=', '+'],
-    0xbc: [',', '<'],
-    0xbd: ['-', '_'],
-    0xbe: ['.', '>'],
-    0xbf: ['/', '?'],
-
-    0xdb: ['[', '{'],
-    0xdc: ['\\', '|'],
-    0xdd: [']', '}'],
-    0xde: ['\'', '"'],
-}
+keymap = [
+    {
+        0x20: [' ', ' '],
+        0x30: ['0', ')'],
+        0x31: ['1', '!'],
+        0x32: ['2', '@'],
+        0x33: ['3', '#'],
+        0x34: ['4', '$'],
+        0x35: ['5', '%'],
+        0x36: ['6', '^'],
+        0x37: ['7', '&'],
+        0x38: ['8', '*'],
+        0x39: ['9', '('],
+        0xba: [';', ':'],
+        0xbb: ['=', '+'],
+        0xbc: [',', '<'],
+        0xbd: ['-', '_'],
+        0xbe: ['.', '>'],
+        0xbf: ['/', '?'],
+        0xdb: ['[', '{'],
+        0xdc: ['\\', '|'],
+        0xdd: [']', '}'],
+        0xde: ['\'', '"'],
+    },
+    {
+        0x20: [' ', ' '],
+        0x30: ['0', '=', '}'],
+        0x31: ['1', '!'],
+        0x32: ['2', '"', '@'],
+        0x33: ['3', '#'],
+        0x34: ['4', '$'],
+        0x35: ['5', '%'],
+        0x36: ['6', '&'],
+        0x37: ['7', '/', '{'],
+        0x38: ['8', '(', '['],
+        0x39: ['9', ')', ']'],
+        0xba: [']', '}'],
+        0xbb: ['+', '?', '\\'],
+        0xbc: [',', ';'],
+        0xbd: ['-', '_'],
+        0xbe: ['.', ';'],
+        0xbf: ['-', '_'],
+        0xdc: ['\'', '*'],
+        0xdd: ['[', '{'],
+        0xde: ['\'', '"'],
+    }
+]
 
 # Extending the Patch class with some Animal Well specific methods
 class Patch(Patch):
@@ -298,6 +319,7 @@ class BeanPatcher:
         self.cmd_patch = []
         self.cmd_keys = None
         self.cmd_keys_old = None
+        self.cmd_keymap = 0
 
     def get_current_save_slot(self):
         if not self.attached_to_process:
@@ -938,7 +960,7 @@ class BeanPatcher:
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
     def tick(self):
-        if self.last_message_time != 0:
+        if self.last_message_time != 0 and not self.cmd_prompt:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
 
@@ -958,8 +980,14 @@ class BeanPatcher:
         self.cmd_keys_old = self.cmd_keys
 
     def update_cmd_prompt(self):
-        if not self.cmd_prompt and (self.key_pressed(0xc0) or self.key_pressed(0xdc)): # console keys
-            self.cmd_prompt = True
+        if not self.cmd_prompt:
+            if self.key_pressed(0xc0):
+                self.cmd_keymap = 0
+                self.cmd_prompt = True
+            elif self.key_pressed(0xdc):
+                self.cmd_keymap = 1
+                self.cmd_prompt = True
+
         if self.cmd_prompt:
             old_length = len(self.cmd)
             if not self.cmd_patch:
@@ -977,7 +1005,7 @@ class BeanPatcher:
                     self.process.write_bytes(self.application_state_address + 0xA84B4, b"\x00", 1)
                     self.cmd_ready = True
                     return
-                elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc): # esc, console keys
+                elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc) or not self.process.read_bytes(self.application_state_address + 0xA84B4, 1)[0]: # esc, console keys
                     for patch in self.cmd_patch:
                         patch.revert()
                     self.cmd_patch.clear()
@@ -990,12 +1018,15 @@ class BeanPatcher:
                 else:
                     for key in range(0x08, 0xff):
                         if self.key_pressed(key) and self.key_down(key):
+                            mod = self.key_down(0x10)
+                            if self.key_down(0x12):
+                                mod = 2
                             if chr(key) in string.ascii_uppercase:
                                 if not self.key_down(0x10):
                                     key += 0x20
                                 self.cmd += chr(key)
-                            elif key in keymap:
-                                char = keymap[key][self.key_down(0x10)]
+                            elif key in keymap[self.cmd_keymap] and len(keymap[self.cmd_keymap][key]) > mod:
+                                char = keymap[self.cmd_keymap][key][mod]
                                 self.cmd += char
                 if len(self.cmd) != old_length:
                     cmd = '\n'.join(self.cmd[i:i+50] for i in range(0, len(self.cmd), 50))
