@@ -186,7 +186,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
-    deathlink: Deathlink
+    death_link: DeathLink
 
     wheel_hopping: WheelHopping
 
