@@ -128,18 +128,7 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                         self.ctx.process_handle.write_bytes(slot_address + 0x1EC, buffer, 4)
                     else:
                         raise NotImplementedError("Only Windows is implemented right now")
-        # todo: put a finally here for the things that are repeated
-        except pymem.exception.ProcessError as e:
-            logger.error("%s", e)
-            self.ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
-        except pymem.exception.MemoryReadError as e:
-            logger.error("%s", e)
-            self.ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
-        except pymem.exception.MemoryWriteError as e:
+        except (pymem.exception.ProcessError, pymem.exception.MemoryReadError, pymem.exception.MemoryWriteError) as e:
             logger.error("%s", e)
             self.ctx.connection_status = CONNECTION_RESET_STATUS
             traceback.print_exc()
@@ -411,28 +400,12 @@ class AWLocations:
                     ctx.bean_patcher.read_from_game()
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
-        # todo: put a finally here for the repeated lines
-        except pymem.exception.ProcessError as e:
+        except (pymem.exception.ProcessError, pymem.exception.MemoryReadError, ConnectionResetError) as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
             traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except pymem.exception.MemoryReadError as e:
-            logger.error("%s", e)
-            ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except ConnectionResetError as e:
-            logger.error("%s", e)
-            ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except NotImplementedError as e:
-            logger.fatal("%s", e)
-            ctx.connection_status = CONNECTION_ABORTED_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except Exception as e:
+        except (NotImplementedError, Exception) as e:
             logger.fatal("An unknown error has occurred: %s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
             traceback.print_exc()
@@ -700,7 +673,7 @@ class AWItems:
             self.egg_crystal = item_name_to_id[iname.egg_crystal.value] in items
             self.egg_golden = item_name_to_id[iname.egg_golden.value] in items
 
-            # todo: fix this
+            # todo: make this less terrible
             if "goal" in ctx.slot_data and ctx.slot_data["goal"] == Goal.option_egg_hunt:
                 if (not ctx.finished_game and
                         self.egg_reference and self.egg_brown and self.egg_raw and self.egg_pickled and
@@ -718,7 +691,7 @@ class AWItems:
                         self.egg_ice and self.egg_fire and self.egg_bubble and self.egg_desert and
                         self.egg_clover and self.egg_brick and self.egg_neon and self.egg_iridescent and
                         self.egg_rust and self.egg_scarlet and self.egg_sapphire and self.egg_ruby and
-                        self.egg_jade and self.egg_obsidian and self.egg_crystal and self.egg_golden):
+                        self.egg_jade and self.egg_obsidian and self.egg_crystal and self.egg_golden and self.egg_65):
                     await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                     ctx.finished_game = True
 
@@ -1046,34 +1019,13 @@ class AWItems:
                     ctx.bean_patcher.write_to_game()
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
-        # todo: put a finally for the repeatedly lines
-        except pymem.exception.ProcessError as e:
+        except (pymem.exception.ProcessError, pymem.exception.MemoryReadError, pymem.exception.MemoryWriteError, ConnectionResetError) as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
             traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except pymem.exception.MemoryReadError as e:
-            logger.error("%s", e)
-            ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except pymem.exception.MemoryWriteError as e:
-            logger.error("%s", e)
-            ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except ConnectionResetError as e:
-            logger.error("%s", e)
-            ctx.connection_status = CONNECTION_RESET_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except NotImplementedError as e:
+        except (NotImplementedError, Exception) as e:
             logger.fatal("%s", e)
-            ctx.connection_status = CONNECTION_ABORTED_STATUS
-            traceback.print_exc()
-            logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-        except Exception as e:
-            logger.fatal("An unknown error has occurred: %s", e)
             ctx.connection_status = CONNECTION_ABORTED_STATUS
             traceback.print_exc()
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
@@ -1162,39 +1114,13 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             ctx.display_dialog("Connected to client!", "")
         else:
             raise NotImplementedError("Only Windows is implemented right now")
-    # todo: put a finally here for the repeated lines
-    except pymem.exception.ProcessNotFound as e:
+    except (pymem.exception.ProcessNotFound, pymem.exception.CouldNotOpenProcess, pymem.exception.ProcessError, pymem.exception.MemoryReadError) as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
         traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-    except pymem.exception.CouldNotOpenProcess as e:
-        logger.error("%s", e)
-        ctx.connection_status = CONNECTION_REFUSED_STATUS
-        traceback.print_exc()
-        logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-    except pymem.exception.ProcessError as e:
-        logger.error("%s", e)
-        ctx.connection_status = CONNECTION_REFUSED_STATUS
-        traceback.print_exc()
-        logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-    except pymem.exception.MemoryReadError as e:
-        logger.error("%s", e)
-        ctx.connection_status = CONNECTION_REFUSED_STATUS
-        traceback.print_exc()
-        logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-    except FileNotFoundError as e:
+    except (FileNotFoundError, NotImplementedError, Exception) as e:
         logger.fatal("%s", e)
-        ctx.connection_status = CONNECTION_ABORTED_STATUS
-        traceback.print_exc()
-        logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-    except NotImplementedError as e:
-        logger.fatal("%s", e)
-        ctx.connection_status = CONNECTION_ABORTED_STATUS
-        traceback.print_exc()
-        logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
-    except Exception as e:
-        logger.fatal("An unknown error has occurred: %s", e)
         ctx.connection_status = CONNECTION_ABORTED_STATUS
         traceback.print_exc()
         logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
