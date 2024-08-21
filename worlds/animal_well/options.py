@@ -186,7 +186,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
-    deathlink: Deathlink
+    death_link: DeathLink
 
     wheel_hopping: WheelHopping
 
@@ -208,6 +208,5 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "wheel_tricks": WheelTricks.option_advanced,
         "weird_tricks": True,
         "bunnies_as_checks": BunniesAsChecks.option_all_bunnies,
-        "deathlink": False
     },
 }

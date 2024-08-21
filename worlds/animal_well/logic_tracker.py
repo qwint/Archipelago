@@ -17,20 +17,6 @@ class CheckStatus(IntEnum):
     dont_show = 4  # for locations that should be hidden outright
 
 
-# keys are location names, values are item names
-candle_event_to_item: Dict[str, str] = {
-    lname.candle_first_event.value: iname.event_candle_first.value,
-    lname.candle_dog_dark_event.value: iname.event_candle_dog_dark.value,
-    lname.candle_dog_switch_box_event.value: iname.event_candle_dog_switch_box.value,
-    lname.candle_dog_many_switches_event.value: iname.event_candle_dog_many_switches,
-    lname.candle_dog_disc_switches_event.value: iname.event_candle_dog_disc_switches,
-    lname.candle_dog_bat_event.value: iname.event_candle_dog_bat,
-    lname.candle_fish_event.value: iname.event_candle_penguin.value,
-    lname.candle_frog_event.value: iname.event_candle_frog,
-    lname.candle_bear_event.value: iname.event_candle_bear,
-}
-
-
 class AnimalWellTracker:
     player_options: Dict[str, int] = {
         Goal.internal_name: 0,
@@ -114,10 +100,12 @@ class AnimalWellTracker:
                     elif destination_data.type == AWType.location:
                         self.check_logic_status[destination_name] = CheckStatus.out_of_logic + in_logic
                         # candle and flame are added in client.py when they are found
-                        if (destination_data.event and "Candle" not in destination_name
-                                and "Flame" not in destination_name):
+                        if destination_data.event:
                             inventory_set.add(destination_data.event)
-                            self.check_logic_status[destination_name] = CheckStatus.checked
+                            # add the event item immediately, but let the client handle the event location
+                            if ("Candle" not in destination_name and "Flame" not in destination_name
+                                    and destination_name != lname.victory_first.value):
+                                self.check_logic_status[destination_name] = CheckStatus.checked.value
         # if the length of the region set or inventory changed, loop through again
         if inventory_count != len(regions_set) + len(inventory_set):
             self.update_spots_status(in_logic)

@@ -21,7 +21,7 @@ from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal, Deathlink
 from .bean_patcher import BeanPatcher
-from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
+from .logic_tracker import AnimalWellTracker, CheckStatus
 
 CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
 CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
@@ -109,11 +109,13 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                                                byteorder="little")
 
                         if bool(flags >> 13 & 1):
-                            logger.info("Removing C. Ring from inventory")
-                            self.ctx.display_text_in_client("Removing C. Ring from inventory")
+                            log_text = "Removing C. Ring from inventory"
+                            logger.info(log_text)
+                            self.ctx.display_text_in_client(log_text)
                         else:
-                            logger.info("Adding C. Ring to inventory. Press F to use")
-                            self.ctx.display_text_in_client("Adding C. Ring to inventory. Press F key (or R3 on gamepad) to use.")
+                            log_text = "Adding C. Ring to inventory. Press F key (or R3 on gamepad) to use."
+                            logger.info(log_text)
+                            self.ctx.display_text_in_client(log_text)
 
                         bits = ((str(flags >> 0 & 1)) +  # House Opened
                                 (str(flags >> 1 & 1)) +  # Office Opened
@@ -188,7 +190,9 @@ class AnimalWellContext(CommonContext):
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
-        self.bean_patcher = BeanPatcher()
+        
+        from . import AnimalWellWorld
+        self.bean_patcher = BeanPatcher().set_logger(logger).set_version_string(AnimalWellWorld.version_string)
         self.bean_patcher.set_logger(logger)
         self.bean_patcher.set_bean_death_function(self.on_bean_death)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
@@ -204,7 +208,7 @@ class AnimalWellContext(CommonContext):
 
     async def on_bean_death(self):
         self.display_text_in_client("You died")
-        if self.slot_data.get("deathlink", None) == 1:
+        if self.slot_data.get("death_link", None) == 1:
             await self.send_death("BEAN DEAD.")
 
     async def server_auth(self, password_requested: bool = False):
@@ -245,7 +249,7 @@ class AnimalWellContext(CommonContext):
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
-            Utils.async_start(self.update_death_link(self.slot_data.get("deathlink", None) == 1))
+            Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
 
         try:
             if cmd == "PrintJSON":
@@ -438,7 +442,6 @@ class AWLocations:
                                 ctx.process_handle.read_bytes(slot_address + loc_data.byte_offset, 1)[0] >= 4)
                         if self.loc_statuses[loc_name]:
                             ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked
-                            # todo: put the flame in the inventory and out of logic inventory
                         continue
 
                     self.loc_statuses[loc_name] = (
@@ -469,8 +472,9 @@ class AWLocations:
                     ctx.locations_checked.add(location_name_to_id[loc_name])
                     if location_table[loc_name].byte_section == ByteSect.candles:
                         ctx.logic_tracker.check_logic_status[loc_name + " Event"] = CheckStatus.checked.value
-                        ctx.logic_tracker.full_inventory.add(candle_event_to_item[loc_name + " Event"])
-                        ctx.logic_tracker.out_of_logic_full_inventory.add(candle_event_to_item[loc_name + " Event"])
+                        for k, v in ctx.logic_tracker.check_logic_status.items():
+                            print(k)
+                            print(v)
 
             if ctx.slot_data.get("goal", None) == Goal.option_fireworks:
                 if not ctx.finished_game and self.loc_statuses[lname.key_house]:
@@ -893,7 +897,7 @@ class AWItems:
 
                 # Write Keys
                 if self.key_ring:
-                    # always show real amount of key doors left unopened for a quick and easy way to check how many you have left
+                    # always show real amount of key doors left unopened for a quick way to check how many you have left
                     buffer = bytes([max(0, 6 - keys_used)])
                 else:
                     buffer = bytes([max(0, self.key - keys_used)])
@@ -914,7 +918,7 @@ class AWItems:
 
                 # Write Matches
                 if self.matchbox:
-                    # always show real amount of candles left unlit for a quick and easy way to check how many you have left
+                    # always show real amount of candles left unlit for a quick way to check how many you have left
                     buffer = bytes([max(0, 9 - candles_lit)])
                 else:
                     buffer = bytes([max(0, self.match - candles_lit)])
@@ -1067,7 +1071,8 @@ class AWItems:
                     ctx.bean_patcher.write_to_game()
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
-        except (pymem.exception.ProcessError, pymem.exception.MemoryReadError, pymem.exception.MemoryWriteError, ConnectionResetError) as e:
+        except (pymem.exception.ProcessError, pymem.exception.MemoryReadError, pymem.exception.MemoryWriteError,
+                ConnectionResetError) as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
             traceback.print_exc()
@@ -1162,7 +1167,8 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             ctx.display_dialog("Connected to client!", "")
         else:
             raise NotImplementedError("Only Windows is implemented right now")
-    except (pymem.exception.ProcessNotFound, pymem.exception.CouldNotOpenProcess, pymem.exception.ProcessError, pymem.exception.MemoryReadError) as e:
+    except (pymem.exception.ProcessNotFound, pymem.exception.CouldNotOpenProcess, pymem.exception.ProcessError,
+            pymem.exception.MemoryReadError) as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
         traceback.print_exc()
