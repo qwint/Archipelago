@@ -56,6 +56,7 @@ class AnimalWellWorld(World):
     """
     game = "ANIMAL WELL"
     web = AnimalWellWeb()
+    version_string: str = "v0.3.2 - Dev"
 
     options: AnimalWellOptions
     options_dataclass = AnimalWellOptions
@@ -65,6 +66,7 @@ class AnimalWellWorld(World):
     item_name_to_id = item_name_to_id
     location_name_to_id = location_name_to_id
 
+    # todo: remove later
     topology_present = True
 
     traversal_requirements: Dict[Union[LocationNames, RegionNames], Dict[Union[LocationNames, RegionNames], AWData]]

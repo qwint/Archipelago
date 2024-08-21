@@ -191,9 +191,10 @@ STEP_AND_TIME_DISPLAY_UPDATED_VALUES = {
 
 # region Other Constants
 HEADER_LENGTH = 0x18
-SAVE_SLOT_LENGTH = 0x27010
 CUSTOM_MEMORY_SIZE = 0x40000
 CUSTOM_STAMPS = 255
+TITLE_SCREEN_TEXT_TEMPLATE: str = "AP Randomizer {version}"
+TITLE_SCREEN_MAX_TEXT_LENGTH: int = 80
 # endregion
 
 
@@ -210,6 +211,11 @@ class BeanPatcher:
         self.name = name
         return self
 
+    def set_version_string(self, version):
+        self.version_string = version
+        self.set_title_text(TITLE_SCREEN_TEXT_TEMPLATE.replace("{version}", self.version_string))
+        return self
+
     def log_info(self, text):
         if self.logger is not None:
             self.logger.info(text)
@@ -224,6 +230,7 @@ class BeanPatcher:
         self.process = process
         self.attached_to_process = False
         self.name = None
+        self.version_string = ""
 
         self.logger = logger
         self.log_debug_info = True
@@ -234,6 +241,7 @@ class BeanPatcher:
         self.last_game_state = 0
         self.custom_memory_base = None
         self.custom_memory_current_offset: Optional[int] = None
+
         self.main_menu_draw_string_addr: Optional[int] = None
 
         self.revertable_patches: List[Patch] = []
@@ -406,14 +414,13 @@ class BeanPatcher:
         """
             This patch displays the text "AP Randomizer" on the title screen.
         """
-        title_screen_text = "AP Randomizer".encode("utf-16le") + b"\x00"
         main_menu_draw_injection_address = self.module_base + 0x1f025
         self.main_menu_draw_string_addr = self.custom_memory_current_offset
-        self.custom_memory_current_offset += len(title_screen_text)
+        self.custom_memory_current_offset += TITLE_SCREEN_MAX_TEXT_LENGTH
         main_menu_draw_routine_address = self.custom_memory_current_offset
         main_menu_draw_trampoline = (Patch("main_menu_draw_trampoline", main_menu_draw_injection_address, self.process)
                                      .mov_to_rax(main_menu_draw_routine_address).jmp_rax().nop(3))
-        title_text_x = 190  # below the right side of the ANIMAL WELL logo
+        title_text_x = 151  # below the right side of the ANIMAL WELL logo
         title_text_y = 74
         title_text_color = 0xff44ffff
         title_text_shader = 0x0f  # 07 and 0f are both good options, 07 shows more of the background through it (values over 0x34 will crash)
@@ -434,7 +441,7 @@ class BeanPatcher:
                                 .mov_to_rax(main_menu_draw_injection_address + len(main_menu_draw_trampoline.byte_list))
                                 .jmp_rax())
         self.custom_memory_current_offset += len(main_menu_draw_patch) + 0x10
-        self.process.write_bytes(self.main_menu_draw_string_addr, title_screen_text, len(title_screen_text))
+        self.set_title_text(TITLE_SCREEN_TEXT_TEMPLATE.replace("{version}", self.version_string or ""))
         if self.log_debug_info:
             self.log_info("Applying main menu draw patches...")
         main_menu_draw_patch.apply()
@@ -1084,3 +1091,14 @@ class BeanPatcher:
                     self.last_message_time = 0
         except Exception as e:
             self.log_error(f"Error while attempting to display text to client: {e}")
+
+    def set_title_text(self, text: str):
+        try:
+            if not self.attached_to_process or self.main_menu_draw_string_addr is None:
+                return
+
+            new_text_bytes = text[0:TITLE_SCREEN_MAX_TEXT_LENGTH-2].encode("utf-16le") + b"\x00\x00"
+            self.process.write_bytes(self.main_menu_draw_string_addr, new_text_bytes, len(new_text_bytes))
+            self.process.read_string(self.main_menu_draw_string_addr, TITLE_SCREEN_MAX_TEXT_LENGTH, encoding="utf-16le")
+        except Exception as e:
+            self.log_error(f"Error while attempting to update title screen text: {e}")
