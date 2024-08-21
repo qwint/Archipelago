@@ -267,6 +267,12 @@ class BeanPatcher:
 
         self.tracker_stamps_addr: Optional[int] = None
         self.tracker_icons_addr: Optional[int] = None
+        self.tracker_text_addr: Optional[int] = None
+        self.tracker_total: int = 0
+        self.tracker_in_logic: int = 0
+        self.tracker_checked: int = 0
+        self.tracker_candles: int = 0
+        self.tracker_goal: str = ""
 
     def get_current_save_slot(self):
         if not self.attached_to_process:
@@ -385,6 +391,8 @@ class BeanPatcher:
         self.apply_redirect_stamps_patch()
 
         self.apply_colored_stamps_patch()
+
+        self.apply_tracker_draw_text_patch()
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
@@ -892,6 +900,63 @@ class BeanPatcher:
         tracker_color_patch.apply()
         if tracker_trampoline_patch.apply():
             self.revertable_patches.append(tracker_trampoline_patch)
+
+    def apply_tracker_draw_text_patch(self):
+        """
+            This patch displays various tracker stats on the map screen.
+        """
+        checked_text = f"?".ljust(7)
+        in_logic_text = f"?".ljust(3)
+        candles_text = "?".ljust(3)
+        goal_text = "?"
+        tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
+        offset_checked_name = 0
+        offset_checked_text = 18*2
+        offset_in_logic_name = 26*2
+        offset_in_logic_text = 45*2
+        offset_candles_name = 49*2
+        offset_candles_text = 62*2
+        offset_goal_name = 66*2
+        offset_goal_text = 72*2
+        tracker_draw_injection_address = self.module_base + 0x40d21
+        self.tracker_text_addr = self.custom_memory_current_offset
+        self.custom_memory_current_offset += 256
+        tracker_draw_routine_address = self.custom_memory_current_offset
+        tracker_draw_trampoline = (Patch("tracker_draw_trampoline", tracker_draw_injection_address, self.process)
+                                     .mov_to_rax(tracker_draw_routine_address).jmp_rax().nop(3))
+        tracker_draw_text_patch = (Patch("tracker_draw_text", tracker_draw_routine_address, self.process)
+                                .push_shader_to_stack(0x29)
+                                .push_color_to_stack(0xffffffff)
+                                .draw_small_text(80, 162, self.tracker_text_addr+offset_checked_name)
+                                .draw_small_text(137, 162, self.tracker_text_addr+offset_checked_text)
+                                .draw_small_text(80, 170, self.tracker_text_addr+offset_in_logic_name)
+                                .draw_small_text(137, 170, self.tracker_text_addr+offset_in_logic_text)
+                                .draw_small_text(180, 162, self.tracker_text_addr+offset_candles_name)
+                                .draw_small_text(222, 162, self.tracker_text_addr+offset_candles_text)
+                                .draw_small_text(180, 170, self.tracker_text_addr+offset_goal_name)
+                                .draw_small_text(202, 170, self.tracker_text_addr+offset_goal_text)
+                                .pop_color_from_stack()
+                                .pop_shader_from_stack()
+                                .push_color_to_stack(0x645a6e82)
+                                .mov_to_rax(tracker_draw_injection_address + len(tracker_draw_trampoline.byte_list))
+                                .jmp_rax())
+        self.custom_memory_current_offset += len(tracker_draw_text_patch) + 0x10
+        self.process.write_bytes(self.tracker_text_addr, tracker_text, len(tracker_text))
+        if self.log_debug_info:
+            self.log_info("Applying tracker draw patches...")
+        tracker_draw_text_patch.apply()
+        if tracker_draw_trampoline.apply():
+            self.revertable_patches.append(tracker_draw_trampoline)
+
+    def update_tracker_text(self) -> None:
+        if self.tracker_text_addr is None:
+            return
+        checked_text = f"{self.tracker_checked}/{self.tracker_total}".ljust(7)
+        in_logic_text = f"{self.tracker_in_logic}".ljust(3)
+        candles_text = f"{self.tracker_candles}/9"
+        goal_text = self.tracker_goal
+        tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
+        self.process.write_bytes(self.tracker_text_addr, tracker_text, len(tracker_text))
 
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:

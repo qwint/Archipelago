@@ -17,6 +17,7 @@ import pymem
 import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
+from operator import countOf
 
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, ByteSect
@@ -249,6 +250,9 @@ class AnimalWellContext(CommonContext):
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
+                self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
+                self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
+                self.bean_patcher.update_tracker_text()
 
         try:
             if cmd == "PrintJSON":
@@ -328,6 +332,9 @@ class AnimalWellContext(CommonContext):
                         self.logic_tracker.full_inventory.add(item_name)
                         self.logic_tracker.out_of_logic_full_inventory.add(item_name)
                 self.logic_tracker.update_checks_and_regions()
+                self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
+                self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
+                self.bean_patcher.update_tracker_text()
 
             elif cmd == "RoomUpdate":
                 for location_id in args.get("checked_locations"):
