@@ -383,6 +383,8 @@ class AWLocations:
                 self.byte_sect_dict: Dict[int, int] = {
                     ByteSect.items.value:
                         int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x120, 16), byteorder="little"),
+                    ByteSect.flames.value:
+                        int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x21e, 16), byteorder="little"),
                     ByteSect.bunnies.value:
                         int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x198, 4), byteorder="little"),
                     ByteSect.candles.value:
@@ -397,6 +399,8 @@ class AWLocations:
                     if loc_data.byte_section == ByteSect.flames:
                         self.loc_statuses[loc_name] = (
                                 ctx.process_handle.read_bytes(slot_address + loc_data.byte_offset, 1)[0] >= 4)
+                        if self.loc_statuses[loc_name]:
+                            ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked
                         continue
 
                     self.loc_statuses[loc_name] = (

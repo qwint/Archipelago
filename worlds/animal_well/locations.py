@@ -1,5 +1,5 @@
 from enum import IntEnum
-from typing import Dict, NamedTuple, Set, List
+from typing import Dict, NamedTuple, Set, List, Optional
 from .names import LocationNames as lname
 
 
@@ -12,7 +12,7 @@ class ByteSect(IntEnum):
 
 
 class AWLocationData(NamedTuple):
-    offset: int  # location ID offset
+    offset: Optional[int]  # location ID offset
     byte_section: int  # since where it is and what the length is varies
     byte_offset: int
     location_groups: List[str] = []
@@ -175,6 +175,24 @@ location_table: Dict[str, AWLocationData] = {
 
     # extras
     lname.mama_cha.value: AWLocationData(131, ByteSect.items, 10, []),
+}
+
+# mostly for the logic tracker
+events_table: Dict[str, AWLocationData] = {
+    lname.candle_first_event.value: AWLocationData(None, ByteSect.candles, 7),
+    lname.candle_dog_dark_event.value: AWLocationData(None, ByteSect.candles, 4),
+    lname.candle_dog_switch_box_event.value: AWLocationData(None, ByteSect.candles, 3),
+    lname.candle_dog_many_switches_event.value: AWLocationData(None, ByteSect.candles, 2),
+    lname.candle_dog_disc_switches_event.value: AWLocationData(None, ByteSect.candles, 1),
+    lname.candle_dog_bat_event.value: AWLocationData(None, ByteSect.candles, 0),
+    lname.candle_fish_event.value: AWLocationData(None, ByteSect.candles, 6),
+    lname.candle_frog_event.value: AWLocationData(None, ByteSect.candles, 8),
+    lname.candle_bear_event.value: AWLocationData(None, ByteSect.candles, 5),
+
+    lname.flame_blue.value: AWLocationData(None, ByteSect.flames, 0x21E, ["Flames"]),
+    lname.flame_green.value: AWLocationData(None, ByteSect.flames, 0x21F, ["Flames"]),
+    lname.flame_violet.value: AWLocationData(None, ByteSect.flames, 0x220, ["Flames"]),
+    lname.flame_pink.value: AWLocationData(None, ByteSect.flames, 0x221, ["Flames"]),
 }
 
 location_name_to_id: Dict[str, int] = {name: location_base_id + data.offset for name, data in location_table.items()}

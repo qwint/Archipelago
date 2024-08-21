@@ -73,9 +73,6 @@ class AnimalWellTracker:
                     # events aren't in location_name_to_id, so give them a key here
                     if destination_data.event:
                         self.check_logic_status.setdefault(str(destination_name), 0)
-                    # we ignore these and rely on the event version
-                    elif destination_data.loc_type == LocType.candle:
-                        continue
                     # bools are ints
                     if self.check_logic_status[destination_name] >= 1 + in_logic:
                         continue
@@ -102,7 +99,9 @@ class AnimalWellTracker:
                         regions_set.add(destination_name)
                     elif destination_data.type == AWType.location:
                         self.check_logic_status[destination_name] = CheckStatus.out_of_logic + in_logic
-                        if destination_data.event and "Candle" not in destination_name:
+                        # candle and flame are added in client.py when they are found
+                        if (destination_data.event and "Candle" not in destination_name
+                                and "Flame" not in destination_name):
                             inventory_set.add(destination_data.event)
                             self.check_logic_status[destination_name] = CheckStatus.checked
         # if the length of the region set or inventory changed, loop through again
@@ -201,3 +200,6 @@ class AnimalWellTracker:
                                 and destination_name in [lname.bunny_mural, lname.bunny_dream,
                                                          lname.bunny_uv, lname.bunny_lava]):
                             self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+                    # we ignore these and rely on the event version
+                    elif destination_data.loc_type == LocType.candle:
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show
