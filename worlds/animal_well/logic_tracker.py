@@ -1,7 +1,7 @@
 from typing import Dict, Set
 from enum import IntEnum
 
-from .locations import location_name_to_id
+from .locations import location_name_to_id, events_table
 from .region_data import AWType, LocType, traversal_requirements
 from .region_scripts import helper_reference
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
@@ -180,7 +180,9 @@ class AnimalWellTracker:
         self.key_count = 0
         self.match_count = 0
         self.k_shard_count = 0
-        self.check_logic_status = {loc_name: 0 for loc_name in location_name_to_id.keys()}
+        self.check_logic_status = {loc_name: CheckStatus.unreachable.value for loc_name in location_name_to_id.keys()}
+        for event in events_table.keys():
+            self.check_logic_status[event] = CheckStatus.unreachable.value
         self.regions_in_logic = {rname.starting_area}
         self.regions_out_of_logic = {rname.starting_area}
 
