@@ -128,6 +128,7 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                         self.ctx.process_handle.write_bytes(slot_address + 0x1EC, buffer, 4)
                     else:
                         raise NotImplementedError("Only Windows is implemented right now")
+        # todo: put a finally here for the things that are repeated
         except pymem.exception.ProcessError as e:
             logger.error("%s", e)
             self.ctx.connection_status = CONNECTION_RESET_STATUS
@@ -410,6 +411,7 @@ class AWLocations:
                     ctx.bean_patcher.read_from_game()
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
+        # todo: put a finally here for the repeated lines
         except pymem.exception.ProcessError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
@@ -1044,6 +1046,7 @@ class AWItems:
                     ctx.bean_patcher.write_to_game()
             else:
                 raise NotImplementedError("Only Windows is implemented right now")
+        # todo: put a finally for the repeatedly lines
         except pymem.exception.ProcessError as e:
             logger.error("%s", e)
             ctx.connection_status = CONNECTION_RESET_STATUS
@@ -1159,6 +1162,7 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             ctx.display_dialog("Connected to client!", "")
         else:
             raise NotImplementedError("Only Windows is implemented right now")
+    # todo: put a finally here for the repeated lines
     except pymem.exception.ProcessNotFound as e:
         logger.error("%s", e)
         ctx.connection_status = CONNECTION_REFUSED_STATUS
@@ -1256,6 +1260,7 @@ def launch():
         parser = get_base_parser()
         args = parser.parse_args(args)
 
+        # todo: figure out where to modify the tags, remove the AP tag
         ctx = AnimalWellContext(args.connect, args.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
 
