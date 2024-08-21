@@ -250,9 +250,14 @@ class AnimalWellContext(CommonContext):
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
-                self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
-                self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
-                self.bean_patcher.update_tracker_text()
+            if self.slot_data["goal"] == Goal.option_fireworks:
+                self.bean_patcher.tracker_goal = "Fireworks"
+            elif self.slot_data["goal"] == Goal.option_egg_hunt:
+                self.bean_patcher.tracker_goal = "Egg Hunt to 64"
+            self.bean_patcher.tracker_total = len(self.logic_tracker.check_logic_status.values()) - countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.dont_show.value)
+            self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
+            self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
+            self.bean_patcher.update_tracker_text()
 
         try:
             if cmd == "PrintJSON":
@@ -334,9 +339,6 @@ class AnimalWellContext(CommonContext):
                         self.logic_tracker.full_inventory.add(item_name)
                         self.logic_tracker.out_of_logic_full_inventory.add(item_name)
                 self.logic_tracker.update_checks_and_regions()
-                self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
-                self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
-                self.bean_patcher.update_tracker_text()
 
             elif cmd == "RoomUpdate":
                 for location_id in args.get("checked_locations"):
@@ -385,7 +387,7 @@ class AnimalWellContext(CommonContext):
 
     def get_tiles_for_locations(self):
         tile_ids = []
-        for loc in location_table.values():
+        for loc in (location_table | events_table).values():
             if not loc.tracker:
                 continue
             if not loc.tracker.tile in tile_ids and loc.tracker.tile > 0:
@@ -426,7 +428,10 @@ class AnimalWellContext(CommonContext):
                 self.stamps[-1].y += loc.tracker.stamp_y
             else:
                 self.stamps.append(Stamp(loc.tracker.stamp_x, loc.tracker.stamp_y, stamp))
-        #logger.info(f"Found {len(self.stamps)} stamp locations to track")
+
+        self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
+        self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
+        self.bean_patcher.update_tracker_text()
 
     def check_if_in_game(self) -> bool:
         """

@@ -194,7 +194,7 @@ events_table: Dict[str, AWLocationData] = {
     lname.candle_dog_disc_switches_event.value: AWLocationData(None, ByteSect.candles, 1, ["Candles"], AWTracker(37, 3, -1, -3, 1)),
     lname.candle_dog_bat_event.value: AWLocationData(None, ByteSect.candles, 0, ["Candles"], AWTracker(37, 3, -1, -3, 0)),
     lname.candle_fish_event.value: AWLocationData(None, ByteSect.candles, 6, ["Candles"], AWTracker(37, 3, -1, -3, 6)),
-    lname.candle_frog_event.value: AWLocationData(None, ByteSect.candles, 8, ["Candles"], AWTracker(37, 3, -1, -3, 6)),
+    lname.candle_frog_event.value: AWLocationData(None, ByteSect.candles, 8, ["Candles"], AWTracker(37, 3, -1, -3, 8)),
     lname.candle_bear_event.value: AWLocationData(None, ByteSect.candles, 5, ["Candles"], AWTracker(37, 3, -1, -3, 5)),
 
     lname.flame_blue.value: AWLocationData(None, ByteSect.flames, 0x21E, ["Flames"], AWTracker(627, 5, 1, -2, 2)),
