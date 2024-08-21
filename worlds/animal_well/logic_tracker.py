@@ -17,6 +17,20 @@ class CheckStatus(IntEnum):
     dont_show = 4  # for locations that should be hidden outright
 
 
+# keys are location names, values are item names
+candle_event_to_item: Dict[str, str] = {
+    lname.candle_first_event.value: iname.event_candle_first.value,
+    lname.candle_dog_dark_event.value: iname.event_candle_dog_dark.value,
+    lname.candle_dog_switch_box_event.value: iname.event_candle_dog_switch_box.value,
+    lname.candle_dog_many_switches_event.value: iname.event_candle_dog_many_switches,
+    lname.candle_dog_disc_switches_event.value: iname.event_candle_dog_disc_switches,
+    lname.candle_dog_bat_event.value: iname.event_candle_dog_bat,
+    lname.candle_fish_event.value: iname.event_candle_penguin.value,
+    lname.candle_frog_event.value: iname.event_candle_frog,
+    lname.candle_bear_event.value: iname.event_candle_bear,
+}
+
+
 class AnimalWellTracker:
     player_options: Dict[str, int] = {
         Goal.internal_name: 0,
@@ -204,4 +218,4 @@ class AnimalWellTracker:
                             self.check_logic_status[destination_name] = CheckStatus.dont_show.value
                     # we ignore these and rely on the event version
                     elif destination_data.loc_type == LocType.candle:
-                        self.check_logic_status[destination_name] = CheckStatus.dont_show
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show.value

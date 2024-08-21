@@ -20,7 +20,7 @@ from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
-from .logic_tracker import AnimalWellTracker, CheckStatus
+from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
 CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
 CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
@@ -445,8 +445,9 @@ class AWLocations:
                 if status:
                     ctx.locations_checked.add(location_name_to_id[loc_name])
                     if location_table[loc_name].byte_section == ByteSect.candles:
-                        ctx.logic_tracker.full_inventory.add(loc_name)
-                        ctx.logic_tracker.out_of_logic_full_inventory.add(loc_name)
+                        ctx.logic_tracker.check_logic_status[loc_name + " Event"] = CheckStatus.checked.value
+                        ctx.logic_tracker.full_inventory.add(candle_event_to_item[loc_name + " Event"])
+                        ctx.logic_tracker.out_of_logic_full_inventory.add(candle_event_to_item[loc_name + " Event"])
 
             if ctx.slot_data.get("goal", None) == Goal.option_fireworks:
                 if not ctx.finished_game and self.loc_statuses[lname.key_house]:
