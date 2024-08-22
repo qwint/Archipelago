@@ -526,9 +526,6 @@ class AWLocations:
                     ctx.locations_checked.add(location_name_to_id[loc_name])
                     if location_table[loc_name].byte_section == ByteSect.candles:
                         ctx.logic_tracker.check_logic_status[loc_name + " Event"] = CheckStatus.checked.value
-                        for k, v in ctx.logic_tracker.check_logic_status.items():
-                            print(k)
-                            print(v)
 
             if ctx.slot_data.get("goal", None) == Goal.option_fireworks:
                 if not ctx.finished_game and self.loc_statuses[lname.key_house]:
