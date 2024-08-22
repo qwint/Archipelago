@@ -178,6 +178,7 @@ class AnimalWellWorld(World):
             "disc_hopping",
             "wheel_tricks",
             "weird_tricks",
+            "exclude_song_chests",
             "death_link",
         )
 
