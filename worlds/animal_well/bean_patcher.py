@@ -1,7 +1,7 @@
 import string
 
 from time import time
-from typing import List, Optional
+from typing import List, Optional, Callable, Any, Awaitable
 
 from .patch import *
 
@@ -191,6 +191,12 @@ class Patch(Patch):
         """
         return self.mov_cl(sprite_id).call_via_rax(get_sprite)
 
+    def update_player_state(self, player, state, save):
+        """
+        Updates the player's state
+        """
+        return self.mov_rcx(player).mov_rdx(state).mov_r8(save).call_far(update_player_state)
+
 
 # region FunctionOffsets
 # Accurate as of AW file version 1.0.0.18
@@ -211,6 +217,7 @@ get_key_pressed: int = 0x140011C70
 get_gamepad_button_pressed: int = 0x140011EA0
 get_an_item: int = 0x1400C15C0
 warp: int = 0x140074DD0
+update_player_state: int = 0x1400662F0
 # endregion
 
 # region OtherOffsets
@@ -252,6 +259,8 @@ STEP_AND_TIME_DISPLAY_UPDATED_VALUES = {
 HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
 CUSTOM_MEMORY_SIZE = 0x20000
+TITLE_SCREEN_TEXT_TEMPLATE: str = "AP Randomizer {version}"
+TITLE_SCREEN_MAX_TEXT_LENGTH: int = 80
 # endregion
 
 
@@ -268,6 +277,11 @@ class BeanPatcher:
         self.name = name
         return self
 
+    def set_version_string(self, version):
+        self.version_string = version
+        self.set_title_text(TITLE_SCREEN_TEXT_TEMPLATE.replace("{version}", self.version_string))
+        return self
+
     def log_info(self, text):
         if self.logger is not None:
             self.logger.info(text)
@@ -278,10 +292,15 @@ class BeanPatcher:
             self.logger.error(text)
         return self
 
+    def set_bean_death_function(self, function: Callable):
+        self.on_bean_death_function = function
+        return self
+
     def __init__(self, process=None, logger=None):
         self.process = process
         self.attached_to_process = False
         self.name = None
+        self.version_string = ""
 
         self.logger = logger
         self.log_debug_info = True
@@ -292,12 +311,16 @@ class BeanPatcher:
         self.last_game_state = 0
         self.custom_memory_base = None
         self.custom_memory_current_offset: Optional[int] = None
+
         self.main_menu_draw_string_addr: Optional[int] = None
 
         self.revertable_patches: List[Patch] = []
         self.fullbright_patch: Patch
         self.room_palette_override_patch: Optional[Patch] = None
         self.room_palette_override_shader: int = 0x16
+
+        self.bean_has_died_address: int = 0
+        self.on_bean_death_function: Optional[Callable[[Any], Awaitable[Any]]] = None
 
         self.draw_routine_string_size: int = 0
         self.game_draw_routine_string_addr = None
@@ -328,6 +351,7 @@ class BeanPatcher:
 
         self.fullbright_patch: Optional[Patch] = None
 
+
         self.cmd_prompt = False
         self.cmd = ""
         self.cmd_ready = False
@@ -336,7 +360,8 @@ class BeanPatcher:
         self.cmd_keys_old = None
         self.cmd_keymap = 0
 
-    def get_current_save_slot(self):
+    @property
+    def current_save_slot(self):
         if not self.attached_to_process:
             self.log_error("Can't get current save slot without being attached to a process.")
             return None
@@ -346,8 +371,9 @@ class BeanPatcher:
 
         return self.process.read_uchar(self.application_state_address + 0x40C)
 
-    def get_current_save_address(self):
-        current_save_slot = self.get_current_save_slot()
+    @property
+    def current_save_address(self):
+        current_save_slot = self.current_save_slot
 
         if current_save_slot is None:
             self.log_error("Failed to get the current save slot.")
@@ -439,6 +465,8 @@ class BeanPatcher:
 
         self.apply_skip_credits_patch()
 
+        self.apply_deathlink_patch()
+
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
         # solved bunny bytes = bytearray.fromhex("37 00 00 00 40 01 05 00 00 00 0C 00 40 00 40 46 05 0C 18 09 08 01 90 31 40 46 05 37 F4 07 48 04 40 0E 40 19 01 0C F0 03 32 09 00 02 00 59 00 18 F4 07 02 48 00 02 00 54 05 44 98 09 02 98 01 08 00 55 14 10 80 00 0E 42 00 58 05 15 52 20 8C 00 32 82 00 55 55 55 50 82 8C 08 82 80 40 55 55 55 55 81 88 32 88 80 50 55 55 55 55 81 88 C0 88 80 54 55 55 55 55 20 20 88 88 20 54 55 55 55 15 20 20 20 8C 23 54 55 55 55 E5 EF 23 2C EF FE 56 55 55 55 E5 FF EF EF BE FD 56 55 55 55 E5 FF FF BB 7B F6 54 55 55 55 01 FC E7 EE EF F9 50 55 55 55 00 F0 99 BB BE EF 43 55 55 15 00 FF E6 EE FB BE 0F 00 00 00 FC BF BB BB")
@@ -451,14 +479,13 @@ class BeanPatcher:
         """
             This patch displays the text "AP Randomizer" on the title screen.
         """
-        title_screen_text = "AP Randomizer".encode("utf-16le") + b"\x00"
         main_menu_draw_injection_address = self.module_base + 0x1f025
         self.main_menu_draw_string_addr = self.custom_memory_current_offset
-        self.custom_memory_current_offset += len(title_screen_text)
+        self.custom_memory_current_offset += TITLE_SCREEN_MAX_TEXT_LENGTH
         main_menu_draw_routine_address = self.custom_memory_current_offset
         main_menu_draw_trampoline = (Patch("main_menu_draw_trampoline", main_menu_draw_injection_address, self.process)
                                      .mov_to_rax(main_menu_draw_routine_address).jmp_rax().nop(3))
-        title_text_x = 190  # below the right side of the ANIMAL WELL logo
+        title_text_x = 151  # below the right side of the ANIMAL WELL logo
         title_text_y = 74
         title_text_color = 0xff44ffff
         title_text_shader = 0x0f  # 07 and 0f are both good options, 07 shows more of the background through it (values over 0x34 will crash)
@@ -479,7 +506,7 @@ class BeanPatcher:
                                 .mov_to_rax(main_menu_draw_injection_address + len(main_menu_draw_trampoline.byte_list))
                                 .jmp_rax())
         self.custom_memory_current_offset += len(main_menu_draw_patch) + 0x10
-        self.process.write_bytes(self.main_menu_draw_string_addr, title_screen_text, len(title_screen_text))
+        self.set_title_text(TITLE_SCREEN_TEXT_TEMPLATE.replace("{version}", self.version_string or ""))
         if self.log_debug_info:
             self.log_info("Applying main menu draw patches...")
         main_menu_draw_patch.apply()
@@ -911,6 +938,51 @@ class BeanPatcher:
         if skip_credits_patch.apply():
             self.revertable_patches.append(skip_credits_patch)
 
+    def apply_deathlink_patch(self):
+        """
+        Sends a deathlink message when the bean is killed (by another that isn't deathlink)
+
+        Original code:
+        0x14003BA8A 48 89 F1                                mov     rcx, rsi                  ; player
+        0x14003BA8D B2 05                                   mov     dl, 5                     ; newPlayerState
+        0x14003BA8F 49 89 F8                                mov     r8, rdi                   ; save
+        0x14003BA92 E8 59 A8 02 00                          call    updatePlayerState
+        """
+        bean_died_address = self.module_base + 0x3BA8A
+
+        self.bean_has_died_address = self.custom_memory_current_offset
+
+        if self.log_debug_info:
+            self.log_info(f"bean_has_died_address: {hex(self.bean_has_died_address)}")
+
+        self.custom_memory_current_offset += 1
+
+        bean_died_routine_address = self.custom_memory_current_offset
+
+        bean_died_trampoline = (Patch("bean_died_trampoline", bean_died_address, self.process)
+                           .mov_to_rax(bean_died_routine_address)
+                           .jmp_rax()
+                           )
+
+        bean_died_routine = (Patch("bean_died_routine", bean_died_routine_address, self.process)
+                             .mov_to_al(1)
+                             .mov_rbx(self.bean_has_died_address)
+                             .mov_al_to_address_in_rbx()
+                             .update_player_state(self.player_address, 5, self.current_save_address)
+                             .jmp_far(self.module_base + 0x3BA97)
+                             )
+
+        self.custom_memory_current_offset += len(bean_died_routine)
+
+        if self.log_debug_info:
+            self.log_info(f"Applying deathlink patch...\n{bean_died_routine}")
+
+        if bean_died_routine.apply():
+            self.revertable_patches.append(bean_died_routine)
+
+        if bean_died_trampoline.apply():
+            self.revertable_patches.append(bean_died_trampoline)
+
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:
             return None
@@ -999,6 +1071,12 @@ class BeanPatcher:
         if self.last_message_time != 0 and not self.cmd_prompt:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
+
+        if self.bean_has_died_address != 0:
+            if self.process.read_bool(self.bean_has_died_address):
+                self.process.write_bool(self.bean_has_died_address, False)
+                if self.on_bean_death_function is not None:
+                    await self.on_bean_death_function()
 
     def key_pressed(self, key):
         if self.cmd_keys is None or self.cmd_keys_old is None:
@@ -1118,3 +1196,21 @@ class BeanPatcher:
 
         except Exception as e:
             self.log_error(f"Error while attempting to display bottom text to client: {e}")
+
+    def set_player_state(self, state: int):
+        try:
+            if self.attached_to_process and self.application_state_address:
+                self.process.write_uchar(self.player_address + 0x5d, state)
+        except Exception as e:
+            self.log_error(f"Error while attempting to set player state: {e}")
+
+    def set_title_text(self, text: str):
+        try:
+            if not self.attached_to_process or self.main_menu_draw_string_addr is None:
+                return
+
+            new_text_bytes = text[0:TITLE_SCREEN_MAX_TEXT_LENGTH-2].encode("utf-16le") + b"\x00\x00"
+            self.process.write_bytes(self.main_menu_draw_string_addr, new_text_bytes, len(new_text_bytes))
+            self.process.read_string(self.main_menu_draw_string_addr, TITLE_SCREEN_MAX_TEXT_LENGTH, encoding="utf-16le")
+        except Exception as e:
+            self.log_error(f"Error while attempting to update title screen text: {e}")
