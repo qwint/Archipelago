@@ -223,6 +223,6 @@ class AnimalWellTracker:
                     elif destination_data.loc_type == LocType.candle:
                         self.check_logic_status[destination_name] = CheckStatus.dont_show.value
                     # if it's excluded due to the option, don't show it
-                    elif (self.player_options[ExcludeSongChests.internal_name] == ExcludeSongChests.option_on 
+                    elif (self.player_options[ExcludeSongChests.internal_name] == ExcludeSongChests.option_true 
                               and destination_name in [lname.wheel_chest.value, lname.key_office.value]):
                         self.check_logic_status[destination_name] = CheckStatus.dont_show.value
