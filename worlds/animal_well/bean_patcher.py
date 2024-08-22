@@ -45,7 +45,7 @@ keymap = [
         0xbb: ['+', '?', '\\'],
         0xbc: [',', ';'],
         0xbd: ['-', '_'],
-        0xbe: ['.', ';'],
+        0xbe: ['.', ':'],
         0xbf: ['-', '_'],
         0xdc: ['\'', '*'],
         0xdd: ['[', '{'],
@@ -1095,12 +1095,13 @@ class BeanPatcher:
 
     def update_cmd_prompt(self):
         if not self.cmd_prompt:
-            if self.key_pressed(0xc0):
-                self.cmd_keymap = 0
-                self.cmd_prompt = True
-            elif self.key_pressed(0xdc):
-                self.cmd_keymap = 1
-                self.cmd_prompt = True
+            if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] in (0, 8):
+                if self.key_pressed(0xc0):
+                    self.cmd_keymap = 0
+                    self.cmd_prompt = True
+                elif self.key_pressed(0xdc):
+                    self.cmd_keymap = 1
+                    self.cmd_prompt = True
 
         if self.cmd_prompt:
             if not self.cmd_patch:
@@ -1117,7 +1118,8 @@ class BeanPatcher:
                     self.cmd_patch.clear()
                     self.cmd_prompt = False
                     self.display_to_client_bottom(f"")
-                    self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
+                    if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0:  # don't disable pause if game is actually paused
+                        self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     self.cmd_ready = True
                     return
                 elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc) or not self.process.read_bytes(self.application_state_address + 0x93608, 1)[0]: # esc, console keys
@@ -1127,7 +1129,8 @@ class BeanPatcher:
                     self.cmd_prompt = False
                     self.cmd = ""
                     self.display_to_client_bottom(f"")
-                    self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
+                    if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0: # don't disable pause if game is actually paused
+                        self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     return
                 elif self.key_pressed(0x8): # backspace
                     self.cmd = self.cmd[:-1]
