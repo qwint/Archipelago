@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, Any
 from Options import (DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup,
-                     Visibility)
+                     Visibility, DeathLink)
 
 
 class Goal(Choice):
@@ -162,13 +162,6 @@ class WheelHopping(Choice):
     option_advanced = 2
     default = 0
     visibility = Visibility.none
-
-class Deathlink(Toggle):
-    """
-    Dying causes other players to die. If other players die, you die.
-    """
-    internal_name = "deathlink"
-    display_name = "Deathlink"
 
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):

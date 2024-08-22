@@ -19,7 +19,7 @@ from typing import Dict, Any
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
-from .options import FinalEggLocation, Goal, Deathlink
+from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
 from .logic_tracker import AnimalWellTracker, CheckStatus
 
@@ -29,6 +29,8 @@ CONNECTION_RESET_STATUS = "Connection was reset. Please wait"
 CONNECTION_CONNECTED_STATUS = "Connected"
 CONNECTION_TENTATIVE_STATUS = "Connection has been initiated"
 CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
+
+DEATHLINK_MESSAGE = "The bean has died."
 
 HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
@@ -85,15 +87,17 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
-                self.ctx.slot_data["deathlink"] = (0 if self.ctx.slot_data.get("deathlink", None) == 1 else 1)
+                self.ctx.slot_data["death_link"] = (0 if self.ctx.slot_data.get("death_link", None) == 1 else 1)
             elif val == "off":
-                self.ctx.slot_data["deathlink"] = 0
+                self.ctx.slot_data["death_link"] = 0
             elif val == "on":
-                self.ctx.slot_data["deathlink"] = 1
+                self.ctx.slot_data["death_link"] = 1
 
-            status_text = "Deathlink is now " + ("ENABLED" if self.ctx.slot_data.get("deathlink", None) == 1 else "DISABLED")
+            status_text = "Deathlink is now " + ("ENABLED" if self.ctx.slot_data.get("death_link", None) == 1 else "DISABLED")
             self.ctx.display_text_in_client(status_text)
             logger.info(status_text)
+
+            Utils.async_start(self.ctx.update_death_link(self.ctx.slot_data.get("death_link", None) == 1))
 
     def _cmd_ring(self):
         """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
@@ -209,7 +213,7 @@ class AnimalWellContext(CommonContext):
     async def on_bean_death(self):
         self.display_text_in_client("You died")
         if self.slot_data.get("death_link", None) == 1:
-            await self.send_death("BEAN DEAD.")
+            await self.send_death(DEATHLINK_MESSAGE)
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -345,7 +349,7 @@ class AnimalWellContext(CommonContext):
             elif cmd == "Bounced":
                 tags = args.get("tags", [])
 
-                if "DeathLink" in tags and self.last_death_link != args["data"]["time"] and self.slot_data.get("deathlink", None) == 1:
+                if "DeathLink" in tags and self.last_death_link != args["data"]["time"] and self.slot_data.get("death_link", None) == 1:
                     self.on_deathlink(args["data"])
 
         except Exception as e:
