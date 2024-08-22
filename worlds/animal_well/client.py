@@ -202,6 +202,7 @@ class AnimalWellContext(CommonContext):
         self.bean_patcher.set_bean_death_function(self.on_bean_death)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
         self.logic_tracker = AnimalWellTracker()
+        self.console_task = None
 
     def display_dialog(self, text: str, title: str, action_text: str = ""):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
@@ -1226,14 +1227,19 @@ async def process_sync_task(ctx: AnimalWellContext):
 
             if ctx.bean_patcher is not None and ctx.bean_patcher.attached_to_process:
                 await ctx.bean_patcher.tick()
-                if cmd := ctx.bean_patcher.get_cmd():
-                    if cmd[0] == '/':
-                        ctx.command_processor(ctx)(cmd)
-                    else:
-                        ctx.command_processor(ctx).default(cmd)
 
-        await asyncio.sleep(1/30)
+        await asyncio.sleep(0.1)
 
+async def console_task(ctx: AnimalWellContext):
+    while not ctx.exit_event.is_set():
+        if ctx.bean_patcher is not None and ctx.bean_patcher.attached_to_process:
+            ctx.bean_patcher.run_cmd_prompt()
+            if cmd := ctx.bean_patcher.get_cmd():
+                if cmd[0] == '/':
+                    ctx.command_processor(ctx)(cmd)
+                else:
+                    ctx.command_processor(ctx).default(cmd)
+        await asyncio.sleep(1/60)
 
 def launch():
     """
@@ -1260,6 +1266,7 @@ def launch():
         ctx.run_cli()
 
         ctx.process_sync_task = asyncio.create_task(process_sync_task(ctx), name="Animal Well Process Sync")
+        ctx.console_task = asyncio.create_task(console_task(ctx), name="Animal Well Console")
 
         await ctx.exit_event.wait()
         ctx.server_address = None
@@ -1274,6 +1281,9 @@ def launch():
         if ctx.get_animal_well_process_handle_task:
             ctx.get_animal_well_process_handle_task.cancel()
             ctx.get_animal_well_process_handle_task = None
+        if ctx.console_task:
+            ctx.console_task.cancel()
+            ctx.console_task = None
 
     Utils.init_logging("AnimalWellClient")
 
