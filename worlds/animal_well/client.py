@@ -448,8 +448,8 @@ class AWLocations:
                                 ctx.process_handle.read_bytes(slot_address + loc_data.byte_offset, 1)[0] >= 4)
                         if self.loc_statuses[loc_name]:
                             ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked.value
-                            ctx.logic_tracker.full_inventory[loc_name] = CheckStatus.checked.value
-                            ctx.logic_tracker.out_of_logic_full_inventory[loc_name] = CheckStatus.checked.value
+                            ctx.logic_tracker.full_inventory.add(loc_name)
+                            ctx.logic_tracker.out_of_logic_full_inventory.add(loc_name)
                         continue
 
                     self.loc_statuses[loc_name] = (
