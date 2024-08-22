@@ -7,6 +7,7 @@ import asyncio
 import os
 import platform
 import random
+import time
 import traceback
 
 import pymem
@@ -14,7 +15,7 @@ import pymem
 import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
-from typing import Dict
+from typing import Dict, Any
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
@@ -28,6 +29,9 @@ CONNECTION_RESET_STATUS = "Connection was reset. Please wait"
 CONNECTION_CONNECTED_STATUS = "Connected"
 CONNECTION_TENTATIVE_STATUS = "Connection has been initiated"
 CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
+
+DEATHLINK_MESSAGE = "The bean has died."
+DEATHLINK_RECEIVED_MESSAGE = "{name} died and took you with them."
 
 HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
@@ -44,6 +48,9 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             logger.info(f"Animal Well Connection Status: {self.ctx.connection_status}")
 
     def _cmd_room_palette(self, val=""):
+        """
+        Sets an override for room palettes. Accepts a number between 0 and 31, "off" to disable, or "random" to pick a room palette at random.
+        """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
                 self.ctx.bean_patcher.toggle_room_palette_override()
@@ -62,6 +69,9 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
                 self.ctx.bean_patcher.enable_room_palette_override(0x14)
 
     def _cmd_fullbright(self, val=""):
+        """
+        Toggles fullbright mode, which disabled darkness and lights all tiles equally.
+        """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
                 self.ctx.bean_patcher.toggle_fullbright()
@@ -71,6 +81,24 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             else:
                 logger.info(f"Enabling fullbright...")
                 self.ctx.bean_patcher.enable_fullbright()
+
+    def _cmd_deathlink(self, val=""):
+        """
+        Toggles deathlink.
+        """
+        if isinstance(self.ctx, AnimalWellContext):
+            if val == "":
+                self.ctx.slot_data["death_link"] = (0 if self.ctx.slot_data.get("death_link", None) == 1 else 1)
+            elif val == "off":
+                self.ctx.slot_data["death_link"] = 0
+            elif val == "on":
+                self.ctx.slot_data["death_link"] = 1
+
+            status_text = "Deathlink is now " + ("ENABLED" if self.ctx.slot_data.get("death_link", None) == 1 else "DISABLED")
+            self.ctx.display_text_in_client(status_text)
+            logger.info(status_text)
+
+            Utils.async_start(self.ctx.update_death_link(self.ctx.slot_data.get("death_link", None) == 1))
 
     def _cmd_ring(self):
         """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
@@ -161,13 +189,17 @@ class AnimalWellContext(CommonContext):
         self.slot_number: int = -1
         self.current_game_state = -1
         self.last_game_state = -1
+        self.last_death_link: float = time.time()
         # used to delay starting the loop until we can see the data storage values
         self.got_data_storage: bool = False
         self.first_m_disc = True
         self.used_firecrackers = 0
         self.used_berries = 0
+        
         from . import AnimalWellWorld
         self.bean_patcher = BeanPatcher().set_logger(logger).set_version_string(AnimalWellWorld.version_string)
+        self.bean_patcher.set_logger(logger)
+        self.bean_patcher.set_bean_death_function(self.on_bean_death)
         self.bean_patcher.game_draw_routine_default_string = "Connected to the well..."
         self.logic_tracker = AnimalWellTracker()
 
@@ -178,6 +210,10 @@ class AnimalWellContext(CommonContext):
     def display_text_in_client(self, text: str):
         if self.bean_patcher is not None and self.bean_patcher.attached_to_process:
             self.bean_patcher.display_to_client(text)
+
+    async def on_bean_death(self):
+        if self.slot_data.get("death_link", None) == 1:
+            await self.send_death(DEATHLINK_MESSAGE)
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -217,6 +253,7 @@ class AnimalWellContext(CommonContext):
             for location_id in args.get("checked_locations"):
                 location_name = self.location_names.lookup_in_slot(location_id)
                 self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked.value
+            Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
 
         try:
             if cmd == "PrintJSON":
@@ -309,10 +346,27 @@ class AnimalWellContext(CommonContext):
                 pass
             elif cmd == "None":
                 self.display_text_in_client(args.get("data")[0]["text"])
+            elif cmd == "Bounced":
+                tags = args.get("tags", [])
+
+                if "DeathLink" in tags and self.last_death_link != args["data"]["time"] and self.slot_data.get("death_link", None) == 1:
+                    self.on_deathlink(args["data"])
 
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
             logger.info("Package details: {}".format(args))
+
+    def on_deathlink(self, data: Dict[str, Any]) -> None:
+        self.last_death_link = max(data["time"], self.last_death_link)
+        text = DEATHLINK_RECEIVED_MESSAGE.replace("{name}", data.get("source", "A Player"))
+        cause = data.get("cause", None)
+
+        if cause is not None:
+            text = cause
+
+        logger.info(text)
+        self.display_text_in_client(text)
+        self.bean_patcher.set_player_state(5)
 
     def get_active_game_slot(self) -> int:
         """
@@ -1171,7 +1225,7 @@ async def process_sync_task(ctx: AnimalWellContext):
             items.write_to_game(ctx)
 
             if ctx.bean_patcher is not None and ctx.bean_patcher.attached_to_process:
-                ctx.bean_patcher.tick()
+                await ctx.bean_patcher.tick()
 
         await asyncio.sleep(0.1)
 

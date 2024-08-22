@@ -1,5 +1,5 @@
 from time import time
-from typing import List, Optional
+from typing import List, Optional, Callable, Any, Awaitable
 
 from .patch import *
 
@@ -133,6 +133,12 @@ class Patch(Patch):
         """
         return self.mov_cl(sprite_id).call_via_rax(get_sprite)
 
+    def update_player_state(self, player, state, save):
+        """
+        Updates the player's state
+        """
+        return self.mov_rcx(player).mov_rdx(state).mov_r8(save).call_far(update_player_state)
+
 
 # region FunctionOffsets
 # Accurate as of AW file version 1.0.0.18
@@ -152,6 +158,7 @@ get_key_pressed: int = 0x140011C70
 get_gamepad_button_pressed: int = 0x140011EA0
 get_an_item: int = 0x1400C15C0
 warp: int = 0x140074DD0
+update_player_state: int = 0x1400662F0
 # endregion
 
 # region OtherOffsets
@@ -226,6 +233,10 @@ class BeanPatcher:
             self.logger.error(text)
         return self
 
+    def set_bean_death_function(self, function: Callable):
+        self.on_bean_death_function = function
+        return self
+
     def __init__(self, process=None, logger=None):
         self.process = process
         self.attached_to_process = False
@@ -248,6 +259,9 @@ class BeanPatcher:
         self.fullbright_patch: Patch
         self.room_palette_override_patch: Optional[Patch] = None
         self.room_palette_override_shader: int = 0x16
+
+        self.bean_has_died_address: int = 0
+        self.on_bean_death_function: Optional[Callable[[Any], Awaitable[Any]]] = None
 
         self.draw_routine_string_size: int = 0
         self.game_draw_routine_string_addr = None
@@ -273,7 +287,8 @@ class BeanPatcher:
 
         self.fullbright_patch: Optional[Patch] = None
 
-    def get_current_save_slot(self):
+    @property
+    def current_save_slot(self):
         if not self.attached_to_process:
             self.log_error("Can't get current save slot without being attached to a process.")
             return None
@@ -283,8 +298,9 @@ class BeanPatcher:
 
         return self.process.read_uchar(self.application_state_address + 0x40C)
 
-    def get_current_save_address(self):
-        current_save_slot = self.get_current_save_slot()
+    @property
+    def current_save_address(self):
+        current_save_slot = self.current_save_slot
 
         if current_save_slot is None:
             self.log_error("Failed to get the current save slot.")
@@ -375,6 +391,8 @@ class BeanPatcher:
         self.apply_receive_item_patch()
 
         self.apply_skip_credits_patch()
+
+        self.apply_deathlink_patch()
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
@@ -826,6 +844,51 @@ class BeanPatcher:
         if skip_credits_patch.apply():
             self.revertable_patches.append(skip_credits_patch)
 
+    def apply_deathlink_patch(self):
+        """
+        Sends a deathlink message when the bean is killed (by another that isn't deathlink)
+
+        Original code:
+        0x14003BA8A 48 89 F1                                mov     rcx, rsi                  ; player
+        0x14003BA8D B2 05                                   mov     dl, 5                     ; newPlayerState
+        0x14003BA8F 49 89 F8                                mov     r8, rdi                   ; save
+        0x14003BA92 E8 59 A8 02 00                          call    updatePlayerState
+        """
+        bean_died_address = self.module_base + 0x3BA8A
+
+        self.bean_has_died_address = self.custom_memory_current_offset
+
+        if self.log_debug_info:
+            self.log_info(f"bean_has_died_address: {hex(self.bean_has_died_address)}")
+
+        self.custom_memory_current_offset += 1
+
+        bean_died_routine_address = self.custom_memory_current_offset
+
+        bean_died_trampoline = (Patch("bean_died_trampoline", bean_died_address, self.process)
+                           .mov_to_rax(bean_died_routine_address)
+                           .jmp_rax()
+                           )
+
+        bean_died_routine = (Patch("bean_died_routine", bean_died_routine_address, self.process)
+                             .mov_to_al(1)
+                             .mov_rbx(self.bean_has_died_address)
+                             .mov_al_to_address_in_rbx()
+                             .update_player_state(self.player_address, 5, self.current_save_address)
+                             .jmp_far(self.module_base + 0x3BA97)
+                             )
+
+        self.custom_memory_current_offset += len(bean_died_routine)
+
+        if self.log_debug_info:
+            self.log_info(f"Applying deathlink patch...\n{bean_died_routine}")
+
+        if bean_died_routine.apply():
+            self.revertable_patches.append(bean_died_routine)
+
+        if bean_died_trampoline.apply():
+            self.revertable_patches.append(bean_died_trampoline)
+
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:
             return None
@@ -910,10 +973,16 @@ class BeanPatcher:
             self.process.write_uint(self.game_draw_symbol_x_address, self.player_position_history[0][0])
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
-    def tick(self):
+    async def tick(self):
         if self.last_message_time != 0:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
+
+        if self.bean_has_died_address != 0:
+            if self.process.read_bool(self.bean_has_died_address):
+                self.process.write_bool(self.bean_has_died_address, False)
+                if self.on_bean_death_function is not None:
+                    await self.on_bean_death_function()
 
     def display_dialog(self, text: str, title: str = "", action_text: str = ""):
         try:
@@ -943,6 +1012,13 @@ class BeanPatcher:
                     self.last_message_time = 0
         except Exception as e:
             self.log_error(f"Error while attempting to display text to client: {e}")
+
+    def set_player_state(self, state: int):
+        try:
+            if self.attached_to_process and self.application_state_address:
+                self.process.write_uchar(self.player_address + 0x5d, state)
+        except Exception as e:
+            self.log_error(f"Error while attempting to set player state: {e}")
 
     def set_title_text(self, text: str):
         try:

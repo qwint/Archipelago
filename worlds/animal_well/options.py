@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, Any
 from Options import (DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup,
-                     Visibility)
+                     Visibility, DeathLink)
 
 
 class Goal(Choice):
@@ -163,7 +163,6 @@ class WheelHopping(Choice):
     default = 0
     visibility = Visibility.none
 
-
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -180,6 +179,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
+    death_link: DeathLink
 
     wheel_hopping: WheelHopping
 
@@ -200,6 +200,6 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "disc_hopping": DiscHopping.option_multiple,
         "wheel_tricks": WheelTricks.option_advanced,
         "weird_tricks": True,
-        "bunnies_as_checks": BunniesAsChecks.option_all_bunnies
+        "bunnies_as_checks": BunniesAsChecks.option_all_bunnies,
     },
 }
