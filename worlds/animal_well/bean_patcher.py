@@ -924,7 +924,7 @@ class BeanPatcher:
         """
         checked_text = f"?".ljust(7)
         in_logic_text = f"?".ljust(3)
-        candles_text = "?".ljust(3)
+        candles_text = "?".ljust(5)
         goal_text = "?"
         tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
         offset_checked_name = 0
@@ -933,8 +933,8 @@ class BeanPatcher:
         offset_in_logic_text = 45*2
         offset_candles_name = 49*2
         offset_candles_text = 62*2
-        offset_goal_name = 66*2
-        offset_goal_text = 72*2
+        offset_goal_name = 68*2
+        offset_goal_text = 74*2
         tracker_draw_injection_address = self.module_base + 0x40d21
         self.tracker_text_addr = self.custom_memory_current_offset
         self.custom_memory_current_offset += 256
@@ -970,7 +970,7 @@ class BeanPatcher:
             return
         checked_text = f"{self.tracker_checked}/{self.tracker_total}".ljust(7)
         in_logic_text = f"{self.tracker_in_logic}".ljust(3)
-        candles_text = f"{self.tracker_candles}/9"
+        candles_text = f"{self.tracker_candles}/9".ljust(5)
         goal_text = self.tracker_goal
         tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
         self.process.write_bytes(self.tracker_text_addr, tracker_text, len(tracker_text))

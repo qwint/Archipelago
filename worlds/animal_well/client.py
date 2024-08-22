@@ -423,7 +423,10 @@ class AnimalWellContext(CommonContext):
         self.bean_patcher.tracker_total = len(self.logic_tracker.check_logic_status.values()) - countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.dont_show.value)
         self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
         self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
-        self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if "Candle" in k and v == CheckStatus.checked})
+        if self.slot_data.get("candle_checks", None):
+            self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if "Candle" in k and "Event" not in k and v == CheckStatus.checked})
+        else:
+            self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if "Candle" in k and "Event" in k and v == CheckStatus.checked})
         self.bean_patcher.update_tracker_text()
 
     def check_if_in_game(self) -> bool:
