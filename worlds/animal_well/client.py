@@ -1239,7 +1239,7 @@ async def console_task(ctx: AnimalWellContext):
                     ctx.command_processor(ctx)(cmd)
                 else:
                     ctx.command_processor(ctx).default(cmd)
-        await asyncio.sleep(1/60)
+        await asyncio.sleep(1/120)
 
 def launch():
     """

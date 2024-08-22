@@ -1,4 +1,6 @@
 import string
+import win32api
+import win32gui
 
 from time import time
 from typing import List, Optional, Callable, Any, Awaitable
@@ -1081,15 +1083,19 @@ class BeanPatcher:
     def key_pressed(self, key):
         if self.cmd_keys is None or self.cmd_keys_old is None:
             return False
-        return self.cmd_keys[key] & 1 != self.cmd_keys_old[key] & 1
+        return self.cmd_keys[key] and not self.cmd_keys_old[key]
 
     def key_down(self, key):
         if self.cmd_keys is None:
             return False
-        return self.cmd_keys[key] & 0x80 == 0x80
+        return self.cmd_keys[key]
 
     def run_cmd_prompt(self):
-        self.cmd_keys = self.process.read_bytes(self.module_base + 0x2bd5a10, 0xff)
+        if win32gui.GetWindowText(win32gui.GetForegroundWindow()) != "ANIMAL WELL":
+            return
+        self.cmd_keys = []
+        for key in range(0xff):
+            self.cmd_keys.append(win32api.GetAsyncKeyState(key) != 0)
         self.update_cmd_prompt()
         self.cmd_keys_old = self.cmd_keys
 
@@ -1117,7 +1123,7 @@ class BeanPatcher:
                         patch.revert()
                     self.cmd_patch.clear()
                     self.cmd_prompt = False
-                    self.display_to_client_bottom(f"")
+                    self.display_to_client_bottom("")
                     if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0:  # don't disable pause if game is actually paused
                         self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     self.cmd_ready = True
@@ -1128,7 +1134,7 @@ class BeanPatcher:
                     self.cmd_patch.clear()
                     self.cmd_prompt = False
                     self.cmd = ""
-                    self.display_to_client_bottom(f"")
+                    self.display_to_client_bottom("")
                     if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0: # don't disable pause if game is actually paused
                         self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     return
@@ -1136,7 +1142,7 @@ class BeanPatcher:
                     self.cmd = self.cmd[:-1]
                 else:
                     for key in range(0x08, 0xff):
-                        if self.key_pressed(key) and self.key_down(key):
+                        if self.key_pressed(key):
                             mod = self.key_down(0x10)
                             if self.key_down(0x12):
                                 mod = 2
