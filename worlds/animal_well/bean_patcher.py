@@ -1067,7 +1067,7 @@ class BeanPatcher:
             self.process.write_uint(self.game_draw_symbol_x_address, self.player_position_history[0][0])
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
-    def tick(self):
+    async def tick(self):
         if self.last_message_time != 0 and not self.cmd_prompt:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
