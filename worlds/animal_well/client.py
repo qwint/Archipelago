@@ -31,6 +31,7 @@ CONNECTION_TENTATIVE_STATUS = "Connection has been initiated"
 CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
 
 DEATHLINK_MESSAGE = "The bean has died."
+DEATHLINK_RECEIVED_MESSAGE = "{name} died and took you with them."
 
 HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
@@ -358,12 +359,14 @@ class AnimalWellContext(CommonContext):
 
     def on_deathlink(self, data: Dict[str, Any]) -> None:
         self.last_death_link = max(data["time"], self.last_death_link)
-        text = data.get("cause", "")
+        text = DEATHLINK_RECEIVED_MESSAGE.replace("{name}", data.get("source", "A Player"))
+        cause = data.get("cause", None)
 
-        if text:
-            logger.info(f"DeathLink: {text}")
-        else:
-            logger.info(f"DeathLink: Received from {data['source']}")
+        if cause is not None:
+            text = cause
+
+        logger.info(text)
+        self.display_text_in_client(text)
         self.bean_patcher.set_player_state(5)
 
     def get_active_game_slot(self) -> int:
