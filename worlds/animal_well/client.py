@@ -212,7 +212,6 @@ class AnimalWellContext(CommonContext):
             self.bean_patcher.display_to_client(text)
 
     async def on_bean_death(self):
-        self.display_text_in_client("You died")
         if self.slot_data.get("death_link", None) == 1:
             await self.send_death(DEATHLINK_MESSAGE)
 
