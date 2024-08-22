@@ -116,6 +116,15 @@ class Patch(Patch):
         """
         return self.mov_ecx(x).mov_edx(y).mov_to_rax(text_address).mov_rax_to_r8().call_via_rax(draw_small_text)
 
+    def draw_big_text(self, x, y, text_address):
+        """
+        Draw bigger text with a more versatile font on the screen using the current shader and color
+        x: x position
+        y: y position
+        text_address: location in the process's memory where the Unicode text is stored
+        """
+        return self.mov_ecx(x).mov_edx(y).mov_to_rax(text_address).mov_rax_to_r8().call_via_rax(draw_big_text)
+
     def draw_symbol(self, x, y, sprite_id, frame, arg5, arg6, arg7):
         """
         Draw a symbol on the screen using the current shader and color
@@ -186,6 +195,7 @@ class Patch(Patch):
 # region FunctionOffsets
 # Accurate as of AW file version 1.0.0.18
 draw_small_text: int = 0x14006E3F0
+draw_big_text: int = 0x14006DE30
 draw_symbol: int = 0x14006A6C0
 draw_sprite: int = 0x14001AEC0
 get_sprite: int = 0x140063CA0
@@ -293,6 +303,11 @@ class BeanPatcher:
         self.game_draw_routine_string_addr = None
         self.game_draw_routine_string_size = 256
         self.game_draw_routine_default_string = "Connected to the Well"
+
+        self.draw_bottom_routine_string_size: int = 0
+        self.game_draw_bottom_routine_string_addr = None
+        self.game_draw_bottom_routine_string_size = 256
+        self.game_draw_bottom_routine_default_string = ""
 
         self.game_draw_symbol_x_address = None
         self.game_draw_symbol_y_address = None
@@ -482,6 +497,11 @@ class BeanPatcher:
         game_draw_injection_address = self.module_base + 0x5068b
         self.game_draw_routine_string_addr = self.custom_memory_current_offset
         self.custom_memory_current_offset += self.draw_routine_string_size + 0x10
+
+        self.draw_bottom_routine_string_size = 400
+        self.game_draw_bottom_routine_string_addr = self.custom_memory_current_offset
+        self.custom_memory_current_offset += self.draw_bottom_routine_string_size + 0x10
+
         # self.game_draw_symbol_x_address = self.custom_memory_current_offset
         # self.custom_memory_current_offset += 4
         # self.game_draw_symbol_y_address = self.custom_memory_current_offset
@@ -500,6 +520,12 @@ class BeanPatcher:
         client_text_display_color = 0xffffaaaa  # format is aabbggrr (alpha, blue, green, red)
         # 0x29: foreground, ignore lights, color. 0x21: foreground, glowing, white. 0x1f: foreground, glowing, color. (values over 0x34 will crash)
         client_text_display_shader = 0x1f
+        client_text_bottom_display_x = 1
+        client_text_bottom_display_y = 171  # lines the text up with the very bottom tile row
+        # TODO: store the display color somewhere so we can change it appropriate to each message we show
+        client_text_bottom_display_color = 0xff43ff23  # format is aabbggrr (alpha, blue, green, red)
+        # 0x29: foreground, ignore lights, color. 0x21: foreground, glowing, white. 0x1f: foreground, glowing, color. (values over 0x34 will crash)
+        client_text_bottom_display_shader = 0x0f
         # draw_bean_echo_patch_enabled = False
         draw_patch = (
             Patch("game_draw_client_text", game_draw_code_address, self.process)
@@ -508,7 +534,15 @@ class BeanPatcher:
             .draw_small_text(client_text_display_x - 1, client_text_display_y, self.game_draw_routine_string_addr)
             .pop_color_from_stack()
             .push_color_to_stack(client_text_display_color)
-            .draw_small_text(client_text_display_x, client_text_display_y, self.game_draw_routine_string_addr))
+            .draw_small_text(client_text_display_x, client_text_display_y, self.game_draw_routine_string_addr)
+            .pop_color_from_stack()
+            .pop_shader_from_stack()
+            .push_shader_to_stack(client_text_bottom_display_shader)
+            .push_color_to_stack(0xff000000)
+            .draw_big_text(client_text_bottom_display_x - 1, client_text_bottom_display_y, self.game_draw_bottom_routine_string_addr)
+            .pop_color_from_stack()
+            .push_color_to_stack(client_text_bottom_display_color)
+            .draw_big_text(client_text_bottom_display_x, client_text_bottom_display_y, self.game_draw_bottom_routine_string_addr))
         (draw_patch.pop_color_from_stack()
          .pop_shader_from_stack()
          .nop(0x200)
@@ -517,6 +551,8 @@ class BeanPatcher:
         self.custom_memory_current_offset += len(draw_patch) + 0x10
         default_in_game_message = self.game_draw_routine_default_string.encode("utf-16le")
         self.process.write_bytes(self.game_draw_routine_string_addr, default_in_game_message, len(default_in_game_message))
+        default_bottom_in_game_message = self.game_draw_bottom_routine_default_string.encode("utf-16le")
+        self.process.write_bytes(self.game_draw_bottom_routine_string_addr, default_bottom_in_game_message, len(default_bottom_in_game_message))
         self.last_message_time = time()
         if self.log_debug_info:
             self.log_info(f"Applying in-game draw patches...\n{draw_patch}")
@@ -989,10 +1025,10 @@ class BeanPatcher:
                 self.cmd_prompt = True
 
         if self.cmd_prompt:
-            old_length = len(self.cmd)
             if not self.cmd_patch:
                 self.cmd = ""
-                self.display_dialog(f"> {self.cmd}", "")
+                self.display_to_client_bottom(f"> {self.cmd}")
+                self.process.write_bytes(self.application_state_address + 0x93608, b'\x01', 1)
                 self.cmd_patch.append(Patch("block_keyboard", self.module_base + 0x11c82, self.process, True).nop(2))
                 for patch in self.cmd_patch:
                     patch.apply()
@@ -1002,16 +1038,18 @@ class BeanPatcher:
                         patch.revert()
                     self.cmd_patch.clear()
                     self.cmd_prompt = False
-                    self.process.write_bytes(self.application_state_address + 0xA84B4, b"\x00", 1)
+                    self.display_to_client_bottom(f"")
+                    self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     self.cmd_ready = True
                     return
-                elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc) or not self.process.read_bytes(self.application_state_address + 0xA84B4, 1)[0]: # esc, console keys
+                elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc) or not self.process.read_bytes(self.application_state_address + 0x93608, 1)[0]: # esc, console keys
                     for patch in self.cmd_patch:
                         patch.revert()
                     self.cmd_patch.clear()
                     self.cmd_prompt = False
                     self.cmd = ""
-                    self.process.write_bytes(self.application_state_address + 0xA84B4, b"\x00", 1)
+                    self.display_to_client_bottom(f"")
+                    self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     return
                 elif self.key_pressed(0x8): # backspace
                     self.cmd = self.cmd[:-1]
@@ -1028,10 +1066,8 @@ class BeanPatcher:
                             elif key in keymap[self.cmd_keymap] and len(keymap[self.cmd_keymap][key]) > mod:
                                 char = keymap[self.cmd_keymap][key][mod]
                                 self.cmd += char
-                if len(self.cmd) != old_length:
-                    cmd = '\n'.join(self.cmd[i:i+50] for i in range(0, len(self.cmd), 50))
-                    text = f"> {cmd:.250}".encode("utf-16le") + b"\x00\x00"
-                    self.process.write_bytes(self.application_state_address + 0xA84B8, text, len(text))
+                self.cmd = self.cmd[:100]
+                self.display_to_client_bottom(f"> {self.cmd}" + ("|" if (time() % 1 < 0.5) else ""))
 
     def get_cmd(self):
         self.run_cmd_prompt()
@@ -1071,3 +1107,14 @@ class BeanPatcher:
                     self.last_message_time = 0
         except Exception as e:
             self.log_error(f"Error while attempting to display text to client: {e}")
+
+    def display_to_client_bottom(self, text: str):
+        try:
+            text = str(text)
+
+            if self.game_draw_bottom_routine_string_addr is not None:
+                new_string_buffer = f"{text:.120}".encode("utf-16le") + b"\x00\x00"
+                self.process.write_bytes(self.game_draw_bottom_routine_string_addr, new_string_buffer, len(new_string_buffer))
+
+        except Exception as e:
+            self.log_error(f"Error while attempting to display bottom text to client: {e}")
