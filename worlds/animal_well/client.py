@@ -21,7 +21,7 @@ from .locations import location_name_to_id, location_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
 from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
-from .logic_tracker import AnimalWellTracker, CheckStatus
+from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
 CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
 CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
@@ -447,7 +447,9 @@ class AWLocations:
                         self.loc_statuses[loc_name] = (
                                 ctx.process_handle.read_bytes(slot_address + loc_data.byte_offset, 1)[0] >= 4)
                         if self.loc_statuses[loc_name]:
-                            ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked
+                            ctx.logic_tracker.check_logic_status[loc_name] = CheckStatus.checked.value
+                            ctx.logic_tracker.full_inventory[loc_name] = CheckStatus.checked.value
+                            ctx.logic_tracker.out_of_logic_full_inventory[loc_name] = CheckStatus.checked.value
                         continue
 
                     self.loc_statuses[loc_name] = (
@@ -478,9 +480,8 @@ class AWLocations:
                     ctx.locations_checked.add(location_name_to_id[loc_name])
                     if location_table[loc_name].byte_section == ByteSect.candles:
                         ctx.logic_tracker.check_logic_status[loc_name + " Event"] = CheckStatus.checked.value
-                        for k, v in ctx.logic_tracker.check_logic_status.items():
-                            print(k)
-                            print(v)
+                        ctx.logic_tracker.full_inventory.add(candle_event_to_item[loc_name + " Event"])
+                        ctx.logic_tracker.out_of_logic_full_inventory.add(candle_event_to_item[loc_name + " Event"])
 
             if ctx.slot_data.get("goal", None) == Goal.option_fireworks:
                 if not ctx.finished_game and self.loc_statuses[lname.key_house]:
