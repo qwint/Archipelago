@@ -6,7 +6,7 @@ from .region_data import AWType, LocType, traversal_requirements
 from .region_scripts import helper_reference
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic, CandleChecks,
-                      BubbleJumping, DiscHopping, WheelTricks, WeirdTricks)
+                      BubbleJumping, DiscHopping, WheelTricks, WeirdTricks, ExcludeSongChests)
 
 
 class CheckStatus(IntEnum):
@@ -15,6 +15,20 @@ class CheckStatus(IntEnum):
     in_logic = 2
     checked = 3
     dont_show = 4  # for locations that should be hidden outright
+
+
+# keys are location names, values are item names
+candle_event_to_item: Dict[str, str] = {
+    lname.candle_first_event.value: iname.event_candle_first.value,
+    lname.candle_dog_dark_event.value: iname.event_candle_dog_dark.value,
+    lname.candle_dog_switch_box_event.value: iname.event_candle_dog_switch_box.value,
+    lname.candle_dog_many_switches_event.value: iname.event_candle_dog_many_switches,
+    lname.candle_dog_disc_switches_event.value: iname.event_candle_dog_disc_switches,
+    lname.candle_dog_bat_event.value: iname.event_candle_dog_bat,
+    lname.candle_fish_event.value: iname.event_candle_penguin.value,
+    lname.candle_frog_event.value: iname.event_candle_frog,
+    lname.candle_bear_event.value: iname.event_candle_bear,
+}
 
 
 class AnimalWellTracker:
@@ -30,6 +44,7 @@ class AnimalWellTracker:
         DiscHopping.internal_name: 0,
         WheelTricks.internal_name: 0,
         WeirdTricks.internal_name: 0,
+        ExcludeSongChests.internal_name: 0,
     }
 
     # key is location name, value is its spot status. Can change the key later to something else if wanted
@@ -201,9 +216,13 @@ class AnimalWellTracker:
                         if self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_off:
                             self.check_logic_status[destination_name] = CheckStatus.dont_show.value
                         if (self.player_options[BunniesAsChecks.internal_name] == BunniesAsChecks.option_exclude_tedious
-                                and destination_name in [lname.bunny_mural, lname.bunny_dream,
-                                                         lname.bunny_uv, lname.bunny_lava]):
+                                and destination_name in [lname.bunny_mural.value, lname.bunny_dream.value,
+                                                         lname.bunny_uv.value, lname.bunny_lava.value]):
                             self.check_logic_status[destination_name] = CheckStatus.dont_show.value
                     # we ignore these and rely on the event version
                     elif destination_data.loc_type == LocType.candle:
+                        self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+                    # if it's excluded due to the option, don't show it
+                    elif (self.player_options[ExcludeSongChests.internal_name] == ExcludeSongChests.option_true 
+                              and destination_name in [lname.wheel_chest.value, lname.key_office.value]):
                         self.check_logic_status[destination_name] = CheckStatus.dont_show.value
