@@ -313,7 +313,6 @@ class AnimalWellContext(CommonContext):
                 self.bean_patcher.tracker_goal = "Fireworks"
             elif self.slot_data["goal"] == Goal.option_egg_hunt:
                 self.bean_patcher.tracker_goal = "Egg Hunt to " + str(self.slot_data["eggs_needed"])
-            self.bean_patcher.tracker_total = len(self.logic_tracker.check_logic_status.values()) - countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.dont_show.value)
             self.bean_patcher.update_tracker_text()
             if self.slot_data["tracker"] > Tracker.option_off:
                 self.bean_patcher.apply_tracker_patches()
@@ -512,8 +511,8 @@ class AnimalWellContext(CommonContext):
             else:
                 self.stamps.append(Stamp(loc.tracker.stamp_x, loc.tracker.stamp_y, stamp))
 
-        self.bean_patcher.tracker_total = len(self.logic_tracker.check_logic_status.values()) - countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.dont_show.value)
-        self.bean_patcher.tracker_checked = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.checked.value)
+        self.bean_patcher.tracker_total = len(self.server_locations)
+        self.bean_patcher.tracker_checked = len(self.checked_locations)
         self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
         if self.slot_data.get("candle_checks", None):
             self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if "Candle" in k and "Event" not in k and v == CheckStatus.checked})
