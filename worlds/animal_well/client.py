@@ -111,7 +111,7 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
-                self.ctx.slot_data["tracker"] = (0 if self.ctx.slot_data.get("tracker", None) == 2 else 2)
+                self.ctx.slot_data["tracker"] = (Tracker.option_off if self.ctx.slot_data.get("tracker", None) == Tracker.option_on else Tracker.option_on)
             elif val == "off":
                 self.ctx.slot_data["tracker"] = Tracker.option_off
             elif "logic" in val:
@@ -121,7 +121,7 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             elif val == "on":
                 self.ctx.slot_data["tracker"] = Tracker.option_on
 
-            status_text = "Tracker is now " + ("ENABLED" if self.ctx.slot_data.get("tracker", None) > 0 else "DISABLED")
+            status_text = "Tracker is now " + ("ENABLED" if self.ctx.slot_data.get("tracker", None) > Tracker.option_off else "DISABLED")
             if self.ctx.slot_data.get("tracker", None) == Tracker.option_no_logic:
                 status_text += " with no logic"
             if self.ctx.slot_data.get("tracker", None) == Tracker.option_checked_only:
