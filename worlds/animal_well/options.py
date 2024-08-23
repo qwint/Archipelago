@@ -163,6 +163,18 @@ class WheelHopping(Choice):
     default = 0
     visibility = Visibility.none
 
+class Tracker(Choice):
+    """
+    Enable or disable the In-game Tracker that uses map stamps to show logic state of all locations that are not excluded by other options.
+    No logic option disables the logic status and shows only checked status.
+    """
+    internal_name = "tracker"
+    display_name = "In-game Tracker"
+    option_off = 0
+    option_no_logic = 1
+    option_on = 2
+    default = 2
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -180,8 +192,8 @@ class AnimalWellOptions(PerGameCommonOptions):
     weird_tricks: WeirdTricks
     exclude_song_chests: ExcludeSongChests
     death_link: DeathLink
-
     wheel_hopping: WheelHopping
+    tracker: Tracker
 
 
 aw_option_groups = [

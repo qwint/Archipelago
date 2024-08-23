@@ -1,5 +1,5 @@
 from time import time
-from typing import List, Optional, Callable, Any, Awaitable
+from typing import List, Optional, Callable, Any, Awaitable, Dict
 
 from .patch import *
 
@@ -288,14 +288,19 @@ class BeanPatcher:
 
         self.fullbright_patch: Optional[Patch] = None
 
+        self.revertable_tracker_patches: Dict[str, Patch] = {}
+        self.tracker_original_stamp_count: Optional[int] = None
         self.tracker_stamps_addr: Optional[int] = None
         self.tracker_icons_addr: Optional[int] = None
         self.tracker_text_addr: Optional[int] = None
+        self.tracker_draw_routine_addr: Optional[int] = None
+        self.tracker_color_routine_addr: Optional[int] = None
         self.tracker_total: int = 0
         self.tracker_in_logic: int = 0
         self.tracker_checked: int = 0
         self.tracker_candles: int = 0
         self.tracker_goal: str = ""
+        self.tracker_initialized = False
 
     @property
     def current_save_slot(self):
@@ -335,7 +340,6 @@ class BeanPatcher:
             self.log_error("Can't get stamps address without being attached to a process.")
             return None
         if self.tracker_stamps_addr is None or self.tracker_stamps_addr == 0:
-            self.log_error("Can't get stamps address, patch not applied.")
             return None
 
         return self.tracker_stamps_addr
@@ -413,12 +417,6 @@ class BeanPatcher:
 
         self.apply_skip_credits_patch()
 
-        self.apply_redirect_stamps_patch()
-
-        self.apply_colored_stamps_patch()
-
-        self.apply_tracker_draw_text_patch()
-
         self.apply_deathlink_patch()
 
         # mural bytes at slot + 0x26eaf
@@ -428,6 +426,44 @@ class BeanPatcher:
         self.log_info("Patches applied successfully!")
 
         return True
+
+    def apply_tracker_patches(self):
+        if not self.attached_to_process:
+            self.log_error("Cannot apply tracker patches, not attached to Animal Well process!")
+            return False
+
+        if self.log_debug_info:
+            self.log_info("Applying tracker patches...")
+
+        if self.tracker_original_stamp_count is None:
+            self.tracker_original_stamp_count = self.process.read_bytes(self.current_save_address + 0x225, 1)[0]
+        self.apply_redirect_stamps_patch()
+        self.apply_colored_stamps_patch()
+        self.apply_tracker_draw_text_patch()
+        self.tracker_initialized = True
+
+        if self.log_debug_info:
+            self.log_info("Tracker patches applied successfully!")
+
+    def revert_tracker_patches(self):
+        if not self.tracker_initialized or not self.revertable_tracker_patches:
+            return True
+        if not self.attached_to_process:
+            self.log_error("Cannot revert tracker patches, not attached to Animal Well process!")
+            return False
+
+        for name,patch in self.revertable_tracker_patches.items():
+            if patch.patch_applied:
+                patch.revert()
+
+        self.revertable_tracker_patches.clear()
+
+        if self.tracker_original_stamp_count is not None:
+            self.process.write_bytes(self.current_save_address + 0x225, self.tracker_original_stamp_count.to_bytes(1, "little", signed=False), 1)
+            self.tracker_original_stamp_count = None
+
+        if self.log_debug_info:
+            self.log_info("Tracker patches reverted successfully!")
 
     def apply_main_menu_draw_patch(self):
         """
@@ -875,15 +911,16 @@ class BeanPatcher:
         """
         Redirects stamps to a custom array of the in-game tracker.
         """
-        self.tracker_stamps_addr = self.custom_memory_current_offset
-        self.custom_memory_current_offset += CUSTOM_STAMPS * 6
+        if not self.tracker_initialized:
+            self.tracker_stamps_addr = self.custom_memory_current_offset
+            self.custom_memory_current_offset += CUSTOM_STAMPS * 6
         redirect_stamps_address = self.module_base + 0x42AEE
         redirect_stamps_patch = Patch(
             "redirect_stamps", redirect_stamps_address, self.process).mov_rdi(self.tracker_stamps_addr+4).nop(3)
-        if self.log_debug_info:
-            self.log_info(f"Applying in-game stamp tracker patch...\n{redirect_stamps_patch}")
-        if redirect_stamps_patch.apply():
-            self.revertable_patches.append(redirect_stamps_patch)
+        if self.log_debug_info and not self.tracker_initialized:
+            self.log_info(f"Applying in-game tracker stamps patch...")
+        if "stamps" not in self.revertable_tracker_patches and redirect_stamps_patch.apply():
+            self.revertable_tracker_patches["stamps"] = redirect_stamps_patch
 
     def apply_colored_stamps_patch(self):
         """
@@ -892,56 +929,58 @@ class BeanPatcher:
         then removed before handing the stamp type back to the game.
         """
         injection_address = self.module_base + 0x42ce8
-        self.tracker_icons_addr = self.custom_memory_current_offset
-        tracker_icons_patch = (
-            Patch("tracker_icons", self.tracker_icons_addr, self.process)
-            .add_bytes(bytearray([
-                # 4 custom colors for CheckStatus 0-3 respectively
-                0xCC, 0x00, 0x00, 0xFF, # red, unreachable
-                0xDD, 0xAA, 0x00, 0xFF, # orange, out_of_logic
-                0x00, 0xEE, 0x00, 0xFF, # green, in_logic
-                0x66, 0x66, 0x66, 0xCC, # gray, checked
+        if not self.tracker_initialized:
+            self.tracker_icons_addr = self.custom_memory_current_offset
+            tracker_icons_patch = (
+                Patch("tracker_icons", self.tracker_icons_addr, self.process)
+                .add_bytes(bytearray([
+                    # 4 custom colors for CheckStatus 0-3 respectively
+                    0xCC, 0x00, 0x00, 0xFF, # red, unreachable
+                    0xDD, 0xAA, 0x00, 0xFF, # orange, out_of_logic
+                    0x00, 0xEE, 0x00, 0xFF, # green, in_logic
+                    0x66, 0x66, 0x66, 0xCC, # gray, checked
 
-                # 8 custom map icons for stamp ids 0-7 respectively, u16 tile id
-                0x5B, 0x00,
-                0x18, 0x00, # replace heart (0x5c) with bunny head
-                0x3E, 0x00, # replace skull (0x5d) with disc shape
-                0x25, 0x00, # replace shard (0x5e) with candle
-                0x5F, 0x00,
-                0x60, 0x00,
-                0x9D, 0x02,
-                0x9E, 0x02
-            ])))
-        self.custom_memory_current_offset += len(tracker_icons_patch)
+                    # 8 custom map icons for stamp ids 0-7 respectively, u16 tile id
+                    0x5B, 0x00,
+                    0x18, 0x00, # replace heart (0x5c) with bunny head
+                    0x3E, 0x00, # replace skull (0x5d) with disc shape
+                    0x25, 0x00, # replace shard (0x5e) with candle
+                    0x5F, 0x00,
+                    0x60, 0x00,
+                    0x9D, 0x02,
+                    0x9E, 0x02
+                ])))
+            self.custom_memory_current_offset += len(tracker_icons_patch)
 
-        code_address = self.custom_memory_current_offset
-        tracker_trampoline_patch = (Patch("tracker_color_trampoline", injection_address, self.process)
-                                 .mov_to_rax(code_address).jmp_rax().nop())
-        tracker_color_patch = (
-            Patch("tracker_color_patch", code_address, self.process)
-            .add_bytes(bytearray([0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x48, 0x0F, 0xBE, 0x07, 0x49, 0xBD]))
-            .add_bytes(self.tracker_icons_addr.to_bytes(8, "little"))
-            .add_bytes(bytearray([0x49, 0xC7, 0xC6, 0x0F, 0x00, 0x00, 0x00, 0x49, 0xC7, 0xC7, 0xF0, 0x00, 0x00, 0x00, 0x49, 0x21, 0xC7, 0x4C, 0x21, 0xF0, 0x50, 0x49, 0xC1, 0xEF, 0x02, 0x4D, 0x01, 0xFD, 0x41, 0x8B, 0x4D, 0x00]))
-            .call_via_rax(set_current_color)
-            .add_bytes(bytearray([0x58, 0x41, 0x5D, 0x41, 0x5E, 0x41, 0x5F]))
-            .add_bytes(bytearray([0x49, 0xBE]))
-            .add_bytes((self.tracker_icons_addr+16).to_bytes(8, "little"))
-            .jmp_far(self.module_base + 0x42b20)
-            )
-        self.custom_memory_current_offset += len(tracker_color_patch)
-        if self.log_debug_info:
+            self.tracker_color_routine_addr = self.custom_memory_current_offset
+            tracker_color_patch = (
+                Patch("tracker_color_patch", self.tracker_color_routine_addr, self.process)
+                .add_bytes(bytearray([0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x48, 0x0F, 0xBE, 0x07, 0x49, 0xBD]))
+                .add_bytes(self.tracker_icons_addr.to_bytes(8, "little"))
+                .add_bytes(bytearray([0x49, 0xC7, 0xC6, 0x0F, 0x00, 0x00, 0x00, 0x49, 0xC7, 0xC7, 0xF0, 0x00, 0x00, 0x00, 0x49, 0x21, 0xC7, 0x4C, 0x21, 0xF0, 0x50, 0x49, 0xC1, 0xEF, 0x02, 0x4D, 0x01, 0xFD, 0x41, 0x8B, 0x4D, 0x00]))
+                .call_via_rax(set_current_color)
+                .add_bytes(bytearray([0x58, 0x41, 0x5D, 0x41, 0x5E, 0x41, 0x5F]))
+                .add_bytes(bytearray([0x49, 0xBE]))
+                .add_bytes((self.tracker_icons_addr+16).to_bytes(8, "little"))
+                .jmp_far(self.module_base + 0x42b20)
+                )
+            self.custom_memory_current_offset += len(tracker_color_patch)
+            tracker_icons_patch.apply()
+            tracker_color_patch.apply()
+
+        if self.log_debug_info and not self.tracker_initialized:
             self.log_info(f"Applying colored tracker stamp patches...")
-        tracker_icons_patch.apply()
-        tracker_color_patch.apply()
-        if tracker_trampoline_patch.apply():
-            self.revertable_patches.append(tracker_trampoline_patch)
+        tracker_trampoline_patch = (Patch("tracker_color_trampoline", injection_address, self.process)
+                                 .mov_to_rax(self.tracker_color_routine_addr).jmp_rax().nop())
+        if "color" not in self.revertable_tracker_patches and tracker_trampoline_patch.apply():
+            self.revertable_tracker_patches["color"] = tracker_trampoline_patch
 
     def apply_tracker_draw_text_patch(self):
         """
             This patch displays various tracker stats on the map screen.
         """
-        checked_text = f"?".ljust(7)
-        in_logic_text = f"?".ljust(3)
+        checked_text = "?".ljust(7)
+        in_logic_text = "?".ljust(3)
         candles_text = "?".ljust(5)
         goal_text = "?"
         tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
@@ -953,35 +992,41 @@ class BeanPatcher:
         offset_candles_text = 62*2
         offset_goal_name = 68*2
         offset_goal_text = 74*2
+
+        if not self.tracker_initialized:
+            self.tracker_text_addr = self.custom_memory_current_offset
+            self.custom_memory_current_offset += 256
+            self.tracker_draw_routine_addr = self.custom_memory_current_offset
+
         tracker_draw_injection_address = self.module_base + 0x40d21
-        self.tracker_text_addr = self.custom_memory_current_offset
-        self.custom_memory_current_offset += 256
-        tracker_draw_routine_address = self.custom_memory_current_offset
         tracker_draw_trampoline = (Patch("tracker_draw_trampoline", tracker_draw_injection_address, self.process)
-                                     .mov_to_rax(tracker_draw_routine_address).jmp_rax().nop(3))
-        tracker_draw_text_patch = (Patch("tracker_draw_text", tracker_draw_routine_address, self.process)
-                                .push_shader_to_stack(0x29)
-                                .push_color_to_stack(0xffffffff)
-                                .draw_small_text(80, 162, self.tracker_text_addr+offset_checked_name)
-                                .draw_small_text(137, 162, self.tracker_text_addr+offset_checked_text)
-                                .draw_small_text(80, 170, self.tracker_text_addr+offset_in_logic_name)
-                                .draw_small_text(137, 170, self.tracker_text_addr+offset_in_logic_text)
-                                .draw_small_text(180, 162, self.tracker_text_addr+offset_candles_name)
-                                .draw_small_text(222, 162, self.tracker_text_addr+offset_candles_text)
-                                .draw_small_text(180, 170, self.tracker_text_addr+offset_goal_name)
-                                .draw_small_text(202, 170, self.tracker_text_addr+offset_goal_text)
-                                .pop_color_from_stack()
-                                .pop_shader_from_stack()
-                                .push_color_to_stack(0x645a6e82)
-                                .mov_to_rax(tracker_draw_injection_address + len(tracker_draw_trampoline.byte_list))
-                                .jmp_rax())
-        self.custom_memory_current_offset += len(tracker_draw_text_patch) + 0x10
+                                     .mov_to_rax(self.tracker_draw_routine_addr).jmp_rax().nop(3))
+
+        if not self.tracker_initialized:
+            tracker_draw_text_patch = (Patch("tracker_draw_text", self.tracker_draw_routine_addr, self.process)
+                                    .push_shader_to_stack(0x29)
+                                    .push_color_to_stack(0xffffffff)
+                                    .draw_small_text(48, 162, self.tracker_text_addr+offset_checked_name)
+                                    .draw_small_text(103, 162, self.tracker_text_addr+offset_checked_text)
+                                    .draw_small_text(48, 170, self.tracker_text_addr+offset_in_logic_name)
+                                    .draw_small_text(103, 170, self.tracker_text_addr+offset_in_logic_text)
+                                    .draw_small_text(195, 162, self.tracker_text_addr+offset_candles_name)
+                                    .draw_small_text(235, 162, self.tracker_text_addr+offset_candles_text)
+                                    .draw_small_text(195, 170, self.tracker_text_addr+offset_goal_name)
+                                    .draw_small_text(215, 170, self.tracker_text_addr+offset_goal_text)
+                                    .pop_color_from_stack()
+                                    .pop_shader_from_stack()
+                                    .push_color_to_stack(0x645a6e82)
+                                    .mov_to_rax(tracker_draw_injection_address + len(tracker_draw_trampoline.byte_list))
+                                    .jmp_rax())
+            tracker_draw_text_patch.apply()
+            self.custom_memory_current_offset += len(tracker_draw_text_patch) + 0x10
+
         self.process.write_bytes(self.tracker_text_addr, tracker_text, len(tracker_text))
-        if self.log_debug_info:
+        if self.log_debug_info and not self.tracker_initialized:
             self.log_info("Applying tracker draw patches...")
-        tracker_draw_text_patch.apply()
-        if tracker_draw_trampoline.apply():
-            self.revertable_patches.append(tracker_draw_trampoline)
+        if "draw" not in self.revertable_tracker_patches and tracker_draw_trampoline.apply():
+            self.revertable_tracker_patches["draw"] = tracker_draw_trampoline
 
     def update_tracker_text(self) -> None:
         if self.tracker_text_addr is None:

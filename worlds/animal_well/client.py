@@ -24,7 +24,7 @@ from typing import Dict, Any
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, events_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
-from .options import FinalEggLocation, Goal
+from .options import FinalEggLocation, Goal, Tracker
 from .bean_patcher import BeanPatcher
 from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
@@ -104,6 +104,31 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             logger.info(status_text)
 
             Utils.async_start(self.ctx.update_death_link(self.ctx.slot_data.get("death_link", None) == 1))
+
+    def _cmd_tracker(self, val=""):
+        """
+        Toggles In-game Tracker or sets specific tracker options.
+        """
+        if isinstance(self.ctx, AnimalWellContext):
+            if val == "":
+                self.ctx.slot_data["tracker"] = (0 if self.ctx.slot_data.get("tracker", None) == 2 else 2)
+            elif val == "off":
+                self.ctx.slot_data["tracker"] = 0
+            elif "logic" in val:
+                self.ctx.slot_data["tracker"] = 1
+            elif val == "on":
+                self.ctx.slot_data["tracker"] = 2
+
+            status_text = "Tracker is now " + ("ENABLED" if self.ctx.slot_data.get("tracker", None) > 0 else "DISABLED")
+            if self.ctx.slot_data.get("tracker", None) == 1:
+                status_text += " without logic"
+            self.ctx.display_text_in_client(status_text)
+            logger.info(status_text)
+
+            if self.ctx.slot_data["tracker"] > 0:
+                self.ctx.bean_patcher.apply_tracker_patches()
+            else:
+                self.ctx.bean_patcher.revert_tracker_patches()
 
     def _cmd_ring(self):
         """Toggles the cheater's ring in your inventory to allow noclip and get unstuck"""
@@ -286,6 +311,10 @@ class AnimalWellContext(CommonContext):
                 self.bean_patcher.tracker_goal = "Egg Hunt to 64"
             self.bean_patcher.tracker_total = len(self.logic_tracker.check_logic_status.values()) - countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.dont_show.value)
             self.bean_patcher.update_tracker_text()
+            if self.slot_data["tracker"] > 0:
+                self.bean_patcher.apply_tracker_patches()
+            else:
+                self.bean_patcher.revert_tracker_patches()
             Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
 
         try:
@@ -443,7 +472,7 @@ class AnimalWellContext(CommonContext):
             tiles.sort(key=lambda item: (item.room_y, item.room_x, item.y, item.x))
         #logger.info(f"Found {len(self.tiles)} tile types to track")
 
-    def get_stamps_for_locations(self):
+    def get_stamps_for_locations(self, ctx):
         if not self.tiles:
             self.get_tiles_for_locations()
         self.stamps.clear()
@@ -452,6 +481,8 @@ class AnimalWellContext(CommonContext):
                 continue
             # bake logic status into the stamp type for colored stamps patch to read
             stamp = loc.tracker.stamp | (self.logic_tracker.check_logic_status[name] << 4)
+            if ctx.slot_data.get(Tracker.internal_name, Tracker.option_on) == Tracker.option_no_logic:
+                stamp = loc.tracker.stamp | (0x30 if self.logic_tracker.check_logic_status[name] == CheckStatus.checked.value else 0x20)
             if name == lname.bunny_uv.value:
                 pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x754a8 + 0x30ec8, 8))
                 bunny_x = int(pos[0]/8)
@@ -905,7 +936,7 @@ class AWItems:
                         (str(flags >> 7 & 1)) +  # Unknown
                         (str(flags >> 8 & 1)) +  # Switch State
                         "1" +  # Map Collected
-                        "0" +  # Stamps Collected
+                        ("1" if ctx.slot_data.get(Tracker.internal_name, Tracker.option_off) == Tracker.option_off else "0") +  # Stamps Collected
                         "1" +  # Pencil Collected
                         (str(flags >> 12 & 1)) +  # Chameleon Defeated
                         (str(flags >> 13 & 1)) +  # C Ring Collected
@@ -1180,14 +1211,12 @@ class AWItems:
                 buffer = buffer.to_bytes(2, byteorder="little")
                 ctx.process_handle.write_bytes(slot_address + 0x1E4, buffer, 2)
 
-                # set in-game tracker map stamps to check locations
-                ctx.get_stamps_for_locations()
-
-                buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
-                ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)
-
                 if ctx.bean_patcher is not None:
-                    if ctx.bean_patcher.stamps_address is not None:
+                    # set in-game tracker map stamps to check locations
+                    if ctx.slot_data.get("tracker", 0) > 0 and ctx.bean_patcher.stamps_address is not None:
+                        ctx.get_stamps_for_locations(ctx)
+                        buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
+                        ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)
                         for idx,stamp in enumerate(ctx.stamps):
                             ctx.process_handle.write_bytes(ctx.bean_patcher.stamps_address + idx*6, stamp.data(), 6)
                     ctx.bean_patcher.write_to_game()
@@ -1378,6 +1407,9 @@ def launch():
 
         if ctx.bean_patcher is not None and len(ctx.bean_patcher.revertable_patches) > 0:
             ctx.bean_patcher.revert_patches()
+
+        if ctx.bean_patcher is not None and len(ctx.bean_patcher.revertable_tracker_patches) > 0:
+            ctx.bean_patcher.revert_tracker_patches()
 
         if ctx.process_sync_task:
             ctx.process_sync_task.cancel()
