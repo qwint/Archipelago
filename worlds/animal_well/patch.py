@@ -247,6 +247,13 @@ class Patch:
         """
         return self.add_bytes(b'\x49\xb8' + value.to_bytes(8, 'little'))
 
+    def mov_rdi(self, value):
+        """
+        Moves a 64-bit value to RDI
+        10 bytes
+        """
+        return self.add_bytes(b'\x48\xbf' + value.to_bytes(8, 'little'))
+
     def mov_from_absolute_address_to_r8(self, address):
         """
         Moves a 64-bit value from the absolute 64-bit address to R8
