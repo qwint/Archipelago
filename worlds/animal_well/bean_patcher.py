@@ -938,7 +938,7 @@ class BeanPatcher:
                     0xCC, 0x00, 0x00, 0xFF, # red, unreachable
                     0xDD, 0xAA, 0x00, 0xFF, # orange, out_of_logic
                     0x00, 0xEE, 0x00, 0xFF, # green, in_logic
-                    0x66, 0x66, 0x66, 0xCC, # gray, checked
+                    0x88, 0x88, 0xAA, 0xCC, # gray, checked
 
                     # 8 custom map icons for stamp ids 0-7 respectively, u16 tile id
                     0x5B, 0x00,
@@ -983,15 +983,15 @@ class BeanPatcher:
         in_logic_text = "?".ljust(3)
         candles_text = "?".ljust(5)
         goal_text = "?"
-        tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
+        tracker_text = f"Checks collected:\x00{checked_text}\x00Checks in logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
         offset_checked_name = 0
         offset_checked_text = 18*2
         offset_in_logic_name = 26*2
-        offset_in_logic_text = 45*2
-        offset_candles_name = 49*2
-        offset_candles_text = 62*2
-        offset_goal_name = 68*2
-        offset_goal_text = 74*2
+        offset_in_logic_text = 43*2
+        offset_candles_name = 47*2
+        offset_candles_text = 60*2
+        offset_goal_name = 66*2
+        offset_goal_text = 72*2
 
         if not self.tracker_initialized:
             self.tracker_text_addr = self.custom_memory_current_offset
@@ -1006,14 +1006,14 @@ class BeanPatcher:
             tracker_draw_text_patch = (Patch("tracker_draw_text", self.tracker_draw_routine_addr, self.process)
                                     .push_shader_to_stack(0x29)
                                     .push_color_to_stack(0xffffffff)
-                                    .draw_small_text(48, 162, self.tracker_text_addr+offset_checked_name)
-                                    .draw_small_text(103, 162, self.tracker_text_addr+offset_checked_text)
-                                    .draw_small_text(48, 170, self.tracker_text_addr+offset_in_logic_name)
-                                    .draw_small_text(103, 170, self.tracker_text_addr+offset_in_logic_text)
-                                    .draw_small_text(195, 162, self.tracker_text_addr+offset_candles_name)
-                                    .draw_small_text(235, 162, self.tracker_text_addr+offset_candles_text)
+                                    .draw_small_text(63, 162, self.tracker_text_addr+offset_in_logic_name)
+                                    .draw_small_text(63+52, 162, self.tracker_text_addr+offset_in_logic_text)
+                                    .draw_small_text(63, 170, self.tracker_text_addr+offset_candles_name)
+                                    .draw_small_text(63+40, 170, self.tracker_text_addr+offset_candles_text)
+                                    .draw_small_text(195, 162, self.tracker_text_addr+offset_checked_name)
+                                    .draw_small_text(251, 162, self.tracker_text_addr+offset_checked_text)
                                     .draw_small_text(195, 170, self.tracker_text_addr+offset_goal_name)
-                                    .draw_small_text(215, 170, self.tracker_text_addr+offset_goal_text)
+                                    .draw_small_text(195+20, 170, self.tracker_text_addr+offset_goal_text)
                                     .pop_color_from_stack()
                                     .pop_shader_from_stack()
                                     .push_color_to_stack(0x645a6e82)
@@ -1035,7 +1035,7 @@ class BeanPatcher:
         in_logic_text = f"{self.tracker_in_logic}".ljust(3)
         candles_text = f"{self.tracker_candles}/9".ljust(5)
         goal_text = self.tracker_goal
-        tracker_text = f"Checks collected:\x00{checked_text}\x00Checks  in  logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
+        tracker_text = f"Checks collected:\x00{checked_text}\x00Checks in logic:\x00{in_logic_text}\x00Candles lit:\x00{candles_text}\x00Goal:\x00{goal_text}\x00".encode("utf-16le")
         self.process.write_bytes(self.tracker_text_addr, tracker_text, len(tracker_text))
 
     def apply_deathlink_patch(self):

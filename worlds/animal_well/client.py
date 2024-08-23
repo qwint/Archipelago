@@ -113,19 +113,23 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             if val == "":
                 self.ctx.slot_data["tracker"] = (0 if self.ctx.slot_data.get("tracker", None) == 2 else 2)
             elif val == "off":
-                self.ctx.slot_data["tracker"] = 0
+                self.ctx.slot_data["tracker"] = Tracker.option_off
             elif "logic" in val:
-                self.ctx.slot_data["tracker"] = 1
+                self.ctx.slot_data["tracker"] = Tracker.option_no_logic
+            elif "check" in val:
+                self.ctx.slot_data["tracker"] = Tracker.option_checked_only
             elif val == "on":
-                self.ctx.slot_data["tracker"] = 2
+                self.ctx.slot_data["tracker"] = Tracker.option_on
 
             status_text = "Tracker is now " + ("ENABLED" if self.ctx.slot_data.get("tracker", None) > 0 else "DISABLED")
-            if self.ctx.slot_data.get("tracker", None) == 1:
-                status_text += " without logic"
+            if self.ctx.slot_data.get("tracker", None) == Tracker.option_no_logic:
+                status_text += " with no logic"
+            if self.ctx.slot_data.get("tracker", None) == Tracker.option_checked_only:
+                status_text += " with checked only"
             self.ctx.display_text_in_client(status_text)
             logger.info(status_text)
 
-            if self.ctx.slot_data["tracker"] > 0:
+            if self.ctx.slot_data["tracker"] > Tracker.option_off:
                 self.ctx.bean_patcher.apply_tracker_patches()
             else:
                 self.ctx.bean_patcher.revert_tracker_patches()
@@ -308,10 +312,10 @@ class AnimalWellContext(CommonContext):
             if self.slot_data["goal"] == Goal.option_fireworks:
                 self.bean_patcher.tracker_goal = "Fireworks"
             elif self.slot_data["goal"] == Goal.option_egg_hunt:
-                self.bean_patcher.tracker_goal = "Egg Hunt to 64"
+                self.bean_patcher.tracker_goal = "Egg Hunt to " + str(self.slot_data["eggs_needed"])
             self.bean_patcher.tracker_total = len(self.logic_tracker.check_logic_status.values()) - countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.dont_show.value)
             self.bean_patcher.update_tracker_text()
-            if self.slot_data["tracker"] > 0:
+            if self.slot_data["tracker"] > Tracker.option_off:
                 self.bean_patcher.apply_tracker_patches()
             else:
                 self.bean_patcher.revert_tracker_patches()
@@ -483,6 +487,8 @@ class AnimalWellContext(CommonContext):
             stamp = loc.tracker.stamp | (self.logic_tracker.check_logic_status[name] << 4)
             if ctx.slot_data.get(Tracker.internal_name, Tracker.option_on) == Tracker.option_no_logic:
                 stamp = loc.tracker.stamp | (0x30 if self.logic_tracker.check_logic_status[name] == CheckStatus.checked.value else 0x20)
+            elif ctx.slot_data.get(Tracker.internal_name, Tracker.option_on) == Tracker.option_checked_only and self.logic_tracker.check_logic_status[name] != CheckStatus.checked.value:
+                continue
             if name == lname.bunny_uv.value:
                 pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x754a8 + 0x30ec8, 8))
                 bunny_x = int(pos[0]/8)
@@ -1213,7 +1219,7 @@ class AWItems:
 
                 if ctx.bean_patcher is not None:
                     # set in-game tracker map stamps to check locations
-                    if ctx.slot_data.get("tracker", 0) > 0 and ctx.bean_patcher.stamps_address is not None:
+                    if ctx.slot_data.get("tracker", Tracker.option_off) > Tracker.option_off and ctx.bean_patcher.stamps_address is not None:
                         ctx.get_stamps_for_locations(ctx)
                         buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
                         ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)

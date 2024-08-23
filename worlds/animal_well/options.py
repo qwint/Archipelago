@@ -166,14 +166,17 @@ class WheelHopping(Choice):
 class Tracker(Choice):
     """
     Enable or disable the In-game Tracker that uses map stamps to show logic state of all locations that are not excluded by other options.
-    No logic option disables the logic status and shows only checked status.
+    Adding your own map stamps is not possible when the tracker is enabled, but you can still use the pencil.
+    No logic: Hides the logic status and shows only if a location is checked or not.
+    Checked only: Shows only the checked locations and hides unchecked locations.
     """
     internal_name = "tracker"
     display_name = "In-game Tracker"
     option_off = 0
     option_no_logic = 1
-    option_on = 2
-    default = 2
+    option_checked_only = 2
+    option_on = 3
+    default = 3
 
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
