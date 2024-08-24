@@ -406,7 +406,8 @@ class AnimalWellContext(CommonContext):
                     location_name = self.location_names.lookup_in_slot(location_id)
                     self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
-                pass
+                if self.bean_patcher.apply_seeded_save_patch(args["seed_name"]):
+                    self.connection_status = CONNECTION_RESET_STATUS
             elif cmd == "SetReply":
                 pass
             elif cmd == "None":
@@ -1370,7 +1371,7 @@ async def process_sync_task(ctx: AnimalWellContext):
             ctx.connection_status = CONNECTION_TENTATIVE_STATUS
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
-        elif ctx.process_handle and ctx.start_address and ctx.get_animal_well_process_handle_task.done():
+        elif ctx.process_handle and ctx.start_address and ctx.get_animal_well_process_handle_task.done() and ctx.bean_patcher.save_file and ctx.current_game_state != 1:
             if ctx.connection_status == CONNECTION_TENTATIVE_STATUS:
                 logger.info("Successfully Connected to Animal Well")
                 ctx.connection_status = CONNECTION_CONNECTED_STATUS

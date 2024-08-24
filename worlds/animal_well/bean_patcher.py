@@ -1,8 +1,18 @@
+import string
+import pymem
+import ctypes
+
 from time import time
 from typing import List, Optional, Callable, Any, Awaitable, Dict
 
 from .patch import *
 
+def base36(n):
+    out = []
+    while n > 0:
+        n, r = divmod(n, 36)
+        out.append((string.digits + string.ascii_lowercase)[r])
+    return(''.join(reversed(out)))
 
 # Extending the Patch class with some Animal Well specific methods
 class Patch(Patch):
@@ -302,6 +312,8 @@ class BeanPatcher:
         self.tracker_candles: int = 0
         self.tracker_goal: str = ""
         self.tracker_initialized = False
+
+        self.save_file: str = None
 
     @property
     def current_save_slot(self):
@@ -1099,6 +1111,23 @@ class BeanPatcher:
 
         if bean_died_trampoline.apply():
             self.revertable_patches.append(bean_died_trampoline)
+
+    def apply_seeded_save_patch(self, seed) -> bool:
+        seeded_save_file = f"{base36(int(seed, 10)):>010.10}.sav"
+        self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
+        if self.log_debug_info:
+            self.log_info(f"Save file for this seed is '{seeded_save_file}'")
+        if seeded_save_file != self.save_file:
+            addr = ctypes.c_ulonglong(self.module_base + 0x20ac5e0)
+            old_protect = pymem.memory.virtual_query(self.process.process_handle, self.module_base + 0x20ac5e0).Protect
+            pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, addr, 0x20, 0x40)
+            self.process.write_bytes(self.module_base + 0x20ac5e0, seeded_save_file.encode("utf-16le") + b"\x00\x00", 30)
+            pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, addr, 0x20, old_protect)
+            self.process.write_bytes(self.application_state_address + 0x400 + 0x750cc, b"\x01", 1) # return to title screen to reload new save file
+            self.display_to_client(f"Save file for this seed is {seeded_save_file}")
+            self.save_file = seeded_save_file
+            return True
+        return False
 
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:
