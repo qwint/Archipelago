@@ -214,12 +214,14 @@ class Stamp:
         return struct.pack("<hhh", self.x, self.y, self.type)
 
 class Tile:
-    def __init__(self, map_id, room_x, room_y, x, y):
+    def __init__(self, map_id, room_x, room_y, x, y, layer=0, param=0):
         self.map = map_id
         self.room_x = room_x
         self.room_y = room_y
         self.x = x
         self.y = y
+        self.layer = layer
+        self.param = param
 
     def stamp(self, type=0):
         return Stamp(self.room_x*40 + self.x - 3, self.room_y*22 + self.y - 4, type)
@@ -443,25 +445,27 @@ class AnimalWellContext(CommonContext):
         else:
             raise NotImplementedError("Only Windows is implemented right now")
 
-    # TODO: This is very slow and hangs the client for a few seconds on AW connection, but it only runs once
-    # Only fetches foreground tiles, which means AWTracker can't use bg tiles in location searches
+    # Fetches all required tile positions for AWTracker to place stamps by
     def get_tiles(self, tile_types, map_id=0):
         if self.start_address is None:
             return
         map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.module_base + 0x2BD8E30, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
         room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
+        map_data = self.process_handle.read_bytes(map_addr + 4, 0x1b8f84)
         for room_idx in range(room_count):
-            room_addr = map_addr + 4 + room_idx*(8+2*22*40*4)
-            room_x = int.from_bytes(self.process_handle.read_bytes(room_addr, 1), byteorder="little")
-            room_y = int.from_bytes(self.process_handle.read_bytes(room_addr + 1, 1), byteorder="little")
-            for y in range(22):
-                for x in range(40):
-                    tile_addr = room_addr + 8 + y*40*4 + x*4
-                    room_tile = int.from_bytes(self.process_handle.read_bytes(tile_addr, 2), byteorder="little")
-                    if room_tile in tile_types:
-                        if room_tile not in self.tiles:
-                            self.tiles[room_tile] = []
-                        self.tiles[room_tile].append(Tile(map_id, room_x, room_y, x, y))
+            room_offset = room_idx*(8+2*22*40*4)
+            room_x = map_data[room_offset]
+            room_y = map_data[room_offset+1]
+            for layer in range(2):
+                for y in range(22):
+                    for x in range(40):
+                        tile_offset = room_offset + 8 + y*40*4 + x*4 + layer*22*40*4
+                        room_tile = int.from_bytes(map_data[tile_offset:tile_offset+2], byteorder="little")
+                        param = map_data[tile_offset+2]
+                        if room_tile in tile_types:
+                            if room_tile not in self.tiles:
+                                self.tiles[room_tile] = []
+                            self.tiles[room_tile].append(Tile(map_id, room_x, room_y, x, y, layer, param))
 
     def get_tiles_for_locations(self):
         tile_ids = []
