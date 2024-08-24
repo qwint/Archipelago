@@ -455,9 +455,10 @@ class AnimalWellContext(CommonContext):
                 self.logic_tracker.update_checks_and_regions()
 
             elif cmd == "RoomUpdate":
-                for location_id in args.get("checked_locations"):
-                    location_name = self.location_names.lookup_in_slot(location_id)
-                    self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
+                if "checked_locations" in args:
+                    for location_id in args.get("checked_locations"):
+                        location_name = self.location_names.lookup_in_slot(location_id)
+                        self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
                 pass
             elif cmd == "SetReply":
@@ -469,8 +470,9 @@ class AnimalWellContext(CommonContext):
                 self.display_text_in_client(args.get("data")[0]["text"])
             elif cmd == "Bounced":
                 # since we're setting our tags properly, we don't need to check our deathlink setting
-                if self.last_death_link != args["data"]["time"]:
-                    self.on_deathlink(args["data"])
+                if "tags" in args:
+                    if self.last_death_link != args["data"]["time"]:
+                        self.on_deathlink(args["data"])
 
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
