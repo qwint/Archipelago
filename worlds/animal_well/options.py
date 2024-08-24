@@ -164,22 +164,6 @@ class WheelHopping(Choice):
     visibility = Visibility.none
 
 
-class Tracker(Choice):
-    """
-    Uses the map stamps to show the logic state of your locations.
-    Adding your own map stamps is not possible when the tracker is enabled, but you can still use the pencil.
-    No Logic: Hides the logic status and only shows whether a location has been checked.
-    Checked only: Shows only the checked locations and hides unchecked locations.
-    """
-    internal_name = "tracker"
-    display_name = "In-game Tracker"
-    option_off = 0
-    option_no_logic = 1
-    option_checked_only = 2
-    option_on = 3
-    default = 3
-
-
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     goal: Goal
@@ -198,7 +182,6 @@ class AnimalWellOptions(PerGameCommonOptions):
     wheel_tricks: WheelTricks
     weird_tricks: WeirdTricks
     
-    tracker: Tracker
     death_link: DeathLink
     start_inventory_from_pool: StartInventoryPool
 
