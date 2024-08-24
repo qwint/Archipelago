@@ -805,8 +805,10 @@ class BeanPatcher:
         disable_firecracker_get_dialog_patch = Patch("disable_firecracker_get_dialog", 0x14002cb59, self.process).nop(5)
         disable_firecracker_selected_equipment_patch = Patch("disable_firecracker_selected_equipment", 0x14002caea, self.process).nop(5)
         disable_mockdisc_flags_check_patch = Patch("disable_mockdisc_flags_check", 0x1400c1003, self.process).add_bytes(bytearray([0xEB]))
+        disable_sack_spawn_patch = Patch("disable_sack_spawn_patch", 0x140074710, self.process).add_bytes(bytearray([0xc3]))
+
         if self.log_debug_info:
-            self.log_info(f"Applying disable_chest_item_patch patch...\n{disable_chest_item_patch}")
+            self.log_info(f"Applying disable_chest_item_patch patch...")
         if disable_chest_item_patch.apply():
             self.revertable_patches.append(disable_chest_item_patch)
         if self.log_debug_info:
@@ -849,6 +851,8 @@ class BeanPatcher:
             self.revertable_patches.append(disable_firecracker_selected_equipment_patch)
         if disable_mockdisc_flags_check_patch.apply():
             self.revertable_patches.append(disable_mockdisc_flags_check_patch)
+        if disable_sack_spawn_patch.apply():
+            self.revertable_patches.append(disable_sack_spawn_patch)
 
     def apply_receive_item_patch(self):
         """
