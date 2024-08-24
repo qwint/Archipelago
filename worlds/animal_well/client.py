@@ -465,7 +465,9 @@ class AnimalWellContext(CommonContext):
 
     def get_tiles_for_locations(self):
         tile_ids = []
-        for loc in (location_table | events_table).values():
+        loc_tables = [loc for loc in location_table.values()]
+        loc_tables.extend([loc for loc in events_table.values()])
+        for loc in loc_tables:
             if not loc.tracker:
                 continue
             if not loc.tracker.tile in tile_ids and loc.tracker.tile > 0:
@@ -479,7 +481,10 @@ class AnimalWellContext(CommonContext):
         if not self.tiles:
             self.get_tiles_for_locations()
         self.stamps.clear()
-        for name,loc in (location_table | events_table).items():
+        loc_table = location_table.copy()
+        for k, v in events_table.items():
+            loc_table[k] = v
+        for name, loc in loc_table.items():
             if not loc.tracker or name not in self.logic_tracker.check_logic_status or self.logic_tracker.check_logic_status[name] == CheckStatus.dont_show or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
                 continue
             # bake logic status into the stamp type for colored stamps patch to read
