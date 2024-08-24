@@ -314,7 +314,7 @@ class AnimalWellContext(CommonContext):
             elif self.slot_data["goal"] == Goal.option_egg_hunt:
                 self.bean_patcher.tracker_goal = "Egg Hunt to " + str(self.slot_data["eggs_needed"])
             self.bean_patcher.update_tracker_text()
-            if self.slot_data["tracker"] > Tracker.option_off:
+            if self.slot_data.get("tracker", 3) > Tracker.option_off:
                 self.bean_patcher.apply_tracker_patches()
             else:
                 self.bean_patcher.revert_tracker_patches()
