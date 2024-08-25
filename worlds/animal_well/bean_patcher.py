@@ -1129,6 +1129,20 @@ class BeanPatcher:
             return True
         return False
 
+    def revert_seeded_save_patch(self) -> bool:
+        seeded_save_file = "AnimalWell.sav"
+        self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
+        if seeded_save_file != self.save_file:
+            addr = ctypes.c_ulonglong(self.module_base + 0x20ac5e0)
+            old_protect = pymem.memory.virtual_query(self.process.process_handle, self.module_base + 0x20ac5e0).Protect
+            pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, addr, 0x20, 0x40)
+            self.process.write_bytes(self.module_base + 0x20ac5e0, seeded_save_file.encode("utf-16le") + b"\x00\x00", 30)
+            pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, addr, 0x20, old_protect)
+            self.process.write_bytes(self.application_state_address + 0x400 + 0x750cc, b"\x01", 1) # return to title screen to reload new save file
+            self.save_file = seeded_save_file
+            return True
+        return False
+
     def enable_fullbright(self) -> None:
         if self.fullbright_patch is None or self.fullbright_patch.patch_applied:
             return None

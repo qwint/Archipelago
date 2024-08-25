@@ -1424,6 +1424,9 @@ def launch():
         if ctx.bean_patcher is not None and len(ctx.bean_patcher.revertable_tracker_patches) > 0:
             ctx.bean_patcher.revert_tracker_patches()
 
+        if ctx.bean_patcher is not None:
+            ctx.bean_patcher.revert_seeded_save_patch()
+
         if ctx.process_sync_task:
             ctx.process_sync_task.cancel()
             ctx.process_sync_task = None
