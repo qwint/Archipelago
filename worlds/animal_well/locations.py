@@ -165,7 +165,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.bunny_dream.value: AWLocationData(115, ByteSect.bunnies, 28, ["Bunnies"], AWTracker(0, 1, 297, 335)),
     lname.bunny_file_bud.value: AWLocationData(116, ByteSect.bunnies, 10, ["Bunnies"], AWTracker(0, 1, 241, 287)),
     lname.bunny_lava.value: AWLocationData(117, ByteSect.bunnies, 30, ["Bunnies"], AWTracker(0, 1, 279, 146)),
-    lname.bunny_tv.value: AWLocationData(118, ByteSect.bunnies, 8, ["Bunnies"], AWTracker(485, 1, -4, -2)),
+    lname.bunny_tv.value: AWLocationData(118, ByteSect.bunnies, 8, ["Bunnies"], AWTracker(482, 1, 1, 0)),
     lname.bunny_barcode.value: AWLocationData(119, ByteSect.bunnies, 2, ["Bunnies"], AWTracker(0, 1, 269, 147)),
     lname.bunny_ghost_dog.value: AWLocationData(120, ByteSect.bunnies, 25, ["Bunnies"], AWTracker(798, 1, 2, 4)),
     lname.bunny_disc_spike.value: AWLocationData(121, ByteSect.bunnies, 3, ["Bunnies"], AWTracker(0, 1, 83, 87)),

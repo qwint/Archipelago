@@ -10,21 +10,19 @@ import random
 import time
 import traceback
 import struct
-
-from typing import Dict, List
-
 import pymem
+from typing import Dict, Any
 
-import Utils
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 from NetUtils import ClientStatus
-from operator import countOf
+import Utils
+from settings import get_settings
 
-from typing import Dict, Any
+from . import AWSettings
 from .items import item_name_to_id, item_name_groups
 from .locations import location_name_to_id, location_table, events_table, ByteSect
 from .names import ItemNames as iname, LocationNames as lname
-from .options import FinalEggLocation, Goal, Tracker
+from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
 from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
@@ -42,6 +40,7 @@ HEADER_LENGTH = 0x18
 SAVE_SLOT_LENGTH = 0x27010
 CUSTOM_STAMPS = 255
 
+
 class AnimalWellCommandProcessor(ClientCommandProcessor):
     """
     CommandProcessor for Animal Well
@@ -54,7 +53,8 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
 
     def _cmd_room_palette(self, val=""):
         """
-        Sets an override for room palettes. Accepts a number between 0 and 31, "off" to disable, or "random" to pick a room palette at random.
+        Sets an override for room palettes. Accepts a number between 0 and 31, "off" to disable,
+        or "random" to pick a room palette at random.
         """
         if isinstance(self.ctx, AnimalWellContext):
             if val == "":
@@ -92,44 +92,78 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         Toggles deathlink.
         """
         if isinstance(self.ctx, AnimalWellContext):
-            if val == "":
-                self.ctx.slot_data["death_link"] = (0 if self.ctx.slot_data.get("death_link", None) == 1 else 1)
-            elif val == "off":
-                self.ctx.slot_data["death_link"] = 0
-            elif val == "on":
-                self.ctx.slot_data["death_link"] = 1
+            death_link_key = f"{self.ctx.slot}|death_link"
+            death_link_val = self.ctx.stored_data.get(death_link_key, None)
 
-            status_text = "Deathlink is now " + ("ENABLED" if self.ctx.slot_data.get("death_link", None) == 1 else "DISABLED")
+            if death_link_val is None:
+                death_link_val = bool(self.ctx.slot_data["death_link"])
+                self.ctx.set_notify(death_link_key)
+
+            if val == "":
+                death_link_val = not death_link_val
+            elif val == "off":
+                death_link_val = False
+            elif val == "on":
+                death_link_val = True
+
+            status_text = "Deathlink is now " + "ENABLED" if death_link_val else "DISABLED"
             self.ctx.display_text_in_client(status_text)
             logger.info(status_text)
 
-            Utils.async_start(self.ctx.update_death_link(self.ctx.slot_data.get("death_link", None) == 1))
+            Utils.async_start(self.ctx.update_death_link(death_link_val))
+            Utils.async_start(self.ctx.send_msgs([{
+                "cmd": "Set",
+                "key": death_link_key,
+                "default": None,
+                "want_reply": True,
+                "operations": [{"operation": "replace", "value": death_link_val}]
+            }]))
 
     def _cmd_tracker(self, val=""):
         """
         Toggles In-game Tracker or sets specific tracker options.
         """
         if isinstance(self.ctx, AnimalWellContext):
-            if val == "":
-                self.ctx.slot_data["tracker"] = (Tracker.option_off if self.ctx.slot_data.get("tracker", None) == Tracker.option_on else Tracker.option_on)
-            elif val == "off":
-                self.ctx.slot_data["tracker"] = Tracker.option_off
-            elif "logic" in val:
-                self.ctx.slot_data["tracker"] = Tracker.option_no_logic
-            elif "check" in val:
-                self.ctx.slot_data["tracker"] = Tracker.option_checked_only
-            elif val == "on":
-                self.ctx.slot_data["tracker"] = Tracker.option_on
+            # get the host.yaml settings for the tracker
+            host = get_settings()
+            aw_settings = host.animal_well_settings
+            tracker_enum = AWSettings.TrackerSetting
 
-            status_text = "Tracker is now " + ("ENABLED" if self.ctx.slot_data.get("tracker", None) > Tracker.option_off else "DISABLED")
-            if self.ctx.slot_data.get("tracker", None) == Tracker.option_no_logic:
+            # set a default if the player does not have the animal well settings already
+            if host.animal_well_settings.get("in_game_tracker", None) is None:
+                aw_settings["in_game_tracker"] = tracker_enum.full_tracker
+
+            if val == "":
+                aw_settings["in_game_tracker"] = tracker_enum.no_tracker \
+                    if aw_settings["in_game_tracker"] == tracker_enum.full_tracker else tracker_enum.full_tracker
+            elif val == "off":
+                aw_settings["in_game_tracker"] = tracker_enum.no_tracker
+            elif "logic" in val:
+                aw_settings["in_game_tracker"] = tracker_enum.no_logic
+            elif "check" in val:
+                aw_settings["in_game_tracker"] = tracker_enum.checked_only
+            elif val == "on":
+                aw_settings["in_game_tracker"] = tracker_enum.full_tracker
+
+            try:
+                host.save()
+            except:
+                logger.error("Failed to save Tracker setting."
+                             "This is usually caused by having an apworld in your custom_worlds folder and your "
+                             "lib/worlds folder for the same game at the same time.")
+
+            status_text = "Tracker is now " + ("ENABLED"
+                                               if host.animal_well_settings["in_game_tracker"] > tracker_enum.no_tracker
+                                               else "DISABLED")
+
+            if host.animal_well_settings["in_game_tracker"] == tracker_enum.no_logic:
                 status_text += " with no logic"
-            if self.ctx.slot_data.get("tracker", None) == Tracker.option_checked_only:
-                status_text += " with checked only"
+            if host.animal_well_settings["in_game_tracker"] == tracker_enum.checked_only:
+                status_text += " with checked locations only"
             self.ctx.display_text_in_client(status_text)
             logger.info(status_text)
 
-            if self.ctx.slot_data["tracker"] > Tracker.option_off:
+            if host.animal_well_settings["in_game_tracker"] > tracker_enum.no_tracker:
                 self.ctx.bean_patcher.apply_tracker_patches()
             else:
                 self.ctx.bean_patcher.revert_tracker_patches()
@@ -213,16 +247,20 @@ class Stamp:
     def data(self):
         return struct.pack("<hhh", self.x, self.y, self.type)
 
+
 class Tile:
-    def __init__(self, map_id, room_x, room_y, x, y):
+    def __init__(self, map_id, room_x, room_y, x, y, layer=0, param=0):
         self.map = map_id
         self.room_x = room_x
         self.room_y = room_y
         self.x = x
         self.y = y
+        self.layer = layer
+        self.param = param
 
-    def stamp(self, type=0):
-        return Stamp(self.room_x*40 + self.x - 3, self.room_y*22 + self.y - 4, type)
+    def stamp(self, stamp_type=0):
+        return Stamp(self.room_x*40 + self.x - 3, self.room_y*22 + self.y - 4, stamp_type)
+
 
 class AnimalWellContext(CommonContext):
     """
@@ -268,8 +306,13 @@ class AnimalWellContext(CommonContext):
             self.bean_patcher.display_to_client(text)
 
     async def on_bean_death(self):
-        if self.slot_data.get("death_link", None) == 1:
-            await self.send_death(DEATHLINK_MESSAGE)
+        death_link_key = f"{self.get_active_game_slot()}|death_link"
+        if self.stored_data.get(death_link_key, None) is None:
+            if self.slot_data.get("death_link", None) == 1:
+                await self.send_death(DEATHLINK_MESSAGE)
+        else:
+            if self.stored_data[death_link_key]:
+                await self.send_death(DEATHLINK_MESSAGE)
 
     async def server_auth(self, password_requested: bool = False):
         """
@@ -277,6 +320,7 @@ class AnimalWellContext(CommonContext):
         """
         if password_requested and not self.password:
             await super(AnimalWellContext, self).server_auth(password_requested)
+        self.tags = set()
         await self.get_username()
         await self.send_connect()
 
@@ -302,6 +346,7 @@ class AnimalWellContext(CommonContext):
         if cmd == "Connected":
             self.slot_data = args.get("slot_data", {})
             self.display_text_in_client("Connected to the AP server!")
+
             self.logic_tracker.clear_inventories()
             for option_name, option_value in self.slot_data.items():
                 self.logic_tracker.player_options[option_name] = option_value
@@ -314,12 +359,21 @@ class AnimalWellContext(CommonContext):
             elif self.slot_data["goal"] == Goal.option_egg_hunt:
                 self.bean_patcher.tracker_goal = "Egg Hunt to " + str(self.slot_data["eggs_needed"])
             self.bean_patcher.update_tracker_text()
-            if self.slot_data.get("tracker", 3) > Tracker.option_off:
+            aw_settings = get_settings().animal_well_settings
+            if aw_settings.get("in_game_tracker", AWSettings.TrackerSetting.full_tracker) > AWSettings.TrackerSetting.no_tracker:
                 self.bean_patcher.apply_tracker_patches()
             else:
                 self.bean_patcher.revert_tracker_patches()
-            Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
 
+            used_berries_string = f"{self.slot}|used_berries"
+            used_firecrackers_string = f"{self.slot}|used_firecrackers"
+            death_link_key = f"{self.slot}|death_link"
+            Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
+            self.set_notify(death_link_key)
+            Utils.async_start(self.send_msgs([{
+                "cmd": "Get",
+                "keys": [used_berries_string, used_firecrackers_string, death_link_key]
+            }]))
         try:
             if cmd == "PrintJSON":
                 msg_type = args.get("type")
@@ -374,6 +428,7 @@ class AnimalWellContext(CommonContext):
                     pass
                 elif msg_type == "Tutorial":
                     pass
+
             elif cmd == "ReceivedItems":
                 # items = args.get("items")
                 for item in args.get("items"):
@@ -402,21 +457,25 @@ class AnimalWellContext(CommonContext):
                 self.logic_tracker.update_checks_and_regions()
 
             elif cmd == "RoomUpdate":
-                for location_id in args.get("checked_locations"):
-                    location_name = self.location_names.lookup_in_slot(location_id)
-                    self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
+                if "checked_locations" in args:
+                    for location_id in args.get("checked_locations"):
+                        location_name = self.location_names.lookup_in_slot(location_id)
+                        self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
                 if self.bean_patcher.apply_seeded_save_patch(args["seed_name"]):
                     self.connection_status = CONNECTION_RESET_STATUS
             elif cmd == "SetReply":
                 pass
+            elif cmd == "Retrieved":
+                if args["keys"].get(f"{self.slot}|death_link", None) is not None:
+                    Utils.async_start(self.update_death_link(args["keys"].get(f"{self.slot}|death_link")))
             elif cmd == "None":
                 self.display_text_in_client(args.get("data")[0]["text"])
             elif cmd == "Bounced":
-                tags = args.get("tags", [])
-
-                if "DeathLink" in tags and self.last_death_link != args["data"]["time"] and self.slot_data.get("death_link", None) == 1:
-                    self.on_deathlink(args["data"])
+                # since we're setting our tags properly, we don't need to check our deathlink setting
+                if "tags" in args:
+                    if self.last_death_link != args["data"]["time"]:
+                        self.on_deathlink(args["data"])
 
         except Exception as e:
             logger.error("Error while parsing Package from AP: %s", e)
@@ -444,25 +503,27 @@ class AnimalWellContext(CommonContext):
         else:
             raise NotImplementedError("Only Windows is implemented right now")
 
-    # TODO: This is very slow and hangs the client for a few seconds on AW connection, but it only runs once
-    # Only fetches foreground tiles, which means AWTracker can't use bg tiles in location searches
+    # Fetches all required tile positions for AWTracker to place stamps by
     def get_tiles(self, tile_types, map_id=0):
         if self.start_address is None:
             return
         map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.module_base + 0x2BD8E30, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
         room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
+        map_data = self.process_handle.read_bytes(map_addr + 4, 0x1b8f84)
         for room_idx in range(room_count):
-            room_addr = map_addr + 4 + room_idx*(8+2*22*40*4)
-            room_x = int.from_bytes(self.process_handle.read_bytes(room_addr, 1), byteorder="little")
-            room_y = int.from_bytes(self.process_handle.read_bytes(room_addr + 1, 1), byteorder="little")
-            for y in range(22):
-                for x in range(40):
-                    tile_addr = room_addr + 8 + y*40*4 + x*4
-                    room_tile = int.from_bytes(self.process_handle.read_bytes(tile_addr, 2), byteorder="little")
-                    if room_tile in tile_types:
-                        if room_tile not in self.tiles:
-                            self.tiles[room_tile] = []
-                        self.tiles[room_tile].append(Tile(map_id, room_x, room_y, x, y))
+            room_offset = room_idx*(8+2*22*40*4)
+            room_x = map_data[room_offset]
+            room_y = map_data[room_offset+1]
+            for layer in range(2):
+                for y in range(22):
+                    for x in range(40):
+                        tile_offset = room_offset + 8 + y*40*4 + x*4 + layer*22*40*4
+                        room_tile = int.from_bytes(map_data[tile_offset:tile_offset+2], byteorder="little")
+                        param = map_data[tile_offset+2]
+                        if room_tile in tile_types:
+                            if room_tile not in self.tiles:
+                                self.tiles[room_tile] = []
+                            self.tiles[room_tile].append(Tile(map_id, room_x, room_y, x, y, layer, param))
 
     def get_tiles_for_locations(self):
         tile_ids = []
@@ -476,7 +537,7 @@ class AnimalWellContext(CommonContext):
         self.get_tiles(tile_ids)
         for tiles in self.tiles.values():
             tiles.sort(key=lambda item: (item.room_y, item.room_x, item.y, item.x))
-        #logger.info(f"Found {len(self.tiles)} tile types to track")
+        # logger.info(f"Found {len(self.tiles)} tile types to track")
 
     def get_stamps_for_locations(self, ctx):
         if not self.tiles:
@@ -486,14 +547,24 @@ class AnimalWellContext(CommonContext):
         for k, v in events_table.items():
             loc_table[k] = v
         for name, loc in loc_table.items():
-            if not loc.tracker or name not in self.logic_tracker.check_logic_status or self.logic_tracker.check_logic_status[name] == CheckStatus.dont_show or ((loc.tracker.tile not in self.tiles or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1) and loc.tracker.tile > 0):
+            if (not loc.tracker
+                    or name not in self.logic_tracker.check_logic_status
+                    or self.logic_tracker.check_logic_status[name] == CheckStatus.dont_show
+                    or ((loc.tracker.tile not in self.tiles
+                         or len(self.tiles[loc.tracker.tile]) < loc.tracker.index+1)
+                        and loc.tracker.tile > 0)):
                 continue
             # bake logic status into the stamp type for colored stamps patch to read
             stamp = loc.tracker.stamp | (self.logic_tracker.check_logic_status[name] << 4)
-            if ctx.slot_data.get(Tracker.internal_name, Tracker.option_on) == Tracker.option_no_logic:
+
+            aw_settings = get_settings().animal_well_settings
+            tracker_enum = AWSettings.TrackerSetting
+            aw_settings.get("in_game_tracker", tracker_enum.full_tracker)
+            if aw_settings["in_game_tracker"] == tracker_enum.no_logic:
                 stamp = loc.tracker.stamp | (0x30 if self.logic_tracker.check_logic_status[name] == CheckStatus.checked.value else 0x20)
-            elif ctx.slot_data.get(Tracker.internal_name, Tracker.option_on) == Tracker.option_checked_only and self.logic_tracker.check_logic_status[name] != CheckStatus.checked.value:
+            elif aw_settings["in_game_tracker"] == tracker_enum.checked_only and self.logic_tracker.check_logic_status[name] != CheckStatus.checked.value:
                 continue
+
             if name == lname.bunny_uv.value:
                 pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x754a8 + 0x30ec8, 8))
                 bunny_x = int(pos[0]/8)
@@ -502,7 +573,7 @@ class AnimalWellContext(CommonContext):
                 self.stamps[-1].x += loc.tracker.stamp_x
                 self.stamps[-1].y += loc.tracker.stamp_y
             # TODO: Dream Bunny is banished to the wake up room pending options to enable bean tracking
-            #elif name == lname.bunny_dream.value:
+            # elif name == lname.bunny_dream.value:
             #    if self.logic_tracker.check_logic_status[name] != CheckStatus.in_logic:
             #        continue
             #    pos = struct.unpack("<ff", self.process_handle.read_bytes(self.bean_patcher.application_state_address + 0x93670, 8))
@@ -520,12 +591,17 @@ class AnimalWellContext(CommonContext):
         self.bean_patcher.tracker_total = len(self.server_locations)
         self.bean_patcher.tracker_checked = len(self.checked_locations)
         self.bean_patcher.tracker_missing = len(self.missing_locations)
-        #self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
-        self.bean_patcher.tracker_in_logic = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if v == CheckStatus.in_logic and k in location_name_to_id and location_name_to_id[k] in self.missing_locations})
+        # self.bean_patcher.tracker_in_logic = countOf(self.logic_tracker.check_logic_status.values(), CheckStatus.in_logic.value)
+        self.bean_patcher.tracker_in_logic = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items()
+                                                  if v == CheckStatus.in_logic
+                                                  and k in location_name_to_id
+                                                  and location_name_to_id[k] in self.missing_locations})
         if self.slot_data.get("candle_checks", None):
-            self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if "Candle" in k and "Event" not in k and v == CheckStatus.checked})
+            self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items()
+                                                     if "Candle" in k and "Event" not in k and v == CheckStatus.checked})
         else:
-            self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items() if "Candle" in k and "Event" in k and v == CheckStatus.checked})
+            self.bean_patcher.tracker_candles = len({k: v for (k, v) in self.logic_tracker.check_logic_status.items()
+                                                     if "Candle" in k and "Event" in k and v == CheckStatus.checked})
         self.bean_patcher.update_tracker_text()
 
     def check_if_in_game(self) -> bool:
@@ -923,6 +999,9 @@ class AWItems:
                 if not ctx.check_if_in_game():
                     return
 
+                aw_settings = get_settings().animal_well_settings
+                tracker_enum = AWSettings.TrackerSetting
+
                 active_slot = ctx.get_active_game_slot()
                 slot_address = ctx.start_address + HEADER_LENGTH + (SAVE_SLOT_LENGTH * active_slot)
 
@@ -949,7 +1028,7 @@ class AWItems:
                         (str(flags >> 7 & 1)) +  # Unknown
                         (str(flags >> 8 & 1)) +  # Switch State
                         "1" +  # Map Collected
-                        ("1" if ctx.slot_data.get(Tracker.internal_name, Tracker.option_off) == Tracker.option_off else "0") +  # Stamps Collected
+                        ("1" if aw_settings["in_game_tracker"] == tracker_enum.no_tracker else "0") +  # Stamps Collected
                         "1" +  # Pencil Collected
                         (str(flags >> 12 & 1)) +  # Chameleon Defeated
                         (str(flags >> 13 & 1)) +  # C Ring Collected
@@ -1156,11 +1235,6 @@ class AWItems:
                 used_firecrackers_string = f"{ctx.slot_number}|used_firecrackers"
 
                 if not ctx.got_data_storage:
-                    Utils.async_start(ctx.send_msgs([{
-                        "cmd": "Get",
-                        "keys": [used_berries_string,
-                                 used_firecrackers_string,]
-                    }]))
                     if used_berries_string in ctx.stored_data:
                         ctx.got_data_storage = True
                         self.big_blue_fruit = ctx.used_berries = ctx.stored_data[used_berries_string]
@@ -1226,11 +1300,12 @@ class AWItems:
 
                 if ctx.bean_patcher is not None:
                     # set in-game tracker map stamps to check locations
-                    if ctx.slot_data.get("tracker", Tracker.option_off) > Tracker.option_off and ctx.bean_patcher.stamps_address is not None:
+                    if (aw_settings["in_game_tracker"] > tracker_enum.no_tracker
+                            and ctx.bean_patcher.stamps_address is not None):
                         ctx.get_stamps_for_locations(ctx)
                         buffer = len(ctx.stamps).to_bytes(1, byteorder="little")
                         ctx.process_handle.write_bytes(slot_address + 0x225, buffer, 1)
-                        for idx,stamp in enumerate(ctx.stamps):
+                        for idx, stamp in enumerate(ctx.stamps):
                             ctx.process_handle.write_bytes(ctx.bean_patcher.stamps_address + idx*6, stamp.data(), 6)
                     ctx.bean_patcher.write_to_game()
             else:
