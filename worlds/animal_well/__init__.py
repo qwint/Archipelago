@@ -103,20 +103,20 @@ class AnimalWellWorld(World):
             self.options.bunny_warps_in_logic.value = True
 
         # Universal tracker stuff, shouldn't do anything in standard gen
-        if hasattr(self.multiworld, "re_gen_passthrough"):
-            if "ANIMAL WELL" in self.multiworld.re_gen_passthrough:
-                passthrough = self.multiworld.re_gen_passthrough["ANIMAL WELL"]
-                self.options.goal.value = passthrough["goal"]
-                self.options.eggs_needed.value = passthrough["eggs_needed"]
-                self.options.key_ring.value = passthrough["key_ring"]
-                self.options.matchbox.value = passthrough["matchbox"]
-                self.options.random_final_egg_location = FinalEggLocation.option_true
-                self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
-                self.options.candle_checks.value = passthrough["candle_checks"]
-                self.options.bubble_jumping.value = passthrough["bubble_jumping"]
-                self.options.disc_hopping.value = passthrough["disc_hopping"]
-                self.options.wheel_tricks.value = passthrough["wheel_tricks"]
-                self.options.weird_tricks.value = passthrough["weird_tricks"]
+        # if hasattr(self.multiworld, "re_gen_passthrough"):
+        #     if "ANIMAL WELL" in self.multiworld.re_gen_passthrough:
+        #         passthrough = self.multiworld.re_gen_passthrough["ANIMAL WELL"]
+        #         self.options.goal.value = passthrough["goal"]
+        #         self.options.eggs_needed.value = passthrough["eggs_needed"]
+        #         self.options.key_ring.value = passthrough["key_ring"]
+        #         self.options.matchbox.value = passthrough["matchbox"]
+        #         self.options.random_final_egg_location = FinalEggLocation.option_true
+        #         self.options.bunnies_as_checks.value = passthrough["bunnies_as_checks"]
+        #         self.options.candle_checks.value = passthrough["candle_checks"]
+        #         self.options.bubble_jumping.value = passthrough["bubble_jumping"]
+        #         self.options.disc_hopping.value = passthrough["disc_hopping"]
+        #         self.options.wheel_tricks.value = passthrough["wheel_tricks"]
+        #         self.options.weird_tricks.value = passthrough["weird_tricks"]
 
     def create_regions(self) -> None:
         self.traversal_requirements = deepcopy(traversal_requirements)
