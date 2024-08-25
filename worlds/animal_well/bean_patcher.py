@@ -264,6 +264,7 @@ CUSTOM_MEMORY_SIZE = 0x40000
 CUSTOM_STAMPS = 255
 TITLE_SCREEN_TEXT_TEMPLATE: str = "AP Randomizer {version}"
 TITLE_SCREEN_MAX_TEXT_LENGTH: int = 80
+MESSAGE_QUEUE_LENGTH: int = 21
 # endregion
 
 
@@ -325,9 +326,8 @@ class BeanPatcher:
         self.bean_has_died_address: int = 0
         self.on_bean_death_function: Optional[Callable[[Any], Awaitable[Any]]] = None
 
-        self.draw_routine_string_size: int = 0
         self.game_draw_routine_string_addr = None
-        self.game_draw_routine_string_size = 256
+        self.game_draw_routine_string_size = 256*MESSAGE_QUEUE_LENGTH
         self.game_draw_routine_default_string = "Connected to the Well"
 
         self.draw_bottom_routine_string_size: int = 0
@@ -361,6 +361,7 @@ class BeanPatcher:
         self.cmd_keys = None
         self.cmd_keys_old = None
         self.cmd_keymap = 0
+        self.cmd_messages = []
 
         self.revertable_tracker_patches: Dict[str, Patch] = {}
         self.tracker_original_stamp_count: Optional[int] = None
@@ -585,10 +586,9 @@ class BeanPatcher:
         It additionally pushes the steps and time counters lower on the screen to make room for the new text display.
         This patch can also be extended in the future to display other things in-game.
         """
-        self.draw_routine_string_size = 400
         game_draw_injection_address = self.module_base + 0x5068b
         self.game_draw_routine_string_addr = self.custom_memory_current_offset
-        self.custom_memory_current_offset += self.draw_routine_string_size + 0x10
+        self.custom_memory_current_offset += self.game_draw_routine_string_size + 0x10
 
         self.draw_bottom_routine_string_size = 400
         self.game_draw_bottom_routine_string_addr = self.custom_memory_current_offset
@@ -1287,6 +1287,11 @@ class BeanPatcher:
         if self.last_message_time != 0 and not self.cmd_prompt:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
+        elif self.cmd_prompt and self.game_draw_routine_string_addr is not None:
+            text = "\n".join(self.cmd_messages)
+            new_string_buffer = f"{text}".encode("utf-16le") + b"\x00\x00"
+            self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
+            self.last_message_time = time()-self.message_timeout
 
         if self.bean_has_died_address != 0:
             if self.process.read_bool(self.bean_has_died_address):
@@ -1333,13 +1338,14 @@ class BeanPatcher:
                     patch.apply()
             else:
                 if self.key_pressed(0xd): # enter
-                    for patch in self.cmd_patch:
-                        patch.revert()
-                    self.cmd_patch.clear()
-                    self.cmd_prompt = False
-                    self.display_to_client_bottom("")
-                    if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0:  # don't disable pause if game is actually paused
-                        self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
+                    if not self.key_down(0x11): # ctrl+enter to leave console open on send
+                        for patch in self.cmd_patch:
+                            patch.revert()
+                        self.cmd_patch.clear()
+                        self.cmd_prompt = False
+                        self.display_to_client_bottom("")
+                        if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0:  # don't disable pause if game is actually paused
+                            self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
                     self.cmd_ready = True
                     return
                 elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc) or not self.process.read_bytes(self.application_state_address + 0x93608, 1)[0]: # esc, console keys
@@ -1396,12 +1402,15 @@ class BeanPatcher:
 
     def display_to_client(self, text: str):
         try:
-            text = str(text)
+            text = f"{str(text):.120}"
+            if text != "":
+                self.cmd_messages.append(text)
+                if len(self.cmd_messages) > MESSAGE_QUEUE_LENGTH:
+                    self.cmd_messages = self.cmd_messages[1:]
 
-            if self.game_draw_routine_string_addr is not None:
-                new_string_buffer = f"{text:.120}".encode("utf-16le") + b"\x00\x00"
+            if self.game_draw_routine_string_addr is not None and not self.cmd_prompt:
+                new_string_buffer = text.encode("utf-16le") + b"\x00\x00"
                 self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
-
                 if text != "":
                     self.last_message_time = time()
                 else:
