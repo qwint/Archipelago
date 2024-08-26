@@ -1117,7 +1117,7 @@ class BeanPatcher:
             self.revertable_patches.append(bean_died_trampoline)
 
     def apply_seeded_save_patch(self, seed) -> bool:
-        seeded_save_file = f"{base36(int(seed, 10)):>010.10}.sav"
+        seeded_save_file = f"{base36(int(seed, 10)):>010.10}.aps" # use different extension to bypass steam cloud, we don't want these there
         self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
         if self.log_debug_info:
             self.log_info(f"Save file for this seed is '{seeded_save_file}'")
@@ -1128,7 +1128,6 @@ class BeanPatcher:
             self.process.write_bytes(self.module_base + 0x20ac5e0, seeded_save_file.encode("utf-16le") + b"\x00\x00", 30)
             pymem.ressources.kernel32.VirtualProtectEx(self.process.process_handle, addr, 0x20, old_protect)
             self.process.write_bytes(self.application_state_address + 0x400 + 0x750cc, b"\x01", 1) # return to title screen to reload new save file
-            self.display_to_client(f"Save file for this seed is {seeded_save_file}")
             self.save_file = seeded_save_file
             return True
         return False

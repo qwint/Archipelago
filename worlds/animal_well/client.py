@@ -462,8 +462,7 @@ class AnimalWellContext(CommonContext):
                         location_name = self.location_names.lookup_in_slot(location_id)
                         self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
-                if self.bean_patcher.apply_seeded_save_patch(args["seed_name"]):
-                    self.connection_status = CONNECTION_RESET_STATUS
+                self.bean_patcher.apply_seeded_save_patch(args["seed_name"])
             elif cmd == "SetReply":
                 pass
             elif cmd == "Retrieved":
