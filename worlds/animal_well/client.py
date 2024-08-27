@@ -374,6 +374,7 @@ class AnimalWellContext(CommonContext):
                 "cmd": "Get",
                 "keys": [used_berries_string, used_firecrackers_string, death_link_key]
             }]))
+            self.bean_patcher.apply_seeded_save_patch()
         try:
             if cmd == "PrintJSON":
                 msg_type = args.get("type")
@@ -462,7 +463,7 @@ class AnimalWellContext(CommonContext):
                         location_name = self.location_names.lookup_in_slot(location_id)
                         self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
-                self.bean_patcher.apply_seeded_save_patch(args["seed_name"])
+                self.bean_patcher.save_seed = args["seed_name"]
             elif cmd == "SetReply":
                 pass
             elif cmd == "Retrieved":
@@ -1401,6 +1402,13 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             ctx.start_address = address
 
             ctx.bean_patcher.apply_patches()
+
+            host = get_settings()
+            tracker_enum = AWSettings.TrackerSetting
+            if host.animal_well_settings["in_game_tracker"] > tracker_enum.no_tracker:
+                ctx.bean_patcher.apply_tracker_patches()
+            else:
+                ctx.bean_patcher.revert_tracker_patches()
 
             ctx.display_dialog("Connected to client!", "")
         else:

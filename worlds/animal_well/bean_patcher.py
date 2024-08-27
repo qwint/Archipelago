@@ -314,6 +314,7 @@ class BeanPatcher:
         self.tracker_initialized = False
 
         self.save_file: str = None
+        self.save_seed: str = None
 
     @property
     def current_save_slot(self):
@@ -431,6 +432,8 @@ class BeanPatcher:
         self.apply_skip_credits_patch()
 
         self.apply_deathlink_patch()
+
+        self.apply_seeded_save_patch() # the seed is saved in RoomInfo and applied in Connection, and applied here again if AP was connected before AW was launched
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
@@ -1116,8 +1119,12 @@ class BeanPatcher:
         if bean_died_trampoline.apply():
             self.revertable_patches.append(bean_died_trampoline)
 
-    def apply_seeded_save_patch(self, seed) -> bool:
-        seeded_save_file = f"{base36(int(seed, 10)):>010.10}.aps" # use different extension to bypass steam cloud, we don't want these there
+    def apply_seeded_save_patch(self, seed=None) -> bool:
+        if seed is not None:
+            self.save_seed = seed
+        if self.save_seed is None or not self.attached_to_process:
+            return False
+        seeded_save_file = f"{base36(int(self.save_seed, 10)):>010.10}.aps" # use different extension to bypass steam cloud, we don't want these there
         self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
         if self.log_debug_info:
             self.log_info(f"Save file for this seed is '{seeded_save_file}'")
@@ -1134,6 +1141,7 @@ class BeanPatcher:
 
     def revert_seeded_save_patch(self) -> bool:
         seeded_save_file = "AnimalWell.sav"
+        self.save_seed = None
         self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
         if seeded_save_file != self.save_file:
             addr = ctypes.c_ulonglong(self.module_base + 0x20ac5e0)
