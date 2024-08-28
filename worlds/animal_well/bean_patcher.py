@@ -1,5 +1,6 @@
 import string
 import pymem
+import pymem.ressources.kernel32
 import ctypes
 
 from time import time
