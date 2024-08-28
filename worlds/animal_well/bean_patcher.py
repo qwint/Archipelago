@@ -1144,6 +1144,8 @@ class BeanPatcher:
             self.log_info(f"Save file for this seed is '{seeded_save_file}'")
         if seeded_save_file != self.save_file:
             self.write_save_file_name(seeded_save_file)
+            self.process.write_uchar(self.application_state_address + 0x40C, 0) # set current save slot to 0
+            self.process.write_uchar(self.module_base + 0x1f17e, 1) # disable load game menu
             return True
         return False
 
@@ -1155,6 +1157,7 @@ class BeanPatcher:
         self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
         if seeded_save_file != self.save_file:
             self.write_save_file_name(seeded_save_file)
+            self.process.write_uchar(self.module_base + 0x1f17e, 2) # enable load game menu
             return True
         return False
 
