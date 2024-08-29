@@ -1,8 +1,59 @@
+import string
+import win32api
+import win32gui
+
 from time import time
 from typing import List, Optional, Callable, Any, Awaitable, Dict
 
 from .patch import *
 
+keymap = [
+    {
+        0x20: [' ', ' '],
+        0x30: ['0', ')'],
+        0x31: ['1', '!'],
+        0x32: ['2', '@'],
+        0x33: ['3', '#'],
+        0x34: ['4', '$'],
+        0x35: ['5', '%'],
+        0x36: ['6', '^'],
+        0x37: ['7', '&'],
+        0x38: ['8', '*'],
+        0x39: ['9', '('],
+        0xba: [';', ':'],
+        0xbb: ['=', '+'],
+        0xbc: [',', '<'],
+        0xbd: ['-', '_'],
+        0xbe: ['.', '>'],
+        0xbf: ['/', '?'],
+        0xdb: ['[', '{'],
+        0xdc: ['\\', '|'],
+        0xdd: [']', '}'],
+        0xde: ['\'', '"'],
+    },
+    {
+        0x20: [' ', ' '],
+        0x30: ['0', '=', '}'],
+        0x31: ['1', '!'],
+        0x32: ['2', '"', '@'],
+        0x33: ['3', '#'],
+        0x34: ['4', '$'],
+        0x35: ['5', '%'],
+        0x36: ['6', '&'],
+        0x37: ['7', '/', '{'],
+        0x38: ['8', '(', '['],
+        0x39: ['9', ')', ']'],
+        0xba: [']', '}'],
+        0xbb: ['+', '?', '\\'],
+        0xbc: [',', ';'],
+        0xbd: ['-', '_'],
+        0xbe: ['.', ':'],
+        0xbf: ['-', '_'],
+        0xdc: ['\'', '*'],
+        0xdd: ['[', '{'],
+        0xde: ['\'', '"'],
+    }
+]
 
 # Extending the Patch class with some Animal Well specific methods
 class Patch(Patch):
@@ -66,6 +117,15 @@ class Patch(Patch):
         text_address: location in the process's memory where the Unicode text is stored
         """
         return self.mov_ecx(x).mov_edx(y).mov_to_rax(text_address).mov_rax_to_r8().call_via_rax(draw_small_text)
+
+    def draw_big_text(self, x, y, text_address):
+        """
+        Draw bigger text with a more versatile font on the screen using the current shader and color
+        x: x position
+        y: y position
+        text_address: location in the process's memory where the Unicode text is stored
+        """
+        return self.mov_ecx(x).mov_edx(y).mov_to_rax(text_address).mov_rax_to_r8().call_via_rax(draw_big_text)
 
     def draw_symbol(self, x, y, sprite_id, frame, arg5, arg6, arg7):
         """
@@ -143,6 +203,7 @@ class Patch(Patch):
 # region FunctionOffsets
 # Accurate as of AW file version 1.0.0.18
 draw_small_text: int = 0x14006E3F0
+draw_big_text: int = 0x14006DE30
 draw_symbol: int = 0x14006A6C0
 draw_sprite: int = 0x14001AEC0
 get_sprite: int = 0x140063CA0
@@ -203,6 +264,7 @@ CUSTOM_MEMORY_SIZE = 0x40000
 CUSTOM_STAMPS = 255
 TITLE_SCREEN_TEXT_TEMPLATE: str = "AP Randomizer {version}"
 TITLE_SCREEN_MAX_TEXT_LENGTH: int = 80
+MESSAGE_QUEUE_LENGTH: int = 21
 # endregion
 
 
@@ -264,10 +326,14 @@ class BeanPatcher:
         self.bean_has_died_address: int = 0
         self.on_bean_death_function: Optional[Callable[[Any], Awaitable[Any]]] = None
 
-        self.draw_routine_string_size: int = 0
         self.game_draw_routine_string_addr = None
-        self.game_draw_routine_string_size = 256
+        self.game_draw_routine_string_size = 256*MESSAGE_QUEUE_LENGTH
         self.game_draw_routine_default_string = "Connected to the Well"
+
+        self.draw_bottom_routine_string_size: int = 0
+        self.game_draw_bottom_routine_string_addr = None
+        self.game_draw_bottom_routine_string_size = 256
+        self.game_draw_bottom_routine_default_string = ""
 
         self.game_draw_symbol_x_address = None
         self.game_draw_symbol_y_address = None
@@ -287,6 +353,15 @@ class BeanPatcher:
         self.unstuck_map = 0
 
         self.fullbright_patch: Optional[Patch] = None
+
+        self.cmd_prompt = False
+        self.cmd = ""
+        self.cmd_ready = False
+        self.cmd_patch = []
+        self.cmd_keys = None
+        self.cmd_keys_old = None
+        self.cmd_keymap = 0
+        self.cmd_messages = []
 
         self.revertable_tracker_patches: Dict[str, Patch] = {}
         self.tracker_original_stamp_count: Optional[int] = None
@@ -511,10 +586,14 @@ class BeanPatcher:
         It additionally pushes the steps and time counters lower on the screen to make room for the new text display.
         This patch can also be extended in the future to display other things in-game.
         """
-        self.draw_routine_string_size = 400
         game_draw_injection_address = self.module_base + 0x5068b
         self.game_draw_routine_string_addr = self.custom_memory_current_offset
-        self.custom_memory_current_offset += self.draw_routine_string_size + 0x10
+        self.custom_memory_current_offset += self.game_draw_routine_string_size + 0x10
+
+        self.draw_bottom_routine_string_size = 400
+        self.game_draw_bottom_routine_string_addr = self.custom_memory_current_offset
+        self.custom_memory_current_offset += self.draw_bottom_routine_string_size + 0x10
+
         # self.game_draw_symbol_x_address = self.custom_memory_current_offset
         # self.custom_memory_current_offset += 4
         # self.game_draw_symbol_y_address = self.custom_memory_current_offset
@@ -533,6 +612,12 @@ class BeanPatcher:
         client_text_display_color = 0xffffaaaa  # format is aabbggrr (alpha, blue, green, red)
         # 0x29: foreground, ignore lights, color. 0x21: foreground, glowing, white. 0x1f: foreground, glowing, color. (values over 0x34 will crash)
         client_text_display_shader = 0x1f
+        client_text_bottom_display_x = 1
+        client_text_bottom_display_y = 171  # lines the text up with the very bottom tile row
+        # TODO: store the display color somewhere so we can change it appropriate to each message we show
+        client_text_bottom_display_color = 0xff43ff23  # format is aabbggrr (alpha, blue, green, red)
+        # 0x29: foreground, ignore lights, color. 0x21: foreground, glowing, white. 0x1f: foreground, glowing, color. (values over 0x34 will crash)
+        client_text_bottom_display_shader = 0x0f
         # draw_bean_echo_patch_enabled = False
         draw_patch = (
             Patch("game_draw_client_text", game_draw_code_address, self.process)
@@ -541,7 +626,15 @@ class BeanPatcher:
             .draw_small_text(client_text_display_x - 1, client_text_display_y, self.game_draw_routine_string_addr)
             .pop_color_from_stack()
             .push_color_to_stack(client_text_display_color)
-            .draw_small_text(client_text_display_x, client_text_display_y, self.game_draw_routine_string_addr))
+            .draw_small_text(client_text_display_x, client_text_display_y, self.game_draw_routine_string_addr)
+            .pop_color_from_stack()
+            .pop_shader_from_stack()
+            .push_shader_to_stack(client_text_bottom_display_shader)
+            .push_color_to_stack(0xff000000)
+            .draw_big_text(client_text_bottom_display_x - 1, client_text_bottom_display_y, self.game_draw_bottom_routine_string_addr)
+            .pop_color_from_stack()
+            .push_color_to_stack(client_text_bottom_display_color)
+            .draw_big_text(client_text_bottom_display_x, client_text_bottom_display_y, self.game_draw_bottom_routine_string_addr))
         (draw_patch.pop_color_from_stack()
          .pop_shader_from_stack()
          .nop(0x200)
@@ -550,6 +643,8 @@ class BeanPatcher:
         self.custom_memory_current_offset += len(draw_patch) + 0x10
         default_in_game_message = self.game_draw_routine_default_string.encode("utf-16le")
         self.process.write_bytes(self.game_draw_routine_string_addr, default_in_game_message, len(default_in_game_message))
+        default_bottom_in_game_message = self.game_draw_bottom_routine_default_string.encode("utf-16le")
+        self.process.write_bytes(self.game_draw_bottom_routine_string_addr, default_bottom_in_game_message, len(default_bottom_in_game_message))
         self.last_message_time = time()
         if self.log_debug_info:
             self.log_info(f"Applying in-game draw patches...\n{draw_patch}")
@@ -1189,15 +1284,107 @@ class BeanPatcher:
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
     async def tick(self):
-        if self.last_message_time != 0:
+        if self.last_message_time != 0 and not self.cmd_prompt:
             if time() - self.last_message_time >= self.message_timeout:
                 self.display_to_client("")
+        elif self.cmd_prompt and self.game_draw_routine_string_addr is not None:
+            text = "\n".join(self.cmd_messages)
+            new_string_buffer = f"{text}".encode("utf-16le") + b"\x00\x00"
+            self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
+            self.last_message_time = time()-self.message_timeout
 
         if self.bean_has_died_address != 0:
             if self.process.read_bool(self.bean_has_died_address):
                 self.process.write_bool(self.bean_has_died_address, False)
                 if self.on_bean_death_function is not None:
                     await self.on_bean_death_function()
+
+    def key_pressed(self, key):
+        if self.cmd_keys is None or self.cmd_keys_old is None:
+            return False
+        return self.cmd_keys[key] and not self.cmd_keys_old[key]
+
+    def key_down(self, key):
+        if self.cmd_keys is None:
+            return False
+        return self.cmd_keys[key]
+
+    def run_cmd_prompt(self):
+        if win32gui.GetWindowText(win32gui.GetForegroundWindow()) != "ANIMAL WELL":
+            return
+        self.cmd_keys = []
+        for key in range(0xff):
+            self.cmd_keys.append(win32api.GetAsyncKeyState(key) != 0)
+        self.update_cmd_prompt()
+        self.cmd_keys_old = self.cmd_keys
+
+    def update_cmd_prompt(self):
+        if not self.cmd_prompt:
+            if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] in (0, 8):
+                if self.key_pressed(0xc0):
+                    self.cmd_keymap = 0
+                    self.cmd_prompt = True
+                elif self.key_pressed(0xdc):
+                    self.cmd_keymap = 1
+                    self.cmd_prompt = True
+
+        if self.cmd_prompt:
+            if not self.cmd_patch:
+                self.cmd = ""
+                self.display_to_client_bottom(f"> {self.cmd}")
+                self.process.write_bytes(self.application_state_address + 0x93608, b'\x01', 1)
+                self.cmd_patch.append(Patch("block_keyboard", self.module_base + 0x11c82, self.process, True).nop(2))
+                for patch in self.cmd_patch:
+                    patch.apply()
+            else:
+                if self.key_pressed(0xd): # enter
+                    if not self.key_down(0x11): # ctrl+enter to leave console open on send
+                        for patch in self.cmd_patch:
+                            patch.revert()
+                        self.cmd_patch.clear()
+                        self.cmd_prompt = False
+                        self.display_to_client_bottom("")
+                        if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0:  # don't disable pause if game is actually paused
+                            self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
+                    self.cmd_ready = True
+                    return
+                elif self.key_pressed(0x1b) or self.key_pressed(0xc0) or self.key_pressed(0xdc) or not self.process.read_bytes(self.application_state_address + 0x93608, 1)[0]: # esc, console keys
+                    for patch in self.cmd_patch:
+                        patch.revert()
+                    self.cmd_patch.clear()
+                    self.cmd_prompt = False
+                    self.cmd = ""
+                    self.display_to_client_bottom("")
+                    if self.process.read_bytes(self.application_state_address + 0x93644, 1)[0] == 0: # don't disable pause if game is actually paused
+                        self.process.write_bytes(self.application_state_address + 0x93608, b'\x00', 1)
+                    return
+                elif self.key_pressed(0x8): # backspace
+                    self.cmd = self.cmd[:-1]
+                else:
+                    for key in range(0x08, 0xff):
+                        if self.key_pressed(key):
+                            mod = self.key_down(0x10)
+                            if self.key_down(0x12):
+                                mod = 2
+                            if chr(key) in string.ascii_uppercase:
+                                if not self.key_down(0x10):
+                                    key += 0x20
+                                self.cmd += chr(key)
+                            elif key in keymap[self.cmd_keymap] and len(keymap[self.cmd_keymap][key]) > mod:
+                                char = keymap[self.cmd_keymap][key][mod]
+                                self.cmd += char
+                self.cmd = self.cmd[:100]
+                self.display_to_client_bottom(f"> {self.cmd}" + ("|" if (time() % 1 < 0.5) else ""))
+
+    def get_cmd(self):
+        self.run_cmd_prompt()
+        if self.cmd_ready:
+            self.cmd_ready = False
+            cmd = self.cmd.strip()
+            self.cmd = ""
+            if cmd:
+                return cmd
+        return None
 
     def display_dialog(self, text: str, title: str = "", action_text: str = ""):
         try:
@@ -1215,18 +1402,32 @@ class BeanPatcher:
 
     def display_to_client(self, text: str):
         try:
-            text = str(text)
+            text = f"{str(text):.120}"
+            if text != "":
+                self.cmd_messages.append(text)
+                if len(self.cmd_messages) > MESSAGE_QUEUE_LENGTH:
+                    self.cmd_messages = self.cmd_messages[1:]
 
-            if self.game_draw_routine_string_addr is not None:
-                new_string_buffer = f"{text:.120}".encode("utf-16le") + b"\x00\x00"
+            if self.game_draw_routine_string_addr is not None and not self.cmd_prompt:
+                new_string_buffer = text.encode("utf-16le") + b"\x00\x00"
                 self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
-
                 if text != "":
                     self.last_message_time = time()
                 else:
                     self.last_message_time = 0
         except Exception as e:
             self.log_error(f"Error while attempting to display text to client: {e}")
+
+    def display_to_client_bottom(self, text: str):
+        try:
+            text = str(text)
+
+            if self.game_draw_bottom_routine_string_addr is not None:
+                new_string_buffer = f"{text:.120}".encode("utf-16le") + b"\x00\x00"
+                self.process.write_bytes(self.game_draw_bottom_routine_string_addr, new_string_buffer, len(new_string_buffer))
+
+        except Exception as e:
+            self.log_error(f"Error while attempting to display bottom text to client: {e}")
 
     def set_player_state(self, state: int):
         try:
