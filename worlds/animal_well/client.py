@@ -32,7 +32,6 @@ CONNECTION_RESET_STATUS = "Connection was reset. Please wait"
 CONNECTION_CONNECTED_STATUS = "Connected"
 CONNECTION_TENTATIVE_STATUS = "Connection has been initiated"
 CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
-CONNECTION_SWITCHING_STATUS = "Switching save files"
 
 DEATHLINK_MESSAGE = "The bean has died."
 DEATHLINK_RECEIVED_MESSAGE = "{name} died and took you with them."

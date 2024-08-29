@@ -1231,7 +1231,7 @@ class BeanPatcher:
                 patch.revert()
             self.save_patches.clear()
         else:
-            file_addr = self.module_base + 0x133a08
+            file_addr = self.module_base + 0x133a08  # this is a big lump of emptiness at the end of the .text region, which is easy to work with
             file_bytes = seeded_save_file.encode("utf-16le") + b"\x00\x00"
             self.process.write_bytes(file_addr, file_bytes, len(file_bytes))
             load_patch = Patch("save_load", self.module_base + 0x16822, self.process).lea_rax_addr(file_addr)
