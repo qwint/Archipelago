@@ -436,7 +436,7 @@ class BeanPatcher:
 
         self.apply_deathlink_patch()
 
-        self.apply_seeded_save_patch() # the seed is saved in RoomInfo and applied in Connection, and applied here again if AP was connected before AW was launched
+        self.apply_seeded_save_patch()  # the seed is saved in RoomInfo and applied in Connection, and applied here again if AP was connected before AW was launched
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
@@ -958,16 +958,16 @@ class BeanPatcher:
                 Patch("tracker_icons", self.tracker_icons_addr, self.process)
                 .add_bytes(bytearray([
                     # 4 custom colors for CheckStatus 0-3 respectively
-                    0xCC, 0x00, 0x00, 0xFF, # red, unreachable
-                    0xDD, 0xAA, 0x00, 0xFF, # orange, out_of_logic
-                    0x00, 0xEE, 0x00, 0xFF, # green, in_logic
-                    0x88, 0x88, 0xAA, 0xCC, # gray, checked
+                    0xCC, 0x00, 0x00, 0xFF,  # red, unreachable
+                    0xDD, 0xAA, 0x00, 0xFF,  # orange, out_of_logic
+                    0x00, 0xEE, 0x00, 0xFF,  # green, in_logic
+                    0x88, 0x88, 0xAA, 0xCC,  # gray, checked
 
                     # 8 custom map icons for stamp ids 0-7 respectively, u16 tile id
                     0x5B, 0x00,
-                    0x18, 0x00, # replace heart (0x5c) with bunny head
-                    0x3E, 0x00, # replace skull (0x5d) with disc shape
-                    0x25, 0x00, # replace shard (0x5e) with candle
+                    0x18, 0x00,  # replace heart (0x5c) with bunny head
+                    0x3E, 0x00,  # replace skull (0x5d) with disc shape
+                    0x25, 0x00,  # replace shard (0x5e) with candle
                     0x5F, 0x00,
                     0x60, 0x00,
                     0x9D, 0x02,
@@ -1132,7 +1132,7 @@ class BeanPatcher:
     def write_save_file_name(self, seeded_save_file="AnimalWell.sav"):
         addr = self.module_base + 0x20ac5e0
         self.write_protected_memory(addr, seeded_save_file.encode("utf-16le") + b"\x00\x00")
-        self.process.write_bytes(self.application_state_address + 0x400 + 0x750cc, b"\x01", 1) # return to title screen to reload new save file
+        self.process.write_bytes(self.application_state_address + 0x400 + 0x750cc, b"\x01", 1)  # return to title screen to reload new save file
         self.save_file = seeded_save_file
 
     def apply_seeded_save_patch(self, seed=None) -> bool:
@@ -1140,14 +1140,14 @@ class BeanPatcher:
             self.save_seed = seed
         if self.save_seed is None or not self.attached_to_process:
             return False
-        seeded_save_file = f"{base36(int(self.save_seed, 10)):>010.10}.aps" # use different extension to bypass steam cloud, we don't want these there
+        seeded_save_file = f"{base36(int(self.save_seed, 10)):>010.10}.aps"  # use different extension to bypass steam cloud, we don't want these there
         self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
         if self.log_debug_info:
             self.log_info(f"Save file for this seed is '{seeded_save_file}'")
         if seeded_save_file != self.save_file:
             self.write_save_file_name(seeded_save_file)
-            self.process.write_uchar(self.application_state_address + 0x40C, 0) # set current save slot to 0
-            self.process.write_uchar(self.module_base + 0x1f17e, 1) # disable load game menu
+            self.process.write_uchar(self.application_state_address + 0x40C, 0)  # set current save slot to 0
+            self.process.write_uchar(self.module_base + 0x1f17e, 1)  # disable load game menu
             return True
         return False
 
@@ -1159,7 +1159,7 @@ class BeanPatcher:
         self.save_file = self.process.read_bytes(self.module_base + 0x20ac5e0, 28).decode("utf-16le")
         if seeded_save_file != self.save_file:
             self.write_save_file_name(seeded_save_file)
-            self.process.write_uchar(self.module_base + 0x1f17e, 2) # enable load game menu
+            self.process.write_uchar(self.module_base + 0x1f17e, 2)  # enable load game menu
             return True
         return False
 
