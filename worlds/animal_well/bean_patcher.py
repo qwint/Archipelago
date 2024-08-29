@@ -8,12 +8,14 @@ from typing import List, Optional, Callable, Any, Awaitable, Dict
 
 from .patch import *
 
+
 def base36(n):
     out = []
     while n > 0:
         n, r = divmod(n, 36)
         out.append((string.digits + string.ascii_lowercase)[r])
     return(''.join(reversed(out)))
+
 
 # Extending the Patch class with some Animal Well specific methods
 class Patch(Patch):
@@ -314,8 +316,8 @@ class BeanPatcher:
         self.tracker_goal: str = ""
         self.tracker_initialized = False
 
-        self.save_file: str = None
-        self.save_seed: str = None
+        self.save_file: Optional[str] = None
+        self.save_seed: Optional[str] = None
 
     @property
     def current_save_slot(self):
