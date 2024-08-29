@@ -312,6 +312,13 @@ class Patch:
         """
         return self.add_bytes(b'\x8d\x47\xff')
 
+    def lea_rax_addr(self, address):
+        """
+        Loads absolute address to RAX
+        7 bytes
+        """
+        return self.add_bytes(b'\x48\x8d\x05' + (address - self.base_address - 7).to_bytes(4, 'little'))
+
     def cmp_al_al(self):
         """
         Compares AL to AL. Sets zero flag if value is 0

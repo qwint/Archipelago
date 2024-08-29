@@ -32,6 +32,7 @@ CONNECTION_RESET_STATUS = "Connection was reset. Please wait"
 CONNECTION_CONNECTED_STATUS = "Connected"
 CONNECTION_TENTATIVE_STATUS = "Connection has been initiated"
 CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
+CONNECTION_SWITCHING_STATUS = "Switching save files"
 
 DEATHLINK_MESSAGE = "The bean has died."
 DEATHLINK_RECEIVED_MESSAGE = "{name} died and took you with them."
@@ -375,6 +376,8 @@ class AnimalWellContext(CommonContext):
                 "cmd": "Get",
                 "keys": [used_berries_string, used_firecrackers_string, death_link_key]
             }]))
+            self.bean_patcher.save_team = args["team"]
+            self.bean_patcher.save_slot = args["slot"]
             self.bean_patcher.apply_seeded_save_patch()
         try:
             if cmd == "PrintJSON":
