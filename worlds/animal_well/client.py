@@ -1235,6 +1235,11 @@ class AWItems:
                 used_firecrackers_string = f"{ctx.slot_number}|used_firecrackers"
 
                 if not ctx.got_data_storage:
+                    Utils.async_start(ctx.send_msgs([{
+                        "cmd": "Get",
+                        "keys": [used_berries_string,
+                                 used_firecrackers_string,]
+                    }]))
                     if used_berries_string in ctx.stored_data:
                         ctx.got_data_storage = True
                         self.big_blue_fruit = ctx.used_berries = ctx.stored_data[used_berries_string]
