@@ -375,6 +375,9 @@ class AnimalWellContext(CommonContext):
                 "cmd": "Get",
                 "keys": [used_berries_string, used_firecrackers_string, death_link_key]
             }]))
+            self.bean_patcher.save_team = args["team"]
+            self.bean_patcher.save_slot = args["slot"]
+            self.bean_patcher.apply_seeded_save_patch()
         try:
             if cmd == "PrintJSON":
                 msg_type = args.get("type")
@@ -463,7 +466,7 @@ class AnimalWellContext(CommonContext):
                         location_name = self.location_names.lookup_in_slot(location_id)
                         self.logic_tracker.check_logic_status[location_name] = CheckStatus.checked
             elif cmd == "RoomInfo":
-                pass
+                self.bean_patcher.save_seed = args["seed_name"]
             elif cmd == "SetReply":
                 pass
             elif cmd == "Retrieved":
@@ -1408,6 +1411,13 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
 
             ctx.bean_patcher.apply_patches()
 
+            host = get_settings()
+            tracker_enum = AWSettings.TrackerSetting
+            if host.animal_well_settings["in_game_tracker"] > tracker_enum.no_tracker:
+                ctx.bean_patcher.apply_tracker_patches()
+            else:
+                ctx.bean_patcher.revert_tracker_patches()
+
             ctx.display_dialog("Connected to client!", "")
         else:
             raise NotImplementedError("Only Windows is implemented right now")
@@ -1451,7 +1461,7 @@ async def process_sync_task(ctx: AnimalWellContext):
             ctx.connection_status = CONNECTION_TENTATIVE_STATUS
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
-        elif ctx.process_handle and ctx.start_address and ctx.get_animal_well_process_handle_task.done():
+        elif ctx.process_handle and ctx.start_address and ctx.get_animal_well_process_handle_task.done() and ctx.bean_patcher.save_file and ctx.current_game_state != 1:
             if ctx.connection_status == CONNECTION_TENTATIVE_STATUS:
                 logger.info("Successfully Connected to Animal Well")
                 ctx.connection_status = CONNECTION_CONNECTED_STATUS
@@ -1514,6 +1524,9 @@ def launch():
 
         if ctx.bean_patcher is not None and len(ctx.bean_patcher.revertable_tracker_patches) > 0:
             ctx.bean_patcher.revert_tracker_patches()
+
+        if ctx.bean_patcher is not None:
+            ctx.bean_patcher.revert_seeded_save_patch()
 
         if ctx.process_sync_task:
             ctx.process_sync_task.cancel()
