@@ -58,12 +58,13 @@ keymap = [
     }
 ]
 
+
 def base36(n):
     out = []
     while n > 0:
         n, r = divmod(n, 36)
         out.append((string.digits + string.ascii_lowercase)[r])
-    return(''.join(reversed(out)))
+    return ''.join(reversed(out))
 
 
 # Extending the Patch class with some Animal Well specific methods

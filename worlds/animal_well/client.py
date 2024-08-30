@@ -1461,7 +1461,8 @@ async def process_sync_task(ctx: AnimalWellContext):
             ctx.connection_status = CONNECTION_TENTATIVE_STATUS
             logger.info(f"Animal Well Connection Status: {ctx.connection_status}")
 
-        elif ctx.process_handle and ctx.start_address and ctx.get_animal_well_process_handle_task.done() and ctx.bean_patcher.save_file and ctx.current_game_state != 1:
+        elif (ctx.process_handle and ctx.start_address and ctx.get_animal_well_process_handle_task.done()
+              and ctx.bean_patcher.save_file and ctx.current_game_state != 1):
             if ctx.connection_status == CONNECTION_TENTATIVE_STATUS:
                 logger.info("Successfully Connected to Animal Well")
                 ctx.connection_status = CONNECTION_CONNECTED_STATUS
@@ -1477,6 +1478,7 @@ async def process_sync_task(ctx: AnimalWellContext):
 
         await asyncio.sleep(0.1)
 
+
 async def console_task(ctx: AnimalWellContext):
     while not ctx.exit_event.is_set():
         if ctx.bean_patcher is not None and ctx.bean_patcher.attached_to_process:
@@ -1487,6 +1489,7 @@ async def console_task(ctx: AnimalWellContext):
                 else:
                     ctx.command_processor(ctx).default(cmd)
         await asyncio.sleep(1/120)
+
 
 def launch():
     """
