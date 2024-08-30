@@ -1507,7 +1507,6 @@ def launch():
         parser = get_base_parser()
         args = parser.parse_args(args)
 
-        # todo: figure out where to modify the tags, remove the AP tag
         ctx = AnimalWellContext(args.connect, args.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
 
