@@ -10,7 +10,7 @@ class SpoilerFreeCommandProcessor(ClientCommandProcessor):
 class SpoilerFreeContext(CommonContext):
     command_processor = SpoilerFreeCommandProcessor
     game = ""
-    tags = {"Text Client"}
+    tags = {"TextOnly"}
     items_handling = 0b111
 
     def __init__(self, server_address, password):
@@ -26,6 +26,13 @@ class SpoilerFreeContext(CommonContext):
         self.ui = SpoilerFreeManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
+    async def server_auth(self, password_requested: bool = False):
+        if password_requested and not self.password:
+            await super(SpoilerFreeContext, self).server_auth(password_requested)
+
+        await self.get_username()
+        await self.send_connect()
+
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             pass
@@ -34,25 +41,23 @@ class SpoilerFreeContext(CommonContext):
             print("test")
 
 
-async def main(args):
-    ctx = SpoilerFreeContext(args.connect, args.password)
-    ctx.auth = args.name
-
-    if gui_enabled:
-        ctx.run_gui()
-    ctx.run_cli()
-
-    await ctx.exit_event.wait()
-    await ctx.shutdown()
-
-
 def launch():
-    parser = get_base_parser("For text interfacing without seeing item and location names from other games.")
-    parser.add_argument('--name', default=None, help="Slot Name to connect as.")
-    parser.add_argument("url", nargs="?", help="Archipelago connection url")
-    args = parser.parse_args()
+    async def main():
+        parser = get_base_parser("For text interfacing without seeing item and location names from other games.")
+        parser.add_argument('--name', default=None, help="Slot Name to connect as.")
+        parser.add_argument("url", nargs="?", help="Archipelago connection url")
+        args = parser.parse_args()
+        ctx = SpoilerFreeContext(args.connect, args.password)
+        ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
+
+        if gui_enabled:
+            ctx.run_gui()
+        ctx.run_cli()
+
+        await ctx.exit_event.wait()
+        await ctx.shutdown()
 
     import colorama
     colorama.init()
-    asyncio.run(main(args))
+    asyncio.run(main())
     colorama.deinit()
