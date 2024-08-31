@@ -1,10 +1,9 @@
 import asyncio
+import typing
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 
 
 class SpoilerFreeCommandProcessor(ClientCommandProcessor):
-    # def _cmd_test(self):
-    #     pass
     pass
 
 
@@ -26,6 +25,13 @@ class SpoilerFreeContext(CommonContext):
 
         self.ui = SpoilerFreeManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+
+    def on_package(self, cmd: str, args: dict):
+        if cmd == "Connected":
+            pass
+        elif cmd == "PrintJSON":
+            msg_type = args.get("type")
+            print("test")
 
 
 async def main(args):
