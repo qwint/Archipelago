@@ -1,5 +1,6 @@
 import asyncio
-import typing
+import logging
+import copy
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
 
 
@@ -38,7 +39,17 @@ class SpoilerFreeContext(CommonContext):
             pass
         elif cmd == "PrintJSON":
             msg_type = args.get("type")
-            print("test")
+
+    def on_print_json(self, args: dict):
+        if self.ui:
+            # send copy to UI
+            print(args["data"])
+            self.ui.print_json(copy.deepcopy(args["data"]))
+
+        logging.getLogger("FileLog").info(self.rawjsontotextparser(copy.deepcopy(args["data"])),
+                                          extra={"NoStream": True})
+        logging.getLogger("StreamLog").info(self.jsontotextparser(copy.deepcopy(args["data"])),
+                                            extra={"NoFile": True})
 
 
 def launch():
