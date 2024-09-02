@@ -2,6 +2,7 @@ import asyncio
 import logging
 import copy
 from CommonClient import CommonContext, server_loop, gui_enabled, ClientCommandProcessor, logger, get_base_parser
+from kivy.app import App
 
 
 class SpoilerFreeCommandProcessor(ClientCommandProcessor):
@@ -36,9 +37,19 @@ class SpoilerFreeContext(CommonContext):
 
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
-            pass
-        elif cmd == "PrintJSON":
-            msg_type = args.get("type")
+            self.slot = args["slot"]
+            self.game = args["slot_info"][str(self.slot)].game
+            for game in self.item_names:
+                if game != self.game:
+                    self.item_names.update_game(game, {})
+                    self.location_names.update_game(game, {})
+        elif cmd == "Retrieved":
+            for data_key, data_value in self.stored_data.items():
+                if "read_hints" in data_key:
+                    for hint in data_value:
+                        if hint["entrance"] and hint["finding_player"] != self.slot:
+                            hint["entrance"] = ""
+            App.get_running_app().update_hints()
 
     def on_print_json(self, args: dict):
         if self.ui:
