@@ -3,6 +3,8 @@ import logging
 import sys
 import typing
 import re
+import io
+import pkgutil
 from collections import deque
 
 assert "kivy" not in sys.modules, "kvui should be imported before kivy for frozen compatibility"
@@ -38,6 +40,7 @@ from kivymd.uix.divider import MDDivider
 from kivy.core.window import Window
 from kivy.core.clipboard import Clipboard
 from kivy.core.text.markup import MarkupLabel
+from kivy.core.image import ImageLoader, ImageLoaderBase, ImageData
 from kivy.base import ExceptionHandler, ExceptionManager
 from kivy.clock import Clock
 from kivy.factory import Factory
@@ -81,10 +84,44 @@ else:
 remove_between_brackets = re.compile(r"\[.*?]")
 
 
-class ImageIcon(MDButtonIcon, AsyncImage):
+class ApAsyncImage(AsyncImage):
+    def is_uri(self, filename: str) -> bool:
+        if filename.startswith("ap:"):
+            return True
+        else:
+            return super().is_uri(filename)
+
+
+class ImageLoaderPkgutil(ImageLoaderBase):
+    def load(self, filename: str) -> typing.List[ImageData]:
+        # take off the "ap:" prefix
+        module, path = filename[3:].split("/", 1)
+        data = pkgutil.get_data(module, path)
+        return self._bytes_to_data(data)
+
+    def _bytes_to_data(self, data: typing.Union[bytes, bytearray]) -> typing.List[ImageData]:
+        loader = next(loader for loader in ImageLoader.loaders if loader.can_load_memory())
+        return loader.load(loader, io.BytesIO(data))
+
+
+# grab the default loader method so we can override it but use it as a fallback
+_original_image_loader_load = ImageLoader.load
+
+
+def load_override(filename: str, default_load=_original_image_loader_load, **kwargs):
+    if filename.startswith("ap:"):
+        return ImageLoaderPkgutil(filename)
+    else:
+        return default_load(filename, **kwargs)
+
+
+ImageLoader.load = load_override
+
+
+class ImageIcon(MDButtonIcon, ApAsyncImage):
     def __init__(self, *args, **kwargs):
         super().__init__(args, kwargs)
-        self.image = AsyncImage(**kwargs)
+        self.image = ApAsyncImage(**kwargs)
         self.add_widget(self.image)
 
     def add_widget(self, widget, index=0, canvas=None):
@@ -99,7 +136,7 @@ class ImageButton(MDIconButton):
             if val != "None":
                 image_args[kwarg.replace("image_", "")] = val
         super().__init__()
-        self.image = AsyncImage(**image_args)
+        self.image = ApAsyncImage(**image_args)
         def set_center(button, center):
             self.image.center_x = self.center_x
             self.image.center_y = self.center_y

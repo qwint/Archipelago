@@ -250,10 +250,10 @@ refresh_components: Optional[Callable[[], None]] = None
 
 def run_gui():
     from kvui import (MDApp, MDFloatLayout, MDGridLayout, MDButton, MDLabel, MDButtonText, MDButtonIcon, ScrollBox,
-                      ContainerLayout, Widget, MDBoxLayout)
+                      ContainerLayout, Widget, MDBoxLayout, ApAsyncImage)
     from kivy.core.window import Window
     from kivy.metrics import dp
-    from kivy.uix.image import AsyncImage
+    # from kivy.uix.image import AsyncImage
     from kivymd.uix.button import MDIconButton
     from kivymd.uix.card import MDCard
     from kivymd.uix.menu import MDDropdownMenu
@@ -301,8 +301,8 @@ def run_gui():
                 button_card.add_widget(button_layout)
 
                 source = icon_paths[component.icon]
-                image = AsyncImage(source=source, size=(40, 40), size_hint_y=None,
-                                   pos_hint={"center_x": 0.1, "center_y": 0.5})
+                image = ApAsyncImage(source=source, size=(40, 40), size_hint_y=None,
+                                     pos_hint={"center_x": 0.1, "center_y": 0.5})
 
                 button_layout.add_widget(image)
                 button_layout.add_widget(MDLabel(text=component.display_name,
