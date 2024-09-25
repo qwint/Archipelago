@@ -11,7 +11,7 @@ from worlds.AutoWorld import WebWorld
 
 from .template_world import RandomizerCoreWorld
 
-from .state_mixin import HKLogicMixin  # all that's needed to add the mixin
+from .state_mixin import resource_state_handler, RCStateVariable, HKLogicMixin  # all that's needed to add the mixin
 from .region_data import regions, transitions, locations
 from .Options import hollow_knight_options, hollow_knight_randomize_options, Goal, WhitePalace, CostSanity, \
     shop_to_option, HKOptions
@@ -59,18 +59,6 @@ class HKWeb(WebWorld):
 gamename = "Hollow Knight"
 base_id = 0x1000000
 
-
-class HK_state_diff(NamedTuple):
-    shadeskip: int
-    # shade health needed, 0 if unneeded
-
-    twister_required: bool
-    # shortcut logic if any step in a spell skip needs 4 casts
-
-    add_charms: Dict[str, int]
-    # dict of charms that need to be in state and their costs
-
-
 class HKClause(NamedTuple):
     # Dict of item: count for state.has_all_counts()
     hk_item_requirements: Dict[str, int]
@@ -78,25 +66,15 @@ class HKClause(NamedTuple):
     # list of regions that need to reachable
     hk_region_requirements: List[str]
 
-    # other requirements for ad hoc short circuit logic
-    hk_state_requirements: HK_state_diff
-
-    # state keys to be reset when the spot is checked before/after applying state_modifiers
-    hk_before_resets: List[str]
-    hk_after_resets: List[str]
-
-    # state keys and the values to add when the spot is checked
-    hk_state_modifiers: Dict[str, int]
+    # list of resource state terms for the clause
+    hk_state_requirements: List[RCStateVariable]
 
 
 # default logicless rule for short circuting
 default_hk_rule = [HKClause(
     hk_item_requirements={"True": 1},
     hk_region_requirements=[],
-    hk_state_requirements=HK_state_diff(shadeskip=0, twister_required=False, add_charms={}),
-    hk_before_resets=[],
-    hk_after_resets=[],
-    hk_state_modifiers={},
+    hk_state_requirements=[],
     )]
 
 
@@ -480,139 +458,32 @@ class HKWorld(RandomizerCoreWorld):
 
             return False, ret
 
-        def parse_refill_logic(reqs: List[str], valid_keys) -> bool:
-            # i'm only expecting one req but it may be an empty list
-            if reqs:
-                key = reqs[0].split(":")[1]  # grab the second half
-                if key in valid_keys:
-                    return True
-            return False
-
-        def parse_cast_logic(req: str, valid_keys) -> Tuple[List[int], bool, bool]:
-            search = re.search(r".*\[(.*)\]", req)
-            if not search:
-                # assume it means 1 cast
-                return [1], False, False
-            params = search.groups(1)[0].split(",")
-            casts = [int(cast) for cast in params if not cast.startswith("before") and not cast.startswith("after")]
-            before = parse_refill_logic([i for i in params if i.startswith("before")], valid_keys)
-            after = parse_refill_logic([i for i in params if i.startswith("after")], valid_keys)
-            return casts, before, after
-
-        import re
         assert rule != []
         hk_rule = []
         for clause in rule:
             item_requirements = clause["item_requirements"]
+            state_requirements = []
             skip_clause = False
-            shadeskips = [0]
-            casts = [0]
-            before = False
-            after_resets = []
-            add_dict = Counter()
-            add_charms = {}
             valid_keys = {key for key in ("ROOMSOUL", "AREASOUL", "MAPAREASOUL")}
             # TODO with ER change this logic
             if self.options.RandomizeCharms:  # TODO confirm
                 valid_keys.update("ITEMSOUL")
 
             for req in clause["state_modifiers"]:
-                # "$CASTSPELL", "$EQUIPPEDCHARM", "$SHRIEKPOGO", "$SHADESKIP", "$BENCHRESET", "$TAKEDAMAGE", "$HOTSPRINGRESET", "$STAGSTATEMODIFIER", "$SLOPEBALL", "$WARPTOSTART", "$FLOWERGET", "NOFLOWER=FALSE"
-                if req == "$BENCHRESET":
-                    after_resets.append("DAMAGE")
-                    after_resets.append("SPENTSHADE")
-                    after_resets.append("SPENTNOTCHES")
-                    # reset charms
-                elif req == "$FLOWERGET":
-                    after_resets.append("NOFLOWER")
-                elif req == "$HOTSPRINGRESET":
-                    after_resets.append("DAMAGE")
-                    after_resets.append("CASTSUSED")
-                elif req == "$STAGSTATEMODIFIER":
-                    add_dict["NOFLOWER"] += 1
-                elif req == "$WARPTOSTART":
-                    after_resets.append("DAMAGE")
-                    after_resets.append("SPENTSHADE")
-                    add_dict["NOFLOWER"] += 1
+                # print(req)
+                if req == "NOFLOWER=FALSE":
+                    # TODO flesh out and actually add requirement
+                    continue
 
-                elif req.startswith("$EQUIPPEDCHARM"):
-                    charm = re.search(r"\$EQUIPPEDCHARM\[(.*)\]", req).group(1)
-                    if charm == "Kingsoul":
-                        item_requirements.append("WHITEFRAGMENT>1")
-                        add_charms[charm] = self.charm_costs[charm_name_to_id[charm]]
-                    elif charm == "Void_Heart":
-                        item_requirements.append("WHITEFRAGMENT>2")
-                        add_charms[charm] = 0
-                    else:
-                        item_requirements.append(charm)
-                        add_charms[charm] = self.charm_costs[charm_name_to_id[charm]]
-
-                elif req.startswith("$SHADESKIP"):
-                    if not self.options.ShadeSkips:
-                        skip_clause = True
-                    else:
-                        search = re.search(r".*\[(.*)HITS\]", req)
-                        add_dict["SPENTSHADE"] += 1
-                        if not search:
-                            shadeskips.append(1)
-                        else:
-                            shadeskips.append(int(search.groups(1)[0]))
-
-                elif req.startswith("$CASTSPELL"):
-                    # any skips will be marked, this covers dive uses too
-                    c, b, a = parse_cast_logic(req, valid_keys)
-                    casts += c
-                    add_dict["CASTSUSED"] += sum(c)
-                    before = b if b else before
-                    if a:
-                        after_resets.append("CASTSUSED")
-                elif req.startswith("$SHRIEKPOGO"):
-                    if True or not self.options.ShriekPogo:  # currently unsupported
-                        skip_clause = True
-                    else:
-                        c, b, a = parse_cast_logic(req, valid_keys)
-                        casts += c
-                        add_dict["CASTSUSED"] += sum(c)
-                        before = b if b else before
-                        if a:
-                            after_resets.append("CASTSUSED")
-                        item_requirements.append("SCREAM>1")
-                elif req.startswith("$SLOPEBALL"):
-                    if True or not self.options.SlopeBall:  # currently unsupported
-                        skip_clause = True
-                    else:
-                        c, b, a = parse_cast_logic(req, valid_keys)
-                        casts += c
-                        add_dict["CASTSUSED"] += sum(c)
-                        before = b if b else before
-                        if a:
-                            after_resets.append("CASTSUSED")
-                        item_requirements.append("FIREBALL")
-                    # can roll back to vs in mod
-
-                elif req.startswith("$TAKEDAMAGE"):
-                    # no skip_clause because damageboosts are tracked differently
-                    search = re.search(r".*\[(.*)HITS\]", req)
-                    if not search:
-                        add_dict["DAMAGE"] += 1
-                    else:
-                        add_dict["DAMAGE"] += int(search.groups(1)[0])
+                handler = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))
+                if handler.can_exclude(self.options):
+                    skip_clause = True
+                else:
+                    state_requirements.append(handler)
 
             # checking for a False condidtion before and after item parsing for short circuiting
             if skip_clause:
                 continue
-            if any(cast > 3 for cast in casts):
-                # twister required
-                charm = "Spell_Twister"
-                item_requirements.append(charm)
-                add_charms[charm] = self.charm_costs[charm_name_to_id[charm]]
-
-            state_requirements = HK_state_diff(
-                shadeskip=max(*shadeskips, 0),  # highest health shadeskip needed for this clause
-                twister_required=None,  # any(cast > 3 for cast in casts),
-                add_charms=add_charms,
-                )
-
             skip_clause, items = parse_item_logic(item_requirements)
             if skip_clause:
                 continue
@@ -622,9 +493,6 @@ class HKWorld(RandomizerCoreWorld):
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
-                hk_before_resets=["SPENTSOUL", "CASTSUSED"] if before else [],
-                hk_after_resets=after_resets,
-                hk_state_modifiers=dict(add_dict),
                 hk_state_requirements=state_requirements,
                 ))
 

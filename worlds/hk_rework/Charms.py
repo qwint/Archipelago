@@ -48,3 +48,4 @@ names: List[str] = [
 
 charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(names)}
                     # TODO >:(
+charm_name_to_id["Void_Heart"] = charm_name_to_id["Kingsoul"]
