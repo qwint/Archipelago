@@ -122,6 +122,7 @@ def ge(state1, state2) -> bool:
 def lt(state1, state2) -> bool:
     return not ge(state1, state2)
 
+
 class resource_state_handler(Type):
     handlers: list["RCStateVariable"] = []
 
@@ -158,7 +159,7 @@ class RCStateVariable(metaclass=resource_state_handler):
         """"""
         pass
 
-    def ModifyState(self, state_blob, item_state, player):  # -> Generator["state_blob"]: 
+    def ModifyState(self, state_blob, item_state, player):  # -> Generator["state_blob"]:
         # print(self)
         return (output_state for valid, output_state in [self._ModifyState(state_blob, item_state, player)] if valid)
 
@@ -199,6 +200,7 @@ class BenchResetVariable(RCResetter, RCStateVariable):
     def can_exclude(self, options):
         return False
 
+
 class CastSpellVariable(RCStateVariable):
     prefix = "$CASTSPELL"
     casts: List[int]
@@ -224,7 +226,6 @@ class CastSpellVariable(RCStateVariable):
                 raise Exception(f"unknown {self.prefix} term, args: {args}")
         if len(self.casts) == 0:
             self.casts.append(1)
-
 
     @classmethod
     def TryMatch(cls, term: str):
@@ -255,7 +256,7 @@ class CastSpellVariable(RCStateVariable):
 
 class EquipCharmVariable(RCStateVariable):
     prefix = "$EQUIPPEDCHARM"
-    excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,) # fragiles and Kingsoul
+    excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
 
@@ -264,7 +265,7 @@ class EquipCharmVariable(RCStateVariable):
         if not charm.isdigit():
             return charm_name_to_id[charm], charm
         else:
-            return charm, charm_names[charm]  # TODO       
+            return charm, charm_names[charm]  # TODO
 
     def parse_term(self, charm):
         self.charm_id, self.charm_name = self.charm_id_and_name(charm)
@@ -323,6 +324,7 @@ class FlowerProviderVariable(RCResetter, RCStateVariable):
     def can_exclude(self, options):
         return False
 
+
 class FragileCharmVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
 
@@ -350,6 +352,7 @@ class FragileCharmVariable(EquipCharmVariable):
     # def can_exclude(self, options):
         # return False
 
+
 class HotSpringResetVariable(RCResetter, RCStateVariable):
     prefix = "$HOTSPRINGRESET"
     reset_property = "HotSpringResetCondition"
@@ -371,6 +374,7 @@ class HotSpringResetVariable(RCResetter, RCStateVariable):
 
     def can_exclude(self, options):
         return False
+
 
 class RegainSoulVariable(RCStateVariable):
     prefix = "$REGAINSOUL"
@@ -396,9 +400,9 @@ class RegainSoulVariable(RCStateVariable):
             state_blob["SPENTSOUL"] -= amount
         return True, state_blob["SPENTSOUL"]
 
-
     def can_exclude(self, options):
         return False
+
 
 class SaveQuitResetVariable(RCResetter, RCStateVariable):
     prefix = "$SAVEQUITRESET"
@@ -421,6 +425,7 @@ class SaveQuitResetVariable(RCResetter, RCStateVariable):
 
     def can_exclude(self, options):
         return False
+
 
 class ShadeStateVariable(RCStateVariable):
     prefix = "$SHADESKIP"
@@ -455,6 +460,7 @@ class ShadeStateVariable(RCStateVariable):
     def can_exclude(self, options):
         return not bool(options.ShadeSkips)
 
+
 class ShriekPogoVariable(CastSpellVariable):
     prefix = "$SHRIEKPOGO"
 
@@ -479,10 +485,11 @@ class ShriekPogoVariable(CastSpellVariable):
     def can_exclude(self, options):
         return True
         # TODO add the option lol
-        on =  bool(options.ShriekPogoSkips)
+        on = bool(options.ShriekPogoSkips)
         difficult = sum(self.casts) > 3
         difficult_on = bool(options.DifficultSkips)
         return (not on) or (difficult and not difficult_on)
+
 
 class SlopeballVariable(CastSpellVariable):
     prefix = "$SLOPEBALL"
@@ -563,6 +570,7 @@ class StagStateVariable(RCStateVariable):
     def can_exclude(self, options):
         return False
 
+
 class StartRespawnResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
     reset_property = "StartRespawnResetCondition"
@@ -607,6 +615,7 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
 #     def can_exclude(self, options):
 #         return False
 
+
 class TakeDamageVariable(RCStateVariable):
     prefix = "$TAKEDAMAGE"
     damage: int
@@ -635,6 +644,7 @@ class TakeDamageVariable(RCStateVariable):
         # can not actually be excluded because the damage skip option is checked in logic seperately
         return False
 
+
 class WarpToBenchResetVariable(RCStateVariable):
     prefix = "$WARPTOBENCH"
     sq_reset: SaveQuitResetVariable
@@ -652,7 +662,7 @@ class WarpToBenchResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def ModifyState(self, state_blob, item_state, player): 
+    def ModifyState(self, state_blob, item_state, player):
         sq_states = sq_reset.ModifyState(state_blob, item_state, player)
         return (output_state for s in sq_states for output_state in bench_reset.ModifyState(s, item_state, player))
         # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
@@ -667,6 +677,7 @@ class WarpToBenchResetVariable(RCStateVariable):
 
     def can_exclude(self, options):
         return False
+
 
 class WarpToStartResetVariable(RCStateVariable):
     prefix = "$WARPTOSTART"
@@ -700,6 +711,7 @@ class WarpToStartResetVariable(RCStateVariable):
 
     def can_exclude(self, options):
         return False
+
 
 class WhiteFragmentEquipVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
