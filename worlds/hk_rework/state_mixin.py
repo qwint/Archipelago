@@ -17,12 +17,14 @@ BASE_HEALTH = 4
 
 class HKLogicMixin(LogicMixin):
     multiworld: MultiWorld
-    _hk_per_player_resource_states: Dict[int, Dict[str, List[Tuple[List[str], Counter]]]]
+    _hk_per_player_resource_states: Dict[int, Dict[str, List[Counter]]]
     """resource state blob to map regions and their avalible resource states"""
-    # state blob is [([equippedcharm1, equippedcharm2], Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "CHARMNOTCHESSPENT": 0}))]
+    # state blob is [Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "CHARMNOTCHESSPENT": 0})]
 
     _hk_per_player_sweepable_entrances: Dict[int, Set[str]]
     """mapping for entrances that need to be statefully swept"""
+
+    _hk_sweeping: bool
 
     _hk_free_entrances: Dict[int, Set[str]]
     """mapping for entrances that will not alter resource state no matter how many more items we get, for optimization"""
@@ -37,6 +39,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
         self._hk_free_entrances = {player: set() for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
+        self._hk_sweeping = False
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
@@ -56,7 +59,7 @@ class HKLogicMixin(LogicMixin):
         # if avaliable_states is None:
         #     region.can_reach(self)
         #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
-        avaliable_states = self._hk_per_player_resource_states[player][region.name]
+        avaliable_states = deepcopy(self._hk_per_player_resource_states[player][region.name])
         # loses the can_reach parent call, potentially re-add it?
 
         if not avaliable_states:
@@ -65,7 +68,7 @@ class HKLogicMixin(LogicMixin):
 
         if target_region:
             # TODO see if this can just be a defaultdict
-            target_states = self._hk_per_player_resource_states[player].get(target_region.name, [])
+            target_states = deepcopy(self._hk_per_player_resource_states[player].get(target_region.name, []))
             self._hk_per_player_resource_states[player][target_region.name] = target_states
             persist = True
         else:
@@ -73,15 +76,19 @@ class HKLogicMixin(LogicMixin):
 
         for handler in clause.hk_state_requirements:
                                                                      # unneeded?
-            avaliable_states = [s for input_state in avaliable_states.copy() for s in handler.ModifyState(input_state, self, player)]
+            avaliable_states = [s for input_state in avaliable_states for s in handler.ModifyState(input_state, self, player)]
 
         if len(avaliable_states):
             if not persist:
                 return True
             else:
                 improved = False
+                # if len(self._hk_per_player_resource_states[player][target_region.name]):
+                #     print(self._hk_per_player_resource_states[player][target_region.name])
+                #     print(avaliable_states)
+                #     breakpoint()
                 for s in avaliable_states:
-                    if any(s == previous or lt(s, previous) for previous in self._hk_per_player_resource_states[player][target_region.name]):
+                    if any(s == previous or lt(previous, s) for previous in self._hk_per_player_resource_states[player][target_region.name]):
                         # if the state we're adding already exists or a better state already exists, we didn't improve
                         continue
                     self._hk_per_player_resource_states[player][target_region.name].append(s)
@@ -89,8 +96,11 @@ class HKLogicMixin(LogicMixin):
                 if improved:
                     indicies_to_pop = []
                     for index, s in enumerate(self._hk_per_player_resource_states[player][target_region.name]):
-                        if any(lt(s, other) for other in self._hk_per_player_resource_states[player][target_region.name]):
+                        if any(lt(other, s) for other in self._hk_per_player_resource_states[player][target_region.name]):
                             indicies_to_pop.append(index)
+                    # if not indicies_to_pop and len(self._hk_per_player_resource_states[player][target_region.name]) > 1:
+                    #     print(self._hk_per_player_resource_states[player][target_region.name])
+                    #     breakpoint()
                     for index in reversed(indicies_to_pop):
                         # reverse so we can blindly pop
                         self._hk_per_player_resource_states[player][target_region.name].pop(index)
@@ -101,9 +111,14 @@ class HKLogicMixin(LogicMixin):
             return False
 
     def sweep_for_resource_state(self, player):
+        if self._hk_sweeping:
+            return
+        else:
+            self._hk_sweeping = True
         # assume not stale and only evaluate true clauses
         # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
+            # print(self._hk_per_player_sweepable_entrances[player])
             # random pop but i don't really care
             entrance_name = self._hk_per_player_sweepable_entrances[player].pop()
             if entrance_name not in self._hk_entrance_clause_cache[player]:
@@ -113,6 +128,7 @@ class HKLogicMixin(LogicMixin):
             entrance = self.multiworld.get_entrance(entrance_name, player)
             for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
                 self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
+        self._hk_sweeping = False
 
 
 def ge(state1, state2) -> bool:
@@ -120,7 +136,8 @@ def ge(state1, state2) -> bool:
 
 
 def lt(state1, state2) -> bool:
-    return not ge(state1, state2)
+    return sum(state1[key] <= state2[key] for key in state2.keys()) == 1 and sum(state1[key] < state2[key] for key in state2.keys()) == 1
+    # return not ge(state1, state2)
 
 
 class resource_state_handler(Type):
@@ -171,16 +188,17 @@ class RCStateVariable(metaclass=resource_state_handler):
 
 
 class RCResetter():
-    reset_property: str
+    reset_properties: List[str]
 
     def _ModifyState(self, state_blob, item_state, player):
-        del state_blob[self.reset_property]
+        for reset in self.reset_properties:
+            state_blob[reset] = 0
         return True, state_blob
 
 
 class BenchResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
-    reset_property = "BenchResetCondition"
+    reset_properties = ["BenchResetCondition", "SPENTSHADE", "SPENTNOTCHES", "DAMAGE"]
 
     def parse_term(self):
         pass
@@ -304,7 +322,7 @@ class EquipCharmVariable(RCStateVariable):
 
 class FlowerProviderVariable(RCResetter, RCStateVariable):
     prefix = "$FLOWERGET"
-    reset_property = "NOFLOWER"
+    reset_properties = ["NOFLOWER"]
 
     def parse_term(self):
         pass
@@ -355,7 +373,7 @@ class FragileCharmVariable(EquipCharmVariable):
 
 class HotSpringResetVariable(RCResetter, RCStateVariable):
     prefix = "$HOTSPRINGRESET"
-    reset_property = "HotSpringResetCondition"
+    reset_properties = ["HotSpringResetCondition", "SPENTSOUL", "DAMAGE"]
 
     def parse_term(self):
         pass
@@ -406,7 +424,7 @@ class RegainSoulVariable(RCStateVariable):
 
 class SaveQuitResetVariable(RCResetter, RCStateVariable):
     prefix = "$SAVEQUITRESET"
-    reset_property = "SaveQuitConditionalReset"
+    reset_properties = ["SaveQuitConditionalReset", "DAMAGE"]
 
     def parse_term(self):
         pass
@@ -573,7 +591,7 @@ class StagStateVariable(RCStateVariable):
 
 class StartRespawnResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
-    reset_property = "StartRespawnResetCondition"
+    reset_properties = ["StartRespawnResetCondition", "DAMAGE"]
 
     def parse_term(self):
         pass
