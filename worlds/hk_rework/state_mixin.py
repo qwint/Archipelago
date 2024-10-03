@@ -24,7 +24,8 @@ class HKLogicMixin(LogicMixin):
     _hk_per_player_sweepable_entrances: Dict[int, Set[str]]
     """mapping for entrances that need to be statefully swept"""
 
-    _hk_sweeping: bool
+    _hk_stale: Dict[int, bool]
+    """TODO: make an item stale and a resource_state_stale difference"""
 
     _hk_free_entrances: Dict[int, Set[str]]
     """mapping for entrances that will not alter resource state no matter how many more items we get, for optimization"""
@@ -37,9 +38,9 @@ class HKLogicMixin(LogicMixin):
         players = multiworld.get_game_players(cls.game)
         self._hk_per_player_resource_states = {player: KeyedDefaultDict(lambda region: [default_state] if region == "Menu" else []) for player in players}  # {player: {init_state: [start_region]} for player in players}
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
-        self._hk_free_entrances = {player: set() for player in players}
+        self._hk_free_entrances = {player: {"Menu"} for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
-        self._hk_sweeping = False
+        self._hk_stale = {player: True for player in players}
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
@@ -59,6 +60,8 @@ class HKLogicMixin(LogicMixin):
         # if avaliable_states is None:
         #     region.can_reach(self)
         #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+
+                           # unneeded?
         avaliable_states = deepcopy(self._hk_per_player_resource_states[player][region.name])
         # loses the can_reach parent call, potentially re-add it?
 
@@ -67,15 +70,11 @@ class HKLogicMixin(LogicMixin):
             return False
 
         if target_region:
-            # TODO see if this can just be a defaultdict
-            target_states = deepcopy(self._hk_per_player_resource_states[player].get(target_region.name, []))
-            self._hk_per_player_resource_states[player][target_region.name] = target_states
             persist = True
         else:
             persist = False
 
         for handler in clause.hk_state_requirements:
-                                                                     # unneeded?
             avaliable_states = [s for input_state in avaliable_states for s in handler.ModifyState(input_state, self, player)]
 
         if len(avaliable_states):
@@ -105,30 +104,31 @@ class HKLogicMixin(LogicMixin):
                         # reverse so we can blindly pop
                         self._hk_per_player_resource_states[player][target_region.name].pop(index)
                     self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
-                    self.sweep_for_resource_state(player)
+                    self._hk_stale[player] = True
+                assert self._hk_per_player_resource_states[player][target_region.name]
                 return True
         else:
             return False
 
-    def sweep_for_resource_state(self, player):
-        if self._hk_sweeping:
+    def _hk_sweep(self, player):
+        if not (self._hk_stale[player] or self.stale[player]):
             return
-        else:
-            self._hk_sweeping = True
         # assume not stale and only evaluate true clauses
         # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
             # print(self._hk_per_player_sweepable_entrances[player])
             # random pop but i don't really care
             entrance_name = self._hk_per_player_sweepable_entrances[player].pop()
-            if entrance_name not in self._hk_entrance_clause_cache[player]:
-                # then we haven't done a single can_reach on it, let normal sweep handle that
-                continue
-
             entrance = self.multiworld.get_entrance(entrance_name, player)
-            for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
-                self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
-        self._hk_sweeping = False
+            entrance.can_reach(self)
+            # if entrance_name not in self._hk_entrance_clause_cache[player]:
+            #     entrance.can_reach(self)
+            #     # then we haven't done a single can_reach on it, let normal sweep handle that
+            #     continue
+
+            # for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
+            #     self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
+        self._hk_stale[player] = False
 
 
 def ge(state1, state2) -> bool:
@@ -136,8 +136,22 @@ def ge(state1, state2) -> bool:
 
 
 def lt(state1, state2) -> bool:
-    return sum(state1[key] <= state2[key] for key in state2.keys()) == 1 and sum(state1[key] < state2[key] for key in state2.keys()) == 1
+    if state1 == state2:
+        return False
+    if any(key not in state2 for key in state1.keys()):
+        return False
+    if any(state1[key] > state2[key] for key in state1.keys()):
+        return False
+    return True
+    # return sum(state1[key] <= state2[key] for key in state1.keys()) == 1 and sum(state1[key] < state2[key] for key in state1.keys()) == 1
     # return not ge(state1, state2)
+
+# negative values won't exist
+# best case is falsy
+# keys in right that are not in left are inherently lt
+# any key in left > right is a failure
+# any key in left and not in right is a failure
+# don't care about full equality because of codepath
 
 
 class resource_state_handler(Type):
@@ -178,7 +192,10 @@ class RCStateVariable(metaclass=resource_state_handler):
 
     def ModifyState(self, state_blob, item_state, player):  # -> Generator["state_blob"]:
         # print(self)
-        return (output_state for valid, output_state in [self._ModifyState(state_blob, item_state, player)] if valid)
+        # return (output_state for valid, output_state in [self._ModifyState(state_blob, item_state, player)] if valid)
+        valid, output_state = self._ModifyState(state_blob, item_state, player)
+        if valid:
+            yield output_state
 
     def _ModifyState(self, state_blob, item_state, player) -> Tuple[bool, "state_blob"]:
         pass
@@ -281,9 +298,9 @@ class EquipCharmVariable(RCStateVariable):
     @staticmethod
     def charm_id_and_name(charm) -> Tuple[int, str]:
         if not charm.isdigit():
-            return charm_name_to_id[charm], charm
+            return charm_name_to_id[charm] + 1, charm
         else:
-            return charm, charm_names[charm]  # TODO
+            return charm, charm_names[charm - 1]  # TODO
 
     def parse_term(self, charm):
         self.charm_id, self.charm_name = self.charm_id_and_name(charm)
@@ -302,6 +319,9 @@ class EquipCharmVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
+    def has_item(self, item_state, player):
+        return item_state.has(self.charm_name, player)
+
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
         charm_key = f"CHARM{self.charm_id}"
@@ -309,35 +329,12 @@ class EquipCharmVariable(RCStateVariable):
             return True, state_blob
         if f"no{charm_key}" in state_blob:
             return False, state_blob
-        if not item_state.has(self.charm_name, player):
+        if not self.has_item(item_state, player):
             return False, state_blob
         else:
             # TODO
             state_blob[charm_key] = 1
             return True, state_blob
-
-    def can_exclude(self, options):
-        return False
-
-
-class FlowerProviderVariable(RCResetter, RCStateVariable):
-    prefix = "$FLOWERGET"
-    reset_properties = ["NOFLOWER"]
-
-    def parse_term(self):
-        pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     state_blob["NoFlower"] = 0
 
     def can_exclude(self, options):
         return False
@@ -369,6 +366,68 @@ class FragileCharmVariable(EquipCharmVariable):
 
     # def can_exclude(self, options):
         # return False
+
+
+class WhiteFragmentEquipVariable(EquipCharmVariable):
+    # prefix = "$EQUIPPEDCHARM"
+    void: bool
+
+    def parse_term(self, charm):
+        self.charm_id, self.charm_name = self.charm_id_and_name(charm)
+        self.void = charm == "Void_Heart"
+        assert not self.void == (charm == "Kingsoul")
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        if term.startswith(cls.prefix):
+            charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
+            if charm_id == 36:
+                return True
+        # else
+        return False
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    def has_item(self, item_state, player):
+        if self.void:
+            count = 3
+        else:
+            count = 2
+        return item_state.has("WHITEFRAGMENT", player, count)
+
+    # def _ModifyState(self, state_blob, item_state, player):
+    #     # TODO figure this out
+    #     # TODO actually
+    #     print(self.void)
+    #     return super()._ModifyState(state_blob, item_state, player)
+
+    # def can_exclude(self, options):
+        # return False
+
+
+class FlowerProviderVariable(RCResetter, RCStateVariable):
+    prefix = "$FLOWERGET"
+    reset_properties = ["NOFLOWER"]
+
+    def parse_term(self):
+        pass
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return term.startswith(cls.prefix)
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    # def _ModifyState(self, state_blob, item_state, player):
+    #     # TODO figure this out
+    #     state_blob["NoFlower"] = 0
+
+    def can_exclude(self, options):
+        return False
 
 
 class HotSpringResetVariable(RCResetter, RCStateVariable):
@@ -652,10 +711,10 @@ class TakeDamageVariable(RCStateVariable):
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
-        if self.damage >= state_blob["Health"]:
+        if self.damage + state_blob["DAMAGE"] >= BASE_HEALTH:
             return False, state_blob
         else:
-            state_blob["Health"] -= self.damage
+            state_blob["DAMAGE"] += self.damage
             return True, state_blob
 
     def can_exclude(self, options):
@@ -681,13 +740,13 @@ class WarpToBenchResetVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def ModifyState(self, state_blob, item_state, player):
-        sq_states = sq_reset.ModifyState(state_blob, item_state, player)
+        sq_states = self.sq_reset.ModifyState(state_blob, item_state, player)
         return (output_state for s in sq_states for output_state in bench_reset.ModifyState(s, item_state, player))
         # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
-        valid, state_blob = sq_reset._ModifyState(state_blob, item_state, player)
+        valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
             return BenchResetVariable._ModifyState(state_blob, item_state, player)
         else:
@@ -704,7 +763,7 @@ class WarpToStartResetVariable(RCStateVariable):
 
     def parse_term(self):
         self.sq_reset = SaveQuitResetVariable(SaveQuitResetVariable.prefix)
-        self.bench_reset = StartRespawnResetVariable(StartRespawnResetVariable.prefix)
+        self.start_reset = StartRespawnResetVariable(StartRespawnResetVariable.prefix)
 
     @classmethod
     def TryMatch(cls, term: str):
@@ -715,13 +774,13 @@ class WarpToStartResetVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def ModifyState(self, state_blob, item_state, player):
-        sq_states = sq_reset.ModifyState(state_blob, item_state, player)
-        return (output_state for s in sq_states for output_state in start_reset.ModifyState(s, item_state, player))
+        sq_states = self.sq_reset.ModifyState(state_blob, item_state, player)
+        return (output_state for s in sq_states for output_state in self.start_reset.ModifyState(s, item_state, player))
         # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
-        valid, state_blob = sq_reset._ModifyState(state_blob, item_state, player)
+        valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
             return BenchResetVariable._ModifyState(state_blob, item_state, player)
         else:
@@ -729,32 +788,3 @@ class WarpToStartResetVariable(RCStateVariable):
 
     def can_exclude(self, options):
         return False
-
-
-class WhiteFragmentEquipVariable(EquipCharmVariable):
-    # prefix = "$EQUIPPEDCHARM"
-
-    # TODO??
-    # def parse_term(self):
-    #     pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        if term.startswith(cls.prefix):
-            charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
-            if charm_id == 36:
-                return True
-        # else
-        return False
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     # TODO actually
-    #     pass
-
-    # def can_exclude(self, options):
-        # return False

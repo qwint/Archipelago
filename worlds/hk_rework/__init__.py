@@ -166,8 +166,8 @@ class HKEntrance(Entrance):
         valid_clauses = {}
         for index, clause in enumerate(self.hk_rule):
             if state._hk_entrance_clause_cache[self.player][self.name][index]:
-                state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region)
-                valid_clauses[index] = True
+                if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
+                    valid_clauses[index] = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
                 state._hk_entrance_clause_cache[self.player][self.name][index] = True
@@ -184,6 +184,14 @@ class HKEntrance(Entrance):
 
 class HKRegion(Region):
     entrance_type = HKEntrance
+
+    def can_reach(self, state) -> bool:
+        state._hk_sweep(self.player)
+        ret = super().can_reach(state)
+
+        if ret and not state._hk_per_player_resource_states[self.player][self.name]:
+            assert self not in state.reachable_regions[self.player], f"{self.name} assessibility passed with no known resource state"
+        return ret
 
 
 # TODO clean this up
@@ -876,7 +884,8 @@ class HKWorld(RandomizerCoreWorld):
                         ([max(prog_items["RIGHTDASH"], prog_items["LEFTDASH"])] * 2)    
             else:
                 self.edit_effects(state, item.player, item.name, add=True)
-            self.set_resource_thresholds(prog_items, item.name)
+            # self.set_resource_thresholds(prog_items, item.name)
+            state._hk_stale[item.player] = True
         return change
 
     def remove(self, state, item: HKItem) -> bool:
@@ -902,7 +911,8 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.edit_effects(state, item.player, item.name, add=False)
 
-            self.set_resource_thresholds(prog_items, item.name)
+            # self.set_resource_thresholds(prog_items, item.name)
+            state._hk_stale[item.player] = True
         return change
 
     def fill_slot_data(self):
