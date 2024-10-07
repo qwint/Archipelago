@@ -22,7 +22,7 @@ from .Options import hollow_knight_options, hollow_knight_randomize_options, Goa
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
 from .Charms import names as charm_names, charm_name_to_id
 
-from .ExtractedData import item_effects  # multi_locations, logic_options, pool_options, items as extracted_items, logic_items
+from .ExtractedData import item_effects, vanilla_shop_costs, vanilla_location_costs  # multi_locations, logic_options, pool_options, items as extracted_items, logic_items
 from .Items import item_name_groups, item_name_to_id, location_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
@@ -243,7 +243,6 @@ class HKWorld(RandomizerCoreWorld):
     charm_costs: List[int]
 
     def __init__(self, multiworld, player):
-        from .ExtractedData import vanilla_shop_costs
         super(HKWorld, self).__init__(multiworld, player)
         self.created_multi_locations: Dict[str, List[HKLocation]] = {
             location: list() for location in multi_locations
@@ -259,7 +258,6 @@ class HKWorld(RandomizerCoreWorld):
 
 # RandomizerCoreWorld overrides
     def create_regions(self):
-        from .ExtractedData import vanilla_location_costs
         super().create_regions()
         self.add_vanilla_connections()
         self.add_all_events()

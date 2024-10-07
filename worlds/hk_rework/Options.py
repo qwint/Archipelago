@@ -2,7 +2,8 @@ import typing
 import re
 from dataclasses import dataclass, make_dataclass
 
-from .ExtractedData import logic_options, starts, pool_options
+from .data.option_data import logic_options, pool_options
+from .data.trando_data import starts
 from .Rules import cost_terms
 
 from Options import Option, DefaultOnToggle, Toggle, Choice, Range, OptionDict, NamedRange, DeathLink, PerGameCommonOptions
@@ -129,7 +130,9 @@ hollow_knight_randomize_options: typing.Dict[str, type(Option)] = {}
 
 splitter_pattern = re.compile(r'(?<!^)(?=[A-Z])')
 for option_name, option_data in pool_options.items():
-    extra_data = {"__module__": __name__, "items": option_data[0], "locations": option_data[1]}
+    items = [pair["item"] for pair in option_data]
+    locations = [pair["item"] for pair in option_data]
+    extra_data = {"__module__": __name__, "items": items, "locations": locations}
     if option_name in option_docstrings:
         extra_data["__doc__"] = option_docstrings[option_name]
     if option_name in default_on:
