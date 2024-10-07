@@ -308,7 +308,7 @@ class HKWorld(RandomizerCoreWorld):
         # lookup table of locations that need to be created with their item like events but need ids like non-events
         if self.options.AddUnshuffledLocations:
             unshuffled_location_lookup = {
-                pair["locations"] if pair["locations"] not in self.created_multi_locations else f"{pair["locations"]}_{pair["items"]}": option
+                pair["locations"] if pair["locations"] not in self.created_multi_locations else f"{pair['locations']}_{pair['items']}": option
                 for option, pairs in pool_options.items()
                 for pair in pairs
                 # TODO double check logic
