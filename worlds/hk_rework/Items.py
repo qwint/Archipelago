@@ -1,66 +1,44 @@
-from typing import Dict, Set, NamedTuple
-from .ExtractedData import items, logic_items, item_effects, locations
+from .data.option_data import pool_options
+from .data.location_data import multi_locations
+from .data.item_data import affecting_items_by_term, progression_effect_lookup, non_progression_items
 
-item_table = {}
+# strip "Randomize" from pool options and use their names as group names
+item_name_groups = {key[9:]: {pair["item"] for pair in value} for key, value in pool_options.items()}
+
+# override to remove world sense
+item_name_groups["Dreamers"] = set(affecting_items_by_term["DREAMER"])
+
+item_name_groups["CDash"] = set(affecting_items_by_term["LEFTSUPERDASH"] + affecting_items_by_term["RIGHTSUPERDASH"])
+item_name_groups["Claw"] = set(affecting_items_by_term["LEFTCLAW"] + affecting_items_by_term["RIGHTCLAW"])
+item_name_groups["Cloak"] = set(affecting_items_by_term["LEFTDASH"] + affecting_items_by_term["RIGHTDASH"])
+item_name_groups["Dive"] = set(affecting_items_by_term["QUAKE"])
+item_name_groups["Fireball"] = set(affecting_items_by_term["FIREBALL"])
+item_name_groups["Scream"] = set(affecting_items_by_term["SCREAM"])
+item_name_groups["Grimmchild"] = set(affecting_items_by_term["Grimmchild"])
+item_name_groups["WhiteFragments"] = set(affecting_items_by_term["WHITEFRAGMENT"])
+
+# TODO
+# item_name_groups["PalaceLore"] = set(affecting_items_by_term["DREAMER"])
+# item_name_groups["PalaceTotem"] = set(affecting_items_by_term["DREAMER"])
 
 
-class HKItemData(NamedTuple):
-    advancement: bool
-    id: int
-    type: str
-
-
-for i, (item_name, item_type) in enumerate(items.items(), start=0x1000000):
-    item_table[item_name] = HKItemData(advancement=item_name in logic_items or item_name in item_effects,
-                                       id=i, type=item_type)
-
-lookup_type_to_names: Dict[str, Set[str]] = {}
-for item, item_data in item_table.items():
-    lookup_type_to_names.setdefault(item_data.type, set()).add(item)
-
-directionals = ('', 'Left_', 'Right_')
-item_name_groups = ({
-    "BossEssence": lookup_type_to_names["DreamWarrior"] | lookup_type_to_names["DreamBoss"],
-    "BossGeo": lookup_type_to_names["Boss_Geo"],
-    "CDash": {x + "Crystal_Heart" for x in directionals},
-    "Charms": lookup_type_to_names["Charm"],
-    "CharmNotches": lookup_type_to_names["Notch"],
-    "Claw": {x + "Mantis_Claw" for x in directionals},
-    "Cloak": {x + "Mothwing_Cloak" for x in directionals} | {"Shade_Cloak", "Split_Shade_Cloak"},
-    "Dive": {"Desolate_Dive", "Descending_Dark"},
-    "LifebloodCocoons": lookup_type_to_names["Cocoon"],
-    "Dreamers": {"Herrah", "Monomon", "Lurien"},
-    "Fireball": {"Vengeful_Spirit", "Shade_Soul"},
-    "GeoChests": lookup_type_to_names["Geo"],
-    "GeoRocks": lookup_type_to_names["Rock"],
-    "GrimmkinFlames": lookup_type_to_names["Flame"],
-    "Grimmchild": {"Grimmchild1", "Grimmchild2"},
-    "Grubs": lookup_type_to_names["Grub"],
-    "JournalEntries": lookup_type_to_names["Journal"],
-    "JunkPitChests": lookup_type_to_names["JunkPitChest"],
-    "Keys": lookup_type_to_names["Key"],
-    "LoreTablets": lookup_type_to_names["Lore"] | lookup_type_to_names["PalaceLore"],
-    "Maps": lookup_type_to_names["Map"],
-    "MaskShards": lookup_type_to_names["Mask"],
-    "Mimics": lookup_type_to_names["Mimic"],
-    "Nail": lookup_type_to_names["CursedNail"],
-    "PalaceJournal": {"Journal_Entry-Seal_of_Binding"},
-    "PalaceLore": lookup_type_to_names["PalaceLore"],
-    "PalaceTotem": {"Soul_Totem-Palace", "Soul_Totem-Path_of_Pain"},
-    "RancidEggs": lookup_type_to_names["Egg"],
-    "Relics": lookup_type_to_names["Relic"],
-    "Scream": {"Howling_Wraiths", "Abyss_Shriek"},
-    "Skills": lookup_type_to_names["Skill"],
-    "SoulTotems": lookup_type_to_names["Soul"],
-    "Stags": lookup_type_to_names["Stag"],
-    "VesselFragments": lookup_type_to_names["Vessel"],
-    "WhisperingRoots": lookup_type_to_names["Root"],
-    "WhiteFragments": {"Queen_Fragment", "King_Fragment", "Void_Heart"},
-})
 item_name_groups['Horizontal'] = item_name_groups['Cloak'] | item_name_groups['CDash']
 item_name_groups['Vertical'] = item_name_groups['Claw'] | {'Monarch_Wings'}
-item_name_groups['Skills'] |= item_name_groups['Vertical'] | item_name_groups['Horizontal']
+# TODO remove: from pool_options now
+# item_name_groups['Skills'] |= item_name_groups['Vertical'] | item_name_groups['Horizontal']
 
-item_name_to_id = {name: data.id for name, data in item_table.items()}
-location_name_to_id = {location_name: location_id for location_id, location_name in
-                       enumerate(locations, start=0x1000000)}
+
+items = {item for item in progression_effect_lookup.keys()} | set(non_progression_items)
+items |= {"One_Geo", "Soul_Refill"}
+item_name_to_id = {
+    item_name: item_id for item_id, item_name in
+    enumerate(sorted(items), start=0x1000000)
+}
+
+locations = {pair["location"] for pairs in pool_options.values() for pair in pairs}
+locations = [loc for loc in locations if loc not in multi_locations]
+locations += [f"{shop}_{i+1}" for shop in multi_locations for i in range(16) if shop != "Start"]
+location_name_to_id = {
+    location_name: location_id for location_id, location_name in
+    enumerate(sorted(locations), start=0x1000000)
+}

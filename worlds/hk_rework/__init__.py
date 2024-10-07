@@ -12,13 +12,17 @@ from worlds.AutoWorld import WebWorld
 from .template_world import RandomizerCoreWorld
 
 from .state_mixin import resource_state_handler, RCStateVariable, HKLogicMixin  # all that's needed to add the mixin
-from .region_data import regions, transitions, locations
+from .data.region_data import regions, transitions, locations
+from .data.location_data import multi_locations
+from .data.option_data import logic_options, pool_options
+from .data.item_data import progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term
+
 from .Options import hollow_knight_options, hollow_knight_randomize_options, Goal, WhitePalace, CostSanity, \
     shop_to_option, HKOptions
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
 from .Charms import names as charm_names, charm_name_to_id
 
-from .ExtractedData import pool_options, logic_options, items as extracted_items, logic_items, item_effects, multi_locations
+from .ExtractedData import item_effects  # multi_locations, logic_options, pool_options, items as extracted_items, logic_items
 from .Items import item_name_groups, item_name_to_id, location_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
@@ -58,6 +62,7 @@ class HKWeb(WebWorld):
 
 gamename = "Hollow Knight"
 base_id = 0x1000000
+
 
 class HKClause(NamedTuple):
     # Dict of item: count for state.has_all_counts()
@@ -194,21 +199,11 @@ class HKRegion(Region):
         return ret
 
 
-# TODO clean this up
-item_datapackage = list({item for pairs in pool_options.values() for item in pairs[0]})
-item_datapackage += ["One_Geo", "Soul_Refill"]
-
-
-location_datapackage = [location["name"] for location in cast(List[Dict[str, Any]], locations)]
-event_locations = ['Can_Replenish_Geo', 'Can_Replenish_Geo-Crossroads', 'Rescued_Sly', 'Rescued_Bretta', 'Rescued_Deepnest_Zote', 'Defeated_Colosseum_Zote', 'Lever-Shade_Soul', 'Lever-City_Fountain', 'Lever-Path_of_Pain', 'Completed_Path_of_Pain', 'Lever-Dung_Defender', 'Defeated_Gruz_Mother', 'Defeated_False_Knight', 'Defeated_Brooding_Mawlek', 'Defeated_Hornet_1', 'Defeated_Mantis_Lords', 'Defeated_Sanctum_Warrior', 'Defeated_Soul_Master', 'Defeated_Elegant_Warrior', 'Defeated_Crystal_Guardian', 'Defeated_Enraged_Guardian', 'Defeated_Flukemarm', 'Defeated_Dung_Defender', 'Defeated_Broken_Vessel', 'Defeated_Hornet_2', 'Defeated_Watcher_Knights', 'Defeated_Uumuu', 'Defeated_Nosk', 'Defeated_Traitor_Lord', 'Defeated_Grimm', 'Defeated_Collector', 'Defeated_Hive_Knight', 'Defeated_Pale_Lurker', 'Defeated_Elder_Hu', 'Defeated_Xero', 'Defeated_Gorb', 'Defeated_Marmu', 'Defeated_No_Eyes', 'Defeated_Galien', 'Defeated_Markoth', 'Defeated_Failed_Champion', 'Defeated_Soul_Tyrant', 'Defeated_Lost_Kin', 'Defeated_White_Defender', 'Defeated_Grey_Prince_Zote', 'Defeated_Colosseum_1', 'Defeated_Colosseum_2', 'Defeated_Ancestral_Mound_Baldur', 'Defeated_Crossroads_Baldur', 'Defeated_Right_Cliffs_Baldur', 'Defeated_Shrumal_Ogre_Arena', "Defeated_King's_Station_Arena", "Defeated_West_Queen's_Gardens_Arena", 'Defeated_Path_of_Pain_Arena', 'Can_Visit_Lemm', 'Can_Repair_Fragile_Charms', 'Can_Deliver_Flower', 'First_Grimmchild_Upgrade', 'Second_Grimmchild_Upgrade', 'Nightmare_Lantern_Lit', 'Opened_Waterways_Manhole', 'Opened_Dung_Defender_Wall', 'Opened_Resting_Grounds_Floor', 'Broke_Crypts_One_Way_Floor', 'Opened_Resting_Grounds_Catacombs_Wall', 'Opened_Pleasure_House_Wall', 'Opened_Gardens_Stag_Exit', 'Opened_Mawlek_Wall', 'Opened_Shaman_Pillar', 'Opened_Archives_Exit_Wall', 'Opened_Tramway_Exit_Gate', 'Broke_Camp_Bench_Wall', 'Broke_Sanctum_Glass_Floor', 'Broke_Goam_Entry_Quake_Floor', "Broke_Pilgrim's_Way_Quake_Floor", 'Broke_Sanctum_Geo_Rock_Quake_Floor', 'Broke_Quake_Floor_After_Soul_Master_1', 'Broke_Quake_Floor_After_Soul_Master_2', 'Broke_Quake_Floor_After_Soul_Master_3', 'Broke_Quake_Floor_After_Soul_Master_4', 'Broke_Sanctum_Escape_Quake_Floor_1', 'Broke_Sanctum_Escape_Quake_Floor_2', 'Broke_Crystal_Peak_Entrance_Quake_Floor', 'Broke_Crystal_Peak_Dive_Egg_Quake_Floor', "Broke_Hallownest's_Crown_Quake_Floor", 'Broke_Crystallized_Mound_Quake_Floor', 'Broke_Resting_Grounds_Quake_Floor', 'Broke_Cliffs_Dark_Room_Quake_Floor', 'Broke_Basin_Grub_Quake_Floor', 'Broke_Lower_Edge_Quake_Floor', 'Broke_Oro_Quake_Floor_1', 'Broke_Oro_Quake_Floor_2', 'Broke_Oro_Quake_Floor_3', 'Broke_420_Rock_Quake_Floor_1', 'Broke_420_Rock_Quake_Floor_2', 'Broke_420_Rock_Quake_Floor_3', 'Broke_420_Rock_Quake_Floor_4', 'Broke_420_Rock_Quake_Floor_5', 'Broke_420_Rock_Quake_Floor_6', 'Broke_420_Rock_Quake_Floor_7', 'Broke_420_Rock_Quake_Floor_8', 'Broke_420_Rock_Quake_Floor_9', 'Broke_420_Rock_Quake_Floor_10', 'Broke_420_Rock_Quake_Floor_11', 'Broke_Waterways_Bench_Quake_Floor_1', 'Broke_Waterways_Bench_Quake_Floor_2', 'Broke_Waterways_Bench_Quake_Floor_3', 'Broke_Flukemarm_Quake_Floor', 'Broke_Dung_Defender_Quake_Floor', 'Broke_Edge_Journal_Quake_Floor', 'Opened_Emilitia_Door', 'Lit_Abyss_Lighthouse', "Opened_Lower_Kingdom's_Edge_Wall", 'Opened_Glade_Door', 'Opened_Waterways_Exit', 'Palace_Entrance_Lantern_Lit', 'Palace_Left_Lantern_Lit', 'Palace_Right_Lantern_Lit', 'Palace_Atrium_Gates_Opened', 'Opened_Black_Egg_Temple', 'Start']  # 'Can_Warp_To_DG_Bench', 'Can_Warp_To_Bench',
-shop_locations = ['Sly', 'Sly_(Key)', 'Iselda', 'Salubra', 'Leg_Eater', 'Grubfather', 'Seer']
-shop_locations += ['Salubra_(Requires_Charms)', 'Egg_Shop']
-location_datapackage = [loc for loc in location_datapackage if loc not in event_locations and loc not in shop_locations]
-location_datapackage += [f"{shop}_{i+1}" for shop in shop_locations for i in range(16)]
-
+shop_locations = multi_locations
+event_locations = [location["name"] for location in locations if location["is_event"]]
 
 hk_regions = [region for region in cast(List[Dict[str, Any]], regions) if not region["name"].startswith("$")]
-hk_locations = [location for location in cast(List[Dict[str, Any]], locations) if location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
+hk_locations = [location for location in cast(List[Dict[str, Any]], locations)]  #  if location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
 
 
 class HKWorld(RandomizerCoreWorld):
@@ -235,9 +230,9 @@ class HKWorld(RandomizerCoreWorld):
     rule_lookup = {location["name"]: location["logic"] for location in hk_locations}
     region_lookup = {location: region["name"] for region in hk_regions for location in region["locations"]}
     pool_lookup = {
-        location if location not in multi_locations else f"{location}_{item}": item
+        pair["location"] if pair["location"] not in multi_locations else f"{pair['location']}_{pair['item']}": pair["item"]
         for option, pairs in pool_options.items()
-        for item, location in zip(pairs[0], pairs[1])
+        for pair in pairs
         }
 
     cached_filler_items: Dict[int, List[str]] = {}  # per player cache
@@ -250,6 +245,7 @@ class HKWorld(RandomizerCoreWorld):
         super(HKWorld, self).__init__(multiworld, player)
         self.created_multi_locations: Dict[str, List[HKLocation]] = {
             location: list() for location in multi_locations
+            if location != "Start"
         }
         self.ranges = {}
         self.created_shop_items = 0
@@ -270,7 +266,7 @@ class HKWorld(RandomizerCoreWorld):
         if "King_Fragment" in self.white_palace_exclusions():
             self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
 
-        location_to_option = {location: option for option, keys in pool_options.items() for location in keys[1]}
+        location_to_option = {key["location"]: option for option, keys in pool_options.items()  for key in keys}
         location_to_option["Elevator_Pass"] = "RandomizeElevatorPass"
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
@@ -290,15 +286,13 @@ class HKWorld(RandomizerCoreWorld):
 
 # extra handling
     def add_vanilla_connections(self):
-        import pkgutil
-        import json
-        data = pkgutil.get_data(__name__, f"transitions.json").decode("utf-8")
-        trans_data = json.loads(data)
+        from .data.trando_data import transitions
+        trans_data = transitions  # TODO fully move
 
         transition_name_to_region = {transition: region["name"] for region in self.rc_regions for transition in region["transitions"]}
         vanilla_connections = [
-            (transition_name_to_region[name], transition_name_to_region[t["VanillaTarget"]], name)
-            for name, t in trans_data.items() if t["Sides"] != "OneWayOut"
+            (transition_name_to_region[name], transition_name_to_region[t["vanilla_target"]], name)
+            for name, t in trans_data.items() if t["sides"] != "OneWayOut"
             ]
 
         for connection in vanilla_connections:
@@ -310,9 +304,9 @@ class HKWorld(RandomizerCoreWorld):
         # lookup table of locations that need to be created with their item like events but need ids like non-events
         if self.options.AddUnshuffledLocations:
             unshuffled_location_lookup = {
-                location if location not in self.created_multi_locations else f"{location}_{item}": option
+                pair["locations"] if pair["locations"] not in self.created_multi_locations else f"{pair["locations"]}_{pair["items"]}": option
                 for option, pairs in pool_options.items()
-                for item, location in zip(pairs[0], pairs[1])
+                for pair in pairs
                 # TODO double check logic
                 }
         else:
@@ -441,8 +435,6 @@ class HKWorld(RandomizerCoreWorld):
             # handle both keys of item name and keys of itemname>count
             ret: Counter[str] = Counter()
             for full_req in reqs:
-                if "Grimmchild" == full_req:
-                    full_req = "GRIMMCHILD"  # TODO fix in data
                 if full_req.split("=0")[0] in logic_options:
                     req = full_req.split("=")
                     if len(req) == 2 and req[1] == "0":
@@ -496,8 +488,7 @@ class HKWorld(RandomizerCoreWorld):
             if skip_clause:
                 continue
             for item in items:
-                assert item == "FALSE" or item in item_effects or item in logic_items or item in event_locations, \
-                 f"{item} not found in advancements"
+                assert item == "FALSE" or item in affecting_items_by_term or item in affected_terms_by_item or item in event_locations, f"{item} not found in advancements"
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
@@ -512,24 +503,11 @@ class HKWorld(RandomizerCoreWorld):
         spot.set_hk_rule(rule)
 
     def get_connections(self) -> "List[Tuple[str, str, Optional[Any]]]":
-        from .ExtractedData import starts
+        from .data.trando_data import starts
         connection_map = super().get_connections()
 
-        # find the correct StartLocation connection and make it accessible
-        logic = [
-                    {
-                        "item_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-        index, menu, start_location = [
-            (index, connection[0], connection[1])
-            for index, connection in enumerate(connection_map)
-            if connection[0] == "Menu"
-            and connection[1].startswith(starts[self.options.StartLocation.current_key])
-            ][0]
-        connection_map[index] = (menu, start_location, logic)
+        key = self.options.StartLocation.current_key
+        connection_map.append(("Menu", starts[key]["granted_transition"], starts[key]["logic"]))
 
         return connection_map
 
@@ -547,20 +525,22 @@ class HKWorld(RandomizerCoreWorld):
         exclusions = self.white_palace_exclusions()
         if "King_Fragment" in exclusions:
             exclusions.remove("King_Fragment")
+
         self.event_locations += [
-            location if location not in self.created_multi_locations else f"{location}_{item}"
+            pair["location"] if pair["location"] not in self.created_multi_locations else f"{pair['location']}_{pair['item']}"
             for option, pairs in pool_options.items()
-            for item, location in zip(pairs[0], pairs[1])
+            for pair in pairs
             # TODO confirm logic
             if (not getattr(self.options, option) and (option not in logicless_options or self.options.AddUnshuffledLocations))
-            or location in exclusions
+            or pair["location"] in exclusions
             ]
+
         location_list = [
-            location
+            pair["location"]
             for option, pairs in pool_options.items()
-            for location in pairs[1]
-            if location not in self.event_locations and getattr(self.options, option)
-            and location not in self.created_multi_locations
+            for pair in pairs
+            if pair["location"] not in self.event_locations and getattr(self.options, option)
+            and pair["location"] not in self.created_multi_locations
             ]
 
         # options not handled in pool_options
@@ -576,14 +556,15 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.event_locations.append("Split_Crystal_Heart")
 
+        directions = ("Left", "Right")
         if self.options.SplitMantisClaw:
             location_name = "Mantis_Claw"
             if "Mantis_Claw" in location_list:
                 location_list.remove(location_name)
-                location_list += [f"{prefix}_{location_name}" for prefix in ["Left", "Right"]]
+                location_list += [f"{prefix}_{location_name}" for prefix in directions]
             else:
                 self.event_locations.remove(location_name)
-                self.event_locations += [f"{prefix}_{location_name}" for prefix in ["Left", "Right"]]
+                self.event_locations += [f"{prefix}_{location_name}" for prefix in directions]
 
         if self.options.SplitMothwingCloak:
             if "Mothwing_Cloak" in location_list:
@@ -612,13 +593,19 @@ class HKWorld(RandomizerCoreWorld):
         junk.update(exclusions)
 
         # build out item_table (including counts) by option, excluding items in junk
-        item_table = [item for option, pairs in pool_options.items() for item in pairs[0] if getattr(self.options, option) and item not in junk]
+        item_table = [
+            pair["item"]
+            for option, pairs in pool_options.items()
+            for pair in pairs
+            if getattr(self.options, option) and pair["item"] not in junk
+        ]
 
         # options not handled in pool_options
+        directions = ("Left", "Right")
         if self.options.SplitMothwingCloak and self.options.RandomizeSkills:
             item_name = "Mothwing_Cloak"
             item_table.remove(item_name)
-            item_table += [f"{prefix}_{item_name}" for prefix in ["Left", "Right"]]
+            item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
             item_table.remove("Shade_Cloak")
             item_table.append("Left_Mothwing_Cloak" if self.split_cloak_direction else "Right_Mothwing_Cloak")
@@ -626,12 +613,12 @@ class HKWorld(RandomizerCoreWorld):
         if self.options.SplitCrystalHeart and self.options.RandomizeSkills:
             item_name = "Crystal_Heart"
             item_table.remove(item_name)
-            item_table += [f"{prefix}_{item_name}" for prefix in ["Left", "Right"]]
+            item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
         if self.options.SplitMantisClaw and self.options.RandomizeSkills:
             item_name = "Mantis_Claw"
             item_table.remove(item_name)
-            item_table += [f"{prefix}_{item_name}" for prefix in ["Left", "Right"]]
+            item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
         # Grimmchild 2 always gets added, switch if needed
         if self.options.RandomizeGrimmkinFlames and self.options.RandomizeCharms:
@@ -663,7 +650,6 @@ class HKWorld(RandomizerCoreWorld):
             multiworld.completion_condition[player] = lambda state: _hk_can_beat_thk(state, player) or _hk_can_beat_radiance(state, player)
 
     def get_item_classification(self, name: str) -> ItemClassification:
-        item_type = extracted_items.get(name, None)
 
         progression_charms = {
             # Baldur Killers
@@ -676,22 +662,25 @@ class HKWorld(RandomizerCoreWorld):
             "Grimmchild1", "Grimmchild2"
         }
 
+        from .data.item_data import non_progression_items, affecting_items_by_term
+
+        if name in non_progression_items:
+            classification = ItemClassification.filler
+            assert name not in progression_effect_lookup
+        elif name in progression_effect_lookup:
+            classification = ItemClassification.progression
+        if name in affecting_items_by_term["DREAMER"] or \
+                name in affecting_items_by_term["GRUBS"] or \
+                name in affecting_items_by_term["ESSENCE"] or \
+                name in affecting_items_by_term["RANCIDEGGS"]:
+            classification |= ItemClassification.skip_balancing
+        if name in affecting_items_by_term["PALEORE"] or name in affecting_items_by_term["VESSELFRAGMENTS"]:
+            classification |= ItemClassification.useful
+        if (name not in progression_charms and name in affecting_items_by_term["CHARMS"]):
+            classification |= ItemClassification.skip_balancing
         if name == "Mimic_Grub":
-            classification = ItemClassification.trap
-        elif name == "Godtuner":
-            classification = ItemClassification.progression
-        elif item_type in ("Grub", "DreamWarrior", "Root", "Egg", "Dreamer"):
-            classification = ItemClassification.progression_skip_balancing
-        elif item_type == "Charm" and name not in progression_charms:
-            classification = ItemClassification.progression_skip_balancing
-        elif item_type in ("Map", "Journal"):
-            classification = ItemClassification.filler
-        elif item_type in ("Ore", "Vessel"):
-            classification = ItemClassification.useful
-        elif name in item_effects or name in logic_items:
-            classification = ItemClassification.progression
-        else:
-            classification = ItemClassification.filler
+            classification |= ItemClassification.trap
+
         return classification
 
     def get_filler_items(self) -> List[str]:

@@ -5,8 +5,7 @@ regions = [
         "name": "Menu",
         "exits": [
             {
-                "Target": "Nightmare_Lantern_Lit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Grimmchild"
@@ -15,11 +14,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Nightmare_Lantern_Lit"
             },
             {
-                "Target": "Opened_Shaman_Pillar",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DREAMER"
@@ -28,124 +27,125 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
-            },
-            {
-                "Target": "Tutorial_01[top1]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Town[top1]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Deepnest_01b[top2]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Fungus2_25[top2]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Deepnest_East_03[top2]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "RestingGrounds_02[top1]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Mines_13[top1]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Mines_23[top1]",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
-            },
-            {
-                "Target": "Can_Bench",
-                "Logic": [
-                    {
-                        "item_requirements": [
-                            "FALSE"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ]
+                ],
+                "target": "Opened_Shaman_Pillar"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Tutorial_01[top1]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Town[top1]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Deepnest_01b[top2]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Fungus2_25[top2]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Deepnest_East_03[top2]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "RestingGrounds_02[top1]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Mines_13[top1]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Mines_23[top1]"
+            # },
+            # {
+            #     "logic": [
+            #         {
+            #             "item_requirements": [
+            #                 "FALSE"
+            #             ],
+            #             "location_requirements": [],
+            #             "region_requirements": [],
+            #             "state_modifiers": []
+            #         }
+            #     ],
+            #     "target": "Can_Bench"
             }
         ],
         "locations": [
@@ -160,8 +160,8 @@ regions = [
         "name": "$DEFAULTSTATE",
         "exits": [
             {
-                "Target": "Menu",
-                "Logic": []
+                "logic": [],
+                "target": "Menu"
             }
         ],
         "locations": [],
@@ -171,8 +171,7 @@ regions = [
         "name": "Can_Bench",
         "exits": [
             {
-                "Target": "Menu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -182,7 +181,8 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Menu"
             }
         ],
         "locations": [],
@@ -200,12 +200,11 @@ regions = [
         "name": "Tutorial_01",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Tutorial_01[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -240,27 +239,28 @@ regions = [
                             "$SHRIEKPOGO[1,2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Tutorial_01[top2]"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Left"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Below_Fury",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Below_Fury"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Hidden",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Hidden"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Collapse",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Collapse"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Above_Fury",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Above_Fury"
             }
         ],
         "locations": [
@@ -283,8 +283,7 @@ regions = [
         "name": "$ANY",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo-Crossroads"
@@ -293,7 +292,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Can_Replenish_Geo"
             }
         ],
         "locations": [],
@@ -303,8 +303,8 @@ regions = [
         "name": "Fungus1_01[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             }
         ],
         "locations": [
@@ -319,8 +319,8 @@ regions = [
         "name": "Fungus2_03[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             }
         ],
         "locations": [
@@ -336,12 +336,12 @@ regions = [
         "name": "Fungus2_06[top1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Fungus2_06",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_06"
             }
         ],
         "locations": [],
@@ -354,16 +354,16 @@ regions = [
         "name": "Fungus2_12[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Fungus2_12[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_12[bot1]"
             },
             {
-                "Target": "Lore_Tablet-Mantis_Outskirts",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Mantis_Outskirts"
             }
         ],
         "locations": [],
@@ -375,16 +375,15 @@ regions = [
         "name": "Fungus2_14[top1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Fungus2_14",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_14"
             },
             {
-                "Target": "Fungus2_14[bot3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -428,15 +427,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_14[bot3]"
             },
             {
-                "Target": "Geo_Rock-Mantis_Village_Below_Lore",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Mantis_Village_Below_Lore"
             },
             {
-                "Target": "Geo_Rock-Mantis_Village_Above_Lever",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -480,11 +479,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Mantis_Village_Above_Lever"
             },
             {
-                "Target": "Lore_Tablet-Mantis_Village",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Mantis_Village"
             }
         ],
         "locations": [],
@@ -496,8 +496,7 @@ regions = [
         "name": "Deepnest_41[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DARKROOMS"
@@ -514,11 +513,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Deepnest_41[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -597,7 +596,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_41[right1]"
             }
         ],
         "locations": [],
@@ -609,12 +609,12 @@ regions = [
         "name": "Ruins1_01[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Ruins1_01[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_01[bot1]"
             }
         ],
         "locations": [],
@@ -627,12 +627,12 @@ regions = [
         "name": "Ruins1_17[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Ruins1_17[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_17[bot1]"
             }
         ],
         "locations": [
@@ -648,12 +648,11 @@ regions = [
         "name": "Ruins2_04[right2]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Ruins2_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -698,11 +697,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[right1]"
             },
             {
-                "Target": "Ruins2_04[door_Ruin_House_01]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -747,11 +746,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[door_Ruin_House_01]"
             },
             {
-                "Target": "Ruins2_04[door_Ruin_House_03]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Emilitia_Door"
@@ -760,11 +759,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[door_Ruin_House_03]"
             },
             {
-                "Target": "Ruins2_04[door_Ruin_Elevator]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -814,7 +813,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[door_Ruin_Elevator]"
             }
         ],
         "locations": [],
@@ -828,12 +828,11 @@ regions = [
         "name": "Ruins2_06[right2]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Ruins2_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -858,11 +857,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_06[left1]"
             },
             {
-                "Target": "Ruins2_06[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -926,11 +925,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_06[left2]"
             },
             {
-                "Target": "Ruins2_06[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -963,11 +962,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_06[right1]"
             },
             {
-                "Target": "Geo_Rock-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -1014,7 +1013,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-King's_Station"
             }
         ],
         "locations": [],
@@ -1026,12 +1026,11 @@ regions = [
         "name": "Abyss_04[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Ancient_Basin_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1057,11 +1056,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ancient_Basin_Map"
             },
             {
-                "Target": "Soul_Totem-Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1087,11 +1086,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Basin"
             },
             {
-                "Target": "Abyss_04[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1117,11 +1116,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_04[top1]"
             },
             {
-                "Target": "Abyss_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -1170,11 +1169,11 @@ regions = [
                             "$SLOPEBALL"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_04[right1]"
             },
             {
-                "Target": "Vessel_Fragment-Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -1206,7 +1205,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Vessel_Fragment-Basin"
             }
         ],
         "locations": [],
@@ -1219,8 +1219,8 @@ regions = [
         "name": "Abyss_12[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             }
         ],
         "locations": [
@@ -1234,12 +1234,11 @@ regions = [
         "name": "Fungus3_40[top1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Defeated_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DREAMNAIL",
@@ -1493,11 +1492,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Marmu"
             },
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -1506,11 +1505,11 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Opened_Gardens_Stag_Exit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -1582,11 +1581,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Opened_Gardens_Stag_Exit"
             },
             {
-                "Target": "Fungus3_40[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -1658,11 +1657,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_40[right1]"
             },
             {
-                "Target": "Boss_Essence-Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DREAMNAIL",
@@ -1672,11 +1671,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Marmu"
             },
             {
-                "Target": "Queen's_Gardens_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -1748,11 +1747,12 @@ regions = [
                             "$CASTSPELL[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Queen's_Gardens_Stag"
             },
             {
-                "Target": "Soul_Totem-Below_Marmu",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Below_Marmu"
             }
         ],
         "locations": [],
@@ -1764,12 +1764,11 @@ regions = [
         "name": "Mines_02[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Mines_02[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1794,11 +1793,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_02[top1]"
             },
             {
-                "Target": "Mines_02[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1823,11 +1822,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_02[top2]"
             },
             {
-                "Target": "Geo_Rock-Crystal_Peak_Lower_Middle",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -1844,7 +1843,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Crystal_Peak_Lower_Middle"
             }
         ],
         "locations": [
@@ -1860,12 +1860,11 @@ regions = [
         "name": "Cliffs_02[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Cliffs_02",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1898,11 +1897,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_02"
             },
             {
-                "Target": "Soul_Totem-Cliffs_Gorb",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Cliffs_Gorb"
             }
         ],
         "locations": [],
@@ -1915,12 +1915,11 @@ regions = [
         "name": "Deepnest_East_01[bot1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Deepnest_East_01[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -1954,11 +1953,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_01[top1]"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -1999,11 +1998,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_1"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -2020,11 +2019,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_2"
             },
             {
-                "Target": "Soul_Totem-Lower_Kingdom's_Edge_1",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Lower_Kingdom's_Edge_1"
             }
         ],
         "locations": [],
@@ -2036,12 +2036,11 @@ regions = [
         "name": "Deepnest_East_03[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Deepnest_East_03[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Lower_Kingdom's_Edge_Wall"
@@ -2050,11 +2049,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_03[left2]"
             },
             {
-                "Target": "Deepnest_East_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH",
@@ -2497,11 +2496,11 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_03[top1]"
             },
             {
-                "Target": "Deepnest_East_03[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -2535,7 +2534,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_03[right1]"
             }
         ],
         "locations": [
@@ -2551,16 +2551,15 @@ regions = [
         "name": "Deepnest_East_07[left2]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Deepnest_East_07[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_07[bot2]"
             },
             {
-                "Target": "Deepnest_East_07[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -2585,11 +2584,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_07[left1]"
             },
             {
-                "Target": "Soul_Totem-Upper_Kingdom's_Edge",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -2614,7 +2613,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Upper_Kingdom's_Edge"
             }
         ],
         "locations": [
@@ -2632,20 +2632,19 @@ regions = [
         "name": "Deepnest_East_08[top1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Deepnest_East_08[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_08[right1]"
             },
             {
-                "Target": "King's_Idol-Great_Hopper",
-                "Logic": []
+                "logic": [],
+                "target": "King's_Idol-Great_Hopper"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Below_Colosseum",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -2678,7 +2677,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Below_Colosseum"
             }
         ],
         "locations": [],
@@ -2690,12 +2690,11 @@ regions = [
         "name": "Waterways_02[top1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Broke_Flukemarm_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -2706,15 +2705,15 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Flukemarm_Quake_Floor"
             },
             {
-                "Target": "Waterways_02",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_02"
             },
             {
-                "Target": "Waterways_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Flukemarm_Quake_Floor"
@@ -2723,15 +2722,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot1]"
             },
             {
-                "Target": "Waterways_02[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_02[bot2]"
             },
             {
-                "Target": "Rancid_Egg-Waterways_Main",
-                "Logic": []
+                "logic": [],
+                "target": "Rancid_Egg-Waterways_Main"
             }
         ],
         "locations": [],
@@ -2743,24 +2743,23 @@ regions = [
         "name": "Waterways_01[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Waterways_01",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_01"
             },
             {
-                "Target": "Geo_Rock-Waterways_Tuk",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_Tuk"
             },
             {
-                "Target": "Geo_Rock-Waterways_Tuk_Alcove",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_Tuk_Alcove"
             },
             {
-                "Target": "Soul_Totem-Waterways_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -2807,7 +2806,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Waterways_Entrance"
             }
         ],
         "locations": [],
@@ -2819,12 +2819,11 @@ regions = [
         "name": "Waterways_04b[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo"
             },
             {
-                "Target": "Waterways_04b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -2833,11 +2832,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04b[right1]"
             },
             {
-                "Target": "Waterways_04b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -2855,11 +2854,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04b[right2]"
             },
             {
-                "Target": "Mask_Shard-Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -2887,15 +2886,15 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mask_Shard-Waterways"
             },
             {
-                "Target": "Geo_Rock-Waterways_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_Left"
             },
             {
-                "Target": "Soul_Totem-Top_Left_Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -2930,7 +2929,8 @@ regions = [
                             "$SHRIEKPOGO[5,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Top_Left_Waterways"
             }
         ],
         "locations": [
@@ -2952,8 +2952,8 @@ regions = [
         "name": "Crossroads_01[top1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -2970,12 +2970,12 @@ regions = [
         "name": "Crossroads_03",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             },
             {
-                "Target": "Crossroads_03[top1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_03[top1]"
             }
         ],
         "locations": [
@@ -2993,20 +2993,19 @@ regions = [
         "name": "Crossroads_04[door1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             },
             {
-                "Target": "Defeated_Gruz_Mother",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Gruz_Mother"
             },
             {
-                "Target": "Crossroads_04[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_04[left1]"
             },
             {
-                "Target": "Crossroads_04[door_charmshop]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -3078,11 +3077,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_04[door_charmshop]"
             },
             {
-                "Target": "Crossroads_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -3202,11 +3201,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_04[right1]"
             },
             {
-                "Target": "Boss_Geo-Gruz_Mother",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother"
@@ -3215,7 +3214,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Gruz_Mother"
             }
         ],
         "locations": [],
@@ -3228,8 +3228,8 @@ regions = [
         "name": "Crossroads_05[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3245,8 +3245,8 @@ regions = [
         "name": "Crossroads_07",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3268,8 +3268,8 @@ regions = [
         "name": "Crossroads_08",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3289,8 +3289,7 @@ regions = [
         "name": "Crossroads_11_alt[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "INFECTIONSKIPS",
@@ -3300,7 +3299,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [],
@@ -3312,8 +3312,7 @@ regions = [
         "name": "Crossroads_12[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "INFECTIONSKIPS",
@@ -3323,7 +3322,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3338,8 +3338,8 @@ regions = [
         "name": "Crossroads_13[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3356,8 +3356,8 @@ regions = [
         "name": "Crossroads_15[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [],
@@ -3370,8 +3370,8 @@ regions = [
         "name": "Crossroads_16[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3387,8 +3387,8 @@ regions = [
         "name": "Crossroads_19",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3406,12 +3406,11 @@ regions = [
         "name": "Crossroads_21",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             },
             {
-                "Target": "Crossroads_21[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -3612,7 +3611,8 @@ regions = [
                             "$CASTSPELL[2,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_21[top1]"
             }
         ],
         "locations": [
@@ -3627,8 +3627,8 @@ regions = [
         "name": "Crossroads_22[bot1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3642,8 +3642,8 @@ regions = [
         "name": "Crossroads_25[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3658,8 +3658,8 @@ regions = [
         "name": "Crossroads_27",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3676,12 +3676,11 @@ regions = [
         "name": "Crossroads_35[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             },
             {
-                "Target": "Crossroads_35[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -3722,11 +3721,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_35[bot1]"
             },
             {
-                "Target": "Soul_Totem-Crossroads_Acid",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACIDSKIPS",
@@ -3767,7 +3766,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Crossroads_Acid"
             }
         ],
         "locations": [
@@ -3781,8 +3781,8 @@ regions = [
         "name": "Crossroads_37[right1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3797,8 +3797,8 @@ regions = [
         "name": "Crossroads_39[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [],
@@ -3811,8 +3811,8 @@ regions = [
         "name": "Crossroads_40[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [],
@@ -3825,8 +3825,8 @@ regions = [
         "name": "Crossroads_42[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3842,8 +3842,8 @@ regions = [
         "name": "Crossroads_48[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             }
         ],
         "locations": [
@@ -3857,12 +3857,11 @@ regions = [
         "name": "Crossroads_ShamanTemple[left1]",
         "exits": [
             {
-                "Target": "Can_Replenish_Geo-Crossroads",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Replenish_Geo-Crossroads"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -3871,11 +3870,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Crossroads_ShamanTemple[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -3884,7 +3883,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_ShamanTemple[left1]"
             }
         ],
         "locations": [
@@ -3917,8 +3917,7 @@ regions = [
         "name": "Fungus2_23",
         "exits": [
             {
-                "Target": "Fungus2_23[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Waterways_Exit"
@@ -3927,7 +3926,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_23[right2]"
             }
         ],
         "locations": [
@@ -3942,8 +3942,7 @@ regions = [
         "name": "Deepnest_33[top1]",
         "exits": [
             {
-                "Target": "Deepnest_33[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -3968,11 +3967,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_33[top2]"
             },
             {
-                "Target": "Deepnest_33[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_33[bot1]"
             }
         ],
         "locations": [
@@ -4010,12 +4010,11 @@ regions = [
         "name": "Ruins1_31b[right1]",
         "exits": [
             {
-                "Target": "Lever-Shade_Soul",
-                "Logic": []
+                "logic": [],
+                "target": "Lever-Shade_Soul"
             },
             {
-                "Target": "Defeated_Elegant_Warrior",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS",
@@ -4072,11 +4071,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Elegant_Warrior"
             },
             {
-                "Target": "Ruins1_31b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Elegant_Warrior"
@@ -4085,15 +4084,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_31b[right2]"
             },
             {
-                "Target": "Shade_Soul",
-                "Logic": []
+                "logic": [],
+                "target": "Shade_Soul"
             },
             {
-                "Target": "Boss_Geo-Elegant_Soul_Warrior",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Elegant_Warrior"
@@ -4102,7 +4101,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Elegant_Soul_Warrior"
             }
         ],
         "locations": [],
@@ -4114,8 +4114,7 @@ regions = [
         "name": "Ruins1_31b[right2]",
         "exits": [
             {
-                "Target": "Lever-Shade_Soul",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Elegant_Warrior"
@@ -4124,11 +4123,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lever-Shade_Soul"
             },
             {
-                "Target": "Defeated_Elegant_Warrior",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS",
@@ -4185,11 +4184,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Elegant_Warrior"
             },
             {
-                "Target": "Ruins1_31b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Elegant_Warrior"
@@ -4198,11 +4197,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_31b[right1]"
             },
             {
-                "Target": "Shade_Soul",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Elegant_Warrior"
@@ -4211,11 +4210,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Shade_Soul"
             },
             {
-                "Target": "Boss_Geo-Elegant_Soul_Warrior",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Elegant_Warrior"
@@ -4224,7 +4223,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Elegant_Soul_Warrior"
             }
         ],
         "locations": [],
@@ -4244,12 +4244,12 @@ regions = [
         "name": "Ruins1_27[right1]",
         "exits": [
             {
-                "Target": "Lever-City_Fountain",
-                "Logic": []
+                "logic": [],
+                "target": "Lever-City_Fountain"
             },
             {
-                "Target": "Ruins1_27[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_27[left1]"
             }
         ],
         "locations": [],
@@ -4261,8 +4261,7 @@ regions = [
         "name": "Ruins1_27[left1]",
         "exits": [
             {
-                "Target": "Lever-City_Fountain",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -4323,11 +4322,11 @@ regions = [
                             "$SHRIEKPOGO[4,before:AREASOUL,after:AREASOUL,NOLEFTSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lever-City_Fountain"
             },
             {
-                "Target": "Ruins1_27[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lever-City_Fountain"
@@ -4336,7 +4335,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_27[right1]"
             }
         ],
         "locations": [],
@@ -4348,8 +4348,7 @@ regions = [
         "name": "White_Palace_17[bot1]",
         "exits": [
             {
-                "Target": "White_Palace_17[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lever-Path_of_Pain"
@@ -4358,7 +4357,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_17[right1]"
             }
         ],
         "locations": [
@@ -4374,8 +4374,7 @@ regions = [
         "name": "White_Palace_20[bot1]",
         "exits": [
             {
-                "Target": "White_Palace_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Completed_Path_of_Pain"
@@ -4384,11 +4383,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_06[left1]"
             },
             {
-                "Target": "White_Palace_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Completed_Path_of_Pain",
@@ -4430,7 +4429,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL,NOLEFTSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_06[top1]"
             }
         ],
         "locations": [
@@ -4455,8 +4455,7 @@ regions = [
         "name": "Waterways_05[bot1]",
         "exits": [
             {
-                "Target": "Lever-Dung_Defender",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -4484,11 +4483,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lever-Dung_Defender"
             },
             {
-                "Target": "Opened_Dung_Defender_Wall",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -4516,11 +4515,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Dung_Defender_Wall"
             },
             {
-                "Target": "Broke_Dung_Defender_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -4557,11 +4556,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Dung_Defender_Quake_Floor"
             },
             {
-                "Target": "Waterways_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -4589,11 +4588,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_05[right1]"
             },
             {
-                "Target": "Waterways_05[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -4624,7 +4623,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_05[bot2]"
             }
         ],
         "locations": [
@@ -4639,20 +4639,20 @@ regions = [
         "name": "Waterways_05[bot2]",
         "exits": [
             {
-                "Target": "Lever-Dung_Defender",
-                "Logic": []
+                "logic": [],
+                "target": "Lever-Dung_Defender"
             },
             {
-                "Target": "Opened_Dung_Defender_Wall",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Dung_Defender_Wall"
             },
             {
-                "Target": "Broke_Dung_Defender_Quake_Floor",
-                "Logic": []
+                "logic": [],
+                "target": "Broke_Dung_Defender_Quake_Floor"
             },
             {
-                "Target": "Waterways_05[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_05[right1]"
             }
         ],
         "locations": [],
@@ -4664,16 +4664,15 @@ regions = [
         "name": "Waterways_05[right1]",
         "exits": [
             {
-                "Target": "Lever-Dung_Defender",
-                "Logic": []
+                "logic": [],
+                "target": "Lever-Dung_Defender"
             },
             {
-                "Target": "Opened_Dung_Defender_Wall",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Dung_Defender_Wall"
             },
             {
-                "Target": "Broke_Dung_Defender_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -4684,11 +4683,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Dung_Defender_Quake_Floor"
             },
             {
-                "Target": "Waterways_05[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Dung_Defender_Quake_Floor"
@@ -4697,7 +4696,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_05[bot2]"
             }
         ],
         "locations": [],
@@ -4709,8 +4709,7 @@ regions = [
         "name": "Abyss_08[right1]",
         "exits": [
             {
-                "Target": "Abyss_06_Core[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "PRECISEMOVEMENT"
@@ -4727,7 +4726,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_06_Core[left1]"
             }
         ],
         "locations": [
@@ -4742,8 +4742,7 @@ regions = [
         "name": "Abyss_05",
         "exits": [
             {
-                "Target": "White_Palace_11[door2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DREAMNAIL>2",
@@ -4806,7 +4805,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_11[door2]"
             }
         ],
         "locations": [],
@@ -4819,8 +4819,7 @@ regions = [
         "name": "White_Palace_11[door2]",
         "exits": [
             {
-                "Target": "Abyss_05",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS",
@@ -4877,7 +4876,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_05"
             }
         ],
         "locations": [],
@@ -4889,16 +4889,16 @@ regions = [
         "name": "White_Palace_03_hub[left1]",
         "exits": [
             {
-                "Target": "White_Palace_03_hub",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_03_hub"
             },
             {
-                "Target": "Soul_Totem-White_Palace_Hub",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-White_Palace_Hub"
             },
             {
-                "Target": "Abyss_05",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_05"
             }
         ],
         "locations": [],
@@ -4910,8 +4910,7 @@ regions = [
         "name": "White_Palace_03_hub[top1]",
         "exits": [
             {
-                "Target": "White_Palace_03_hub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Palace_Atrium_Gates_Opened"
@@ -4920,11 +4919,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_03_hub"
             },
             {
-                "Target": "Abyss_05",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Palace_Atrium_Gates_Opened"
@@ -4933,7 +4932,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_05"
             }
         ],
         "locations": [],
@@ -4945,12 +4945,11 @@ regions = [
         "name": "White_Palace_03_hub[right1]",
         "exits": [
             {
-                "Target": "White_Palace_03_hub",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_03_hub"
             },
             {
-                "Target": "Abyss_05",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Palace_Atrium_Gates_Opened"
@@ -4959,7 +4958,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_05"
             }
         ],
         "locations": [],
@@ -4971,8 +4971,7 @@ regions = [
         "name": "White_Palace_03_hub",
         "exits": [
             {
-                "Target": "White_Palace_03_hub[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -4999,11 +4998,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_03_hub[right1]"
             },
             {
-                "Target": "White_Palace_03_hub[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Palace_Atrium_Gates_Opened",
@@ -5024,15 +5023,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_03_hub[top1]"
             },
             {
-                "Target": "White_Palace_03_hub[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_03_hub[bot1]"
             },
             {
-                "Target": "Soul_Totem-White_Palace_Hub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -5058,11 +5057,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-White_Palace_Hub"
             },
             {
-                "Target": "Abyss_05",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "PRECISEMOVEMENT"
@@ -5103,11 +5102,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_05"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -5116,11 +5115,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "White_Palace_03_hub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -5129,7 +5128,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_03_hub"
             }
         ],
         "locations": [],
@@ -5141,12 +5141,11 @@ regions = [
         "name": "Crossroads_46[left1]",
         "exits": [
             {
-                "Target": "Geo_Rock-Crossroads_Tram",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Crossroads_Tram"
             },
             {
-                "Target": "Bench-Upper_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5157,11 +5156,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Upper_Tram"
             },
             {
-                "Target": "Crossroads_46b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5170,7 +5169,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_46b[right1]"
             }
         ],
         "locations": [],
@@ -5182,8 +5182,7 @@ regions = [
         "name": "Crossroads_46b[right1]",
         "exits": [
             {
-                "Target": "Geo_Rock-Crossroads_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5192,11 +5191,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Crossroads_Tram"
             },
             {
-                "Target": "Bench-Upper_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5207,11 +5206,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Upper_Tram"
             },
             {
-                "Target": "Crossroads_46[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5220,7 +5219,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_46[left1]"
             }
         ],
         "locations": [],
@@ -5232,12 +5232,11 @@ regions = [
         "name": "Bench-Upper_Tram",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Bench-Upper_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -5246,15 +5245,16 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Upper_Tram"
             },
             {
-                "Target": "Crossroads_46[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_46[left1]"
             },
             {
-                "Target": "Crossroads_46b[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_46b[right1]"
             }
         ],
         "locations": [],
@@ -5264,12 +5264,11 @@ regions = [
         "name": "Abyss_03",
         "exits": [
             {
-                "Target": "Abyss_03[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_03[bot1]"
             },
             {
-                "Target": "Bench-Lower_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5280,11 +5279,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Lower_Tram"
             },
             {
-                "Target": "Abyss_03_c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM",
@@ -5312,11 +5311,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_c[top1]"
             },
             {
-                "Target": "Abyss_03_b",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5325,11 +5324,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_b"
             },
             {
-                "Target": "Abyss_03_c",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5338,7 +5337,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_c"
             }
         ],
         "locations": [],
@@ -5351,8 +5351,7 @@ regions = [
         "name": "Abyss_03_b",
         "exits": [
             {
-                "Target": "Bench-Lower_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5363,11 +5362,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Lower_Tram"
             },
             {
-                "Target": "Abyss_03[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5376,11 +5375,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03[bot1]"
             },
             {
-                "Target": "Abyss_03_c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM",
@@ -5408,11 +5407,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_c[top1]"
             },
             {
-                "Target": "Abyss_03",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5421,11 +5420,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03"
             },
             {
-                "Target": "Abyss_03_c",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5434,7 +5433,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_c"
             }
         ],
         "locations": [],
@@ -5446,8 +5446,7 @@ regions = [
         "name": "Abyss_03_c",
         "exits": [
             {
-                "Target": "Abyss_03_c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -5472,11 +5471,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_c[top1]"
             },
             {
-                "Target": "Bench-Lower_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5487,11 +5486,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Lower_Tram"
             },
             {
-                "Target": "Abyss_03[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5500,11 +5499,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03[bot1]"
             },
             {
-                "Target": "Abyss_03",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5513,11 +5512,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03"
             },
             {
-                "Target": "Abyss_03_b",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "TRAM"
@@ -5526,7 +5525,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_b"
             }
         ],
         "locations": [],
@@ -5538,12 +5538,11 @@ regions = [
         "name": "Bench-Lower_Tram",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Bench-Lower_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -5552,15 +5551,15 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Bench-Lower_Tram"
             },
             {
-                "Target": "Abyss_03[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_03[bot1]"
             },
             {
-                "Target": "Abyss_03_c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -5585,19 +5584,20 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03_c[top1]"
             },
             {
-                "Target": "Abyss_03",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_03"
             },
             {
-                "Target": "Abyss_03_b",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_03_b"
             },
             {
-                "Target": "Abyss_03_c",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_03_c"
             }
         ],
         "locations": [],
@@ -5607,8 +5607,7 @@ regions = [
         "name": "Crossroads_49[left1]",
         "exits": [
             {
-                "Target": "Crossroads_49[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5627,11 +5626,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_49[right1]"
             },
             {
-                "Target": "Crossroads_49b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5650,7 +5649,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_49b[right1]"
             }
         ],
         "locations": [],
@@ -5662,8 +5662,7 @@ regions = [
         "name": "Crossroads_49[right1]",
         "exits": [
             {
-                "Target": "Crossroads_49[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5682,11 +5681,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_49[left1]"
             },
             {
-                "Target": "Crossroads_49b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5705,7 +5704,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_49b[right1]"
             }
         ],
         "locations": [],
@@ -5717,8 +5717,7 @@ regions = [
         "name": "Crossroads_49b[right1]",
         "exits": [
             {
-                "Target": "Crossroads_49[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5737,11 +5736,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_49[right1]"
             },
             {
-                "Target": "Crossroads_49[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5760,7 +5759,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_49[left1]"
             }
         ],
         "locations": [
@@ -5774,8 +5774,7 @@ regions = [
         "name": "Ruins2_10[right1]",
         "exits": [
             {
-                "Target": "Ruins2_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5792,11 +5791,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[left1]"
             },
             {
-                "Target": "Ruins2_10b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -5857,11 +5856,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[right1]"
             },
             {
-                "Target": "Ruins2_10b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -5878,11 +5877,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[right2]"
             },
             {
-                "Target": "Ruins2_10b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -5949,7 +5948,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[left1]"
             }
         ],
         "locations": [],
@@ -5961,8 +5961,7 @@ regions = [
         "name": "Ruins2_10[left1]",
         "exits": [
             {
-                "Target": "Ruins2_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -5981,11 +5980,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[right1]"
             },
             {
-                "Target": "Ruins2_10b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -6046,11 +6045,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[right1]"
             },
             {
-                "Target": "Ruins2_10b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -6067,11 +6066,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[right2]"
             },
             {
-                "Target": "Ruins2_10b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -6138,7 +6137,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[left1]"
             }
         ],
         "locations": [],
@@ -6150,12 +6150,11 @@ regions = [
         "name": "Ruins2_10b[right1]",
         "exits": [
             {
-                "Target": "Ruins2_10b[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_10b[right2]"
             },
             {
-                "Target": "Ruins2_10b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Pleasure_House_Wall"
@@ -6164,11 +6163,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[left1]"
             },
             {
-                "Target": "Ruins2_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -6187,11 +6186,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[right1]"
             },
             {
-                "Target": "Ruins2_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -6208,7 +6207,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[left1]"
             }
         ],
         "locations": [],
@@ -6220,8 +6220,7 @@ regions = [
         "name": "Ruins2_10b[right2]",
         "exits": [
             {
-                "Target": "Ruins2_10b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -6249,11 +6248,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[right1]"
             },
             {
-                "Target": "Ruins2_10b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -6284,11 +6283,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[left1]"
             },
             {
-                "Target": "Ruins2_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -6307,11 +6306,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[right1]"
             },
             {
-                "Target": "Ruins2_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -6328,7 +6327,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[left1]"
             }
         ],
         "locations": [],
@@ -6340,8 +6340,7 @@ regions = [
         "name": "Ruins2_10b[left1]",
         "exits": [
             {
-                "Target": "Ruins2_10b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -6359,15 +6358,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10b[right1]"
             },
             {
-                "Target": "Ruins2_10b[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_10b[right2]"
             },
             {
-                "Target": "Ruins2_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0",
@@ -6386,11 +6385,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[right1]"
             },
             {
-                "Target": "Ruins2_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RANDOMELEVATORS=0"
@@ -6407,7 +6406,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_10[left1]"
             }
         ],
         "locations": [],
@@ -6419,8 +6419,7 @@ regions = [
         "name": "Crossroads_30[left1]",
         "exits": [
             {
-                "Target": "Crossroads_30[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6430,11 +6429,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_30[left1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6444,7 +6443,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [],
@@ -6456,8 +6456,7 @@ regions = [
         "name": "Deepnest_30[left1]",
         "exits": [
             {
-                "Target": "Deepnest_30[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6467,11 +6466,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_30[left1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6481,7 +6480,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [],
@@ -6494,8 +6494,7 @@ regions = [
         "name": "Room_Colosseum_02[top1]",
         "exits": [
             {
-                "Target": "Room_Colosseum_02[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6537,11 +6536,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_Colosseum_02[top2]"
             },
             {
-                "Target": "Room_Colosseum_02[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6583,11 +6582,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_Colosseum_02[top1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6597,7 +6596,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [],
@@ -6609,8 +6609,7 @@ regions = [
         "name": "Room_Colosseum_02[top2]",
         "exits": [
             {
-                "Target": "Room_Colosseum_02[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6652,11 +6651,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_Colosseum_02[top1]"
             },
             {
-                "Target": "Room_Colosseum_02[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6698,11 +6697,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_Colosseum_02[top2]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6712,7 +6711,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [],
@@ -6724,8 +6724,7 @@ regions = [
         "name": "Ruins_Bathhouse[door1]",
         "exits": [
             {
-                "Target": "Ruins_Bathhouse[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6735,11 +6734,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins_Bathhouse[door1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -6749,7 +6748,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [
@@ -6772,12 +6772,11 @@ regions = [
         "name": "Crossroads_04[left1]",
         "exits": [
             {
-                "Target": "Defeated_Gruz_Mother",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Gruz_Mother"
             },
             {
-                "Target": "Crossroads_04[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother"
@@ -6786,11 +6785,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_04[door1]"
             },
             {
-                "Target": "Crossroads_04[door_charmshop]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother",
@@ -6871,11 +6870,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_04[door_charmshop]"
             },
             {
-                "Target": "Crossroads_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother",
@@ -7006,11 +7005,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_04[right1]"
             },
             {
-                "Target": "Boss_Geo-Gruz_Mother",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother"
@@ -7019,7 +7018,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Gruz_Mother"
             }
         ],
         "locations": [],
@@ -7032,20 +7032,19 @@ regions = [
         "name": "Crossroads_04[door_charmshop]",
         "exits": [
             {
-                "Target": "Defeated_Gruz_Mother",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Gruz_Mother"
             },
             {
-                "Target": "Crossroads_04[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_04[left1]"
             },
             {
-                "Target": "Crossroads_04[door1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_04[door1]"
             },
             {
-                "Target": "Crossroads_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -7165,11 +7164,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_04[right1]"
             },
             {
-                "Target": "Boss_Geo-Gruz_Mother",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother"
@@ -7178,11 +7177,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Gruz_Mother"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -7191,11 +7190,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Crossroads_04[door_charmshop]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -7204,7 +7203,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_04[door_charmshop]"
             }
         ],
         "locations": [],
@@ -7216,24 +7216,23 @@ regions = [
         "name": "Crossroads_04[right1]",
         "exits": [
             {
-                "Target": "Defeated_Gruz_Mother",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Gruz_Mother"
             },
             {
-                "Target": "Crossroads_04[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_04[left1]"
             },
             {
-                "Target": "Crossroads_04[door1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_04[door1]"
             },
             {
-                "Target": "Crossroads_04[door_charmshop]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_04[door_charmshop]"
             },
             {
-                "Target": "Boss_Geo-Gruz_Mother",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Gruz_Mother"
@@ -7242,7 +7241,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Gruz_Mother"
             }
         ],
         "locations": [],
@@ -7262,12 +7262,11 @@ regions = [
         "name": "Crossroads_10[right1]",
         "exits": [
             {
-                "Target": "Defeated_False_Knight",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_False_Knight"
             },
             {
-                "Target": "Defeated_Failed_Champion",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight",
@@ -8471,11 +8470,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Defeated_Failed_Champion"
             },
             {
-                "Target": "Crossroads_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight"
@@ -8484,11 +8483,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_10[left1]"
             },
             {
-                "Target": "City_Crest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight"
@@ -8497,11 +8496,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "City_Crest"
             },
             {
-                "Target": "Geo_Chest-False_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight"
@@ -8510,11 +8509,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Chest-False_Knight"
             },
             {
-                "Target": "Boss_Essence-Failed_Champion",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight",
@@ -8562,11 +8561,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Failed_Champion"
             },
             {
-                "Target": "Geo_Rock-Crossroads_Above_False_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight",
@@ -8606,7 +8605,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Crossroads_Above_False_Knight"
             }
         ],
         "locations": [],
@@ -8618,8 +8618,7 @@ regions = [
         "name": "Crossroads_10[left1]",
         "exits": [
             {
-                "Target": "Defeated_False_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -8644,11 +8643,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_False_Knight"
             },
             {
-                "Target": "Defeated_Failed_Champion",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight",
@@ -9852,11 +9851,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Defeated_Failed_Champion"
             },
             {
-                "Target": "Crossroads_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight"
@@ -9865,11 +9864,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_10[right1]"
             },
             {
-                "Target": "City_Crest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight"
@@ -9878,11 +9877,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "City_Crest"
             },
             {
-                "Target": "Geo_Chest-False_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight"
@@ -9891,11 +9890,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Chest-False_Knight"
             },
             {
-                "Target": "Boss_Essence-Failed_Champion",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight",
@@ -9943,11 +9942,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Failed_Champion"
             },
             {
-                "Target": "Geo_Rock-Crossroads_Above_False_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_False_Knight",
@@ -9987,7 +9986,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Crossroads_Above_False_Knight"
             }
         ],
         "locations": [],
@@ -10007,8 +10007,7 @@ regions = [
         "name": "Crossroads_09[left1]",
         "exits": [
             {
-                "Target": "Defeated_Brooding_Mawlek",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS",
@@ -10065,11 +10064,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Brooding_Mawlek"
             },
             {
-                "Target": "Opened_Mawlek_Wall",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Brooding_Mawlek"
@@ -10078,11 +10077,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Mawlek_Wall"
             },
             {
-                "Target": "Crossroads_09[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Brooding_Mawlek"
@@ -10091,11 +10090,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_09[right1]"
             },
             {
-                "Target": "Mask_Shard-Brooding_Mawlek",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Brooding_Mawlek"
@@ -10104,7 +10103,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mask_Shard-Brooding_Mawlek"
             }
         ],
         "locations": [],
@@ -10116,8 +10116,7 @@ regions = [
         "name": "Crossroads_09[right1]",
         "exits": [
             {
-                "Target": "Defeated_Brooding_Mawlek",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS",
@@ -10174,15 +10173,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Brooding_Mawlek"
             },
             {
-                "Target": "Opened_Mawlek_Wall",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Mawlek_Wall"
             },
             {
-                "Target": "Crossroads_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Brooding_Mawlek"
@@ -10191,11 +10190,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_09[left1]"
             },
             {
-                "Target": "Mask_Shard-Brooding_Mawlek",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Brooding_Mawlek"
@@ -10204,7 +10203,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mask_Shard-Brooding_Mawlek"
             }
         ],
         "locations": [],
@@ -10216,8 +10216,7 @@ regions = [
         "name": "Fungus1_04[right1]",
         "exits": [
             {
-                "Target": "Fungus1_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Hornet_1",
@@ -10322,11 +10321,11 @@ regions = [
                             "$CASTSPELL[1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_04[left1]"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Below_Hornet",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Hornet_1",
@@ -10399,7 +10398,8 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Greenpath_Below_Hornet"
             }
         ],
         "locations": [
@@ -10423,16 +10423,15 @@ regions = [
         "name": "Fungus2_15[top3]",
         "exits": [
             {
-                "Target": "Defeated_Mantis_Lords",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Mantis_Lords"
             },
             {
-                "Target": "Fungus2_15",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_15"
             },
             {
-                "Target": "Fungus2_15[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Mantis_Lords"
@@ -10441,11 +10440,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_15[left1]"
             },
             {
-                "Target": "Lifeblood_Cocoon-Mantis_Village",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -10472,7 +10471,8 @@ regions = [
                             "$SHRIEKPOGO[4]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lifeblood_Cocoon-Mantis_Village"
             }
         ],
         "locations": [],
@@ -10484,12 +10484,11 @@ regions = [
         "name": "Fungus2_15[right1]",
         "exits": [
             {
-                "Target": "Defeated_Mantis_Lords",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Mantis_Lords"
             },
             {
-                "Target": "Fungus2_15",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -10507,11 +10506,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_15"
             },
             {
-                "Target": "Fungus2_15[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Mantis_Lords"
@@ -10520,11 +10519,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_15[left1]"
             },
             {
-                "Target": "Lifeblood_Cocoon-Mantis_Village",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -10551,7 +10550,8 @@ regions = [
                             "$SHRIEKPOGO[4]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lifeblood_Cocoon-Mantis_Village"
             }
         ],
         "locations": [],
@@ -10563,12 +10563,11 @@ regions = [
         "name": "Fungus2_15[left1]",
         "exits": [
             {
-                "Target": "Defeated_Mantis_Lords",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Mantis_Lords"
             },
             {
-                "Target": "Fungus2_15",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -10595,11 +10594,11 @@ regions = [
                             "$SHRIEKPOGO[7]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_15"
             },
             {
-                "Target": "Lifeblood_Cocoon-Mantis_Village",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -10626,7 +10625,8 @@ regions = [
                             "$SHRIEKPOGO[4]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lifeblood_Cocoon-Mantis_Village"
             }
         ],
         "locations": [],
@@ -10646,8 +10646,7 @@ regions = [
         "name": "Ruins1_23",
         "exits": [
             {
-                "Target": "Defeated_Sanctum_Warrior",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -10674,11 +10673,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Sanctum_Warrior"
             },
             {
-                "Target": "Ruins1_23[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Sanctum_Warrior",
@@ -10738,11 +10737,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_23[top1]"
             },
             {
-                "Target": "Ruins1_23[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -10772,11 +10771,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_23[right1]"
             },
             {
-                "Target": "Boss_Geo-Sanctum_Soul_Warrior",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -10803,11 +10802,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Sanctum_Soul_Warrior"
             },
             {
-                "Target": "Lore_Tablet-Sanctum_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -10833,7 +10832,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Sanctum_Entrance"
             }
         ],
         "locations": [],
@@ -10846,12 +10846,11 @@ regions = [
         "name": "Ruins1_23[top1]",
         "exits": [
             {
-                "Target": "Defeated_Sanctum_Warrior",
-                "Logic": []
+                "logic": [],
+                "target": "Defeated_Sanctum_Warrior"
             },
             {
-                "Target": "Ruins1_23[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Sanctum_Warrior"
@@ -10860,11 +10859,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_23[right1]"
             },
             {
-                "Target": "Boss_Geo-Sanctum_Soul_Warrior",
-                "Logic": []
+                "logic": [],
+                "target": "Boss_Geo-Sanctum_Soul_Warrior"
             }
         ],
         "locations": [],
@@ -10876,8 +10876,7 @@ regions = [
         "name": "Ruins1_24[right1]",
         "exits": [
             {
-                "Target": "Defeated_Soul_Tyrant",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Soul_Master",
@@ -11196,11 +11195,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Soul_Tyrant"
             },
             {
-                "Target": "Ruins1_24[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -11229,11 +11228,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_24[left1]"
             },
             {
-                "Target": "Boss_Essence-Soul_Tyrant",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Soul_Master",
@@ -11244,7 +11243,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Soul_Tyrant"
             }
         ],
         "locations": [
@@ -11275,8 +11275,7 @@ regions = [
         "name": "Mines_18[left1]",
         "exits": [
             {
-                "Target": "Defeated_Crystal_Guardian",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -11335,11 +11334,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Crystal_Guardian"
             },
             {
-                "Target": "Boss_Geo-Crystal_Guardian",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Crystal_Guardian"
@@ -11348,11 +11347,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Crystal_Guardian"
             },
             {
-                "Target": "Mines_18[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -11379,11 +11378,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_18[top1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Crystal_Guardian"
@@ -11394,11 +11393,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Mines_18[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Crystal_Guardian"
@@ -11409,7 +11408,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_18[left1]"
             }
         ],
         "locations": [],
@@ -11422,8 +11422,7 @@ regions = [
         "name": "Mines_18[top1]",
         "exits": [
             {
-                "Target": "Defeated_Crystal_Guardian",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -11482,11 +11481,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Crystal_Guardian"
             },
             {
-                "Target": "Boss_Geo-Crystal_Guardian",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Crystal_Guardian"
@@ -11495,11 +11494,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Geo-Crystal_Guardian"
             },
             {
-                "Target": "Mines_18[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_18[left1]"
             }
         ],
         "locations": [],
@@ -11534,8 +11534,7 @@ regions = [
         "name": "Abyss_19[bot1]",
         "exits": [
             {
-                "Target": "Defeated_Lost_Kin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Broken_Vessel",
@@ -11848,11 +11847,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Lost_Kin"
             },
             {
-                "Target": "Abyss_19",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -11877,11 +11876,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_19"
             },
             {
-                "Target": "Abyss_19[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -11909,11 +11908,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_19[left1]"
             },
             {
-                "Target": "Abyss_19[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -11938,11 +11937,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_19[right1]"
             },
             {
-                "Target": "Abyss_19[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -11967,11 +11966,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_19[bot2]"
             },
             {
-                "Target": "Geo_Rock-Basin_Before_Broken_Vessel",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -11996,7 +11995,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Basin_Before_Broken_Vessel"
             }
         ],
         "locations": [
@@ -12011,8 +12011,7 @@ regions = [
         "name": "Deepnest_East_Hornet[left1]",
         "exits": [
             {
-                "Target": "Deepnest_East_Hornet[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Hornet_2"
@@ -12021,7 +12020,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_Hornet[left2]"
             }
         ],
         "locations": [
@@ -12043,8 +12043,7 @@ regions = [
         "name": "Ruins2_03[bot1]",
         "exits": [
             {
-                "Target": "Defeated_Watcher_Knights",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS>1",
@@ -12165,11 +12164,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Watcher_Knights"
             },
             {
-                "Target": "Ruins2_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -12188,11 +12187,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_03[top1]"
             },
             {
-                "Target": "Geo_Chest-Watcher_Knights",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Watcher_Knights",
@@ -12221,11 +12220,11 @@ regions = [
                             "$SHRIEKPOGO[8,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Chest-Watcher_Knights"
             },
             {
-                "Target": "Hallownest_Seal-Watcher_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Watcher_Knights",
@@ -12289,7 +12288,8 @@ regions = [
                             "$SHRIEKPOGO[8,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Hallownest_Seal-Watcher_Knight"
             }
         ],
         "locations": [],
@@ -12301,8 +12301,7 @@ regions = [
         "name": "Ruins2_03[top1]",
         "exits": [
             {
-                "Target": "Defeated_Watcher_Knights",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS>1",
@@ -12423,11 +12422,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Watcher_Knights"
             },
             {
-                "Target": "Ruins2_03[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Watcher_Knights"
@@ -12436,15 +12435,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_03[bot1]"
             },
             {
-                "Target": "Geo_Chest-Watcher_Knights",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Chest-Watcher_Knights"
             },
             {
-                "Target": "Hallownest_Seal-Watcher_Knight",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -12479,7 +12478,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hallownest_Seal-Watcher_Knight"
             }
         ],
         "locations": [],
@@ -12525,8 +12525,7 @@ regions = [
         "name": "Fungus3_23[left1]",
         "exits": [
             {
-                "Target": "Defeated_Traitor_Lord",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -12833,11 +12832,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Traitor_Lord"
             },
             {
-                "Target": "Fungus3_23[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -12858,7 +12857,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_23[right1]"
             }
         ],
         "locations": [],
@@ -12870,8 +12870,7 @@ regions = [
         "name": "Fungus3_23[right1]",
         "exits": [
             {
-                "Target": "Defeated_Traitor_Lord",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -13862,11 +13861,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Traitor_Lord"
             },
             {
-                "Target": "Fungus3_23[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -13933,7 +13932,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_23[left1]"
             }
         ],
         "locations": [],
@@ -14009,8 +14009,7 @@ regions = [
         "name": "RestingGrounds_02",
         "exits": [
             {
-                "Target": "RestingGrounds_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Resting_Grounds_Floor"
@@ -14019,11 +14018,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "RestingGrounds_02[bot1]"
             },
             {
-                "Target": "Boss_Essence-Xero",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -14074,7 +14073,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Xero"
             }
         ],
         "locations": [
@@ -14089,8 +14089,7 @@ regions = [
         "name": "Cliffs_02",
         "exits": [
             {
-                "Target": "Cliffs_02[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -14116,19 +14115,19 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Cliffs_02[right1]"
             },
             {
-                "Target": "Cliffs_02[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_02[bot2]"
             },
             {
-                "Target": "Cliffs_02[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_02[left1]"
             },
             {
-                "Target": "Cliffs_02[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -14138,11 +14137,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_02[left2]"
             },
             {
-                "Target": "Soul_Totem-Cliffs_Gorb",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Cliffs_Gorb"
             }
         ],
         "locations": [
@@ -14165,8 +14165,7 @@ regions = [
         "name": "Fungus3_40[right1]",
         "exits": [
             {
-                "Target": "Defeated_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -14922,11 +14921,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Marmu"
             },
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -14935,15 +14934,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Opened_Gardens_Stag_Exit",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Gardens_Stag_Exit"
             },
             {
-                "Target": "Fungus3_40[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -14977,11 +14976,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_40[top1]"
             },
             {
-                "Target": "Boss_Essence-Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -15023,15 +15022,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Marmu"
             },
             {
-                "Target": "Queen's_Gardens_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Queen's_Gardens_Stag"
             },
             {
-                "Target": "Soul_Totem-Below_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -15065,11 +15064,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Below_Marmu"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": []
+                "logic": [],
+                "target": "Can_Bench"
             }
         ],
         "locations": [],
@@ -15089,8 +15089,7 @@ regions = [
         "name": "Fungus1_35[left1]",
         "exits": [
             {
-                "Target": "Defeated_No_Eyes",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -15367,11 +15366,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_No_Eyes"
             },
             {
-                "Target": "Fungus1_35[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -15388,11 +15387,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus1_35[right1]"
             },
             {
-                "Target": "Boss_Essence-No_Eyes",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -15403,7 +15402,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-No_Eyes"
             }
         ],
         "locations": [],
@@ -15415,8 +15415,7 @@ regions = [
         "name": "Fungus1_35[right1]",
         "exits": [
             {
-                "Target": "Defeated_No_Eyes",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -15693,11 +15692,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_No_Eyes"
             },
             {
-                "Target": "Fungus1_35[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -15714,11 +15713,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus1_35[left1]"
             },
             {
-                "Target": "Boss_Essence-No_Eyes",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -15729,7 +15728,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-No_Eyes"
             }
         ],
         "locations": [],
@@ -15780,8 +15780,7 @@ regions = [
         "name": "Ruins1_24[left1]",
         "exits": [
             {
-                "Target": "Defeated_Soul_Tyrant",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Soul_Master",
@@ -16100,11 +16099,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Soul_Tyrant"
             },
             {
-                "Target": "Boss_Essence-Soul_Tyrant",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Soul_Master",
@@ -16115,7 +16114,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Soul_Tyrant"
             }
         ],
         "locations": [],
@@ -16135,8 +16135,7 @@ regions = [
         "name": "Abyss_19[left1]",
         "exits": [
             {
-                "Target": "Defeated_Lost_Kin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Broken_Vessel",
@@ -16449,7 +16448,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_Lost_Kin"
             }
         ],
         "locations": [],
@@ -16485,8 +16485,7 @@ regions = [
         "name": "Crossroads_11_alt[right1]",
         "exits": [
             {
-                "Target": "Crossroads_11_alt[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Crossroads_Baldur"
@@ -16495,7 +16494,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_11_alt[left1]"
             }
         ],
         "locations": [
@@ -16518,8 +16518,7 @@ regions = [
         "name": "Fungus1_28[left1]",
         "exits": [
             {
-                "Target": "Defeated_Right_Cliffs_Baldur",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "FIREBALL"
@@ -16614,15 +16613,15 @@ regions = [
                             "$EQUIPPEDCHARM[Mark_of_Pride]"
                         ]
                     }
-                ]
+                ],
+                "target": "Defeated_Right_Cliffs_Baldur"
             },
             {
-                "Target": "Fungus1_28[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_28[left2]"
             },
             {
-                "Target": "Baldur_Shell",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Right_Cliffs_Baldur"
@@ -16631,15 +16630,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Baldur_Shell"
             },
             {
-                "Target": "Geo_Rock-Baldur_Shell_Top_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Baldur_Shell_Top_Left"
             },
             {
-                "Target": "Geo_Rock-Baldur_Shell_Alcove",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Baldur_Shell_Alcove"
             }
         ],
         "locations": [
@@ -16653,8 +16653,7 @@ regions = [
         "name": "Fungus1_28[left2]",
         "exits": [
             {
-                "Target": "Defeated_Right_Cliffs_Baldur",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -17104,11 +17103,11 @@ regions = [
                             "$EQUIPPEDCHARM[Mark_of_Pride]"
                         ]
                     }
-                ]
+                ],
+                "target": "Defeated_Right_Cliffs_Baldur"
             },
             {
-                "Target": "Fungus1_28[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -17198,11 +17197,11 @@ regions = [
                             "$SHRIEKPOGO[6,before:ITEMSOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_28[left1]"
             },
             {
-                "Target": "Baldur_Shell",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -17250,15 +17249,16 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Baldur_Shell"
             },
             {
-                "Target": "Geo_Rock-Baldur_Shell_Top_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Baldur_Shell_Top_Left"
             },
             {
-                "Target": "Geo_Rock-Baldur_Shell_Alcove",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Baldur_Shell_Alcove"
             }
         ],
         "locations": [],
@@ -17278,8 +17278,7 @@ regions = [
         "name": "Fungus2_05[bot1]",
         "exits": [
             {
-                "Target": "Defeated_Shrumal_Ogre_Arena",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -17363,11 +17362,11 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Defeated_Shrumal_Ogre_Arena"
             },
             {
-                "Target": "Fungus2_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Shrumal_Ogre_Arena"
@@ -17376,11 +17375,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_05[right1]"
             },
             {
-                "Target": "Charm_Notch-Shrumal_Ogres",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Shrumal_Ogre_Arena"
@@ -17389,7 +17388,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Charm_Notch-Shrumal_Ogres"
             }
         ],
         "locations": [],
@@ -17401,8 +17401,7 @@ regions = [
         "name": "Fungus2_05[right1]",
         "exits": [
             {
-                "Target": "Defeated_Shrumal_Ogre_Arena",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -17486,11 +17485,11 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Defeated_Shrumal_Ogre_Arena"
             },
             {
-                "Target": "Fungus2_05[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Shrumal_Ogre_Arena"
@@ -17499,11 +17498,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_05[bot1]"
             },
             {
-                "Target": "Charm_Notch-Shrumal_Ogres",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Shrumal_Ogre_Arena"
@@ -17512,7 +17511,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Charm_Notch-Shrumal_Ogres"
             }
         ],
         "locations": [],
@@ -17543,8 +17543,7 @@ regions = [
         "name": "Fungus3_10[bot1]",
         "exits": [
             {
-                "Target": "Defeated_West_Queen's_Gardens_Arena",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPELLS",
@@ -17601,11 +17600,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_West_Queen's_Gardens_Arena"
             },
             {
-                "Target": "Fungus3_10[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -17625,11 +17624,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_10[top1]"
             },
             {
-                "Target": "Grub-Queen's_Gardens_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -17649,7 +17648,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Queen's_Gardens_Stag"
             }
         ],
         "locations": [],
@@ -17661,8 +17661,7 @@ regions = [
         "name": "Fungus3_10[top1]",
         "exits": [
             {
-                "Target": "Defeated_West_Queen's_Gardens_Arena",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -17793,11 +17792,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Defeated_West_Queen's_Gardens_Arena"
             },
             {
-                "Target": "Fungus3_10[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -17817,11 +17816,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_10[bot1]"
             },
             {
-                "Target": "Grub-Queen's_Gardens_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Grub-Queen's_Gardens_Stag"
             }
         ],
         "locations": [
@@ -17835,8 +17835,7 @@ regions = [
         "name": "Can_Stag",
         "exits": [
             {
-                "Target": "Opened_Gardens_Stag_Exit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Gardens_Stag"
@@ -17845,11 +17844,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Gardens_Stag_Exit"
             },
             {
-                "Target": "Room_Town_Stag_Station[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Dirtmouth_Stag"
@@ -17858,11 +17857,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Room_Town_Stag_Station[left1]"
             },
             {
-                "Target": "Crossroads_47[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Crossroads_Stag"
@@ -17871,11 +17870,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_47[right1]"
             },
             {
-                "Target": "Fungus1_16_alt[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Greenpath_Stag"
@@ -17884,11 +17883,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus1_16_alt[right1]"
             },
             {
-                "Target": "Fungus2_02[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Station_Stag"
@@ -17897,11 +17896,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_02[right1]"
             },
             {
-                "Target": "Deepnest_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Distant_Village_Stag"
@@ -17910,11 +17909,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_09[left1]"
             },
             {
-                "Target": "Abyss_22[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Hidden_Station_Stag"
@@ -17923,11 +17922,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_22[left1]"
             },
             {
-                "Target": "Ruins1_29[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "City_Storerooms_Stag"
@@ -17936,11 +17935,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_29[left1]"
             },
             {
-                "Target": "Ruins2_08[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Station_Stag"
@@ -17949,11 +17948,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_08[left1]"
             },
             {
-                "Target": "RestingGrounds_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Resting_Grounds_Stag"
@@ -17962,11 +17961,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "RestingGrounds_09[left1]"
             },
             {
-                "Target": "Fungus3_40[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Gardens_Stag"
@@ -17975,11 +17974,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_40[right1]"
             },
             {
-                "Target": "Fungus3_40[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Gardens_Stag",
@@ -18017,11 +18016,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_40[top1]"
             },
             {
-                "Target": "Cliffs_03[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "STAGS>8"
@@ -18038,11 +18037,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_03[right1]"
             },
             {
-                "Target": "Vessel_Fragment-Stag_Nest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "STAGS>8"
@@ -18059,11 +18058,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Vessel_Fragment-Stag_Nest"
             },
             {
-                "Target": "Boss_Essence-Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Gardens_Stag",
@@ -18109,11 +18108,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Marmu"
             },
             {
-                "Target": "Resting_Grounds_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Resting_Grounds_Stag"
@@ -18122,15 +18121,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Resting_Grounds_Map"
             },
             {
-                "Target": "Dirtmouth_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Dirtmouth_Stag"
             },
             {
-                "Target": "Crossroads_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Crossroads_Stag"
@@ -18139,11 +18138,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_Stag"
             },
             {
-                "Target": "Greenpath_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Greenpath_Stag"
@@ -18152,11 +18151,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Greenpath_Stag"
             },
             {
-                "Target": "Queen's_Station_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Station_Stag"
@@ -18165,11 +18164,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Queen's_Station_Stag"
             },
             {
-                "Target": "Queen's_Gardens_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Gardens_Stag"
@@ -18178,11 +18177,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Queen's_Gardens_Stag"
             },
             {
-                "Target": "City_Storerooms_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "City_Storerooms_Stag"
@@ -18191,11 +18190,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "City_Storerooms_Stag"
             },
             {
-                "Target": "King's_Station_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Station_Stag"
@@ -18204,11 +18203,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "King's_Station_Stag"
             },
             {
-                "Target": "Resting_Grounds_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Resting_Grounds_Stag"
@@ -18217,11 +18216,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Resting_Grounds_Stag"
             },
             {
-                "Target": "Distant_Village_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Distant_Village_Stag"
@@ -18230,11 +18229,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Distant_Village_Stag"
             },
             {
-                "Target": "Hidden_Station_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Hidden_Station_Stag"
@@ -18243,11 +18242,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hidden_Station_Stag"
             },
             {
-                "Target": "Stag_Nest_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "STAGS>8"
@@ -18256,11 +18255,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Stag_Nest_Stag"
             },
             {
-                "Target": "Soul_Totem-Below_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Queen's_Gardens_Stag",
@@ -18298,7 +18297,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Below_Marmu"
             }
         ],
         "locations": [],
@@ -18308,8 +18308,7 @@ regions = [
         "name": "Room_Town_Stag_Station[left1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18318,11 +18317,12 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Dirtmouth_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Dirtmouth_Stag"
             }
         ],
         "locations": [],
@@ -18334,8 +18334,7 @@ regions = [
         "name": "Crossroads_47[right1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18344,15 +18343,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Crossroads_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18361,11 +18360,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Crossroads_47[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18374,7 +18373,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_47[right1]"
             }
         ],
         "locations": [],
@@ -18386,8 +18386,7 @@ regions = [
         "name": "Fungus1_16_alt[right1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18396,15 +18395,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Greenpath_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Greenpath_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18413,11 +18412,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus1_16_alt[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18426,7 +18425,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_16_alt[right1]"
             }
         ],
         "locations": [],
@@ -18438,8 +18438,7 @@ regions = [
         "name": "Fungus2_02[right1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18448,15 +18447,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Queen's_Station_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Queen's_Station_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18465,11 +18464,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus2_02[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18478,7 +18477,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_02[right1]"
             }
         ],
         "locations": [],
@@ -18490,8 +18490,7 @@ regions = [
         "name": "Ruins1_29[left1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18500,15 +18499,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "City_Storerooms_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "City_Storerooms_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18517,11 +18516,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Ruins1_29[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18530,7 +18529,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_29[left1]"
             }
         ],
         "locations": [],
@@ -18542,8 +18542,7 @@ regions = [
         "name": "Ruins2_08[left1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18552,15 +18551,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "King's_Station_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "King's_Station_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18569,11 +18568,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Ruins2_08[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18582,7 +18581,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_08[left1]"
             }
         ],
         "locations": [
@@ -18596,8 +18596,7 @@ regions = [
         "name": "RestingGrounds_09[left1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18606,19 +18605,19 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Resting_Grounds_Map",
-                "Logic": []
+                "logic": [],
+                "target": "Resting_Grounds_Map"
             },
             {
-                "Target": "Resting_Grounds_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Resting_Grounds_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18627,11 +18626,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "RestingGrounds_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18640,7 +18639,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "RestingGrounds_09[left1]"
             }
         ],
         "locations": [],
@@ -18652,8 +18652,7 @@ regions = [
         "name": "Deepnest_09[left1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18662,11 +18661,12 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Distant_Village_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Distant_Village_Stag"
             }
         ],
         "locations": [],
@@ -18678,8 +18678,7 @@ regions = [
         "name": "Abyss_22[left1]",
         "exits": [
             {
-                "Target": "Can_Stag",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18688,15 +18687,15 @@ regions = [
                             "$STAGSTATEMODIFIER"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Stag"
             },
             {
-                "Target": "Hidden_Station_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Hidden_Station_Stag"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18705,11 +18704,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Abyss_22[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18718,7 +18717,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_22[left1]"
             }
         ],
         "locations": [],
@@ -18730,8 +18730,8 @@ regions = [
         "name": "Ruins1_05b[top1]",
         "exits": [
             {
-                "Target": "Ruins1_05b",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05b"
             }
         ],
         "locations": [
@@ -18745,8 +18745,7 @@ regions = [
         "name": "Fungus2_26[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18755,11 +18754,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus2_26[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18768,7 +18767,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_26[left1]"
             }
         ],
         "locations": [
@@ -18783,8 +18783,7 @@ regions = [
         "name": "Room_Mansion[left1]",
         "exits": [
             {
-                "Target": "Room_Mansion[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -18793,7 +18792,8 @@ regions = [
                             "$FLOWERGET"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_Mansion[left1]"
             }
         ],
         "locations": [
@@ -18825,8 +18825,7 @@ regions = [
         "name": "Cliffs_06[left1]",
         "exits": [
             {
-                "Target": "Nightmare_Lantern_Lit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DREAMNAIL"
@@ -18835,7 +18834,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Nightmare_Lantern_Lit"
             }
         ],
         "locations": [],
@@ -18847,8 +18847,7 @@ regions = [
         "name": "Ruins1_05b",
         "exits": [
             {
-                "Target": "Ruins1_05b[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Waterways_Manhole"
@@ -18857,7 +18856,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_05b[bot1]"
             }
         ],
         "locations": [
@@ -18889,8 +18889,7 @@ regions = [
         "name": "RestingGrounds_06[left1]",
         "exits": [
             {
-                "Target": "Opened_Resting_Grounds_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -18923,11 +18922,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Resting_Grounds_Floor"
             },
             {
-                "Target": "RestingGrounds_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -18960,11 +18959,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "RestingGrounds_06[top1]"
             },
             {
-                "Target": "Grimmkin_Flame-Resting_Grounds",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "First_Grimmchild_Upgrade"
@@ -18975,11 +18974,12 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Resting_Grounds"
             },
             {
-                "Target": "Soul_Totem-Below_Xero",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Below_Xero"
             }
         ],
         "locations": [],
@@ -18992,16 +18992,15 @@ regions = [
         "name": "RestingGrounds_06[top1]",
         "exits": [
             {
-                "Target": "Opened_Resting_Grounds_Floor",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Resting_Grounds_Floor"
             },
             {
-                "Target": "RestingGrounds_06[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_06[left1]"
             },
             {
-                "Target": "Grimmkin_Flame-Resting_Grounds",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "First_Grimmchild_Upgrade"
@@ -19012,11 +19011,12 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Resting_Grounds"
             },
             {
-                "Target": "Soul_Totem-Below_Xero",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Below_Xero"
             }
         ],
         "locations": [],
@@ -19028,8 +19028,8 @@ regions = [
         "name": "RestingGrounds_10[top1]",
         "exits": [
             {
-                "Target": "RestingGrounds_10",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_10"
             }
         ],
         "locations": [
@@ -19043,8 +19043,7 @@ regions = [
         "name": "RestingGrounds_10",
         "exits": [
             {
-                "Target": "RestingGrounds_10[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Crypts_One_Way_Floor",
@@ -19063,11 +19062,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "RestingGrounds_10[top1]"
             },
             {
-                "Target": "RestingGrounds_10[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -19686,7 +19685,8 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "RestingGrounds_10[top2]"
             }
         ],
         "locations": [
@@ -19732,8 +19732,8 @@ regions = [
         "name": "Crossroads_06[left1]",
         "exits": [
             {
-                "Target": "Opened_Shaman_Pillar",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Shaman_Pillar"
             }
         ],
         "locations": [],
@@ -19760,8 +19760,7 @@ regions = [
         "name": "Deepnest_26b[right2]",
         "exits": [
             {
-                "Target": "Deepnest_26b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -19788,7 +19787,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_26b[right1]"
             }
         ],
         "locations": [
@@ -19811,8 +19811,7 @@ regions = [
         "name": "Deepnest_East_11[top1]",
         "exits": [
             {
-                "Target": "Broke_Camp_Bench_Wall",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -19865,11 +19864,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Camp_Bench_Wall"
             },
             {
-                "Target": "Deepnest_East_11",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Camp_Bench_Wall"
@@ -19878,11 +19877,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11"
             },
             {
-                "Target": "Deepnest_East_11[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Camp_Bench_Wall"
@@ -19891,11 +19890,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[right1]"
             },
             {
-                "Target": "Deepnest_East_11[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Camp_Bench_Wall"
@@ -19904,11 +19903,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[left1]"
             },
             {
-                "Target": "Deepnest_East_11[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Camp_Bench_Wall"
@@ -19917,11 +19916,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[bot1]"
             },
             {
-                "Target": "Soul_Totem-Kingdom's_Edge_Camp",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Camp_Bench_Wall",
@@ -19958,7 +19957,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Kingdom's_Edge_Camp"
             }
         ],
         "locations": [],
@@ -19970,8 +19970,7 @@ regions = [
         "name": "Deepnest_East_11[right1]",
         "exits": [
             {
-                "Target": "Broke_Camp_Bench_Wall",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -20147,19 +20146,19 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Broke_Camp_Bench_Wall"
             },
             {
-                "Target": "Deepnest_East_11",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_11"
             },
             {
-                "Target": "Deepnest_East_11[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_11[left1]"
             },
             {
-                "Target": "Deepnest_East_11[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -20179,15 +20178,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[top1]"
             },
             {
-                "Target": "Deepnest_East_11[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_11[bot1]"
             },
             {
-                "Target": "Soul_Totem-Kingdom's_Edge_Camp",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -20220,7 +20219,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Kingdom's_Edge_Camp"
             }
         ],
         "locations": [],
@@ -20232,8 +20232,7 @@ regions = [
         "name": "Deepnest_East_11[left1]",
         "exits": [
             {
-                "Target": "Broke_Camp_Bench_Wall",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -20629,15 +20628,15 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Camp_Bench_Wall"
             },
             {
-                "Target": "Deepnest_East_11",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_11"
             },
             {
-                "Target": "Deepnest_East_11[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -20666,11 +20665,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[right1]"
             },
             {
-                "Target": "Deepnest_East_11[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -20714,15 +20713,15 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[top1]"
             },
             {
-                "Target": "Deepnest_East_11[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_11[bot1]"
             },
             {
-                "Target": "Soul_Totem-Kingdom's_Edge_Camp",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -20755,7 +20754,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Kingdom's_Edge_Camp"
             }
         ],
         "locations": [],
@@ -20767,8 +20767,7 @@ regions = [
         "name": "Deepnest_East_11[bot1]",
         "exits": [
             {
-                "Target": "Broke_Camp_Bench_Wall",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -21164,15 +21163,15 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Camp_Bench_Wall"
             },
             {
-                "Target": "Deepnest_East_11",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_11"
             },
             {
-                "Target": "Deepnest_East_11[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -21201,11 +21200,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[right1]"
             },
             {
-                "Target": "Deepnest_East_11[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -21250,11 +21249,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[left1]"
             },
             {
-                "Target": "Deepnest_East_11[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -21298,11 +21297,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_11[top1]"
             },
             {
-                "Target": "Soul_Totem-Kingdom's_Edge_Camp",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21347,7 +21346,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Kingdom's_Edge_Camp"
             }
         ],
         "locations": [],
@@ -21359,8 +21359,7 @@ regions = [
         "name": "Ruins1_30",
         "exits": [
             {
-                "Target": "Ruins1_30[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -21385,11 +21384,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_30[left1]"
             },
             {
-                "Target": "Ruins1_30[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Sanctum_Glass_Floor"
@@ -21398,11 +21397,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_30[bot1]"
             },
             {
-                "Target": "Ruins1_30[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -21427,7 +21426,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_30[right1]"
             }
         ],
         "locations": [
@@ -21453,8 +21453,7 @@ regions = [
         "name": "Fungus2_21[right1]",
         "exits": [
             {
-                "Target": "Fungus2_21[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21507,7 +21506,8 @@ regions = [
                             "$SHRIEKPOGO[7,before:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_21[left1]"
             }
         ],
         "locations": [
@@ -21522,8 +21522,7 @@ regions = [
         "name": "Ruins1_32[right1]",
         "exits": [
             {
-                "Target": "Ruins1_32[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21562,7 +21561,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_32[right2]"
             }
         ],
         "locations": [
@@ -21587,8 +21587,7 @@ regions = [
         "name": "Ruins1_30[left2]",
         "exits": [
             {
-                "Target": "Ruins1_30",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21620,7 +21619,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_30"
             }
         ],
         "locations": [
@@ -21635,8 +21635,7 @@ regions = [
         "name": "Mines_01[left1]",
         "exits": [
             {
-                "Target": "Mines_01[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Crystal_Peak_Entrance_Quake_Floor"
@@ -21645,11 +21644,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_01[bot1]"
             },
             {
-                "Target": "Rancid_Egg-Crystal_Peak_Dive_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Crystal_Peak_Entrance_Quake_Floor",
@@ -21704,7 +21703,8 @@ regions = [
                             "$CASTSPELL[3,before:ITEMSOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Crystal_Peak_Dive_Entrance"
             }
         ],
         "locations": [
@@ -21718,16 +21718,15 @@ regions = [
         "name": "Mines_20",
         "exits": [
             {
-                "Target": "Mines_20[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_20[left2]"
             },
             {
-                "Target": "Mines_20[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_20[left3]"
             },
             {
-                "Target": "Mines_20[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -21755,15 +21754,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_20[right1]"
             },
             {
-                "Target": "Mines_20[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_20[right2]"
             },
             {
-                "Target": "Soul_Totem-Upper_Crystal_Peak",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Upper_Crystal_Peak"
             }
         ],
         "locations": [
@@ -21790,8 +21790,7 @@ regions = [
         "name": "Mines_25[left1]",
         "exits": [
             {
-                "Target": "Broke_Hallownest's_Crown_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21841,11 +21840,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Hallownest's_Crown_Quake_Floor"
             },
             {
-                "Target": "Mines_25[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21898,11 +21897,11 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_25[top1]"
             },
             {
-                "Target": "Geo_Rock-Hallownest_Crown_Dive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21945,11 +21944,11 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hallownest_Crown_Dive"
             },
             {
-                "Target": "Geo_Rock-Hallownest_Crown_Hidden",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -21988,11 +21987,11 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hallownest_Crown_Hidden"
             },
             {
-                "Target": "Soul_Totem-Hallownest_Crown",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -22035,7 +22034,8 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Hallownest_Crown"
             }
         ],
         "locations": [],
@@ -22047,8 +22047,7 @@ regions = [
         "name": "Mines_25[top1]",
         "exits": [
             {
-                "Target": "Broke_Hallownest's_Crown_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -22059,15 +22058,15 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Hallownest's_Crown_Quake_Floor"
             },
             {
-                "Target": "Mines_25[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_25[left1]"
             },
             {
-                "Target": "Geo_Rock-Hallownest_Crown_Dive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Hallownest's_Crown_Quake_Floor"
@@ -22076,11 +22075,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hallownest_Crown_Dive"
             },
             {
-                "Target": "Geo_Rock-Hallownest_Crown_Hidden",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -22125,11 +22124,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hallownest_Crown_Hidden"
             },
             {
-                "Target": "Soul_Totem-Hallownest_Crown",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Hallownest's_Crown_Quake_Floor"
@@ -22138,7 +22137,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Hallownest_Crown"
             }
         ],
         "locations": [],
@@ -22163,8 +22163,7 @@ regions = [
         "name": "RestingGrounds_05",
         "exits": [
             {
-                "Target": "RestingGrounds_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Glade_Door"
@@ -22173,11 +22172,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "RestingGrounds_05[right1]"
             },
             {
-                "Target": "RestingGrounds_05[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Resting_Grounds_Quake_Floor"
@@ -22186,7 +22185,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "RestingGrounds_05[bot1]"
             }
         ],
         "locations": [
@@ -22205,8 +22205,7 @@ regions = [
         "name": "Cliffs_04[right1]",
         "exits": [
             {
-                "Target": "Cliffs_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DARKROOMS",
@@ -22279,11 +22278,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_04[left1]"
             },
             {
-                "Target": "Soul_Totem-Cliffs_Joni's",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -22300,7 +22299,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Cliffs_Joni's"
             }
         ],
         "locations": [
@@ -22326,12 +22326,11 @@ regions = [
         "name": "Deepnest_East_02",
         "exits": [
             {
-                "Target": "Deepnest_East_02[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_02[bot1]"
             },
             {
-                "Target": "Deepnest_East_02[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Lower_Edge_Quake_Floor",
@@ -22366,11 +22365,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_02[bot2]"
             },
             {
-                "Target": "Deepnest_East_02[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -22415,11 +22414,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_02[top1]"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_Dive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Lower_Edge_Quake_Floor"
@@ -22428,11 +22427,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_Dive"
             },
             {
-                "Target": "Soul_Totem-Lower_Kingdom's_Edge_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -22495,7 +22494,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Lower_Kingdom's_Edge_2"
             }
         ],
         "locations": [
@@ -22519,8 +22519,7 @@ regions = [
         "name": "Deepnest_East_16[left1]",
         "exits": [
             {
-                "Target": "Broke_Oro_Quake_Floor_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -22531,11 +22530,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Oro_Quake_Floor_1"
             },
             {
-                "Target": "Deepnest_East_16[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Oro_Quake_Floor_1"
@@ -22544,11 +22543,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_16[bot1]"
             },
             {
-                "Target": "Soul_Totem-Oro",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Oro"
             }
         ],
         "locations": [],
@@ -22560,8 +22560,7 @@ regions = [
         "name": "Deepnest_East_16[bot1]",
         "exits": [
             {
-                "Target": "Broke_Oro_Quake_Floor_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -22572,15 +22571,16 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Oro_Quake_Floor_1"
             },
             {
-                "Target": "Deepnest_East_16[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_16[left1]"
             },
             {
-                "Target": "Soul_Totem-Oro",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Oro"
             }
         ],
         "locations": [],
@@ -22592,8 +22592,7 @@ regions = [
         "name": "Deepnest_East_14[top2]",
         "exits": [
             {
-                "Target": "Deepnest_East_14[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Oro_Quake_Floor_2",
@@ -22679,11 +22678,11 @@ regions = [
                             "$TAKEDAMAGE"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_14[left1]"
             },
             {
-                "Target": "Deepnest_East_14[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Oro_Quake_Floor_2",
@@ -22769,11 +22768,11 @@ regions = [
                             "$TAKEDAMAGE"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_14[door1]"
             },
             {
-                "Target": "Rancid_Egg-Near_Quick_Slash",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Oro_Quake_Floor_2",
@@ -22822,11 +22821,11 @@ regions = [
                             "$TAKEDAMAGE"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Near_Quick_Slash"
             },
             {
-                "Target": "Grub-Kingdom's_Edge_Oro",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Oro_Quake_Floor_2",
@@ -22913,7 +22912,8 @@ regions = [
                             "$SHADESKIP[2HITS]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Kingdom's_Edge_Oro"
             }
         ],
         "locations": [
@@ -22962,8 +22962,7 @@ regions = [
         "name": "Waterways_04[right1]",
         "exits": [
             {
-                "Target": "Broke_Waterways_Bench_Quake_Floor_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -22974,11 +22973,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Waterways_Bench_Quake_Floor_1"
             },
             {
-                "Target": "Broke_Waterways_Bench_Quake_Floor_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_1",
@@ -22990,11 +22989,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Waterways_Bench_Quake_Floor_2"
             },
             {
-                "Target": "Waterways_04[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_1",
@@ -23004,11 +23003,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04[bot1]"
             },
             {
-                "Target": "Waterways_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -23053,11 +23052,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04[left1]"
             },
             {
-                "Target": "Waterways_04[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -23097,11 +23096,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_04[left2]"
             },
             {
-                "Target": "Rancid_Egg-Waterways_West_Bluggsac",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM",
@@ -23210,11 +23209,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Waterways_West_Bluggsac"
             },
             {
-                "Target": "Grub-Waterways_Main",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -23259,7 +23258,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Waterways_Main"
             }
         ],
         "locations": [],
@@ -23271,8 +23271,7 @@ regions = [
         "name": "Waterways_04[left1]",
         "exits": [
             {
-                "Target": "Broke_Waterways_Bench_Quake_Floor_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS",
@@ -23284,11 +23283,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Waterways_Bench_Quake_Floor_1"
             },
             {
-                "Target": "Broke_Waterways_Bench_Quake_Floor_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS",
@@ -23301,11 +23300,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Waterways_Bench_Quake_Floor_2"
             },
             {
-                "Target": "Waterways_04[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -23336,11 +23335,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04[bot1]"
             },
             {
-                "Target": "Waterways_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -23357,11 +23356,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04[right1]"
             },
             {
-                "Target": "Waterways_04[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -23442,11 +23441,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_04[left2]"
             },
             {
-                "Target": "Rancid_Egg-Waterways_West_Bluggsac",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -23562,11 +23561,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Waterways_West_Bluggsac"
             },
             {
-                "Target": "Grub-Waterways_Main",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -23655,7 +23654,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Waterways_Main"
             }
         ],
         "locations": [],
@@ -23675,8 +23675,8 @@ regions = [
         "name": "Waterways_04[bot1]",
         "exits": [
             {
-                "Target": "Broke_Waterways_Bench_Quake_Floor_2",
-                "Logic": []
+                "logic": [],
+                "target": "Broke_Waterways_Bench_Quake_Floor_2"
             }
         ],
         "locations": [],
@@ -23688,8 +23688,7 @@ regions = [
         "name": "Waterways_02[top3]",
         "exits": [
             {
-                "Target": "Broke_Flukemarm_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_3",
@@ -23701,11 +23700,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Flukemarm_Quake_Floor"
             },
             {
-                "Target": "Waterways_02",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_3"
@@ -23716,11 +23715,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_02"
             },
             {
-                "Target": "Waterways_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_3",
@@ -23732,11 +23731,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot1]"
             },
             {
-                "Target": "Waterways_02[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_3",
@@ -23805,11 +23804,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot2]"
             },
             {
-                "Target": "Rancid_Egg-Waterways_Main",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_3"
@@ -23820,11 +23819,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Waterways_Main"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Waterways_Bench_Quake_Floor_3"
@@ -23835,7 +23834,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [
@@ -23857,16 +23857,15 @@ regions = [
         "name": "Waterways_02[bot1]",
         "exits": [
             {
-                "Target": "Broke_Flukemarm_Quake_Floor",
-                "Logic": []
+                "logic": [],
+                "target": "Broke_Flukemarm_Quake_Floor"
             },
             {
-                "Target": "Waterways_02",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_02"
             },
             {
-                "Target": "Waterways_02[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -23910,7 +23909,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot2]"
             }
         ],
         "locations": [],
@@ -23922,8 +23922,7 @@ regions = [
         "name": "Waterways_02[top2]",
         "exits": [
             {
-                "Target": "Broke_Flukemarm_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -23968,15 +23967,15 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Flukemarm_Quake_Floor"
             },
             {
-                "Target": "Waterways_02",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_02"
             },
             {
-                "Target": "Waterways_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24013,11 +24012,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot1]"
             },
             {
-                "Target": "Waterways_02[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_02[bot2]"
             }
         ],
         "locations": [],
@@ -24029,8 +24029,7 @@ regions = [
         "name": "Waterways_02[bot2]",
         "exits": [
             {
-                "Target": "Broke_Flukemarm_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24075,15 +24074,15 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Flukemarm_Quake_Floor"
             },
             {
-                "Target": "Waterways_02",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_02"
             },
             {
-                "Target": "Waterways_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24120,7 +24119,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot1]"
             }
         ],
         "locations": [],
@@ -24148,8 +24148,7 @@ regions = [
         "name": "Deepnest_East_18",
         "exits": [
             {
-                "Target": "Broke_Edge_Journal_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24183,11 +24182,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Edge_Journal_Quake_Floor"
             },
             {
-                "Target": "Deepnest_East_18[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24212,11 +24211,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_18[top1]"
             },
             {
-                "Target": "Deepnest_East_18[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -24319,11 +24318,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_18[right2]"
             },
             {
-                "Target": "Wanderer's_Journal-Kingdom's_Edge_Requires_Dive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24351,7 +24350,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Wanderer's_Journal-Kingdom's_Edge_Requires_Dive"
             }
         ],
         "locations": [],
@@ -24363,8 +24363,7 @@ regions = [
         "name": "Deepnest_East_18[top1]",
         "exits": [
             {
-                "Target": "Broke_Edge_Journal_Quake_Floor",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "QUAKE"
@@ -24375,15 +24374,15 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Broke_Edge_Journal_Quake_Floor"
             },
             {
-                "Target": "Deepnest_East_18",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_18"
             },
             {
-                "Target": "Wanderer's_Journal-Kingdom's_Edge_Requires_Dive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Edge_Journal_Quake_Floor"
@@ -24392,7 +24391,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Wanderer's_Journal-Kingdom's_Edge_Requires_Dive"
             }
         ],
         "locations": [],
@@ -24412,12 +24412,12 @@ regions = [
         "name": "Ruins_House_03[left1]",
         "exits": [
             {
-                "Target": "Opened_Emilitia_Door",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Emilitia_Door"
             },
             {
-                "Target": "Ruins_House_03[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins_House_03[left2]"
             }
         ],
         "locations": [],
@@ -24429,8 +24429,7 @@ regions = [
         "name": "Ruins_House_03[left2]",
         "exits": [
             {
-                "Target": "Opened_Emilitia_Door",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24447,11 +24446,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Emilitia_Door"
             },
             {
-                "Target": "Ruins_House_03[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24468,7 +24467,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins_House_03[left1]"
             }
         ],
         "locations": [],
@@ -24509,8 +24509,7 @@ regions = [
         "name": "Waterways_09[left1]",
         "exits": [
             {
-                "Target": "Opened_Waterways_Exit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24545,15 +24544,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Waterways_Exit"
             },
             {
-                "Target": "Waterways_09[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_09[right1]"
             },
             {
-                "Target": "Royal_Waterways_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24588,7 +24587,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Royal_Waterways_Map"
             }
         ],
         "locations": [],
@@ -24600,8 +24600,7 @@ regions = [
         "name": "Waterways_09[right1]",
         "exits": [
             {
-                "Target": "Opened_Waterways_Exit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24636,11 +24635,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Opened_Waterways_Exit"
             },
             {
-                "Target": "Waterways_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24675,11 +24674,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_09[left1]"
             },
             {
-                "Target": "Royal_Waterways_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24714,7 +24713,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Royal_Waterways_Map"
             }
         ],
         "locations": [],
@@ -24726,12 +24726,12 @@ regions = [
         "name": "$StartLocation[West Waterways]",
         "exits": [
             {
-                "Target": "Opened_Waterways_Exit",
-                "Logic": []
+                "logic": [],
+                "target": "Opened_Waterways_Exit"
             },
             {
-                "Target": "Royal_Waterways_Map",
-                "Logic": []
+                "logic": [],
+                "target": "Royal_Waterways_Map"
             }
         ],
         "locations": [],
@@ -24752,8 +24752,7 @@ regions = [
         "name": "White_Palace_14[right1]",
         "exits": [
             {
-                "Target": "White_Palace_14[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24776,7 +24775,8 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_14[bot1]"
             }
         ],
         "locations": [
@@ -24790,12 +24790,12 @@ regions = [
         "name": "White_Palace_15[right1]",
         "exits": [
             {
-                "Target": "White_Palace_15[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_15[left1]"
             },
             {
-                "Target": "White_Palace_15[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_15[right2]"
             }
         ],
         "locations": [
@@ -24810,8 +24810,7 @@ regions = [
         "name": "Room_temple[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Black_Egg_Temple"
@@ -24822,11 +24821,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Room_temple[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Black_Egg_Temple"
@@ -24837,7 +24836,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_temple[left1]"
             }
         ],
         "locations": [
@@ -24853,8 +24853,7 @@ regions = [
         "name": "Town",
         "exits": [
             {
-                "Target": "Town[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -24863,11 +24862,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[left1]"
             },
             {
-                "Target": "Town[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -24878,11 +24877,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[right1]"
             },
             {
-                "Target": "Town[door_station]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Dirtmouth_Stag"
@@ -24891,11 +24890,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[door_station]"
             },
             {
-                "Target": "Town[door_sly]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Rescued_Sly"
@@ -24904,11 +24903,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[door_sly]"
             },
             {
-                "Target": "Town[door_jiji]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SIMPLE>3"
@@ -24917,11 +24916,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[door_jiji]"
             },
             {
-                "Target": "Town[door_bretta]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Rescued_Bretta"
@@ -24930,11 +24929,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[door_bretta]"
             },
             {
-                "Target": "Town[room_divine]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Nightmare_Lantern_Lit"
@@ -24943,11 +24942,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[room_divine]"
             },
             {
-                "Target": "Town[room_grimm]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Nightmare_Lantern_Lit"
@@ -24956,11 +24955,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[room_grimm]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -24969,11 +24968,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Town",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -24982,7 +24981,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -24995,8 +24995,7 @@ regions = [
         "name": "Room_nailmaster[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25005,11 +25004,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Room_nailmaster[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25018,7 +25017,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_nailmaster[left1]"
             }
         ],
         "locations": [
@@ -25032,8 +25032,7 @@ regions = [
         "name": "Fungus1_01b[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25042,11 +25041,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus1_01b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25055,7 +25054,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_01b[left1]"
             }
         ],
         "locations": [
@@ -25070,8 +25070,7 @@ regions = [
         "name": "Fungus1_37[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25080,11 +25079,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus1_37[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25093,7 +25092,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_37[left1]"
             }
         ],
         "locations": [],
@@ -25105,8 +25105,7 @@ regions = [
         "name": "Fungus1_31[bot1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25115,11 +25114,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus1_31[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25128,7 +25127,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_31[bot1]"
             }
         ],
         "locations": [
@@ -25146,8 +25146,7 @@ regions = [
         "name": "Room_Slug_Shrine[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25156,11 +25155,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Room_Slug_Shrine[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25169,7 +25168,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_Slug_Shrine[left1]"
             }
         ],
         "locations": [],
@@ -25181,16 +25181,15 @@ regions = [
         "name": "Fungus1_15[door1]",
         "exits": [
             {
-                "Target": "Fungus1_15[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_15[right1]"
             },
             {
-                "Target": "Rancid_Egg-Sheo",
-                "Logic": []
+                "logic": [],
+                "target": "Rancid_Egg-Sheo"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25199,11 +25198,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus1_15[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -25212,7 +25211,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_15[door1]"
             }
         ],
         "locations": [],
@@ -25224,8 +25224,7 @@ regions = [
         "name": "Fungus3_archive[bot1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -25256,11 +25255,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus3_archive[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -25291,7 +25290,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_archive[bot1]"
             }
         ],
         "locations": [],
@@ -25304,8 +25304,7 @@ regions = [
         "name": "Fungus2_13",
         "exits": [
             {
-                "Target": "Fungus2_13[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -25338,11 +25337,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_13[top1]"
             },
             {
-                "Target": "Fungus2_13[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -25423,11 +25422,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_13[left3]"
             },
             {
-                "Target": "Geo_Rock-Mantis_Outskirts_Alcove",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -25508,11 +25507,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Mantis_Outskirts_Alcove"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -25593,11 +25592,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus2_13",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -25714,7 +25713,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_13"
             }
         ],
         "locations": [
@@ -25729,8 +25729,7 @@ regions = [
         "name": "Fungus2_13[left3]",
         "exits": [
             {
-                "Target": "Fungus2_13",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -26039,11 +26038,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_13"
             },
             {
-                "Target": "Geo_Rock-Mantis_Outskirts_Alcove",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "FIREBALLSKIPS",
@@ -26160,11 +26159,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Mantis_Outskirts_Alcove"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -26251,11 +26250,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus2_13[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -26342,7 +26341,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_13[left3]"
             }
         ],
         "locations": [],
@@ -26354,8 +26354,7 @@ regions = [
         "name": "Fungus2_31[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Mantis_Lords"
@@ -26366,11 +26365,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus2_31[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Mantis_Lords"
@@ -26381,7 +26380,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_31[left1]"
             }
         ],
         "locations": [
@@ -26397,8 +26397,7 @@ regions = [
         "name": "Ruins1_02[bot1]",
         "exits": [
             {
-                "Target": "Ruins1_02[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26423,11 +26422,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_02[top1]"
             },
             {
-                "Target": "Lore_Tablet-City_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26452,11 +26451,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-City_Entrance"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26487,11 +26486,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Ruins1_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26522,7 +26521,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_02[bot1]"
             }
         ],
         "locations": [],
@@ -26534,8 +26534,7 @@ regions = [
         "name": "Ruins1_02[top1]",
         "exits": [
             {
-                "Target": "Ruins1_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -26544,15 +26543,15 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_02[bot1]"
             },
             {
-                "Target": "Lore_Tablet-City_Entrance",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-City_Entrance"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -26561,7 +26560,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [],
@@ -26573,12 +26573,11 @@ regions = [
         "name": "Ruins1_31[left1]",
         "exits": [
             {
-                "Target": "City_of_Tears_Map",
-                "Logic": []
+                "logic": [],
+                "target": "City_of_Tears_Map"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo"
@@ -26589,11 +26588,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Ruins1_31[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo"
@@ -26604,7 +26603,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_31[left1]"
             }
         ],
         "locations": [],
@@ -26617,8 +26617,7 @@ regions = [
         "name": "Ruins1_18[right2]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -26627,11 +26626,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Ruins1_18[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -26640,7 +26639,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_18[right2]"
             }
         ],
         "locations": [],
@@ -26652,8 +26652,7 @@ regions = [
         "name": "Waterways_02",
         "exits": [
             {
-                "Target": "Waterways_02[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26679,11 +26678,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_02[top1]"
             },
             {
-                "Target": "Waterways_02[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -26719,11 +26718,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_02[top2]"
             },
             {
-                "Target": "Rancid_Egg-Waterways_Main",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -26794,11 +26793,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Waterways_Main"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26853,11 +26852,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Waterways_02",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -26912,11 +26911,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_02"
             },
             {
-                "Target": "Waterways_02[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -26977,11 +26976,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot1]"
             },
             {
-                "Target": "Waterways_02[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27084,7 +27083,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_02[bot2]"
             }
         ],
         "locations": [],
@@ -27094,8 +27094,7 @@ regions = [
         "name": "GG_Atrium",
         "exits": [
             {
-                "Target": "GG_Workshop",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -27106,11 +27105,11 @@ regions = [
                             "$HOTSPRINGRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "GG_Workshop"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -27165,11 +27164,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "GG_Atrium",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -27224,11 +27223,12 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "GG_Atrium"
             },
             {
-                "Target": "GG_Waterways",
-                "Logic": []
+                "logic": [],
+                "target": "GG_Waterways"
             }
         ],
         "locations": [],
@@ -27238,8 +27238,7 @@ regions = [
         "name": "GG_Workshop",
         "exits": [
             {
-                "Target": "GG_Atrium",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27265,11 +27264,11 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "GG_Atrium"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27299,11 +27298,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "GG_Workshop",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27333,7 +27332,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "GG_Workshop"
             }
         ],
         "locations": [],
@@ -27343,16 +27343,15 @@ regions = [
         "name": "Deepnest_14[left1]",
         "exits": [
             {
-                "Target": "Deepnest_14",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_14"
             },
             {
-                "Target": "Deepnest_14[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_14[right1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27361,11 +27360,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Deepnest_14[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27374,7 +27373,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_14[left1]"
             }
         ],
         "locations": [],
@@ -27386,8 +27386,7 @@ regions = [
         "name": "Deepnest_Spider_Town[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -27487,11 +27486,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Deepnest_Spider_Town[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -27591,7 +27590,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_Spider_Town[left1]"
             }
         ],
         "locations": [
@@ -27617,8 +27617,7 @@ regions = [
         "name": "Abyss_18[right1]",
         "exits": [
             {
-                "Target": "Abyss_18[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -27646,11 +27645,11 @@ regions = [
                             "$SLOPEBALL[before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_18[left1]"
             },
             {
-                "Target": "Geo_Rock-Basin_Tunnel",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27675,11 +27674,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Basin_Tunnel"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo"
@@ -27690,11 +27689,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Abyss_18[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo"
@@ -27705,7 +27704,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_18[right1]"
             }
         ],
         "locations": [],
@@ -27717,8 +27717,7 @@ regions = [
         "name": "Deepnest_East_06[door1]",
         "exits": [
             {
-                "Target": "Deepnest_East_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27736,11 +27735,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[top1]"
             },
             {
-                "Target": "Deepnest_East_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27758,11 +27757,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[left1]"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -27836,11 +27835,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -27858,11 +27857,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27871,11 +27870,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Deepnest_East_06[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27884,7 +27883,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[door1]"
             }
         ],
         "locations": [],
@@ -27897,8 +27897,7 @@ regions = [
         "name": "Deepnest_East_13[bot1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27907,11 +27906,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Deepnest_East_13[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27920,7 +27919,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_13[bot1]"
             }
         ],
         "locations": [
@@ -27934,8 +27934,7 @@ regions = [
         "name": "Hive_01[right2]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27944,11 +27943,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Hive_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27957,7 +27956,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Hive_01[right2]"
             }
         ],
         "locations": [],
@@ -27969,8 +27969,7 @@ regions = [
         "name": "Mines_29[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27979,11 +27978,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Mines_29[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -27992,7 +27991,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_29[left1]"
             }
         ],
         "locations": [
@@ -28008,8 +28008,7 @@ regions = [
         "name": "RestingGrounds_12[door_Mansion]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -28018,11 +28017,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "RestingGrounds_12[door_Mansion]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -28031,7 +28030,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "RestingGrounds_12[door_Mansion]"
             }
         ],
         "locations": [],
@@ -28044,8 +28044,7 @@ regions = [
         "name": "Fungus1_24[left1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -28076,7 +28075,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             }
         ],
         "locations": [
@@ -28090,8 +28090,7 @@ regions = [
         "name": "Fungus3_50[right1]",
         "exits": [
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo"
@@ -28102,11 +28101,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "Fungus3_50[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Replenish_Geo"
@@ -28117,7 +28116,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_50[right1]"
             }
         ],
         "locations": [],
@@ -28129,12 +28129,11 @@ regions = [
         "name": "White_Palace_01",
         "exits": [
             {
-                "Target": "White_Palace_01[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_01[left1]"
             },
             {
-                "Target": "White_Palace_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -28160,11 +28159,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_01[right1]"
             },
             {
-                "Target": "White_Palace_01[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -28205,11 +28204,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_01[top1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -28218,11 +28217,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "White_Palace_01",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -28231,7 +28230,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_01"
             }
         ],
         "locations": [],
@@ -28241,8 +28241,7 @@ regions = [
         "name": "White_Palace_06[top1]",
         "exits": [
             {
-                "Target": "White_Palace_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -28251,11 +28250,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_06[left1]"
             },
             {
-                "Target": "Can_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -28264,11 +28263,11 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "Can_Bench"
             },
             {
-                "Target": "White_Palace_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -28289,7 +28288,8 @@ regions = [
                             "$BENCHRESET"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_06[top1]"
             }
         ],
         "locations": [],
@@ -28301,28 +28301,28 @@ regions = [
         "name": "Tutorial_01[top1]",
         "exits": [
             {
-                "Target": "Tutorial_01",
-                "Logic": []
+                "logic": [],
+                "target": "Tutorial_01"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Left"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Below_Fury",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Below_Fury"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Hidden",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Hidden"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Collapse",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Collapse"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Above_Fury",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Above_Fury"
             }
         ],
         "locations": [],
@@ -28334,28 +28334,28 @@ regions = [
         "name": "Tutorial_01[top2]",
         "exits": [
             {
-                "Target": "Tutorial_01",
-                "Logic": []
+                "logic": [],
+                "target": "Tutorial_01"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Left"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Below_Fury",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Below_Fury"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Hidden",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Hidden"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Collapse",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Collapse"
             },
             {
-                "Target": "Geo_Rock-King's_Pass_Above_Fury",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-King's_Pass_Above_Fury"
             }
         ],
         "locations": [],
@@ -28367,12 +28367,11 @@ regions = [
         "name": "Town[left1]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             },
             {
-                "Target": "Town[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -28382,7 +28381,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[right1]"
             }
         ],
         "locations": [],
@@ -28394,8 +28394,8 @@ regions = [
         "name": "Town[top1]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28407,12 +28407,11 @@ regions = [
         "name": "Town[right1]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             },
             {
-                "Target": "Town[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -28429,7 +28428,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Town[left1]"
             }
         ],
         "locations": [],
@@ -28441,8 +28441,8 @@ regions = [
         "name": "Town[door_station]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28454,8 +28454,8 @@ regions = [
         "name": "Town[door_sly]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28467,8 +28467,8 @@ regions = [
         "name": "Town[door_bretta]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28480,8 +28480,8 @@ regions = [
         "name": "Town[door_jiji]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28493,8 +28493,8 @@ regions = [
         "name": "Town[room_grimm]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28506,8 +28506,8 @@ regions = [
         "name": "Town[room_divine]",
         "exits": [
             {
-                "Target": "Town",
-                "Logic": []
+                "logic": [],
+                "target": "Town"
             }
         ],
         "locations": [],
@@ -28530,12 +28530,12 @@ regions = [
         "name": "Crossroads_18",
         "exits": [
             {
-                "Target": "Crossroads_18[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_18[right1]"
             },
             {
-                "Target": "Geo_Rock-Crossroads_Before_Fungal",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Crossroads_Before_Fungal"
             }
         ],
         "locations": [
@@ -28550,8 +28550,7 @@ regions = [
         "name": "Crossroads_18[right1]",
         "exits": [
             {
-                "Target": "Crossroads_18",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -28609,11 +28608,12 @@ regions = [
                             "$SLOPEBALL[before:AREASOUL,after:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_18"
             },
             {
-                "Target": "Geo_Rock-Crossroads_Before_Fungal",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Crossroads_Before_Fungal"
             }
         ],
         "locations": [],
@@ -28625,8 +28625,8 @@ regions = [
         "name": "Crossroads_21[top1]",
         "exits": [
             {
-                "Target": "Crossroads_21",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_21"
             }
         ],
         "locations": [],
@@ -28638,8 +28638,7 @@ regions = [
         "name": "Crossroads_33",
         "exits": [
             {
-                "Target": "Crossroads_33[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Mawlek_Wall"
@@ -28648,11 +28647,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_33[left1]"
             },
             {
-                "Target": "Crossroads_33[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Shaman_Pillar"
@@ -28661,7 +28660,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_33[right1]"
             }
         ],
         "locations": [
@@ -28677,8 +28677,8 @@ regions = [
         "name": "Crossroads_33[left1]",
         "exits": [
             {
-                "Target": "Crossroads_33",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_33"
             }
         ],
         "locations": [],
@@ -28690,8 +28690,8 @@ regions = [
         "name": "Crossroads_33[right1]",
         "exits": [
             {
-                "Target": "Crossroads_33",
-                "Logic": []
+                "logic": [],
+                "target": "Crossroads_33"
             }
         ],
         "locations": [],
@@ -28703,8 +28703,7 @@ regions = [
         "name": "Fungus1_11",
         "exits": [
             {
-                "Target": "Fungus1_11[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -28767,7 +28766,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_11[left1]"
             }
         ],
         "locations": [
@@ -28784,8 +28784,8 @@ regions = [
         "name": "Fungus1_11[left1]",
         "exits": [
             {
-                "Target": "Fungus1_11",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_11"
             }
         ],
         "locations": [],
@@ -28797,8 +28797,8 @@ regions = [
         "name": "Fungus1_21",
         "exits": [
             {
-                "Target": "Fungus1_21[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_21[right1]"
             }
         ],
         "locations": [
@@ -28818,8 +28818,7 @@ regions = [
         "name": "Fungus1_21[right1]",
         "exits": [
             {
-                "Target": "Fungus1_21",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -28869,7 +28868,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus1_21"
             }
         ],
         "locations": [],
@@ -28906,8 +28906,7 @@ regions = [
         "name": "Fungus3_02",
         "exits": [
             {
-                "Target": "Fungus3_02[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Archives_Exit_Wall"
@@ -28916,7 +28915,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_02[right1]"
             }
         ],
         "locations": [],
@@ -28931,8 +28931,8 @@ regions = [
         "name": "Fungus3_02[right1]",
         "exits": [
             {
-                "Target": "Fungus3_02",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_02"
             }
         ],
         "locations": [],
@@ -28944,8 +28944,7 @@ regions = [
         "name": "Fungus3_26",
         "exits": [
             {
-                "Target": "Fungus3_26[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -29006,7 +29005,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_26[top1]"
             }
         ],
         "locations": [
@@ -29023,8 +29023,8 @@ regions = [
         "name": "Fungus3_26[top1]",
         "exits": [
             {
-                "Target": "Fungus3_26",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_26"
             }
         ],
         "locations": [
@@ -29038,8 +29038,7 @@ regions = [
         "name": "Fungus3_44",
         "exits": [
             {
-                "Target": "Fungus3_44[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -29058,11 +29057,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_44[bot1]"
             },
             {
-                "Target": "Fungus3_44[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -29088,7 +29087,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_44[door1]"
             }
         ],
         "locations": [],
@@ -29100,8 +29100,7 @@ regions = [
         "name": "Fungus3_44[bot1]",
         "exits": [
             {
-                "Target": "Fungus3_44",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -29118,7 +29117,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_44"
             }
         ],
         "locations": [],
@@ -29130,8 +29130,8 @@ regions = [
         "name": "Fungus3_44[door1]",
         "exits": [
             {
-                "Target": "Fungus3_44",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_44"
             }
         ],
         "locations": [],
@@ -29143,8 +29143,7 @@ regions = [
         "name": "Fungus2_01",
         "exits": [
             {
-                "Target": "Fungus2_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -29199,7 +29198,8 @@ regions = [
                             "$CASTSPELL[3,before:ITEMSOUL,after:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_01[right1]"
             }
         ],
         "locations": [
@@ -29215,8 +29215,8 @@ regions = [
         "name": "Fungus2_01[right1]",
         "exits": [
             {
-                "Target": "Fungus2_01",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_01"
             }
         ],
         "locations": [],
@@ -29241,8 +29241,8 @@ regions = [
         "name": "Fungus2_04[right1]",
         "exits": [
             {
-                "Target": "Fungus2_04",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_04"
             }
         ],
         "locations": [],
@@ -29255,8 +29255,7 @@ regions = [
         "name": "Fungus2_06",
         "exits": [
             {
-                "Target": "Fungus2_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -29319,11 +29318,11 @@ regions = [
                             "$CASTSPELL[before:AREASOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_06[top1]"
             },
             {
-                "Target": "Fungus2_06[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -29332,7 +29331,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_06[left2]"
             }
         ],
         "locations": [],
@@ -29345,8 +29345,7 @@ regions = [
         "name": "Fungus2_06[left2]",
         "exits": [
             {
-                "Target": "Fungus2_06",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -29355,7 +29354,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_06"
             }
         ],
         "locations": [],
@@ -29367,8 +29367,7 @@ regions = [
         "name": "Fungus2_11",
         "exits": [
             {
-                "Target": "Fungus2_11[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -29411,11 +29410,12 @@ regions = [
                             "$SHADESKIP[2HITS]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_11[left2]"
             },
             {
-                "Target": "Geo_Rock-Fungal_Below_Pilgrim's_Way",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Fungal_Below_Pilgrim's_Way"
             }
         ],
         "locations": [],
@@ -29429,12 +29429,12 @@ regions = [
         "name": "Fungus2_11[left2]",
         "exits": [
             {
-                "Target": "Fungus2_11",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_11"
             },
             {
-                "Target": "Geo_Rock-Fungal_Below_Pilgrim's_Way",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Fungal_Below_Pilgrim's_Way"
             }
         ],
         "locations": [],
@@ -29446,8 +29446,8 @@ regions = [
         "name": "Fungus2_13[top1]",
         "exits": [
             {
-                "Target": "Fungus2_13",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_13"
             }
         ],
         "locations": [],
@@ -29459,8 +29459,7 @@ regions = [
         "name": "Fungus2_14",
         "exits": [
             {
-                "Target": "Fungus2_14[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -29486,11 +29485,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_14[top1]"
             },
             {
-                "Target": "Fungus2_14[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -29541,11 +29540,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_14[right1]"
             },
             {
-                "Target": "Fungus2_14[bot3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -29556,11 +29555,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_14[bot3]"
             },
             {
-                "Target": "Geo_Rock-Mantis_Village_Below_Lore",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -29744,11 +29743,11 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Mantis_Village_Below_Lore"
             },
             {
-                "Target": "Geo_Rock-Mantis_Village_Above_Lever",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -30032,11 +30031,11 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Mantis_Village_Above_Lever"
             },
             {
-                "Target": "Lore_Tablet-Mantis_Village",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -30220,7 +30219,8 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Mantis_Village"
             }
         ],
         "locations": [
@@ -30237,8 +30237,8 @@ regions = [
         "name": "Fungus2_14[bot3]",
         "exits": [
             {
-                "Target": "Fungus2_14",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_14"
             }
         ],
         "locations": [],
@@ -30250,8 +30250,7 @@ regions = [
         "name": "Fungus2_14[right1]",
         "exits": [
             {
-                "Target": "Fungus2_14",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -30302,7 +30301,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_14"
             }
         ],
         "locations": [],
@@ -30314,8 +30314,7 @@ regions = [
         "name": "Fungus2_15",
         "exits": [
             {
-                "Target": "Fungus2_15[top3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -30340,11 +30339,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_15[top3]"
             },
             {
-                "Target": "Fungus2_15[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -30378,7 +30377,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_15[right1]"
             }
         ],
         "locations": [
@@ -30391,8 +30391,7 @@ regions = [
         "name": "Fungus2_17",
         "exits": [
             {
-                "Target": "Fungus2_17[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -30410,11 +30409,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_17[left1]"
             },
             {
-                "Target": "Fungus2_17[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -30450,7 +30449,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_17[right1]"
             }
         ],
         "locations": [
@@ -30465,12 +30465,11 @@ regions = [
         "name": "Fungus2_17[right1]",
         "exits": [
             {
-                "Target": "Fungus2_17",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_17"
             },
             {
-                "Target": "Fungus2_17[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -30487,7 +30486,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_17[left1]"
             }
         ],
         "locations": [],
@@ -30499,12 +30499,11 @@ regions = [
         "name": "Fungus2_17[left1]",
         "exits": [
             {
-                "Target": "Fungus2_17",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_17"
             },
             {
-                "Target": "Fungus2_17[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -30513,7 +30512,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_17[right1]"
             }
         ],
         "locations": [],
@@ -30525,8 +30525,7 @@ regions = [
         "name": "Fungus2_18",
         "exits": [
             {
-                "Target": "Fungus2_18[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -30563,7 +30562,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_18[bot1]"
             }
         ],
         "locations": [
@@ -30578,8 +30578,7 @@ regions = [
         "name": "Fungus2_18[right1]",
         "exits": [
             {
-                "Target": "Fungus2_18",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -30620,7 +30619,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_18"
             }
         ],
         "locations": [
@@ -30637,8 +30637,7 @@ regions = [
         "name": "Fungus2_18[bot1]",
         "exits": [
             {
-                "Target": "Fungus2_18",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -30655,7 +30654,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_18"
             }
         ],
         "locations": [],
@@ -30680,8 +30680,7 @@ regions = [
         "name": "Fungus2_23[right2]",
         "exits": [
             {
-                "Target": "Fungus2_23",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Waterways_Exit"
@@ -30690,7 +30689,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_23"
             }
         ],
         "locations": [],
@@ -30702,8 +30702,8 @@ regions = [
         "name": "Deepnest_01",
         "exits": [
             {
-                "Target": "Deepnest_01[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01[bot2]"
             }
         ],
         "locations": [
@@ -30719,8 +30719,8 @@ regions = [
         "name": "Deepnest_01[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_01",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01"
             }
         ],
         "locations": [],
@@ -30732,12 +30732,11 @@ regions = [
         "name": "Deepnest_01b[top1]",
         "exits": [
             {
-                "Target": "Deepnest_01b[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01b[right2]"
             },
             {
-                "Target": "Deepnest_01b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -30746,15 +30745,16 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[top1]"
             },
             {
-                "Target": "Deepnest_01b[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01b[bot1]"
             },
             {
-                "Target": "Deepnest_Map-Upper",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_Map-Upper"
             }
         ],
         "locations": [],
@@ -30766,12 +30766,11 @@ regions = [
         "name": "Deepnest_01b[top2]",
         "exits": [
             {
-                "Target": "Deepnest_01b[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01b[right2]"
             },
             {
-                "Target": "Deepnest_01b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -30828,15 +30827,16 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[top1]"
             },
             {
-                "Target": "Deepnest_01b[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01b[bot1]"
             },
             {
-                "Target": "Deepnest_Map-Upper",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_Map-Upper"
             }
         ],
         "locations": [],
@@ -30848,8 +30848,7 @@ regions = [
         "name": "Deepnest_01b[right1]",
         "exits": [
             {
-                "Target": "Deepnest_01b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -30902,11 +30901,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[top1]"
             },
             {
-                "Target": "Deepnest_01b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -30931,15 +30930,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[right2]"
             },
             {
-                "Target": "Deepnest_01b[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_01b[bot1]"
             },
             {
-                "Target": "Deepnest_Map-Upper",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_Map-Upper"
             }
         ],
         "locations": [],
@@ -30951,8 +30951,7 @@ regions = [
         "name": "Deepnest_01b[right2]",
         "exits": [
             {
-                "Target": "Deepnest_01b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31031,11 +31030,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[top1]"
             },
             {
-                "Target": "Deepnest_01b[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31060,11 +31059,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[bot1]"
             },
             {
-                "Target": "Deepnest_Map-Upper",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31089,7 +31088,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_Map-Upper"
             }
         ],
         "locations": [],
@@ -31101,12 +31101,11 @@ regions = [
         "name": "Deepnest_01b[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_Map-Upper",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_Map-Upper"
             },
             {
-                "Target": "Deepnest_01b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31185,11 +31184,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[top1]"
             },
             {
-                "Target": "Deepnest_01b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -31234,7 +31233,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_01b[right2]"
             }
         ],
         "locations": [],
@@ -31246,8 +31246,7 @@ regions = [
         "name": "Deepnest_02",
         "exits": [
             {
-                "Target": "Deepnest_02[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31272,11 +31271,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_02[left1]"
             },
             {
-                "Target": "Deepnest_02[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31317,7 +31316,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_02[right1]"
             }
         ],
         "locations": [
@@ -31332,12 +31332,12 @@ regions = [
         "name": "Deepnest_02[left1]",
         "exits": [
             {
-                "Target": "Deepnest_02",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_02"
             },
             {
-                "Target": "Deepnest_02[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_02[right1]"
             }
         ],
         "locations": [],
@@ -31349,8 +31349,8 @@ regions = [
         "name": "Deepnest_02[right1]",
         "exits": [
             {
-                "Target": "Deepnest_02",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_02"
             }
         ],
         "locations": [],
@@ -31362,8 +31362,7 @@ regions = [
         "name": "Deepnest_03",
         "exits": [
             {
-                "Target": "Deepnest_03[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31389,11 +31388,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_03[left1]"
             },
             {
-                "Target": "Deepnest_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -31430,11 +31429,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_03[top1]"
             },
             {
-                "Target": "Deepnest_03[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -31471,11 +31470,11 @@ regions = [
                             "$SLOPEBALL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_03[left2]"
             },
             {
-                "Target": "Grub-Deepnest_Spike",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -31493,11 +31492,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Deepnest_Spike"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Below_Spike_Grub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -31515,11 +31514,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Below_Spike_Grub"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Spike_Grub_Right",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -31537,7 +31536,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Spike_Grub_Right"
             }
         ],
         "locations": [],
@@ -31549,16 +31549,15 @@ regions = [
         "name": "Deepnest_03[top1]",
         "exits": [
             {
-                "Target": "Deepnest_03",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_03"
             },
             {
-                "Target": "Deepnest_03[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_03[left1]"
             },
             {
-                "Target": "Grub-Deepnest_Spike",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31567,15 +31566,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Deepnest_Spike"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Below_Spike_Grub",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Deepnest_Below_Spike_Grub"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Spike_Grub_Right",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Deepnest_Spike_Grub_Right"
             }
         ],
         "locations": [],
@@ -31587,12 +31587,11 @@ regions = [
         "name": "Deepnest_03[left1]",
         "exits": [
             {
-                "Target": "Deepnest_03",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_03"
             },
             {
-                "Target": "Deepnest_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -31601,11 +31600,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_03[top1]"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Below_Spike_Grub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -31614,11 +31613,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Below_Spike_Grub"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Spike_Grub_Right",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -31627,7 +31626,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Spike_Grub_Right"
             }
         ],
         "locations": [],
@@ -31639,8 +31639,8 @@ regions = [
         "name": "Deepnest_03[left2]",
         "exits": [
             {
-                "Target": "Deepnest_03",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_03"
             }
         ],
         "locations": [],
@@ -31652,8 +31652,7 @@ regions = [
         "name": "Deepnest_10",
         "exits": [
             {
-                "Target": "Deepnest_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -31671,15 +31670,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_10[right1]"
             },
             {
-                "Target": "Deepnest_10[right3]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10[right3]"
             },
             {
-                "Target": "Deepnest_10[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31696,11 +31695,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_10[door1]"
             },
             {
-                "Target": "Deepnest_10[door2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -31733,11 +31732,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_10[door2]"
             },
             {
-                "Target": "Soul_Totem-Distant_Village",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -31786,7 +31785,8 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Distant_Village"
             }
         ],
         "locations": [],
@@ -31798,20 +31798,20 @@ regions = [
         "name": "Deepnest_10[right1]",
         "exits": [
             {
-                "Target": "Deepnest_10",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10"
             },
             {
-                "Target": "Deepnest_10[door1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10[door1]"
             },
             {
-                "Target": "Deepnest_10[door2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10[door2]"
             },
             {
-                "Target": "Soul_Totem-Distant_Village",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Distant_Village"
             }
         ],
         "locations": [],
@@ -31823,12 +31823,11 @@ regions = [
         "name": "Deepnest_10[door1]",
         "exits": [
             {
-                "Target": "Deepnest_10",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10"
             },
             {
-                "Target": "Deepnest_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -31853,15 +31852,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_10[right1]"
             },
             {
-                "Target": "Deepnest_10[door2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10[door2]"
             },
             {
-                "Target": "Soul_Totem-Distant_Village",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Distant_Village"
             }
         ],
         "locations": [],
@@ -31873,12 +31873,12 @@ regions = [
         "name": "Deepnest_10[door2]",
         "exits": [
             {
-                "Target": "Deepnest_10",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_10"
             },
             {
-                "Target": "Soul_Totem-Distant_Village",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Distant_Village"
             }
         ],
         "locations": [],
@@ -31890,8 +31890,7 @@ regions = [
         "name": "Deepnest_14",
         "exits": [
             {
-                "Target": "Deepnest_14[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -31925,11 +31924,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_14[right1]"
             },
             {
-                "Target": "Deepnest_14[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -31992,7 +31991,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_14[left1]"
             }
         ],
         "locations": [],
@@ -32016,8 +32016,7 @@ regions = [
         "name": "Deepnest_26",
         "exits": [
             {
-                "Target": "Deepnest_26[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -32037,11 +32036,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_26[left1]"
             },
             {
-                "Target": "Deepnest_26[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -32059,11 +32058,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_26[left2]"
             },
             {
-                "Target": "Lifeblood_Cocoon-Failed_Tramway",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -32081,7 +32080,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lifeblood_Cocoon-Failed_Tramway"
             }
         ],
         "locations": [],
@@ -32094,8 +32094,7 @@ regions = [
         "name": "Deepnest_26[left1]",
         "exits": [
             {
-                "Target": "Deepnest_26",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -32124,11 +32123,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_26"
             },
             {
-                "Target": "Lifeblood_Cocoon-Failed_Tramway",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Tramway_Exit_Gate",
@@ -32193,7 +32192,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Lifeblood_Cocoon-Failed_Tramway"
             }
         ],
         "locations": [],
@@ -32205,8 +32205,7 @@ regions = [
         "name": "Deepnest_34[left1]",
         "exits": [
             {
-                "Target": "Deepnest_34[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32279,11 +32278,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_34[right1]"
             },
             {
-                "Target": "Deepnest_34[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32388,7 +32387,8 @@ regions = [
                             "$SHRIEKPOGO[5,2,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_34[top1]"
             }
         ],
         "locations": [],
@@ -32400,8 +32400,7 @@ regions = [
         "name": "Deepnest_34[right1]",
         "exits": [
             {
-                "Target": "Deepnest_34[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32456,11 +32455,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_34[left1]"
             },
             {
-                "Target": "Deepnest_34[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32565,7 +32564,8 @@ regions = [
                             "$SHRIEKPOGO[5,2,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_34[top1]"
             }
         ],
         "locations": [],
@@ -32577,8 +32577,7 @@ regions = [
         "name": "Deepnest_34[top1]",
         "exits": [
             {
-                "Target": "Deepnest_34[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32633,11 +32632,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_34[left1]"
             },
             {
-                "Target": "Deepnest_34[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32710,11 +32709,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_34[right1]"
             },
             {
-                "Target": "Deepnest_34[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32757,7 +32756,8 @@ regions = [
                             "$SHRIEKPOGO[5,2,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_34[top1]"
             }
         ],
         "locations": [],
@@ -32769,12 +32769,11 @@ regions = [
         "name": "Deepnest_35",
         "exits": [
             {
-                "Target": "Deepnest_35[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_35[left1]"
             },
             {
-                "Target": "Deepnest_35[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -32791,15 +32790,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_35[top1]"
             },
             {
-                "Target": "Deepnest_35[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_35[bot1]"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Above_Galien",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32856,7 +32855,8 @@ regions = [
                             "$SHRIEKPOGO[8,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Above_Galien"
             }
         ],
         "locations": [
@@ -32868,8 +32868,7 @@ regions = [
         "name": "Deepnest_35[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_35",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -32980,7 +32979,8 @@ regions = [
                             "$SHRIEKPOGO[4,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_35"
             }
         ],
         "locations": [],
@@ -32992,8 +32992,7 @@ regions = [
         "name": "Deepnest_35[left1]",
         "exits": [
             {
-                "Target": "Deepnest_35",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -33010,7 +33009,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_35"
             }
         ],
         "locations": [],
@@ -33022,8 +33022,7 @@ regions = [
         "name": "Deepnest_35[top1]",
         "exits": [
             {
-                "Target": "Deepnest_35",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -33040,11 +33039,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_35"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Above_Galien",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -33061,7 +33060,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Above_Galien"
             }
         ],
         "locations": [],
@@ -33087,8 +33087,7 @@ regions = [
         "name": "Deepnest_39",
         "exits": [
             {
-                "Target": "Grub-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -33147,11 +33146,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Dark_Deepnest"
             },
             {
-                "Target": "Geo_Rock-Dark_Deepnest_Above_Grub_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -33210,7 +33209,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Dark_Deepnest_Above_Grub_1"
             }
         ],
         "locations": [
@@ -33223,8 +33223,7 @@ regions = [
         "name": "Deepnest_39[right1]",
         "exits": [
             {
-                "Target": "Deepnest_39",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -33241,11 +33240,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39"
             },
             {
-                "Target": "Deepnest_39[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -33366,11 +33365,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39[left1]"
             },
             {
-                "Target": "Deepnest_39[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -33491,11 +33490,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39[top1]"
             },
             {
-                "Target": "Deepnest_39[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -33834,11 +33833,11 @@ regions = [
                             "$CASTSPELL[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[door1]"
             },
             {
-                "Target": "Rancid_Egg-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -33917,7 +33916,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Dark_Deepnest"
             }
         ],
         "locations": [],
@@ -33929,8 +33929,7 @@ regions = [
         "name": "Deepnest_39[door1]",
         "exits": [
             {
-                "Target": "Deepnest_39",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -33947,11 +33946,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39"
             },
             {
-                "Target": "Deepnest_39[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -34174,11 +34173,11 @@ regions = [
                             "$CASTSPELL[3,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[left1]"
             },
             {
-                "Target": "Deepnest_39[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -34507,11 +34506,11 @@ regions = [
                             "$CASTSPELL[3,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[top1]"
             },
             {
-                "Target": "Deepnest_39[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34528,11 +34527,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39[right1]"
             },
             {
-                "Target": "Rancid_Egg-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34549,7 +34548,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Dark_Deepnest"
             }
         ],
         "locations": [],
@@ -34561,8 +34561,7 @@ regions = [
         "name": "Deepnest_39[top1]",
         "exits": [
             {
-                "Target": "Deepnest_39",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34579,11 +34578,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39"
             },
             {
-                "Target": "Deepnest_39[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -34722,11 +34721,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[left1]"
             },
             {
-                "Target": "Deepnest_39[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -34835,11 +34834,11 @@ regions = [
                             "$CASTSPELL[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[door1]"
             },
             {
-                "Target": "Deepnest_39[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34856,11 +34855,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39[right1]"
             },
             {
-                "Target": "Rancid_Egg-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34877,11 +34876,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Dark_Deepnest"
             },
             {
-                "Target": "Grub-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34898,11 +34897,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Dark_Deepnest"
             },
             {
-                "Target": "Geo_Rock-Dark_Deepnest_Above_Grub_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34919,7 +34918,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Dark_Deepnest_Above_Grub_1"
             }
         ],
         "locations": [],
@@ -34931,8 +34931,7 @@ regions = [
         "name": "Deepnest_39[left1]",
         "exits": [
             {
-                "Target": "Deepnest_39",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -34949,11 +34948,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39"
             },
             {
-                "Target": "Deepnest_39[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35084,11 +35083,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[top1]"
             },
             {
-                "Target": "Deepnest_39[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35197,11 +35196,11 @@ regions = [
                             "$CASTSPELL[1,1,before:ROOMSOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_39[door1]"
             },
             {
-                "Target": "Deepnest_39[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35218,11 +35217,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_39[right1]"
             },
             {
-                "Target": "Rancid_Egg-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35239,11 +35238,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Dark_Deepnest"
             },
             {
-                "Target": "Grub-Dark_Deepnest",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35298,11 +35297,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Dark_Deepnest"
             },
             {
-                "Target": "Geo_Rock-Dark_Deepnest_Above_Grub_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35357,7 +35356,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Dark_Deepnest_Above_Grub_1"
             }
         ],
         "locations": [],
@@ -35369,8 +35369,7 @@ regions = [
         "name": "Deepnest_41[left2]",
         "exits": [
             {
-                "Target": "Deepnest_41[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35493,11 +35492,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_41[right1]"
             },
             {
-                "Target": "Deepnest_41[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35560,7 +35559,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_41[left1]"
             }
         ],
         "locations": [],
@@ -35572,8 +35572,7 @@ regions = [
         "name": "Deepnest_41[right1]",
         "exits": [
             {
-                "Target": "Deepnest_41[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35652,7 +35651,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_41[left1]"
             }
         ],
         "locations": [],
@@ -35664,8 +35664,7 @@ regions = [
         "name": "Deepnest_42[bot1]",
         "exits": [
             {
-                "Target": "Soul_Totem-Mask_Maker",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35682,11 +35681,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Mask_Maker"
             },
             {
-                "Target": "Deepnest_42[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35707,11 +35706,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_42[left1]"
             },
             {
-                "Target": "Deepnest_42[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35756,7 +35755,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_42[top1]"
             }
         ],
         "locations": [],
@@ -35768,8 +35768,7 @@ regions = [
         "name": "Deepnest_42[left1]",
         "exits": [
             {
-                "Target": "Soul_Totem-Mask_Maker",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35786,11 +35785,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Mask_Maker"
             },
             {
-                "Target": "Deepnest_42[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35807,11 +35806,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_42[bot1]"
             },
             {
-                "Target": "Deepnest_42[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN",
@@ -35848,7 +35847,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_42[top1]"
             }
         ],
         "locations": [],
@@ -35860,8 +35860,7 @@ regions = [
         "name": "Deepnest_42[top1]",
         "exits": [
             {
-                "Target": "Soul_Totem-Mask_Maker",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35878,11 +35877,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Mask_Maker"
             },
             {
-                "Target": "Deepnest_42[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35899,11 +35898,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_42[bot1]"
             },
             {
-                "Target": "Deepnest_42[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -35920,7 +35919,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_42[left1]"
             }
         ],
         "locations": [],
@@ -35932,8 +35932,7 @@ regions = [
         "name": "Deepnest_East_02[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_East_02",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -35979,11 +35978,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_02"
             },
             {
-                "Target": "Soul_Totem-Lower_Kingdom's_Edge_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -36046,7 +36045,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Lower_Kingdom's_Edge_2"
             }
         ],
         "locations": [],
@@ -36058,12 +36058,11 @@ regions = [
         "name": "Deepnest_East_02[top1]",
         "exits": [
             {
-                "Target": "Deepnest_East_02",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_02"
             },
             {
-                "Target": "Soul_Totem-Lower_Kingdom's_Edge_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -36126,7 +36125,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Lower_Kingdom's_Edge_2"
             }
         ],
         "locations": [],
@@ -36138,8 +36138,8 @@ regions = [
         "name": "Deepnest_East_03[left2]",
         "exits": [
             {
-                "Target": "Deepnest_East_03[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_03[left1]"
             }
         ],
         "locations": [],
@@ -36151,8 +36151,8 @@ regions = [
         "name": "Deepnest_East_03[top1]",
         "exits": [
             {
-                "Target": "Deepnest_East_03[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_03[left1]"
             }
         ],
         "locations": [],
@@ -36164,8 +36164,8 @@ regions = [
         "name": "Deepnest_East_03[right1]",
         "exits": [
             {
-                "Target": "Deepnest_East_03[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_03[left1]"
             }
         ],
         "locations": [],
@@ -36177,12 +36177,12 @@ regions = [
         "name": "Deepnest_East_03[top2]",
         "exits": [
             {
-                "Target": "Deepnest_East_03[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_03[right1]"
             },
             {
-                "Target": "Deepnest_East_03[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_03[left1]"
             }
         ],
         "locations": [],
@@ -36194,8 +36194,7 @@ regions = [
         "name": "Deepnest_East_04",
         "exits": [
             {
-                "Target": "Deepnest_East_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -36244,11 +36243,11 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_04[left1]"
             },
             {
-                "Target": "Deepnest_East_04[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -36273,11 +36272,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_04[left2]"
             },
             {
-                "Target": "Deepnest_East_04[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -36304,11 +36303,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_04[right2]"
             },
             {
-                "Target": "Deepnest_East_04[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_04[right1]"
             }
         ],
         "locations": [
@@ -36320,8 +36320,7 @@ regions = [
         "name": "Deepnest_East_04[left1]",
         "exits": [
             {
-                "Target": "Deepnest_East_04",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -36368,7 +36367,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_04"
             }
         ],
         "locations": [],
@@ -36380,12 +36380,11 @@ regions = [
         "name": "Deepnest_East_04[left2]",
         "exits": [
             {
-                "Target": "Deepnest_East_04",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_04"
             },
             {
-                "Target": "Deepnest_East_04[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -36412,7 +36411,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_04[right2]"
             }
         ],
         "locations": [],
@@ -36424,12 +36424,12 @@ regions = [
         "name": "Deepnest_East_04[right2]",
         "exits": [
             {
-                "Target": "Deepnest_East_04",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_04"
             },
             {
-                "Target": "Deepnest_East_04[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_04[left2]"
             }
         ],
         "locations": [],
@@ -36441,8 +36441,7 @@ regions = [
         "name": "Deepnest_East_04[right1]",
         "exits": [
             {
-                "Target": "Deepnest_East_04",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -36499,7 +36498,8 @@ regions = [
                             "$TAKEDAMAGE"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_East_04"
             }
         ],
         "locations": [],
@@ -36511,12 +36511,12 @@ regions = [
         "name": "Deepnest_East_07[left1]",
         "exits": [
             {
-                "Target": "Soul_Totem-Upper_Kingdom's_Edge",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Upper_Kingdom's_Edge"
             },
             {
-                "Target": "Deepnest_East_07[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_07[left2]"
             }
         ],
         "locations": [],
@@ -36536,8 +36536,7 @@ regions = [
         "name": "Deepnest_East_18[right2]",
         "exits": [
             {
-                "Target": "Deepnest_East_18",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -36556,7 +36555,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_18"
             }
         ],
         "locations": [],
@@ -36568,8 +36568,7 @@ regions = [
         "name": "Hive_03_c",
         "exits": [
             {
-                "Target": "Hive_03_c[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -36586,11 +36585,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_03_c[left1]"
             },
             {
-                "Target": "Hive_03_c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -36628,7 +36627,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_03_c[top1]"
             }
         ],
         "locations": [],
@@ -36640,8 +36640,8 @@ regions = [
         "name": "Hive_03_c[left1]",
         "exits": [
             {
-                "Target": "Hive_03_c",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_03_c"
             }
         ],
         "locations": [],
@@ -36653,8 +36653,8 @@ regions = [
         "name": "Hive_03_c[top1]",
         "exits": [
             {
-                "Target": "Hive_03_c",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_03_c"
             }
         ],
         "locations": [],
@@ -36666,12 +36666,11 @@ regions = [
         "name": "Hive_03_c[right2]",
         "exits": [
             {
-                "Target": "Hive_03_c",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_03_c"
             },
             {
-                "Target": "Hive_03_c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -36681,7 +36680,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_03_c[top1]"
             }
         ],
         "locations": [],
@@ -36693,8 +36693,7 @@ regions = [
         "name": "Abyss_03[bot1]",
         "exits": [
             {
-                "Target": "Abyss_03",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -36711,7 +36710,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_03"
             }
         ],
         "locations": [],
@@ -36723,8 +36723,8 @@ regions = [
         "name": "Abyss_03_c[top1]",
         "exits": [
             {
-                "Target": "Abyss_03_c",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_03_c"
             }
         ],
         "locations": [],
@@ -36736,8 +36736,7 @@ regions = [
         "name": "Abyss_04[top1]",
         "exits": [
             {
-                "Target": "Vessel_Fragment-Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Can_Visit_Lemm",
@@ -36747,11 +36746,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Vessel_Fragment-Basin"
             },
             {
-                "Target": "Ancient_Basin_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -36800,15 +36799,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ancient_Basin_Map"
             },
             {
-                "Target": "Soul_Totem-Basin",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Basin"
             },
             {
-                "Target": "Abyss_04[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_04[left1]"
             }
         ],
         "locations": [],
@@ -36820,8 +36820,7 @@ regions = [
         "name": "Abyss_04[right1]",
         "exits": [
             {
-                "Target": "Ancient_Basin_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -36847,11 +36846,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ancient_Basin_Map"
             },
             {
-                "Target": "Soul_Totem-Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -36877,11 +36876,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Basin"
             },
             {
-                "Target": "Abyss_04[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_04[left1]"
             }
         ],
         "locations": [],
@@ -36893,8 +36893,7 @@ regions = [
         "name": "Abyss_06_Core",
         "exits": [
             {
-                "Target": "Abyss_06_Core[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37003,11 +37002,11 @@ regions = [
                             "$EQUIPPEDCHARM[Joni's_Blessing]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_06_Core[left1]"
             },
             {
-                "Target": "Abyss_06_Core[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -37016,11 +37015,11 @@ regions = [
                             "$EQUIPPEDCHARM[Kingsoul]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_06_Core[bot1]"
             },
             {
-                "Target": "Geo_Rock-Abyss_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37040,11 +37039,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_1"
             },
             {
-                "Target": "Geo_Rock-Abyss_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37064,11 +37063,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_2"
             },
             {
-                "Target": "Geo_Rock-Abyss_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37099,7 +37098,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_3"
             }
         ],
         "locations": [],
@@ -37112,8 +37112,7 @@ regions = [
         "name": "Abyss_06_Core[top1]",
         "exits": [
             {
-                "Target": "Abyss_06_Core",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Brand"
@@ -37122,11 +37121,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_06_Core"
             },
             {
-                "Target": "Abyss_06_Core[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Brand"
@@ -37157,11 +37156,11 @@ regions = [
                             "$EQUIPPEDCHARM[Joni's_Blessing]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_06_Core[left1]"
             },
             {
-                "Target": "Geo_Rock-Abyss_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Brand",
@@ -37198,11 +37197,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_1"
             },
             {
-                "Target": "Geo_Rock-Abyss_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Brand",
@@ -37230,11 +37229,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_2"
             },
             {
-                "Target": "Geo_Rock-Abyss_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "King's_Brand"
@@ -37243,7 +37242,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_3"
             }
         ],
         "locations": [
@@ -37257,12 +37257,11 @@ regions = [
         "name": "Abyss_06_Core[left1]",
         "exits": [
             {
-                "Target": "Abyss_06_Core",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_06_Core"
             },
             {
-                "Target": "Geo_Rock-Abyss_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37282,11 +37281,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_1"
             },
             {
-                "Target": "Geo_Rock-Abyss_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37306,11 +37305,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_2"
             },
             {
-                "Target": "Geo_Rock-Abyss_3",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Abyss_3"
             }
         ],
         "locations": [],
@@ -37322,12 +37322,11 @@ regions = [
         "name": "Abyss_06_Core[bot1]",
         "exits": [
             {
-                "Target": "Abyss_06_Core",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_06_Core"
             },
             {
-                "Target": "Geo_Rock-Abyss_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37347,11 +37346,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_1"
             },
             {
-                "Target": "Geo_Rock-Abyss_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37371,11 +37370,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_2"
             },
             {
-                "Target": "Geo_Rock-Abyss_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -37406,7 +37405,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Abyss_3"
             }
         ],
         "locations": [],
@@ -37418,8 +37418,7 @@ regions = [
         "name": "Abyss_09[left1]",
         "exits": [
             {
-                "Target": "Abyss_09[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -37922,11 +37921,11 @@ regions = [
                             "$EQUIPPEDCHARM[Void_Heart]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[right1]"
             },
             {
-                "Target": "Abyss_09[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -37972,11 +37971,11 @@ regions = [
                             "$EQUIPPEDCHARM[Void_Heart]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[right2]"
             },
             {
-                "Target": "Abyss_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -37988,7 +37987,8 @@ regions = [
                             "$EQUIPPEDCHARM[Void_Heart]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[left1]"
             }
         ],
         "locations": [],
@@ -38000,8 +38000,7 @@ regions = [
         "name": "Abyss_09[right1]",
         "exits": [
             {
-                "Target": "Abyss_09[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
@@ -38594,11 +38593,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[right1]"
             },
             {
-                "Target": "Abyss_09[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
@@ -38815,11 +38814,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[right2]"
             },
             {
-                "Target": "Abyss_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
@@ -38910,7 +38909,8 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[left1]"
             }
         ],
         "locations": [],
@@ -38922,8 +38922,7 @@ regions = [
         "name": "Abyss_09[right2]",
         "exits": [
             {
-                "Target": "Abyss_09[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
@@ -39014,11 +39013,12 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_09[right1]"
             },
             {
-                "Target": "Abyss_09[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_09[left1]"
             }
         ],
         "locations": [],
@@ -39039,16 +39039,16 @@ regions = [
         "name": "Abyss_19[right1]",
         "exits": [
             {
-                "Target": "Abyss_19",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_19"
             },
             {
-                "Target": "Abyss_19[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_19[bot2]"
             },
             {
-                "Target": "Geo_Rock-Basin_Before_Broken_Vessel",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Basin_Before_Broken_Vessel"
             }
         ],
         "locations": [],
@@ -39060,8 +39060,7 @@ regions = [
         "name": "Abyss_01[left1]",
         "exits": [
             {
-                "Target": "Abyss_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -39127,15 +39126,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_01[right1]"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_1",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Broken_Elevator_1"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -39152,15 +39151,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_2"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_3",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Broken_Elevator_3"
             },
             {
-                "Target": "Abyss_01[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPIKETUNNELS",
@@ -39208,15 +39207,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_01[left2]"
             },
             {
-                "Target": "Abyss_01[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_01[left3]"
             },
             {
-                "Target": "Abyss_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPIKETUNNELS",
@@ -39265,7 +39264,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_01[right2]"
             }
         ],
         "locations": [],
@@ -39277,8 +39277,7 @@ regions = [
         "name": "Abyss_01[right1]",
         "exits": [
             {
-                "Target": "Abyss_01[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Dung_Defender_Wall"
@@ -39287,15 +39286,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_01[left1]"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_1",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Broken_Elevator_1"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -39312,15 +39311,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_2"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_3",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Broken_Elevator_3"
             },
             {
-                "Target": "Abyss_01[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPIKETUNNELS",
@@ -39368,15 +39367,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_01[left2]"
             },
             {
-                "Target": "Abyss_01[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_01[left3]"
             },
             {
-                "Target": "Abyss_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPIKETUNNELS",
@@ -39425,7 +39424,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_01[right2]"
             }
         ],
         "locations": [],
@@ -39437,8 +39437,7 @@ regions = [
         "name": "Abyss_01[left3]",
         "exits": [
             {
-                "Target": "Abyss_01[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -39512,11 +39511,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left1]"
             },
             {
-                "Target": "Abyss_01[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -39622,11 +39621,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left2]"
             },
             {
-                "Target": "Abyss_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -39698,11 +39697,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[right1]"
             },
             {
-                "Target": "Abyss_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -39837,11 +39836,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[right2]"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -39881,11 +39880,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_1"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -39958,11 +39957,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_2"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -40002,7 +40001,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_3"
             }
         ],
         "locations": [
@@ -40016,8 +40016,7 @@ regions = [
         "name": "Abyss_01[left2]",
         "exits": [
             {
-                "Target": "Abyss_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -40134,11 +40133,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[right2]"
             },
             {
-                "Target": "Abyss_01[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -40420,11 +40419,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left1]"
             },
             {
-                "Target": "Abyss_01[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -40523,11 +40522,11 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left2]"
             },
             {
-                "Target": "Abyss_01[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -40573,11 +40572,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left3]"
             },
             {
-                "Target": "Abyss_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -40844,11 +40843,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[right1]"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -41001,11 +41000,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_1"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -41180,11 +41179,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_2"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -41337,7 +41336,8 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_3"
             }
         ],
         "locations": [],
@@ -41349,8 +41349,7 @@ regions = [
         "name": "Abyss_01[right2]",
         "exits": [
             {
-                "Target": "Abyss_01[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -41507,11 +41506,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left2]"
             },
             {
-                "Target": "Abyss_01[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -41672,11 +41671,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left1]"
             },
             {
-                "Target": "Abyss_01[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -41722,11 +41721,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[left3]"
             },
             {
-                "Target": "Abyss_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -42065,11 +42064,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[right1]"
             },
             {
-                "Target": "Abyss_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -42168,11 +42167,11 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_01[right2]"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -42325,11 +42324,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_1"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -42504,11 +42503,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_2"
             },
             {
-                "Target": "Geo_Rock-Broken_Elevator_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -42661,7 +42660,8 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Elevator_3"
             }
         ],
         "locations": [],
@@ -42673,8 +42673,7 @@ regions = [
         "name": "Waterways_01",
         "exits": [
             {
-                "Target": "Waterways_01[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Waterways_Manhole",
@@ -42736,11 +42735,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL,after:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_01[top1]"
             },
             {
-                "Target": "Waterways_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -42774,11 +42773,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_01[right1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_Tuk",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -42803,11 +42802,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_Tuk"
             },
             {
-                "Target": "Geo_Rock-Waterways_Tuk_Alcove",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -42840,11 +42839,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_Tuk_Alcove"
             },
             {
-                "Target": "Soul_Totem-Waterways_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -42888,7 +42887,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Waterways_Entrance"
             }
         ],
         "locations": [],
@@ -42901,12 +42901,11 @@ regions = [
         "name": "Waterways_01[top1]",
         "exits": [
             {
-                "Target": "Waterways_01",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_01"
             },
             {
-                "Target": "Waterways_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -42915,15 +42914,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_01[right1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_Tuk_Alcove",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_Tuk_Alcove"
             },
             {
-                "Target": "Soul_Totem-Waterways_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -42970,7 +42969,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Waterways_Entrance"
             }
         ],
         "locations": [],
@@ -42982,8 +42982,7 @@ regions = [
         "name": "Waterways_04[left2]",
         "exits": [
             {
-                "Target": "Rancid_Egg-Waterways_West_Bluggsac",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM",
@@ -43321,11 +43320,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Waterways_West_Bluggsac"
             },
             {
-                "Target": "Grub-Waterways_Main",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -43463,11 +43462,11 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Waterways_Main"
             },
             {
-                "Target": "Waterways_04[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -43547,11 +43546,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_04[bot1]"
             },
             {
-                "Target": "Waterways_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -43646,11 +43645,11 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_04[right1]"
             },
             {
-                "Target": "Waterways_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -43842,7 +43841,8 @@ regions = [
                             "$SHRIEKPOGO[1,1,1,1,1,1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_04[left1]"
             }
         ],
         "locations": [],
@@ -43854,8 +43854,7 @@ regions = [
         "name": "Waterways_04b[right1]",
         "exits": [
             {
-                "Target": "Waterways_04b[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -43896,11 +43895,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04b[right2]"
             },
             {
-                "Target": "Waterways_04b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -43935,11 +43934,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04b[left1]"
             },
             {
-                "Target": "Mask_Shard-Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -43967,11 +43966,11 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mask_Shard-Waterways"
             },
             {
-                "Target": "Geo_Rock-Waterways_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -44006,11 +44005,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_Left"
             },
             {
-                "Target": "Soul_Totem-Top_Left_Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -44085,7 +44084,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Top_Left_Waterways"
             }
         ],
         "locations": [],
@@ -44097,8 +44097,7 @@ regions = [
         "name": "Waterways_04b[right2]",
         "exits": [
             {
-                "Target": "Waterways_04b[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -44141,11 +44140,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04b[right1]"
             },
             {
-                "Target": "Waterways_04b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -44209,11 +44208,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_04b[left1]"
             },
             {
-                "Target": "Mask_Shard-Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -44235,11 +44234,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mask_Shard-Waterways"
             },
             {
-                "Target": "Geo_Rock-Waterways_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -44305,11 +44304,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_Left"
             },
             {
-                "Target": "Soul_Totem-Top_Left_Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -44387,7 +44386,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Top_Left_Waterways"
             }
         ],
         "locations": [],
@@ -44399,8 +44399,7 @@ regions = [
         "name": "Waterways_07",
         "exits": [
             {
-                "Target": "Waterways_07[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -44430,11 +44429,11 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07[right1]"
             },
             {
-                "Target": "Waterways_07[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -44467,11 +44466,11 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07[right2]"
             },
             {
-                "Target": "Waterways_07[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -44552,11 +44551,11 @@ regions = [
                             "$SHRIEKPOGO[1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07[left1]"
             },
             {
-                "Target": "Waterways_07[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44584,11 +44583,11 @@ regions = [
                             "$SHRIEKPOGO[4]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07[door1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_East",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44615,11 +44614,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_East"
             },
             {
-                "Target": "Lore_Tablet-Dung_Defender",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44646,7 +44645,8 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Dung_Defender"
             }
         ],
         "locations": [
@@ -44659,8 +44659,7 @@ regions = [
         "name": "Waterways_07[left1]",
         "exits": [
             {
-                "Target": "Waterways_07",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID",
@@ -44719,7 +44718,8 @@ regions = [
                             "$SHRIEKPOGO[1,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07"
             }
         ],
         "locations": [],
@@ -44731,8 +44731,7 @@ regions = [
         "name": "Waterways_07[right1]",
         "exits": [
             {
-                "Target": "Waterways_07",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44757,11 +44756,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_07"
             },
             {
-                "Target": "Waterways_07[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [],
                         "location_requirements": [],
@@ -44770,11 +44769,11 @@ regions = [
                             "$SHRIEKPOGO[4]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07[door1]"
             },
             {
-                "Target": "Lore_Tablet-Dung_Defender",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44799,7 +44798,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Dung_Defender"
             }
         ],
         "locations": [],
@@ -44811,8 +44811,7 @@ regions = [
         "name": "Waterways_07[right2]",
         "exits": [
             {
-                "Target": "Waterways_07",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -44834,7 +44833,8 @@ regions = [
                             "$SHRIEKPOGO[2,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_07"
             }
         ],
         "locations": [],
@@ -44846,12 +44846,11 @@ regions = [
         "name": "Waterways_07[door1]",
         "exits": [
             {
-                "Target": "Waterways_07",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_07"
             },
             {
-                "Target": "Waterways_07[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -44879,15 +44878,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_07[right1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_East",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_East"
             },
             {
-                "Target": "Lore_Tablet-Dung_Defender",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44912,7 +44911,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Dung_Defender"
             }
         ],
         "locations": [],
@@ -44924,12 +44924,11 @@ regions = [
         "name": "Waterways_07[top1]",
         "exits": [
             {
-                "Target": "Waterways_07",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_07"
             },
             {
-                "Target": "Waterways_07[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -44957,11 +44956,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_07[right1]"
             },
             {
-                "Target": "Waterways_07[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -44994,15 +44993,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_07[door1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_East",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_East"
             },
             {
-                "Target": "Lore_Tablet-Dung_Defender",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -45027,7 +45026,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Dung_Defender"
             }
         ],
         "locations": [],
@@ -45039,8 +45039,7 @@ regions = [
         "name": "Waterways_13",
         "exits": [
             {
-                "Target": "Waterways_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -45074,11 +45073,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_13[left1]"
             },
             {
-                "Target": "Waterways_13[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -45111,11 +45110,11 @@ regions = [
                             "$SHRIEKPOGO[1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_13[left2]"
             },
             {
-                "Target": "Grub-Isma's_Grove",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID",
@@ -45147,7 +45146,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Isma's_Grove"
             }
         ],
         "locations": [
@@ -45159,8 +45159,7 @@ regions = [
         "name": "Waterways_13[left1]",
         "exits": [
             {
-                "Target": "Waterways_13",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -45234,11 +45233,11 @@ regions = [
                             "$SHRIEKPOGO[5]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_13"
             },
             {
-                "Target": "Grub-Isma's_Grove",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -45384,7 +45383,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Isma's_Grove"
             }
         ],
         "locations": [],
@@ -45396,8 +45396,7 @@ regions = [
         "name": "Waterways_13[left2]",
         "exits": [
             {
-                "Target": "Waterways_13",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID",
@@ -45458,7 +45457,8 @@ regions = [
                             "$SHRIEKPOGO[1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_13"
             }
         ],
         "locations": [],
@@ -45470,8 +45470,7 @@ regions = [
         "name": "GG_Waterways",
         "exits": [
             {
-                "Target": "GG_Waterways[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM",
@@ -45492,11 +45491,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Waterways[right1]"
             },
             {
-                "Target": "GG_Waterways[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -45569,11 +45568,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "GG_Waterways[door1]"
             },
             {
-                "Target": "GG_Atrium",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SIMPLE>3",
@@ -45605,7 +45604,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Atrium"
             }
         ],
         "locations": [
@@ -45622,12 +45622,11 @@ regions = [
         "name": "GG_Waterways[door1]",
         "exits": [
             {
-                "Target": "GG_Waterways",
-                "Logic": []
+                "logic": [],
+                "target": "GG_Waterways"
             },
             {
-                "Target": "GG_Waterways[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -45664,7 +45663,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Waterways[right1]"
             }
         ],
         "locations": [],
@@ -45676,8 +45676,7 @@ regions = [
         "name": "GG_Waterways[right1]",
         "exits": [
             {
-                "Target": "GG_Waterways",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -45694,11 +45693,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Waterways"
             },
             {
-                "Target": "GG_Waterways[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -45710,7 +45709,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Waterways[door1]"
             }
         ],
         "locations": [],
@@ -45722,8 +45722,7 @@ regions = [
         "name": "Room_GG_Shortcut",
         "exits": [
             {
-                "Target": "Room_GG_Shortcut[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -45749,11 +45748,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_GG_Shortcut[top1]"
             },
             {
-                "Target": "Geo_Rock-Fluke_Hermit",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -45779,7 +45778,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Fluke_Hermit"
             }
         ],
         "locations": [
@@ -45791,12 +45791,11 @@ regions = [
         "name": "Room_GG_Shortcut[top1]",
         "exits": [
             {
-                "Target": "Room_GG_Shortcut",
-                "Logic": []
+                "logic": [],
+                "target": "Room_GG_Shortcut"
             },
             {
-                "Target": "Room_GG_Shortcut[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -45829,11 +45828,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Room_GG_Shortcut[left1]"
             },
             {
-                "Target": "Geo_Rock-Fluke_Hermit",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Fluke_Hermit"
             }
         ],
         "locations": [],
@@ -45845,8 +45845,7 @@ regions = [
         "name": "Room_GG_Shortcut[left1]",
         "exits": [
             {
-                "Target": "Room_GG_Shortcut",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -46097,7 +46096,8 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Room_GG_Shortcut"
             }
         ],
         "locations": [],
@@ -46109,8 +46109,7 @@ regions = [
         "name": "Ruins1_03",
         "exits": [
             {
-                "Target": "Ruins1_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -46144,7 +46143,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_03[top1]"
             }
         ],
         "locations": [
@@ -46161,8 +46161,8 @@ regions = [
         "name": "Ruins1_03[top1]",
         "exits": [
             {
-                "Target": "Ruins1_03",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_03"
             }
         ],
         "locations": [],
@@ -46174,8 +46174,8 @@ regions = [
         "name": "Ruins1_05b[bot1]",
         "exits": [
             {
-                "Target": "Ruins1_05b",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05b"
             }
         ],
         "locations": [],
@@ -46187,8 +46187,7 @@ regions = [
         "name": "Ruins1_05c",
         "exits": [
             {
-                "Target": "Ruins1_05c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -46260,7 +46259,8 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_05c[top1]"
             }
         ],
         "locations": [
@@ -46276,8 +46276,8 @@ regions = [
         "name": "Ruins1_05c[top1]",
         "exits": [
             {
-                "Target": "Ruins1_05c",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05c"
             }
         ],
         "locations": [],
@@ -46289,12 +46289,11 @@ regions = [
         "name": "Ruins1_05c[top2]",
         "exits": [
             {
-                "Target": "Ruins1_05c",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05c"
             },
             {
-                "Target": "Ruins1_05c[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -46311,11 +46310,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_05c[top1]"
             },
             {
-                "Target": "Ruins1_05c[top3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -46341,7 +46340,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_05c[top3]"
             }
         ],
         "locations": [],
@@ -46353,8 +46353,8 @@ regions = [
         "name": "Ruins1_05c[top3]",
         "exits": [
             {
-                "Target": "Ruins1_05c",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05c"
             }
         ],
         "locations": [],
@@ -46366,8 +46366,7 @@ regions = [
         "name": "Ruins1_05",
         "exits": [
             {
-                "Target": "Ruins1_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -46394,11 +46393,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_05[right1]"
             },
             {
-                "Target": "Ruins1_05[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -46471,11 +46470,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:MAPAREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_05[top1]"
             },
             {
-                "Target": "Grub-City_of_Tears_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -46560,7 +46559,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-City_of_Tears_Left"
             }
         ],
         "locations": [],
@@ -46573,12 +46573,11 @@ regions = [
         "name": "Ruins1_05[right1]",
         "exits": [
             {
-                "Target": "Ruins1_05",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05"
             },
             {
-                "Target": "Ruins1_05[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -46626,11 +46625,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:MAPAREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_05[top1]"
             },
             {
-                "Target": "Grub-City_of_Tears_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -46664,7 +46663,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-City_of_Tears_Left"
             }
         ],
         "locations": [],
@@ -46676,16 +46676,15 @@ regions = [
         "name": "Ruins1_05[top1]",
         "exits": [
             {
-                "Target": "Ruins1_05",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05"
             },
             {
-                "Target": "Ruins1_05[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_05[right1]"
             },
             {
-                "Target": "Grub-City_of_Tears_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -46719,7 +46718,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-City_of_Tears_Left"
             }
         ],
         "locations": [],
@@ -46731,12 +46731,11 @@ regions = [
         "name": "Ruins1_23[right2]",
         "exits": [
             {
-                "Target": "Ruins1_23",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_23"
             },
             {
-                "Target": "Lore_Tablet-Sanctum_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -46762,7 +46761,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Sanctum_Entrance"
             }
         ],
         "locations": [],
@@ -46774,12 +46774,12 @@ regions = [
         "name": "Ruins1_28",
         "exits": [
             {
-                "Target": "Ruins1_28[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_28[left1]"
             },
             {
-                "Target": "Wanderer's_Journal-City_Storerooms",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-City_Storerooms"
             }
         ],
         "locations": [
@@ -46794,8 +46794,7 @@ regions = [
         "name": "Ruins1_28[left1]",
         "exits": [
             {
-                "Target": "Ruins1_28",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -46845,11 +46844,12 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_28"
             },
             {
-                "Target": "Wanderer's_Journal-City_Storerooms",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-City_Storerooms"
             }
         ],
         "locations": [],
@@ -46861,12 +46861,12 @@ regions = [
         "name": "Ruins1_30[left1]",
         "exits": [
             {
-                "Target": "Ruins1_30",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_30"
             },
             {
-                "Target": "Ruins1_30[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_30[right1]"
             }
         ],
         "locations": [],
@@ -46878,8 +46878,8 @@ regions = [
         "name": "Ruins1_30[bot1]",
         "exits": [
             {
-                "Target": "Ruins1_30",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_30"
             }
         ],
         "locations": [],
@@ -46891,8 +46891,8 @@ regions = [
         "name": "Ruins1_30[right1]",
         "exits": [
             {
-                "Target": "Ruins1_30",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_30"
             }
         ],
         "locations": [],
@@ -46904,12 +46904,11 @@ regions = [
         "name": "Ruins1_31",
         "exits": [
             {
-                "Target": "Ruins1_31[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_31[left1]"
             },
             {
-                "Target": "Ruins1_31[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Lever-Shade_Soul",
@@ -46963,11 +46962,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins1_31[left2]"
             },
             {
-                "Target": "Ruins1_31[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ELEGANT"
@@ -46976,11 +46975,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_31[left3]"
             },
             {
-                "Target": "City_of_Tears_Map",
-                "Logic": []
+                "logic": [],
+                "target": "City_of_Tears_Map"
             }
         ],
         "locations": [],
@@ -46992,8 +46992,8 @@ regions = [
         "name": "Ruins1_31[left2]",
         "exits": [
             {
-                "Target": "Ruins1_31",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_31"
             }
         ],
         "locations": [],
@@ -47005,8 +47005,8 @@ regions = [
         "name": "Ruins1_31[left3]",
         "exits": [
             {
-                "Target": "Ruins1_31",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_31"
             }
         ],
         "locations": [],
@@ -47018,8 +47018,7 @@ regions = [
         "name": "Ruins2_01",
         "exits": [
             {
-                "Target": "Ruins2_01[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -47086,11 +47085,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_01[top1]"
             },
             {
-                "Target": "Ruins2_01[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -47157,11 +47156,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_01[left2]"
             },
             {
-                "Target": "Geo_Rock-Watcher's_Spire",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -47252,7 +47251,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Watcher's_Spire"
             }
         ],
         "locations": [],
@@ -47264,16 +47264,15 @@ regions = [
         "name": "Ruins2_01[top1]",
         "exits": [
             {
-                "Target": "Ruins2_01",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_01"
             },
             {
-                "Target": "Ruins2_01[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_01[left2]"
             },
             {
-                "Target": "Geo_Rock-Watcher's_Spire",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -47298,7 +47297,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Watcher's_Spire"
             }
         ],
         "locations": [],
@@ -47310,12 +47310,11 @@ regions = [
         "name": "Ruins2_01[left2]",
         "exits": [
             {
-                "Target": "Ruins2_01",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_01"
             },
             {
-                "Target": "Ruins2_01[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47340,11 +47339,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_01[top1]"
             },
             {
-                "Target": "Geo_Rock-Watcher's_Spire",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -47369,7 +47368,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Watcher's_Spire"
             }
         ],
         "locations": [],
@@ -47381,8 +47381,7 @@ regions = [
         "name": "Ruins2_01_b",
         "exits": [
             {
-                "Target": "Ruins2_01_b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -47400,7 +47399,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_01_b[top1]"
             }
         ],
         "locations": [],
@@ -47413,8 +47413,8 @@ regions = [
         "name": "Ruins2_01_b[top1]",
         "exits": [
             {
-                "Target": "Ruins2_01_b",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_01_b"
             }
         ],
         "locations": [],
@@ -47426,8 +47426,7 @@ regions = [
         "name": "Ruins2_03b",
         "exits": [
             {
-                "Target": "Ruins2_03b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -47452,11 +47451,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_03b[top1]"
             },
             {
-                "Target": "Ruins2_03b[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47481,7 +47480,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_03b[top2]"
             }
         ],
         "locations": [],
@@ -47494,8 +47494,8 @@ regions = [
         "name": "Ruins2_03b[top1]",
         "exits": [
             {
-                "Target": "Ruins2_03b",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_03b"
             }
         ],
         "locations": [],
@@ -47507,8 +47507,8 @@ regions = [
         "name": "Ruins2_03b[top2]",
         "exits": [
             {
-                "Target": "Ruins2_03b",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_03b"
             }
         ],
         "locations": [],
@@ -47520,12 +47520,11 @@ regions = [
         "name": "Ruins2_04[right1]",
         "exits": [
             {
-                "Target": "Ruins2_04[door_Ruin_House_01]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_04[door_Ruin_House_01]"
             },
             {
-                "Target": "Ruins2_04[door_Ruin_Elevator]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SIMPLE>3"
@@ -47534,11 +47533,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[door_Ruin_Elevator]"
             },
             {
-                "Target": "Ruins2_04[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_04[right2]"
             }
         ],
         "locations": [],
@@ -47551,8 +47551,8 @@ regions = [
         "name": "Ruins2_04[door_Ruin_House_01]",
         "exits": [
             {
-                "Target": "Ruins2_04[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_04[right2]"
             }
         ],
         "locations": [],
@@ -47564,8 +47564,8 @@ regions = [
         "name": "Ruins2_04[door_Ruin_House_03]",
         "exits": [
             {
-                "Target": "Ruins2_04[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_04[right2]"
             }
         ],
         "locations": [],
@@ -47577,8 +47577,7 @@ regions = [
         "name": "Ruins2_04[door_Ruin_Elevator]",
         "exits": [
             {
-                "Target": "Ruins2_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47595,11 +47594,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[right1]"
             },
             {
-                "Target": "Ruins2_04[door_Ruin_House_01]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47624,11 +47623,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_04[door_Ruin_House_01]"
             },
             {
-                "Target": "Ruins2_04[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_04[right2]"
             }
         ],
         "locations": [],
@@ -47640,12 +47640,11 @@ regions = [
         "name": "RestingGrounds_02[top1]",
         "exits": [
             {
-                "Target": "RestingGrounds_02",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_02"
             },
             {
-                "Target": "Boss_Essence-Xero",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DREAMNAIL",
@@ -47655,7 +47654,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Boss_Essence-Xero"
             }
         ],
         "locations": [],
@@ -47667,8 +47667,8 @@ regions = [
         "name": "RestingGrounds_02[bot1]",
         "exits": [
             {
-                "Target": "RestingGrounds_02",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_02"
             }
         ],
         "locations": [],
@@ -47680,8 +47680,8 @@ regions = [
         "name": "RestingGrounds_05[right1]",
         "exits": [
             {
-                "Target": "RestingGrounds_05",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_05"
             }
         ],
         "locations": [],
@@ -47693,8 +47693,8 @@ regions = [
         "name": "RestingGrounds_05[bot1]",
         "exits": [
             {
-                "Target": "RestingGrounds_05",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_05"
             }
         ],
         "locations": [],
@@ -47706,8 +47706,8 @@ regions = [
         "name": "RestingGrounds_10[top2]",
         "exits": [
             {
-                "Target": "RestingGrounds_10",
-                "Logic": []
+                "logic": [],
+                "target": "RestingGrounds_10"
             }
         ],
         "locations": [],
@@ -47719,8 +47719,8 @@ regions = [
         "name": "Mines_02[top1]",
         "exits": [
             {
-                "Target": "Mines_02[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_02[left1]"
             }
         ],
         "locations": [],
@@ -47732,12 +47732,12 @@ regions = [
         "name": "Mines_02[top2]",
         "exits": [
             {
-                "Target": "Geo_Rock-Crystal_Peak_Lower_Middle",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Crystal_Peak_Lower_Middle"
             },
             {
-                "Target": "Mines_02[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_02[left1]"
             }
         ],
         "locations": [],
@@ -47749,8 +47749,7 @@ regions = [
         "name": "Mines_03",
         "exits": [
             {
-                "Target": "Mines_03[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47767,11 +47766,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_03[right1]"
             },
             {
-                "Target": "Mines_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47817,7 +47816,8 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_03[top1]"
             }
         ],
         "locations": [
@@ -47831,12 +47831,11 @@ regions = [
         "name": "Mines_03[right1]",
         "exits": [
             {
-                "Target": "Mines_03",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_03"
             },
             {
-                "Target": "Mines_03[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -47845,7 +47844,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_03[top1]"
             }
         ],
         "locations": [],
@@ -47857,12 +47857,12 @@ regions = [
         "name": "Mines_03[top1]",
         "exits": [
             {
-                "Target": "Mines_03",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_03"
             },
             {
-                "Target": "Mines_03[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_03[right1]"
             }
         ],
         "locations": [],
@@ -47874,8 +47874,7 @@ regions = [
         "name": "Mines_04",
         "exits": [
             {
-                "Target": "Mines_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -47901,11 +47900,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_04[left1]"
             },
             {
-                "Target": "Mines_04[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_04[left3]"
             }
         ],
         "locations": [
@@ -47921,8 +47921,8 @@ regions = [
         "name": "Mines_04[left1]",
         "exits": [
             {
-                "Target": "Mines_04",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_04"
             }
         ],
         "locations": [],
@@ -47934,8 +47934,7 @@ regions = [
         "name": "Mines_04[left3]",
         "exits": [
             {
-                "Target": "Mines_04",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -47980,7 +47979,8 @@ regions = [
                             "$SHRIEKPOGO[2,2,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_04"
             }
         ],
         "locations": [],
@@ -47992,12 +47992,12 @@ regions = [
         "name": "Mines_04[top1]",
         "exits": [
             {
-                "Target": "Mines_04",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_04"
             },
             {
-                "Target": "Mines_04[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_04[left1]"
             }
         ],
         "locations": [
@@ -48011,8 +48011,7 @@ regions = [
         "name": "Mines_05",
         "exits": [
             {
-                "Target": "Mines_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -48048,11 +48047,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_05[right1]"
             },
             {
-                "Target": "Mines_05[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -48088,7 +48087,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_05[top1]"
             }
         ],
         "locations": [
@@ -48103,12 +48103,11 @@ regions = [
         "name": "Mines_05[right1]",
         "exits": [
             {
-                "Target": "Mines_05",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_05"
             },
             {
-                "Target": "Mines_05[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -48117,7 +48116,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_05[top1]"
             }
         ],
         "locations": [],
@@ -48129,12 +48129,12 @@ regions = [
         "name": "Mines_05[top1]",
         "exits": [
             {
-                "Target": "Mines_05",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_05"
             },
             {
-                "Target": "Mines_05[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_05[right1]"
             }
         ],
         "locations": [],
@@ -48147,8 +48147,7 @@ regions = [
         "name": "Mines_10[left1]",
         "exits": [
             {
-                "Target": "Mines_10[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -48407,7 +48406,8 @@ regions = [
                             "$TAKEDAMAGE"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_10[bot1]"
             }
         ],
         "locations": [],
@@ -48419,8 +48419,7 @@ regions = [
         "name": "Mines_10[bot1]",
         "exits": [
             {
-                "Target": "Mines_10[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -48494,11 +48493,11 @@ regions = [
                             "$CASTSPELL[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_10[right1]"
             },
             {
-                "Target": "Mines_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -48523,11 +48522,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_10[left1]"
             },
             {
-                "Target": "Grimmkin_Flame-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -48607,7 +48606,8 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -48619,8 +48619,8 @@ regions = [
         "name": "Mines_11",
         "exits": [
             {
-                "Target": "Mines_11[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_11[bot1]"
             }
         ],
         "locations": [
@@ -48635,8 +48635,7 @@ regions = [
         "name": "Mines_11[bot1]",
         "exits": [
             {
-                "Target": "Mines_11",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -48662,7 +48661,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_11"
             }
         ],
         "locations": [],
@@ -48674,8 +48674,8 @@ regions = [
         "name": "Mines_20[right1]",
         "exits": [
             {
-                "Target": "Mines_20",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_20"
             }
         ],
         "locations": [],
@@ -48687,8 +48687,7 @@ regions = [
         "name": "Mines_20[right2]",
         "exits": [
             {
-                "Target": "Mines_20",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -48716,11 +48715,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_20"
             },
             {
-                "Target": "Mines_20[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_20[left3]"
             }
         ],
         "locations": [],
@@ -48732,8 +48732,7 @@ regions = [
         "name": "Mines_23[left1]",
         "exits": [
             {
-                "Target": "Mines_23[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -48761,11 +48760,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[right1]"
             },
             {
-                "Target": "Mines_23[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -48791,11 +48790,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[right2]"
             },
             {
-                "Target": "Whispering_Root-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -48816,7 +48815,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -48828,12 +48828,11 @@ regions = [
         "name": "Mines_23[top1]",
         "exits": [
             {
-                "Target": "Mines_23[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_23[left1]"
             },
             {
-                "Target": "Mines_23[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -48859,11 +48858,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[right1]"
             },
             {
-                "Target": "Mines_23[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -48889,11 +48888,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[right2]"
             },
             {
-                "Target": "Whispering_Root-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -48914,7 +48913,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -48926,8 +48926,7 @@ regions = [
         "name": "Mines_23[right2]",
         "exits": [
             {
-                "Target": "Mines_23[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -48953,11 +48952,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[left1]"
             },
             {
-                "Target": "Mines_23[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -48987,11 +48986,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[right1]"
             },
             {
-                "Target": "Whispering_Root-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -49012,7 +49011,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -49024,8 +49024,7 @@ regions = [
         "name": "Mines_23[right1]",
         "exits": [
             {
-                "Target": "Mines_23[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -49074,15 +49073,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_23[left1]"
             },
             {
-                "Target": "Mines_23[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_23[right2]"
             },
             {
-                "Target": "Whispering_Root-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -49103,7 +49102,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -49124,8 +49124,8 @@ regions = [
         "name": "Fungus3_04[left1]",
         "exits": [
             {
-                "Target": "Fungus3_04",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_04"
             }
         ],
         "locations": [],
@@ -49138,12 +49138,12 @@ regions = [
         "name": "Fungus3_11",
         "exits": [
             {
-                "Target": "Fungus3_11[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_11[left2]"
             },
             {
-                "Target": "Fungus3_11[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_11[right1]"
             }
         ],
         "locations": [
@@ -49157,8 +49157,7 @@ regions = [
         "name": "Fungus3_11[left2]",
         "exits": [
             {
-                "Target": "Fungus3_11",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -49186,7 +49185,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_11"
             }
         ],
         "locations": [],
@@ -49198,8 +49198,7 @@ regions = [
         "name": "Fungus3_11[right1]",
         "exits": [
             {
-                "Target": "Fungus3_11",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -49225,7 +49224,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_11"
             }
         ],
         "locations": [],
@@ -49237,8 +49237,7 @@ regions = [
         "name": "Fungus3_13",
         "exits": [
             {
-                "Target": "Fungus3_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -49267,11 +49266,11 @@ regions = [
                             "$SHADESKIP[2HITS]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_13[left1]"
             },
             {
-                "Target": "Fungus3_13[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Opened_Gardens_Stag_Exit"
@@ -49280,11 +49279,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_13[left2]"
             },
             {
-                "Target": "Fungus3_13[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -49313,7 +49312,8 @@ regions = [
                             "$SHADESKIP[2HITS]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus3_13[left3]"
             }
         ],
         "locations": [],
@@ -49325,12 +49325,12 @@ regions = [
         "name": "Fungus3_13[left1]",
         "exits": [
             {
-                "Target": "Fungus3_13",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_13"
             },
             {
-                "Target": "Fungus3_13[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_13[left3]"
             }
         ],
         "locations": [],
@@ -49343,8 +49343,8 @@ regions = [
         "name": "Fungus3_13[left2]",
         "exits": [
             {
-                "Target": "Fungus3_13",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_13"
             }
         ],
         "locations": [],
@@ -49356,12 +49356,11 @@ regions = [
         "name": "Fungus3_13[left3]",
         "exits": [
             {
-                "Target": "Fungus3_13",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_13"
             },
             {
-                "Target": "Fungus3_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS"
@@ -49370,7 +49369,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_13[left1]"
             }
         ],
         "locations": [],
@@ -49382,8 +49382,7 @@ regions = [
         "name": "Fungus3_22",
         "exits": [
             {
-                "Target": "Fungus3_22[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -49409,7 +49408,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_22[right1]"
             }
         ],
         "locations": [
@@ -49424,8 +49424,8 @@ regions = [
         "name": "Fungus3_22[right1]",
         "exits": [
             {
-                "Target": "Fungus3_22",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_22"
             }
         ],
         "locations": [],
@@ -49437,8 +49437,7 @@ regions = [
         "name": "Fungus3_34",
         "exits": [
             {
-                "Target": "Fungus3_34[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -49482,11 +49481,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_34[left1]"
             },
             {
-                "Target": "Fungus3_34[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -49511,11 +49510,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_34[top1]"
             },
             {
-                "Target": "Rancid_Egg-Queen's_Gardens",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -49542,7 +49541,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Queen's_Gardens"
             }
         ],
         "locations": [],
@@ -49554,8 +49554,7 @@ regions = [
         "name": "Fungus3_34[left1]",
         "exits": [
             {
-                "Target": "Fungus3_34",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -49580,11 +49579,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_34"
             },
             {
-                "Target": "Rancid_Egg-Queen's_Gardens",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -49593,7 +49592,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Queen's_Gardens"
             }
         ],
         "locations": [],
@@ -49605,8 +49605,8 @@ regions = [
         "name": "Fungus3_34[top1]",
         "exits": [
             {
-                "Target": "Fungus3_34",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_34"
             }
         ],
         "locations": [],
@@ -49618,8 +49618,7 @@ regions = [
         "name": "Cliffs_01",
         "exits": [
             {
-                "Target": "Cliffs_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49656,11 +49655,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_01[right1]"
             },
             {
-                "Target": "Cliffs_01[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49695,11 +49694,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_01[right2]"
             },
             {
-                "Target": "Cliffs_01[right4]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49734,11 +49733,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_01[right4]"
             },
             {
-                "Target": "Howling_Cliffs_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49773,11 +49772,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Howling_Cliffs_Map"
             },
             {
-                "Target": "Wanderer's_Journal-Cliffs",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -49812,11 +49811,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Wanderer's_Journal-Cliffs"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49851,11 +49850,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_1"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49890,11 +49889,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_2"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49929,11 +49928,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_3"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_4",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -49968,11 +49967,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_4"
             },
             {
-                "Target": "Lore_Tablet-Howling_Cliffs",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -50007,7 +50006,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Howling_Cliffs"
             }
         ],
         "locations": [
@@ -50023,36 +50023,35 @@ regions = [
         "name": "Cliffs_01[right1]",
         "exits": [
             {
-                "Target": "Cliffs_01",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_01"
             },
             {
-                "Target": "Cliffs_01[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_01[right2]"
             },
             {
-                "Target": "Cliffs_01[right4]",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_01[right4]"
             },
             {
-                "Target": "Wanderer's_Journal-Cliffs",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-Cliffs"
             },
             {
-                "Target": "Howling_Cliffs_Map",
-                "Logic": []
+                "logic": [],
+                "target": "Howling_Cliffs_Map"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_1",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Cliffs_Main_1"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_2",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Cliffs_Main_2"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -50123,15 +50122,16 @@ regions = [
                             "$CASTSPELL[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_3"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_4",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Cliffs_Main_4"
             },
             {
-                "Target": "Lore_Tablet-Howling_Cliffs",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Howling_Cliffs"
             }
         ],
         "locations": [],
@@ -50143,24 +50143,23 @@ regions = [
         "name": "Cliffs_01[right2]",
         "exits": [
             {
-                "Target": "Cliffs_01",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_01"
             },
             {
-                "Target": "Cliffs_01[right4]",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_01[right4]"
             },
             {
-                "Target": "Wanderer's_Journal-Cliffs",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-Cliffs"
             },
             {
-                "Target": "Howling_Cliffs_Map",
-                "Logic": []
+                "logic": [],
+                "target": "Howling_Cliffs_Map"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -50193,15 +50192,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_1"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_2",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Cliffs_Main_2"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -50272,15 +50271,16 @@ regions = [
                             "$CASTSPELL[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_3"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_4",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Cliffs_Main_4"
             },
             {
-                "Target": "Lore_Tablet-Howling_Cliffs",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Howling_Cliffs"
             }
         ],
         "locations": [],
@@ -50292,16 +50292,15 @@ regions = [
         "name": "Cliffs_01[right4]",
         "exits": [
             {
-                "Target": "Cliffs_01",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_01"
             },
             {
-                "Target": "Wanderer's_Journal-Cliffs",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-Cliffs"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -50336,11 +50335,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_1"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -50375,11 +50374,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_2"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -50414,11 +50413,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_3"
             },
             {
-                "Target": "Geo_Rock-Cliffs_Main_4",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -50453,11 +50452,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Cliffs_Main_4"
             },
             {
-                "Target": "Lore_Tablet-Howling_Cliffs",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -50492,7 +50491,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Howling_Cliffs"
             }
         ],
         "locations": [],
@@ -50504,8 +50504,7 @@ regions = [
         "name": "Cliffs_02[bot1]",
         "exits": [
             {
-                "Target": "Cliffs_02",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -50549,11 +50548,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_02"
             },
             {
-                "Target": "Cliffs_02[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -50562,7 +50561,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_02[bot2]"
             }
         ],
         "locations": [],
@@ -50574,8 +50574,8 @@ regions = [
         "name": "Cliffs_02[left2]",
         "exits": [
             {
-                "Target": "Cliffs_02",
-                "Logic": []
+                "logic": [],
+                "target": "Cliffs_02"
             }
         ],
         "locations": [],
@@ -50587,8 +50587,7 @@ regions = [
         "name": "White_Palace_01[left1]",
         "exits": [
             {
-                "Target": "White_Palace_01",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -50615,7 +50614,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_01"
             }
         ],
         "locations": [],
@@ -50627,8 +50627,7 @@ regions = [
         "name": "White_Palace_01[right1]",
         "exits": [
             {
-                "Target": "White_Palace_01",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -50664,7 +50663,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_01"
             }
         ],
         "locations": [],
@@ -50676,8 +50676,7 @@ regions = [
         "name": "White_Palace_01[top1]",
         "exits": [
             {
-                "Target": "White_Palace_01",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Palace_Entrance_Lantern_Lit",
@@ -50717,11 +50716,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_01"
             },
             {
-                "Target": "White_Palace_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Palace_Entrance_Lantern_Lit"
@@ -50730,7 +50729,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_01[right1]"
             }
         ],
         "locations": [],
@@ -50742,8 +50742,7 @@ regions = [
         "name": "White_Palace_03_hub[bot1]",
         "exits": [
             {
-                "Target": "White_Palace_03_hub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -50768,7 +50767,8 @@ regions = [
                             "$SHRIEKPOGO[4,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_03_hub"
             }
         ],
         "locations": [],
@@ -50780,8 +50780,7 @@ regions = [
         "name": "White_Palace_13[left2]",
         "exits": [
             {
-                "Target": "White_Palace_13[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -51398,11 +51397,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[right1]"
             },
             {
-                "Target": "White_Palace_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -51695,11 +51694,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left1]"
             },
             {
-                "Target": "White_Palace_13[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -51873,11 +51872,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left2]"
             },
             {
-                "Target": "White_Palace_13[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -52004,7 +52003,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left3]"
             }
         ],
         "locations": [],
@@ -52016,8 +52016,7 @@ regions = [
         "name": "White_Palace_13[right1]",
         "exits": [
             {
-                "Target": "White_Palace_13[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "OBSCURESKIPS",
@@ -52558,11 +52557,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[right1]"
             },
             {
-                "Target": "White_Palace_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "OBSCURESKIPS",
@@ -52904,11 +52903,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left1]"
             },
             {
-                "Target": "White_Palace_13[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "OBSCURESKIPS",
@@ -53118,11 +53117,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left2]"
             },
             {
-                "Target": "White_Palace_13[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "OBSCURESKIPS",
@@ -53255,7 +53254,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL,after:ROOMSOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left3]"
             }
         ],
         "locations": [],
@@ -53267,8 +53267,7 @@ regions = [
         "name": "White_Palace_13[left1]",
         "exits": [
             {
-                "Target": "White_Palace_13[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -53415,11 +53414,11 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[right1]"
             },
             {
-                "Target": "White_Palace_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -53477,11 +53476,11 @@ regions = [
                             "$SHRIEKPOGO[1,3,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left1]"
             },
             {
-                "Target": "White_Palace_13[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -53619,11 +53618,11 @@ regions = [
                             "$CASTSPELL[after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left2]"
             },
             {
-                "Target": "White_Palace_13[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -53678,7 +53677,8 @@ regions = [
                             "$CASTSPELL[after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left3]"
             }
         ],
         "locations": [],
@@ -53690,8 +53690,7 @@ regions = [
         "name": "White_Palace_13[left3]",
         "exits": [
             {
-                "Target": "White_Palace_13[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -53795,11 +53794,11 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[right1]"
             },
             {
-                "Target": "White_Palace_13[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -53845,11 +53844,11 @@ regions = [
                             "$SHRIEKPOGO[1,3,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left1]"
             },
             {
-                "Target": "White_Palace_13[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -53882,7 +53881,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_13[left2]"
             }
         ],
         "locations": [],
@@ -53966,8 +53966,7 @@ regions = [
         "name": "Crossroads_35[bot1]",
         "exits": [
             {
-                "Target": "Crossroads_35[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -54020,11 +54019,12 @@ regions = [
                             "$SHRIEKPOGO[1,2,1,before:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Crossroads_35[right1]"
             },
             {
-                "Target": "Soul_Totem-Crossroads_Acid",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Crossroads_Acid"
             }
         ],
         "locations": [],
@@ -54078,8 +54078,7 @@ regions = [
         "name": "Crossroads_50[right1]",
         "exits": [
             {
-                "Target": "Crossroads_50[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -54134,11 +54133,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_50[left1]"
             },
             {
-                "Target": "Rancid_Egg-Blue_Lake",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM",
@@ -54170,7 +54169,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Blue_Lake"
             }
         ],
         "locations": [],
@@ -54182,8 +54182,7 @@ regions = [
         "name": "Crossroads_50[left1]",
         "exits": [
             {
-                "Target": "Crossroads_50[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -54200,11 +54199,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crossroads_50[right1]"
             },
             {
-                "Target": "Rancid_Egg-Blue_Lake",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -54243,7 +54242,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Blue_Lake"
             }
         ],
         "locations": [],
@@ -54273,16 +54273,16 @@ regions = [
         "name": "Fungus1_02[left1]",
         "exits": [
             {
-                "Target": "Fungus1_02[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_02[right1]"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Below_Skip_Squit",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Greenpath_Below_Skip_Squit"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Skip_Squit",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Greenpath_Skip_Squit"
             }
         ],
         "locations": [],
@@ -54294,8 +54294,7 @@ regions = [
         "name": "Fungus1_02[right1]",
         "exits": [
             {
-                "Target": "Fungus1_02[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -54336,15 +54335,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus1_02[left1]"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Below_Skip_Squit",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Greenpath_Below_Skip_Squit"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Skip_Squit",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Greenpath_Skip_Squit"
             }
         ],
         "locations": [],
@@ -54371,8 +54371,7 @@ regions = [
         "name": "Fungus1_04[left1]",
         "exits": [
             {
-                "Target": "Fungus1_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -54489,11 +54488,11 @@ regions = [
                             "$CASTSPELL[2,1,3]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_04[right1]"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Below_Hornet",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -54559,7 +54558,8 @@ regions = [
                             "$CASTSPELL[3]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Greenpath_Below_Hornet"
             }
         ],
         "locations": [],
@@ -54583,8 +54583,7 @@ regions = [
         "name": "Fungus1_06[left1]",
         "exits": [
             {
-                "Target": "Fungus1_06[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -54688,11 +54687,11 @@ regions = [
                             "$CASTSPELL[before:AREASOUL,after:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_06[bot1]"
             },
             {
-                "Target": "Grub-Greenpath_Cornifer",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -54777,11 +54776,11 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Greenpath_Cornifer"
             },
             {
-                "Target": "Greenpath_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -54885,7 +54884,8 @@ regions = [
                             "$CASTSPELL[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Greenpath_Map"
             }
         ],
         "locations": [],
@@ -54897,12 +54897,11 @@ regions = [
         "name": "Fungus1_06[bot1]",
         "exits": [
             {
-                "Target": "Fungus1_06[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_06[left1]"
             },
             {
-                "Target": "Grub-Greenpath_Cornifer",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -54987,11 +54986,12 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Greenpath_Cornifer"
             },
             {
-                "Target": "Greenpath_Map",
-                "Logic": []
+                "logic": [],
+                "target": "Greenpath_Map"
             }
         ],
         "locations": [],
@@ -55027,8 +55027,7 @@ regions = [
         "name": "Fungus1_09[left1]",
         "exits": [
             {
-                "Target": "Fungus1_09[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -55299,7 +55298,8 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_09[right1]"
             }
         ],
         "locations": [],
@@ -55311,8 +55311,7 @@ regions = [
         "name": "Fungus1_09[right1]",
         "exits": [
             {
-                "Target": "Fungus1_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -55401,7 +55400,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_09[left1]"
             }
         ],
         "locations": [],
@@ -55440,8 +55440,7 @@ regions = [
         "name": "Fungus1_13[right1]",
         "exits": [
             {
-                "Target": "Vessel_Fragment-Greenpath",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -55492,11 +55491,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Vessel_Fragment-Greenpath"
             },
             {
-                "Target": "Lore_Tablet-Greenpath_QG",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -55901,7 +55900,8 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Greenpath_QG"
             }
         ],
         "locations": [
@@ -55916,8 +55916,7 @@ regions = [
         "name": "Fungus1_13[left1]",
         "exits": [
             {
-                "Target": "Lore_Tablet-Greenpath_QG",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -55971,7 +55970,8 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Greenpath_QG"
             }
         ],
         "locations": [
@@ -55995,8 +55995,7 @@ regions = [
         "name": "Fungus1_15[right1]",
         "exits": [
             {
-                "Target": "Fungus1_15[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -56161,11 +56160,12 @@ regions = [
                             "$SHRIEKPOGO[1,1]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_15[door1]"
             },
             {
-                "Target": "Rancid_Egg-Sheo",
-                "Logic": []
+                "logic": [],
+                "target": "Rancid_Egg-Sheo"
             }
         ],
         "locations": [],
@@ -56213,8 +56213,8 @@ regions = [
         "name": "Fungus1_22[bot1]",
         "exits": [
             {
-                "Target": "Geo_Rock-Greenpath_Below_Stag_Fool_Eater",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Greenpath_Below_Stag_Fool_Eater"
             }
         ],
         "locations": [],
@@ -56226,12 +56226,12 @@ regions = [
         "name": "Fungus1_22[top1]",
         "exits": [
             {
-                "Target": "Fungus1_22[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus1_22[bot1]"
             },
             {
-                "Target": "Geo_Rock-Greenpath_Below_Stag_Fool_Eater",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Greenpath_Below_Stag_Fool_Eater"
             }
         ],
         "locations": [
@@ -56265,8 +56265,7 @@ regions = [
         "name": "Fungus1_26[right1]",
         "exits": [
             {
-                "Target": "Fungus1_26[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID",
@@ -56499,7 +56498,8 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_26[left1]"
             }
         ],
         "locations": [],
@@ -56512,8 +56512,7 @@ regions = [
         "name": "Fungus1_26[left1]",
         "exits": [
             {
-                "Target": "Fungus1_26[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -56593,7 +56592,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus1_26[right1]"
             }
         ],
         "locations": [],
@@ -56670,8 +56670,7 @@ regions = [
         "name": "Fungus3_03[right1]",
         "exits": [
             {
-                "Target": "Fungus3_03[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -56693,7 +56692,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_03[left1]"
             }
         ],
         "locations": [
@@ -56707,8 +56707,7 @@ regions = [
         "name": "Fungus3_03[left1]",
         "exits": [
             {
-                "Target": "Fungus3_03[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -56730,7 +56729,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_03[right1]"
             }
         ],
         "locations": [],
@@ -56752,8 +56752,7 @@ regions = [
         "name": "Fungus3_25[right1]",
         "exits": [
             {
-                "Target": "Fungus3_25[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -56772,11 +56771,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_25[left1]"
             },
             {
-                "Target": "Fog_Canyon_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -56806,7 +56805,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fog_Canyon_Map"
             }
         ],
         "locations": [],
@@ -56818,8 +56818,7 @@ regions = [
         "name": "Fungus3_25[left1]",
         "exits": [
             {
-                "Target": "Fungus3_25[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -56838,11 +56837,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_25[right1]"
             },
             {
-                "Target": "Fog_Canyon_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -56911,7 +56910,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fog_Canyon_Map"
             }
         ],
         "locations": [],
@@ -56991,12 +56991,11 @@ regions = [
         "name": "Fungus2_07[left1]",
         "exits": [
             {
-                "Target": "Fungus2_07[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_07[right1]"
             },
             {
-                "Target": "Lore_Tablet-Fungal_Wastes_Hidden",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57029,7 +57028,8 @@ regions = [
                             "$EQUIPPEDCHARM[Spore_Shroom]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Fungal_Wastes_Hidden"
             }
         ],
         "locations": [],
@@ -57041,8 +57041,7 @@ regions = [
         "name": "Fungus2_07[right1]",
         "exits": [
             {
-                "Target": "Fungus2_07[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57083,11 +57082,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_07[left1]"
             },
             {
-                "Target": "Lore_Tablet-Fungal_Wastes_Hidden",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57120,7 +57119,8 @@ regions = [
                             "$EQUIPPEDCHARM[Spore_Shroom]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Fungal_Wastes_Hidden"
             }
         ],
         "locations": [],
@@ -57166,8 +57166,7 @@ regions = [
         "name": "Fungus2_12[bot1]",
         "exits": [
             {
-                "Target": "Fungus2_12[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57208,11 +57207,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_12[left1]"
             },
             {
-                "Target": "Lore_Tablet-Mantis_Outskirts",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Mantis_Outskirts"
             }
         ],
         "locations": [],
@@ -57224,8 +57224,7 @@ regions = [
         "name": "Fungus2_19[top1]",
         "exits": [
             {
-                "Target": "Fungus2_19[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57251,7 +57250,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_19[left1]"
             }
         ],
         "locations": [],
@@ -57263,8 +57263,7 @@ regions = [
         "name": "Fungus2_19[left1]",
         "exits": [
             {
-                "Target": "Fungus2_19[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -57281,7 +57280,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_19[top1]"
             }
         ],
         "locations": [],
@@ -57293,8 +57293,7 @@ regions = [
         "name": "Fungus2_21[left1]",
         "exits": [
             {
-                "Target": "Fungus2_21[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -57351,7 +57350,8 @@ regions = [
                             "$CASTSPELL[3,before:AREASOUL,after:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_21[right1]"
             }
         ],
         "locations": [
@@ -57375,8 +57375,7 @@ regions = [
         "name": "Fungus2_29[right1]",
         "exits": [
             {
-                "Target": "Fungus2_29[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -57403,11 +57402,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:MAPAREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Fungus2_29[bot1]"
             },
             {
-                "Target": "Rancid_Egg-Fungal_Core",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -57434,11 +57433,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Fungal_Core"
             },
             {
-                "Target": "Geo_Rock-Fungal_Core_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -57465,11 +57464,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Fungal_Core_Entrance"
             },
             {
-                "Target": "Soul_Totem-Fungal_Core",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -57496,7 +57495,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Fungal_Core"
             }
         ],
         "locations": [],
@@ -57508,8 +57508,7 @@ regions = [
         "name": "Fungus2_29[bot1]",
         "exits": [
             {
-                "Target": "Fungus2_29[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -57527,11 +57526,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_29[right1]"
             },
             {
-                "Target": "Rancid_Egg-Fungal_Core",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57556,11 +57555,11 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Fungal_Core"
             },
             {
-                "Target": "Geo_Rock-Fungal_Core_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57578,11 +57577,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Fungal_Core_Entrance"
             },
             {
-                "Target": "Soul_Totem-Fungal_Core",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57607,7 +57606,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Fungal_Core"
             }
         ],
         "locations": [],
@@ -57627,8 +57627,8 @@ regions = [
         "name": "Fungus2_30[top1]",
         "exits": [
             {
-                "Target": "Fungus2_30[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus2_30[bot1]"
             }
         ],
         "locations": [
@@ -57698,8 +57698,7 @@ regions = [
         "name": "Deepnest_16[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_16[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57725,7 +57724,8 @@ regions = [
                             "$SHRIEKPOGO[6]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_16[left1]"
             }
         ],
         "locations": [
@@ -57744,8 +57744,7 @@ regions = [
         "name": "Fungus2_25[top1]",
         "exits": [
             {
-                "Target": "Fungus2_25[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Mantis_Lords"
@@ -57754,11 +57753,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_25[right1]"
             },
             {
-                "Target": "Deepnest_Map-Right",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57783,19 +57782,19 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_Map-Right"
             },
             {
-                "Target": "Geo_Rock-Deepnest_By_Mantis_Lords_1",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Deepnest_By_Mantis_Lords_1"
             },
             {
-                "Target": "Geo_Rock-Deepnest_By_Mantis_Lords_2",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Deepnest_By_Mantis_Lords_2"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Lower_Cornifer",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57820,7 +57819,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Lower_Cornifer"
             }
         ],
         "locations": [],
@@ -57832,8 +57832,7 @@ regions = [
         "name": "Fungus2_25[top2]",
         "exits": [
             {
-                "Target": "Fungus2_25[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57858,11 +57857,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_25[top1]"
             },
             {
-                "Target": "Fungus2_25[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Defeated_Mantis_Lords"
@@ -57871,11 +57870,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_25[right1]"
             },
             {
-                "Target": "Deepnest_Map-Right",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57900,11 +57899,11 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_Map-Right"
             },
             {
-                "Target": "Geo_Rock-Deepnest_By_Mantis_Lords_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57929,11 +57928,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_By_Mantis_Lords_1"
             },
             {
-                "Target": "Geo_Rock-Deepnest_By_Mantis_Lords_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57958,11 +57957,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_By_Mantis_Lords_2"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Lower_Cornifer",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -57987,7 +57986,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Lower_Cornifer"
             }
         ],
         "locations": [
@@ -58001,8 +58001,7 @@ regions = [
         "name": "Fungus2_25[right1]",
         "exits": [
             {
-                "Target": "Fungus2_25[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58027,11 +58026,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus2_25[top1]"
             },
             {
-                "Target": "Deepnest_Map-Right",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58056,11 +58055,11 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_Map-Right"
             },
             {
-                "Target": "Geo_Rock-Deepnest_By_Mantis_Lords_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58085,11 +58084,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_By_Mantis_Lords_1"
             },
             {
-                "Target": "Geo_Rock-Deepnest_By_Mantis_Lords_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58114,11 +58113,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_By_Mantis_Lords_2"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Lower_Cornifer",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58143,7 +58142,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Lower_Cornifer"
             }
         ],
         "locations": [],
@@ -58171,8 +58171,7 @@ regions = [
         "name": "Deepnest_30[top1]",
         "exits": [
             {
-                "Target": "Deepnest_30[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58197,7 +58196,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_30[left1]"
             }
         ],
         "locations": [],
@@ -58209,8 +58209,7 @@ regions = [
         "name": "Deepnest_31[right1]",
         "exits": [
             {
-                "Target": "Deepnest_31[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58235,15 +58234,15 @@ regions = [
                             "$SHRIEKPOGO[3,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_31[right2]"
             },
             {
-                "Target": "Grub-Deepnest_Nosk",
-                "Logic": []
+                "logic": [],
+                "target": "Grub-Deepnest_Nosk"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Nosk_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58276,11 +58275,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Nosk_1"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Nosk_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58313,11 +58312,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Nosk_2"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Nosk_3",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58342,7 +58341,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Nosk_3"
             }
         ],
         "locations": [],
@@ -58354,8 +58354,7 @@ regions = [
         "name": "Deepnest_31[right2]",
         "exits": [
             {
-                "Target": "Deepnest_31[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -58381,11 +58380,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_31[right1]"
             },
             {
-                "Target": "Grub-Deepnest_Nosk",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58410,11 +58409,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Deepnest_Nosk"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Nosk_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58439,11 +58438,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Nosk_1"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Nosk_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58468,11 +58467,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Deepnest_Nosk_2"
             },
             {
-                "Target": "Geo_Rock-Deepnest_Nosk_3",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Deepnest_Nosk_3"
             }
         ],
         "locations": [],
@@ -58484,8 +58484,8 @@ regions = [
         "name": "Deepnest_33[top2]",
         "exits": [
             {
-                "Target": "Deepnest_33[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_33[bot1]"
             }
         ],
         "locations": [],
@@ -58497,8 +58497,7 @@ regions = [
         "name": "Deepnest_33[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_33[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58523,7 +58522,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_33[top2]"
             }
         ],
         "locations": [],
@@ -58559,8 +58559,7 @@ regions = [
         "name": "Deepnest_43[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_43[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -58598,11 +58597,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ITEMSOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Deepnest_43[left1]"
             },
             {
-                "Target": "Geo_Rock-Above_Mask_Maker_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -58612,11 +58611,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Above_Mask_Maker_1"
             },
             {
-                "Target": "Geo_Rock-Above_Mask_Maker_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -58626,7 +58625,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Above_Mask_Maker_2"
             }
         ],
         "locations": [],
@@ -58638,8 +58638,7 @@ regions = [
         "name": "Deepnest_43[left1]",
         "exits": [
             {
-                "Target": "Deepnest_43[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58674,11 +58673,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_43[bot1]"
             },
             {
-                "Target": "Geo_Rock-Above_Mask_Maker_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58703,11 +58702,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Above_Mask_Maker_1"
             },
             {
-                "Target": "Geo_Rock-Above_Mask_Maker_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -58732,7 +58731,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Above_Mask_Maker_2"
             }
         ],
         "locations": [],
@@ -58776,12 +58776,11 @@ regions = [
         "name": "Deepnest_East_01[right1]",
         "exits": [
             {
-                "Target": "Deepnest_East_01[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_01[bot1]"
             },
             {
-                "Target": "Deepnest_East_01[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -58823,11 +58822,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_01[top1]"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -58868,11 +58867,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_1"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -58913,11 +58912,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_2"
             },
             {
-                "Target": "Soul_Totem-Lower_Kingdom's_Edge_1",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Lower_Kingdom's_Edge_1"
             }
         ],
         "locations": [],
@@ -58929,12 +58929,11 @@ regions = [
         "name": "Deepnest_East_01[top1]",
         "exits": [
             {
-                "Target": "Deepnest_East_01[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_01[bot1]"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_1",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -58975,11 +58974,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_1"
             },
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_2",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -59020,11 +59019,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_2"
             },
             {
-                "Target": "Soul_Totem-Lower_Kingdom's_Edge_1",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Lower_Kingdom's_Edge_1"
             }
         ],
         "locations": [],
@@ -59036,8 +59036,7 @@ regions = [
         "name": "Deepnest_East_02[bot2]",
         "exits": [
             {
-                "Target": "Geo_Rock-Lower_Kingdom's_Edge_Dive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -59059,7 +59058,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Lower_Kingdom's_Edge_Dive"
             }
         ],
         "locations": [],
@@ -59071,12 +59071,11 @@ regions = [
         "name": "Deepnest_East_06[top1]",
         "exits": [
             {
-                "Target": "Deepnest_East_06[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_06[left1]"
             },
             {
-                "Target": "Deepnest_East_06[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -59102,11 +59101,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[door1]"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -59145,11 +59144,12 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left"
             }
         ],
         "locations": [],
@@ -59161,8 +59161,7 @@ regions = [
         "name": "Deepnest_East_06[left1]",
         "exits": [
             {
-                "Target": "Deepnest_East_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -59181,11 +59180,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[top1]"
             },
             {
-                "Target": "Deepnest_East_06[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -59203,11 +59202,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[door1]"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -59246,11 +59245,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -59268,7 +59267,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left"
             }
         ],
         "locations": [],
@@ -59280,8 +59280,7 @@ regions = [
         "name": "Deepnest_East_06[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_East_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59299,11 +59298,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[top1]"
             },
             {
-                "Target": "Deepnest_East_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59321,11 +59320,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[left1]"
             },
             {
-                "Target": "Deepnest_East_06[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -59351,11 +59350,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_06[door1]"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -59429,11 +59428,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59451,7 +59450,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left"
             }
         ],
         "locations": [],
@@ -59481,8 +59481,7 @@ regions = [
         "name": "Deepnest_East_08[right1]",
         "exits": [
             {
-                "Target": "Deepnest_East_08[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59507,15 +59506,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_08[top1]"
             },
             {
-                "Target": "King's_Idol-Great_Hopper",
-                "Logic": []
+                "logic": [],
+                "target": "King's_Idol-Great_Hopper"
             },
             {
-                "Target": "Geo_Rock-Kingdom's_Edge_Below_Colosseum",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59540,7 +59539,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Kingdom's_Edge_Below_Colosseum"
             }
         ],
         "locations": [],
@@ -59552,12 +59552,12 @@ regions = [
         "name": "Deepnest_East_09[right1]",
         "exits": [
             {
-                "Target": "Deepnest_East_09[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_09[left1]"
             },
             {
-                "Target": "Deepnest_East_09[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_09[bot1]"
             }
         ],
         "locations": [],
@@ -59569,8 +59569,7 @@ regions = [
         "name": "Deepnest_East_09[bot1]",
         "exits": [
             {
-                "Target": "Deepnest_East_09[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59595,11 +59594,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_09[right1]"
             },
             {
-                "Target": "Deepnest_East_09[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59624,7 +59623,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_09[left1]"
             }
         ],
         "locations": [],
@@ -59653,8 +59653,7 @@ regions = [
         "name": "Deepnest_East_14[left1]",
         "exits": [
             {
-                "Target": "Deepnest_East_14[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -59671,11 +59670,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_14[door1]"
             },
             {
-                "Target": "Rancid_Egg-Near_Quick_Slash",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -59720,11 +59719,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Near_Quick_Slash"
             },
             {
-                "Target": "Grub-Kingdom's_Edge_Oro",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -59830,7 +59829,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Kingdom's_Edge_Oro"
             }
         ],
         "locations": [],
@@ -59842,8 +59842,7 @@ regions = [
         "name": "Deepnest_East_14[door1]",
         "exits": [
             {
-                "Target": "Deepnest_East_14[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -59860,11 +59859,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_14[left1]"
             },
             {
-                "Target": "Rancid_Egg-Near_Quick_Slash",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -59886,11 +59885,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Near_Quick_Slash"
             },
             {
-                "Target": "Grub-Kingdom's_Edge_Oro",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -59963,7 +59962,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Kingdom's_Edge_Oro"
             }
         ],
         "locations": [],
@@ -59975,8 +59975,7 @@ regions = [
         "name": "Deepnest_East_14b[right1]",
         "exits": [
             {
-                "Target": "Deepnest_East_14b[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS",
@@ -60003,11 +60002,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Deepnest_East_14b[top1]"
             },
             {
-                "Target": "Quick_Slash",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60034,7 +60033,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Quick_Slash"
             }
         ],
         "locations": [],
@@ -60046,12 +60046,12 @@ regions = [
         "name": "Deepnest_East_14b[top1]",
         "exits": [
             {
-                "Target": "Deepnest_East_14b[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Deepnest_East_14b[right1]"
             },
             {
-                "Target": "Quick_Slash",
-                "Logic": []
+                "logic": [],
+                "target": "Quick_Slash"
             }
         ],
         "locations": [],
@@ -60101,8 +60101,7 @@ regions = [
         "name": "Hive_01[left1]",
         "exits": [
             {
-                "Target": "Hive_01[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60159,11 +60158,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_01[right1]"
             },
             {
-                "Target": "Geo_Rock-Hive_Entrance",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Entrance"
             }
         ],
         "locations": [],
@@ -60175,12 +60175,12 @@ regions = [
         "name": "Hive_01[right1]",
         "exits": [
             {
-                "Target": "Hive_01[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_01[left1]"
             },
             {
-                "Target": "Geo_Rock-Hive_Entrance",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Entrance"
             }
         ],
         "locations": [],
@@ -60192,8 +60192,7 @@ regions = [
         "name": "Hive_02[left1]",
         "exits": [
             {
-                "Target": "Hive_02[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -60237,15 +60236,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_02[left2]"
             },
             {
-                "Target": "Hive_02[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_02[left3]"
             },
             {
-                "Target": "Whispering_Root-Hive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -60275,11 +60274,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Hive"
             },
             {
-                "Target": "Geo_Rock-Hive_Outside_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -60304,15 +60303,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Outside_Bench"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Root",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Below_Root"
             },
             {
-                "Target": "Geo_Rock-Hive_After_Root",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_After_Root"
             }
         ],
         "locations": [],
@@ -60324,8 +60324,7 @@ regions = [
         "name": "Hive_02[left2]",
         "exits": [
             {
-                "Target": "Hive_02[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -60352,15 +60351,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_02[left1]"
             },
             {
-                "Target": "Hive_02[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_02[left3]"
             },
             {
-                "Target": "Whispering_Root-Hive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -60390,15 +60389,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Hive"
             },
             {
-                "Target": "Geo_Rock-Hive_Outside_Bench",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Outside_Bench"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Root",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -60431,11 +60430,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Below_Root"
             },
             {
-                "Target": "Geo_Rock-Hive_After_Root",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -60462,7 +60461,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_After_Root"
             }
         ],
         "locations": [],
@@ -60474,8 +60474,7 @@ regions = [
         "name": "Hive_02[left3]",
         "exits": [
             {
-                "Target": "Hive_02[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -60502,11 +60501,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_02[left1]"
             },
             {
-                "Target": "Hive_02[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -60550,11 +60549,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_02[left2]"
             },
             {
-                "Target": "Whispering_Root-Hive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -60584,11 +60583,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Whispering_Root-Hive"
             },
             {
-                "Target": "Geo_Rock-Hive_Outside_Bench",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -60613,11 +60612,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Outside_Bench"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Root",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -60650,11 +60649,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Below_Root"
             },
             {
-                "Target": "Geo_Rock-Hive_After_Root",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -60681,7 +60680,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_After_Root"
             }
         ],
         "locations": [],
@@ -60693,8 +60693,7 @@ regions = [
         "name": "Hive_03[bot1]",
         "exits": [
             {
-                "Target": "Hive_03[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60733,11 +60732,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_03[right1]"
             },
             {
-                "Target": "Grimmkin_Flame-Hive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60774,15 +60773,15 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Hive"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Stash",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Below_Stash"
             },
             {
-                "Target": "Geo_Rock-Hive_Stash",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60821,7 +60820,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Stash"
             }
         ],
         "locations": [],
@@ -60833,12 +60833,11 @@ regions = [
         "name": "Hive_03[right1]",
         "exits": [
             {
-                "Target": "Hive_03[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_03[bot1]"
             },
             {
-                "Target": "Grimmkin_Flame-Hive",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Second_Grimmchild_Upgrade"
@@ -60849,15 +60848,16 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Hive"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Stash",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Below_Stash"
             },
             {
-                "Target": "Geo_Rock-Hive_Stash",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Stash"
             }
         ],
         "locations": [],
@@ -60879,12 +60879,11 @@ regions = [
         "name": "Hive_04[left1]",
         "exits": [
             {
-                "Target": "Hive_04[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_04[left2]"
             },
             {
-                "Target": "Hive_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60913,15 +60912,15 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_04[right1]"
             },
             {
-                "Target": "Mask_Shard-Hive",
-                "Logic": []
+                "logic": [],
+                "target": "Mask_Shard-Hive"
             },
             {
-                "Target": "Grub-Hive_Internal",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -60976,15 +60975,16 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Hive_Internal"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Grub",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Below_Grub"
             },
             {
-                "Target": "Geo_Rock-Hive_Above_Mask",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Hive_Above_Mask"
             }
         ],
         "locations": [],
@@ -60996,8 +60996,7 @@ regions = [
         "name": "Hive_04[right1]",
         "exits": [
             {
-                "Target": "Hive_04[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61016,19 +61015,19 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hive_04[left1]"
             },
             {
-                "Target": "Hive_04[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "Hive_04[left2]"
             },
             {
-                "Target": "Mask_Shard-Hive",
-                "Logic": []
+                "logic": [],
+                "target": "Mask_Shard-Hive"
             },
             {
-                "Target": "Grub-Hive_Internal",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61083,11 +61082,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-Hive_Internal"
             },
             {
-                "Target": "Geo_Rock-Hive_Below_Grub",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61106,11 +61105,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Below_Grub"
             },
             {
-                "Target": "Geo_Rock-Hive_Above_Mask",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61129,7 +61128,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Hive_Above_Mask"
             }
         ],
         "locations": [],
@@ -61141,8 +61141,8 @@ regions = [
         "name": "Hive_04[left2]",
         "exits": [
             {
-                "Target": "Mask_Shard-Hive",
-                "Logic": []
+                "logic": [],
+                "target": "Mask_Shard-Hive"
             }
         ],
         "locations": [],
@@ -61163,12 +61163,11 @@ regions = [
         "name": "Abyss_02[right1]",
         "exits": [
             {
-                "Target": "Abyss_02[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Abyss_02[bot1]"
             },
             {
-                "Target": "Wanderer's_Journal-Ancient_Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61194,11 +61193,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Wanderer's_Journal-Ancient_Basin"
             },
             {
-                "Target": "Grimmkin_Flame-Ancient_Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Second_Grimmchild_Upgrade"
@@ -61209,11 +61208,11 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Ancient_Basin"
             },
             {
-                "Target": "Geo_Rock-Broken_Bridge_Upper",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -61238,11 +61237,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Bridge_Upper"
             },
             {
-                "Target": "Geo_Rock-Broken_Bridge_Lower",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Broken_Bridge_Lower"
             }
         ],
         "locations": [],
@@ -61254,8 +61254,7 @@ regions = [
         "name": "Abyss_02[bot1]",
         "exits": [
             {
-                "Target": "Abyss_02[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61300,11 +61299,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_02[right1]"
             },
             {
-                "Target": "Wanderer's_Journal-Ancient_Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61350,11 +61349,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Wanderer's_Journal-Ancient_Basin"
             },
             {
-                "Target": "Grimmkin_Flame-Ancient_Basin",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61414,11 +61413,11 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Ancient_Basin"
             },
             {
-                "Target": "Geo_Rock-Broken_Bridge_Upper",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -61445,11 +61444,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Bridge_Upper"
             },
             {
-                "Target": "Geo_Rock-Broken_Bridge_Lower",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -61466,7 +61465,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Broken_Bridge_Lower"
             }
         ],
         "locations": [],
@@ -61488,8 +61488,7 @@ regions = [
         "name": "Abyss_10[left1]",
         "exits": [
             {
-                "Target": "Abyss_10[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -61648,11 +61647,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_10[left2]"
             },
             {
-                "Target": "Shade_Cloak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -61867,11 +61866,11 @@ regions = [
                             "$EQUIPPEDCHARM[Void_Heart]"
                         ]
                     }
-                ]
+                ],
+                "target": "Shade_Cloak"
             },
             {
-                "Target": "Arcane_Egg-Shade_Cloak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -62051,7 +62050,8 @@ regions = [
                             "$EQUIPPEDCHARM[Void_Heart]"
                         ]
                     }
-                ]
+                ],
+                "target": "Arcane_Egg-Shade_Cloak"
             }
         ],
         "locations": [],
@@ -62063,8 +62063,7 @@ regions = [
         "name": "Abyss_10[left2]",
         "exits": [
             {
-                "Target": "Abyss_10[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -62083,11 +62082,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_10[left1]"
             },
             {
-                "Target": "Shade_Cloak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -62260,11 +62259,11 @@ regions = [
                             "$EQUIPPEDCHARM[Void_Heart]"
                         ]
                     }
-                ]
+                ],
+                "target": "Shade_Cloak"
             },
             {
-                "Target": "Arcane_Egg-Shade_Cloak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
@@ -62283,7 +62282,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Arcane_Egg-Shade_Cloak"
             }
         ],
         "locations": [],
@@ -62306,8 +62306,7 @@ regions = [
         "name": "Abyss_16[left1]",
         "exits": [
             {
-                "Target": "Abyss_16[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -62332,7 +62331,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_16[right1]"
             }
         ],
         "locations": [],
@@ -62344,8 +62344,7 @@ regions = [
         "name": "Abyss_16[right1]",
         "exits": [
             {
-                "Target": "Abyss_16[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -62386,7 +62385,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_16[left1]"
             }
         ],
         "locations": [],
@@ -62398,8 +62398,7 @@ regions = [
         "name": "Abyss_18[left1]",
         "exits": [
             {
-                "Target": "Abyss_18[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -62424,11 +62423,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_18[right1]"
             },
             {
-                "Target": "Geo_Rock-Basin_Tunnel",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -62453,7 +62452,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Basin_Tunnel"
             }
         ],
         "locations": [],
@@ -62465,8 +62465,7 @@ regions = [
         "name": "Abyss_19[bot2]",
         "exits": [
             {
-                "Target": "Abyss_19[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -62475,11 +62474,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_19[right1]"
             },
             {
-                "Target": "Geo_Rock-Basin_Before_Broken_Vessel",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Basin_Before_Broken_Vessel"
             }
         ],
         "locations": [],
@@ -62491,8 +62491,7 @@ regions = [
         "name": "Abyss_20[top1]",
         "exits": [
             {
-                "Target": "Abyss_20[top2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -62519,11 +62518,12 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Abyss_20[top2]"
             },
             {
-                "Target": "Simple_Key-Basin",
-                "Logic": []
+                "logic": [],
+                "target": "Simple_Key-Basin"
             }
         ],
         "locations": [],
@@ -62535,8 +62535,7 @@ regions = [
         "name": "Abyss_20[top2]",
         "exits": [
             {
-                "Target": "Abyss_20[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -62554,11 +62553,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Abyss_20[top1]"
             },
             {
-                "Target": "Simple_Key-Basin",
-                "Logic": []
+                "logic": [],
+                "target": "Simple_Key-Basin"
             }
         ],
         "locations": [],
@@ -62590,8 +62590,7 @@ regions = [
         "name": "Waterways_06[right1]",
         "exits": [
             {
-                "Target": "Waterways_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID",
@@ -62747,7 +62746,8 @@ regions = [
                             "$SHRIEKPOGO[1,1,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_06[top1]"
             }
         ],
         "locations": [],
@@ -62759,8 +62759,7 @@ regions = [
         "name": "Waterways_06[top1]",
         "exits": [
             {
-                "Target": "Waterways_06[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID",
@@ -62806,7 +62805,8 @@ regions = [
                             "$SHRIEKPOGO[1,1,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_06[right1]"
             }
         ],
         "locations": [],
@@ -62818,8 +62818,7 @@ regions = [
         "name": "Waterways_08[top1]",
         "exits": [
             {
-                "Target": "Waterways_08[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS"
@@ -62852,11 +62851,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_08[left1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_Flukemarm",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS",
@@ -62891,11 +62890,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_Flukemarm"
             },
             {
-                "Target": "Soul_Totem-Waterways_Flukemarm",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS"
@@ -62928,7 +62927,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Waterways_Flukemarm"
             }
         ],
         "locations": [],
@@ -62940,8 +62940,7 @@ regions = [
         "name": "Waterways_08[left1]",
         "exits": [
             {
-                "Target": "Waterways_08[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -62958,11 +62957,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_08[top1]"
             },
             {
-                "Target": "Waterways_08[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -62979,11 +62978,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_08[left2]"
             },
             {
-                "Target": "Geo_Rock-Waterways_Flukemarm",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63008,11 +63007,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Waterways_Flukemarm"
             },
             {
-                "Target": "Soul_Totem-Waterways_Flukemarm",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Waterways_Flukemarm"
             }
         ],
         "locations": [],
@@ -63024,8 +63024,7 @@ regions = [
         "name": "Waterways_08[left2]",
         "exits": [
             {
-                "Target": "Waterways_08[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63050,19 +63049,20 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Waterways_08[top1]"
             },
             {
-                "Target": "Waterways_08[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Waterways_08[left1]"
             },
             {
-                "Target": "Geo_Rock-Waterways_Flukemarm",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Waterways_Flukemarm"
             },
             {
-                "Target": "Soul_Totem-Waterways_Flukemarm",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Waterways_Flukemarm"
             }
         ],
         "locations": [],
@@ -63074,8 +63074,7 @@ regions = [
         "name": "Waterways_14[bot1]",
         "exits": [
             {
-                "Target": "Waterways_14[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -63132,11 +63131,11 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_14[bot2]"
             },
             {
-                "Target": "Grub-Waterways_Requires_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -63203,7 +63202,8 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Waterways_Requires_Tram"
             }
         ],
         "locations": [],
@@ -63215,8 +63215,7 @@ regions = [
         "name": "Waterways_14[bot2]",
         "exits": [
             {
-                "Target": "Waterways_14[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -63275,11 +63274,11 @@ regions = [
                             "$SHRIEKPOGO[before:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Waterways_14[bot1]"
             },
             {
-                "Target": "Grub-Waterways_Requires_Tram",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -63346,7 +63345,8 @@ regions = [
                             "$SHRIEKPOGO[before:ITEMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Waterways_Requires_Tram"
             }
         ],
         "locations": [],
@@ -63358,8 +63358,7 @@ regions = [
         "name": "GG_Pipeway[right1]",
         "exits": [
             {
-                "Target": "GG_Pipeway[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63385,11 +63384,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Pipeway[left1]"
             },
             {
-                "Target": "Geo_Rock-Godhome_Pipeway",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -63443,7 +63442,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Godhome_Pipeway"
             }
         ],
         "locations": [],
@@ -63455,8 +63455,7 @@ regions = [
         "name": "GG_Pipeway[left1]",
         "exits": [
             {
-                "Target": "GG_Pipeway[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63481,11 +63480,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "GG_Pipeway[right1]"
             },
             {
-                "Target": "Geo_Rock-Godhome_Pipeway",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -63539,7 +63538,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Godhome_Pipeway"
             }
         ],
         "locations": [],
@@ -63551,8 +63551,7 @@ regions = [
         "name": "Ruins1_01[bot1]",
         "exits": [
             {
-                "Target": "Ruins1_01[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63577,7 +63576,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_01[left1]"
             }
         ],
         "locations": [],
@@ -63589,8 +63589,7 @@ regions = [
         "name": "Ruins1_04[right1]",
         "exits": [
             {
-                "Target": "Ruins1_04[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS",
@@ -63635,7 +63634,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_04[door1]"
             }
         ],
         "locations": [],
@@ -63647,8 +63647,8 @@ regions = [
         "name": "Ruins1_04[door1]",
         "exits": [
             {
-                "Target": "Ruins1_04[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_04[right1]"
             }
         ],
         "locations": [],
@@ -63660,8 +63660,7 @@ regions = [
         "name": "Ruins1_04[bot1]",
         "exits": [
             {
-                "Target": "Ruins1_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS"
@@ -63710,11 +63709,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_04[right1]"
             },
             {
-                "Target": "Ruins1_04[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -63759,7 +63758,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_04[door1]"
             }
         ],
         "locations": [],
@@ -63771,8 +63771,7 @@ regions = [
         "name": "Ruins1_05[bot1]",
         "exits": [
             {
-                "Target": "Ruins1_05[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -63809,7 +63808,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_05[bot2]"
             }
         ],
         "locations": [],
@@ -63838,8 +63838,8 @@ regions = [
         "name": "Ruins1_09[top1]",
         "exits": [
             {
-                "Target": "Ruins1_09[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_09[left1]"
             }
         ],
         "locations": [],
@@ -63851,8 +63851,7 @@ regions = [
         "name": "Ruins1_09[left1]",
         "exits": [
             {
-                "Target": "Ruins1_09[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63877,7 +63876,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_09[top1]"
             }
         ],
         "locations": [],
@@ -63905,8 +63905,8 @@ regions = [
         "name": "Ruins1_18[right1]",
         "exits": [
             {
-                "Target": "Ruins1_18[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_18[left1]"
             }
         ],
         "locations": [],
@@ -63937,8 +63937,7 @@ regions = [
         "name": "Ruins1_25[left1]",
         "exits": [
             {
-                "Target": "Ruins1_25[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63963,11 +63962,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_25[left2]"
             },
             {
-                "Target": "Ruins1_25[left3]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -63992,7 +63991,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_25[left3]"
             }
         ],
         "locations": [],
@@ -64004,8 +64004,7 @@ regions = [
         "name": "Ruins1_25[left2]",
         "exits": [
             {
-                "Target": "Ruins1_25[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64030,11 +64029,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_25[left1]"
             },
             {
-                "Target": "Ruins1_25[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins1_25[left3]"
             }
         ],
         "locations": [],
@@ -64046,8 +64046,7 @@ regions = [
         "name": "Ruins1_25[left3]",
         "exits": [
             {
-                "Target": "Ruins1_25[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64072,11 +64071,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_25[left1]"
             },
             {
-                "Target": "Ruins1_25[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64101,7 +64100,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins1_25[left2]"
             }
         ],
         "locations": [],
@@ -64139,8 +64139,7 @@ regions = [
         "name": "Ruins2_05[left1]",
         "exits": [
             {
-                "Target": "Ruins2_05[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64165,19 +64164,20 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_05[top1]"
             },
             {
-                "Target": "Ruins2_05[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_05[bot1]"
             },
             {
-                "Target": "Wanderer's_Journal-King's_Station",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-King's_Station"
             },
             {
-                "Target": "Geo_Rock-Above_King's_Station",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Above_King's_Station"
             }
         ],
         "locations": [],
@@ -64189,20 +64189,20 @@ regions = [
         "name": "Ruins2_05[top1]",
         "exits": [
             {
-                "Target": "Ruins2_05[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_05[left1]"
             },
             {
-                "Target": "Ruins2_05[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_05[bot1]"
             },
             {
-                "Target": "Wanderer's_Journal-King's_Station",
-                "Logic": []
+                "logic": [],
+                "target": "Wanderer's_Journal-King's_Station"
             },
             {
-                "Target": "Geo_Rock-Above_King's_Station",
-                "Logic": []
+                "logic": [],
+                "target": "Geo_Rock-Above_King's_Station"
             }
         ],
         "locations": [],
@@ -64214,8 +64214,7 @@ regions = [
         "name": "Ruins2_05[bot1]",
         "exits": [
             {
-                "Target": "Ruins2_05[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64240,11 +64239,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_05[left1]"
             },
             {
-                "Target": "Ruins2_05[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64269,11 +64268,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_05[top1]"
             },
             {
-                "Target": "Wanderer's_Journal-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "ENEMYPOGOS"
@@ -64282,11 +64281,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Wanderer's_Journal-King's_Station"
             },
             {
-                "Target": "Geo_Rock-Above_King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64311,7 +64310,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Above_King's_Station"
             }
         ],
         "locations": [],
@@ -64323,8 +64323,7 @@ regions = [
         "name": "Ruins2_06[left1]",
         "exits": [
             {
-                "Target": "Ruins2_06[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -64388,19 +64387,19 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_06[left2]"
             },
             {
-                "Target": "Ruins2_06[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_06[right1]"
             },
             {
-                "Target": "Ruins2_06[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_06[right2]"
             },
             {
-                "Target": "Geo_Rock-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -64447,7 +64446,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-King's_Station"
             }
         ],
         "locations": [],
@@ -64460,8 +64460,7 @@ regions = [
         "name": "Ruins2_06[right1]",
         "exits": [
             {
-                "Target": "Ruins2_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -64494,11 +64493,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_06[left1]"
             },
             {
-                "Target": "Ruins2_06[left2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -64562,15 +64561,15 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL,after:MAPAREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_06[left2]"
             },
             {
-                "Target": "Ruins2_06[right2]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_06[right2]"
             },
             {
-                "Target": "Geo_Rock-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW"
@@ -64617,7 +64616,8 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-King's_Station"
             }
         ],
         "locations": [],
@@ -64629,8 +64629,7 @@ regions = [
         "name": "Ruins2_06[left2]",
         "exits": [
             {
-                "Target": "Ruins2_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -64685,11 +64684,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_06[left1]"
             },
             {
-                "Target": "Ruins2_06[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -64764,11 +64763,11 @@ regions = [
                             "$SHADESKIP"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_06[right1]"
             },
             {
-                "Target": "Ruins2_06[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -64803,11 +64802,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_06[right2]"
             },
             {
-                "Target": "Geo_Rock-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -64863,7 +64862,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-King's_Station"
             }
         ],
         "locations": [],
@@ -64875,8 +64875,7 @@ regions = [
         "name": "Ruins2_07[right1]",
         "exits": [
             {
-                "Target": "Ruins2_07[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -65022,11 +65021,11 @@ regions = [
                             "$EQUIPPEDCHARM[Sharp_Shadow]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_07[left1]"
             },
             {
-                "Target": "Ruins2_07[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -65061,11 +65060,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_07[top1]"
             },
             {
-                "Target": "Grub-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -65155,7 +65154,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-King's_Station"
             }
         ],
         "locations": [],
@@ -65167,8 +65167,7 @@ regions = [
         "name": "Ruins2_07[left1]",
         "exits": [
             {
-                "Target": "Ruins2_07[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -65248,11 +65247,11 @@ regions = [
                             "$EQUIPPEDCHARM[Sharp_Shadow]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_07[right1]"
             },
             {
-                "Target": "Ruins2_07[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM",
@@ -65351,11 +65350,11 @@ regions = [
                             "$EQUIPPEDCHARM[Sharp_Shadow]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_07[top1]"
             },
             {
-                "Target": "Grub-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -65377,7 +65376,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Grub-King's_Station"
             }
         ],
         "locations": [],
@@ -65389,12 +65389,11 @@ regions = [
         "name": "Ruins2_07[top1]",
         "exits": [
             {
-                "Target": "Ruins2_07[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_07[right1]"
             },
             {
-                "Target": "Ruins2_07[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SWIM"
@@ -65478,11 +65477,11 @@ regions = [
                             "$EQUIPPEDCHARM[Sharp_Shadow]"
                         ]
                     }
-                ]
+                ],
+                "target": "Ruins2_07[left1]"
             },
             {
-                "Target": "Grub-King's_Station",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH"
@@ -65559,7 +65558,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-King's_Station"
             }
         ],
         "locations": [],
@@ -65571,8 +65571,7 @@ regions = [
         "name": "Ruins2_11_b[right1]",
         "exits": [
             {
-                "Target": "Ruins2_11_b[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Love_Key"
@@ -65581,11 +65580,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Ruins2_11_b[left1]"
             },
             {
-                "Target": "Ruins2_11_b[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_11_b[bot1]"
             }
         ],
         "locations": [],
@@ -65597,12 +65597,12 @@ regions = [
         "name": "Ruins2_11_b[left1]",
         "exits": [
             {
-                "Target": "Ruins2_11_b[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_11_b[right1]"
             },
             {
-                "Target": "Ruins2_11_b[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Ruins2_11_b[bot1]"
             }
         ],
         "locations": [],
@@ -65699,8 +65699,7 @@ regions = [
         "name": "Mines_01[bot1]",
         "exits": [
             {
-                "Target": "Mines_01[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "Broke_Crystal_Peak_Entrance_Quake_Floor",
@@ -65744,11 +65743,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_01[left1]"
             },
             {
-                "Target": "Rancid_Egg-Crystal_Peak_Dive_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -65800,7 +65799,8 @@ regions = [
                             "$SHRIEKPOGO[5,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Rancid_Egg-Crystal_Peak_Dive_Entrance"
             }
         ],
         "locations": [],
@@ -65812,8 +65812,7 @@ regions = [
         "name": "Mines_06[right1]",
         "exits": [
             {
-                "Target": "Mines_06[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -65914,7 +65913,8 @@ regions = [
                             "$SHRIEKPOGO[1,2,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_06[left1]"
             }
         ],
         "locations": [],
@@ -65926,8 +65926,8 @@ regions = [
         "name": "Mines_06[left1]",
         "exits": [
             {
-                "Target": "Mines_06[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_06[right1]"
             }
         ],
         "locations": [],
@@ -65939,8 +65939,7 @@ regions = [
         "name": "Mines_07[right1]",
         "exits": [
             {
-                "Target": "Mines_07[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -65957,7 +65956,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_07[left1]"
             }
         ],
         "locations": [],
@@ -65969,8 +65969,7 @@ regions = [
         "name": "Mines_07[left1]",
         "exits": [
             {
-                "Target": "Mines_07[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -65987,7 +65986,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_07[right1]"
             }
         ],
         "locations": [],
@@ -65999,8 +65999,7 @@ regions = [
         "name": "Mines_10[right1]",
         "exits": [
             {
-                "Target": "Mines_10[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH",
@@ -66125,11 +66124,11 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_10[bot1]"
             },
             {
-                "Target": "Grimmkin_Flame-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -66212,7 +66211,8 @@ regions = [
                             "$EQUIPPEDCHARM[Grimmchild]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grimmkin_Flame-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -66224,8 +66224,8 @@ regions = [
         "name": "Mines_13[right1]",
         "exits": [
             {
-                "Target": "Mines_13[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_13[bot1]"
             }
         ],
         "locations": [],
@@ -66237,8 +66237,7 @@ regions = [
         "name": "Mines_13[bot1]",
         "exits": [
             {
-                "Target": "Mines_13[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -66263,7 +66262,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_13[right1]"
             }
         ],
         "locations": [],
@@ -66275,12 +66275,12 @@ regions = [
         "name": "Mines_13[top1]",
         "exits": [
             {
-                "Target": "Mines_13[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_13[right1]"
             },
             {
-                "Target": "Mines_13[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_13[bot1]"
             }
         ],
         "locations": [],
@@ -66324,12 +66324,12 @@ regions = [
         "name": "Mines_20[left2]",
         "exits": [
             {
-                "Target": "Mines_20[left3]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_20[left3]"
             },
             {
-                "Target": "Soul_Totem-Upper_Crystal_Peak",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Upper_Crystal_Peak"
             }
         ],
         "locations": [],
@@ -66341,8 +66341,7 @@ regions = [
         "name": "Mines_20[left3]",
         "exits": [
             {
-                "Target": "Soul_Totem-Upper_Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -66367,7 +66366,8 @@ regions = [
                             "$SHRIEKPOGO[3,before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Upper_Crystal_Peak"
             }
         ],
         "locations": [],
@@ -66390,12 +66390,11 @@ regions = [
         "name": "Mines_28[left1]",
         "exits": [
             {
-                "Target": "Mines_28[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_28[bot1]"
             },
             {
-                "Target": "Mines_28[door1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -66469,7 +66468,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_28[door1]"
             }
         ],
         "locations": [],
@@ -66481,8 +66481,7 @@ regions = [
         "name": "Mines_28[door1]",
         "exits": [
             {
-                "Target": "Mines_28[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -66567,11 +66566,12 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_28[left1]"
             },
             {
-                "Target": "Mines_28[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_28[bot1]"
             }
         ],
         "locations": [
@@ -66593,8 +66593,7 @@ regions = [
         "name": "Mines_30[left1]",
         "exits": [
             {
-                "Target": "Mines_30[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -66603,11 +66602,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_30[right1]"
             },
             {
-                "Target": "King's_Idol-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH",
@@ -66628,11 +66627,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "King's_Idol-Crystal_Peak"
             },
             {
-                "Target": "Crystal_Peak_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -66641,7 +66640,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Crystal_Peak_Map"
             }
         ],
         "locations": [],
@@ -66653,8 +66653,7 @@ regions = [
         "name": "Mines_30[right1]",
         "exits": [
             {
-                "Target": "Mines_30[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -66663,11 +66662,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_30[left1]"
             },
             {
-                "Target": "King's_Idol-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -66686,11 +66685,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "King's_Idol-Crystal_Peak"
             },
             {
-                "Target": "Crystal_Peak_Map",
-                "Logic": []
+                "logic": [],
+                "target": "Crystal_Peak_Map"
             }
         ],
         "locations": [],
@@ -66717,8 +66717,7 @@ regions = [
         "name": "Mines_33[right1]",
         "exits": [
             {
-                "Target": "Mines_33[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -66727,11 +66726,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_33[left1]"
             },
             {
-                "Target": "Geo_Rock-Crystal_Peak_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -66740,7 +66739,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Crystal_Peak_Entrance"
             }
         ],
         "locations": [],
@@ -66752,8 +66752,7 @@ regions = [
         "name": "Mines_33[left1]",
         "exits": [
             {
-                "Target": "Mines_33[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -66762,11 +66761,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Mines_33[right1]"
             },
             {
-                "Target": "Geo_Rock-Crystal_Peak_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -66775,7 +66774,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Crystal_Peak_Entrance"
             }
         ],
         "locations": [],
@@ -66787,8 +66787,7 @@ regions = [
         "name": "Mines_34[bot1]",
         "exits": [
             {
-                "Target": "Mines_34[bot2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -66835,11 +66834,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_34[bot2]"
             },
             {
-                "Target": "Mines_34[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -66909,11 +66908,11 @@ regions = [
                             "$SHRIEKPOGO[1,2,before:AREASOUL,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_34[left1]"
             },
             {
-                "Target": "Pale_Ore-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -66987,7 +66986,8 @@ regions = [
                             "$SHRIEKPOGO[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Pale_Ore-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -67007,12 +67007,11 @@ regions = [
         "name": "$StartLocation[Hallownest's Crown]",
         "exits": [
             {
-                "Target": "Mines_34[bot2]",
-                "Logic": []
+                "logic": [],
+                "target": "Mines_34[bot2]"
             },
             {
-                "Target": "Mines_34[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSUPERDASH"
@@ -67038,11 +67037,12 @@ regions = [
                             "$SHRIEKPOGO[2,NOSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_34[left1]"
             },
             {
-                "Target": "Pale_Ore-Crystal_Peak",
-                "Logic": []
+                "logic": [],
+                "target": "Pale_Ore-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -67070,8 +67070,7 @@ regions = [
         "name": "Mines_37[bot1]",
         "exits": [
             {
-                "Target": "Mines_37[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -67098,11 +67097,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_37[top1]"
             },
             {
-                "Target": "Geo_Chest-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -67139,7 +67138,8 @@ regions = [
                             "$SHADESKIP[2HITS]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Chest-Crystal_Peak"
             }
         ],
         "locations": [],
@@ -67151,8 +67151,7 @@ regions = [
         "name": "Mines_37[top1]",
         "exits": [
             {
-                "Target": "Mines_37[bot1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -67186,11 +67185,11 @@ regions = [
                             "$EQUIPPEDCHARM[Sprintmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Mines_37[bot1]"
             },
             {
-                "Target": "Geo_Chest-Crystal_Peak",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -67240,7 +67239,8 @@ regions = [
                             "$EQUIPPEDCHARM[Sprintmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Chest-Crystal_Peak"
             }
         ],
         "locations": [
@@ -67255,8 +67255,7 @@ regions = [
         "name": "Fungus3_05[left1]",
         "exits": [
             {
-                "Target": "Fungus3_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -67281,11 +67280,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_05[right1]"
             },
             {
-                "Target": "Fungus3_05[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -67332,7 +67331,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_05[right2]"
             }
         ],
         "locations": [],
@@ -67344,12 +67344,11 @@ regions = [
         "name": "Fungus3_05[right1]",
         "exits": [
             {
-                "Target": "Fungus3_05[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_05[left1]"
             },
             {
-                "Target": "Fungus3_05[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -67396,7 +67395,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_05[right2]"
             }
         ],
         "locations": [],
@@ -67416,8 +67416,7 @@ regions = [
         "name": "Fungus3_08[left1]",
         "exits": [
             {
-                "Target": "Fungus3_08[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -67444,7 +67443,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_08[top1]"
             }
         ],
         "locations": [],
@@ -67457,8 +67457,8 @@ regions = [
         "name": "Fungus3_08[top1]",
         "exits": [
             {
-                "Target": "Fungus3_08[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_08[left1]"
             }
         ],
         "locations": [],
@@ -67470,8 +67470,7 @@ regions = [
         "name": "Fungus3_21[right1]",
         "exits": [
             {
-                "Target": "Fungus3_21[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -67490,11 +67489,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_21[top1]"
             },
             {
-                "Target": "Soul_Totem-Top_Left_Queen's_Gardens",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS"
@@ -67536,7 +67535,8 @@ regions = [
                             "$CASTSPELL"
                         ]
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Top_Left_Queen's_Gardens"
             }
         ],
         "locations": [],
@@ -67548,8 +67548,7 @@ regions = [
         "name": "Fungus3_21[top1]",
         "exits": [
             {
-                "Target": "Fungus3_21[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -67558,11 +67557,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_21[right1]"
             },
             {
-                "Target": "Soul_Totem-Top_Left_Queen's_Gardens",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
@@ -67571,7 +67570,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Top_Left_Queen's_Gardens"
             }
         ],
         "locations": [],
@@ -67591,8 +67591,8 @@ regions = [
         "name": "Fungus3_39[left1]",
         "exits": [
             {
-                "Target": "Fungus3_39[right1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_39[right1]"
             }
         ],
         "locations": [
@@ -67617,12 +67617,11 @@ regions = [
         "name": "Fungus3_48[right2]",
         "exits": [
             {
-                "Target": "Fungus3_48[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "Fungus3_48[bot1]"
             },
             {
-                "Target": "Hallownest_Seal-Queen's_Gardens",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -67649,11 +67648,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hallownest_Seal-Queen's_Gardens"
             },
             {
-                "Target": "Grub-Queen's_Gardens_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -67691,11 +67690,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Queen's_Gardens_Marmu"
             },
             {
-                "Target": "Geo_Rock-Queen's_Gardens_Above_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTSUPERDASH"
@@ -67758,7 +67757,8 @@ regions = [
                             "$CASTSPELL[before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Queen's_Gardens_Above_Marmu"
             }
         ],
         "locations": [],
@@ -67770,8 +67770,7 @@ regions = [
         "name": "Fungus3_48[bot1]",
         "exits": [
             {
-                "Target": "Fungus3_48[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -67796,11 +67795,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fungus3_48[right2]"
             },
             {
-                "Target": "Hallownest_Seal-Queen's_Gardens",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -67827,11 +67826,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Hallownest_Seal-Queen's_Gardens"
             },
             {
-                "Target": "Grub-Queen's_Gardens_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -67869,11 +67868,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "Grub-Queen's_Gardens_Marmu"
             },
             {
-                "Target": "Geo_Rock-Queen's_Gardens_Above_Marmu",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -67898,7 +67897,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Geo_Rock-Queen's_Gardens_Above_Marmu"
             }
         ],
         "locations": [],
@@ -67936,12 +67936,12 @@ regions = [
         "name": "Cliffs_03[right1]",
         "exits": [
             {
-                "Target": "Vessel_Fragment-Stag_Nest",
-                "Logic": []
+                "logic": [],
+                "target": "Vessel_Fragment-Stag_Nest"
             },
             {
-                "Target": "Stag_Nest_Stag",
-                "Logic": []
+                "logic": [],
+                "target": "Stag_Nest_Stag"
             }
         ],
         "locations": [],
@@ -67953,8 +67953,7 @@ regions = [
         "name": "Cliffs_04[left1]",
         "exits": [
             {
-                "Target": "Cliffs_04[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "DARKROOMS"
@@ -67971,11 +67970,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Cliffs_04[right1]"
             },
             {
-                "Target": "Soul_Totem-Cliffs_Joni's",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LANTERN"
@@ -67992,7 +67991,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Cliffs_Joni's"
             }
         ],
         "locations": [],
@@ -68014,8 +68014,7 @@ regions = [
         "name": "White_Palace_04[top1]",
         "exits": [
             {
-                "Target": "White_Palace_04[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -68025,11 +68024,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_04[right2]"
             },
             {
-                "Target": "Soul_Totem-White_Palace_Left",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-White_Palace_Left"
             }
         ],
         "locations": [],
@@ -68041,8 +68041,7 @@ regions = [
         "name": "White_Palace_04[right2]",
         "exits": [
             {
-                "Target": "White_Palace_04[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68073,11 +68072,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_04[top1]"
             },
             {
-                "Target": "Soul_Totem-White_Palace_Left",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68108,7 +68107,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-White_Palace_Left"
             }
         ],
         "locations": [],
@@ -68120,8 +68120,7 @@ regions = [
         "name": "White_Palace_05[left1]",
         "exits": [
             {
-                "Target": "White_Palace_05[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -68160,7 +68159,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_05[right1]"
             }
         ],
         "locations": [],
@@ -68172,8 +68172,7 @@ regions = [
         "name": "White_Palace_05[right1]",
         "exits": [
             {
-                "Target": "White_Palace_05[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -68213,7 +68212,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_05[left1]"
             }
         ],
         "locations": [],
@@ -68234,8 +68234,7 @@ regions = [
         "name": "White_Palace_06[left1]",
         "exits": [
             {
-                "Target": "White_Palace_06[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -68272,7 +68271,8 @@ regions = [
                             "$SHRIEKPOGO[2,before:ROOMSOUL,NOLEFTSTALL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_06[top1]"
             }
         ],
         "locations": [],
@@ -68285,8 +68285,8 @@ regions = [
         "name": "White_Palace_07[top1]",
         "exits": [
             {
-                "Target": "White_Palace_07[bot1]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_07[bot1]"
             }
         ],
         "locations": [],
@@ -68298,8 +68298,7 @@ regions = [
         "name": "White_Palace_07[bot1]",
         "exits": [
             {
-                "Target": "White_Palace_07[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -68330,7 +68329,8 @@ regions = [
                             "$SHRIEKPOGO[2]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_07[top1]"
             }
         ],
         "locations": [],
@@ -68342,8 +68342,7 @@ regions = [
         "name": "White_Palace_08[left1]",
         "exits": [
             {
-                "Target": "White_Palace_08[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -68370,11 +68369,11 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_08[right1]"
             },
             {
-                "Target": "Lore_Tablet-Palace_Workshop",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -68401,7 +68400,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Palace_Workshop"
             }
         ],
         "locations": [],
@@ -68413,12 +68413,12 @@ regions = [
         "name": "White_Palace_08[right1]",
         "exits": [
             {
-                "Target": "White_Palace_08[left1]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_08[left1]"
             },
             {
-                "Target": "Lore_Tablet-Palace_Workshop",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Palace_Workshop"
             }
         ],
         "locations": [],
@@ -68450,8 +68450,7 @@ regions = [
         "name": "White_Palace_12[bot1]",
         "exits": [
             {
-                "Target": "White_Palace_12[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "SPIKETUNNELS",
@@ -68493,7 +68492,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_12[right1]"
             }
         ],
         "locations": [],
@@ -68505,8 +68505,7 @@ regions = [
         "name": "White_Palace_14[bot1]",
         "exits": [
             {
-                "Target": "White_Palace_14[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
@@ -68527,7 +68526,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_14[right1]"
             }
         ],
         "locations": [],
@@ -68539,8 +68539,7 @@ regions = [
         "name": "White_Palace_15[left1]",
         "exits": [
             {
-                "Target": "White_Palace_15[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "WINGS",
@@ -68585,11 +68584,11 @@ regions = [
                             "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_15[right1]"
             },
             {
-                "Target": "White_Palace_15[right2]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -68614,7 +68613,8 @@ regions = [
                             "$SHRIEKPOGO[before:AREASOUL]"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_15[right2]"
             }
         ],
         "locations": [],
@@ -68626,8 +68626,7 @@ regions = [
         "name": "White_Palace_15[right2]",
         "exits": [
             {
-                "Target": "White_Palace_15[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW"
@@ -68653,7 +68652,8 @@ regions = [
                             "$SHRIEKPOGO"
                         ]
                     }
-                ]
+                ],
+                "target": "White_Palace_15[left1]"
             }
         ],
         "locations": [],
@@ -68665,8 +68665,8 @@ regions = [
         "name": "White_Palace_16[left1]",
         "exits": [
             {
-                "Target": "White_Palace_16[left2]",
-                "Logic": []
+                "logic": [],
+                "target": "White_Palace_16[left2]"
             }
         ],
         "locations": [],
@@ -68678,8 +68678,7 @@ regions = [
         "name": "White_Palace_16[left2]",
         "exits": [
             {
-                "Target": "White_Palace_16[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -68697,7 +68696,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_16[left1]"
             }
         ],
         "locations": [],
@@ -68717,8 +68717,7 @@ regions = [
         "name": "White_Palace_18[top1]",
         "exits": [
             {
-                "Target": "White_Palace_18[right1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68733,11 +68732,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_18[right1]"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68752,11 +68751,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Entrance"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Second",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68771,11 +68770,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Second"
             },
             {
-                "Target": "Lore_Tablet-Path_of_Pain_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68790,7 +68789,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Path_of_Pain_Entrance"
             }
         ],
         "locations": [],
@@ -68802,8 +68802,7 @@ regions = [
         "name": "White_Palace_18[right1]",
         "exits": [
             {
-                "Target": "White_Palace_18[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68818,11 +68817,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_18[top1]"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Entrance",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68841,11 +68840,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Entrance"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Second",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -68858,11 +68857,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Second"
             },
             {
-                "Target": "Lore_Tablet-Path_of_Pain_Entrance",
-                "Logic": []
+                "logic": [],
+                "target": "Lore_Tablet-Path_of_Pain_Entrance"
             }
         ],
         "locations": [],
@@ -68874,8 +68874,7 @@ regions = [
         "name": "White_Palace_19[top1]",
         "exits": [
             {
-                "Target": "White_Palace_19[left1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -68916,11 +68915,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_19[left1]"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Hidden",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -68933,11 +68932,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Hidden"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Below_Thornskip",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "RIGHTDASH",
@@ -68978,7 +68977,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Below_Thornskip"
             }
         ],
         "locations": [],
@@ -68990,8 +68990,7 @@ regions = [
         "name": "White_Palace_19[left1]",
         "exits": [
             {
-                "Target": "White_Palace_19[top1]",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -69006,11 +69005,11 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "White_Palace_19[top1]"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Hidden",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
@@ -69023,11 +69022,12 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Soul_Totem-Path_of_Pain_Hidden"
             },
             {
-                "Target": "Soul_Totem-Path_of_Pain_Below_Thornskip",
-                "Logic": []
+                "logic": [],
+                "target": "Soul_Totem-Path_of_Pain_Below_Thornskip"
             }
         ],
         "locations": [],
@@ -69119,12 +69119,11 @@ regions = [
         "name": "$StartLocation[Lower Greenpath]",
         "exits": [
             {
-                "Target": "Vessel_Fragment-Greenpath",
-                "Logic": []
+                "logic": [],
+                "target": "Vessel_Fragment-Greenpath"
             },
             {
-                "Target": "Lore_Tablet-Greenpath_QG",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTSLASH"
@@ -69178,7 +69177,8 @@ regions = [
                             "$EQUIPPEDCHARM[Dashmaster]"
                         ]
                     }
-                ]
+                ],
+                "target": "Lore_Tablet-Greenpath_QG"
             }
         ],
         "locations": [],
@@ -69572,8 +69572,7 @@ regions = [
         "name": "$StartLocation[East Fog Canyon]",
         "exits": [
             {
-                "Target": "Fog_Canyon_Map",
-                "Logic": [
+                "logic": [
                     {
                         "item_requirements": [
                             "LEFTDASH",
@@ -69583,7 +69582,8 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": []
                     }
-                ]
+                ],
+                "target": "Fog_Canyon_Map"
             }
         ],
         "locations": [],
@@ -78326,34 +78326,34 @@ locations = [
         ],
         "is_event": True
     },
-    {
-        "name": "Can_Warp_To_DG_Bench",
-        "logic": [
-            {
-                "item_requirements": [
-                    "FALSE"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            }
-        ],
-        "is_event": True
-    },
-    {
-        "name": "Can_Warp_To_Bench",
-        "logic": [
-            {
-                "item_requirements": [
-                    "FALSE"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            }
-        ],
-        "is_event": True
-    },
+    # {
+    #     "name": "Can_Warp_To_DG_Bench",
+    #     "logic": [
+    #         {
+    #             "item_requirements": [
+    #                 "FALSE"
+    #             ],
+    #             "location_requirements": [],
+    #             "region_requirements": [],
+    #             "state_modifiers": []
+    #         }
+    #     ],
+    #     "is_event": True
+    # },
+    # {
+    #     "name": "Can_Warp_To_Bench",
+    #     "logic": [
+    #         {
+    #             "item_requirements": [
+    #                 "FALSE"
+    #             ],
+    #             "location_requirements": [],
+    #             "region_requirements": [],
+    #             "state_modifiers": []
+    #         }
+    #     ],
+    #     "is_event": True
+    # },
     {
         "name": "Can_Visit_Lemm",
         "logic": [
@@ -79561,7 +79561,8 @@ locations = [
     },
     {
         "name": "Start",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Sly",
@@ -79574,7 +79575,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Sly_(Key)",
@@ -79588,27 +79590,33 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Iselda",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Salubra",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Leg_Eater",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grubfather",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Seer",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lurien",
@@ -79621,7 +79629,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Monomon",
@@ -80058,7 +80067,8 @@ locations = [
                     "$SHRIEKPOGO[5]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Herrah",
@@ -80802,7 +80812,8 @@ locations = [
                     "$SHRIEKPOGO[3,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "World_Sense",
@@ -80815,7 +80826,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mothwing_Cloak",
@@ -80828,7 +80840,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mantis_Claw",
@@ -80899,7 +80912,8 @@ locations = [
                     "$CASTSPELL[1,1,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Crystal_Heart",
@@ -80972,7 +80986,8 @@ locations = [
                     "$SHRIEKPOGO[4,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Monarch_Wings",
@@ -80993,27 +81008,33 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Shade_Cloak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Isma's_Tear",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Dream_Nail",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Vengeful_Spirit",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Shade_Soul",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Desolate_Dive",
@@ -81026,7 +81047,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Descending_Dark",
@@ -81083,11 +81105,13 @@ locations = [
                     "$SHRIEKPOGO[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Howling_Wraiths",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Abyss_Shriek",
@@ -81102,11 +81126,13 @@ locations = [
                     "$CASTSPELL"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Cyclone_Slash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Dash_Slash",
@@ -81119,23 +81145,28 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Great_Slash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Focus",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Baldur_Shell",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Fury_of_the_Fallen",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Core",
@@ -81158,7 +81189,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Defender's_Crest",
@@ -81190,7 +81222,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Flukenest",
@@ -81224,7 +81257,8 @@ locations = [
                     "$SHRIEKPOGO[4]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Thorns_of_Agony",
@@ -81246,7 +81280,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mark_of_Pride",
@@ -81297,7 +81332,8 @@ locations = [
                     "$SHADESKIP"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Sharp_Shadow",
@@ -81378,7 +81414,8 @@ locations = [
                     "$TAKEDAMAGE"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Spore_Shroom",
@@ -81459,7 +81496,8 @@ locations = [
                     "$SHRIEKPOGO[2,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Catcher",
@@ -81928,7 +81966,8 @@ locations = [
                     "$SHRIEKPOGO[2,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Eater",
@@ -82182,7 +82221,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Glowing_Womb",
@@ -82227,7 +82267,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Nailmaster's_Glory",
@@ -82243,11 +82284,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Joni's_Blessing",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Shape_of_Unn",
@@ -82286,7 +82329,8 @@ locations = [
                     "$SHRIEKPOGO[1,1]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hiveblood",
@@ -82299,15 +82343,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Dashmaster",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Quick_Slash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Spell_Twister",
@@ -82336,15 +82383,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Deep_Focus",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Queen_Fragment",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King_Fragment",
@@ -82411,7 +82461,8 @@ locations = [
                     "$SHRIEKPOGO[1,1,1,1]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Void_Heart",
@@ -82514,11 +82565,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Dreamshield",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Weaversong",
@@ -82557,7 +82610,8 @@ locations = [
                     "$SHRIEKPOGO[3,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grimmchild",
@@ -82570,7 +82624,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Unbreakable_Heart",
@@ -82585,7 +82640,8 @@ locations = [
                     "$EQUIPPEDCHARM[Fragile_Heart]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Unbreakable_Greed",
@@ -82600,7 +82656,8 @@ locations = [
                     "$EQUIPPEDCHARM[Fragile_Greed]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Unbreakable_Strength",
@@ -82615,11 +82672,13 @@ locations = [
                     "$EQUIPPEDCHARM[Fragile_Strength]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "City_Crest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Tram_Pass",
@@ -82640,11 +82699,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Simple_Key-Basin",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Simple_Key-City",
@@ -82681,7 +82742,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Simple_Key-Lurker",
@@ -82728,7 +82790,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Shopkeeper's_Key",
@@ -82765,7 +82828,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Love_Key",
@@ -82873,11 +82937,13 @@ locations = [
                     "$EQUIPPEDCHARM[Sharp_Shadow]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "King's_Brand",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Godtuner",
@@ -82890,7 +82956,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Collector's_Map",
@@ -82955,11 +83022,13 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Brooding_Mawlek",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Crossroads_Goam",
@@ -82996,11 +83065,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Stone_Sanctuary",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Queen's_Station",
@@ -83033,15 +83104,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Deepnest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Waterways",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Enraged_Guardian",
@@ -83054,11 +83128,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Hive",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Grey_Mourner",
@@ -83071,15 +83147,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mask_Shard-Bretta",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Vessel_Fragment-Greenpath",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Vessel_Fragment-City",
@@ -83092,15 +83171,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Vessel_Fragment-Crossroads",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Vessel_Fragment-Basin",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Vessel_Fragment-Deepnest",
@@ -83121,15 +83203,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Vessel_Fragment-Stag_Nest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Charm_Notch-Shrumal_Ogres",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Charm_Notch-Fog_Canyon",
@@ -83241,7 +83326,8 @@ locations = [
                     "$TAKEDAMAGE"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Charm_Notch-Colosseum",
@@ -83255,7 +83341,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Charm_Notch-Grimm",
@@ -83268,7 +83355,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Pale_Ore-Basin",
@@ -83307,11 +83395,13 @@ locations = [
                     "$TAKEDAMAGE"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Pale_Ore-Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Pale_Ore-Nosk",
@@ -83324,7 +83414,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Pale_Ore-Colosseum",
@@ -83361,11 +83452,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-False_Knight",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Soul_Master",
@@ -83394,15 +83487,18 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Watcher_Knights",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Greenpath",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Mantis_Lords",
@@ -83440,15 +83536,18 @@ locations = [
                     "$BENCHRESET"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Resting_Grounds",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Weavers_Den",
@@ -83692,51 +83791,63 @@ locations = [
                     "$CASTSPELL[before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Junk_Pit_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Junk_Pit_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Junk_Pit_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Chest-Junk_Pit_5",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lumafly_Escape-Junk_Pit_Chest_4",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Sheo",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Fungal_Core",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Queen's_Gardens",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Blue_Lake",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Crystal_Peak_Dive_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Crystal_Peak_Dark_Room",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Crystal_Peak_Tall_Room",
@@ -83749,7 +83860,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-City_of_Tears_Left",
@@ -83796,11 +83908,13 @@ locations = [
                     "$TAKEDAMAGE[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-City_of_Tears_Pleasure_House",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Beast's_Den",
@@ -83961,11 +84075,13 @@ locations = [
                     "$SHRIEKPOGO[2,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Dark_Deepnest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Weaver's_Den",
@@ -84006,11 +84122,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Near_Quick_Slash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Upper_Kingdom's_Edge",
@@ -84039,19 +84157,23 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Waterways_East",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Waterways_Main",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Waterways_West_Bluggsac",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Waterways_West_Pickup",
@@ -84090,7 +84212,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Rancid_Egg-Tuk_Defender's_Crest",
@@ -84103,15 +84226,18 @@ locations = [
                     "$EQUIPPEDCHARM[Defender's_Crest]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Cliffs",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Greenpath_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Greenpath_Lower",
@@ -84140,7 +84266,8 @@ locations = [
                     "$SHRIEKPOGO[3,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Fungal_Wastes_Thorns_Gauntlet",
@@ -84236,7 +84363,8 @@ locations = [
                     "$SHRIEKPOGO[3,before:AREASOUL,NOSTALL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Above_Mantis_Village",
@@ -84265,7 +84393,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Crystal_Peak_Crawlers",
@@ -84294,7 +84423,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Resting_Grounds_Catacombs",
@@ -84323,35 +84453,43 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-King's_Station",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Pleasure_House",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-City_Storerooms",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Ancient_Basin",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Kingdom's_Edge_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Kingdom's_Edge_Camp",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Wanderer's_Journal-Kingdom's_Edge_Requires_Dive",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Crossroads_Well",
@@ -84474,7 +84612,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Greenpath",
@@ -84572,11 +84711,13 @@ locations = [
                     "$EQUIPPEDCHARM[Dashmaster]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Fog_Canyon_West",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Fog_Canyon_East",
@@ -84645,7 +84786,8 @@ locations = [
                     "$CASTSPELL[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Queen's_Station",
@@ -84658,7 +84800,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Fungal_Wastes_Sporgs",
@@ -84750,7 +84893,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Mantis_Lords",
@@ -84788,7 +84932,8 @@ locations = [
                     "$BENCHRESET"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Resting_Grounds_Catacombs",
@@ -84867,7 +85012,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-King's_Station",
@@ -84897,11 +85043,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-City_Rafters",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Soul_Sanctum",
@@ -84937,11 +85085,13 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Watcher_Knight",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Deepnest_By_Mantis_Lords",
@@ -84971,23 +85121,28 @@ locations = [
                     "$SHRIEKPOGO[6]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Beast's_Den",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Hallownest_Seal-Queen's_Gardens",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Cliffs",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Glade_of_Hope",
@@ -85110,15 +85265,18 @@ locations = [
                     "$SHRIEKPOGO"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Dung_Defender",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Great_Hopper",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Pale_Lurker",
@@ -85144,11 +85302,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "King's_Idol-Deepnest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Arcane_Egg-Lifeblood_Core",
@@ -85193,15 +85353,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Arcane_Egg-Shade_Cloak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Arcane_Egg-Birthplace",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Crossroads",
@@ -86284,7 +86447,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Greenpath",
@@ -86734,7 +86898,8 @@ locations = [
                     "$EQUIPPEDCHARM[Dashmaster]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Leg_Eater",
@@ -86747,7 +86912,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Mantis_Village",
@@ -86781,7 +86947,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Deepnest",
@@ -86874,7 +87041,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Queens_Gardens",
@@ -86907,7 +87075,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Kingdoms_Edge",
@@ -86939,7 +87108,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Waterways",
@@ -87007,7 +87177,8 @@ locations = [
                     "$SHRIEKPOGO[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-City",
@@ -87050,7 +87221,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Resting_Grounds",
@@ -87063,7 +87235,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Spirits_Glade",
@@ -87235,11 +87408,13 @@ locations = [
                     "$SHRIEKPOGO"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Howling_Cliffs",
@@ -87284,7 +87459,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Ancestral_Mound",
@@ -87812,11 +87988,13 @@ locations = [
                     "$SHRIEKPOGO[2,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Whispering_Root-Hive",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Elder_Hu",
@@ -87830,11 +88008,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Xero",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Gorb",
@@ -87848,15 +88028,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Marmu",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-No_Eyes",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Galien",
@@ -87870,7 +88053,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Markoth",
@@ -87884,15 +88068,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Failed_Champion",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Soul_Tyrant",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Lost_Kin",
@@ -87930,7 +88117,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-White_Defender",
@@ -87946,7 +88134,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Essence-Grey_Prince_Zote",
@@ -87963,11 +88152,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crossroads_Acid",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Crossroads_Center",
@@ -88004,23 +88195,28 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crossroads_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Crossroads_Spike",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Crossroads_Guarded",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Greenpath_Cornifer",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Greenpath_Journal",
@@ -88109,15 +88305,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Greenpath_MMC",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Greenpath_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Fog_Canyon",
@@ -88138,31 +88337,38 @@ locations = [
                     "$SHRIEKPOGO[2,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Fungal_Bouncy",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Fungal_Spore_Shroom",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Deepnest_Mimic",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Deepnest_Nosk",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Deepnest_Spike",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Dark_Deepnest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Beast's_Den",
@@ -88323,11 +88529,13 @@ locations = [
                     "$SHRIEKPOGO[2,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Kingdom's_Edge_Oro",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Kingdom's_Edge_Camp",
@@ -88376,15 +88584,18 @@ locations = [
                     "$TAKEDAMAGE"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Hive_External",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Hive_Internal",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Basin_Requires_Wings",
@@ -88440,7 +88651,8 @@ locations = [
                     "$SLOPEBALL[before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Basin_Requires_Dive",
@@ -88453,23 +88665,28 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Waterways_Main",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Isma's_Grove",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Waterways_Requires_Tram",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-City_of_Tears_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Soul_Sanctum",
@@ -88508,7 +88725,8 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Watcher's_Spire",
@@ -88538,15 +88756,18 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-City_of_Tears_Guarded",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-King's_Station",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Resting_Grounds",
@@ -88717,11 +88938,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crystal_Peak_Below_Chest",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Crystallized_Mound",
@@ -88766,7 +88989,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crystal_Peak_Spike",
@@ -88883,7 +89107,8 @@ locations = [
                     "$CASTSPELL[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crystal_Peak_Mimic",
@@ -88937,7 +89162,8 @@ locations = [
                     "$CASTSPELL[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crystal_Peak_Crushers",
@@ -88969,7 +89195,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Crystal_Heart",
@@ -89047,7 +89274,8 @@ locations = [
                     "$SHRIEKPOGO[2,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Hallownest_Crown",
@@ -89076,19 +89304,23 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Howling_Cliffs",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Queen's_Gardens_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Queen's_Gardens_Marmu",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grub-Queen's_Gardens_Top",
@@ -89341,7 +89573,8 @@ locations = [
                     "$SHRIEKPOGO[4,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Collector_1",
@@ -89406,7 +89639,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Collector_2",
@@ -89471,7 +89705,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grub-Collector_3",
@@ -89536,71 +89771,88 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Mimic_Grub-Deepnest_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mimic_Grub-Deepnest_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mimic_Grub-Deepnest_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Mimic_Grub-Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Crossroads_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Greenpath_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Fog_Canyon_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Fungal_Wastes_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Deepnest_Map-Upper",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Deepnest_Map-Right",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Ancient_Basin_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Kingdom's_Edge_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "City_of_Tears_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Royal_Waterways_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Howling_Cliffs_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Crystal_Peak_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Queen's_Gardens_Map",
@@ -89629,59 +89881,73 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Resting_Grounds_Map",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Dirtmouth_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Crossroads_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Greenpath_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Queen's_Station_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Queen's_Gardens_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "City_Storerooms_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "King's_Station_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Resting_Grounds_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Distant_Village_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Hidden_Station_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Stag_Nest_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-King's_Pass",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Ancestral_Mound",
@@ -89780,23 +90046,28 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Greenpath",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Fog_Canyon_West",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Mantis_Village",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Failed_Tramway",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Galien",
@@ -89826,11 +90097,13 @@ locations = [
                     "$SHRIEKPOGO[2,2,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lifeblood_Cocoon-Kingdom's_Edge",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-City_Storerooms",
@@ -89843,7 +90116,8 @@ locations = [
                     "$EQUIPPEDCHARM[Grimmchild]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Greenpath",
@@ -89856,11 +90130,13 @@ locations = [
                     "$EQUIPPEDCHARM[Grimmchild]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-King's_Pass",
@@ -89875,11 +90151,13 @@ locations = [
                     "$EQUIPPEDCHARM[Grimmchild]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Resting_Grounds",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Kingdom's_Edge",
@@ -89894,7 +90172,8 @@ locations = [
                     "$EQUIPPEDCHARM[Grimmchild]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Fungal_Core",
@@ -89909,15 +90188,18 @@ locations = [
                     "$EQUIPPEDCHARM[Grimmchild]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Ancient_Basin",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Hive",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Grimmkin_Flame-Brumm",
@@ -89932,15 +90214,18 @@ locations = [
                     "$EQUIPPEDCHARM[Grimmchild]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Hunter's_Journal",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Journal_Entry-Void_Tendrils",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Journal_Entry-Charged_Lumafly",
@@ -91073,7 +91358,8 @@ locations = [
                     "$SHRIEKPOGO[before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Journal_Entry-Goam",
@@ -91086,11 +91372,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Journal_Entry-Garpede",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Journal_Entry-Seal_of_Binding",
@@ -91103,11 +91391,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Elevator_Pass",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Split_Mothwing_Cloak",
@@ -91120,7 +91410,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Left_Mantis_Claw",
@@ -91191,7 +91482,8 @@ locations = [
                     "$CASTSPELL[1,1,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Right_Mantis_Claw",
@@ -91262,7 +91554,8 @@ locations = [
                     "$CASTSPELL[1,1,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Split_Crystal_Heart",
@@ -91335,63 +91628,78 @@ locations = [
                     "$SHRIEKPOGO[4,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Leftslash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Rightslash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Upslash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Egg_Shop",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Broken_Elevator_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Broken_Elevator_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Broken_Elevator_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Broken_Bridge_Upper",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Broken_Bridge_Lower",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Broken_Bridge_Lower_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Abyss_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Abyss_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Abyss_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Basin_Tunnel",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Basin_Grub",
@@ -91404,43 +91712,53 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Basin_Before_Broken_Vessel",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Cliffs_Main_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Cliffs_Main_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Cliffs_Main_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Cliffs_Main_4",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Below_Gorb_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Below_Gorb",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Well",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Center_Grub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Root",
@@ -91712,7 +92030,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Root_Dupe_1",
@@ -91984,7 +92303,8 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Root_Dupe_2",
@@ -92256,79 +92576,98 @@ locations = [
                     "$SHRIEKPOGO[5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Aspid_Arena",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Aspid_Arena_Dupe_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Aspid_Arena_Dupe_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Aspid_Arena_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Above_False_Knight",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Before_Acid_Grub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Below_Goam_Mask_Shard",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_After_Goam_Mask_Shard",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Above_Lever",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Before_Fungal",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Before_Fungal_Dupe_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Before_Fungal_Dupe_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Before_Shops",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Before_Glowing_Womb",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Above_Tram",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Above_Mawlek",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Vessel_Fragment",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Goam_Alcove",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Goam_Damage_Boost",
@@ -92341,11 +92680,13 @@ locations = [
                     "$TAKEDAMAGE"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Tram",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Goam_Journal",
@@ -92358,7 +92699,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crossroads_Goam_Journal_Dupe",
@@ -92371,7 +92713,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Ancestral_Mound",
@@ -92470,7 +92813,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Ancestral_Mound_Dupe",
@@ -92569,7 +92913,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Ancestral_Mound_Tree",
@@ -92898,7 +93243,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Ancestral_Mound_Tree_Dupe",
@@ -93227,43 +93573,53 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Moss_Prophet",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Moss_Prophet_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Below_Mimics",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Below_Mimics_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Below_Spike_Grub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Below_Spike_Grub_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Spike_Grub_Right",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_Garpede_Pogo",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_Garpede_Pogo_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_Requires_Claw_1",
@@ -93293,7 +93649,8 @@ locations = [
                     "$SHRIEKPOGO[6]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_Requires_Claw_2",
@@ -93323,7 +93680,8 @@ locations = [
                     "$SHRIEKPOGO[6]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_Requires_Claw_3",
@@ -93353,23 +93711,28 @@ locations = [
                     "$SHRIEKPOGO[6]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Nosk_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Nosk_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Nosk_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Above_Galien",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Galien_Spike",
@@ -93399,75 +93762,93 @@ locations = [
                     "$SHRIEKPOGO[3,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Garpede_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Garpede_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Dark_Deepnest_Above_Grub_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Dark_Deepnest_Above_Grub_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Dark_Deepnest_Bottom_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Above_Mask_Maker_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Above_Mask_Maker_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Lower_Kingdom's_Edge_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Lower_Kingdom's_Edge_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Lower_Kingdom's_Edge_3",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Lower_Kingdom's_Edge_Dive",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Below_Bardoon",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Above_Root",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Above_Tower",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Below_Colosseum",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_Above_420_Geo_Rock",
@@ -93481,7 +93862,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Kingdom's_Edge_420_Geo_Rock",
@@ -93504,7 +93886,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Above_Trilobite",
@@ -93767,7 +94150,8 @@ locations = [
                     "$SHRIEKPOGO[1,2,2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Above_Trilobite_Dupe",
@@ -94030,7 +94414,8 @@ locations = [
                     "$SHRIEKPOGO[1,2,2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Below_Herrah",
@@ -94298,7 +94683,8 @@ locations = [
                     "$SHRIEKPOGO[1,2,2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Below_Egg",
@@ -94566,7 +94952,8 @@ locations = [
                     "$SHRIEKPOGO[1,2,2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Below_Egg_Dupe",
@@ -94834,15 +95221,18 @@ locations = [
                     "$SHRIEKPOGO[1,2,2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Bottom",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_Bottom_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Beast's_Den_After_Herrah",
@@ -95546,47 +95936,58 @@ locations = [
                     "$SHRIEKPOGO[3,before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Waterfall",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Below_Skip_Squit",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Skip_Squit",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Second_Skip_Fool_Eater",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Second_Skip_Fool_Eater_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Second_Skip_Lower",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Below_Hornet",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Above_Thorns",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Hunter's_Journal",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Acid_Bridge",
@@ -95663,75 +96064,93 @@ locations = [
                     "$SHADESKIP"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_After_MMC_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_After_MMC",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_After_MMC_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Obbles_Fool_Eater",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Moss_Knights",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Moss_Knights_Dupe_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Moss_Knights_Dupe_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Below_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Below_Stag_Fool_Eater",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Baldur_Shell_Top_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Baldur_Shell_Alcove",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_MMC",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Below_Toll",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Toll_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Greenpath_Toll_Hidden_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Below_Shrumal_Ogres",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Above_Cloth",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_After_Cloth",
@@ -95760,27 +96179,33 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Below_Pilgrim's_Way",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Below_Pilgrim's_Way_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Outskirts_Guarded",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Outskirts_Guarded_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Outskirts_Alcove",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Village_After_Lever",
@@ -95827,7 +96252,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Village_Above_Claw",
@@ -95903,7 +96329,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Village_Above_Claw_Dupe",
@@ -95979,15 +96406,18 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Village_Below_Lore",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Mantis_Village_Above_Lever",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Above_Mantis_Lords_1",
@@ -96054,27 +96484,33 @@ locations = [
                     "$CASTSPELL"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Above_Mantis_Lords_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_After_Bouncy_Grub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_After_Bouncy_Grub_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Bouncy_Grub_Lever",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_After_Cornifer",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Above_City_Entrance",
@@ -96162,27 +96598,33 @@ locations = [
                     "$SHRIEKPOGO[7,before:ITEMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_By_Mantis_Lords_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Deepnest_Lower_Cornifer",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Core_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Core_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fungal_Core_Above_Elder",
@@ -96195,7 +96637,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Queen's_Gardens_Acid_Entrance",
@@ -96226,11 +96669,13 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Queen's_Gardens_Below_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fog_Canyon_East",
@@ -96262,19 +96707,23 @@ locations = [
                     "$TAKEDAMAGE[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Love_Key",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Love_Key_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Queen's_Gardens_Above_Marmu",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Pale_Lurker",
@@ -96319,71 +96768,88 @@ locations = [
                     "$SHRIEKPOGO[3]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Godhome_Pipeway",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Outside_Bench",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Below_Root",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_After_Root",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Below_Stash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Stash",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Stash_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Below_Grub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hive_Above_Mask",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Lower_Middle",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Lower_Conveyer_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Lower_Conveyer_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Before_Dark_Room",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Before_Dark_Room_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Above_Spike_Grub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Mimic_Grub",
@@ -96421,7 +96887,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Dive_Egg",
@@ -96434,7 +96901,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Dive_Egg_Dupe",
@@ -96447,47 +96915,58 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Conga_Line",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hallownest_Crown_Dive",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hallownest_Crown_Dive_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hallownest_Crown_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hallownest_Crown_Hidden_Dupe_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Hallownest_Crown_Hidden_Dupe_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Before_Crystal_Heart",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Entrance_Dupe_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Entrance_Dupe_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Above_Crushers_Lower",
@@ -96526,7 +97005,8 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Crystal_Peak_Above_Crushers_Higher",
@@ -96556,7 +97036,8 @@ locations = [
                     "$SHRIEKPOGO[1,5,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Resting_Grounds_Catacombs_Grub",
@@ -96727,7 +97208,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Resting_Grounds_Catacombs_Left_Dupe",
@@ -96806,7 +97288,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Resting_Grounds_Catacombs_Left",
@@ -96885,27 +97368,33 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Overgrown_Mound",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fluke_Hermit_Dupe",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Fluke_Hermit",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Pleasure_House",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-City_of_Tears_Quirrel",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-City_of_Tears_Lemm",
@@ -96942,11 +97431,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-City_of_Tears_Above_Lemm",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Soul_Sanctum",
@@ -96979,79 +97470,98 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Watcher's_Spire",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Above_King's_Station",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-King's_Station",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-King's_Pass_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-King's_Pass_Below_Fury",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-King's_Pass_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-King's_Pass_Collapse",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-King's_Pass_Above_Fury",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Waterways_Tuk",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Waterways_Tuk_Alcove",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Waterways_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Waterways_East",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Geo_Rock-Waterways_Flukemarm",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Massive_Moss_Charger",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Gorgeous_Husk",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Sanctum_Soul_Warrior",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Elegant_Soul_Warrior",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Crystal_Guardian",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Enraged_Guardian",
@@ -97064,11 +97574,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Gruz_Mother",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Boss_Geo-Vengefly_King",
@@ -97177,23 +97689,28 @@ locations = [
                     "$CASTSPELL[before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Basin",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Cliffs_Main",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Cliffs_Gorb",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Cliffs_Joni's",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crossroads_Goam_Journal",
@@ -97232,27 +97749,33 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crossroads_Shops",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crossroads_Mawlek_Upper",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crossroads_Acid",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crossroads_Mawlek_Lower",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crossroads_Myla",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Ancestral_Mound",
@@ -97351,11 +97874,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Distant_Village",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Deepnest_Vessel",
@@ -97376,27 +97901,33 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Mask_Maker",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Lower_Kingdom's_Edge_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Lower_Kingdom's_Edge_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Upper_Kingdom's_Edge",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Kingdom's_Edge_Camp",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Oro_Dive_2",
@@ -97445,15 +97976,18 @@ locations = [
                     "$TAKEDAMAGE"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Oro_Dive_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Oro",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-420_Geo_Rock",
@@ -97473,7 +98007,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Beast's_Den",
@@ -97554,23 +98089,28 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Greenpath_Hunter's_Journal",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Greenpath_MMC",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Greenpath_Below_Toll",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Before_Pilgrim's_Way",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Pilgrim's_Way",
@@ -97684,31 +98224,38 @@ locations = [
                     "$SHRIEKPOGO[1,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Fungal_Core",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Top_Left_Queen's_Gardens",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Below_Marmu",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Upper_Crystal_Peak",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Hallownest_Crown",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Outside_Crystallized_Mound",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crystal_Heart_1",
@@ -97794,7 +98341,8 @@ locations = [
                     "$SHRIEKPOGO[4,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crystal_Heart_2",
@@ -97871,7 +98419,8 @@ locations = [
                     "$SHRIEKPOGO[4,before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Crystallized_Mound",
@@ -97953,19 +98502,23 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Resting_Grounds",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Below_Xero",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Sanctum_Below_Soul_Master",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Sanctum_Below_Chest",
@@ -97994,7 +98547,8 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Sanctum_Above_Grub",
@@ -98030,15 +98584,18 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Waterways_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Top_Left_Waterways",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Waterways_East",
@@ -98133,11 +98690,13 @@ locations = [
                     "$SHRIEKPOGO[2]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Waterways_Flukemarm",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-White_Palace_Entrance",
@@ -98182,15 +98741,18 @@ locations = [
                     "$SHRIEKPOGO"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-White_Palace_Hub",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-White_Palace_Left",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-White_Palace_Final",
@@ -98257,11 +98819,13 @@ locations = [
                     "$SHRIEKPOGO[1,1,1,1]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-White_Palace_Right",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Below_Lever",
@@ -98296,7 +98860,8 @@ locations = [
                     "$SHRIEKPOGO[1,2,NOSTALL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Left_of_Lever",
@@ -98337,23 +98902,28 @@ locations = [
                     "$SHRIEKPOGO[1,2,NOSTALL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Second",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Below_Thornskip",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Path_of_Pain_Final",
@@ -98383,23 +98953,28 @@ locations = [
                     "$SHRIEKPOGO"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Soul_Totem-Pale_Lurker",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-City_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Pleasure_House",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Sanctum_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Sanctum_Past_Soul_Master",
@@ -98432,11 +99007,13 @@ locations = [
                     "$SHRIEKPOGO[before:AREASOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Watcher's_Spire",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Archives_Upper",
@@ -98473,7 +99050,8 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Archives_Left",
@@ -99893,7 +100471,8 @@ locations = [
                     "$SHRIEKPOGO[before:ROOMSOUL]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Archives_Right",
@@ -99937,51 +100516,63 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Pilgrim's_Way_1",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Pilgrim's_Way_2",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Mantis_Outskirts",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Mantis_Village",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Greenpath_Upper_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Greenpath_Below_Toll",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Greenpath_Lifeblood",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Greenpath_Stag",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Greenpath_QG",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Greenpath_Lower_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Dung_Defender",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Spore_Shroom",
@@ -100016,11 +100607,13 @@ locations = [
                     "$EQUIPPEDCHARM[Spore_Shroom]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Fungal_Wastes_Hidden",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Fungal_Wastes_Below_Shrumal_Ogres",
@@ -100033,7 +100626,8 @@ locations = [
                     "$EQUIPPEDCHARM[Spore_Shroom]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Fungal_Core",
@@ -100046,23 +100640,28 @@ locations = [
                     "$EQUIPPEDCHARM[Spore_Shroom]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Ancient_Basin",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-King's_Pass_Focus",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-King's_Pass_Fury",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-King's_Pass_Exit",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-World_Sense",
@@ -100075,11 +100674,13 @@ locations = [
                 "region_requirements": [],
                 "state_modifiers": []
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Howling_Cliffs",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Kingdom's_Edge",
@@ -100097,11 +100698,13 @@ locations = [
                     "$EQUIPPEDCHARM[Spore_Shroom]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Palace_Workshop",
-        "logic": []
+        "logic": [],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Palace_Throne",
@@ -100168,11 +100771,13 @@ locations = [
                     "$SHRIEKPOGO[1,1,1,1]"
                 ]
             }
-        ]
+        ],
+        "is_event": False
     },
     {
         "name": "Lore_Tablet-Path_of_Pain_Entrance",
-        "logic": []
+        "logic": [],
+        "is_event": False
     }
 ]
 transitions = [
