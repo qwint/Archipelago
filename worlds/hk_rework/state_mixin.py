@@ -62,7 +62,7 @@ class HKLogicMixin(LogicMixin):
         #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
 
                            # unneeded?
-        avaliable_states = deepcopy(self._hk_per_player_resource_states[player][region.name])
+        avaliable_states = self._hk_per_player_resource_states[player][region.name].copy()
         # loses the can_reach parent call, potentially re-add it?
 
         if not avaliable_states:

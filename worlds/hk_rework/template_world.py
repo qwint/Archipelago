@@ -4,7 +4,9 @@ from typing import List, Dict, Any, Callable
 
 
 class RandomizerCoreWorld(World):
-    # location_name_to_id = {name: index for index, name in enumerate([location["name"] for location in locations], base_id)}
+    # location_name_to_id = {
+    #     name: index for index, name in enumerate([location["name"] for location in locations], base_id)
+    # }
     # item_name_to_id = {name: index for index, name in enumerate([item["name"] for item in item_table], base_id)}
     location_name_to_id = {}
     item_name_to_id = {}
@@ -25,7 +27,10 @@ class RandomizerCoreWorld(World):
 
     def get_location_map(self) -> "List[Tuple(str, str, Optional[Any])]":
         rule_lookup = {location["name"]: location["logic"] for location in self.rc_locations}
-        return [(region["name"], location, rule_lookup[location]) for region in self.rc_regions for location in region["locations"]]
+        return [
+            (region["name"], location, rule_lookup[location])
+            for region in self.rc_regions for location in region["locations"]
+            ]
 
 # # black box methods
     def set_victory(self) -> None:
@@ -54,7 +59,8 @@ class RandomizerCoreWorld(World):
 
 # common methods
     def create_regions(self) -> None:
-        # create a local map of get_region_list names to region object for referencing in create_regions and adding those regions to the multiworld
+        # create a local map of get_region_list names to region object for referencing in create_regions
+        # and adding those regions to the multiworld
         regions = {region: None for region in self.get_region_list()}
         for region in regions.keys():
             regions[region] = self.region_class(region, self.player, self.multiworld)
@@ -65,7 +71,6 @@ class RandomizerCoreWorld(World):
             ent = regions[region1].connect(regions[region2])
             if rule:
                 self.set_rule(ent, self.create_rule(rule))
-
 
         # loop through get_location_map, adding the rules per self.create_rule(rule) if present to the location
         for region, location, rule in self.get_location_map():
