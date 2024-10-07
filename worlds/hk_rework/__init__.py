@@ -157,34 +157,40 @@ class HKEntrance(Entrance):
             for region in indirection_connections:
                 reg = multiworld.get_region(region, self.player)
                 multiworld.register_indirect_condition(reg, self)
+        if self.hk_rule != default_hk_rule:
+            self.access_rule = self.hk_access_rule
 
     def access_rule(self, state: CollectionState) -> bool:
+        state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
+        state._hk_apply_and_validate_state(self.hk_rule[0], self.parent_region, target_region=self.connected_region)
+        return True
+
+    def hk_access_rule(self, state: CollectionState) -> bool:
         if self.hk_rule == default_hk_rule:
-            state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
-            state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
-            return True
+            assert False, "should never have to be here"
+            # state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
+            # state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
+            # return True
         if self.name not in state._hk_entrance_clause_cache[self.player]:
             # if there's no cache for this entrance, make one with everything False
-            state._hk_entrance_clause_cache[self.player][self.name] = {index: False for index, _ in enumerate(self.hk_rule)}
+            cache = state._hk_entrance_clause_cache[self.player][self.name] = \
+                {index: False for index in range(len(self.hk_rule))}
+        else:
+            cache = state._hk_entrance_clause_cache[self.player][self.name]
 
         # check every clause, caching item state accessibility
         valid_clauses = {}
         for index, clause in enumerate(self.hk_rule):
-            if state._hk_entrance_clause_cache[self.player][self.name][index]:
+            if cache[index]:
                 if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
                     valid_clauses[index] = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
-                state._hk_entrance_clause_cache[self.player][self.name][index] = True
+                cache[index] = True
                 if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
                     valid_clauses[index] = True
 
-        if self.parent_region == "Menu":
-            print(valid_clauses)
-        if any(clause for clause in valid_clauses.values()):
-            return True
-        else:
-            return False
+        return any(clause for clause in valid_clauses.values())
 
 
 class HKRegion(Region):
@@ -192,11 +198,7 @@ class HKRegion(Region):
 
     def can_reach(self, state) -> bool:
         state._hk_sweep(self.player)
-        ret = super().can_reach(state)
-
-        if ret and not state._hk_per_player_resource_states[self.player][self.name]:
-            assert self not in state.reachable_regions[self.player], f"{self.name} assessibility passed with no known resource state"
-        return ret
+        return super().can_reach(state)
 
 
 shop_locations = multi_locations
@@ -276,7 +278,9 @@ class HKWorld(RandomizerCoreWorld):
         super().create_items()
 
         # TODO see if there's a better way to get these numbers
-        item_difference = len([item for item in self.multiworld.itempool if item.player == self.player]) - len(self.multiworld.get_unfilled_locations(self.player))
+        item_difference = \
+            len([item for item in self.multiworld.itempool if item.player == self.player]) - \
+            len(self.multiworld.get_unfilled_locations(self.player))
         if item_difference > 0:
             self.add_extra_shop_locations(item_difference)
 
@@ -326,7 +330,7 @@ class HKWorld(RandomizerCoreWorld):
 
             if event_location.startswith("Start"):
                 continue
-                # # TODO handle this better / get better extracted itemdata
+                # TODO handle this better / get better extracted itemdata
 
             if event_location in unshuffled_location_lookup:
                 item_name = self.pool_lookup[event_location]
@@ -464,10 +468,6 @@ class HKWorld(RandomizerCoreWorld):
             item_requirements = clause["item_requirements"]
             state_requirements = []
             skip_clause = False
-            valid_keys = {key for key in ("ROOMSOUL", "AREASOUL", "MAPAREASOUL")}
-            # TODO with ER change this logic
-            if self.options.RandomizeCharms:  # TODO confirm
-                valid_keys.update("ITEMSOUL")
 
             for req in clause["state_modifiers"]:
                 # print(req)
@@ -839,17 +839,6 @@ class HKWorld(RandomizerCoreWorld):
                 if state.prog_items[player][effect_name] < 1:
                     del (state.prog_items[player][effect_name])
 
-    @staticmethod
-    def set_resource_thresholds(prog_items, item_name):
-        if item_name == "Vessel_Fragment":
-            prog_items["TOTAL_SOUL"] = 12 + (4 * int(prog_items["Vessel_Fragment"] / 3))
-        elif item_name == "Mask_Shard":
-            prog_items["TOTAL_HEALTH"] = 4 + (4 * int(prog_items["Mask_Shard"] / 4))
-            prog_items["SHADE_HEALTH"] = max(int(prog_items["TOTAL_HEALTH"]/2), 1)
-        elif item_name == "Charm_Notch":
-            # TODO consider switching to += 1
-            prog_items["TOTAL_NOTCHES"] = 3 + prog_items["Charm_Notch"]
-
     def collect(self, state, item: HKItem) -> bool:
         change = super(HKWorld, self).collect(state, item)
         if change:
@@ -873,7 +862,6 @@ class HKWorld(RandomizerCoreWorld):
                         ([max(prog_items["RIGHTDASH"], prog_items["LEFTDASH"])] * 2)    
             else:
                 self.edit_effects(state, item.player, item.name, add=True)
-            # self.set_resource_thresholds(prog_items, item.name)
             state._hk_stale[item.player] = True
         return change
 
@@ -900,7 +888,6 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.edit_effects(state, item.player, item.name, add=False)
 
-            # self.set_resource_thresholds(prog_items, item.name)
             state._hk_stale[item.player] = True
         return change
 
