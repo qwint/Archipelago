@@ -24,8 +24,8 @@ item_name_groups["WhiteFragments"] = set(affecting_items_by_term["WHITEFRAGMENT"
 
 item_name_groups['Horizontal'] = item_name_groups['Cloak'] | item_name_groups['CDash']
 item_name_groups['Vertical'] = item_name_groups['Claw'] | {'Monarch_Wings'}
-# TODO remove: from pool_options now
-# item_name_groups['Skills'] |= item_name_groups['Vertical'] | item_name_groups['Horizontal']
+# add split movement to skills
+item_name_groups['Skills'] |= item_name_groups['Vertical'] | item_name_groups['Horizontal']
 
 
 items = {item for item in progression_effect_lookup.keys()} | set(non_progression_items)
