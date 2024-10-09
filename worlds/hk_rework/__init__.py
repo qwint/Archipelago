@@ -549,6 +549,8 @@ class HKWorld(RandomizerCoreWorld):
             self.event_locations.append("Elevator_Pass")
 
         if self.options.SplitCrystalHeart:
+            # TODO sometimes the split cdash event gets created when R+L cdash get created too
+# [Game] (game='Hollow Knight', seed=10739868658950153279) SUBFAIL worlds/hk_rework/test/test_Settings.py::TestSplit_All::test_fill - Fill.FillError: Not enough locations for progression items. There are 1 more progression items than there are avail...
             if "Crystal_Heart" in location_list:
                 location_list.append("Split_Crystal_Heart")
             else:
@@ -828,34 +830,7 @@ class HKWorld(RandomizerCoreWorld):
         return exclusions
 
     @staticmethod
-    def edit_effects(state, player: int, item: str, add: bool):
-        lookup = progression_effect_lookup[item]
-        # if lookup["type"] not in ("incrementTerms",):
-        #     breakpoint()
-        # if "Grimm" in item:
-        #     breakpoint()
-        if lookup["type"] == "incrementTerms":
-            item_effects = lookup["effects"]
-        elif lookup["type"] == "threshold":
-            count = state.prog_items[player][lookup["term"]]
-            if count == lookup["threshold"]:
-                item_effects = lookup["at_threshold"]
-            elif count < lookup["threshold"]:
-                item_effects = lookup["below_threshold"]
-            else:
-                item_effects = lookup["above_threshold"]
-
-
-            # TODO bandaid
-            item_effects[lookup["term"]] = 1
-
-        elif lookup["type"] == "branching":
-            item_effects = {"LEFTCLAW": 1, "RIGHTCLAW": 1}
-        elif lookup["type"] == "conditional":
-            item_effects = {"LEFTDASH": 1, "RIGHTDASH": 1}
-        else:
-            raise Exception(f"Unknown effect type collected for item {item}")
-
+    def edit_effects(state, player: int, item_effects: Dict[str, int], add: bool):
         if add:
             for effect_name, effect_value in item_effects.items():
                 state.prog_items[player][effect_name] += effect_value
@@ -867,19 +842,73 @@ class HKWorld(RandomizerCoreWorld):
 
     def collect(self, state, item: HKItem) -> bool:
         if item.advancement:
-            if item.name in progression_effect_lookup:
-                self.edit_effects(state, item.player, item.name, add=True)
+            player = item.player
+            if item.name not in progression_effect_lookup:
+                # handle events that don't have effects by adding them as their own terms
+                state.prog_items[player][item.name] += 1
             else:
-                state.prog_items[item.player][item.name] += 1
+                lookup = progression_effect_lookup[item.name]
+                add = True
+
+                if lookup["type"] == "incrementTerms":
+                    self.edit_effects(state, player, lookup["effects"], add)
+                elif lookup["type"] == "threshold":
+                    count = state.prog_items[player][lookup["term"]]
+                    if count == lookup["threshold"]:
+                        self.edit_effects(state, player, lookup["at_threshold"], add)
+                    elif count < lookup["threshold"]:
+                        self.edit_effects(state, player, lookup["below_threshold"], add)
+                    else:
+                        self.edit_effects(state, player, lookup["above_threshold"], add)
+
+                    # add term as well as effects to state
+                    self.edit_effects(state, player, {lookup["term"]: 1}, add)
+
+                elif lookup["type"] == "branching":
+                    # TODO
+                    self.edit_effects(state, player, {"LEFTCLAW": 1, "RIGHTCLAW": 1}, add)
+                elif lookup["type"] == "conditional":
+                    # TODO
+                    self.edit_effects(state, player, {"LEFTDASH": 1, "RIGHTDASH": 1}, add)
+                else:
+                    raise Exception(f"Unknown effect type collected for item {item.name}")
+
             state._hk_stale[item.player] = True
         return item.advancement
 
     def remove(self, state, item: HKItem) -> bool:
         if item.advancement:
-            if item.name in progression_effect_lookup:
-                self.edit_effects(state, item.player, item.name, add=False)
+            player = item.player
+            if item.name not in progression_effect_lookup:
+                # handle events that don't have effects by adding them as their own terms
+                state.prog_items[player][item.name] -= 1
             else:
-                state.prog_items[item.player][item.name] -= 1
+                lookup = progression_effect_lookup[item.name]
+                add = False
+
+                if lookup["type"] == "incrementTerms":
+                    self.edit_effects(state, player, lookup["effects"], add)
+                elif lookup["type"] == "threshold":
+                    # increment term before checking threshold
+                    self.edit_effects(state, player, {lookup["term"]: 1}, add)
+
+                    count = state.prog_items[player][lookup["term"]]
+                    if count == lookup["threshold"]:
+                        self.edit_effects(state, player, lookup["at_threshold"], add)
+                    elif count < lookup["threshold"]:
+                        self.edit_effects(state, player, lookup["below_threshold"], add)
+                    else:
+                        self.edit_effects(state, player, lookup["above_threshold"], add)
+
+                elif lookup["type"] == "branching":
+                    # TODO
+                    self.edit_effects(state, player, {"LEFTCLAW": 1, "RIGHTCLAW": 1}, add)
+                elif lookup["type"] == "conditional":
+                    # TODO
+                    self.edit_effects(state, player, {"LEFTDASH": 1, "RIGHTDASH": 1}, add)
+                else:
+                    raise Exception(f"Unknown effect type removed for item {item.name}")
+
             state._hk_entrance_clause_cache[item.player] = {}
             state._hk_per_player_sweepable_entrances[item.player] = {entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits}
 
