@@ -22,7 +22,7 @@ from .Options import hollow_knight_options, hollow_knight_randomize_options, Goa
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
 from .Charms import names as charm_names, charm_name_to_id
 
-from .ExtractedData import item_effects, vanilla_shop_costs, vanilla_location_costs  # multi_locations, logic_options, pool_options, items as extracted_items, logic_items
+from .ExtractedData import vanilla_shop_costs, vanilla_location_costs  # item_effects, multi_locations, logic_options, pool_options, items as extracted_items, logic_items
 from .Items import item_name_groups, item_name_to_id, location_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
@@ -829,65 +829,62 @@ class HKWorld(RandomizerCoreWorld):
 
     @staticmethod
     def edit_effects(state, player: int, item: str, add: bool):
-        for effect_name, effect_value in item_effects.get(item, {}).items():
-            if add:
-                state.prog_items[player][effect_name] += effect_value
+        lookup = progression_effect_lookup[item]
+        # if lookup["type"] not in ("incrementTerms",):
+        #     breakpoint()
+        # if "Grimm" in item:
+        #     breakpoint()
+        if lookup["type"] == "incrementTerms":
+            item_effects = lookup["effects"]
+        elif lookup["type"] == "threshold":
+            count = state.prog_items[player][lookup["term"]]
+            if count == lookup["threshold"]:
+                item_effects = lookup["at_threshold"]
+            elif count < lookup["threshold"]:
+                item_effects = lookup["below_threshold"]
             else:
+                item_effects = lookup["above_threshold"]
+
+
+            # TODO bandaid
+            item_effects[lookup["term"]] = 1
+
+        elif lookup["type"] == "branching":
+            item_effects = {"LEFTCLAW": 1, "RIGHTCLAW": 1}
+        elif lookup["type"] == "conditional":
+            item_effects = {"LEFTDASH": 1, "RIGHTDASH": 1}
+        else:
+            raise Exception(f"Unknown effect type collected for item {item}")
+
+        if add:
+            for effect_name, effect_value in item_effects.items():
+                state.prog_items[player][effect_name] += effect_value
+        else:
+            for effect_name, effect_value in item_effects.items():
                 state.prog_items[player][effect_name] -= effect_value
                 if state.prog_items[player][effect_name] < 1:
                     del (state.prog_items[player][effect_name])
 
     def collect(self, state, item: HKItem) -> bool:
-        change = super(HKWorld, self).collect(state, item)
-        if change:
-            prog_items = state.prog_items[item.player]
-            if item.name in {"Left_Mothwing_Cloak", "Right_Mothwing_Cloak"}:
-                # # reset dash effects to 0 and recalc
-                # prog_items['RIGHTDASH'] = 0
-                # prog_items['LEFTDASH'] = 0
-                # for _ in range(prog_items["Right_Mothwing_Cloak"]):
-                #     self.edit_effects(state, "Right_Mothwing_Cloak", add=True)
-                # for _ in range(prog_items["Left_Mothwing_Cloak"]):
-                #     self.edit_effects(state, "Left_Mothwing_Cloak", add=True)
-
-                # should just be able to add the new effect
+        if item.advancement:
+            if item.name in progression_effect_lookup:
                 self.edit_effects(state, item.player, item.name, add=True)
-
-                # if we have both cloaks keep them in step to account for shade cloak
-                if prog_items.get('RIGHTDASH', 0) and \
-                        prog_items.get('LEFTDASH', 0):
-                    (prog_items["RIGHTDASH"], prog_items["LEFTDASH"]) = \
-                        ([max(prog_items["RIGHTDASH"], prog_items["LEFTDASH"])] * 2)    
             else:
-                self.edit_effects(state, item.player, item.name, add=True)
+                state.prog_items[item.player][item.name] += 1
             state._hk_stale[item.player] = True
-        return change
+        return item.advancement
 
     def remove(self, state, item: HKItem) -> bool:
-        change = super(HKWorld, self).remove(state, item)
-        if change:
+        if item.advancement:
+            if item.name in progression_effect_lookup:
+                self.edit_effects(state, item.player, item.name, add=False)
+            else:
+                state.prog_items[item.player][item.name] -= 1
             state._hk_entrance_clause_cache[item.player] = {}
             state._hk_per_player_sweepable_entrances[item.player] = {entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits}
-            prog_items = state.prog_items[item.player]
-            if item.name in {"Left_Mothwing_Cloak", "Right_Mothwing_Cloak"}:
-                # reset dash effects to 0 and recalc
-                prog_items['RIGHTDASH'] = 0
-                prog_items['LEFTDASH'] = 0
-                for _ in range(prog_items["Right_Mothwing_Cloak"]):
-                    self.edit_effects(state, item.player, "Right_Mothwing_Cloak", add=True)
-                for _ in range(prog_items["Left_Mothwing_Cloak"]):
-                    self.edit_effects(state, item.player, "Left_Mothwing_Cloak", add=True)
-
-                # if we have both cloaks keep them in step to account for shade cloak
-                if prog_items.get('RIGHTDASH', 0) and \
-                        prog_items.get('LEFTDASH', 0):
-                    (prog_items["RIGHTDASH"], prog_items["LEFTDASH"]) = \
-                        ([max(prog_items["RIGHTDASH"], prog_items["LEFTDASH"])] * 2)
-            else:
-                self.edit_effects(state, item.player, item.name, add=False)
 
             state._hk_stale[item.player] = True
-        return change
+        return item.advancement
 
     def fill_slot_data(self):
         slot_data = {}
