@@ -740,8 +740,9 @@ class WarpToBenchResetVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def ModifyState(self, state_blob, item_state, player):
-        sq_states = self.sq_reset.ModifyState(state_blob, item_state, player)
-        return (output_state for s in sq_states for output_state in bench_reset.ModifyState(s, item_state, player))
+        # under the knowledge that these do not proliferate state
+        sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
+        yield next(bench_reset.ModifyState(sq_state, item_state, player))
         # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
@@ -774,8 +775,9 @@ class WarpToStartResetVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def ModifyState(self, state_blob, item_state, player):
-        sq_states = self.sq_reset.ModifyState(state_blob, item_state, player)
-        return (output_state for s in sq_states for output_state in self.start_reset.ModifyState(s, item_state, player))
+        # under the knowledge that these do not proliferate state
+        sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
+        yield next(self.start_reset.ModifyState(sq_state, item_state, player))
         # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
