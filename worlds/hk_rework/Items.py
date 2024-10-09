@@ -3,7 +3,13 @@ from .data.location_data import multi_locations
 from .data.item_data import affecting_items_by_term, progression_effect_lookup, non_progression_items
 
 # strip "Randomize" from pool options and use their names as group names
-item_name_groups = {key[9:]: {pair["item"] for pair in value} for key, value in pool_options.items()}
+item_name_groups = {
+    key[9:]: {pair["item"] for pair in value}
+    for key, value in pool_options.items()
+
+    # TODO dynamically exclude these if possible
+    if key not in ("RandomizeSwim", "RandomizeFocus")
+    }
 
 # override to remove world sense
 item_name_groups["Dreamers"] = set(affecting_items_by_term["DREAMER"])
