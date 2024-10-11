@@ -230,8 +230,6 @@ class EQVariable(DirectCompare, RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        # print(state_blob[self.term])
         if self.value.isdigit():
             return state_blob[self.term] == int(self.value), state_blob
         else:
@@ -243,15 +241,13 @@ class EQVariable(DirectCompare, RCStateVariable):
 class GTVariable(DirectCompare, RCStateVariable):
     term: str
     op: str = ">"
-    value: str  # may be int or bool
+    value: str
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        # print(state_blob[self.term])
         assert self.value.isdigit()
         return state_blob[self.term] > int(self.value), state_blob
 
@@ -259,15 +255,13 @@ class GTVariable(DirectCompare, RCStateVariable):
 class GTVariable(DirectCompare, RCStateVariable):
     term: str
     op: str = "<"
-    value: str  # may be int or bool
+    value: str
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        # print(state_blob[self.term])
         assert self.value.isdigit()
         return state_blob[self.term] < int(self.value), state_blob
 
@@ -275,33 +269,29 @@ class GTVariable(DirectCompare, RCStateVariable):
 class RCResetter():
     reset_properties: List[str]
 
+    def parse_term(self):
+        pass
+
     def _ModifyState(self, state_blob, item_state, player):
         for reset in self.reset_properties:
             state_blob[reset] = 0
         return True, state_blob
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return term.startswith(cls.prefix)
+
+    def can_exclude(self, options):
+        return False
 
 
 class BenchResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
     reset_properties = ["BenchResetCondition", "SPENTSHADE", "SPENTNOTCHES", "DAMAGE"]
 
-    def parse_term(self):
-        pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
-
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     pass
-
-    def can_exclude(self, options):
-        return False
 
 
 class CastSpellVariable(RCStateVariable):
@@ -429,11 +419,7 @@ class FragileCharmVariable(EquipCharmVariable):
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
-        # TODO actually
         return True, state_blob
-
-    # def can_exclude(self, options):
-        # return False
 
 
 class WhiteFragmentEquipVariable(EquipCharmVariable):
@@ -471,54 +457,23 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     #     print(self.void)
     #     return super()._ModifyState(state_blob, item_state, player)
 
-    # def can_exclude(self, options):
-        # return False
-
 
 class FlowerProviderVariable(RCResetter, RCStateVariable):
     prefix = "$FLOWERGET"
     reset_properties = ["NOFLOWER"]
 
-    def parse_term(self):
-        pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
-
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     state_blob["NoFlower"] = 0
-
-    def can_exclude(self, options):
-        return False
 
 
 class HotSpringResetVariable(RCResetter, RCStateVariable):
     prefix = "$HOTSPRINGRESET"
     reset_properties = ["HotSpringResetCondition", "SPENTSOUL", "DAMAGE"]
 
-    def parse_term(self):
-        pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
-
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     pass
-
-    def can_exclude(self, options):
-        return False
 
 
 class RegainSoulVariable(RCStateVariable):
@@ -553,23 +508,9 @@ class SaveQuitResetVariable(RCResetter, RCStateVariable):
     prefix = "$SAVEQUITRESET"
     reset_properties = ["SaveQuitConditionalReset", "DAMAGE"]
 
-    def parse_term(self):
-        pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
-
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     pass
-
-    def can_exclude(self, options):
-        return False
 
 
 class ShadeStateVariable(RCStateVariable):
@@ -609,9 +550,6 @@ class ShadeStateVariable(RCStateVariable):
 class ShriekPogoVariable(CastSpellVariable):
     prefix = "$SHRIEKPOGO"
 
-    # def parse_term(self):
-    #     pass
-
     @classmethod
     def TryMatch(cls, term: str):
         return term.startswith(cls.prefix)
@@ -638,9 +576,6 @@ class ShriekPogoVariable(CastSpellVariable):
 
 class SlopeballVariable(CastSpellVariable):
     prefix = "$SLOPEBALL"
-
-    # def parse_term(self):
-    #     pass
 
     @classmethod
     def TryMatch(cls, term: str):
@@ -708,7 +643,6 @@ class StagStateVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
         state_blob["NOFLOWER"] = True
         return True, state_blob
 
@@ -720,13 +654,6 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
     reset_properties = ["StartRespawnResetCondition", "DAMAGE"]
 
-    def parse_term(self):
-        pass
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
@@ -735,8 +662,6 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
     #     # TODO figure this out
     #     pass
 
-    def can_exclude(self, options):
-        return False
 
 # i don't know what this is for; says it's for handling subhandlers but not sure when
 # class StateModifierWrapper(RCStateVariable):
