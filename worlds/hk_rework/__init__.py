@@ -482,7 +482,7 @@ class HKWorld(RandomizerCoreWorld):
             for req in clause["state_modifiers"]:
                 # print(req)
                 if req == "NOFLOWER=FALSE":
-                    # TODO flesh out and actually add requirement
+                    # TODO there's a handler but flowerprovider is not working yet
                     continue
 
                 handler = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))

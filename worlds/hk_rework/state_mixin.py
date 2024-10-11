@@ -1,5 +1,5 @@
 from BaseClasses import MultiWorld, CollectionState, Region
-from typing import TYPE_CHECKING, Tuple, NamedTuple, Dict, Set, Any, List, Type, Generator, Optional
+from typing import TYPE_CHECKING, Tuple, NamedTuple, Dict, Set, Any, List, Type, Generator, Optional, ClassVar
 from worlds.AutoWorld import LogicMixin
 from .Charms import names as charm_names, charm_name_to_id
 from collections import Counter
@@ -202,6 +202,74 @@ class RCStateVariable(metaclass=resource_state_handler):
 
     def can_exclude(self, options) -> bool:
         return True
+
+
+class DirectCompare():
+    term: str
+    op: ClassVar[str]
+    value: str  # may be int or bool
+
+    def __init__(self, term):
+        self.term, self.value = (*term.split(self.op),)
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return cls.op in term
+
+    def can_exclude(self, options):
+        return False
+
+
+class EQVariable(DirectCompare, RCStateVariable):
+    term: str
+    op: str = "="
+    value: str  # may be int or bool
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    def _ModifyState(self, state_blob, item_state, player):
+        # TODO figure this out
+        # print(state_blob[self.term])
+        if self.value.isdigit():
+            return state_blob[self.term] == int(self.value), state_blob
+        else:
+            v = self.value == "TRUE"
+            assert v or self.value == "FALSE"
+            return state_blob[self.term] == v, state_blob
+
+
+class GTVariable(DirectCompare, RCStateVariable):
+    term: str
+    op: str = ">"
+    value: str  # may be int or bool
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    def _ModifyState(self, state_blob, item_state, player):
+        # TODO figure this out
+        # print(state_blob[self.term])
+        assert self.value.isdigit()
+        return state_blob[self.term] > int(self.value), state_blob
+
+
+class GTVariable(DirectCompare, RCStateVariable):
+    term: str
+    op: str = "<"
+    value: str  # may be int or bool
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    def _ModifyState(self, state_blob, item_state, player):
+        # TODO figure this out
+        # print(state_blob[self.term])
+        assert self.value.isdigit()
+        return state_blob[self.term] < int(self.value), state_blob
 
 
 class RCResetter():
