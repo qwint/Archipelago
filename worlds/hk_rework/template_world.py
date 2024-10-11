@@ -92,7 +92,7 @@ class RandomizerCoreWorld(World):
     def set_rules(self):
         pass
 
-    def create_items(self) -> None:
+    def create_items(self) -> int:
         # create all items in get_item_list()
         itempool = []
         for item in self.get_item_list():
@@ -103,6 +103,7 @@ class RandomizerCoreWorld(World):
         while len(itempool) < total_locations:
             itempool.append(self.create_filler())
         self.multiworld.itempool += itempool
+        return len(itempool)
 
     def create_item(self, name: str) -> "Item":
         classification = self.get_item_classification(name)

@@ -3,7 +3,7 @@ import itertools
 import operator
 
 from copy import deepcopy
-from collections import Counter
+from collections import Counter, defaultdict
 from typing import List, Dict, Any, Tuple, NamedTuple, Optional, cast, Set
 
 from BaseClasses import Location, Item, ItemClassification, Tutorial, CollectionState, MultiWorld, Region, Entrance, LocationProgressType
@@ -22,7 +22,6 @@ from .Options import hollow_knight_options, hollow_knight_randomize_options, Goa
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
 from .Charms import names as charm_names, charm_name_to_id
 
-from .ExtractedData import vanilla_shop_costs, vanilla_location_costs  # item_effects, multi_locations, logic_options, pool_options, items as extracted_items, logic_items
 from .Items import item_name_groups, item_name_to_id, location_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
@@ -203,6 +202,18 @@ class HKRegion(Region):
 
 shop_locations = multi_locations
 event_locations = [location["name"] for location in locations if location["is_event"]]
+vanilla_cost_data = [pair for option in pool_options.values() for pair in option if pair["costs"]]
+vanilla_location_costs = {
+    pair["location"]: {cost["term"]: cost["amount"] for cost in pair["costs"]}
+    for pair in vanilla_cost_data
+    if pair["location"] not in multi_locations
+    }
+vanilla_shop_costs = defaultdict(list)
+for i in vanilla_cost_data:
+    if i["location"] not in multi_locations:
+        continue
+    costs = {cost["term"]: cost["amount"] for cost in i["costs"]}
+    vanilla_shop_costs[(i["location"], i["item"])].append(costs)
 
 hk_regions = [region for region in cast(List[Dict[str, Any]], regions) if not region["name"].startswith("$")]
 hk_locations = [location for location in cast(List[Dict[str, Any]], locations)]  #  if location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
@@ -273,12 +284,10 @@ class HKWorld(RandomizerCoreWorld):
                 self.multiworld.get_location(location, self.player).costs = costs
 
     def create_items(self):
-        super().create_items()
+        pool_count = super().create_items()
 
-        # TODO see if there's a better way to get these numbers
         item_difference = \
-            len([item for item in self.multiworld.itempool if item.player == self.player]) - \
-            len(self.multiworld.get_unfilled_locations(self.player))
+            pool_count - len(self.multiworld.get_unfilled_locations(self.player))
         if item_difference > 0:
             self.add_extra_shop_locations(item_difference)
 
@@ -289,12 +298,15 @@ class HKWorld(RandomizerCoreWorld):
 # extra handling
     def add_vanilla_connections(self):
         from .data.trando_data import transitions
-        trans_data = transitions  # TODO fully move
 
-        transition_name_to_region = {transition: region["name"] for region in self.rc_regions for transition in region["transitions"]}
+        transition_name_to_region = {
+            transition: region["name"]
+            for region in self.rc_regions
+            for transition in region["transitions"]
+            }
         vanilla_connections = [
             (transition_name_to_region[name], transition_name_to_region[t["vanilla_target"]], name)
-            for name, t in trans_data.items() if t["sides"] != "OneWayOut"
+            for name, t in transitions.items() if t["sides"] != "OneWayOut"
             ]
 
         for connection in vanilla_connections:
