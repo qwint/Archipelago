@@ -9,7 +9,7 @@ from Utils import KeyedDefaultDict
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-default_state = Counter({"DAMAGE": 0, "SPENTSHADE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "SPENTNOTCHES": 0})
+default_state = Counter({"NOFLOWER": 1})
 BASE_SOUL = 12
 BASE_NOTCHES = 3
 BASE_HEALTH = 4
@@ -48,8 +48,8 @@ class HKLogicMixin(LogicMixin):
         #     self.prog_items[player]["TOTAL_NOTCHES"] = BASE_NOTCHES
 
     def copy_mixin(self, other) -> CollectionState:
-        other._hk_per_player_resource_states = self._hk_per_player_resource_states
-        other._hk_free_entrances = self._hk_free_entrances
+        other._hk_per_player_resource_states = self._hk_per_player_resource_states.copy()
+        other._hk_free_entrances = self._hk_free_entrances.copy()
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
@@ -111,8 +111,9 @@ class HKLogicMixin(LogicMixin):
             return False
 
     def _hk_sweep(self, player):
-        if not (self._hk_stale[player] or self.stale[player]):
+        if not self._hk_stale[player]:
             return
+        self._hk_stale[player] = False
         # assume not stale and only evaluate true clauses
         # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
@@ -120,7 +121,9 @@ class HKLogicMixin(LogicMixin):
             # random pop but i don't really care
             entrance_name = self._hk_per_player_sweepable_entrances[player].pop()
             entrance = self.multiworld.get_entrance(entrance_name, player)
-            entrance.can_reach(self)
+            if entrance.parent_region in self.reachable_regions[player]:
+                # let normal sweep find new regions
+                entrance.can_reach(self)
             # if entrance_name not in self._hk_entrance_clause_cache[player]:
             #     entrance.can_reach(self)
             #     # then we haven't done a single can_reach on it, let normal sweep handle that
@@ -128,7 +131,6 @@ class HKLogicMixin(LogicMixin):
 
             # for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
             #     self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
-        self._hk_stale[player] = False
 
 
 def ge(state1, state2) -> bool:
@@ -188,7 +190,7 @@ class RCStateVariable(metaclass=resource_state_handler):
     @classmethod
     def GetTerms(cls):
         """"""
-        pass
+        return []
 
     def ModifyState(self, state_blob, item_state, player):  # -> Generator["state_blob"]:
         # print(self)
@@ -274,7 +276,7 @@ class RCResetter():
 
     def _ModifyState(self, state_blob, item_state, player):
         for reset in self.reset_properties:
-            state_blob[reset] = 0
+            del state_blob[reset]
         return True, state_blob
 
     @classmethod
@@ -400,6 +402,11 @@ class EquipCharmVariable(RCStateVariable):
 
 class FragileCharmVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
+    fragile_lookup = {
+        23: ["Fragile_Heart", "Unbreakable_Heart"],
+        24: ["Fragile_Greed", "Unbreakable_Greed"],
+        25: ["Fragile_Strength", "Unbreakable_Strength"],
+    }
 
     # def parse_term(self):
     #     pass
@@ -408,7 +415,7 @@ class FragileCharmVariable(EquipCharmVariable):
     def TryMatch(cls, term: str):
         if term.startswith(cls.prefix):
             charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
-            if charm_id in (23, 24, 25):
+            if charm_id in cls.fragile_lookup:
                 return True
         # else
         return False
@@ -418,8 +425,11 @@ class FragileCharmVariable(EquipCharmVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        return True, state_blob
+        # TODO flush out with charm notch checking etc.
+        if item_state.has_from_list(self.fragile_lookup[self.charm_id], player, 1):
+            return True, state_blob
+        else:
+            return False, state_blob
 
 
 class WhiteFragmentEquipVariable(EquipCharmVariable):
@@ -643,7 +653,7 @@ class StagStateVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        state_blob["NOFLOWER"] = True
+        state_blob["NOFLOWER"] = 1
         return True, state_blob
 
     def can_exclude(self, options):

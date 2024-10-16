@@ -22,7 +22,7 @@ from .Options import hollow_knight_options, hollow_knight_randomize_options, Goa
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
 from .Charms import names as charm_names, charm_name_to_id
 
-from .Items import item_name_groups, item_name_to_id, location_name_to_id  # item_table, lookup_type_to_names, item_name_groups
+from .Items import item_name_groups, item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
 
@@ -219,6 +219,15 @@ hk_regions = [region for region in cast(List[Dict[str, Any]], regions) if not re
 hk_locations = [location for location in cast(List[Dict[str, Any]], locations)]  #  if location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
 
 
+datapackage_locs = {loc["name"] for loc in locations if not loc["is_event"]}
+datapackage_locs = [loc for loc in datapackage_locs if loc not in multi_locations]
+datapackage_locs += [f"{shop}_{i+1}" for shop in multi_locations for i in range(16) if shop != "Start"]
+location_name_to_id = {
+    location_name: location_id for location_id, location_name in
+    enumerate(sorted(datapackage_locs), start=0x1000000)
+}
+
+
 class HKWorld(RandomizerCoreWorld):
     """Beneath the fading town of Dirtmouth sleeps a vast, ancient kingdom. Many are drawn beneath the surface, 
     searching for riches, or glory, or answers to old secrets.
@@ -247,6 +256,7 @@ class HKWorld(RandomizerCoreWorld):
         for option, pairs in pool_options.items()
         for pair in pairs
         }
+    entrance_by_term: Dict[str, List[str]]
 
     cached_filler_items: Dict[int, List[str]] = {}  # per player cache
     event_locations: List[str]
@@ -263,6 +273,7 @@ class HKWorld(RandomizerCoreWorld):
         self.created_shop_items = 0
         self.vanilla_shop_costs = deepcopy(vanilla_shop_costs)
         self.event_locations = deepcopy(event_locations)
+        self.entrance_by_term = defaultdict(list)
 
     # def get_region_list(self) -> List[str]:
     #     return super().get_region_list()
@@ -507,9 +518,15 @@ class HKWorld(RandomizerCoreWorld):
 
         return hk_rule
 
-    @staticmethod
-    def set_rule(spot, rule):
+    def set_rule(self, spot, rule):
         # set hk_rule instead of access_rule because our Location class defines a custom access_rule
+        if isinstance(spot, HKEntrance):
+            relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
+            relevant_terms.update({term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.GetTerms()})
+            for term in relevant_terms:
+                # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh
+                self.entrance_by_term[term].append(spot.name)
+
         spot.set_hk_rule(rule)
 
     def get_connections(self) -> "List[Tuple[str, str, Optional[Any]]]":
@@ -922,7 +939,9 @@ class HKWorld(RandomizerCoreWorld):
                     raise Exception(f"Unknown effect type removed for item {item.name}")
 
             state._hk_entrance_clause_cache[item.player] = {}
-            state._hk_per_player_sweepable_entrances[item.player] = {entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits}
+            state._hk_per_player_sweepable_entrances[item.player] = {
+                entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits
+                }
 
             state._hk_stale[item.player] = True
         return item.advancement

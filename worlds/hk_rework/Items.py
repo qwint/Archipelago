@@ -40,11 +40,3 @@ item_name_to_id = {
     item_name: item_id for item_id, item_name in
     enumerate(sorted(items), start=0x1000000)
 }
-
-locations = {pair["location"] for pairs in pool_options.values() for pair in pairs}
-locations = [loc for loc in locations if loc not in multi_locations]
-locations += [f"{shop}_{i+1}" for shop in multi_locations for i in range(16) if shop != "Start"]
-location_name_to_id = {
-    location_name: location_id for location_id, location_name in
-    enumerate(sorted(locations), start=0x1000000)
-}
