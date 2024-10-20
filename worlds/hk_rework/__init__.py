@@ -12,7 +12,7 @@ from worlds.AutoWorld import WebWorld
 from .template_world import RandomizerCoreWorld
 
 from .state_mixin import resource_state_handler, RCStateVariable, HKLogicMixin  # all that's needed to add the mixin
-from .data.region_data import regions, locations  # transitions
+from .data.region_data import regions, locations, transition_to_region_map  # transitions
 from .data.location_data import multi_locations, locations as locations_metadata
 from .data.option_data import logic_options, pool_options
 from .data.item_data import progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term
@@ -534,7 +534,8 @@ class HKWorld(RandomizerCoreWorld):
         connection_map = super().get_connections()
 
         key = self.options.StartLocation.current_key
-        connection_map.append(("Menu", starts[key]["granted_transition"], starts[key]["logic"]))
+        start_region = transition_to_region_map[starts[key]["granted_transition"]]
+        connection_map.append(("Menu", start_region, starts[key]["logic"]))
 
         return connection_map
 
