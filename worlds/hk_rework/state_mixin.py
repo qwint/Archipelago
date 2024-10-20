@@ -33,6 +33,8 @@ class HKLogicMixin(LogicMixin):
     _hk_entrance_clause_cache: Dict[int, Dict[str, Dict[int, bool]]]
     """mapping for clauses per entrance per player to short circuit non-resource state calculations"""
 
+    _hk_processed_item_cache: Dict[int, Counter]
+
     def init_mixin(self, multiworld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
@@ -41,6 +43,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_free_entrances = {player: {"Menu"} for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
         self._hk_stale = {player: True for player in players}
+        self._hk_processed_item_cache = {player: Counter() for player in players}
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
@@ -50,6 +53,7 @@ class HKLogicMixin(LogicMixin):
     def copy_mixin(self, other) -> CollectionState:
         other._hk_per_player_resource_states = self._hk_per_player_resource_states.copy()
         other._hk_free_entrances = self._hk_free_entrances.copy()
+        other._hk_processed_item_cache = self._hk_processed_item_cache.copy()
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
