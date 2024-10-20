@@ -22,6 +22,7 @@ item_name_groups["Fireball"] = set(affecting_items_by_term["FIREBALL"])
 item_name_groups["Scream"] = set(affecting_items_by_term["SCREAM"])
 item_name_groups["Grimmchild"] = set(affecting_items_by_term["Grimmchild"])
 item_name_groups["WhiteFragments"] = set(affecting_items_by_term["WHITEFRAGMENT"])
+item_name_groups["DreamNails"] = set(affecting_items_by_term["DREAMNAIL"])
 
 # TODO
 # item_name_groups["PalaceLore"] = set(affecting_items_by_term["DREAMER"])
