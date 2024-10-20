@@ -29,128 +29,9 @@ regions = [
                     }
                 ],
                 "target": "Opened_Shaman_Pillar"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Tutorial_01[top1]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Town[top1]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Deepnest_01b[top2]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Fungus2_25[top2]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Deepnest_East_03[top2]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "RestingGrounds_02[top1]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Mines_13[top1]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Mines_23[top1]"
-            # },
-            # {
-            #     "logic": [
-            #         {
-            #             "item_requirements": [
-            #                 "FALSE"
-            #             ],
-            #             "location_requirements": [],
-            #             "region_requirements": [],
-            #             "state_modifiers": []
-            #         }
-            #     ],
-            #     "target": "Can_Bench"
             }
         ],
         "locations": [
-            "Can_Warp_To_DG_Bench",
-            "Can_Warp_To_Bench",
             "Palace_Atrium_Gates_Opened",
             "Start"
         ],
@@ -17831,6 +17712,33 @@ regions = [
             "Fungus3_10[top1]"
         ]
     },
+    {
+        "name": "Bench-Godhome_Roof",
+        "exits": [
+            {
+                "logic": [],
+                "target": "Can_Bench"
+            }
+        ],
+        "locations": [],
+        "transitions": []
+    },
+    # {
+    #     "name": "Can_Warp_To_DG_Bench",
+    #     "exits": [],
+    #     "locations": [
+    #         "Can_Warp_To_DG_Bench"
+    #     ],
+    #     "transitions": []
+    # },
+    # {
+    #     "name": "Can_Warp_To_Bench",
+    #     "exits": [],
+    #     "locations": [
+    #         "Can_Warp_To_Bench"
+    #     ],
+    #     "transitions": []
+    # },
     {
         "name": "Can_Stag",
         "exits": [
@@ -78328,30 +78236,12 @@ locations = [
     },
     # {
     #     "name": "Can_Warp_To_DG_Bench",
-    #     "logic": [
-    #         {
-    #             "item_requirements": [
-    #                 "FALSE"
-    #             ],
-    #             "location_requirements": [],
-    #             "region_requirements": [],
-    #             "state_modifiers": []
-    #         }
-    #     ],
+    #     "logic": [],
     #     "is_event": True
     # },
     # {
     #     "name": "Can_Warp_To_Bench",
-    #     "logic": [
-    #         {
-    #             "item_requirements": [
-    #                 "FALSE"
-    #             ],
-    #             "location_requirements": [],
-    #             "region_requirements": [],
-    #             "state_modifiers": []
-    #         }
-    #     ],
+    #     "logic": [],
     #     "is_event": True
     # },
     {

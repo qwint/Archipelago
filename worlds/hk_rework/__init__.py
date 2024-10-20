@@ -12,8 +12,8 @@ from worlds.AutoWorld import WebWorld
 from .template_world import RandomizerCoreWorld
 
 from .state_mixin import resource_state_handler, RCStateVariable, HKLogicMixin  # all that's needed to add the mixin
-from .data.region_data import regions, transitions, locations
-from .data.location_data import multi_locations
+from .data.region_data import regions, locations  # transitions
+from .data.location_data import multi_locations, locations as locations_metadata
 from .data.option_data import logic_options, pool_options
 from .data.item_data import progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term
 
@@ -578,8 +578,6 @@ class HKWorld(RandomizerCoreWorld):
             self.event_locations.append("Elevator_Pass")
 
         if self.options.SplitCrystalHeart:
-            # TODO sometimes the split cdash event gets created when R+L cdash get created too
-# [Game] (game='Hollow Knight', seed=10739868658950153279) SUBFAIL worlds/hk_rework/test/test_Settings.py::TestSplit_All::test_fill - Fill.FillError: Not enough locations for progression items. There are 1 more progression items than there are avail...
             if "Crystal_Heart" in location_list:
                 location_list.append("Split_Crystal_Heart")
             else:
@@ -810,52 +808,26 @@ class HKWorld(RandomizerCoreWorld):
                         spoiler_handle.write(f"\n{loc}: {loc.item} costing {loc.cost_text()}")
 
     def white_palace_exclusions(self) -> Set[str]:
-        path_of_pain_locations = {
-            "Soul_Totem-Path_of_Pain_Below_Thornskip",
-            "Lore_Tablet-Path_of_Pain_Entrance",
-            "Soul_Totem-Path_of_Pain_Left_of_Lever",
-            "Soul_Totem-Path_of_Pain_Hidden",
-            "Soul_Totem-Path_of_Pain_Entrance",
-            "Soul_Totem-Path_of_Pain_Final",
-            "Soul_Totem-Path_of_Pain_Below_Lever",
-            "Soul_Totem-Path_of_Pain_Second",
-            "Journal_Entry-Seal_of_Binding",
-            "Warp-Path_of_Pain_Complete",
-            "Defeated_Path_of_Pain_Arena",
-            "Completed_Path_of_Pain",
-        }
-
-        white_palace_checks = {
-            "Soul_Totem-White_Palace_Final",
-            "Soul_Totem-White_Palace_Entrance",
-            "Lore_Tablet-Palace_Throne",
-            "Soul_Totem-White_Palace_Left",
-            "Lore_Tablet-Palace_Workshop",
-            "Soul_Totem-White_Palace_Hub",
-            "Soul_Totem-White_Palace_Right"
-        }
-
-        white_palace_events = {
-            "White_Palace_03_hub",
-            "White_Palace_13",
-            "White_Palace_01",
-            "Palace_Entrance_Lantern_Lit",
-            "Palace_Left_Lantern_Lit",
-            "Palace_Right_Lantern_Lit",
-            "Palace_Atrium_Gates_Opened",
-            "Warp-White_Palace_Atrium_to_Palace_Grounds",
-            "Warp-White_Palace_Entrance_to_Palace_Grounds",
-        }
         exclusions = set()
         wp = self.options.WhitePalace
         if wp <= WhitePalace.option_nopathofpain:
-            exclusions.update(path_of_pain_locations)
+            exclusions.update({
+                name for name, loc in locations_metadata.items()
+                if loc["titled_area"] == "Path of Pain"
+                })
         if wp <= WhitePalace.option_kingfragment:
-            exclusions.update(white_palace_checks)
+            exclusions.update({
+                name for name, loc in locations_metadata.items()
+                if loc["map_area"] == "White Palace"
+                # will add in last step if needed
+                and name != "King_Fragment"
+                })
+
+        loc_to_item = {pair["location"]: pair["item"] for pool in pool_options.values() for pair in pool}
+        exclusions.update({loc_to_item[loc] for loc in exclusions if loc in loc_to_item})
+
         if wp == WhitePalace.option_exclude:
             exclusions.add("King_Fragment")
-            if self.options.RandomizeCharms:
-                exclusions.update(white_palace_events)
         return exclusions
 
     @staticmethod

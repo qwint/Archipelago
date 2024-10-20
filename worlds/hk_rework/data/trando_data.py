@@ -2,8038 +2,8038 @@
 
 transitions = {
     "Room_temple[left1]": {
-        "scene_name": "Room_temple",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_02[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Black Egg Temple",
+        "is_titled_area_transition": True
     },
     "Tutorial_01[right1]": {
-        "scene_name": "Tutorial_01",
-        "door_name": "right1",
         "vanilla_target": "Town[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Pass",
+        "is_titled_area_transition": True
     },
     "Tutorial_01[top1]": {
-        "scene_name": "Tutorial_01",
-        "door_name": "top1",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": True,
-        "sides": "OneWayOut"
+        "titled_area": "King's Pass",
+        "is_titled_area_transition": True
     },
     "Tutorial_01[top2]": {
-        "scene_name": "Tutorial_01",
-        "door_name": "top2",
         "vanilla_target": "Cliffs_02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "King's Pass",
+        "is_titled_area_transition": True
     },
     "Town[left1]": {
-        "scene_name": "Town",
-        "door_name": "left1",
         "vanilla_target": "Tutorial_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": True
     },
     "Town[bot1]": {
-        "scene_name": "Town",
-        "door_name": "bot1",
         "vanilla_target": "Crossroads_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": True
     },
     "Town[right1]": {
-        "scene_name": "Town",
-        "door_name": "right1",
         "vanilla_target": "Mines_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": True
     },
     "Town[top1]": {
-        "scene_name": "Town",
-        "door_name": "top1",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": True,
-        "sides": "OneWayOut"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": True
     },
     "Town[door_station]": {
-        "scene_name": "Town",
-        "door_name": "door_station",
         "vanilla_target": "Room_Town_Stag_Station[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Town[door_sly]": {
-        "scene_name": "Town",
-        "door_name": "door_sly",
         "vanilla_target": "Room_shop[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Town[door_mapper]": {
-        "scene_name": "Town",
-        "door_name": "door_mapper",
         "vanilla_target": "Room_mapper[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Town[door_jiji]": {
-        "scene_name": "Town",
-        "door_name": "door_jiji",
         "vanilla_target": "Room_Ouiji[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Town[door_bretta]": {
-        "scene_name": "Town",
-        "door_name": "door_bretta",
         "vanilla_target": "Room_Bretta[right1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Town[room_divine]": {
-        "scene_name": "Town",
-        "door_name": "room_divine",
         "vanilla_target": "Grimm_Divine[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Town[room_grimm]": {
-        "scene_name": "Town",
-        "door_name": "room_grimm",
         "vanilla_target": "Grimm_Main_Tent[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Room_shop[left1]": {
-        "scene_name": "Room_shop",
-        "door_name": "left1",
         "vanilla_target": "Town[door_sly]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Room_Town_Stag_Station[left1]": {
-        "scene_name": "Room_Town_Stag_Station",
-        "door_name": "left1",
         "vanilla_target": "Town[door_station]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Room_mapper[left1]": {
-        "scene_name": "Room_mapper",
-        "door_name": "left1",
         "vanilla_target": "Town[door_mapper]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Room_Bretta[right1]": {
-        "scene_name": "Room_Bretta",
-        "door_name": "right1",
         "vanilla_target": "Town[door_bretta]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Room_Ouiji[left1]": {
-        "scene_name": "Room_Ouiji",
-        "door_name": "left1",
         "vanilla_target": "Town[door_jiji]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Grimm_Divine[left1]": {
-        "scene_name": "Grimm_Divine",
-        "door_name": "left1",
         "vanilla_target": "Town[room_divine]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Grimm_Main_Tent[left1]": {
-        "scene_name": "Grimm_Main_Tent",
-        "door_name": "left1",
         "vanilla_target": "Town[room_grimm]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Dirtmouth",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Dirtmouth",
+        "is_titled_area_transition": False
     },
     "Crossroads_01[top1]": {
-        "scene_name": "Crossroads_01",
-        "door_name": "top1",
         "vanilla_target": "Town[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_01[left1]": {
-        "scene_name": "Crossroads_01",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_01[right1]": {
-        "scene_name": "Crossroads_01",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_02[left1]": {
-        "scene_name": "Crossroads_02",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_02[door1]": {
-        "scene_name": "Crossroads_02",
-        "door_name": "door1",
         "vanilla_target": "Room_temple[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_02[right1]": {
-        "scene_name": "Crossroads_02",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_39[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_03[right1]": {
-        "scene_name": "Crossroads_03",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_15[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_03[right2]": {
-        "scene_name": "Crossroads_03",
-        "door_name": "right2",
         "vanilla_target": "Mines_33[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_03[left1]": {
-        "scene_name": "Crossroads_03",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_21[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_03[left2]": {
-        "scene_name": "Crossroads_03",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_47[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_03[bot1]": {
-        "scene_name": "Crossroads_03",
-        "door_name": "bot1",
         "vanilla_target": "Crossroads_19[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_03[top1]": {
-        "scene_name": "Crossroads_03",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_16[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_04[left1]": {
-        "scene_name": "Crossroads_04",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_19[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_04[top1]": {
-        "scene_name": "Crossroads_04",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_27[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_04[door_Mender_House]": {
-        "scene_name": "Crossroads_04",
-        "door_name": "door_Mender_House",
         "vanilla_target": "Room_Mender_House[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_04[door1]": {
-        "scene_name": "Crossroads_04",
-        "door_name": "door1",
         "vanilla_target": "Room_ruinhouse[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_04[door_charmshop]": {
-        "scene_name": "Crossroads_04",
-        "door_name": "door_charmshop",
         "vanilla_target": "Room_Charm_Shop[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_04[right1]": {
-        "scene_name": "Crossroads_04",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_50[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_05[left1]": {
-        "scene_name": "Crossroads_05",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_07[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_05[right1]": {
-        "scene_name": "Crossroads_05",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_40[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_06[left1]": {
-        "scene_name": "Crossroads_06",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_33[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_06[door1]": {
-        "scene_name": "Crossroads_06",
-        "door_name": "door1",
         "vanilla_target": "Crossroads_ShamanTemple[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_06[right1]": {
-        "scene_name": "Crossroads_06",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_07[left1]": {
-        "scene_name": "Crossroads_07",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_38[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_07[left2]": {
-        "scene_name": "Crossroads_07",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_11_alt[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_07[left3]": {
-        "scene_name": "Crossroads_07",
-        "door_name": "left3",
         "vanilla_target": "Crossroads_25[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_07[right1]": {
-        "scene_name": "Crossroads_07",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_07[right2]": {
-        "scene_name": "Crossroads_07",
-        "door_name": "right2",
         "vanilla_target": "Crossroads_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_07[bot1]": {
-        "scene_name": "Crossroads_07",
-        "door_name": "bot1",
         "vanilla_target": "Crossroads_33[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_08[left1]": {
-        "scene_name": "Crossroads_08",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_33[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_08[left2]": {
-        "scene_name": "Crossroads_08",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_18[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_08[right1]": {
-        "scene_name": "Crossroads_08",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_30[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_08[right2]": {
-        "scene_name": "Crossroads_08",
-        "door_name": "right2",
         "vanilla_target": "Crossroads_13[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_09[left1]": {
-        "scene_name": "Crossroads_09",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_36[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_09[right1]": {
-        "scene_name": "Crossroads_09",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_33[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_10[left1]": {
-        "scene_name": "Crossroads_10",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_10[right1]": {
-        "scene_name": "Crossroads_10",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_21[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_11_alt[left1]": {
-        "scene_name": "Crossroads_11_alt",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_11_alt[right1]": {
-        "scene_name": "Crossroads_11_alt",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_07[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_12[left1]": {
-        "scene_name": "Crossroads_12",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_35[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_12[right1]": {
-        "scene_name": "Crossroads_12",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_33[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_13[left1]": {
-        "scene_name": "Crossroads_13",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_08[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_13[right1]": {
-        "scene_name": "Crossroads_13",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_42[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_14[left1]": {
-        "scene_name": "Crossroads_14",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_39[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_14[left2]": {
-        "scene_name": "Crossroads_14",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_16[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_14[right1]": {
-        "scene_name": "Crossroads_14",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_48[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_14[right2]": {
-        "scene_name": "Crossroads_14",
-        "door_name": "right2",
         "vanilla_target": "Crossroads_45[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_15[left1]": {
-        "scene_name": "Crossroads_15",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_15[right1]": {
-        "scene_name": "Crossroads_15",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_27[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_16[left1]": {
-        "scene_name": "Crossroads_16",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_40[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_16[right1]": {
-        "scene_name": "Crossroads_16",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_14[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_16[bot1]": {
-        "scene_name": "Crossroads_16",
-        "door_name": "bot1",
         "vanilla_target": "Crossroads_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_18[right1]": {
-        "scene_name": "Crossroads_18",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_08[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_18[right2]": {
-        "scene_name": "Crossroads_18",
-        "door_name": "right2",
         "vanilla_target": "Crossroads_52[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_18[bot1]": {
-        "scene_name": "Crossroads_18",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_06[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_19[right1]": {
-        "scene_name": "Crossroads_19",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_19[top1]": {
-        "scene_name": "Crossroads_19",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_19[left1]": {
-        "scene_name": "Crossroads_19",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_42[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_19[left2]": {
-        "scene_name": "Crossroads_19",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_43[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_21[left1]": {
-        "scene_name": "Crossroads_21",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_10[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_21[right1]": {
-        "scene_name": "Crossroads_21",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_21[top1]": {
-        "scene_name": "Crossroads_21",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_22[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_22[bot1]": {
-        "scene_name": "Crossroads_22",
-        "door_name": "bot1",
         "vanilla_target": "Crossroads_21[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_25[right1]": {
-        "scene_name": "Crossroads_25",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_07[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_25[left1]": {
-        "scene_name": "Crossroads_25",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_36[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_27[right1]": {
-        "scene_name": "Crossroads_27",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_46[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_27[bot1]": {
-        "scene_name": "Crossroads_27",
-        "door_name": "bot1",
         "vanilla_target": "Crossroads_04[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_27[left1]": {
-        "scene_name": "Crossroads_27",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_15[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_27[left2]": {
-        "scene_name": "Crossroads_27",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_31[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_30[left1]": {
-        "scene_name": "Crossroads_30",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_08[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_31[right1]": {
-        "scene_name": "Crossroads_31",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_27[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_33[top1]": {
-        "scene_name": "Crossroads_33",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_07[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_33[left1]": {
-        "scene_name": "Crossroads_33",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_33[left2]": {
-        "scene_name": "Crossroads_33",
-        "door_name": "left2",
         "vanilla_target": "Crossroads_12[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_33[right1]": {
-        "scene_name": "Crossroads_33",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_33[right2]": {
-        "scene_name": "Crossroads_33",
-        "door_name": "right2",
         "vanilla_target": "Crossroads_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_35[bot1]": {
-        "scene_name": "Crossroads_35",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_26[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_35[right1]": {
-        "scene_name": "Crossroads_35",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_12[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_36[right1]": {
-        "scene_name": "Crossroads_36",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_25[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_36[right2]": {
-        "scene_name": "Crossroads_36",
-        "door_name": "right2",
         "vanilla_target": "Crossroads_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_37[right1]": {
-        "scene_name": "Crossroads_37",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_49[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_38[right1]": {
-        "scene_name": "Crossroads_38",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_39[right1]": {
-        "scene_name": "Crossroads_39",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_14[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_39[left1]": {
-        "scene_name": "Crossroads_39",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_40[right1]": {
-        "scene_name": "Crossroads_40",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_16[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_40[left1]": {
-        "scene_name": "Crossroads_40",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_42[left1]": {
-        "scene_name": "Crossroads_42",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_13[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_42[right1]": {
-        "scene_name": "Crossroads_42",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_19[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_43[left1]": {
-        "scene_name": "Crossroads_43",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_49[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_43[right1]": {
-        "scene_name": "Crossroads_43",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_19[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_45[right1]": {
-        "scene_name": "Crossroads_45",
-        "door_name": "right1",
         "vanilla_target": "Mines_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Crossroads_45[left1]": {
-        "scene_name": "Crossroads_45",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_14[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_46[left1]": {
-        "scene_name": "Crossroads_46",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_27[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_46b[right1]": {
-        "scene_name": "Crossroads_46b",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "Crossroads_ShamanTemple[left1]": {
-        "scene_name": "Crossroads_ShamanTemple",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_06[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancestral Mound",
+        "is_titled_area_transition": True
     },
     "Crossroads_47[right1]": {
-        "scene_name": "Crossroads_47",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_03[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_48[left1]": {
-        "scene_name": "Crossroads_48",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_14[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_49[right1]": {
-        "scene_name": "Crossroads_49",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_43[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_49[left1]": {
-        "scene_name": "Crossroads_49",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_37[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Crossroads_49b[right1]": {
-        "scene_name": "Crossroads_49b",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_28[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Crossroads_50[right1]": {
-        "scene_name": "Crossroads_50",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Blue Lake",
+        "is_titled_area_transition": True
     },
     "Crossroads_50[left1]": {
-        "scene_name": "Crossroads_50",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Blue Lake",
+        "is_titled_area_transition": True
     },
     "Crossroads_52[left1]": {
-        "scene_name": "Crossroads_52",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_18[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Room_ruinhouse[left1]": {
-        "scene_name": "Room_ruinhouse",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_04[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Room_Charm_Shop[left1]": {
-        "scene_name": "Room_Charm_Shop",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_04[door_charmshop]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Room_Mender_House[left1]": {
-        "scene_name": "Room_Mender_House",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_04[door_Mender_House]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Fungus1_01[left1]": {
-        "scene_name": "Fungus1_01",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_01b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_01[right1]": {
-        "scene_name": "Fungus1_01",
-        "door_name": "right1",
         "vanilla_target": "Crossroads_11_alt[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": True
     },
     "Fungus1_01b[left1]": {
-        "scene_name": "Fungus1_01b",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_01b[right1]": {
-        "scene_name": "Fungus1_01b",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_02[left1]": {
-        "scene_name": "Fungus1_02",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_02[right1]": {
-        "scene_name": "Fungus1_02",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_01b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_02[right2]": {
-        "scene_name": "Fungus1_02",
-        "door_name": "right2",
         "vanilla_target": "Fungus1_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_03[left1]": {
-        "scene_name": "Fungus1_03",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_31[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_03[right1]": {
-        "scene_name": "Fungus1_03",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_17[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_03[bot1]": {
-        "scene_name": "Fungus1_03",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_05[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_04[left1]": {
-        "scene_name": "Fungus1_04",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_25[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_04[right1]": {
-        "scene_name": "Fungus1_04",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_21[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_05[right1]": {
-        "scene_name": "Fungus1_05",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_14[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_05[bot1]": {
-        "scene_name": "Fungus1_05",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_10[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_05[top1]": {
-        "scene_name": "Fungus1_05",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_06[left1]": {
-        "scene_name": "Fungus1_06",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_02[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_06[bot1]": {
-        "scene_name": "Fungus1_06",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_07[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_07[top1]": {
-        "scene_name": "Fungus1_07",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_06[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_07[left1]": {
-        "scene_name": "Fungus1_07",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_19[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_07[right1]": {
-        "scene_name": "Fungus1_07",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_08[left1]": {
-        "scene_name": "Fungus1_08",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_09[left1]": {
-        "scene_name": "Fungus1_09",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_15[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_09[right1]": {
-        "scene_name": "Fungus1_09",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_30[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_10[left1]": {
-        "scene_name": "Fungus1_10",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_30[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_10[right1]": {
-        "scene_name": "Fungus1_10",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_19[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_10[top1]": {
-        "scene_name": "Fungus1_10",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_11[top1]": {
-        "scene_name": "Fungus1_11",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_19[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_11[right1]": {
-        "scene_name": "Fungus1_11",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_34[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_11[right2]": {
-        "scene_name": "Fungus1_11",
-        "door_name": "right2",
         "vanilla_target": "Fungus1_37[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_11[left1]": {
-        "scene_name": "Fungus1_11",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_29[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_11[bot1]": {
-        "scene_name": "Fungus1_11",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": True
     },
     "Fungus1_12[left1]": {
-        "scene_name": "Fungus1_12",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_13[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_12[right1]": {
-        "scene_name": "Fungus1_12",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_29[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_13[right1]": {
-        "scene_name": "Fungus1_13",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_12[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_13[left1]": {
-        "scene_name": "Fungus1_13",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_22[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": True
     },
     "Fungus1_14[left1]": {
-        "scene_name": "Fungus1_14",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_15[door1]": {
-        "scene_name": "Fungus1_15",
-        "door_name": "door1",
         "vanilla_target": "Room_nailmaster_02[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_15[right1]": {
-        "scene_name": "Fungus1_15",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_16_alt[right1]": {
-        "scene_name": "Fungus1_16_alt",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_22[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_17[left1]": {
-        "scene_name": "Fungus1_17",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_17[right1]": {
-        "scene_name": "Fungus1_17",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_19[left1]": {
-        "scene_name": "Fungus1_19",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_10[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_19[right1]": {
-        "scene_name": "Fungus1_19",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_19[bot1]": {
-        "scene_name": "Fungus1_19",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_11[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_20_v02[bot1]": {
-        "scene_name": "Fungus1_20_v02",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_21[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_20_v02[bot2]": {
-        "scene_name": "Fungus1_20_v02",
-        "door_name": "bot2",
         "vanilla_target": "Fungus1_32[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_20_v02[right1]": {
-        "scene_name": "Fungus1_20_v02",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_28[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": True
     },
     "Fungus1_21[bot1]": {
-        "scene_name": "Fungus1_21",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_22[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_21[top1]": {
-        "scene_name": "Fungus1_21",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_20_v02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_21[left1]": {
-        "scene_name": "Fungus1_21",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_21[right1]": {
-        "scene_name": "Fungus1_21",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_32[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_22[bot1]": {
-        "scene_name": "Fungus1_22",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_30[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_22[top1]": {
-        "scene_name": "Fungus1_22",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_21[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_22[left1]": {
-        "scene_name": "Fungus1_22",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_16_alt[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_23[left1]": {
-        "scene_name": "Fungus1_23",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_48[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus1_23[right1]": {
-        "scene_name": "Fungus1_23",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_13[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus1_24[left1]": {
-        "scene_name": "Fungus1_24",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus1_25[right1]": {
-        "scene_name": "Fungus1_25",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_25[left1]": {
-        "scene_name": "Fungus1_25",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_26[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": True
     },
     "Fungus1_26[right1]": {
-        "scene_name": "Fungus1_26",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_25[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Lake of Unn",
+        "is_titled_area_transition": True
     },
     "Fungus1_26[left1]": {
-        "scene_name": "Fungus1_26",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_Slug[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Lake of Unn",
+        "is_titled_area_transition": False
     },
     "Fungus1_26[door_SlugShrine]": {
-        "scene_name": "Fungus1_26",
-        "door_name": "door_SlugShrine",
         "vanilla_target": "Room_Slug_Shrine[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Lake of Unn",
+        "is_titled_area_transition": False
     },
     "Fungus1_28[left1]": {
-        "scene_name": "Fungus1_28",
-        "door_name": "left1",
         "vanilla_target": "Cliffs_01[right3]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Fungus1_28[left2]": {
-        "scene_name": "Fungus1_28",
-        "door_name": "left2",
         "vanilla_target": "Fungus1_20_v02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": True
     },
     "Fungus1_29[left1]": {
-        "scene_name": "Fungus1_29",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_12[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_29[right1]": {
-        "scene_name": "Fungus1_29",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_11[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_30[top1]": {
-        "scene_name": "Fungus1_30",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_22[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_30[top3]": {
-        "scene_name": "Fungus1_30",
-        "door_name": "top3",
         "vanilla_target": "Fungus1_31[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_30[left1]": {
-        "scene_name": "Fungus1_30",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_30[right1]": {
-        "scene_name": "Fungus1_30",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_31[top1]": {
-        "scene_name": "Fungus1_31",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_32[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_31[bot1]": {
-        "scene_name": "Fungus1_31",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_30[top3]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_31[right1]": {
-        "scene_name": "Fungus1_31",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_32[bot1]": {
-        "scene_name": "Fungus1_32",
-        "door_name": "bot1",
         "vanilla_target": "Fungus1_31[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_32[top1]": {
-        "scene_name": "Fungus1_32",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_20_v02[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_32[left1]": {
-        "scene_name": "Fungus1_32",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_21[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_34[door1]": {
-        "scene_name": "Fungus1_34",
-        "door_name": "door1",
         "vanilla_target": "Fungus1_35[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": True
     },
     "Fungus1_34[left1]": {
-        "scene_name": "Fungus1_34",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_11[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_35[left1]": {
-        "scene_name": "Fungus1_35",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_34[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Stone Sanctuary",
+        "is_titled_area_transition": True
     },
     "Fungus1_35[right1]": {
-        "scene_name": "Fungus1_35",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_36[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Stone Sanctuary",
+        "is_titled_area_transition": False
     },
     "Fungus1_36[left1]": {
-        "scene_name": "Fungus1_36",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_35[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Stone Sanctuary",
+        "is_titled_area_transition": False
     },
     "Fungus1_37[left1]": {
-        "scene_name": "Fungus1_37",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_11[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus1_Slug[right1]": {
-        "scene_name": "Fungus1_Slug",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_26[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Lake of Unn",
+        "is_titled_area_transition": False
     },
     "Room_Slug_Shrine[left1]": {
-        "scene_name": "Room_Slug_Shrine",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_26[door_SlugShrine]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Lake of Unn",
+        "is_titled_area_transition": False
     },
     "Room_nailmaster_02[left1]": {
-        "scene_name": "Room_nailmaster_02",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_15[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Greenpath",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Greenpath",
+        "is_titled_area_transition": False
     },
     "Fungus3_01[top1]": {
-        "scene_name": "Fungus3_01",
-        "door_name": "top1",
         "vanilla_target": "Fungus1_11[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_01[right1]": {
-        "scene_name": "Fungus3_01",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_25[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_01[left1]": {
-        "scene_name": "Fungus3_01",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_24[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_01[right2]": {
-        "scene_name": "Fungus3_01",
-        "door_name": "right2",
         "vanilla_target": "Fungus3_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_02[left1]": {
-        "scene_name": "Fungus3_02",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_01[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_02[left2]": {
-        "scene_name": "Fungus3_02",
-        "door_name": "left2",
         "vanilla_target": "Fungus3_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_02[left3]": {
-        "scene_name": "Fungus3_02",
-        "door_name": "left3",
         "vanilla_target": "Fungus3_35[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_02[right1]": {
-        "scene_name": "Fungus3_02",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_47[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_02[right2]": {
-        "scene_name": "Fungus3_02",
-        "door_name": "right2",
         "vanilla_target": "Fungus2_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_03[right1]": {
-        "scene_name": "Fungus3_03",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_02[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_03[left1]": {
-        "scene_name": "Fungus3_03",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_34[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_24[right1]": {
-        "scene_name": "Fungus3_24",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_24[left1]": {
-        "scene_name": "Fungus3_24",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_44[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_24[top1]": {
-        "scene_name": "Fungus3_24",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_30[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_25[right1]": {
-        "scene_name": "Fungus3_25",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_25b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_25[left1]": {
-        "scene_name": "Fungus3_25",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_25b[right1]": {
-        "scene_name": "Fungus3_25b",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_26[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_25b[left1]": {
-        "scene_name": "Fungus3_25b",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_25[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_26[top1]": {
-        "scene_name": "Fungus3_26",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_35[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_26[left1]": {
-        "scene_name": "Fungus3_26",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_28[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_26[left2]": {
-        "scene_name": "Fungus3_26",
-        "door_name": "left2",
         "vanilla_target": "Fungus3_25b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_26[left3]": {
-        "scene_name": "Fungus3_26",
-        "door_name": "left3",
         "vanilla_target": "Fungus3_27[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_26[right1]": {
-        "scene_name": "Fungus3_26",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_33[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_27[left1]": {
-        "scene_name": "Fungus3_27",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_47[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_27[right1]": {
-        "scene_name": "Fungus3_27",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_26[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_28[right1]": {
-        "scene_name": "Fungus3_28",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_26[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_30[bot1]": {
-        "scene_name": "Fungus3_30",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_24[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_35[right1]": {
-        "scene_name": "Fungus3_35",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_02[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_44[bot1]": {
-        "scene_name": "Fungus3_44",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_34[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_44[door1]": {
-        "scene_name": "Fungus3_44",
-        "door_name": "door1",
         "vanilla_target": "Room_Fungus_Shaman[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Fungus3_44[right1]": {
-        "scene_name": "Fungus3_44",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_24[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_47[left1]": {
-        "scene_name": "Fungus3_47",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_47[right1]": {
-        "scene_name": "Fungus3_47",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_27[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": False
     },
     "Fungus3_47[door1]": {
-        "scene_name": "Fungus3_47",
-        "door_name": "door1",
         "vanilla_target": "Fungus3_archive[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fog Canyon",
+        "is_titled_area_transition": True
     },
     "Room_Fungus_Shaman[left1]": {
-        "scene_name": "Room_Fungus_Shaman",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_44[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Overgrown Mound",
+        "is_titled_area_transition": True
     },
     "Fungus3_archive[left1]": {
-        "scene_name": "Fungus3_archive",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_47[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Teacher's Archives",
+        "is_titled_area_transition": True
     },
     "Fungus3_archive[bot1]": {
-        "scene_name": "Fungus3_archive",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_archive_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Teacher's Archives",
+        "is_titled_area_transition": False
     },
     "Fungus3_archive_02[top1]": {
-        "scene_name": "Fungus3_archive_02",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_archive[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fog Canyon",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Teacher's Archives",
+        "is_titled_area_transition": False
     },
     "Fungus2_01[left1]": {
-        "scene_name": "Fungus2_01",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_02[right2]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Queen's Station",
+        "is_titled_area_transition": True
     },
     "Fungus2_01[left2]": {
-        "scene_name": "Fungus2_01",
-        "door_name": "left2",
         "vanilla_target": "Fungus2_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Station",
+        "is_titled_area_transition": False
     },
     "Fungus2_01[left3]": {
-        "scene_name": "Fungus2_01",
-        "door_name": "left3",
         "vanilla_target": "Fungus2_34[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Station",
+        "is_titled_area_transition": False
     },
     "Fungus2_01[right1]": {
-        "scene_name": "Fungus2_01",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Station",
+        "is_titled_area_transition": True
     },
     "Fungus2_02[right1]": {
-        "scene_name": "Fungus2_02",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_01[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Station",
+        "is_titled_area_transition": False
     },
     "Fungus2_34[right1]": {
-        "scene_name": "Fungus2_34",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_01[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Station",
+        "is_titled_area_transition": False
     },
     "Fungus2_03[left1]": {
-        "scene_name": "Fungus2_03",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Fungus2_03[bot1]": {
-        "scene_name": "Fungus2_03",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_18[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_03[right1]": {
-        "scene_name": "Fungus2_03",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_04[top1]": {
-        "scene_name": "Fungus2_04",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_04[right1]": {
-        "scene_name": "Fungus2_04",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_28[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_04[left1]": {
-        "scene_name": "Fungus2_04",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_04[right2]": {
-        "scene_name": "Fungus2_04",
-        "door_name": "right2",
         "vanilla_target": "Fungus2_28[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_05[bot1]": {
-        "scene_name": "Fungus2_05",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_04[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_05[right1]": {
-        "scene_name": "Fungus2_05",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_06[top1]": {
-        "scene_name": "Fungus2_06",
-        "door_name": "top1",
         "vanilla_target": "Crossroads_18[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Fungus2_06[left1]": {
-        "scene_name": "Fungus2_06",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_06[left2]": {
-        "scene_name": "Fungus2_06",
-        "door_name": "left2",
         "vanilla_target": "Fungus2_33[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_06[right1]": {
-        "scene_name": "Fungus2_06",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_26[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_06[right2]": {
-        "scene_name": "Fungus2_06",
-        "door_name": "right2",
         "vanilla_target": "Fungus2_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_07[left1]": {
-        "scene_name": "Fungus2_07",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_06[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_07[right1]": {
-        "scene_name": "Fungus2_07",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_08[left1]": {
-        "scene_name": "Fungus2_08",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_08[left2]": {
-        "scene_name": "Fungus2_08",
-        "door_name": "left2",
         "vanilla_target": "Fungus2_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_08[right1]": {
-        "scene_name": "Fungus2_08",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_32[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_09[left1]": {
-        "scene_name": "Fungus2_09",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_10[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_09[right1]": {
-        "scene_name": "Fungus2_09",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_08[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_10[right1]": {
-        "scene_name": "Fungus2_10",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_10[right2]": {
-        "scene_name": "Fungus2_10",
-        "door_name": "right2",
         "vanilla_target": "Fungus2_21[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_10[bot1]": {
-        "scene_name": "Fungus2_10",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_11[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_11[top1]": {
-        "scene_name": "Fungus2_11",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_10[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_11[left1]": {
-        "scene_name": "Fungus2_11",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_18[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_11[left2]": {
-        "scene_name": "Fungus2_11",
-        "door_name": "left2",
         "vanilla_target": "Fungus2_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_11[right1]": {
-        "scene_name": "Fungus2_11",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_12[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Fungus2_12[left1]": {
-        "scene_name": "Fungus2_12",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_11[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": True
     },
     "Fungus2_12[bot1]": {
-        "scene_name": "Fungus2_12",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_13[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_13[top1]": {
-        "scene_name": "Fungus2_13",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_12[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_13[left2]": {
-        "scene_name": "Fungus2_13",
-        "door_name": "left2",
         "vanilla_target": "Fungus2_14[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_13[left3]": {
-        "scene_name": "Fungus2_13",
-        "door_name": "left3",
         "vanilla_target": "Fungus2_23[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_14[top1]": {
-        "scene_name": "Fungus2_14",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_17[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": True
     },
     "Fungus2_14[right1]": {
-        "scene_name": "Fungus2_14",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_13[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_14[bot3]": {
-        "scene_name": "Fungus2_14",
-        "door_name": "bot3",
         "vanilla_target": "Fungus2_15[top3]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_15[top3]": {
-        "scene_name": "Fungus2_15",
-        "door_name": "top3",
         "vanilla_target": "Fungus2_14[bot3]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_15[right1]": {
-        "scene_name": "Fungus2_15",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_31[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_15[left1]": {
-        "scene_name": "Fungus2_15",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_25[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": True
     },
     "Fungus2_17[left1]": {
-        "scene_name": "Fungus2_17",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_29[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Fungus2_17[right1]": {
-        "scene_name": "Fungus2_17",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_11[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_17[bot1]": {
-        "scene_name": "Fungus2_17",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_14[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Fungus2_18[right1]": {
-        "scene_name": "Fungus2_18",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_11[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_18[bot1]": {
-        "scene_name": "Fungus2_18",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_19[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_18[top1]": {
-        "scene_name": "Fungus2_18",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_19[top1]": {
-        "scene_name": "Fungus2_19",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_18[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_19[left1]": {
-        "scene_name": "Fungus2_19",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_20[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_20[right1]": {
-        "scene_name": "Fungus2_20",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_19[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_20[left1]": {
-        "scene_name": "Fungus2_20",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_21[right1]": {
-        "scene_name": "Fungus2_21",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Fungus2_21[left1]": {
-        "scene_name": "Fungus2_21",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_10[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_23[right1]": {
-        "scene_name": "Fungus2_23",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_13[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_23[right2]": {
-        "scene_name": "Fungus2_23",
-        "door_name": "right2",
         "vanilla_target": "Waterways_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": True
     },
     "Fungus2_26[left1]": {
-        "scene_name": "Fungus2_26",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_28[left1]": {
-        "scene_name": "Fungus2_28",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_28[left2]": {
-        "scene_name": "Fungus2_28",
-        "door_name": "left2",
         "vanilla_target": "Fungus2_04[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_29[right1]": {
-        "scene_name": "Fungus2_29",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_17[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Core",
+        "is_titled_area_transition": True
     },
     "Fungus2_29[bot1]": {
-        "scene_name": "Fungus2_29",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_30[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Core",
+        "is_titled_area_transition": False
     },
     "Fungus2_30[bot1]": {
-        "scene_name": "Fungus2_30",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_25[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "OneWayIn"
+        "titled_area": "Fungal Core",
+        "is_titled_area_transition": True
     },
     "Fungus2_30[top1]": {
-        "scene_name": "Fungus2_30",
-        "door_name": "top1",
         "vanilla_target": "Fungus2_29[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Core",
+        "is_titled_area_transition": False
     },
     "Fungus2_31[left1]": {
-        "scene_name": "Fungus2_31",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_15[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Mantis Village",
+        "is_titled_area_transition": False
     },
     "Fungus2_32[left1]": {
-        "scene_name": "Fungus2_32",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_08[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_33[right1]": {
-        "scene_name": "Fungus2_33",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_06[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Fungus2_33[left1]": {
-        "scene_name": "Fungus2_33",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_26[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Deepnest_01[right1]": {
-        "scene_name": "Deepnest_01",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_20[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": False
     },
     "Deepnest_01[bot1]": {
-        "scene_name": "Deepnest_01",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_01b[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Deepnest_01[bot2]": {
-        "scene_name": "Deepnest_01",
-        "door_name": "bot2",
         "vanilla_target": "Deepnest_01b[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "OneWayIn"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Deepnest_01[left1]": {
-        "scene_name": "Deepnest_01",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_39[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Fungal Wastes",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Fungal Wastes",
+        "is_titled_area_transition": True
     },
     "Deepnest_01b[top1]": {
-        "scene_name": "Deepnest_01b",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_01b[top2]": {
-        "scene_name": "Deepnest_01b",
-        "door_name": "top2",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Deepnest",
         "is_map_area_transition": True,
-        "sides": "OneWayOut"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_01b[right1]": {
-        "scene_name": "Deepnest_01b",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_01b[right2]": {
-        "scene_name": "Deepnest_01b",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_02[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_01b[bot1]": {
-        "scene_name": "Deepnest_01b",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_17[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_02[left1]": {
-        "scene_name": "Deepnest_02",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_01b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_02[left2]": {
-        "scene_name": "Deepnest_02",
-        "door_name": "left2",
         "vanilla_target": "Deepnest_01b[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_02[right1]": {
-        "scene_name": "Deepnest_02",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_36[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_03[right1]": {
-        "scene_name": "Deepnest_03",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_30[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_03[left1]": {
-        "scene_name": "Deepnest_03",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_34[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_03[top1]": {
-        "scene_name": "Deepnest_03",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_33[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_03[left2]": {
-        "scene_name": "Deepnest_03",
-        "door_name": "left2",
         "vanilla_target": "Deepnest_31[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_09[left1]": {
-        "scene_name": "Deepnest_09",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_10[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": False
     },
     "Deepnest_10[right1]": {
-        "scene_name": "Deepnest_10",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": False
     },
     "Deepnest_10[right2]": {
-        "scene_name": "Deepnest_10",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_41[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": True
     },
     "Deepnest_10[right3]": {
-        "scene_name": "Deepnest_10",
-        "door_name": "right3",
         "vanilla_target": "Deepnest_41[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": True
     },
     "Deepnest_10[door1]": {
-        "scene_name": "Deepnest_10",
-        "door_name": "door1",
         "vanilla_target": "Deepnest_Spider_Town[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": True
     },
     "Deepnest_10[door2]": {
-        "scene_name": "Deepnest_10",
-        "door_name": "door2",
         "vanilla_target": "Room_spider_small[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": False
     },
     "Room_spider_small[left1]": {
-        "scene_name": "Room_spider_small",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_10[door2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Distant Village",
+        "is_titled_area_transition": False
     },
     "Deepnest_Spider_Town[left1]": {
-        "scene_name": "Deepnest_Spider_Town",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_10[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Beast's Den",
+        "is_titled_area_transition": True
     },
     "Deepnest_14[right1]": {
-        "scene_name": "Deepnest_14",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_17[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": True
     },
     "Deepnest_14[left1]": {
-        "scene_name": "Deepnest_14",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_26[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": False
     },
     "Deepnest_14[bot1]": {
-        "scene_name": "Deepnest_14",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_33[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": True
     },
     "Deepnest_14[bot2]": {
-        "scene_name": "Deepnest_14",
-        "door_name": "bot2",
         "vanilla_target": "Deepnest_33[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": True
     },
     "Deepnest_16[left1]": {
-        "scene_name": "Deepnest_16",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_16[bot1]": {
-        "scene_name": "Deepnest_16",
-        "door_name": "bot1",
         "vanilla_target": "Fungus2_25[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_17[left1]": {
-        "scene_name": "Deepnest_17",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_14[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_17[right1]": {
-        "scene_name": "Deepnest_17",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_16[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_17[top1]": {
-        "scene_name": "Deepnest_17",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_01b[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_17[bot1]": {
-        "scene_name": "Deepnest_17",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_30[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Fungus2_25[top1]": {
-        "scene_name": "Fungus2_25",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_16[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Fungus2_25[top2]": {
-        "scene_name": "Fungus2_25",
-        "door_name": "top2",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Deepnest",
         "is_map_area_transition": True,
-        "sides": "OneWayOut"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Fungus2_25[right1]": {
-        "scene_name": "Fungus2_25",
-        "door_name": "right1",
         "vanilla_target": "Fungus2_15[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_26[left1]": {
-        "scene_name": "Deepnest_26",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_26b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": False
     },
     "Deepnest_26[left2]": {
-        "scene_name": "Deepnest_26",
-        "door_name": "left2",
         "vanilla_target": "Deepnest_26b[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": False
     },
     "Deepnest_26[right1]": {
-        "scene_name": "Deepnest_26",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_14[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": False
     },
     "Deepnest_26[bot1]": {
-        "scene_name": "Deepnest_26",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_35[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": True
     },
     "Deepnest_26b[right2]": {
-        "scene_name": "Deepnest_26b",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_26[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": False
     },
     "Deepnest_26b[right1]": {
-        "scene_name": "Deepnest_26b",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_26[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Failed Tramway",
+        "is_titled_area_transition": False
     },
     "Deepnest_30[left1]": {
-        "scene_name": "Deepnest_30",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_30[top1]": {
-        "scene_name": "Deepnest_30",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_17[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_30[right1]": {
-        "scene_name": "Deepnest_30",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_37[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_31[right1]": {
-        "scene_name": "Deepnest_31",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_03[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_31[right2]": {
-        "scene_name": "Deepnest_31",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_32[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_32[left1]": {
-        "scene_name": "Deepnest_32",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_31[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_33[top1]": {
-        "scene_name": "Deepnest_33",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_14[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_33[top2]": {
-        "scene_name": "Deepnest_33",
-        "door_name": "top2",
         "vanilla_target": "Deepnest_14[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_33[bot1]": {
-        "scene_name": "Deepnest_33",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_34[left1]": {
-        "scene_name": "Deepnest_34",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_39[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_34[right1]": {
-        "scene_name": "Deepnest_34",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_34[top1]": {
-        "scene_name": "Deepnest_34",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_35[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_35[left1]": {
-        "scene_name": "Deepnest_35",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_40[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_35[top1]": {
-        "scene_name": "Deepnest_35",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_26[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_35[bot1]": {
-        "scene_name": "Deepnest_35",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_34[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_36[left1]": {
-        "scene_name": "Deepnest_36",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_37[left1]": {
-        "scene_name": "Deepnest_37",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_30[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_37[right1]": {
-        "scene_name": "Deepnest_37",
-        "door_name": "right1",
         "vanilla_target": "Abyss_03_b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_37[top1]": {
-        "scene_name": "Deepnest_37",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_38[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_37[bot1]": {
-        "scene_name": "Deepnest_37",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_44[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_38[bot1]": {
-        "scene_name": "Deepnest_38",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_37[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_39[left1]": {
-        "scene_name": "Deepnest_39",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_41[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_39[top1]": {
-        "scene_name": "Deepnest_39",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_42[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_39[door1]": {
-        "scene_name": "Deepnest_39",
-        "door_name": "door1",
         "vanilla_target": "Deepnest_45_v02[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_39[right1]": {
-        "scene_name": "Deepnest_39",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_34[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_40[right1]": {
-        "scene_name": "Deepnest_40",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_35[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_41[right1]": {
-        "scene_name": "Deepnest_41",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_39[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_41[left1]": {
-        "scene_name": "Deepnest_41",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_10[right2]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_41[left2]": {
-        "scene_name": "Deepnest_41",
-        "door_name": "left2",
         "vanilla_target": "Deepnest_10[right3]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_42[bot1]": {
-        "scene_name": "Deepnest_42",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_39[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_42[left1]": {
-        "scene_name": "Deepnest_42",
-        "door_name": "left1",
         "vanilla_target": "Room_Mask_Maker[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_42[top1]": {
-        "scene_name": "Deepnest_42",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_43[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": True
     },
     "Deepnest_43[bot1]": {
-        "scene_name": "Deepnest_43",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_42[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": True
     },
     "Deepnest_43[left1]": {
-        "scene_name": "Deepnest_43",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_50[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Deepnest_43[right1]": {
-        "scene_name": "Deepnest_43",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Deepnest_44[top1]": {
-        "scene_name": "Deepnest_44",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_37[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_45_v02[left1]": {
-        "scene_name": "Deepnest_45_v02",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_39[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Weaver's Den",
+        "is_titled_area_transition": True
     },
     "Room_Mask_Maker[right1]": {
-        "scene_name": "Room_Mask_Maker",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_42[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_01[bot1]": {
-        "scene_name": "Deepnest_East_01",
-        "door_name": "bot1",
         "vanilla_target": "Abyss_03_c[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_01[right1]": {
-        "scene_name": "Deepnest_East_01",
-        "door_name": "right1",
         "vanilla_target": "Hive_03_c[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_01[top1]": {
-        "scene_name": "Deepnest_East_01",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_02[bot1]": {
-        "scene_name": "Deepnest_East_02",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_02[bot2]": {
-        "scene_name": "Deepnest_East_02",
-        "door_name": "bot2",
         "vanilla_target": "Hive_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_02[top1]": {
-        "scene_name": "Deepnest_East_02",
-        "door_name": "top1",
         "vanilla_target": "Waterways_14[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_02[right1]": {
-        "scene_name": "Deepnest_East_02",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_03[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_03[left1]": {
-        "scene_name": "Deepnest_East_03",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_03[left2]": {
-        "scene_name": "Deepnest_East_03",
-        "door_name": "left2",
         "vanilla_target": "Deepnest_East_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_03[top1]": {
-        "scene_name": "Deepnest_East_03",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_07[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_03[top2]": {
-        "scene_name": "Deepnest_East_03",
-        "door_name": "top2",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "OneWayOut",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "OneWayOut"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_03[right1]": {
-        "scene_name": "Deepnest_East_03",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_03[right2]": {
-        "scene_name": "Deepnest_East_03",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_East_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_04[left1]": {
-        "scene_name": "Deepnest_East_04",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_04[left2]": {
-        "scene_name": "Deepnest_East_04",
-        "door_name": "left2",
         "vanilla_target": "Deepnest_East_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_04[right2]": {
-        "scene_name": "Deepnest_East_04",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_East_15[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_04[right1]": {
-        "scene_name": "Deepnest_East_04",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_11[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_06[top1]": {
-        "scene_name": "Deepnest_East_06",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_18[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_06[left1]": {
-        "scene_name": "Deepnest_East_06",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_03[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_06[bot1]": {
-        "scene_name": "Deepnest_East_06",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_14b[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_06[door1]": {
-        "scene_name": "Deepnest_East_06",
-        "door_name": "door1",
         "vanilla_target": "Room_nailmaster_03[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_06[right1]": {
-        "scene_name": "Deepnest_East_06",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_16[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_07[bot1]": {
-        "scene_name": "Deepnest_East_07",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_07[bot2]": {
-        "scene_name": "Deepnest_East_07",
-        "door_name": "bot2",
         "vanilla_target": "Deepnest_East_03[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "OneWayIn",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "OneWayIn"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_07[left1]": {
-        "scene_name": "Deepnest_East_07",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_08[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_07[left2]": {
-        "scene_name": "Deepnest_East_07",
-        "door_name": "left2",
         "vanilla_target": "Ruins2_11_b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_07[right1]": {
-        "scene_name": "Deepnest_East_07",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_04[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_08[right1]": {
-        "scene_name": "Deepnest_East_08",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_08[top1]": {
-        "scene_name": "Deepnest_East_08",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_09[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_09[right1]": {
-        "scene_name": "Deepnest_East_09",
-        "door_name": "right1",
         "vanilla_target": "Room_Colosseum_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_09[left1]": {
-        "scene_name": "Deepnest_East_09",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_10b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_09[bot1]": {
-        "scene_name": "Deepnest_East_09",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_08[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_10[left1]": {
-        "scene_name": "Deepnest_East_10",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_18[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_11[right1]": {
-        "scene_name": "Deepnest_East_11",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_12[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_11[left1]": {
-        "scene_name": "Deepnest_East_11",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_11[top1]": {
-        "scene_name": "Deepnest_East_11",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_13[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_11[bot1]": {
-        "scene_name": "Deepnest_East_11",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_18[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_12[right1]": {
-        "scene_name": "Deepnest_East_12",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_Hornet[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_12[left1]": {
-        "scene_name": "Deepnest_East_12",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_11[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_13[bot1]": {
-        "scene_name": "Deepnest_East_13",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_11[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_14[top2]": {
-        "scene_name": "Deepnest_East_14",
-        "door_name": "top2",
         "vanilla_target": "Deepnest_East_16[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_14[left1]": {
-        "scene_name": "Deepnest_East_14",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_14b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_14[door1]": {
-        "scene_name": "Deepnest_East_14",
-        "door_name": "door1",
         "vanilla_target": "Deepnest_East_17[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_14b[right1]": {
-        "scene_name": "Deepnest_East_14b",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_14[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_14b[top1]": {
-        "scene_name": "Deepnest_East_14b",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_06[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_15[left1]": {
-        "scene_name": "Deepnest_East_15",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_04[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_16[left1]": {
-        "scene_name": "Deepnest_East_16",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_16[bot1]": {
-        "scene_name": "Deepnest_East_16",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_14[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_17[left1]": {
-        "scene_name": "Deepnest_East_17",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_14[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_18[top1]": {
-        "scene_name": "Deepnest_East_18",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_11[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_18[bot1]": {
-        "scene_name": "Deepnest_East_18",
-        "door_name": "bot1",
         "vanilla_target": "Deepnest_East_06[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_18[right2]": {
-        "scene_name": "Deepnest_East_18",
-        "door_name": "right2",
         "vanilla_target": "Deepnest_East_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Room_nailmaster_03[left1]": {
-        "scene_name": "Room_nailmaster_03",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_06[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Deepnest_East_Hornet[left1]": {
-        "scene_name": "Deepnest_East_Hornet",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_12[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Cast Off Shell",
+        "is_titled_area_transition": True
     },
     "Deepnest_East_Hornet[left2]": {
-        "scene_name": "Deepnest_East_Hornet",
-        "door_name": "left2",
         "vanilla_target": "Room_Wyrm[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Cast Off Shell",
+        "is_titled_area_transition": False
     },
     "Room_Wyrm[right1]": {
-        "scene_name": "Room_Wyrm",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_Hornet[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Cast Off Shell",
+        "is_titled_area_transition": False
     },
     "GG_Lurker[left1]": {
-        "scene_name": "GG_Lurker",
-        "door_name": "left1",
         "vanilla_target": "Room_Colosseum_Spectate[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Hive_01[left1]": {
-        "scene_name": "Hive_01",
-        "door_name": "left1",
         "vanilla_target": "Abyss_03_c[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": True
     },
     "Hive_01[right1]": {
-        "scene_name": "Hive_01",
-        "door_name": "right1",
         "vanilla_target": "Hive_02[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_01[right2]": {
-        "scene_name": "Hive_01",
-        "door_name": "right2",
         "vanilla_target": "Hive_02[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_02[left1]": {
-        "scene_name": "Hive_02",
-        "door_name": "left1",
         "vanilla_target": "Hive_03_c[right3]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_02[left2]": {
-        "scene_name": "Hive_02",
-        "door_name": "left2",
         "vanilla_target": "Hive_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_02[left3]": {
-        "scene_name": "Hive_02",
-        "door_name": "left3",
         "vanilla_target": "Hive_01[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_03_c[left1]": {
-        "scene_name": "Hive_03_c",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": True
     },
     "Hive_03_c[right2]": {
-        "scene_name": "Hive_03_c",
-        "door_name": "right2",
         "vanilla_target": "Hive_04[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_03_c[right3]": {
-        "scene_name": "Hive_03_c",
-        "door_name": "right3",
         "vanilla_target": "Hive_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_03_c[top1]": {
-        "scene_name": "Hive_03_c",
-        "door_name": "top1",
         "vanilla_target": "Hive_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_03[bot1]": {
-        "scene_name": "Hive_03",
-        "door_name": "bot1",
         "vanilla_target": "Hive_03_c[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_03[right1]": {
-        "scene_name": "Hive_03",
-        "door_name": "right1",
         "vanilla_target": "Hive_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_03[top1]": {
-        "scene_name": "Hive_03",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_02[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": True
     },
     "Hive_04[left1]": {
-        "scene_name": "Hive_04",
-        "door_name": "left1",
         "vanilla_target": "Hive_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_04[left2]": {
-        "scene_name": "Hive_04",
-        "door_name": "left2",
         "vanilla_target": "Hive_03_c[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_04[right1]": {
-        "scene_name": "Hive_04",
-        "door_name": "right1",
         "vanilla_target": "Hive_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Hive_05[left1]": {
-        "scene_name": "Hive_05",
-        "door_name": "left1",
         "vanilla_target": "Hive_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hive",
+        "is_titled_area_transition": False
     },
     "Room_Colosseum_01[left1]": {
-        "scene_name": "Room_Colosseum_01",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_East_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Colosseum",
+        "is_titled_area_transition": True
     },
     "Room_Colosseum_01[bot1]": {
-        "scene_name": "Room_Colosseum_01",
-        "door_name": "bot1",
         "vanilla_target": "Room_Colosseum_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Colosseum",
+        "is_titled_area_transition": False
     },
     "Room_Colosseum_02[top1]": {
-        "scene_name": "Room_Colosseum_02",
-        "door_name": "top1",
         "vanilla_target": "Room_Colosseum_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Colosseum",
+        "is_titled_area_transition": False
     },
     "Room_Colosseum_02[top2]": {
-        "scene_name": "Room_Colosseum_02",
-        "door_name": "top2",
         "vanilla_target": "Room_Colosseum_Spectate[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Colosseum",
+        "is_titled_area_transition": False
     },
     "Room_Colosseum_Spectate[bot1]": {
-        "scene_name": "Room_Colosseum_Spectate",
-        "door_name": "bot1",
         "vanilla_target": "Room_Colosseum_02[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Colosseum",
+        "is_titled_area_transition": False
     },
     "Room_Colosseum_Spectate[right1]": {
-        "scene_name": "Room_Colosseum_Spectate",
-        "door_name": "right1",
         "vanilla_target": "GG_Lurker[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Colosseum",
+        "is_titled_area_transition": True
     },
     "Abyss_01[left1]": {
-        "scene_name": "Abyss_01",
-        "door_name": "left1",
         "vanilla_target": "Waterways_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Abyss_01[left2]": {
-        "scene_name": "Abyss_01",
-        "door_name": "left2",
         "vanilla_target": "Waterways_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Abyss_01[left3]": {
-        "scene_name": "Abyss_01",
-        "door_name": "left3",
         "vanilla_target": "Abyss_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Abyss_01[right1]": {
-        "scene_name": "Abyss_01",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_04[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Abyss_01[right2]": {
-        "scene_name": "Abyss_01",
-        "door_name": "right2",
         "vanilla_target": "Waterways_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Abyss_02[right1]": {
-        "scene_name": "Abyss_02",
-        "door_name": "right1",
         "vanilla_target": "Abyss_01[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Abyss_02[bot1]": {
-        "scene_name": "Abyss_02",
-        "door_name": "bot1",
         "vanilla_target": "Abyss_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Abyss_03[bot1]": {
-        "scene_name": "Abyss_03",
-        "door_name": "bot1",
         "vanilla_target": "Abyss_17[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_03[bot2]": {
-        "scene_name": "Abyss_03",
-        "door_name": "bot2",
         "vanilla_target": "Abyss_04[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_03[top1]": {
-        "scene_name": "Abyss_03",
-        "door_name": "top1",
         "vanilla_target": "Abyss_02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": True
     },
     "Abyss_03_b[left1]": {
-        "scene_name": "Abyss_03_b",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_37[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Deepnest",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Deepnest",
+        "is_titled_area_transition": False
     },
     "Abyss_03_c[right1]": {
-        "scene_name": "Abyss_03_c",
-        "door_name": "right1",
         "vanilla_target": "Hive_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": True
     },
     "Abyss_03_c[top1]": {
-        "scene_name": "Abyss_03_c",
-        "door_name": "top1",
         "vanilla_target": "Deepnest_East_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Kingdom's Edge",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Kingdom's Edge",
+        "is_titled_area_transition": False
     },
     "Abyss_04[top1]": {
-        "scene_name": "Abyss_04",
-        "door_name": "top1",
         "vanilla_target": "Abyss_03[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_04[left1]": {
-        "scene_name": "Abyss_04",
-        "door_name": "left1",
         "vanilla_target": "Abyss_18[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_04[bot1]": {
-        "scene_name": "Abyss_04",
-        "door_name": "bot1",
         "vanilla_target": "Abyss_06_Core[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": True
     },
     "Abyss_04[right1]": {
-        "scene_name": "Abyss_04",
-        "door_name": "right1",
         "vanilla_target": "Abyss_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": True
     },
     "Abyss_05[left1]": {
-        "scene_name": "Abyss_05",
-        "door_name": "left1",
         "vanilla_target": "Abyss_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Palace Grounds",
+        "is_titled_area_transition": True
     },
     "Abyss_05[right1]": {
-        "scene_name": "Abyss_05",
-        "door_name": "right1",
         "vanilla_target": "Abyss_22[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Palace Grounds",
+        "is_titled_area_transition": False
     },
     "Abyss_06_Core[top1]": {
-        "scene_name": "Abyss_06_Core",
-        "door_name": "top1",
         "vanilla_target": "Abyss_04[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": True
     },
     "Abyss_06_Core[left1]": {
-        "scene_name": "Abyss_06_Core",
-        "door_name": "left1",
         "vanilla_target": "Abyss_08[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_06_Core[left3]": {
-        "scene_name": "Abyss_06_Core",
-        "door_name": "left3",
         "vanilla_target": "Abyss_12[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_06_Core[right2]": {
-        "scene_name": "Abyss_06_Core",
-        "door_name": "right2",
         "vanilla_target": "Abyss_16[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_06_Core[bot1]": {
-        "scene_name": "Abyss_06_Core",
-        "door_name": "bot1",
         "vanilla_target": "Abyss_15[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_08[right1]": {
-        "scene_name": "Abyss_08",
-        "door_name": "right1",
         "vanilla_target": "Abyss_06_Core[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_09[right1]": {
-        "scene_name": "Abyss_09",
-        "door_name": "right1",
         "vanilla_target": "Abyss_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_09[right2]": {
-        "scene_name": "Abyss_09",
-        "door_name": "right2",
         "vanilla_target": "Abyss_Lighthouse_room[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_09[right3]": {
-        "scene_name": "Abyss_09",
-        "door_name": "right3",
         "vanilla_target": "Abyss_10[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_09[left1]": {
-        "scene_name": "Abyss_09",
-        "door_name": "left1",
         "vanilla_target": "Abyss_16[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_10[left1]": {
-        "scene_name": "Abyss_10",
-        "door_name": "left1",
         "vanilla_target": "Abyss_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_10[left2]": {
-        "scene_name": "Abyss_10",
-        "door_name": "left2",
         "vanilla_target": "Abyss_09[right3]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_12[right1]": {
-        "scene_name": "Abyss_12",
-        "door_name": "right1",
         "vanilla_target": "Abyss_06_Core[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_15[top1]": {
-        "scene_name": "Abyss_15",
-        "door_name": "top1",
         "vanilla_target": "Abyss_06_Core[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_16[left1]": {
-        "scene_name": "Abyss_16",
-        "door_name": "left1",
         "vanilla_target": "Abyss_06_Core[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_16[right1]": {
-        "scene_name": "Abyss_16",
-        "door_name": "right1",
         "vanilla_target": "Abyss_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Abyss_17[top1]": {
-        "scene_name": "Abyss_17",
-        "door_name": "top1",
         "vanilla_target": "Abyss_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_18[left1]": {
-        "scene_name": "Abyss_18",
-        "door_name": "left1",
         "vanilla_target": "Abyss_19[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_18[right1]": {
-        "scene_name": "Abyss_18",
-        "door_name": "right1",
         "vanilla_target": "Abyss_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_19[left1]": {
-        "scene_name": "Abyss_19",
-        "door_name": "left1",
         "vanilla_target": "Abyss_21[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_19[right1]": {
-        "scene_name": "Abyss_19",
-        "door_name": "right1",
         "vanilla_target": "Abyss_18[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_19[bot1]": {
-        "scene_name": "Abyss_19",
-        "door_name": "bot1",
         "vanilla_target": "Abyss_20[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_19[bot2]": {
-        "scene_name": "Abyss_19",
-        "door_name": "bot2",
         "vanilla_target": "Abyss_20[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_20[top1]": {
-        "scene_name": "Abyss_20",
-        "door_name": "top1",
         "vanilla_target": "Abyss_19[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_20[top2]": {
-        "scene_name": "Abyss_20",
-        "door_name": "top2",
         "vanilla_target": "Abyss_19[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_21[right1]": {
-        "scene_name": "Abyss_21",
-        "door_name": "right1",
         "vanilla_target": "Abyss_19[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Ancient Basin",
+        "is_titled_area_transition": False
     },
     "Abyss_22[left1]": {
-        "scene_name": "Abyss_22",
-        "door_name": "left1",
         "vanilla_target": "Abyss_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Palace Grounds",
+        "is_titled_area_transition": False
     },
     "Abyss_Lighthouse_room[left1]": {
-        "scene_name": "Abyss_Lighthouse_room",
-        "door_name": "left1",
         "vanilla_target": "Abyss_09[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Ancient Basin",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Abyss",
+        "is_titled_area_transition": False
     },
     "Waterways_01[top1]": {
-        "scene_name": "Waterways_01",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_05b[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Waterways_01[left1]": {
-        "scene_name": "Waterways_01",
-        "door_name": "left1",
         "vanilla_target": "Waterways_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_01[right1]": {
-        "scene_name": "Waterways_01",
-        "door_name": "right1",
         "vanilla_target": "Waterways_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_01[bot1]": {
-        "scene_name": "Waterways_01",
-        "door_name": "bot1",
         "vanilla_target": "Waterways_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_02[top1]": {
-        "scene_name": "Waterways_02",
-        "door_name": "top1",
         "vanilla_target": "Waterways_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_02[top2]": {
-        "scene_name": "Waterways_02",
-        "door_name": "top2",
         "vanilla_target": "Waterways_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_02[top3]": {
-        "scene_name": "Waterways_02",
-        "door_name": "top3",
         "vanilla_target": "Waterways_04[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_02[bot1]": {
-        "scene_name": "Waterways_02",
-        "door_name": "bot1",
         "vanilla_target": "Waterways_08[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_02[bot2]": {
-        "scene_name": "Waterways_02",
-        "door_name": "bot2",
         "vanilla_target": "Waterways_06[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_03[left1]": {
-        "scene_name": "Waterways_03",
-        "door_name": "left1",
         "vanilla_target": "Waterways_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04[bot1]": {
-        "scene_name": "Waterways_04",
-        "door_name": "bot1",
         "vanilla_target": "Waterways_02[top3]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04[right1]": {
-        "scene_name": "Waterways_04",
-        "door_name": "right1",
         "vanilla_target": "Waterways_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04[left1]": {
-        "scene_name": "Waterways_04",
-        "door_name": "left1",
         "vanilla_target": "Waterways_04b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04[left2]": {
-        "scene_name": "Waterways_04",
-        "door_name": "left2",
         "vanilla_target": "Waterways_04b[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04b[right1]": {
-        "scene_name": "Waterways_04b",
-        "door_name": "right1",
         "vanilla_target": "Waterways_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04b[right2]": {
-        "scene_name": "Waterways_04b",
-        "door_name": "right2",
         "vanilla_target": "Waterways_04[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_04b[left1]": {
-        "scene_name": "Waterways_04b",
-        "door_name": "left1",
         "vanilla_target": "Waterways_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_05[right1]": {
-        "scene_name": "Waterways_05",
-        "door_name": "right1",
         "vanilla_target": "Abyss_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_05[bot1]": {
-        "scene_name": "Waterways_05",
-        "door_name": "bot1",
         "vanilla_target": "Waterways_02[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_05[bot2]": {
-        "scene_name": "Waterways_05",
-        "door_name": "bot2",
         "vanilla_target": "Waterways_15[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_06[right1]": {
-        "scene_name": "Waterways_06",
-        "door_name": "right1",
         "vanilla_target": "Abyss_01[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_06[top1]": {
-        "scene_name": "Waterways_06",
-        "door_name": "top1",
         "vanilla_target": "Waterways_02[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_07[right1]": {
-        "scene_name": "Waterways_07",
-        "door_name": "right1",
         "vanilla_target": "Waterways_13[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Waterways_07[right2]": {
-        "scene_name": "Waterways_07",
-        "door_name": "right2",
         "vanilla_target": "Waterways_13[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Waterways_07[left1]": {
-        "scene_name": "Waterways_07",
-        "door_name": "left1",
         "vanilla_target": "Abyss_01[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_07[door1]": {
-        "scene_name": "Waterways_07",
-        "door_name": "door1",
         "vanilla_target": "Ruins_House_03[left2]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Waterways_07[top1]": {
-        "scene_name": "Waterways_07",
-        "door_name": "top1",
         "vanilla_target": "Waterways_14[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_08[top1]": {
-        "scene_name": "Waterways_08",
-        "door_name": "top1",
         "vanilla_target": "Waterways_02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_08[left1]": {
-        "scene_name": "Waterways_08",
-        "door_name": "left1",
         "vanilla_target": "Waterways_12[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_08[left2]": {
-        "scene_name": "Waterways_08",
-        "door_name": "left2",
         "vanilla_target": "GG_Pipeway[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_09[right1]": {
-        "scene_name": "Waterways_09",
-        "door_name": "right1",
         "vanilla_target": "Waterways_04b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_09[left1]": {
-        "scene_name": "Waterways_09",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_23[right2]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Waterways_12[right1]": {
-        "scene_name": "Waterways_12",
-        "door_name": "right1",
         "vanilla_target": "Waterways_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_13[left1]": {
-        "scene_name": "Waterways_13",
-        "door_name": "left1",
         "vanilla_target": "Waterways_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Isma's Grove",
+        "is_titled_area_transition": True
     },
     "Waterways_13[left2]": {
-        "scene_name": "Waterways_13",
-        "door_name": "left2",
         "vanilla_target": "Waterways_07[right2]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Isma's Grove",
+        "is_titled_area_transition": True
     },
     "Waterways_14[bot1]": {
-        "scene_name": "Waterways_14",
-        "door_name": "bot1",
         "vanilla_target": "Waterways_07[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "Waterways_14[bot2]": {
-        "scene_name": "Waterways_14",
-        "door_name": "bot2",
         "vanilla_target": "Deepnest_East_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "Waterways_15[top1]": {
-        "scene_name": "Waterways_15",
-        "door_name": "top1",
         "vanilla_target": "Waterways_05[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "GG_Pipeway[right1]": {
-        "scene_name": "GG_Pipeway",
-        "door_name": "right1",
         "vanilla_target": "Waterways_08[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": False
     },
     "GG_Pipeway[left1]": {
-        "scene_name": "GG_Pipeway",
-        "door_name": "left1",
         "vanilla_target": "GG_Waterways[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Royal Waterways",
+        "is_titled_area_transition": True
     },
     "GG_Waterways[right1]": {
-        "scene_name": "GG_Waterways",
-        "door_name": "right1",
         "vanilla_target": "GG_Pipeway[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Junk Pit",
+        "is_titled_area_transition": True
     },
     "GG_Waterways[door1]": {
-        "scene_name": "GG_Waterways",
-        "door_name": "door1",
         "vanilla_target": "Room_GG_Shortcut[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Junk Pit",
+        "is_titled_area_transition": False
     },
     "Room_GG_Shortcut[left1]": {
-        "scene_name": "Room_GG_Shortcut",
-        "door_name": "left1",
         "vanilla_target": "GG_Waterways[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Junk Pit",
+        "is_titled_area_transition": False
     },
     "Room_GG_Shortcut[top1]": {
-        "scene_name": "Room_GG_Shortcut",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_04[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Royal Waterways",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Junk Pit",
+        "is_titled_area_transition": True
     },
     "Ruins1_01[left1]": {
-        "scene_name": "Ruins1_01",
-        "door_name": "left1",
         "vanilla_target": "Fungus2_21[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins1_01[top1]": {
-        "scene_name": "Ruins1_01",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_17[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_01[bot1]": {
-        "scene_name": "Ruins1_01",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_02[top1]": {
-        "scene_name": "Ruins1_02",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_02[bot1]": {
-        "scene_name": "Ruins1_02",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_03[top1]": {
-        "scene_name": "Ruins1_03",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_03[left1]": {
-        "scene_name": "Ruins1_03",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_03[right1]": {
-        "scene_name": "Ruins1_03",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_05c[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_03[right2]": {
-        "scene_name": "Ruins1_03",
-        "door_name": "right2",
         "vanilla_target": "Ruins1_05b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_04[right1]": {
-        "scene_name": "Ruins1_04",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_04[door1]": {
-        "scene_name": "Ruins1_04",
-        "door_name": "door1",
         "vanilla_target": "Room_nailsmith[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_04[bot1]": {
-        "scene_name": "Ruins1_04",
-        "door_name": "bot1",
         "vanilla_target": "Room_GG_Shortcut[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins1_05b[left1]": {
-        "scene_name": "Ruins1_05b",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_03[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05b[top1]": {
-        "scene_name": "Ruins1_05b",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_05c[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05b[bot1]": {
-        "scene_name": "Ruins1_05b",
-        "door_name": "bot1",
         "vanilla_target": "Waterways_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins1_05b[right1]": {
-        "scene_name": "Ruins1_05b",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_27[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05c[left2]": {
-        "scene_name": "Ruins1_05c",
-        "door_name": "left2",
         "vanilla_target": "Ruins1_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05c[bot1]": {
-        "scene_name": "Ruins1_05c",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_05b[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05c[top1]": {
-        "scene_name": "Ruins1_05c",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05c[top2]": {
-        "scene_name": "Ruins1_05c",
-        "door_name": "top2",
         "vanilla_target": "Ruins1_05[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05c[top3]": {
-        "scene_name": "Ruins1_05c",
-        "door_name": "top3",
         "vanilla_target": "Ruins1_05[bot3]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05[bot1]": {
-        "scene_name": "Ruins1_05",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_05c[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05[bot2]": {
-        "scene_name": "Ruins1_05",
-        "door_name": "bot2",
         "vanilla_target": "Ruins1_05c[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05[bot3]": {
-        "scene_name": "Ruins1_05",
-        "door_name": "bot3",
         "vanilla_target": "Ruins1_05c[top3]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05[right1]": {
-        "scene_name": "Ruins1_05",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins1_05[right2]": {
-        "scene_name": "Ruins1_05",
-        "door_name": "right2",
         "vanilla_target": "Ruins1_18[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_05[top1]": {
-        "scene_name": "Ruins1_05",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_31[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_06[left1]": {
-        "scene_name": "Ruins1_06",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_06[right1]": {
-        "scene_name": "Ruins1_06",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_31[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_09[top1]": {
-        "scene_name": "Ruins1_09",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_23[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_09[left1]": {
-        "scene_name": "Ruins1_09",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": True
     },
     "Ruins1_17[top1]": {
-        "scene_name": "Ruins1_17",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_28[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_17[right1]": {
-        "scene_name": "Ruins1_17",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_17[bot1]": {
-        "scene_name": "Ruins1_17",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_18[left1]": {
-        "scene_name": "Ruins1_18",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_05[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_18[right1]": {
-        "scene_name": "Ruins1_18",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_03b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_18[right2]": {
-        "scene_name": "Ruins1_18",
-        "door_name": "right2",
         "vanilla_target": "Ruins2_01[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_23[top1]": {
-        "scene_name": "Ruins1_23",
-        "door_name": "top1",
         "vanilla_target": "Ruins1_30[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_23[right1]": {
-        "scene_name": "Ruins1_23",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_25[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_23[right2]": {
-        "scene_name": "Ruins1_23",
-        "door_name": "right2",
         "vanilla_target": "Ruins1_25[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_23[bot1]": {
-        "scene_name": "Ruins1_23",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_09[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_23[left1]": {
-        "scene_name": "Ruins1_23",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_31[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": True
     },
     "Ruins1_24[left1]": {
-        "scene_name": "Ruins1_24",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_32[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_24[right1]": {
-        "scene_name": "Ruins1_24",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_30[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_24[left2]": {
-        "scene_name": "Ruins1_24",
-        "door_name": "left2",
         "vanilla_target": "Ruins1_32[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_24[right2]": {
-        "scene_name": "Ruins1_24",
-        "door_name": "right2",
         "vanilla_target": "Ruins1_30[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_25[left1]": {
-        "scene_name": "Ruins1_25",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_30[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_25[left2]": {
-        "scene_name": "Ruins1_25",
-        "door_name": "left2",
         "vanilla_target": "Ruins1_23[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_25[left3]": {
-        "scene_name": "Ruins1_25",
-        "door_name": "left3",
         "vanilla_target": "Ruins1_23[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_27[left1]": {
-        "scene_name": "Ruins1_27",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_05b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_27[right1]": {
-        "scene_name": "Ruins1_27",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_01_b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_28[left1]": {
-        "scene_name": "Ruins1_28",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_49b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_28[right1]": {
-        "scene_name": "Ruins1_28",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_29[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_28[bot1]": {
-        "scene_name": "Ruins1_28",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_17[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_29[left1]": {
-        "scene_name": "Ruins1_29",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_28[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_30[left1]": {
-        "scene_name": "Ruins1_30",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_24[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_30[left2]": {
-        "scene_name": "Ruins1_30",
-        "door_name": "left2",
         "vanilla_target": "Ruins1_24[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_30[bot1]": {
-        "scene_name": "Ruins1_30",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_23[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_30[right1]": {
-        "scene_name": "Ruins1_30",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_25[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_31[bot1]": {
-        "scene_name": "Ruins1_31",
-        "door_name": "bot1",
         "vanilla_target": "Ruins1_05[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_31[left1]": {
-        "scene_name": "Ruins1_31",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_31[left2]": {
-        "scene_name": "Ruins1_31",
-        "door_name": "left2",
         "vanilla_target": "Ruins1_31b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_31[left3]": {
-        "scene_name": "Ruins1_31",
-        "door_name": "left3",
         "vanilla_target": "Ruins1_31b[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_31[right1]": {
-        "scene_name": "Ruins1_31",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_23[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins1_31b[right1]": {
-        "scene_name": "Ruins1_31b",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_31[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_31b[right2]": {
-        "scene_name": "Ruins1_31b",
-        "door_name": "right2",
         "vanilla_target": "Ruins1_31[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins1_32[right1]": {
-        "scene_name": "Ruins1_32",
-        "door_name": "right1",
         "vanilla_target": "Ruins1_24[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Ruins1_32[right2]": {
-        "scene_name": "Ruins1_32",
-        "door_name": "right2",
         "vanilla_target": "Ruins1_24[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Soul Sanctum",
+        "is_titled_area_transition": False
     },
     "Room_nailsmith[left1]": {
-        "scene_name": "Room_nailsmith",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_04[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_01[top1]": {
-        "scene_name": "Ruins2_01",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_03b[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_01[bot1]": {
-        "scene_name": "Ruins2_01",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_01_b[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_01[left2]": {
-        "scene_name": "Ruins2_01",
-        "door_name": "left2",
         "vanilla_target": "Ruins1_18[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_01_b[top1]": {
-        "scene_name": "Ruins2_01_b",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_01_b[left1]": {
-        "scene_name": "Ruins2_01_b",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_27[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_01_b[right1]": {
-        "scene_name": "Ruins2_01_b",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03b[top1]": {
-        "scene_name": "Ruins2_03b",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03b[top2]": {
-        "scene_name": "Ruins2_03b",
-        "door_name": "top2",
         "vanilla_target": "Ruins2_03[bot2]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03b[left1]": {
-        "scene_name": "Ruins2_03b",
-        "door_name": "left1",
         "vanilla_target": "Ruins1_18[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03b[bot1]": {
-        "scene_name": "Ruins2_03b",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03[top1]": {
-        "scene_name": "Ruins2_03",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_Watcher_Room[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03[bot1]": {
-        "scene_name": "Ruins2_03",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_03b[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_03[bot2]": {
-        "scene_name": "Ruins2_03",
-        "door_name": "bot2",
         "vanilla_target": "Ruins2_03b[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_04[left1]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_01_b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_04[left2]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "left2",
         "vanilla_target": "Abyss_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins2_04[right1]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins2_04[right2]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "right2",
         "vanilla_target": "Ruins2_06[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins2_04[door_Ruin_House_01]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "door_Ruin_House_01",
         "vanilla_target": "Ruins_House_01[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_04[door_Ruin_House_02]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "door_Ruin_House_02",
         "vanilla_target": "Ruins_House_02[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_04[door_Ruin_House_03]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "door_Ruin_House_03",
         "vanilla_target": "Ruins_House_03[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins2_04[door_Ruin_Elevator]": {
-        "scene_name": "Ruins2_04",
-        "door_name": "door_Ruin_Elevator",
         "vanilla_target": "Ruins_Elevator[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins2_05[left1]": {
-        "scene_name": "Ruins2_05",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_10b[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_05[top1]": {
-        "scene_name": "Ruins2_05",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_09[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_05[bot1]": {
-        "scene_name": "Ruins2_05",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_06[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_06[left1]": {
-        "scene_name": "Ruins2_06",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": True
     },
     "Ruins2_06[left2]": {
-        "scene_name": "Ruins2_06",
-        "door_name": "left2",
         "vanilla_target": "Ruins2_04[right2]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": True
     },
     "Ruins2_06[right1]": {
-        "scene_name": "Ruins2_06",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_06[right2]": {
-        "scene_name": "Ruins2_06",
-        "door_name": "right2",
         "vanilla_target": "Ruins2_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_06[top1]": {
-        "scene_name": "Ruins2_06",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_07[right1]": {
-        "scene_name": "Ruins2_07",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": True
     },
     "Ruins2_07[left1]": {
-        "scene_name": "Ruins2_07",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_06[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_07[top1]": {
-        "scene_name": "Ruins2_07",
-        "door_name": "top1",
         "vanilla_target": "Ruins2_11_b[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": True
     },
     "Ruins2_08[left1]": {
-        "scene_name": "Ruins2_08",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_09[bot1]": {
-        "scene_name": "Ruins2_09",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_05[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_10[right1]": {
-        "scene_name": "Ruins2_10",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "Ruins2_10[left1]": {
-        "scene_name": "Ruins2_10",
-        "door_name": "left1",
         "vanilla_target": "RestingGrounds_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "Ruins2_10b[right1]": {
-        "scene_name": "Ruins2_10b",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": True
     },
     "Ruins2_10b[right2]": {
-        "scene_name": "Ruins2_10b",
-        "door_name": "right2",
         "vanilla_target": "Ruins2_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": False
     },
     "Ruins2_10b[left1]": {
-        "scene_name": "Ruins2_10b",
-        "door_name": "left1",
         "vanilla_target": "Ruins_Bathhouse[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "King's Station",
+        "is_titled_area_transition": True
     },
     "Ruins2_11_b[right1]": {
-        "scene_name": "Ruins2_11_b",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_East_07[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Tower of Love",
+        "is_titled_area_transition": True
     },
     "Ruins2_11_b[left1]": {
-        "scene_name": "Ruins2_11_b",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_11[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Tower of Love",
+        "is_titled_area_transition": False
     },
     "Ruins2_11_b[bot1]": {
-        "scene_name": "Ruins2_11_b",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_07[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Tower of Love",
+        "is_titled_area_transition": True
     },
     "Ruins2_11[right1]": {
-        "scene_name": "Ruins2_11",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_11_b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Tower of Love",
+        "is_titled_area_transition": False
     },
     "Ruins2_Watcher_Room[bot1]": {
-        "scene_name": "Ruins2_Watcher_Room",
-        "door_name": "bot1",
         "vanilla_target": "Ruins2_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins_House_01[left1]": {
-        "scene_name": "Ruins_House_01",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_04[door_Ruin_House_01]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins_House_02[left1]": {
-        "scene_name": "Ruins_House_02",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_04[door_Ruin_House_02]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins_House_03[left1]": {
-        "scene_name": "Ruins_House_03",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_04[door_Ruin_House_03]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": False
     },
     "Ruins_House_03[left2]": {
-        "scene_name": "Ruins_House_03",
-        "door_name": "left2",
         "vanilla_target": "Waterways_07[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "City of Tears",
+        "is_titled_area_transition": True
     },
     "Ruins_Elevator[left1]": {
-        "scene_name": "Ruins_Elevator",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_04[door_Ruin_Elevator]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Pleasure House",
+        "is_titled_area_transition": True
     },
     "Ruins_Elevator[left2]": {
-        "scene_name": "Ruins_Elevator",
-        "door_name": "left2",
         "vanilla_target": "Ruins_Bathhouse[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Pleasure House",
+        "is_titled_area_transition": False
     },
     "Ruins_Bathhouse[door1]": {
-        "scene_name": "Ruins_Bathhouse",
-        "door_name": "door1",
         "vanilla_target": "Ruins_Elevator[left2]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Pleasure House",
+        "is_titled_area_transition": False
     },
     "Ruins_Bathhouse[right1]": {
-        "scene_name": "Ruins_Bathhouse",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_10b[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "City of Tears",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Pleasure House",
+        "is_titled_area_transition": True
     },
     "RestingGrounds_02[right1]": {
-        "scene_name": "RestingGrounds_02",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_02[left1]": {
-        "scene_name": "RestingGrounds_02",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_46b[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_02[bot1]": {
-        "scene_name": "RestingGrounds_02",
-        "door_name": "bot1",
         "vanilla_target": "RestingGrounds_06[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_02[top1]": {
-        "scene_name": "RestingGrounds_02",
-        "door_name": "top1",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": True,
-        "sides": "OneWayOut"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": True
     },
     "RestingGrounds_04[left1]": {
-        "scene_name": "RestingGrounds_04",
-        "door_name": "left1",
         "vanilla_target": "RestingGrounds_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_04[right1]": {
-        "scene_name": "RestingGrounds_04",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_05[left1]": {
-        "scene_name": "RestingGrounds_05",
-        "door_name": "left1",
         "vanilla_target": "RestingGrounds_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_05[left2]": {
-        "scene_name": "RestingGrounds_05",
-        "door_name": "left2",
         "vanilla_target": "RestingGrounds_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_05[left3]": {
-        "scene_name": "RestingGrounds_05",
-        "door_name": "left3",
         "vanilla_target": "RestingGrounds_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_05[right1]": {
-        "scene_name": "RestingGrounds_05",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": True
     },
     "RestingGrounds_05[right2]": {
-        "scene_name": "RestingGrounds_05",
-        "door_name": "right2",
         "vanilla_target": "RestingGrounds_09[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_05[bot1]": {
-        "scene_name": "RestingGrounds_05",
-        "door_name": "bot1",
         "vanilla_target": "RestingGrounds_10[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_06[left1]": {
-        "scene_name": "RestingGrounds_06",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_50[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": True
     },
     "RestingGrounds_06[right1]": {
-        "scene_name": "RestingGrounds_06",
-        "door_name": "right1",
         "vanilla_target": "Ruins2_10[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_06[top1]": {
-        "scene_name": "RestingGrounds_06",
-        "door_name": "top1",
         "vanilla_target": "RestingGrounds_02[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_07[right1]": {
-        "scene_name": "RestingGrounds_07",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_05[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_08[left1]": {
-        "scene_name": "RestingGrounds_08",
-        "door_name": "left1",
         "vanilla_target": "RestingGrounds_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Spirits' Glade",
+        "is_titled_area_transition": True
     },
     "RestingGrounds_09[left1]": {
-        "scene_name": "RestingGrounds_09",
-        "door_name": "left1",
         "vanilla_target": "RestingGrounds_05[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_10[left1]": {
-        "scene_name": "RestingGrounds_10",
-        "door_name": "left1",
         "vanilla_target": "Ruins2_10[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_10[top1]": {
-        "scene_name": "RestingGrounds_10",
-        "door_name": "top1",
         "vanilla_target": "RestingGrounds_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_10[top2]": {
-        "scene_name": "RestingGrounds_10",
-        "door_name": "top2",
         "vanilla_target": "RestingGrounds_12[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_12[bot1]": {
-        "scene_name": "RestingGrounds_12",
-        "door_name": "bot1",
         "vanilla_target": "RestingGrounds_10[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_12[door_Mansion]": {
-        "scene_name": "RestingGrounds_12",
-        "door_name": "door_Mansion",
         "vanilla_target": "Room_Mansion[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "RestingGrounds_17[right1]": {
-        "scene_name": "RestingGrounds_17",
-        "door_name": "right1",
         "vanilla_target": "RestingGrounds_05[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "Room_Mansion[left1]": {
-        "scene_name": "Room_Mansion",
-        "door_name": "left1",
         "vanilla_target": "RestingGrounds_12[door_Mansion]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Resting Grounds",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Resting Grounds",
+        "is_titled_area_transition": False
     },
     "Mines_01[bot1]": {
-        "scene_name": "Mines_01",
-        "door_name": "bot1",
         "vanilla_target": "Mines_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_01[left1]": {
-        "scene_name": "Mines_01",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_45[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_02[top1]": {
-        "scene_name": "Mines_02",
-        "door_name": "top1",
         "vanilla_target": "Mines_01[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_02[top2]": {
-        "scene_name": "Mines_02",
-        "door_name": "top2",
         "vanilla_target": "Mines_03[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_02[left1]": {
-        "scene_name": "Mines_02",
-        "door_name": "left1",
         "vanilla_target": "Mines_33[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_02[right1]": {
-        "scene_name": "Mines_02",
-        "door_name": "right1",
         "vanilla_target": "Mines_29[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_03[right1]": {
-        "scene_name": "Mines_03",
-        "door_name": "right1",
         "vanilla_target": "Mines_17[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_03[bot1]": {
-        "scene_name": "Mines_03",
-        "door_name": "bot1",
         "vanilla_target": "Mines_02[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_03[top1]": {
-        "scene_name": "Mines_03",
-        "door_name": "top1",
         "vanilla_target": "Mines_05[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_04[right1]": {
-        "scene_name": "Mines_04",
-        "door_name": "right1",
         "vanilla_target": "Mines_07[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_04[top1]": {
-        "scene_name": "Mines_04",
-        "door_name": "top1",
         "vanilla_target": "Mines_37[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_04[left1]": {
-        "scene_name": "Mines_04",
-        "door_name": "left1",
         "vanilla_target": "Mines_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_04[left2]": {
-        "scene_name": "Mines_04",
-        "door_name": "left2",
         "vanilla_target": "Mines_29[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_04[left3]": {
-        "scene_name": "Mines_04",
-        "door_name": "left3",
         "vanilla_target": "Mines_29[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_05[right1]": {
-        "scene_name": "Mines_05",
-        "door_name": "right1",
         "vanilla_target": "Mines_19[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_05[top1]": {
-        "scene_name": "Mines_05",
-        "door_name": "top1",
         "vanilla_target": "Mines_11[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_05[bot1]": {
-        "scene_name": "Mines_05",
-        "door_name": "bot1",
         "vanilla_target": "Mines_03[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_05[left1]": {
-        "scene_name": "Mines_05",
-        "door_name": "left1",
         "vanilla_target": "Mines_30[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_05[left2]": {
-        "scene_name": "Mines_05",
-        "door_name": "left2",
         "vanilla_target": "Mines_06[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_06[right1]": {
-        "scene_name": "Mines_06",
-        "door_name": "right1",
         "vanilla_target": "Mines_05[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_06[left1]": {
-        "scene_name": "Mines_06",
-        "door_name": "left1",
         "vanilla_target": "Mines_36[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_07[right1]": {
-        "scene_name": "Mines_07",
-        "door_name": "right1",
         "vanilla_target": "Mines_28[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_07[left1]": {
-        "scene_name": "Mines_07",
-        "door_name": "left1",
         "vanilla_target": "Mines_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_10[right1]": {
-        "scene_name": "Mines_10",
-        "door_name": "right1",
         "vanilla_target": "Mines_30[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_10[left1]": {
-        "scene_name": "Mines_10",
-        "door_name": "left1",
         "vanilla_target": "Town[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_10[bot1]": {
-        "scene_name": "Mines_10",
-        "door_name": "bot1",
         "vanilla_target": "Mines_16[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_11[right1]": {
-        "scene_name": "Mines_11",
-        "door_name": "right1",
         "vanilla_target": "Mines_18[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_11[top1]": {
-        "scene_name": "Mines_11",
-        "door_name": "top1",
         "vanilla_target": "Mines_13[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_11[bot1]": {
-        "scene_name": "Mines_11",
-        "door_name": "bot1",
         "vanilla_target": "Mines_05[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_13[right1]": {
-        "scene_name": "Mines_13",
-        "door_name": "right1",
         "vanilla_target": "Mines_20[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_13[top1]": {
-        "scene_name": "Mines_13",
-        "door_name": "top1",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "OneWayOut"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_13[bot1]": {
-        "scene_name": "Mines_13",
-        "door_name": "bot1",
         "vanilla_target": "Mines_11[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_16[top1]": {
-        "scene_name": "Mines_16",
-        "door_name": "top1",
         "vanilla_target": "Mines_10[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_17[right1]": {
-        "scene_name": "Mines_17",
-        "door_name": "right1",
         "vanilla_target": "Mines_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_17[left1]": {
-        "scene_name": "Mines_17",
-        "door_name": "left1",
         "vanilla_target": "Mines_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_18[top1]": {
-        "scene_name": "Mines_18",
-        "door_name": "top1",
         "vanilla_target": "Mines_32[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_18[left1]": {
-        "scene_name": "Mines_18",
-        "door_name": "left1",
         "vanilla_target": "Mines_11[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_18[right1]": {
-        "scene_name": "Mines_18",
-        "door_name": "right1",
         "vanilla_target": "Mines_20[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_19[left1]": {
-        "scene_name": "Mines_19",
-        "door_name": "left1",
         "vanilla_target": "Mines_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_19[right1]": {
-        "scene_name": "Mines_19",
-        "door_name": "right1",
         "vanilla_target": "Mines_20[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_20[left1]": {
-        "scene_name": "Mines_20",
-        "door_name": "left1",
         "vanilla_target": "Mines_13[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_20[left2]": {
-        "scene_name": "Mines_20",
-        "door_name": "left2",
         "vanilla_target": "Mines_18[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_20[left3]": {
-        "scene_name": "Mines_20",
-        "door_name": "left3",
         "vanilla_target": "Mines_19[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_20[bot1]": {
-        "scene_name": "Mines_20",
-        "door_name": "bot1",
         "vanilla_target": "Mines_37[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_20[right1]": {
-        "scene_name": "Mines_20",
-        "door_name": "right1",
         "vanilla_target": "Mines_23[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_20[right2]": {
-        "scene_name": "Mines_20",
-        "door_name": "right2",
         "vanilla_target": "Mines_31[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_23[left1]": {
-        "scene_name": "Mines_23",
-        "door_name": "left1",
         "vanilla_target": "Mines_20[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_23[right1]": {
-        "scene_name": "Mines_23",
-        "door_name": "right1",
         "vanilla_target": "Mines_25[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_23[right2]": {
-        "scene_name": "Mines_23",
-        "door_name": "right2",
         "vanilla_target": "Mines_24[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_23[top1]": {
-        "scene_name": "Mines_23",
-        "door_name": "top1",
         "vanilla_target": None,
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "OneWayOut",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "OneWayOut"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_24[left1]": {
-        "scene_name": "Mines_24",
-        "door_name": "left1",
         "vanilla_target": "Mines_23[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_25[left1]": {
-        "scene_name": "Mines_25",
-        "door_name": "left1",
         "vanilla_target": "Mines_23[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hallownest's Crown",
+        "is_titled_area_transition": True
     },
     "Mines_25[top1]": {
-        "scene_name": "Mines_25",
-        "door_name": "top1",
         "vanilla_target": "Mines_34[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hallownest's Crown",
+        "is_titled_area_transition": False
     },
     "Mines_28[left1]": {
-        "scene_name": "Mines_28",
-        "door_name": "left1",
         "vanilla_target": "Mines_07[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_28[bot1]": {
-        "scene_name": "Mines_28",
-        "door_name": "bot1",
         "vanilla_target": "RestingGrounds_02[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": True,
-        "sides": "OneWayIn"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_28[door1]": {
-        "scene_name": "Mines_28",
-        "door_name": "door1",
         "vanilla_target": "Mines_35[left1]",
         "direction": "Door",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": True
     },
     "Mines_29[left1]": {
-        "scene_name": "Mines_29",
-        "door_name": "left1",
         "vanilla_target": "Mines_02[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_29[right1]": {
-        "scene_name": "Mines_29",
-        "door_name": "right1",
         "vanilla_target": "Mines_04[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_29[right2]": {
-        "scene_name": "Mines_29",
-        "door_name": "right2",
         "vanilla_target": "Mines_04[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_30[left1]": {
-        "scene_name": "Mines_30",
-        "door_name": "left1",
         "vanilla_target": "Mines_10[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_30[right1]": {
-        "scene_name": "Mines_30",
-        "door_name": "right1",
         "vanilla_target": "Mines_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_31[left1]": {
-        "scene_name": "Mines_31",
-        "door_name": "left1",
         "vanilla_target": "Mines_20[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_32[bot1]": {
-        "scene_name": "Mines_32",
-        "door_name": "bot1",
         "vanilla_target": "Mines_18[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_33[right1]": {
-        "scene_name": "Mines_33",
-        "door_name": "right1",
         "vanilla_target": "Mines_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": True
     },
     "Mines_33[left1]": {
-        "scene_name": "Mines_33",
-        "door_name": "left1",
         "vanilla_target": "Crossroads_03[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Forgotten Crossroads",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Forgotten Crossroads",
+        "is_titled_area_transition": False
     },
     "Mines_34[bot1]": {
-        "scene_name": "Mines_34",
-        "door_name": "bot1",
         "vanilla_target": "Mines_25[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Hallownest's Crown",
+        "is_titled_area_transition": False
     },
     "Mines_34[bot2]": {
-        "scene_name": "Mines_34",
-        "door_name": "bot2",
         "vanilla_target": "Mines_23[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "OneWayIn"
+        "titled_area": "Hallownest's Crown",
+        "is_titled_area_transition": True
     },
     "Mines_34[left1]": {
-        "scene_name": "Mines_34",
-        "door_name": "left1",
         "vanilla_target": "Mines_13[top1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "OneWayIn"
+        "titled_area": "Hallownest's Crown",
+        "is_titled_area_transition": True
     },
     "Mines_35[left1]": {
-        "scene_name": "Mines_35",
-        "door_name": "left1",
         "vanilla_target": "Mines_28[door1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystallized Mound",
+        "is_titled_area_transition": True
     },
     "Mines_36[right1]": {
-        "scene_name": "Mines_36",
-        "door_name": "right1",
         "vanilla_target": "Mines_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_37[bot1]": {
-        "scene_name": "Mines_37",
-        "door_name": "bot1",
         "vanilla_target": "Mines_04[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Mines_37[top1]": {
-        "scene_name": "Mines_37",
-        "door_name": "top1",
         "vanilla_target": "Mines_20[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Crystal Peak",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Crystal Peak",
+        "is_titled_area_transition": False
     },
     "Fungus3_04[left1]": {
-        "scene_name": "Fungus3_04",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_21[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_04[left2]": {
-        "scene_name": "Fungus3_04",
-        "door_name": "left2",
         "vanilla_target": "Fungus3_13[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_04[right1]": {
-        "scene_name": "Fungus3_04",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_34[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_04[right2]": {
-        "scene_name": "Fungus3_04",
-        "door_name": "right2",
         "vanilla_target": "Fungus3_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_05[left1]": {
-        "scene_name": "Fungus3_05",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_04[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_05[right1]": {
-        "scene_name": "Fungus3_05",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_24[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_05[right2]": {
-        "scene_name": "Fungus3_05",
-        "door_name": "right2",
         "vanilla_target": "Fungus3_11[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_08[left1]": {
-        "scene_name": "Fungus3_08",
-        "door_name": "left1",
         "vanilla_target": "Deepnest_43[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_08[right1]": {
-        "scene_name": "Fungus3_08",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_11[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_08[top1]": {
-        "scene_name": "Fungus3_08",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_10[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_10[top1]": {
-        "scene_name": "Fungus3_10",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_13[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_10[bot1]": {
-        "scene_name": "Fungus3_10",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_08[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_11[left1]": {
-        "scene_name": "Fungus3_11",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_05[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_11[left2]": {
-        "scene_name": "Fungus3_11",
-        "door_name": "left2",
         "vanilla_target": "Fungus3_08[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_11[right1]": {
-        "scene_name": "Fungus3_11",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_39[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_13[left1]": {
-        "scene_name": "Fungus3_13",
-        "door_name": "left1",
         "vanilla_target": "Fungus1_23[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_13[left2]": {
-        "scene_name": "Fungus3_13",
-        "door_name": "left2",
         "vanilla_target": "Fungus3_40[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_13[left3]": {
-        "scene_name": "Fungus3_13",
-        "door_name": "left3",
         "vanilla_target": "Fungus3_49[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_13[bot1]": {
-        "scene_name": "Fungus3_13",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_10[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_13[right1]": {
-        "scene_name": "Fungus3_13",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_04[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_21[right1]": {
-        "scene_name": "Fungus3_21",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_21[top1]": {
-        "scene_name": "Fungus3_21",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_22[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_22[right1]": {
-        "scene_name": "Fungus3_22",
-        "door_name": "right1",
         "vanilla_target": "Fungus1_13[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": True
     },
     "Fungus3_22[left1]": {
-        "scene_name": "Fungus3_22",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_23[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_22[bot1]": {
-        "scene_name": "Fungus3_22",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_21[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_23[right1]": {
-        "scene_name": "Fungus3_23",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_22[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_23[left1]": {
-        "scene_name": "Fungus3_23",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_48[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_34[right1]": {
-        "scene_name": "Fungus3_34",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_03[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": True
     },
     "Fungus3_34[left1]": {
-        "scene_name": "Fungus3_34",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_34[top1]": {
-        "scene_name": "Fungus3_34",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_44[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": True
     },
     "Fungus3_39[right1]": {
-        "scene_name": "Fungus3_39",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_01[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": True
     },
     "Fungus3_39[left1]": {
-        "scene_name": "Fungus3_39",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_11[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_40[right1]": {
-        "scene_name": "Fungus3_40",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_13[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_40[top1]": {
-        "scene_name": "Fungus3_40",
-        "door_name": "top1",
         "vanilla_target": "Fungus3_48[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_48[right1]": {
-        "scene_name": "Fungus3_48",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_23[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_48[right2]": {
-        "scene_name": "Fungus3_48",
-        "door_name": "right2",
         "vanilla_target": "Fungus1_23[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_48[door1]": {
-        "scene_name": "Fungus3_48",
-        "door_name": "door1",
         "vanilla_target": "Room_Queen[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_48[bot1]": {
-        "scene_name": "Fungus3_48",
-        "door_name": "bot1",
         "vanilla_target": "Fungus3_40[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_49[right1]": {
-        "scene_name": "Fungus3_49",
-        "door_name": "right1",
         "vanilla_target": "Fungus3_13[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Fungus3_50[right1]": {
-        "scene_name": "Fungus3_50",
-        "door_name": "right1",
         "vanilla_target": "Deepnest_43[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Room_Queen[left1]": {
-        "scene_name": "Room_Queen",
-        "door_name": "left1",
         "vanilla_target": "Fungus3_48[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Queen's Gardens",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Queen's Gardens",
+        "is_titled_area_transition": False
     },
     "Cliffs_01[right1]": {
-        "scene_name": "Cliffs_01",
-        "door_name": "right1",
         "vanilla_target": "Cliffs_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_01[right2]": {
-        "scene_name": "Cliffs_01",
-        "door_name": "right2",
         "vanilla_target": "Cliffs_04[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_01[right3]": {
-        "scene_name": "Cliffs_01",
-        "door_name": "right3",
         "vanilla_target": "Fungus1_28[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_01[right4]": {
-        "scene_name": "Cliffs_01",
-        "door_name": "right4",
         "vanilla_target": "Cliffs_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_02[right1]": {
-        "scene_name": "Cliffs_02",
-        "door_name": "right1",
         "vanilla_target": "Town[top1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": True,
-        "sides": "OneWayIn"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": True
     },
     "Cliffs_02[bot1]": {
-        "scene_name": "Cliffs_02",
-        "door_name": "bot1",
         "vanilla_target": "Tutorial_01[top2]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": True,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": True
     },
     "Cliffs_02[bot2]": {
-        "scene_name": "Cliffs_02",
-        "door_name": "bot2",
         "vanilla_target": "Tutorial_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": True,
+        "sides": "OneWayIn",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": True,
-        "sides": "OneWayIn"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": True
     },
     "Cliffs_02[door1]": {
-        "scene_name": "Cliffs_02",
-        "door_name": "door1",
         "vanilla_target": "Room_nailmaster[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_02[left1]": {
-        "scene_name": "Cliffs_02",
-        "door_name": "left1",
         "vanilla_target": "Cliffs_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_02[left2]": {
-        "scene_name": "Cliffs_02",
-        "door_name": "left2",
         "vanilla_target": "Cliffs_03[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": True
     },
     "Cliffs_03[right1]": {
-        "scene_name": "Cliffs_03",
-        "door_name": "right1",
         "vanilla_target": "Cliffs_02[left2]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Stag Nest",
+        "is_titled_area_transition": True
     },
     "Cliffs_04[right1]": {
-        "scene_name": "Cliffs_04",
-        "door_name": "right1",
         "vanilla_target": "Cliffs_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_04[left1]": {
-        "scene_name": "Cliffs_04",
-        "door_name": "left1",
         "vanilla_target": "Cliffs_01[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_05[left1]": {
-        "scene_name": "Cliffs_05",
-        "door_name": "left1",
         "vanilla_target": "Cliffs_04[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Cliffs_06[left1]": {
-        "scene_name": "Cliffs_06",
-        "door_name": "left1",
         "vanilla_target": "Cliffs_01[right4]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "Room_nailmaster[left1]": {
-        "scene_name": "Room_nailmaster",
-        "door_name": "left1",
         "vanilla_target": "Cliffs_02[door1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "Howling Cliffs",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Howling Cliffs",
+        "is_titled_area_transition": False
     },
     "White_Palace_01[left1]": {
-        "scene_name": "White_Palace_01",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_11[door2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_01[right1]": {
-        "scene_name": "White_Palace_01",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_02[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_01[top1]": {
-        "scene_name": "White_Palace_01",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_03_hub[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_02[left1]": {
-        "scene_name": "White_Palace_02",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_01[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_03_hub[left1]": {
-        "scene_name": "White_Palace_03_hub",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_14[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_03_hub[left2]": {
-        "scene_name": "White_Palace_03_hub",
-        "door_name": "left2",
         "vanilla_target": "White_Palace_04[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_03_hub[right1]": {
-        "scene_name": "White_Palace_03_hub",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_15[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_03_hub[top1]": {
-        "scene_name": "White_Palace_03_hub",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_06[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_03_hub[bot1]": {
-        "scene_name": "White_Palace_03_hub",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_01[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_04[top1]": {
-        "scene_name": "White_Palace_04",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_14[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_04[right2]": {
-        "scene_name": "White_Palace_04",
-        "door_name": "right2",
         "vanilla_target": "White_Palace_03_hub[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_05[left1]": {
-        "scene_name": "White_Palace_05",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_15[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_05[left2]": {
-        "scene_name": "White_Palace_05",
-        "door_name": "left2",
         "vanilla_target": "White_Palace_15[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_05[right1]": {
-        "scene_name": "White_Palace_05",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_16[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_05[right2]": {
-        "scene_name": "White_Palace_05",
-        "door_name": "right2",
         "vanilla_target": "White_Palace_16[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_06[left1]": {
-        "scene_name": "White_Palace_06",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_18[right1]",
         "direction": "Left",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": True
     },
     "White_Palace_06[top1]": {
-        "scene_name": "White_Palace_06",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_07[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_06[bot1]": {
-        "scene_name": "White_Palace_06",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_03_hub[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_07[top1]": {
-        "scene_name": "White_Palace_07",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_12[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_07[bot1]": {
-        "scene_name": "White_Palace_07",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_06[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_08[left1]": {
-        "scene_name": "White_Palace_08",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_13[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_08[right1]": {
-        "scene_name": "White_Palace_08",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_13[left3]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_09[right1]": {
-        "scene_name": "White_Palace_09",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_13[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_11[door2]": {
-        "scene_name": "White_Palace_11",
-        "door_name": "door2",
         "vanilla_target": "White_Palace_01[left1]",
         "direction": "Door",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_12[right1]": {
-        "scene_name": "White_Palace_12",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_13[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_12[bot1]": {
-        "scene_name": "White_Palace_12",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_07[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_13[right1]": {
-        "scene_name": "White_Palace_13",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_08[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_13[left1]": {
-        "scene_name": "White_Palace_13",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_09[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_13[left2]": {
-        "scene_name": "White_Palace_13",
-        "door_name": "left2",
         "vanilla_target": "White_Palace_12[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_13[left3]": {
-        "scene_name": "White_Palace_13",
-        "door_name": "left3",
         "vanilla_target": "White_Palace_08[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_14[bot1]": {
-        "scene_name": "White_Palace_14",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_04[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_14[right1]": {
-        "scene_name": "White_Palace_14",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_03_hub[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_15[left1]": {
-        "scene_name": "White_Palace_15",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_03_hub[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_15[right1]": {
-        "scene_name": "White_Palace_15",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_05[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_15[right2]": {
-        "scene_name": "White_Palace_15",
-        "door_name": "right2",
         "vanilla_target": "White_Palace_05[left2]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_16[left1]": {
-        "scene_name": "White_Palace_16",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_05[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_16[left2]": {
-        "scene_name": "White_Palace_16",
-        "door_name": "left2",
         "vanilla_target": "White_Palace_05[right2]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "White Palace",
+        "is_titled_area_transition": False
     },
     "White_Palace_17[right1]": {
-        "scene_name": "White_Palace_17",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_19[left1]",
         "direction": "Right",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": False
     },
     "White_Palace_17[bot1]": {
-        "scene_name": "White_Palace_17",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_18[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": False
     },
     "White_Palace_18[top1]": {
-        "scene_name": "White_Palace_18",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_17[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": False
     },
     "White_Palace_18[right1]": {
-        "scene_name": "White_Palace_18",
-        "door_name": "right1",
         "vanilla_target": "White_Palace_06[left1]",
         "direction": "Right",
-        "is_titled_area_transition": True,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": True
     },
     "White_Palace_19[top1]": {
-        "scene_name": "White_Palace_19",
-        "door_name": "top1",
         "vanilla_target": "White_Palace_20[bot1]",
         "direction": "Top",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": False
     },
     "White_Palace_19[left1]": {
-        "scene_name": "White_Palace_19",
-        "door_name": "left1",
         "vanilla_target": "White_Palace_17[right1]",
         "direction": "Left",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": False
     },
     "White_Palace_20[bot1]": {
-        "scene_name": "White_Palace_20",
-        "door_name": "bot1",
         "vanilla_target": "White_Palace_19[top1]",
         "direction": "Bot",
-        "is_titled_area_transition": False,
+        "sides": "Both",
+        "map_area": "White Palace",
         "is_map_area_transition": False,
-        "sides": "Both"
+        "titled_area": "Path of Pain",
+        "is_titled_area_transition": False
     }
 }
 starts = {
     "king's_pass": {
         "logic_name": "King's Pass",
-        "granted_transition": "Tutorial_01[top1]",  # "Tutorial_01[right1]",
+        "granted_transition": "Tutorial_01[right1]",
         "logic": []
     },
     "stag_nest": {

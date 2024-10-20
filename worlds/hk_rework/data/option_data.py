@@ -5,59 +5,59 @@ pool_options = {
         {
             "item": "Lurien",
             "location": "Lurien",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Monomon",
             "location": "Monomon",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Herrah",
             "location": "Herrah",
-            "costs": None
+            "costs": []
         },
         {
             "item": "World_Sense",
             "location": "World_Sense",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeSkills": [
         {
             "item": "Mothwing_Cloak",
             "location": "Mothwing_Cloak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mantis_Claw",
             "location": "Mantis_Claw",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Crystal_Heart",
             "location": "Crystal_Heart",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Monarch_Wings",
             "location": "Monarch_Wings",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Shade_Cloak",
             "location": "Shade_Cloak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Isma's_Tear",
             "location": "Isma's_Tear",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Dream_Nail",
             "location": "Dream_Nail",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Dream_Gate",
@@ -82,37 +82,37 @@ pool_options = {
         {
             "item": "Vengeful_Spirit",
             "location": "Vengeful_Spirit",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Shade_Soul",
             "location": "Shade_Soul",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Desolate_Dive",
             "location": "Desolate_Dive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Descending_Dark",
             "location": "Descending_Dark",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Howling_Wraiths",
             "location": "Howling_Wraiths",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Abyss_Shriek",
             "location": "Abyss_Shriek",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Cyclone_Slash",
             "location": "Cyclone_Slash",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Dash_Slash",
@@ -127,21 +127,21 @@ pool_options = {
         {
             "item": "Great_Slash",
             "location": "Great_Slash",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeFocus": [
         {
             "item": "Focus",
             "location": "Start",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeSwim": [
         {
             "item": "Swim",
             "location": "Start",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeCharms": [
@@ -158,82 +158,82 @@ pool_options = {
         {
             "item": "Baldur_Shell",
             "location": "Baldur_Shell",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Fury_of_the_Fallen",
             "location": "Fury_of_the_Fallen",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Core",
             "location": "Lifeblood_Core",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Defender's_Crest",
             "location": "Defender's_Crest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Flukenest",
             "location": "Flukenest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Thorns_of_Agony",
             "location": "Thorns_of_Agony",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mark_of_Pride",
             "location": "Mark_of_Pride",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Sharp_Shadow",
             "location": "Sharp_Shadow",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Spore_Shroom",
             "location": "Spore_Shroom",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Catcher",
             "location": "Soul_Catcher",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Eater",
             "location": "Soul_Eater",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Glowing_Womb",
             "location": "Glowing_Womb",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Nailmaster's_Glory",
             "location": "Nailmaster's_Glory",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Joni's_Blessing",
             "location": "Joni's_Blessing",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Shape_of_Unn",
             "location": "Shape_of_Unn",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hiveblood",
             "location": "Hiveblood",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Dream_Wielder",
@@ -248,22 +248,22 @@ pool_options = {
         {
             "item": "Dashmaster",
             "location": "Dashmaster",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Quick_Slash",
             "location": "Quick_Slash",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Spell_Twister",
             "location": "Spell_Twister",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Deep_Focus",
             "location": "Deep_Focus",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grubberfly's_Elegy",
@@ -278,32 +278,32 @@ pool_options = {
         {
             "item": "Queen_Fragment",
             "location": "Queen_Fragment",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King_Fragment",
             "location": "King_Fragment",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Void_Heart",
             "location": "Void_Heart",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Dreamshield",
             "location": "Dreamshield",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Weaversong",
             "location": "Weaversong",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmchild2",
             "location": "Grimmchild",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Gathering_Swarm",
@@ -470,52 +470,52 @@ pool_options = {
         {
             "item": "City_Crest",
             "location": "City_Crest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Tram_Pass",
             "location": "Tram_Pass",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Simple_Key",
             "location": "Simple_Key-Basin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Simple_Key",
             "location": "Simple_Key-City",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Simple_Key",
             "location": "Simple_Key-Lurker",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Shopkeeper's_Key",
             "location": "Shopkeeper's_Key",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Love_Key",
             "location": "Love_Key",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Brand",
             "location": "King's_Brand",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Godtuner",
             "location": "Godtuner",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Collector's_Map",
             "location": "Collector's_Map",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lumafly_Lantern",
@@ -572,52 +572,52 @@ pool_options = {
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Brooding_Mawlek",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Crossroads_Goam",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Stone_Sanctuary",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Queen's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Deepnest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Waterways",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Enraged_Guardian",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Hive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Grey_Mourner",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
             "location": "Mask_Shard-Bretta",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mask_Shard",
@@ -674,17 +674,17 @@ pool_options = {
         {
             "item": "Vessel_Fragment",
             "location": "Vessel_Fragment-Greenpath",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Vessel_Fragment",
             "location": "Vessel_Fragment-City",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Vessel_Fragment",
             "location": "Vessel_Fragment-Crossroads",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Vessel_Fragment",
@@ -699,12 +699,12 @@ pool_options = {
         {
             "item": "Vessel_Fragment",
             "location": "Vessel_Fragment-Deepnest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Vessel_Fragment",
             "location": "Vessel_Fragment-Stag_Nest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Vessel_Fragment",
@@ -731,22 +731,22 @@ pool_options = {
         {
             "item": "Charm_Notch",
             "location": "Charm_Notch-Shrumal_Ogres",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Charm_Notch",
             "location": "Charm_Notch-Fog_Canyon",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Charm_Notch",
             "location": "Charm_Notch-Colosseum",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Charm_Notch",
             "location": "Charm_Notch-Grimm",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Charm_Notch",
@@ -823,17 +823,17 @@ pool_options = {
         {
             "item": "Pale_Ore",
             "location": "Pale_Ore-Basin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Pale_Ore",
             "location": "Pale_Ore-Crystal_Peak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Pale_Ore",
             "location": "Pale_Ore-Nosk",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Pale_Ore",
@@ -858,76 +858,76 @@ pool_options = {
         {
             "item": "Pale_Ore",
             "location": "Pale_Ore-Colosseum",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeGeoChests": [
         {
             "item": "Geo_Chest-False_Knight",
             "location": "Geo_Chest-False_Knight",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Soul_Master",
             "location": "Geo_Chest-Soul_Master",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Watcher_Knights",
             "location": "Geo_Chest-Watcher_Knights",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Greenpath",
             "location": "Geo_Chest-Greenpath",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Mantis_Lords",
             "location": "Geo_Chest-Mantis_Lords",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Resting_Grounds",
             "location": "Geo_Chest-Resting_Grounds",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Crystal_Peak",
             "location": "Geo_Chest-Crystal_Peak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Weavers_Den",
             "location": "Geo_Chest-Weavers_Den",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeJunkPitChests": [
         {
             "item": "Geo_Chest-Junk_Pit_1",
             "location": "Geo_Chest-Junk_Pit_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Junk_Pit_2",
             "location": "Geo_Chest-Junk_Pit_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Junk_Pit_3",
             "location": "Geo_Chest-Junk_Pit_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Chest-Junk_Pit_5",
             "location": "Geo_Chest-Junk_Pit_5",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lumafly_Escape",
             "location": "Lumafly_Escape-Junk_Pit_Chest_4",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeRancidEggs": [
@@ -944,92 +944,92 @@ pool_options = {
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Sheo",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Fungal_Core",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Queen's_Gardens",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Blue_Lake",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Crystal_Peak_Dive_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Crystal_Peak_Dark_Room",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Crystal_Peak_Tall_Room",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-City_of_Tears_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-City_of_Tears_Pleasure_House",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Beast's_Den",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Dark_Deepnest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Weaver's_Den",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Near_Quick_Slash",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Upper_Kingdom's_Edge",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Waterways_East",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Waterways_Main",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Waterways_West_Bluggsac",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
             "location": "Rancid_Egg-Waterways_West_Pickup",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rancid_Egg",
@@ -1046,112 +1046,112 @@ pool_options = {
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Cliffs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Greenpath_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Greenpath_Lower",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Fungal_Wastes_Thorns_Gauntlet",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Above_Mantis_Village",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Crystal_Peak_Crawlers",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Resting_Grounds_Catacombs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-King's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Pleasure_House",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-City_Storerooms",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Ancient_Basin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Kingdom's_Edge_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Kingdom's_Edge_Camp",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Wanderer's_Journal",
             "location": "Wanderer's_Journal-Kingdom's_Edge_Requires_Dive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Crossroads_Well",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Grubfather",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Greenpath",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Fog_Canyon_West",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Fog_Canyon_East",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Queen's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Fungal_Wastes_Sporgs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Mantis_Lords",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
@@ -1166,42 +1166,42 @@ pool_options = {
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Resting_Grounds_Catacombs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-King's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-City_Rafters",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Soul_Sanctum",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Watcher_Knight",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Deepnest_By_Mantis_Lords",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Beast's_Den",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Hallownest_Seal",
             "location": "Hallownest_Seal-Queen's_Gardens",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
@@ -1216,37 +1216,37 @@ pool_options = {
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Cliffs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Crystal_Peak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Glade_of_Hope",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Dung_Defender",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Great_Hopper",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Pale_Lurker",
-            "costs": None
+            "costs": []
         },
         {
             "item": "King's_Idol",
             "location": "King's_Idol-Deepnest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Arcane_Egg",
@@ -1261,410 +1261,410 @@ pool_options = {
         {
             "item": "Arcane_Egg",
             "location": "Arcane_Egg-Lifeblood_Core",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Arcane_Egg",
             "location": "Arcane_Egg-Shade_Cloak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Arcane_Egg",
             "location": "Arcane_Egg-Birthplace",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeWhisperingRoots": [
         {
             "item": "Whispering_Root-Crossroads",
             "location": "Whispering_Root-Crossroads",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Greenpath",
             "location": "Whispering_Root-Greenpath",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Leg_Eater",
             "location": "Whispering_Root-Leg_Eater",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Mantis_Village",
             "location": "Whispering_Root-Mantis_Village",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Deepnest",
             "location": "Whispering_Root-Deepnest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Queens_Gardens",
             "location": "Whispering_Root-Queens_Gardens",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Kingdoms_Edge",
             "location": "Whispering_Root-Kingdoms_Edge",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Waterways",
             "location": "Whispering_Root-Waterways",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-City",
             "location": "Whispering_Root-City",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Resting_Grounds",
             "location": "Whispering_Root-Resting_Grounds",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Spirits_Glade",
             "location": "Whispering_Root-Spirits_Glade",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Crystal_Peak",
             "location": "Whispering_Root-Crystal_Peak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Howling_Cliffs",
             "location": "Whispering_Root-Howling_Cliffs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Ancestral_Mound",
             "location": "Whispering_Root-Ancestral_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Whispering_Root-Hive",
             "location": "Whispering_Root-Hive",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeBossEssence": [
         {
             "item": "Boss_Essence-Elder_Hu",
             "location": "Boss_Essence-Elder_Hu",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Xero",
             "location": "Boss_Essence-Xero",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Gorb",
             "location": "Boss_Essence-Gorb",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Marmu",
             "location": "Boss_Essence-Marmu",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-No_Eyes",
             "location": "Boss_Essence-No_Eyes",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Galien",
             "location": "Boss_Essence-Galien",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Markoth",
             "location": "Boss_Essence-Markoth",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Failed_Champion",
             "location": "Boss_Essence-Failed_Champion",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Soul_Tyrant",
             "location": "Boss_Essence-Soul_Tyrant",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Lost_Kin",
             "location": "Boss_Essence-Lost_Kin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-White_Defender",
             "location": "Boss_Essence-White_Defender",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Essence-Grey_Prince_Zote",
             "location": "Boss_Essence-Grey_Prince_Zote",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeGrubs": [
         {
             "item": "Grub",
             "location": "Grub-Crossroads_Acid",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crossroads_Center",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crossroads_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crossroads_Spike",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crossroads_Guarded",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Greenpath_Cornifer",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Greenpath_Journal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Greenpath_MMC",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Greenpath_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Fog_Canyon",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Fungal_Bouncy",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Fungal_Spore_Shroom",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Deepnest_Mimic",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Deepnest_Nosk",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Deepnest_Spike",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Dark_Deepnest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Beast's_Den",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Kingdom's_Edge_Oro",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Kingdom's_Edge_Camp",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Hive_External",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Hive_Internal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Basin_Requires_Wings",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Basin_Requires_Dive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Waterways_Main",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Isma's_Grove",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Waterways_Requires_Tram",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-City_of_Tears_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Soul_Sanctum",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Watcher's_Spire",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-City_of_Tears_Guarded",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-King's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Resting_Grounds",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crystal_Peak_Below_Chest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crystallized_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crystal_Peak_Spike",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crystal_Peak_Mimic",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crystal_Peak_Crushers",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Crystal_Heart",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Hallownest_Crown",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Howling_Cliffs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Queen's_Gardens_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Queen's_Gardens_Marmu",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Queen's_Gardens_Top",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Collector_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Collector_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grub",
             "location": "Grub-Collector_3",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeMimics": [
         {
             "item": "Mimic_Grub",
             "location": "Mimic_Grub-Deepnest_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mimic_Grub",
             "location": "Mimic_Grub-Deepnest_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mimic_Grub",
             "location": "Mimic_Grub-Deepnest_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Mimic_Grub",
             "location": "Mimic_Grub-Crystal_Peak",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeMaps": [
@@ -1823,7 +1823,7 @@ pool_options = {
         {
             "item": "Dirtmouth_Stag",
             "location": "Dirtmouth_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Crossroads_Stag",
@@ -1888,7 +1888,7 @@ pool_options = {
         {
             "item": "Resting_Grounds_Stag",
             "location": "Resting_Grounds_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Distant_Village_Stag",
@@ -1925,1691 +1925,1691 @@ pool_options = {
         {
             "item": "Lifeblood_Cocoon_Small",
             "location": "Lifeblood_Cocoon-King's_Pass",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Small",
             "location": "Lifeblood_Cocoon-Ancestral_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Small",
             "location": "Lifeblood_Cocoon-Greenpath",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Large",
             "location": "Lifeblood_Cocoon-Fog_Canyon_West",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Small",
             "location": "Lifeblood_Cocoon-Mantis_Village",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Small",
             "location": "Lifeblood_Cocoon-Failed_Tramway",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Large",
             "location": "Lifeblood_Cocoon-Galien",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lifeblood_Cocoon_Large",
             "location": "Lifeblood_Cocoon-Kingdom's_Edge",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeGrimmkinFlames": [
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-City_Storerooms",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Greenpath",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Crystal_Peak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-King's_Pass",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Resting_Grounds",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Kingdom's_Edge",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Fungal_Core",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Ancient_Basin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Hive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Grimmkin_Flame",
             "location": "Grimmkin_Flame-Brumm",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeJournalEntries": [
         {
             "item": "Hunter's_Journal",
             "location": "Hunter's_Journal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Journal_Entry-Void_Tendrils",
             "location": "Journal_Entry-Void_Tendrils",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Journal_Entry-Charged_Lumafly",
             "location": "Journal_Entry-Charged_Lumafly",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Journal_Entry-Goam",
             "location": "Journal_Entry-Goam",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Journal_Entry-Garpede",
             "location": "Journal_Entry-Garpede",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Journal_Entry-Seal_of_Binding",
             "location": "Journal_Entry-Seal_of_Binding",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeNail": [
         {
             "item": "Leftslash",
             "location": "Start",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Rightslash",
             "location": "Start",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Upslash",
             "location": "Start",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Downslash",
             "location": "Start",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeGeoRocks": [
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Broken_Elevator_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Broken_Elevator_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Broken_Elevator_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Broken_Bridge_Upper",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Broken_Bridge_Lower",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Broken_Bridge_Lower_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Abyss",
             "location": "Geo_Rock-Abyss_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Abyss",
             "location": "Geo_Rock-Abyss_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Abyss",
             "location": "Geo_Rock-Abyss_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Abyss",
             "location": "Geo_Rock-Basin_Tunnel",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Abyss",
             "location": "Geo_Rock-Basin_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Abyss",
             "location": "Geo_Rock-Basin_Before_Broken_Vessel",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Cliffs_Main_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Cliffs_Main_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Cliffs_Main_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Cliffs_Main_4",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Below_Gorb_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Below_Gorb",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Well",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Center_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Root",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Root_Dupe_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Root_Dupe_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Aspid_Arena",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Aspid_Arena_Dupe_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Aspid_Arena_Dupe_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Aspid_Arena_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Above_False_Knight",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Before_Acid_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Below_Goam_Mask_Shard",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_After_Goam_Mask_Shard",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Above_Lever",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Before_Fungal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Before_Fungal_Dupe_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Before_Fungal_Dupe_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Before_Shops",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Before_Glowing_Womb",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Above_Tram",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Above_Mawlek",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Vessel_Fragment",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Goam_Alcove",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Goam_Damage_Boost",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Tram",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Goam_Journal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crossroads_Goam_Journal_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Ancestral_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Ancestral_Mound_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Ancestral_Mound_Tree",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Ancestral_Mound_Tree_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Moss_Prophet",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Moss_Prophet_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Below_Mimics",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Below_Mimics_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Below_Spike_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Below_Spike_Grub_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Spike_Grub_Right",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_Garpede_Pogo",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_Garpede_Pogo_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_Requires_Claw_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_Requires_Claw_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_Requires_Claw_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Nosk_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Nosk_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Nosk_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Above_Galien",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Galien_Spike",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Garpede_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Garpede_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Dark_Deepnest_Above_Grub_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Dark_Deepnest_Above_Grub_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Dark_Deepnest_Bottom_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Above_Mask_Maker_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Above_Mask_Maker_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Lower_Kingdom's_Edge_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Lower_Kingdom's_Edge_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Lower_Kingdom's_Edge_3",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Lower_Kingdom's_Edge_Dive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Below_Bardoon",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Oro_Far_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Oro_Middle_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Above_Root",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Above_Tower",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Below_Colosseum",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Kingdom's_Edge_Above_420_Geo_Rock",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts420",
             "location": "Geo_Rock-Kingdom's_Edge_420_Geo_Rock",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Above_Trilobite",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Above_Trilobite_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Below_Herrah",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Below_Egg",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Below_Egg_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Bottom",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_Bottom_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Beast's_Den_After_Herrah",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Waterfall",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Below_Skip_Squit",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Skip_Squit",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Second_Skip_Fool_Eater",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Second_Skip_Fool_Eater_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Second_Skip_Lower",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Below_Hornet",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Greenpath_Above_Thorns",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Hunter's_Journal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Acid_Bridge",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath02",
             "location": "Geo_Rock-Greenpath_After_MMC_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_After_MMC",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_After_MMC_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Obbles_Fool_Eater",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath02",
             "location": "Geo_Rock-Greenpath_Moss_Knights",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath02",
             "location": "Geo_Rock-Greenpath_Moss_Knights_Dupe_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath02",
             "location": "Geo_Rock-Greenpath_Moss_Knights_Dupe_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Below_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Below_Stag_Fool_Eater",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Baldur_Shell_Top_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Baldur_Shell_Alcove",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_MMC",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Greenpath_Below_Toll",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Greenpath_Toll_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Greenpath_Toll_Hidden_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_Below_Shrumal_Ogres",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_Above_Cloth",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_After_Cloth",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_Below_Pilgrim's_Way",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung02",
             "location": "Geo_Rock-Fungal_Below_Pilgrim's_Way_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Mantis_Outskirts_Guarded",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung02",
             "location": "Geo_Rock-Mantis_Outskirts_Guarded_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Mantis_Outskirts_Alcove",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Mantis_Village_After_Lever",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Mantis_Village_Above_Claw",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Mantis_Village_Above_Claw_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Mantis_Village_Below_Lore",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Mantis_Village_Above_Lever",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Above_Mantis_Lords_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Above_Mantis_Lords_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_After_Bouncy_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung02",
             "location": "Geo_Rock-Fungal_After_Bouncy_Grub_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung02",
             "location": "Geo_Rock-Fungal_Bouncy_Grub_Lever",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_After_Cornifer",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Fungal_Above_City_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_By_Mantis_Lords_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Deepnest",
             "location": "Geo_Rock-Deepnest_Lower_Cornifer",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_Core_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_Core_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fungal_Core_Above_Elder",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Queen's_Gardens_Acid_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Queen's_Gardens_Below_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Fog_Canyon_East",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Love_Key",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath01",
             "location": "Geo_Rock-Love_Key_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath02",
             "location": "Geo_Rock-Queen's_Gardens_Above_Marmu",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Outskirts",
             "location": "Geo_Rock-Pale_Lurker",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Godhome_Pipeway",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Outside_Bench",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Below_Root",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_After_Root",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Below_Stash",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Stash",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Stash_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Below_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Hive",
             "location": "Geo_Rock-Hive_Above_Mask",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Lower_Middle",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Lower_Conveyer_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crystal_Peak_Lower_Conveyer_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Before_Dark_Room",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Before_Dark_Room_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Above_Spike_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Mimic_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Dive_Egg",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Dive_Egg_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Conga_Line",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Hallownest_Crown_Dive",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Hallownest_Crown_Dive_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Hallownest_Crown_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Hallownest_Crown_Hidden_Dupe_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Hallownest_Crown_Hidden_Dupe_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Before_Crystal_Heart",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crystal_Peak_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crystal_Peak_Entrance_Dupe_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-Crystal_Peak_Entrance_Dupe_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Above_Crushers_Lower",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Mine",
             "location": "Geo_Rock-Crystal_Peak_Above_Crushers_Higher",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Grave02",
             "location": "Geo_Rock-Resting_Grounds_Catacombs_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Grave02",
             "location": "Geo_Rock-Resting_Grounds_Catacombs_Left_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Grave01",
             "location": "Geo_Rock-Resting_Grounds_Catacombs_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-GreenPath02",
             "location": "Geo_Rock-Overgrown_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung02",
             "location": "Geo_Rock-Fluke_Hermit_Dupe",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Fung01",
             "location": "Geo_Rock-Fluke_Hermit",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Pleasure_House",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-City_of_Tears_Quirrel",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-City_of_Tears_Lemm",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-City_of_Tears_Above_Lemm",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Soul_Sanctum",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Watcher's_Spire",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Above_King's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-King's_Station",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-King's_Pass_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-King's_Pass_Below_Fury",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-King's_Pass_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-King's_Pass_Collapse",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-Default",
             "location": "Geo_Rock-King's_Pass_Above_Fury",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Waterways_Tuk",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Waterways_Tuk_Alcove",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Waterways_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Waterways_East",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Geo_Rock-City",
             "location": "Geo_Rock-Waterways_Flukemarm",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeBossGeo": [
         {
             "item": "Boss_Geo-Massive_Moss_Charger",
             "location": "Boss_Geo-Massive_Moss_Charger",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Gorgeous_Husk",
             "location": "Boss_Geo-Gorgeous_Husk",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Sanctum_Soul_Warrior",
             "location": "Boss_Geo-Sanctum_Soul_Warrior",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Elegant_Soul_Warrior",
             "location": "Boss_Geo-Elegant_Soul_Warrior",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Crystal_Guardian",
             "location": "Boss_Geo-Crystal_Guardian",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Enraged_Guardian",
             "location": "Boss_Geo-Enraged_Guardian",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Gruz_Mother",
             "location": "Boss_Geo-Gruz_Mother",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Boss_Geo-Vengefly_King",
             "location": "Boss_Geo-Vengefly_King",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeSoulTotems": [
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Basin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Cliffs_Main",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Cliffs_Gorb",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Cliffs_Joni's",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Crossroads_Goam_Journal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Crossroads_Shops",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Crossroads_Mawlek_Upper",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Crossroads_Acid",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-E",
             "location": "Soul_Totem-Crossroads_Mawlek_Lower",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Crossroads_Myla",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-F",
             "location": "Soul_Totem-Ancestral_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-D",
             "location": "Soul_Totem-Distant_Village",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-E",
             "location": "Soul_Totem-Deepnest_Vessel",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Mask_Maker",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Lower_Kingdom's_Edge_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Lower_Kingdom's_Edge_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Upper_Kingdom's_Edge",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Kingdom's_Edge_Camp",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Oro_Dive_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Oro_Dive_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Oro",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-420_Geo_Rock",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Beast's_Den",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Greenpath_Hunter's_Journal",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Greenpath_MMC",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Greenpath_Below_Toll",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Before_Pilgrim's_Way",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Pilgrim's_Way",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Fungal_Core",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Top_Left_Queen's_Gardens",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Below_Marmu",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Upper_Crystal_Peak",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Hallownest_Crown",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Outside_Crystallized_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Crystal_Heart_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Crystal_Heart_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Crystallized_Mound",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-E",
             "location": "Soul_Totem-Resting_Grounds",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Below_Xero",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-D",
             "location": "Soul_Totem-Sanctum_Below_Soul_Master",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-A",
             "location": "Soul_Totem-Sanctum_Below_Chest",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-G",
             "location": "Soul_Totem-Sanctum_Above_Grub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Waterways_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Top_Left_Waterways",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-C",
             "location": "Soul_Totem-Waterways_East",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-B",
             "location": "Soul_Totem-Waterways_Flukemarm",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Palace",
             "location": "Soul_Totem-White_Palace_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Palace",
             "location": "Soul_Totem-White_Palace_Hub",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Palace",
             "location": "Soul_Totem-White_Palace_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Palace",
             "location": "Soul_Totem-White_Palace_Final",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Palace",
             "location": "Soul_Totem-White_Palace_Right",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Below_Lever",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Left_of_Lever",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Second",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Below_Thornskip",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-Path_of_Pain",
             "location": "Soul_Totem-Path_of_Pain_Final",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Soul_Totem-G",
             "location": "Soul_Totem-Pale_Lurker",
-            "costs": None
+            "costs": []
         }
     ],
     "RandomizeLoreTablets": [
         {
             "item": "Lore_Tablet-City_Entrance",
             "location": "Lore_Tablet-City_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Pleasure_House",
             "location": "Lore_Tablet-Pleasure_House",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Sanctum_Entrance",
             "location": "Lore_Tablet-Sanctum_Entrance",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Sanctum_Past_Soul_Master",
             "location": "Lore_Tablet-Sanctum_Past_Soul_Master",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Watcher's_Spire",
             "location": "Lore_Tablet-Watcher's_Spire",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Archives_Upper",
             "location": "Lore_Tablet-Archives_Upper",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Archives_Left",
             "location": "Lore_Tablet-Archives_Left",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Archives_Right",
             "location": "Lore_Tablet-Archives_Right",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Pilgrim's_Way_1",
             "location": "Lore_Tablet-Pilgrim's_Way_1",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Pilgrim's_Way_2",
             "location": "Lore_Tablet-Pilgrim's_Way_2",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Mantis_Outskirts",
             "location": "Lore_Tablet-Mantis_Outskirts",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Mantis_Village",
             "location": "Lore_Tablet-Mantis_Village",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Greenpath_Upper_Hidden",
             "location": "Lore_Tablet-Greenpath_Upper_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Greenpath_Below_Toll",
             "location": "Lore_Tablet-Greenpath_Below_Toll",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Greenpath_Lifeblood",
             "location": "Lore_Tablet-Greenpath_Lifeblood",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Greenpath_Stag",
             "location": "Lore_Tablet-Greenpath_Stag",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Greenpath_QG",
             "location": "Lore_Tablet-Greenpath_QG",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Greenpath_Lower_Hidden",
             "location": "Lore_Tablet-Greenpath_Lower_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Dung_Defender",
             "location": "Lore_Tablet-Dung_Defender",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Spore_Shroom",
             "location": "Lore_Tablet-Spore_Shroom",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Fungal_Wastes_Hidden",
             "location": "Lore_Tablet-Fungal_Wastes_Hidden",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Fungal_Wastes_Below_Shrumal_Ogres",
             "location": "Lore_Tablet-Fungal_Wastes_Below_Shrumal_Ogres",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Fungal_Core",
             "location": "Lore_Tablet-Fungal_Core",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Ancient_Basin",
             "location": "Lore_Tablet-Ancient_Basin",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-King's_Pass_Focus",
             "location": "Lore_Tablet-King's_Pass_Focus",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-King's_Pass_Fury",
             "location": "Lore_Tablet-King's_Pass_Fury",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-King's_Pass_Exit",
             "location": "Lore_Tablet-King's_Pass_Exit",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-World_Sense",
             "location": "Lore_Tablet-World_Sense",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Howling_Cliffs",
             "location": "Lore_Tablet-Howling_Cliffs",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Kingdom's_Edge",
             "location": "Lore_Tablet-Kingdom's_Edge",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Palace_Workshop",
             "location": "Lore_Tablet-Palace_Workshop",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Palace_Throne",
             "location": "Lore_Tablet-Palace_Throne",
-            "costs": None
+            "costs": []
         },
         {
             "item": "Lore_Tablet-Path_of_Pain_Entrance",
             "location": "Lore_Tablet-Path_of_Pain_Entrance",
-            "costs": None
+            "costs": []
         }
     ]
 }
