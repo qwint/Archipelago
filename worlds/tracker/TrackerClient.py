@@ -311,7 +311,7 @@ class TrackerGameContext(CommonContext):
             data = []
             for hint in hints:
                 in_logic = int(hint["location"]) in self.locations_available \
-                    if int(hint["finding_player"]) == self.player_id else False
+                    if int(hint["finding_player"]) == self.slot else False
                 data.append({
                     "receiving": {
                         "text": log.parser.handle_node({"type": "player_id", "text": hint["receiving_player"]})},
@@ -390,7 +390,7 @@ class TrackerGameContext(CommonContext):
                 self.log_to_tab("Internal world was not able to be generated, check your yamls and relaunch", False)
                 return
             self.game = args["slot_info"][str(args["slot"])][1]
-            slot_name = self.player_names.get(self.slot, None)
+            slot_name = args["slot_info"][str(args["slot"])][0]
             if slot_name in self.launch_multiworld.world_name_lookup:
                 internal_id = self.launch_multiworld.world_name_lookup[slot_name]
                 if self.launch_multiworld.worlds[internal_id].game == self.game:
@@ -420,7 +420,7 @@ class TrackerGameContext(CommonContext):
                     raise "TODO: add error - something went very wrong with matching world to slot"
             else:
                 # TODO consider allowing worlds that self-attest to not need an options file for UT
-                self.log_to_tab("Player's Yaml not in tracker's list", False)
+                self.log_to_tab(f"Player's Yaml not in tracker's list. Known players: {list(self.launch_multiworld.world_name_lookup.keys())}", False)
                 return
 
             if self.ui is not None and getattr(self.multiworld.worlds[self.player_id], "tracker_world", None):
@@ -495,7 +495,7 @@ class TrackerGameContext(CommonContext):
                 g_args.player_ids = {1}
 
                 # TODO confirm that this will never not be filled
-                g_args = move_slots(g_args, self.player_names.get(self.slot, None))
+                g_args = move_slots(g_args, self.slot_info[self.slot][0])
 
                 self.multiworld = self.TMain(g_args, seed)
                 assert len(self.cached_slot_data) == len(self.cached_multiworlds)
