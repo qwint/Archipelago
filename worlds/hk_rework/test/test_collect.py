@@ -456,3 +456,17 @@ class TestBase(unittest.TestCase):
         assert all_state.prog_items[1]["CHARMS"] == 38
         all_state.remove(unbreakable_strength)
         assert all_state.prog_items[1]["CHARMS"] == 37
+
+    def testCollect_charm(self):
+        game_name, world_type = "Hollow Knight", HKWorld
+        multiworld = setup_solo_multiworld(world_type)
+        empty_state = multiworld.state
+
+        king_fragment = next(item for item in multiworld.itempool if item.name == "King_Fragment")
+        queen_fragment = next(item for item in multiworld.itempool if item.name == "Queen_Fragment")
+
+        assert empty_state.prog_items[1]["CHARMS"] == 0
+        empty_state.collect(king_fragment)
+        assert empty_state.prog_items[1]["CHARMS"] == 0
+        empty_state.collect(queen_fragment)
+        assert empty_state.prog_items[1]["CHARMS"] == 1
