@@ -888,7 +888,7 @@ class HKWorld(RandomizerCoreWorld):
         elif lookup["type"] == "incrementTerms":
             return lookup["effects"]
         elif lookup["type"] == "threshold":
-            count = state._hk_processed_item_cache[player][item_name]
+            count = state._hk_processed_item_cache[player][lookup["term"]]
             if count == lookup["threshold"]:
                 return lookup["at_threshold"]
             elif count < lookup["threshold"]:
@@ -896,8 +896,6 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 return lookup["above_threshold"]
 
-            # add term as well as effects to state
-            return {lookup["term"]: 1}
         else:
             raise f"unknown type {lookup['type']}"
             return
@@ -920,14 +918,11 @@ class HKWorld(RandomizerCoreWorld):
 
                 effects = self.handle_effect(item.name, lookup, state, player)
                 self.edit_effects(state, player, effects, add)
-                if "term" in lookup:
-                    state._hk_processed_item_cache[player][lookup["term"]] += 1
-                elif lookup["type"] in ("conditional", "branching",):
+                if lookup["type"] in ("conditional", "branching",):
                     state._hk_processed_item_cache[player][item.name] += 1
-                if lookup["type"] == "threshold":
+                elif lookup["type"] == "threshold":
                     # increment term before checking threshold
-                    # self.edit_effects(state, player, {lookup["term"]: 1}, add)
-                    effects[lookup["term"]] = 1  # not accounting for an existing key but we just need key names
+                    state._hk_processed_item_cache[player][lookup["term"]] += 1
 
                 for term in effects.keys():
                     state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[term])
@@ -943,8 +938,6 @@ class HKWorld(RandomizerCoreWorld):
                 state.prog_items[player][item.name] -= 1
             else:
                 lookup = progression_effect_lookup[item.name]
-                if "term" in lookup:
-                    state._hk_processed_item_cache[player][lookup["term"]] -= 1
                 add = False
 
                 if lookup["type"] in ("conditional", "branching",):
@@ -971,7 +964,7 @@ class HKWorld(RandomizerCoreWorld):
                 else:
                     if lookup["type"] == "threshold":
                         # increment term before checking threshold
-                        self.edit_effects(state, player, {lookup["term"]: 1}, add)
+                        state._hk_processed_item_cache[player][lookup["term"]] -= 1
                     self.edit_effects(state, player, self.handle_effect(item.name, lookup, state, player), add)
 
             state._hk_entrance_clause_cache[item.player] = {}

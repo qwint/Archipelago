@@ -415,3 +415,44 @@ class TestBase(unittest.TestCase):
                 ["Shade_Cloak"],
                 {"Mothwing_Cloak": 1, "LEFTDASH": 1, "RIGHTDASH": 1},
             )
+
+    def testCollect_charm(self):
+        game_name, world_type = "Hollow Knight", HKWorld
+        multiworld = setup_solo_multiworld(world_type)
+        empty_state = multiworld.state
+
+        king_fragment = next(item for item in multiworld.itempool if item.name == "King_Fragment")
+        queen_fragment = next(item for item in multiworld.itempool if item.name == "Queen_Fragment")
+        deep_focus = next(item for item in multiworld.itempool if item.name == "Deep_Focus")
+        fragile_strength = next(item for item in multiworld.itempool if item.name == "Fragile_Strength")
+        unbreakable_strength = next(item for item in multiworld.itempool if item.name == "Unbreakable_Strength")
+
+        assert empty_state.prog_items[1]["CHARMS"] == 0
+        empty_state.collect(king_fragment)
+        assert empty_state.prog_items[1]["CHARMS"] == 0
+        empty_state.collect(queen_fragment)
+        assert empty_state.prog_items[1]["CHARMS"] == 1
+
+        empty_state.collect(deep_focus)
+        assert empty_state.prog_items[1]["CHARMS"] == 2
+
+        empty_state.collect(fragile_strength)
+        assert empty_state.prog_items[1]["CHARMS"] == 3
+        empty_state.collect(unbreakable_strength)
+        assert empty_state.prog_items[1]["CHARMS"] == 3
+
+        all_state = multiworld.get_all_state(False)
+
+        assert all_state.prog_items[1]["CHARMS"] == 40
+        all_state.remove(king_fragment)
+        assert all_state.prog_items[1]["CHARMS"] == 40
+        all_state.remove(queen_fragment)
+        assert all_state.prog_items[1]["CHARMS"] == 39
+
+        all_state.remove(deep_focus)
+        assert all_state.prog_items[1]["CHARMS"] == 38
+
+        all_state.remove(fragile_strength)
+        assert all_state.prog_items[1]["CHARMS"] == 38
+        all_state.remove(unbreakable_strength)
+        assert all_state.prog_items[1]["CHARMS"] == 37
