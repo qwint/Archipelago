@@ -38,7 +38,7 @@ class HKLogicMixin(LogicMixin):
     def init_mixin(self, multiworld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
-        self._hk_per_player_resource_states = {player: KeyedDefaultDict(lambda region: [default_state] if region == "Menu" else []) for player in players}  # {player: {init_state: [start_region]} for player in players}
+        self._hk_per_player_resource_states = {player: KeyedDefaultDict(lambda region: [default_state.copy()] if region == "Menu" else []) for player in players}  # {player: {init_state: [start_region]} for player in players}
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
         self._hk_free_entrances = {player: {"Menu"} for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
