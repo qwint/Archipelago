@@ -88,7 +88,21 @@ class TestBase(unittest.TestCase):
             with self.subTest("Item State Remove", item_name=item_name, game_name=game_name):
                 multiworld.state.remove(item)
 
-        for item_name in ("Left_Mothwing_Cloak", "LEFTDASH", "Right_Mothwing_Cloak", "RIGHTDASH",):
+        for item_name in ("Left_Mothwing_Cloak", "Right_Mothwing_Cloak",):
+            if item_name in final_state:
+                self.assertEqual(
+                    multiworld.state._hk_processed_item_cache[1][item_name], final_state[item_name],
+                    f"expected {final_state[item_name]} {item_name}, found {multiworld.state._hk_processed_item_cache[1][item_name]}"
+                    f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
+                    )
+            else:
+                self.assertEqual(
+                    multiworld.state._hk_processed_item_cache[1][item_name], 0,
+                    f"expected 0 {item_name}, found {multiworld.state._hk_processed_item_cache[1][item_name]}"
+                    f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
+                    )
+
+        for item_name in ("LEFTDASH", "RIGHTDASH",):
             if item_name in final_state:
                 self.assertEqual(
                     multiworld.state.prog_items[1][item_name], final_state[item_name],

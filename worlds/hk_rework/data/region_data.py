@@ -17723,22 +17723,6 @@ regions = [
         "locations": [],
         "transitions": []
     },
-    # {
-    #     "name": "Can_Warp_To_DG_Bench",
-    #     "exits": [],
-    #     "locations": [
-    #         "Can_Warp_To_DG_Bench"
-    #     ],
-    #     "transitions": []
-    # },
-    # {
-    #     "name": "Can_Warp_To_Bench",
-    #     "exits": [],
-    #     "locations": [
-    #         "Can_Warp_To_Bench"
-    #     ],
-    #     "transitions": []
-    # },
     {
         "name": "Can_Stag",
         "exits": [
@@ -78234,16 +78218,16 @@ locations = [
         ],
         "is_event": True
     },
-    # {
-    #     "name": "Can_Warp_To_DG_Bench",
-    #     "logic": [],
-    #     "is_event": True
-    # },
-    # {
-    #     "name": "Can_Warp_To_Bench",
-    #     "logic": [],
-    #     "is_event": True
-    # },
+    {
+        "name": "Can_Warp_To_DG_Bench",
+        "logic": [],
+        "is_event": True
+    },
+    {
+        "name": "Can_Warp_To_Bench",
+        "logic": [],
+        "is_event": True
+    },
     {
         "name": "Can_Visit_Lemm",
         "logic": [

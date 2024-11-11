@@ -96,7 +96,6 @@ class HKLocation(Location):
         super(HKLocation, self).__init__(player, name, code if code else None, parent)
         self.basename = basename or name
         self.vanilla = vanilla
-        self.set_hk_rule(default_hk_rule)  # expect to be set later
         if costs:
             self.costs = dict(costs)
             self.sort_costs()
@@ -105,8 +104,9 @@ class HKLocation(Location):
 
     def set_hk_rule(self, rules: List[HKClause]):
         self.hk_rule = rules
+        self.access_rule = self.hk_access_rule
 
-    def access_rule(self, state: CollectionState) -> bool:
+    def hk_access_rule(self, state: CollectionState) -> bool:
         if self.costs:
             logic_costs = {term: amount for term, amount in self.costs.items() if term != "GEO"}
             if not state.has_all_counts(logic_costs, self.player):
@@ -144,11 +144,9 @@ class HKItem(Item):
 class HKEntrance(Entrance):
     hk_rule: List[HKClause]
 
-    def __init__(self, *args, **kwargs):
-        super(HKEntrance, self).__init__(*args, **kwargs)
-        self.set_hk_rule(default_hk_rule)  # expect to be set later
-
     def set_hk_rule(self, rules: List[HKClause]):
+        if rules == default_hk_rule:
+            return
         self.hk_rule = rules
         indirection_connections = [region for clause in rules for region in clause.hk_region_requirements]
         if indirection_connections:
@@ -156,12 +154,11 @@ class HKEntrance(Entrance):
             for region in indirection_connections:
                 reg = multiworld.get_region(region, self.player)
                 multiworld.register_indirect_condition(reg, self)
-        if self.hk_rule != default_hk_rule:
-            self.access_rule = self.hk_access_rule
+        self.access_rule = self.hk_access_rule
 
     def access_rule(self, state: CollectionState) -> bool:
         state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
-        state._hk_apply_and_validate_state(self.hk_rule[0], self.parent_region, target_region=self.connected_region)
+        state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
         return True
 
     def hk_access_rule(self, state: CollectionState) -> bool:
@@ -201,7 +198,8 @@ class HKRegion(Region):
 
 
 shop_locations = multi_locations
-event_locations = [location["name"] for location in locations if location["is_event"]]
+event_locations = [location["name"] for location in locations if location["is_event"]
+                   and location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
 vanilla_cost_data = [pair for option in pool_options.values() for pair in option if pair["costs"]]
 vanilla_location_costs = {
     pair["location"]: {cost["term"]: cost["amount"] for cost in pair["costs"]}
@@ -216,7 +214,7 @@ for i in vanilla_cost_data:
     vanilla_shop_costs[(i["location"], i["item"])].append(costs)
 
 hk_regions = [region for region in cast(List[Dict[str, Any]], regions) if not region["name"].startswith("$")]
-hk_locations = [location for location in cast(List[Dict[str, Any]], locations)]  #  if location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
+hk_locations = [location for location in cast(List[Dict[str, Any]], locations)]
 
 
 datapackage_locs = {loc["name"] for loc in locations if not loc["is_event"]}
@@ -842,6 +840,72 @@ class HKWorld(RandomizerCoreWorld):
                 if state.prog_items[player][effect_name] < 1:
                     del (state.prog_items[player][effect_name])
 
+    def handle_effect(self, item_name, lookup, state, player):
+        def check_item_logic(condition, state, player) -> bool:
+            assert not condition["location_requirements"]
+            assert not condition["region_requirements"]
+            assert not condition["state_modifiers"]
+            item_requirements = condition["item_requirements"]
+            result = True
+            for req in item_requirements:
+                if ">" in req:
+                    item, value = (*req.split(">"),)
+                    result = result and state.count(item, player) > int(value)
+                elif "<" in req:
+                    item, value = (*req.split("<"),)
+                    result = result and state.count(item, player) < int(value)
+                elif "=" in req:
+                    item, value = (*req.split("="),)
+                    assert value.isdigit(), f"requirement {req} not supported"
+                    result = result and state.count(item, player) == int(value)
+                else:
+                    # assume entire req is term
+                    result = result and state.has(req, player)
+            return result
+
+        if lookup["type"] == "conditional":
+            if any(
+                    check_item_logic(condition, state, player)
+                    for condition in lookup["condition"]
+                    ):
+                ret = lookup["effect"]
+            else:
+                return {}
+        elif lookup["type"] == "branching":
+            for branch in lookup["conditionals"]:
+                if any(
+                        check_item_logic(condition, state, player)
+                        for condition in branch["condition"]
+                        ):
+                    ret = branch["effect"]
+                    break
+            else:
+                # if none true use the parent else instead
+                ret = lookup["else"]
+
+        elif lookup["type"] == "incrementTerms":
+            return lookup["effects"]
+        elif lookup["type"] == "threshold":
+            count = state._hk_processed_item_cache[player][item_name]
+            if count == lookup["threshold"]:
+                return lookup["at_threshold"]
+            elif count < lookup["threshold"]:
+                return lookup["below_threshold"]
+            else:
+                return lookup["above_threshold"]
+
+            # add term as well as effects to state
+            return {lookup["term"]: 1}
+        else:
+            raise f"unknown type {lookup['type']}"
+            return
+
+        if "type" in ret:
+            return self.handle_effect(item_name, ret, state, player)
+        else:
+            raise f"unknown effect {ret}"
+            return
+
     def collect(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
@@ -852,28 +916,19 @@ class HKWorld(RandomizerCoreWorld):
                 lookup = progression_effect_lookup[item.name]
                 add = True
 
-                if lookup["type"] == "incrementTerms":
-                    self.edit_effects(state, player, lookup["effects"], add)
-                elif lookup["type"] == "threshold":
-                    count = state.prog_items[player][lookup["term"]]
-                    if count == lookup["threshold"]:
-                        self.edit_effects(state, player, lookup["at_threshold"], add)
-                    elif count < lookup["threshold"]:
-                        self.edit_effects(state, player, lookup["below_threshold"], add)
-                    else:
-                        self.edit_effects(state, player, lookup["above_threshold"], add)
+                effects = self.handle_effect(item.name, lookup, state, player)
+                self.edit_effects(state, player, effects, add)
+                if "term" in lookup:
+                    state._hk_processed_item_cache[player][lookup["term"]] += 1
+                elif lookup["type"] in ("conditional", "branching",):
+                    state._hk_processed_item_cache[player][item.name] += 1
+                if lookup["type"] == "threshold":
+                    # increment term before checking threshold
+                    # self.edit_effects(state, player, {lookup["term"]: 1}, add)
+                    effects[lookup["term"]] = 1  # not accounting for an existing key but we just need key names
 
-                    # add term as well as effects to state
-                    self.edit_effects(state, player, {lookup["term"]: 1}, add)
-
-                elif lookup["type"] == "branching":
-                    # TODO
-                    self.edit_effects(state, player, {"LEFTCLAW": 1, "RIGHTCLAW": 1}, add)
-                elif lookup["type"] == "conditional":
-                    # TODO
-                    self.edit_effects(state, player, {"LEFTDASH": 1, "RIGHTDASH": 1}, add)
-                else:
-                    raise Exception(f"Unknown effect type collected for item {item.name}")
+                for term in effects.keys():
+                    state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[term])
 
             state._hk_stale[item.player] = True
         return item.advancement
@@ -886,30 +941,36 @@ class HKWorld(RandomizerCoreWorld):
                 state.prog_items[player][item.name] -= 1
             else:
                 lookup = progression_effect_lookup[item.name]
+                if "term" in lookup:
+                    state._hk_processed_item_cache[player][lookup["term"]] -= 1
                 add = False
 
-                if lookup["type"] == "incrementTerms":
-                    self.edit_effects(state, player, lookup["effects"], add)
-                elif lookup["type"] == "threshold":
-                    # increment term before checking threshold
-                    self.edit_effects(state, player, {lookup["term"]: 1}, add)
-
-                    count = state.prog_items[player][lookup["term"]]
-                    if count == lookup["threshold"]:
-                        self.edit_effects(state, player, lookup["at_threshold"], add)
-                    elif count < lookup["threshold"]:
-                        self.edit_effects(state, player, lookup["below_threshold"], add)
-                    else:
-                        self.edit_effects(state, player, lookup["above_threshold"], add)
-
-                elif lookup["type"] == "branching":
-                    # TODO
-                    self.edit_effects(state, player, {"LEFTCLAW": 1, "RIGHTCLAW": 1}, add)
-                elif lookup["type"] == "conditional":
-                    # TODO
-                    self.edit_effects(state, player, {"LEFTDASH": 1, "RIGHTDASH": 1}, add)
+                if lookup["type"] in ("conditional", "branching",):
+                    state._hk_processed_item_cache[player][item.name] -= 1
+                    reset_terms = affected_terms_by_item[item.name]
+                    for term in reset_terms:
+                        state.prog_items[player][term] = 0
+                    recalc_items = {item for term in reset_terms for item in affecting_items_by_term[term]}
+                    owned_relevant_items = [
+                        item
+                        for item, count in state._hk_processed_item_cache[player].items()
+                        for count in range(count)
+                        if item in recalc_items
+                        ]
+                    for recalc_item in owned_relevant_items:
+                        effects = self.handle_effect(item.name, progression_effect_lookup[recalc_item], state, player)
+                        # filter effects to just the ones we reset then add them to state
+                        self.edit_effects(
+                            state,
+                            player,
+                            {key: effects[key] for key in effects if key in reset_terms},
+                            True
+                            )
                 else:
-                    raise Exception(f"Unknown effect type removed for item {item.name}")
+                    if lookup["type"] == "threshold":
+                        # increment term before checking threshold
+                        self.edit_effects(state, player, {lookup["term"]: 1}, add)
+                    self.edit_effects(state, player, self.handle_effect(item.name, lookup, state, player), add)
 
             state._hk_entrance_clause_cache[item.player] = {}
             state._hk_per_player_sweepable_entrances[item.player] = {

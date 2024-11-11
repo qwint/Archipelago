@@ -51,9 +51,11 @@ class HKLogicMixin(LogicMixin):
         #     self.prog_items[player]["TOTAL_NOTCHES"] = BASE_NOTCHES
 
     def copy_mixin(self, other) -> CollectionState:
-        other._hk_per_player_resource_states = self._hk_per_player_resource_states.copy()
-        other._hk_free_entrances = self._hk_free_entrances.copy()
-        other._hk_processed_item_cache = self._hk_processed_item_cache.copy()
+        from . import HKWorld as cls
+        players = self.multiworld.get_game_players(cls.game)
+        other._hk_per_player_resource_states = {player: self._hk_per_player_resource_states[player].copy() for player in players}
+        other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
+        other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
@@ -384,7 +386,7 @@ class EquipCharmVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state, player):
-        return item_state.has(self.charm_name, player)
+        return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
@@ -430,7 +432,7 @@ class FragileCharmVariable(EquipCharmVariable):
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO flush out with charm notch checking etc.
-        if item_state.has_from_list(self.fragile_lookup[self.charm_id], player, 1):
+        if self.has_item(item_state, player):
             return True, state_blob
         else:
             return False, state_blob
@@ -463,7 +465,7 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
             count = 3
         else:
             count = 2
-        return item_state.has("WHITEFRAGMENT", player, count)
+        return item_state._hk_processed_item_cache[player]["WHITEFRAGMENT"] >= count
 
     # def _ModifyState(self, state_blob, item_state, player):
     #     # TODO figure this out
