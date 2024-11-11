@@ -94,6 +94,7 @@ class HKLocation(Location):
             costs: Optional[Dict[str, int]] = None, vanilla: bool = False, basename: Optional[str] = None
     ):
         super(HKLocation, self).__init__(player, name, code if code else None, parent)
+        self.access_set = False
         self.basename = basename or name
         self.vanilla = vanilla
         if costs:
@@ -103,18 +104,19 @@ class HKLocation(Location):
             self.costs = None
 
     def set_hk_rule(self, rules: List[HKClause]):
+        # pass
         self.hk_rule = rules
-        self.access_rule = self.hk_access_rule
+        self.access_set = True
+        # self.current_access_rule = self.hk_access_rule
 
-    def hk_access_rule(self, state: CollectionState) -> bool:
+    def access_rule(self, state: CollectionState) -> bool:
         if self.costs:
             logic_costs = {term: amount for term, amount in self.costs.items() if term != "GEO"}
             if not state.has_all_counts(logic_costs, self.player):
                 return False
+        return self.hk_access_rule(state) if self.access_set else True
 
-        if self.hk_rule == default_hk_rule:
-            return True
-
+    def hk_access_rule(self, state: CollectionState) -> bool:
         for clause in self.hk_rule:
             if state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
