@@ -41,14 +41,14 @@ def _hk_can_beat_thk(state, player) -> bool:
 
 
 def _hk_siblings_ending(state, player) -> bool:
-    return _hk_can_beat_thk(state, player) and state.has('WHITEFRAGMENT', player, 3)
+    return _hk_can_beat_thk(state, player) and state._hk_processed_item_cache[player]["WHITEFRAGMENT"] == 3
 
 
 def _hk_can_beat_radiance(state, player) -> bool:
     return (
         state.has('Opened_Black_Egg_Temple', player)
         and _hk_nail_combat(state, player)
-        and state.has('WHITEFRAGMENT', player, 3)
+        and state._hk_processed_item_cache[player]["WHITEFRAGMENT"] == 3
         and state.has('DREAMNAIL', player)
         and (
             (state.has('LEFTCLAW', player) and state.has('RIGHTCLAW', player))
