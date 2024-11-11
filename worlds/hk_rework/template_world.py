@@ -1,6 +1,6 @@
 from BaseClasses import Region, Location, Item, ItemClassification, CollectionState
 from worlds.AutoWorld import World
-from typing import List, Dict, Any, Callable
+from typing import List, Dict, Any, Callable, Tuple, Optional
 
 
 class RandomizerCoreWorld(World):

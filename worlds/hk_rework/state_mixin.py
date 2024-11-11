@@ -510,10 +510,10 @@ class RegainSoulVariable(RCStateVariable):
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
         previous = state_blob["SPENTSOUL"]
-        if previous <= amount:
+        if previous <= self.amount:
             state_blob["SPENTSOUL"] = 0
         else:
-            state_blob["SPENTSOUL"] -= amount
+            state_blob["SPENTSOUL"] -= self.amount
         return True, state_blob["SPENTSOUL"]
 
     def can_exclude(self, options):
@@ -751,7 +751,7 @@ class WarpToBenchResetVariable(RCStateVariable):
     def ModifyState(self, state_blob, item_state, player):
         # under the knowledge that these do not proliferate state
         sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
-        yield next(bench_reset.ModifyState(sq_state, item_state, player))
+        yield next(self.bench_reset.ModifyState(sq_state, item_state, player))
         # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
