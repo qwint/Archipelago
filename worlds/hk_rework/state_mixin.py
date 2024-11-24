@@ -307,6 +307,11 @@ class CastSpellVariable(RCStateVariable):
     casts: List[int]
     before: Optional[str]
     after: Optional[str]
+    equip_st: "EquipCharmVariable"
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.equip_st = EquipCharmVariable("$EQUIPPEDCHARM[Spell_Twister]")
 
     def parse_term(self, *args):
         self.casts = []
@@ -319,9 +324,11 @@ class CastSpellVariable(RCStateVariable):
                 self.before = arg[7:]
             elif arg.startswith("after"):
                 self.after = arg[6:]
-            # elif arg == "noDG":
-                # is this even real?
+            elif arg == "noDG":
+                raise Exception("no dreamgate is currently not implemented")
+                self.can_dreamgate = False
             elif arg in ("NOLEFTSTALL", "NORIGHTSTALL", "NOSTALL",):
+                # raise Exception(f"not implemented {arg}")
                 pass
             else:
                 raise Exception(f"unknown {self.prefix} term, args: {args}")
@@ -336,23 +343,118 @@ class CastSpellVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
-        # TODO actually flesh this out
-        max_soul = 99
-        soul_burn = sum(self.casts) * 33
-        if self.before:
-            state_blob["SPENTSOUL"] = 0
-
-        if max_soul < soul_burn + state_blob["SPENTSOUL"]:
-            return False, state_blob
+    def ModifyState(self, state_blob, item_state, player):
+        max_soul = self.get_max_soul(state_blob)
+        if not state_blob["CANNOTREGAINSOUL"] and self.before:
+            soul = self.get_max_soul(state_blob)
+            reserves = self.get_reserves(state_blob, item_state, player)
+        elif state_blob["SPENTALLSOUL"]:
+            soul = 0
+            reserves = 0
         else:
-            state_blob["SPENTSOUL"] += soul_burn
-            if self.after:
-                state_blob["SPENTSOUL"] = 0
-            return True, state_blob
+            soul = self.get_soul(state_blob)
+            reserves = self.get_reserves(state_blob, item_state, player)
+
+        # try without spell twister
+        if (not self.equip_st.temp_is_equipped(state_blob, item_state, player)
+                and self.try_cast_all(33, max_soul, reserves, soul)):
+            state33 = state_blob.copy()
+            #setUnequippable(state33, spelltwister)
+            self.do_all_casts(33, reserves, state33)
+            if not state33["CANNOTREGAINSOUL"] and self.after:
+                self.recover_soul(sum(self.casts) * 33, state33)
+            yield state33
+
+        # try with spell twister
+        stateST = state_blob.copy()
+        if (self.try_cast_all(24, max_soul, reserves, soul)
+                and self.equip_st.temp_can_equip(stateST, item_state, player)):
+            stateST = list(self.equip_st.ModifyState(stateST, item_state, player))[0]  # we know EquipCharmVariable only yields once
+            self.do_all_casts(24, reserves, stateST)
+            if not stateST["CANNOTREGAINSOUL"] and self.after:
+                self.recover_soul(sum(self.casts) * 33, stateST)
+            yield stateST
 
     def can_exclude(self, options):
         return False
+
+    def do_all_casts(self, cost_per_cast, reserves, state_blob):
+        for cast in self.casts:
+            reserves = self.spend_soul(cost_per_cast * cast, reserves, state_blob)
+
+
+    @classmethod
+    def spend_soul(cls, amount, reserve, state_blob):
+        if reserve >= amount:
+            state_blob["SPENTRESERVESOUL"] += amount
+            reserve -= amount
+        elif reserve > 0:
+            state_blob["SPENTRESERVESOUL"] += reserve
+            state_blob["SPENTSOUL"] += amount - reserve
+            reserve = 0
+        else:
+            state_blob["SPENTSOUL"] += amount
+
+        # TODO understand this part
+        if amount > state_blob["MAXREQUIREDSOUL"]:
+            state_blob["MAXREQUIREDSOUL"] = amount
+
+        return reserve
+
+
+    @classmethod
+    def try_spend_soul(cls, amount, max_soul, reserves, soul, valid):
+        if not valid:
+            return (reserves, soul, valid)
+        if soul < amount:
+            return (reserves, soul, False)
+
+        transfer_amt = min(reserves, max_soul - soul)
+        soul += transfer_amt
+        reserves -= transfer_amt
+        return (reserves, soul, True)
+
+
+    def try_cast_all(self, cost_per_cast, max_soul, reserves, soul):
+        ret = True
+        for cast in self.casts:
+            reserves, soul, ret = self.try_spend_soul(cost_per_cast * cast, max_soul, reserves, soul, ret)
+        return ret
+
+
+    @classmethod
+    def recover_soul(cls, amount, state_blob):
+        # TODO check what if any needs to be passed back
+        soul_diff = state_blob["SPENTSOUL"]
+        if soul_diff >= amount:
+            state_blob["SPENTSOUL"] -= amount
+        elif soul_diff < amount:
+            state_blob["SPENTSOUL"] = 0
+            ammount -= soul_diff
+        reserve_diff = state_blob["SPENTRESERVESOUL"]
+        if reserve_diff >= amount:
+            state_blob["SPENTRESERVESOUL"] -= amount
+        elif reserve_diff > 0:
+            state_blob["SPENTRESERVESOUL"] = 0
+            ammount -= reserve_diff
+
+    @classmethod
+    def get_max_soul(cls, state_blob):
+        # TODO confirm these state values are ever set
+        return 99 - state_blob["SOULLIMITER"]
+
+    @classmethod
+    def get_soul(cls, state_blob):
+        return cls.get_max_soul(state_blob) - state_blob["SPENTSOUL"]
+
+    @classmethod
+    def get_max_reserves(cls, state_blob, item_state, player):
+        return int(item_state.count("VesselFragment", player) / 3) * 33
+
+    @classmethod
+    def get_reserves(cls, state_blob, item_state, player):
+        # TODO confirm these state values are ever set
+        return cls.get_max_reserves(state_blob, item_state, player) - state_blob["SPENTRESERVESOUL"]
 
 
 class EquipCharmVariable(RCStateVariable):
@@ -404,6 +506,14 @@ class EquipCharmVariable(RCStateVariable):
 
     def can_exclude(self, options):
         return False
+
+    def temp_can_equip(self, state_blob, item_state, player):
+        return self.has_item(item_state, player) and not state_blob[f"noCHARM{self.charm_id}"]
+        raise Exception("Not Implemented")
+
+    def temp_is_equipped(self, state_blob, item_state, player):
+        return state_blob[f"CHARM{self.charm_id}"]
+        raise Exception("Not Implemented")
 
 
 class FragileCharmVariable(EquipCharmVariable):
