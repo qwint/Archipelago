@@ -9,7 +9,22 @@ from Utils import KeyedDefaultDict
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-default_state = Counter({"NOFLOWER": 1})
+
+# default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
+class default_state_factory():
+    @staticmethod
+    def param(key):
+        return True if key == "NOFLOWER" else False
+
+    def __call__(self, defaults={}):
+        ret = KeyedDefaultDict(self.param)
+        for key, value in defaults.items():
+            ret[key] = value
+        return ret
+
+default_state = default_state_factory()
+
+
 BASE_SOUL = 12
 BASE_NOTCHES = 3
 BASE_HEALTH = 4
@@ -28,7 +43,7 @@ class HKLogicMixin(LogicMixin):
     """TODO: make an item stale and a resource_state_stale difference"""
 
     _hk_free_entrances: Dict[int, Set[str]]
-    """mapping for entrances that will not alter resource state no matter how many more items we get, for optimization"""
+    """mapping for entrances that will not alter resource state no matter how many more items we get"""
 
     _hk_entrance_clause_cache: Dict[int, Dict[str, Dict[int, bool]]]
     """mapping for clauses per entrance per player to short circuit non-resource state calculations"""
@@ -38,7 +53,10 @@ class HKLogicMixin(LogicMixin):
     def init_mixin(self, multiworld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
-        self._hk_per_player_resource_states = {player: KeyedDefaultDict(lambda region: [default_state.copy()] if region == "Menu" else []) for player in players}  # {player: {init_state: [start_region]} for player in players}
+        self._hk_per_player_resource_states = {
+            player: KeyedDefaultDict(lambda region: [default_state()] if region == "Menu" else [])
+            for player in players
+            }  # {player: {init_state: [start_region]} for player in players}
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
         self._hk_free_entrances = {player: {"Menu"} for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
@@ -67,7 +85,7 @@ class HKLogicMixin(LogicMixin):
         #     region.can_reach(self)
         #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
 
-                           # unneeded?
+        # unneeded?
         avaliable_states = self._hk_per_player_resource_states[player][region.name].copy()
         # loses the can_reach parent call, potentially re-add it?
 
@@ -275,15 +293,39 @@ class GTVariable(DirectCompare, RCStateVariable):
 
 
 class RCResetter():
-    reset_properties: List[str]
+    reset_state: Dict[str, Any]
+    """Target state to reset to"""
+    opt_in: bool = False
+    """Flag to determine if unhandled terms are reset"""
+    reset_properties: Dict[str, str]  # TODO - flesh this out
+    """
+    Dict of requirement: terms to reset,
+    use ANY for terms that can be reset with no requirment
+    use NONE for terms that will never be reset even with opt_in False
+    """
 
     def parse_term(self):
         pass
 
     def _ModifyState(self, state_blob, item_state, player):
-        for reset in self.reset_properties:
-            del state_blob[reset]
-        return True, state_blob
+        # TODO: confirm this is always correct, and deletion isn't too big an assumption
+        if self.opt_in:
+            for key, value in self.reset_properties.items():
+                if value != "None":
+                    # if the reset logic evaluates to True, update to new value
+                    if key not in self.reset_state:
+                        if key in state_blob:
+                            del state_blob[key]
+                    else:
+                        state_blob[key] = self.reset_state[key].copy()
+            return True, state_blob
+        else:
+            ret = default_state(defaults=self.reset_state)
+            for key, value in self.reset_properties.items():
+                if value == "None":  # TODO: fix
+                    # if the reset logic evaluates to False keep old value
+                    ret[key] = state_blob[key]
+            return True, ret
 
     @classmethod
     def TryMatch(cls, term: str):
@@ -295,8 +337,25 @@ class RCResetter():
 
 class BenchResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
-    reset_properties = ["BenchResetCondition", "SPENTSHADE", "SPENTNOTCHES", "DAMAGE"]
+    reset_state = {
+        "NOPASSEDCHARMEQUIP": False
+    }
+    opt_in = True  # False
+    # TODO fix this lie, there's something about that codepath that makes hk sweep loop forever
+    reset_properties = {
+        "CANNOTREGAINSOUL": "NONE",
+        "CANNOTSHADESKIP": "NONE",
+        "BROKEHEART": "NONE",
+        "BROKEGREED": "NONE",
+        "BROKESTRENGTH": "NONE",
+        "NOFLOWER": "NONE",
+        "SOULLIMITER": "NONE",
+        "REQUIREDMAXSOUL": "NONE",
 
+        "SPENTALLSOUL": "Salubra's_Blessing + CANNOTREGAINSOUL=FALSE",
+        "SPENTSOUL": "Salubra's_Blessing + CANNOTREGAINSOUL=FALSE",
+        "SPENTRESERVESOUL": "Salubra's_Blessing + CANNOTREGAINSOUL=FALSE",
+    }
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
@@ -359,7 +418,7 @@ class CastSpellVariable(RCStateVariable):
         if (not self.equip_st.temp_is_equipped(state_blob, item_state, player)
                 and self.try_cast_all(33, max_soul, reserves, soul)):
             state33 = state_blob.copy()
-            #setUnequippable(state33, spelltwister)
+            # setUnequippable(state33, spelltwister)
             self.do_all_casts(33, reserves, state33)
             if not state33["CANNOTREGAINSOUL"] and self.after:
                 self.recover_soul(sum(self.casts) * 33, state33)
@@ -382,7 +441,6 @@ class CastSpellVariable(RCStateVariable):
         for cast in self.casts:
             reserves = self.spend_soul(cost_per_cast * cast, reserves, state_blob)
 
-
     @classmethod
     def spend_soul(cls, amount, reserve, state_blob):
         if reserve >= amount:
@@ -401,7 +459,6 @@ class CastSpellVariable(RCStateVariable):
 
         return reserve
 
-
     @classmethod
     def try_spend_soul(cls, amount, max_soul, reserves, soul, valid):
         if not valid:
@@ -414,13 +471,11 @@ class CastSpellVariable(RCStateVariable):
         reserves -= transfer_amt
         return (reserves, soul, True)
 
-
     def try_cast_all(self, cost_per_cast, max_soul, reserves, soul):
         ret = True
         for cast in self.casts:
             reserves, soul, ret = self.try_spend_soul(cost_per_cast * cast, max_soul, reserves, soul, ret)
         return ret
-
 
     @classmethod
     def recover_soul(cls, amount, state_blob):
@@ -458,6 +513,7 @@ class CastSpellVariable(RCStateVariable):
 
 
 class EquipCharmVariable(RCStateVariable):
+    # TODO - skipped
     prefix = "$EQUIPPEDCHARM"
     excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
@@ -465,6 +521,7 @@ class EquipCharmVariable(RCStateVariable):
 
     @staticmethod
     def charm_id_and_name(charm) -> Tuple[int, str]:
+        """Convert 1 indexed charm id or charm name to both"""
         if not charm.isdigit():
             return charm_name_to_id[charm] + 1, charm
         else:
@@ -476,6 +533,7 @@ class EquipCharmVariable(RCStateVariable):
     @classmethod
     def TryMatch(cls, term: str):
         if term.startswith(cls.prefix):
+            # strip the $EQUIPPEDCHARM[] from the term and 
             charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
             # covered by other handlers
             if charm_id not in cls.excluded_charm_ids:
@@ -584,19 +642,36 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     #     return super()._ModifyState(state_blob, item_state, player)
 
 
-class FlowerProviderVariable(RCResetter, RCStateVariable):
+class FlowerProviderVariable(RCStateVariable):
     prefix = "$FLOWERGET"
-    reset_properties = ["NOFLOWER"]
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
+    def _ModifyState(self, state_blob, item_state, player):
+        state_blob["NOFLOWER"] = False
+        return True, state_blob
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return term == cls.prefix
+
+    def can_exclude(self, options):
+        return False
+
 
 class HotSpringResetVariable(RCResetter, RCStateVariable):
     prefix = "$HOTSPRINGRESET"
-    reset_properties = ["HotSpringResetCondition", "SPENTSOUL", "DAMAGE"]
 
+    reset_state = {}
+    opt_in = True
+    reset_properties = {
+        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTHP": "ANY",
+    }
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
@@ -618,13 +693,30 @@ class RegainSoulVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        previous = state_blob["SPENTSOUL"]
-        if previous <= self.amount:
-            state_blob["SPENTSOUL"] = 0
-        else:
+        if state_blob["CANNOTREGAINSOUL"]:
+            return False, state_blob
+        if state_blob["SPENTALLSOUL"]:
+            state_blob["SPENTRESERVESOUL"] = self.get_max_reserve_soul(item_state, player)
+            state_blob["SPENTSOUL"] = self.get_max_soul(state_blob)
+            state_blob["SPENTALLSOUL"] = False
+        soul_diff = self.get_max_soul(state_blob) - state_blob["SPENTSOUL"]  # i simplified this
+        if self.amount < soul_diff:
             state_blob["SPENTSOUL"] -= self.amount
-        return True, state_blob["SPENTSOUL"]
+        else:
+            state_blob["SPENTSOUL"] = 0
+            amount = self.amount - soul_diff
+            reserve_diff = (self.get_max_reserve_soul(item_state, player) - state_blob["SPENTRESERVESOUL"])  # i simplified this
+            if amount < reserve_diff:
+                state_blob["SPENTRESERVESOUL"] -= amount
+            else:
+                state_blob["SPENTRESERVESOUL"] = 0
+        return True, state_blob
+
+    def get_max_reserve_soul(item_state, player):
+        return (item_state[player]["VesselFragment"] // 3) * 33
+
+    def get_max_soul(state_blob):
+        return 99 - state_blob["SOULLIMITER"]
 
     def can_exclude(self, options):
         return False
@@ -632,7 +724,14 @@ class RegainSoulVariable(RCStateVariable):
 
 class SaveQuitResetVariable(RCResetter, RCStateVariable):
     prefix = "$SAVEQUITRESET"
-    reset_properties = ["SaveQuitConditionalReset", "DAMAGE"]
+
+    reset_state = {
+        "SPENTALLSOUL": True
+    }
+    opt_in = True
+    reset_properties = {
+        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
+    }
 
     # @classmethod
     # def GetTerms(cls):
@@ -778,7 +877,14 @@ class StagStateVariable(RCStateVariable):
 
 class StartRespawnResetVariable(RCResetter, RCStateVariable):
     prefix = "$BENCHRESET"
-    reset_properties = ["StartRespawnResetCondition", "DAMAGE"]
+    reset_state = {}
+    opt_in = True
+    reset_properties = {
+        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTHP": "ANY",
+    }
 
     # @classmethod
     # def GetTerms(cls):

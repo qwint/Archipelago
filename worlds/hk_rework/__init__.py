@@ -288,7 +288,7 @@ class HKWorld(RandomizerCoreWorld):
         if "King_Fragment" in self.white_palace_exclusions():
             self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
 
-        location_to_option = {key["location"]: option for option, keys in pool_options.items()  for key in keys}
+        location_to_option = {key["location"]: option for option, keys in pool_options.items() for key in keys}
         location_to_option["Elevator_Pass"] = "RandomizeElevatorPass"
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
