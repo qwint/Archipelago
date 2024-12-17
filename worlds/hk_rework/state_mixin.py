@@ -6,6 +6,7 @@ from collections import Counter
 from copy import deepcopy
 from Utils import KeyedDefaultDict
 from itertools import chain
+import enum
 
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
@@ -423,7 +424,7 @@ class CastSpellVariable(RCStateVariable):
             reserves = self.get_reserves(state_blob, item_state, player)
 
         # try without spell twister
-        if (not self.equip_st.temp_is_equipped(state_blob, item_state, player)
+        if (not self.equip_st.is_equipped(state_blob)
                 and self.try_cast_all(33, max_soul, reserves, soul)):
             state33 = state_blob.copy()
             # setUnequippable(state33, spelltwister)
@@ -435,7 +436,7 @@ class CastSpellVariable(RCStateVariable):
         # try with spell twister
         stateST = state_blob.copy()
         if (self.try_cast_all(24, max_soul, reserves, soul)
-                and self.equip_st.temp_can_equip(stateST, item_state, player)):
+                and self.equip_st.can_equip(stateST, item_state, player)):
             stateST = list(self.equip_st.ModifyState(stateST, item_state, player))[0]  # we know EquipCharmVariable only yields once
             self.do_all_casts(24, reserves, stateST)
             if not stateST["CANNOTREGAINSOUL"] and self.after:
@@ -519,9 +520,16 @@ class CastSpellVariable(RCStateVariable):
 class EquipCharmVariable(RCStateVariable):
     # TODO - skipped
     prefix = "$EQUIPPEDCHARM"
+    equip_prefix = "CHARM"
+    no_equip_prefix = "noCHARM"
     excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
+
+    class EquipResult(enum.Enum):
+        NONE = 1
+        OVERCHARM = 2
+        NONOVERCHARM = 3
 
     @staticmethod
     def charm_id_and_name(charm) -> Tuple[int, str]:
@@ -566,16 +574,75 @@ class EquipCharmVariable(RCStateVariable):
             state_blob[charm_key] = 1
             return True, state_blob
 
-    def can_exclude(self, options):
+
+    @property
+    def anti_term(self):
+        return f"{self.no_equip_prefix}{self.charm_id}"
+
+    @property
+    def term(self):
+        return f"{self.equip_prefix}{self.charm_id}"
+
+    def get_notch_cost(self, *args):
+        # TODO
+        return 2
+
+    def has_charm_progression(self, *args):
+        # TODO
         return False
 
-    def temp_can_equip(self, state_blob, item_state, player):
-        return self.has_item(item_state, player) and not state_blob[f"noCHARM{self.charm_id}"]
-        raise Exception("Not Implemented")
+    def has_state_requirements(self, state_blob):
+        if (state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]):
+            return False
+        return True
 
-    def temp_is_equipped(self, state_blob, item_state, player):
-        return state_blob[f"CHARM{self.charm_id}"]
-        raise Exception("Not Implemented")
+    def has_notch_requirments(self, *args) -> "EquipResult":
+        # TODO
+        return self.EquipResult.NONOVERCHARM
+
+    def can_equip_non_overcharm(self, *args):
+        return (self.has_charm_progression() and self.has_state_requirements(state_blob)
+                and self.has_notch_requirments() == self.EquipResult.NONOVERCHARM)
+
+    def can_equip_overcharm(self, *args):
+        return (self.has_charm_progression() and self.has_state_requirements(state_blob)
+                and self.has_notch_requirments() != self.EquipResult.NONE)
+
+    def can_equip(self, state_blob, item_state, player):
+        # TODO there's some shenanagins in upstream i'm not understanding rn
+        if state_blob is None or not self.has_charm_progression():
+            return self.EquipResult.NONE
+
+        overcharm = False
+        for _ in (None,):  # there's an interation in upstream i don't want to lose sight of
+            if self.has_state_requirements(state_blob):
+                ret = has_notch_requirments()
+                if ret == self.EquipResult.NONE:
+                    continue
+                elif ret == self.EquipResult.OVERCHARM:
+                    overcharm = True
+                elif ret == self.EquipResult.NONOVERCHARM:
+                    return ret
+        return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
+
+    def do_equip_charm(self, *args):
+        state_blob["USEDNOTCHES"] += self.get_notch_cost()
+        state_blob[self.term] = True
+        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.get_notch_cost())
+        if state_blob["USEDNOTCHES"] > state["NOTCHES"]:
+            state_blob["OVERCHARMED"] = True
+
+    def is_equipped(self, state_blob):
+        return bool(state_blob[self.term])
+
+    def set_unequippable(self, state_blob):
+        state_blob[self.anti_term] = True
+
+    def get_avaliable_notches(self, state_blob):
+        return state_blob["NOTCHES"] - state_blob["USEDNOTCHES"]
+
+    def can_exclude(self, options):
+        return False
 
 
 class FragileCharmVariable(EquipCharmVariable):
@@ -787,7 +854,6 @@ class ShriekPogoVariable(CastSpellVariable):
         super().parse_term(*args)
         if any(cast > 1 for cast in self.casts) and (not self.no_left_stall or not self.no_right_stall):
             sub_params = list(chain.from_iterable([["1"] * int(i) if i.isdigit() else [i] for i in args]))
-            # TODO from self.casts or from args?
             # flatten any > 1 cast value into that many copies of 1
             # to tell downstream that there can be a break to regain soul
             self.stall_cast = CastSpellVariable(f"{CastSpellVariable.prefix}[{','.join(sub_params)}]")
