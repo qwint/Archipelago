@@ -504,7 +504,7 @@ class CastSpellVariable(RCStateVariable):
 
     @classmethod
     def get_max_reserves(cls, state_blob, item_state, player):
-        return int(item_state.count("VesselFragment", player) / 3) * 33
+        return (item_state.count("VesselFragment", player) // 3) * 33
 
     @classmethod
     def get_reserves(cls, state_blob, item_state, player):
@@ -760,8 +760,7 @@ class ShadeStateVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        # TODO update
+        # TODO fill out when i finish equipped item variable
         if state_blob["SpentShade"]:
             return False, state_blob
         else:
@@ -784,9 +783,11 @@ class ShriekPogoVariable(CastSpellVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
+        # TODO confirm and figure out stall variables
         if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, player):
             return False, state_blob
+        # elif self.noleft or self.noright
+        # dunno
         else:
             return super()._ModifyState(state_blob, item_state, player)
 
@@ -811,7 +812,6 @@ class SlopeballVariable(CastSpellVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
         if not item_state.has("FIREBALL", player):
             return False, state_blob
         else:
@@ -839,15 +839,32 @@ class SpendSoulVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO actually flesh this out
-        max_soul = 99
-        soul_burn = self.amount
-
-        if max_soul < soul_burn + state_blob["SPENTSOUL"]:
+        if state_blob["SPENTALLSOUL"]:
             return False, state_blob
+
+        soul = self.get_soul(state_blob)
+        if soul < amount:
+            return False, state_blob
+
+        reserve_soul = self.get_reserve_soul(state_blob, item_state, player)
+        if reserve_soul >= amount:
+            state_blob["SPENTRESERVESOUL"] += amount
         else:
-            state_blob["SPENTSOUL"] += soul_burn
-            return True, state_blob
+            state_blob["SPENTRESERVESOUL"] += reserve_soul
+            state_blob["SPENTSOUL"] += amount - reserve_soul
+
+        required_max_soul = state_blob["REQUIREDMAXSOUL"]
+        alt_req = max(amount, state_blob["SPENTSOUL"])
+        if alt_req > required_max_soul:
+            state_blob["REQUIREDMAXSOUL"] = alt_req
+
+        return True, state_blob
+
+    def get_soul(self, state_blob):
+        return 99 - state_blob["SOULLIMITER"] - state_blob["SPENTSOUL"]
+
+    def get_reserve_soul(self, state_blob, item_state, player):
+        return ((item_state.count("VesselFragment", player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
 
     def can_exclude(self, options):
         return False
@@ -964,17 +981,17 @@ class WarpToBenchResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def ModifyState(self, state_blob, item_state, player):
-        # under the knowledge that these do not proliferate state
-        sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
-        yield next(self.bench_reset.ModifyState(sq_state, item_state, player))
-        # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
+    # def ModifyState(self, state_blob, item_state, player):
+    #     # under the knowledge that these do not proliferate state
+    #     sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
+    #     yield next(self.bench_reset.ModifyState(sq_state, item_state, player))
+    #     # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
         valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
-            return BenchResetVariable._ModifyState(state_blob, item_state, player)
+            return self.bench_reset._ModifyState(state_blob, item_state, player)
         else:
             return False, state_blob
 
@@ -999,17 +1016,17 @@ class WarpToStartResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def ModifyState(self, state_blob, item_state, player):
-        # under the knowledge that these do not proliferate state
-        sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
-        yield next(self.start_reset.ModifyState(sq_state, item_state, player))
-        # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
+    # def ModifyState(self, state_blob, item_state, player):
+    #     # under the knowledge that these do not proliferate state
+    #     sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
+    #     yield next(self.start_reset.ModifyState(sq_state, item_state, player))
+    #     # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
 
     def _ModifyState(self, state_blob, item_state, player):
         # TODO figure this out
         valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
-            return BenchResetVariable._ModifyState(state_blob, item_state, player)
+            return self.start_reset._ModifyState(state_blob, item_state, player)
         else:
             return False, state_blob
 
