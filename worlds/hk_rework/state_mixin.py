@@ -5,6 +5,7 @@ from .Charms import names as charm_names, charm_name_to_id
 from collections import Counter
 from copy import deepcopy
 from Utils import KeyedDefaultDict
+from itertools import chain
 
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
@@ -21,6 +22,7 @@ class default_state_factory():
         for key, value in defaults.items():
             ret[key] = value
         return ret
+
 
 default_state = default_state_factory()
 
@@ -376,6 +378,8 @@ class CastSpellVariable(RCStateVariable):
         self.casts = []
         self.before = None
         self.after = None
+        self.no_left_stall = False
+        self.no_right_stall = False
         for arg in args:
             if arg.isdigit():
                 self.casts.append(int(arg))
@@ -386,9 +390,13 @@ class CastSpellVariable(RCStateVariable):
             elif arg == "noDG":
                 raise Exception("no dreamgate is currently not implemented")
                 self.can_dreamgate = False
-            elif arg in ("NOLEFTSTALL", "NORIGHTSTALL", "NOSTALL",):
-                # raise Exception(f"not implemented {arg}")
-                pass
+            elif arg == "NOLEFTSTALL":
+                self.no_left_stall = True
+            elif arg == "NORIGHTSTALL":
+                self.no_right_stall = True
+            elif arg == "NOSTALL":
+                self.no_left_stall = True
+                self.no_right_stall = True
             else:
                 raise Exception(f"unknown {self.prefix} term, args: {args}")
         if len(self.casts) == 0:
@@ -453,7 +461,6 @@ class CastSpellVariable(RCStateVariable):
         else:
             state_blob["SPENTSOUL"] += amount
 
-        # TODO understand this part
         if amount > state_blob["MAXREQUIREDSOUL"]:
             state_blob["MAXREQUIREDSOUL"] = amount
 
@@ -479,10 +486,9 @@ class CastSpellVariable(RCStateVariable):
 
     @classmethod
     def recover_soul(cls, amount, state_blob):
-        # TODO check what if any needs to be passed back
         soul_diff = state_blob["SPENTSOUL"]
         if soul_diff >= amount:
-            state_blob["SPENTSOUL"] -= amount
+            state_blob["SPENTSOUL"] -= amoun
         elif soul_diff < amount:
             state_blob["SPENTSOUL"] = 0
             ammount -= soul_diff
@@ -495,7 +501,6 @@ class CastSpellVariable(RCStateVariable):
 
     @classmethod
     def get_max_soul(cls, state_blob):
-        # TODO confirm these state values are ever set
         return 99 - state_blob["SOULLIMITER"]
 
     @classmethod
@@ -508,7 +513,6 @@ class CastSpellVariable(RCStateVariable):
 
     @classmethod
     def get_reserves(cls, state_blob, item_state, player):
-        # TODO confirm these state values are ever set
         return cls.get_max_reserves(state_blob, item_state, player) - state_blob["SPENTRESERVESOUL"]
 
 
@@ -773,23 +777,35 @@ class ShadeStateVariable(RCStateVariable):
 
 class ShriekPogoVariable(CastSpellVariable):
     prefix = "$SHRIEKPOGO"
+    stall_cast: Optional[CastSpellVariable]
 
     @classmethod
     def TryMatch(cls, term: str):
         return term.startswith(cls.prefix)
 
+    def parse_term(self, *args):
+        super().parse_term(*args)
+        if any(cast > 1 for cast in self.casts) and (not self.no_left_stall or not self.no_right_stall):
+            sub_params = list(chain.from_iterable([[1] * i if isinstance(i, int) else [i] for i in args]))
+            # TODO from self.casts or from args?
+            # flatten any > 1 cast value into that many copies of 1
+            # to tell downstream that there can be a break to regain soul
+            self.stall_cast = CastSpellVariable(f"{CastSpellVariable.prefix}[{','.join(sub_params)}]")
+        else:
+            self.stall_cast = None
+
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
-        # TODO confirm and figure out stall variables
+    def ModifyState(self, state_blob, item_state, player):
         if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, player):
             return False, state_blob
-        # elif self.noleft or self.noright
-        # dunno
+        elif self.stall_cast and ((not self.no_left_stall and item_state["LEFTDASH"])
+                                  (not self.no_right_stall and item_state["RIGHTDASH"])):
+            return self.stall_cast.ModifyState(state_blob, item_state, player)
         else:
-            return super()._ModifyState(state_blob, item_state, player)
+            return super().ModifyState(state_blob, item_state, player)
 
     def can_exclude(self, options):
         return True
@@ -907,10 +923,6 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    # def _ModifyState(self, state_blob, item_state, player):
-    #     # TODO figure this out
-    #     pass
-
 
 # i don't know what this is for; says it's for handling subhandlers but not sure when
 # class StateModifierWrapper(RCStateVariable):
@@ -981,14 +993,7 @@ class WarpToBenchResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    # def ModifyState(self, state_blob, item_state, player):
-    #     # under the knowledge that these do not proliferate state
-    #     sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
-    #     yield next(self.bench_reset.ModifyState(sq_state, item_state, player))
-    #     # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
-
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
         valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
             return self.bench_reset._ModifyState(state_blob, item_state, player)
@@ -1016,14 +1021,7 @@ class WarpToStartResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    # def ModifyState(self, state_blob, item_state, player):
-    #     # under the knowledge that these do not proliferate state
-    #     sq_state = next(self.sq_reset.ModifyState(state_blob, item_state, player))
-    #     yield next(self.start_reset.ModifyState(sq_state, item_state, player))
-    #     # return (output_state for valid, output_state in self._ModifyState(state_blob) if valid)
-
     def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
         valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
             return self.start_reset._ModifyState(state_blob, item_state, player)
