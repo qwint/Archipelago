@@ -786,7 +786,7 @@ class ShriekPogoVariable(CastSpellVariable):
     def parse_term(self, *args):
         super().parse_term(*args)
         if any(cast > 1 for cast in self.casts) and (not self.no_left_stall or not self.no_right_stall):
-            sub_params = list(chain.from_iterable([[1] * i if isinstance(i, int) else [i] for i in args]))
+            sub_params = list(chain.from_iterable([["1"] * int(i) if i.isdigit() else [i] for i in args]))
             # TODO from self.casts or from args?
             # flatten any > 1 cast value into that many copies of 1
             # to tell downstream that there can be a break to regain soul
@@ -924,7 +924,7 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
 
-# i don't know what this is for; says it's for handling subhandlers but not sure when
+# TODO - i don't know what this is for; says it's for handling subhandlers but not sure when
 # class StateModifierWrapper(RCStateVariable):
 #     prefix = "$BENCHRESET"
 
@@ -940,7 +940,6 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
 #     #     return (term for term in ("VessleFragments",))
 
 #     def _ModifyState(self, state_blob, item_state, player):
-#         # TODO figure this out
 #         pass
 
 #     def can_exclude(self, options):
