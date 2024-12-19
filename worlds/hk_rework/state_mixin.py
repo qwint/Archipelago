@@ -2,7 +2,7 @@ from BaseClasses import MultiWorld, CollectionState, Region
 from typing import TYPE_CHECKING, Tuple, NamedTuple, Dict, Set, Any, List, Type, Generator, Optional, ClassVar
 from worlds.AutoWorld import LogicMixin
 from .Charms import names as charm_names, charm_name_to_id
-from collections import Counter
+from collections import Counter, defaultdict
 from copy import deepcopy
 from Utils import KeyedDefaultDict
 from itertools import chain
@@ -14,12 +14,8 @@ if TYPE_CHECKING:
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
 class default_state_factory():
-    @staticmethod
-    def param(key):
-        return True if key == "NOFLOWER" else False
-
     def __call__(self, defaults={}):
-        ret = KeyedDefaultDict(self.param)
+        ret = defaultdict(int, {"NOFLOWER": 1, "NOPASSEDCHARMEQUIP": 1})
         for key, value in defaults.items():
             ret[key] = value
         return ret
@@ -64,6 +60,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_free_entrances = {player: {"Menu"} for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
         self._hk_stale = {player: True for player in players}
+        self._hk_sweeping = {player: False for player in players}
         self._hk_processed_item_cache = {player: Counter() for player in players}
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
@@ -89,7 +86,7 @@ class HKLogicMixin(LogicMixin):
         #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
 
         # unneeded?
-        avaliable_states = self._hk_per_player_resource_states[player][region.name].copy()
+        avaliable_states = [s.copy() for s in self._hk_per_player_resource_states[player][region.name]]
         # loses the can_reach parent call, potentially re-add it?
 
         if not avaliable_states:
@@ -108,39 +105,39 @@ class HKLogicMixin(LogicMixin):
             if not persist:
                 return True
             else:
-                improved = False
-                # if len(self._hk_per_player_resource_states[player][target_region.name]):
-                #     print(self._hk_per_player_resource_states[player][target_region.name])
-                #     print(avaliable_states)
-                #     breakpoint()
+                improved_states = []
                 for s in avaliable_states:
                     if any(s == previous or lt(previous, s) for previous in self._hk_per_player_resource_states[player][target_region.name]):
                         # if the state we're adding already exists or a better state already exists, we didn't improve
                         continue
-                    self._hk_per_player_resource_states[player][target_region.name].append(s)
-                    improved = True
-                if improved:
-                    indicies_to_pop = []
-                    for index, s in enumerate(self._hk_per_player_resource_states[player][target_region.name]):
-                        if any(lt(other, s) for other in self._hk_per_player_resource_states[player][target_region.name]):
-                            indicies_to_pop.append(index)
-                    # if not indicies_to_pop and len(self._hk_per_player_resource_states[player][target_region.name]) > 1:
-                    #     print(self._hk_per_player_resource_states[player][target_region.name])
-                    #     breakpoint()
-                    for index in reversed(indicies_to_pop):
-                        # reverse so we can blindly pop
-                        self._hk_per_player_resource_states[player][target_region.name].pop(index)
+                    improved_states.append(s)
+                if improved_states:
+                    self._hk_per_player_resource_states[player][target_region.name] += improved_states
+                    # indicies_to_pop = []
+                    # for index, s in enumerate(self._hk_per_player_resource_states[player][target_region.name]):
+                    #     if any(lt(other, s) for other in self._hk_per_player_resource_states[player][target_region.name]):
+                    #         indicies_to_pop.append(index)
+                    # for index in reversed(indicies_to_pop):
+                    #     # reverse so we can blindly pop
+                    #     self._hk_per_player_resource_states[player][target_region.name].pop(index)
+
+                    for index, s in reversed(list(enumerate(self._hk_per_player_resource_states[player][target_region.name]))):
+                        if any(lt(other, s)
+                                for other in self._hk_per_player_resource_states[player][target_region.name]
+                                if other is not s):  # TODO make sure this doesn't ever break
+                            self._hk_per_player_resource_states[player][target_region.name].pop(index)
+
                     self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
-                    self._hk_stale[player] = True
+                    # self._hk_stale[player] = True
                 assert self._hk_per_player_resource_states[player][target_region.name]
                 return True
         else:
             return False
 
     def _hk_sweep(self, player):
-        if not self._hk_stale[player]:
+        if self._hk_sweeping[player]:
             return
-        self._hk_stale[player] = False
+        self._hk_sweeping[player] = True
         # assume not stale and only evaluate true clauses
         # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
@@ -158,20 +155,57 @@ class HKLogicMixin(LogicMixin):
 
             # for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
             #     self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
+        self._hk_stale[player] = False
+        self._hk_sweeping[player] = False
 
 
 def ge(state1, state2) -> bool:
-    return all(state1[key] >= state2[key] for key in state2.keys())
+    return state1.keys() >= state2.keys() and all(v2 <= state1[key] for key, v2 in state2.items())
 
 
-def lt(state1, state2) -> bool:
-    if state1 == state2:
+# from mysteryem
+def em_lt(state1: dict, state2: dict) -> bool:
+    """Counter-like strict subset comparison"""
+    if not state1.keys() <= state2.keys():
+        # state1 is not a subset of state2, so state1 has some keys not present in state2
         return False
-    if any(key not in state2 for key in state1.keys()):
-        return False
-    if any(state1[key] > state2[key] for key in state1.keys()):
-        return False
-    return True
+    if len(state2) > len(state1):
+        # state2 has some extra keys, so even if every key in state1 has the same value as in state2, state1 is
+        # still a strict subset of state2.
+        for key, v1 in state1.items():
+            if v1 > state2[key]:
+                return False
+        return True
+    else:
+        # state2 has the same keys as state1, so at least one key in state1 must have a lower value than in state2
+        less_than = False
+        for key, v1 in state1.items():
+            v2 = state2[key]
+            if v1 > v2:
+                # state1 has a larger value than state2 for this key, so state1 is not a subset of state2
+                return False
+            # todo: How to best optimise this?
+            if v1 < v2:
+                # state1's value is less than state2's, so state1 could be a strict subset of state2
+                less_than = True
+        return less_than
+
+
+def lt(state1: dict, state2: dict) -> bool:
+    # TODO rename to le and/or revert this
+    return all(v1 <= state2.get(key, 0) for key, v1 in state1.items())
+
+    # if state1 == state2:
+    #     breakpoint()
+    # if state1.keys() - state2.keys():
+    #     # if any keys exist in state1 that aren't present in state2, state1 cannot be less than
+    #     return False
+    # # if state1["SPENTSOUL"] > state2["SPENTSOUL"]:
+    # #     # see if shortcircuting common keys adds speedups
+    # #     return False
+    # if any(v1 > state2[key] for key, v1 in state1.items()):
+    #     return False
+    # return True
     # return sum(state1[key] <= state2[key] for key in state1.keys()) == 1 and sum(state1[key] < state2[key] for key in state1.keys()) == 1
     # return not ge(state1, state2)
 
@@ -320,7 +354,7 @@ class RCResetter():
                         if key in state_blob:
                             del state_blob[key]
                     else:
-                        state_blob[key] = self.reset_state[key].copy()
+                        state_blob[key] = self.reset_state[key]
             return True, state_blob
         else:
             ret = default_state(defaults=self.reset_state)
@@ -343,8 +377,7 @@ class BenchResetVariable(RCResetter, RCStateVariable):
     reset_state = {
         "NOPASSEDCHARMEQUIP": False
     }
-    opt_in = True  # False
-    # TODO fix this lie, there's something about that codepath that makes hk sweep loop forever
+    opt_in = False
     reset_properties = {
         "CANNOTREGAINSOUL": "NONE",
         "CANNOTSHADESKIP": "NONE",
@@ -489,16 +522,16 @@ class CastSpellVariable(RCStateVariable):
     def recover_soul(cls, amount, state_blob):
         soul_diff = state_blob["SPENTSOUL"]
         if soul_diff >= amount:
-            state_blob["SPENTSOUL"] -= amoun
+            state_blob["SPENTSOUL"] -= amount
         elif soul_diff < amount:
             state_blob["SPENTSOUL"] = 0
-            ammount -= soul_diff
+            amount -= soul_diff
         reserve_diff = state_blob["SPENTRESERVESOUL"]
         if reserve_diff >= amount:
             state_blob["SPENTRESERVESOUL"] -= amount
         elif reserve_diff > 0:
             state_blob["SPENTRESERVESOUL"] = 0
-            ammount -= reserve_diff
+            amount -= reserve_diff
 
     @classmethod
     def get_max_soul(cls, state_blob):
@@ -545,7 +578,7 @@ class EquipCharmVariable(RCStateVariable):
     @classmethod
     def TryMatch(cls, term: str):
         if term.startswith(cls.prefix):
-            # strip the $EQUIPPEDCHARM[] from the term and 
+            # strip the $EQUIPPEDCHARM[] from the term and extract the 1 indexed charm id
             charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
             # covered by other handlers
             if charm_id not in cls.excluded_charm_ids:
@@ -573,7 +606,6 @@ class EquipCharmVariable(RCStateVariable):
             # TODO
             state_blob[charm_key] = 1
             return True, state_blob
-
 
     @property
     def anti_term(self):
@@ -975,7 +1007,7 @@ class StagStateVariable(RCStateVariable):
 
 
 class StartRespawnResetVariable(RCResetter, RCStateVariable):
-    prefix = "$BENCHRESET"
+    prefix = "$STARTRESPAWN"
     reset_state = {}
     opt_in = True
     reset_properties = {
