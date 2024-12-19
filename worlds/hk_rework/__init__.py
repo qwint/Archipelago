@@ -177,25 +177,31 @@ class HKEntrance(Entrance):
             cache = state._hk_entrance_clause_cache[self.player][self.name]
 
         # check every clause, caching item state accessibility
-        valid_clauses = {}
+        valid_clauses = False
         for index, clause in enumerate(self.hk_rule):
             if cache[index]:
                 if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
-                    valid_clauses[index] = True
+                    valid_clauses = True
             elif state.has_all_counts(clause.hk_item_requirements, self.player) \
                     and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
                 cache[index] = True
                 if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
-                    valid_clauses[index] = True
+                    valid_clauses = True
 
-        return any(clause for clause in valid_clauses.values())
+        return valid_clauses
 
 
 class HKRegion(Region):
     entrance_type = HKEntrance
 
     def can_reach(self, state) -> bool:
-        state._hk_sweep(self.player)
+        if self in state.reachable_regions[self.player]:
+            return True
+        if not state.stale[self.player] and not state._hk_stale[self.player]:
+            # if the cache is updated we can use the cache
+            return super().can_reach(state)
+        if state._hk_stale[self.player]:
+            state._hk_sweep(self.player)
         return super().can_reach(state)
 
 
