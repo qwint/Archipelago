@@ -24,17 +24,17 @@ class TestGoal_radiance(HKTestBase):
         "Goal": "radiance",
     }
 
+# TODO put these back when implemented again
+# class TestGoal_godhome(HKTestBase):
+#     options = {
+#         "Goal": "godhome",
+#     }
 
-class TestGoal_godhome(HKTestBase):
-    options = {
-        "Goal": "godhome",
-    }
 
-
-class TestGoal_godhome_flower(HKTestBase):
-    options = {
-        "Goal": "godhome_flower",
-    }
+# class TestGoal_godhome_flower(HKTestBase):
+#     options = {
+#         "Goal": "godhome_flower",
+#     }
 
 
 class TestRandomize_All(HKTestBase):

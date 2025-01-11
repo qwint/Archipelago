@@ -397,6 +397,54 @@ class BenchResetVariable(RCResetter, RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
 
+class HotSpringResetVariable(RCResetter, RCStateVariable):
+    prefix = "$HOTSPRINGRESET"
+
+    reset_state = {}
+    opt_in = True
+    reset_properties = {
+        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTHP": "ANY",
+    }
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+
+class SaveQuitResetVariable(RCResetter, RCStateVariable):
+    prefix = "$SAVEQUITRESET"
+
+    reset_state = {
+        "SPENTALLSOUL": True
+    }
+    opt_in = True
+    reset_properties = {
+        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
+    }
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+
+class StartRespawnResetVariable(RCResetter, RCStateVariable):
+    prefix = "$STARTRESPAWN"
+    reset_state = {}
+    opt_in = True
+    reset_properties = {
+        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTSOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
+        "SPENTHP": "ANY",
+    }
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+
 class CastSpellVariable(RCStateVariable):
     prefix = "$CASTSPELL"
     casts: List[int]
@@ -548,6 +596,69 @@ class CastSpellVariable(RCStateVariable):
     @classmethod
     def get_reserves(cls, state_blob, item_state, player):
         return cls.get_max_reserves(state_blob, item_state, player) - state_blob["SPENTRESERVESOUL"]
+
+
+class ShriekPogoVariable(CastSpellVariable):
+    prefix = "$SHRIEKPOGO"
+    stall_cast: Optional[CastSpellVariable]
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return term.startswith(cls.prefix)
+
+    def parse_term(self, *args):
+        super().parse_term(*args)
+        if any(cast > 1 for cast in self.casts) and (not self.no_left_stall or not self.no_right_stall):
+            sub_params = list(chain.from_iterable([["1"] * int(i) if i.isdigit() else [i] for i in args]))
+            # flatten any > 1 cast value into that many copies of 1
+            # to tell downstream that there can be a break to regain soul
+            self.stall_cast = CastSpellVariable(f"{CastSpellVariable.prefix}[{','.join(sub_params)}]")
+        else:
+            self.stall_cast = None
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    def ModifyState(self, state_blob, item_state, player):
+        if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, player):
+            return False, state_blob
+        elif self.stall_cast and ((not self.no_left_stall and item_state["LEFTDASH"])
+                                  (not self.no_right_stall and item_state["RIGHTDASH"])):
+            return self.stall_cast.ModifyState(state_blob, item_state, player)
+        else:
+            return super().ModifyState(state_blob, item_state, player)
+
+    def can_exclude(self, options):
+        return True
+        # TODO add the option lol
+        on = bool(options.ShriekPogoSkips)
+        difficult = sum(self.casts) > 3
+        difficult_on = bool(options.DifficultSkips)
+        return (not on) or (difficult and not difficult_on)
+
+
+class SlopeballVariable(CastSpellVariable):
+    prefix = "$SLOPEBALL"
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return term.startswith(cls.prefix)
+
+    # @classmethod
+    # def GetTerms(cls):
+    #     return (term for term in ("VessleFragments",))
+
+    def _ModifyState(self, state_blob, item_state, player):
+        if not item_state.has("FIREBALL", player):
+            return False, state_blob
+        else:
+            return super()._ModifyState(state_blob, item_state, player)
+
+    def can_exclude(self, options):
+        return True
+        # TODO add the option lol
+        return bool(options.SlopeBallSkips)
 
 
 class EquipCharmVariable(RCStateVariable):
@@ -764,22 +875,6 @@ class FlowerProviderVariable(RCStateVariable):
         return False
 
 
-class HotSpringResetVariable(RCResetter, RCStateVariable):
-    prefix = "$HOTSPRINGRESET"
-
-    reset_state = {}
-    opt_in = True
-    reset_properties = {
-        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
-        "SPENTSOUL": "CANNOTREGAINSOUL=FALSE",
-        "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
-        "SPENTHP": "ANY",
-    }
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-
 class RegainSoulVariable(RCStateVariable):
     prefix = "$REGAINSOUL"
     amount: int
@@ -825,22 +920,6 @@ class RegainSoulVariable(RCStateVariable):
         return False
 
 
-class SaveQuitResetVariable(RCResetter, RCStateVariable):
-    prefix = "$SAVEQUITRESET"
-
-    reset_state = {
-        "SPENTALLSOUL": True
-    }
-    opt_in = True
-    reset_properties = {
-        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
-    }
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-
 class ShadeStateVariable(RCStateVariable):
     prefix = "$SHADESKIP"
     health: int
@@ -872,69 +951,6 @@ class ShadeStateVariable(RCStateVariable):
 
     def can_exclude(self, options):
         return not bool(options.ShadeSkips)
-
-
-class ShriekPogoVariable(CastSpellVariable):
-    prefix = "$SHRIEKPOGO"
-    stall_cast: Optional[CastSpellVariable]
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
-    def parse_term(self, *args):
-        super().parse_term(*args)
-        if any(cast > 1 for cast in self.casts) and (not self.no_left_stall or not self.no_right_stall):
-            sub_params = list(chain.from_iterable([["1"] * int(i) if i.isdigit() else [i] for i in args]))
-            # flatten any > 1 cast value into that many copies of 1
-            # to tell downstream that there can be a break to regain soul
-            self.stall_cast = CastSpellVariable(f"{CastSpellVariable.prefix}[{','.join(sub_params)}]")
-        else:
-            self.stall_cast = None
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-    def ModifyState(self, state_blob, item_state, player):
-        if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, player):
-            return False, state_blob
-        elif self.stall_cast and ((not self.no_left_stall and item_state["LEFTDASH"])
-                                  (not self.no_right_stall and item_state["RIGHTDASH"])):
-            return self.stall_cast.ModifyState(state_blob, item_state, player)
-        else:
-            return super().ModifyState(state_blob, item_state, player)
-
-    def can_exclude(self, options):
-        return True
-        # TODO add the option lol
-        on = bool(options.ShriekPogoSkips)
-        difficult = sum(self.casts) > 3
-        difficult_on = bool(options.DifficultSkips)
-        return (not on) or (difficult and not difficult_on)
-
-
-class SlopeballVariable(CastSpellVariable):
-    prefix = "$SLOPEBALL"
-
-    @classmethod
-    def TryMatch(cls, term: str):
-        return term.startswith(cls.prefix)
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-    def _ModifyState(self, state_blob, item_state, player):
-        if not item_state.has("FIREBALL", player):
-            return False, state_blob
-        else:
-            return super()._ModifyState(state_blob, item_state, player)
-
-    def can_exclude(self, options):
-        return True
-        # TODO add the option lol
-        return bool(options.SlopeBallSkips)
 
 
 class SpendSoulVariable(RCStateVariable):
@@ -1000,26 +1016,10 @@ class StagStateVariable(RCStateVariable):
 
     def _ModifyState(self, state_blob, item_state, player):
         state_blob["NOFLOWER"] = 1
-        return True, state_blob
+        return True, state_blob 
 
     def can_exclude(self, options):
         return False
-
-
-class StartRespawnResetVariable(RCResetter, RCStateVariable):
-    prefix = "$STARTRESPAWN"
-    reset_state = {}
-    opt_in = True
-    reset_properties = {
-        "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
-        "SPENTSOUL": "CANNOTREGAINSOUL=FALSE",
-        "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
-        "SPENTHP": "ANY",
-    }
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
 
 
 # TODO - i don't know what this is for; says it's for handling subhandlers but not sure when
