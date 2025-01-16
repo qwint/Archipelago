@@ -1,2 +1,7 @@
-{{form.uName.label}}
-{{form.uName()}}
+hello world
+{% for option in options %}
+	<div>
+		{{option}}
+		{{form[option]}}
+	</div>
+{% endfor %}

@@ -191,17 +191,9 @@ class Option(typing.Generic[T], metaclass=AssembleOptions):
             pass
 
     @classmethod
+    @abc.abstractmethod
     def to_form(cls):
-        import wtforms
-        class OptionStringField(wtforms.StringField):
-            option: Option
-            def __init__(self, *args, **kwargs):
-                self.option = kwargs["option"]
-                del kwargs["option"]
-                super().__init__(*args, **kwargs)
-
-        field = OptionStringField(cls.display_name, option=cls)
-        return field
+        ...
 
 
 class FreeText(Option[str]):
@@ -237,6 +229,12 @@ class FreeText(Option[str]):
             return other == self.value
         else:
             raise TypeError(f"Can't compare {self.__class__.__name__} with {other.__class__.__name__}")
+
+    @classmethod
+    def to_form(cls):
+        import wtforms
+        field = wtforms.StringField(cls.display_name)
+        return field
 
 
 class NumericOption(Option[int], numbers.Integral, abc.ABC):
@@ -407,6 +405,12 @@ class NumericOption(Option[int], numbers.Integral, abc.ABC):
 
     def __xor__(self, other: typing.Any) -> int:
         return self.value ^ int(other)
+
+    @classmethod
+    def to_form(cls):
+        import wtforms
+        field = wtforms.fields.SelectField(cls.display_name, choices=[(name, value) for name, value in cls.name_lookup.items()])
+        return field
 
 
 class Toggle(NumericOption):
@@ -754,6 +758,12 @@ class Range(NumericOption):
     @staticmethod
     def triangular(lower: int, end: int, tri: typing.Optional[int] = None) -> int:
         return int(round(random.triangular(lower, end, tri), 0))
+
+    # @classmethod
+    # def to_form(cls):
+    #     import wtforms
+    #     field = wtforms.fields.html5.IntegerRangeField(cls.display_name, min=cls.range_start, max=cls.range_end)
+    #     return field
 
 
 class NamedRange(Range):
