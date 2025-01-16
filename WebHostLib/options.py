@@ -38,15 +38,28 @@ def render_options_page(template: str, world_name: str, is_complex: bool = False
     for group in world.web.option_groups:
         start_collapsed[group.name] = group.start_collapsed
 
+    option_groups = Options.get_option_groups(world, visibility_level=visibility_flag)
+    from wtforms import Form, StringField
+    form = type(
+        "OptionWTForm",
+        (Form,),
+        {
+            option_name: option.to_form()
+            for group, options in option_groups.items()
+            for option_name, option in options.items()
+        }
+    )(request.form)
+
     return render_template(
         template,
         world_name=world_name,
         world=world,
-        option_groups=Options.get_option_groups(world, visibility_level=visibility_flag),
+        option_groups=option_groups,
         start_collapsed=start_collapsed,
         issubclass=issubclass,
         Options=Options,
         theme=get_world_theme(world_name),
+        form=form
     )
 
 

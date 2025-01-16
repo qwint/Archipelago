@@ -190,6 +190,19 @@ class Option(typing.Generic[T], metaclass=AssembleOptions):
         def verify(self, *args, **kwargs) -> None:
             pass
 
+    @classmethod
+    def to_form(cls):
+        import wtforms
+        class OptionStringField(wtforms.StringField):
+            option: Option
+            def __init__(self, *args, **kwargs):
+                self.option = kwargs["option"]
+                del kwargs["option"]
+                super().__init__(*args, **kwargs)
+
+        field = OptionStringField(cls.display_name, option=cls)
+        return field
+
 
 class FreeText(Option[str]):
     """Text option that allows users to enter strings.
