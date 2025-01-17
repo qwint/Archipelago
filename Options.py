@@ -409,7 +409,7 @@ class NumericOption(Option[int], numbers.Integral, abc.ABC):
     @classmethod
     def to_form(cls):
         import wtforms
-        field = wtforms.fields.SelectField(cls.display_name, choices=[(name, value) for name, value in cls.name_lookup.items()])
+        field = wtforms.fields.SelectField(cls.display_name, choices=[pair for pair in cls.name_lookup.items()])
         return field
 
 
@@ -759,11 +759,11 @@ class Range(NumericOption):
     def triangular(lower: int, end: int, tri: typing.Optional[int] = None) -> int:
         return int(round(random.triangular(lower, end, tri), 0))
 
-    # @classmethod
-    # def to_form(cls):
-    #     import wtforms
-    #     field = wtforms.fields.html5.IntegerRangeField(cls.display_name, min=cls.range_start, max=cls.range_end)
-    #     return field
+    @classmethod
+    def to_form(cls):
+        import wtforms
+        field = wtforms.fields.IntegerRangeField(cls.display_name)
+        return field
 
 
 class NamedRange(Range):
