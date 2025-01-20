@@ -7,6 +7,7 @@ from copy import deepcopy
 from Utils import KeyedDefaultDict
 from itertools import chain
 import enum
+from enum import IntEnum
 
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
@@ -134,7 +135,7 @@ class HKLogicMixin(LogicMixin):
         else:
             return False
 
-    def _hk_sweep(self, player):
+    def _hk_sweep(self, player: int):
         if self._hk_sweeping[player]:
             return
         self._hk_sweeping[player] = True
@@ -253,7 +254,7 @@ class RCStateVariable(metaclass=resource_state_handler):
         """"""
         return []
 
-    def ModifyState(self, state_blob, item_state, player):  # -> Generator["state_blob"]:
+    def ModifyState(self, state_blob: Counter, item_state, player) -> Counter:  # -> Generator["state_blob"]:
         # print(self)
         # return (output_state for valid, output_state in [self._ModifyState(state_blob, item_state, player)] if valid)
         valid, output_state = self._ModifyState(state_blob, item_state, player)
@@ -269,7 +270,7 @@ class RCStateVariable(metaclass=resource_state_handler):
 
 class DirectCompare():
     term: str
-    op: ClassVar[str]
+    op: str
     value: str  # may be int or bool
 
     def __init__(self, term):
@@ -292,7 +293,7 @@ class EQVariable(DirectCompare, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state, player):
         if self.value.isdigit():
             return state_blob[self.term] == int(self.value), state_blob
         else:
@@ -310,7 +311,7 @@ class GTVariable(DirectCompare, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state, player):
         assert self.value.isdigit()
         return state_blob[self.term] > int(self.value), state_blob
 
@@ -324,7 +325,7 @@ class GTVariable(DirectCompare, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state, player):
         assert self.value.isdigit()
         return state_blob[self.term] < int(self.value), state_blob
 
@@ -344,7 +345,7 @@ class RCResetter():
     def parse_term(self):
         pass
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state, player):
         # TODO: confirm this is always correct, and deletion isn't too big an assumption
         if self.opt_in:
             for key, value in self.reset_properties.items():
@@ -408,7 +409,7 @@ class CastSpellVariable(RCStateVariable):
         super().__init__(*args)
         self.equip_st = EquipCharmVariable("$EQUIPPEDCHARM[Spell_Twister]")
 
-    def parse_term(self, *args):
+    def parse_term(self, *args) -> None:
         self.casts = []
         self.before = None
         self.after = None
@@ -437,14 +438,14 @@ class CastSpellVariable(RCStateVariable):
             self.casts.append(1)
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def ModifyState(self, state_blob, item_state, player):
+    def ModifyState(self, state_blob: Counter, item_state, player: int) -> Generator[Counter]:
         max_soul = self.get_max_soul(state_blob)
         if not state_blob["CANNOTREGAINSOUL"] and self.before:
             soul = self.get_max_soul(state_blob)
@@ -476,15 +477,15 @@ class CastSpellVariable(RCStateVariable):
                 self.recover_soul(sum(self.casts) * 33, stateST)
             yield stateST
 
-    def can_exclude(self, options):
+    def can_exclude(self, options) -> bool:
         return False
 
-    def do_all_casts(self, cost_per_cast, reserves, state_blob):
+    def do_all_casts(self, cost_per_cast, reserves, state_blob: Counter) -> None:
         for cast in self.casts:
             reserves = self.spend_soul(cost_per_cast * cast, reserves, state_blob)
 
     @classmethod
-    def spend_soul(cls, amount, reserve, state_blob):
+    def spend_soul(cls, amount, reserve, state_blob: Counter) -> int:
         if reserve >= amount:
             state_blob["SPENTRESERVESOUL"] += amount
             reserve -= amount
@@ -501,25 +502,25 @@ class CastSpellVariable(RCStateVariable):
         return reserve
 
     @classmethod
-    def try_spend_soul(cls, amount, max_soul, reserves, soul, valid):
+    def try_spend_soul(cls, amount: int, max_soul: int, reserves: int, soul: int, valid: bool) -> tuple[int, int, bool]:
         if not valid:
-            return (reserves, soul, valid)
+            return reserves, soul, valid
         if soul < amount:
-            return (reserves, soul, False)
+            return reserves, soul, False
 
         transfer_amt = min(reserves, max_soul - soul)
         soul += transfer_amt
         reserves -= transfer_amt
-        return (reserves, soul, True)
+        return reserves, soul, True
 
-    def try_cast_all(self, cost_per_cast, max_soul, reserves, soul):
+    def try_cast_all(self, cost_per_cast: int, max_soul: int, reserves: int, soul: int) -> bool:
         ret = True
         for cast in self.casts:
             reserves, soul, ret = self.try_spend_soul(cost_per_cast * cast, max_soul, reserves, soul, ret)
         return ret
 
     @classmethod
-    def recover_soul(cls, amount, state_blob):
+    def recover_soul(cls, amount, state_blob: Counter):
         soul_diff = state_blob["SPENTSOUL"]
         if soul_diff >= amount:
             state_blob["SPENTSOUL"] -= amount
@@ -534,19 +535,19 @@ class CastSpellVariable(RCStateVariable):
             amount -= reserve_diff
 
     @classmethod
-    def get_max_soul(cls, state_blob):
+    def get_max_soul(cls, state_blob: Counter):
         return 99 - state_blob["SOULLIMITER"]
 
     @classmethod
-    def get_soul(cls, state_blob):
+    def get_soul(cls, state_blob: Counter):
         return cls.get_max_soul(state_blob) - state_blob["SPENTSOUL"]
 
     @classmethod
-    def get_max_reserves(cls, state_blob, item_state, player):
+    def get_max_reserves(cls, state_blob: Counter, item_state, player):
         return (item_state.count("VesselFragment", player) // 3) * 33
 
     @classmethod
-    def get_reserves(cls, state_blob, item_state, player):
+    def get_reserves(cls, state_blob: Counter, item_state, player):
         return cls.get_max_reserves(state_blob, item_state, player) - state_blob["SPENTRESERVESOUL"]
 
 
@@ -559,10 +560,26 @@ class EquipCharmVariable(RCStateVariable):
     charm_id: int
     charm_name: str
 
-    class EquipResult(enum.Enum):
+    class EquipResult(IntEnum):
         NONE = 1
         OVERCHARM = 2
         NONOVERCHARM = 3
+
+    @staticmethod
+    def get_name(charm: int | str) -> str:
+        """Convert charm id to name, or just return the name"""
+        if charm.isdigit():
+            return charm_names[charm - 1]
+        else:
+            return charm
+
+    @staticmethod
+    def get_id(charm: str | int) -> int:
+        """Convert charm name to id, or just return the id"""
+        if charm.isdigit():
+            return charm
+        else:
+            return charm_name_to_id[charm] + 1
 
     @staticmethod
     def charm_id_and_name(charm) -> Tuple[int, str]:
@@ -572,14 +589,14 @@ class EquipCharmVariable(RCStateVariable):
         else:
             return charm, charm_names[charm - 1]  # TODO
 
-    def parse_term(self, charm):
+    def parse_term(self, charm) -> None:
         self.charm_id, self.charm_name = self.charm_id_and_name(charm)
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         if term.startswith(cls.prefix):
             # strip the $EQUIPPEDCHARM[] from the term and extract the 1 indexed charm id
-            charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
+            charm_id = cls.get_id(term[len(cls.prefix)+1:-1])
             # covered by other handlers
             if charm_id not in cls.excluded_charm_ids:
                 return True
@@ -590,10 +607,10 @@ class EquipCharmVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def has_item(self, item_state, player):
+    def has_item(self, item_state, player: int) -> bool:
         return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state, player: int):
         # TODO figure this out
         charm_key = f"CHARM{self.charm_id}"
         if charm_key in state_blob:
@@ -615,32 +632,32 @@ class EquipCharmVariable(RCStateVariable):
     def term(self):
         return f"{self.equip_prefix}{self.charm_id}"
 
-    def get_notch_cost(self, *args):
+    def get_notch_cost(self, *args) -> int:
         # TODO
         return 2
 
-    def has_charm_progression(self, *args):
+    def has_charm_progression(self, *args) -> bool:
         # TODO
         return False
 
-    def has_state_requirements(self, state_blob):
-        if (state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]):
+    def has_state_requirements(self, state_blob: Counter):
+        if state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]:
             return False
         return True
 
-    def has_notch_requirments(self, *args) -> "EquipResult":
+    def has_notch_requirments(self, *args) -> EquipResult:
         # TODO
         return self.EquipResult.NONOVERCHARM
 
-    def can_equip_non_overcharm(self, *args):
+    def can_equip_non_overcharm(self, state_blob: Counter) -> bool:
         return (self.has_charm_progression() and self.has_state_requirements(state_blob)
                 and self.has_notch_requirments() == self.EquipResult.NONOVERCHARM)
 
-    def can_equip_overcharm(self, *args):
+    def can_equip_overcharm(self, state_blob: Counter) -> bool:
         return (self.has_charm_progression() and self.has_state_requirements(state_blob)
                 and self.has_notch_requirments() != self.EquipResult.NONE)
 
-    def can_equip(self, state_blob, item_state, player):
+    def can_equip(self, state_blob: Counter, item_state, player: int) -> EquipResult:
         # TODO there's some shenanagins in upstream i'm not understanding rn
         if state_blob is None or not self.has_charm_progression():
             return self.EquipResult.NONE
@@ -648,7 +665,7 @@ class EquipCharmVariable(RCStateVariable):
         overcharm = False
         for _ in (None,):  # there's an interation in upstream i don't want to lose sight of
             if self.has_state_requirements(state_blob):
-                ret = has_notch_requirments()
+                ret = self.has_notch_requirments()
                 if ret == self.EquipResult.NONE:
                     continue
                 elif ret == self.EquipResult.OVERCHARM:
