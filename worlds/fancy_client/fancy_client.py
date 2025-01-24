@@ -51,7 +51,7 @@ class FancyCommandProcessor(SuperContext.command_processor):
             logger.info("No matching slots found for those player names, Watch Players filter cleared.")
 
 
-def run_fancy_textclient():
+def run_fancy_textclient(*args):
     class TextContext(SuperContext):
         # Text Mode to use !hint and such with games that have no text entry
         tags = SuperContext.tags | {"TextOnly"}
@@ -130,7 +130,7 @@ def run_fancy_textclient():
     import colorama
 
     parser = get_base_parser(description="Gameless Archipelago Client, for text interfacing.")
-    args, _ = parser.parse_known_args()
+    args = parser.parse_args(args)
     colorama.init()
     asyncio.run(main(args))
     colorama.deinit()
