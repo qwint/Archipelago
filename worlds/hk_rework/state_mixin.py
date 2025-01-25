@@ -562,6 +562,8 @@ class EquipCharmVariable(RCStateVariable):
     excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
+    notch_cost: int
+    has_charm: bool
 
     class EquipResult(IntEnum):
         NONE = 1
@@ -611,7 +613,7 @@ class EquipCharmVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state: CollectionState, player: int) -> bool:
-        return bool(item_state._hk_processed_item_cache[player][self.charm_name])
+        return item_state.has(self.charm_name, player)
 
     def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         # TODO figure this out
@@ -635,25 +637,17 @@ class EquipCharmVariable(RCStateVariable):
     def term(self) -> str:
         return f"{self.equip_prefix}{self.charm_id}"
 
-    def get_notch_cost(self, *args) -> int:
-        # TODO
-        return 2
-
-    def has_charm_progression(self, *args) -> bool:
-        # TODO
-        return False
-
     def has_state_requirements(self, state_blob: Counter) -> bool:
         if state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]:
             return False
         return True
 
-    def has_notch_requirments(self, *args) -> EquipResult:
+    def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
         # TODO
         return self.EquipResult.NONOVERCHARM
 
     def can_equip_non_overcharm(self, state_blob: Counter) -> bool:
-        return (self.has_charm_progression() and self.has_state_requirements(state_blob)
+        return (self.has_charm and self.has_state_requirements(state_blob)
                 and self.has_notch_requirments() == self.EquipResult.NONOVERCHARM)
 
     def can_equip_overcharm(self, state_blob: Counter) -> bool:
@@ -678,9 +672,9 @@ class EquipCharmVariable(RCStateVariable):
         return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
     def do_equip_charm(self, state_blob: Counter) -> None:
-        state_blob["USEDNOTCHES"] += self.get_notch_cost()
+        state_blob["USEDNOTCHES"] += self.notch_cost
         state_blob[self.term] = True
-        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.get_notch_cost())
+        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.notch_cost)
         if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
 
@@ -690,7 +684,8 @@ class EquipCharmVariable(RCStateVariable):
     def set_unequippable(self, state_blob: Counter) -> None:
         state_blob[self.anti_term] = True
 
-    def get_avaliable_notches(self, state_blob: Counter) -> int:
+    @staticmethod
+    def get_avaliable_notches(state_blob: Counter) -> int:
         return state_blob["NOTCHES"] - state_blob["USEDNOTCHES"]
 
     def can_exclude(self, options: HKOptions) -> bool:
