@@ -53,6 +53,9 @@ class HKLogicMixin(LogicMixin):
 
     _hk_processed_item_cache: Dict[int, Counter]
 
+    hk_charm_costs: dict[int, dict[str, int]]
+    """mapping for charm costs per player"""
+
     def init_mixin(self, multiworld: MultiWorld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
@@ -66,6 +69,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_stale = {player: True for player in players}
         self._hk_sweeping = {player: False for player in players}
         self._hk_processed_item_cache = {player: Counter() for player in players}
+        self.hk_charm_costs = {player: multiworld.worlds[player].charm_names_and_costs for player in players}
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
@@ -78,6 +82,8 @@ class HKLogicMixin(LogicMixin):
         other._hk_per_player_resource_states = {player: self._hk_per_player_resource_states[player].copy() for player in players}
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
+        # intentionally setting by reference since it doesn't change after being set
+        other.hk_charm_costs = {player: self.hk_charm_costs[player] for player in players}
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
@@ -562,7 +568,6 @@ class EquipCharmVariable(RCStateVariable):
     excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
-    notch_cost: int
     has_charm: bool
 
     class EquipResult(IntEnum):
@@ -671,10 +676,13 @@ class EquipCharmVariable(RCStateVariable):
                     return ret
         return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
-    def do_equip_charm(self, state_blob: Counter) -> None:
-        state_blob["USEDNOTCHES"] += self.notch_cost
+    def get_charm_cost(self, item_state: CollectionState, player: int) -> int:
+        return item_state.hk_charm_costs[player][self.charm_name]
+
+    def do_equip_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
+        state_blob["USEDNOTCHES"] += self.get_charm_cost(item_state, player)
         state_blob[self.term] = True
-        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.notch_cost)
+        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.get_charm_cost(item_state, player))
         if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
 
