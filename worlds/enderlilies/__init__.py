@@ -1,7 +1,7 @@
 from worlds.AutoWorld import World, WebWorld
-from BaseClasses import ItemClassification, Region, Item, Location, Type, Tutorial
+from BaseClasses import ItemClassification, Region, Item, Location, Tutorial
 from worlds.generic.Rules import set_rule, add_item_rule
-from typing import Any, Dict, List, Optional, TextIO, Union
+from typing import Any, Dict, List, Optional, TextIO, Union, Type
 from Options import Option
 from Fill import swap_location_item
 
