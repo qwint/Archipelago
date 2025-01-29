@@ -11,6 +11,8 @@ import enum
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
+state_blob = Dict[str: int]
+
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
 class default_state_factory():
@@ -977,18 +979,18 @@ class SpendSoulVariable(RCStateVariable):
             return False, state_blob
 
         soul = self.get_soul(state_blob)
-        if soul < amount:
+        if soul < self.amount:
             return False, state_blob
 
         reserve_soul = self.get_reserve_soul(state_blob, item_state, player)
-        if reserve_soul >= amount:
-            state_blob["SPENTRESERVESOUL"] += amount
+        if reserve_soul >= self.amount:
+            state_blob["SPENTRESERVESOUL"] += self.amount
         else:
             state_blob["SPENTRESERVESOUL"] += reserve_soul
-            state_blob["SPENTSOUL"] += amount - reserve_soul
+            state_blob["SPENTSOUL"] += self.amount - reserve_soul
 
         required_max_soul = state_blob["REQUIREDMAXSOUL"]
-        alt_req = max(amount, state_blob["SPENTSOUL"])
+        alt_req = max(self.amount, state_blob["SPENTSOUL"])
         if alt_req > required_max_soul:
             state_blob["REQUIREDMAXSOUL"] = alt_req
 
