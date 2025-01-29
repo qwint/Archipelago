@@ -11,7 +11,7 @@ import enum
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-state_blob = Dict[str: int]
+state_blob = Dict[str, int]
 
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
