@@ -118,8 +118,11 @@ class HKLocation(Location):
 
     def hk_access_rule(self, state: CollectionState) -> bool:
         for clause in self.hk_rule:
-            if state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
+            # check regions first when evaluating locations because cache should be set by now
+            for region in clause.hk_region_requirements:
+                if not state.can_reach_region(region, self.player):
+                    return False
+            if state.has_all_counts(clause.hk_item_requirements, self.player):
                 if state._hk_apply_and_validate_state(clause, self.parent_region):
                     return True
         # no clause was True,
@@ -179,13 +182,15 @@ class HKEntrance(Entrance):
         # check every clause, caching item state accessibility
         valid_clauses = False
         for index, clause in enumerate(self.hk_rule):
-            if cache[index]:
-                if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
-                    valid_clauses = True
-            elif state.has_all_counts(clause.hk_item_requirements, self.player) \
-                    and all(state.can_reach_region(region, self.player) for region in clause.hk_region_requirements):
+            if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
                 cache[index] = True
-                if state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
+
+                # region sweep might not be done, so checking items is likely faster
+                reachable = True
+                for region in clause.hk_region_requirements:
+                    if not state.can_reach_region(region, self.player):
+                        reachable = False
+                if reachable and state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
                     valid_clauses = True
 
         return valid_clauses

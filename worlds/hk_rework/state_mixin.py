@@ -105,31 +105,32 @@ class HKLogicMixin(LogicMixin):
             if not persist:
                 return True
             else:
-                improved_states = []
-                for s in avaliable_states:
-                    if any(s == previous or lt(previous, s) for previous in self._hk_per_player_resource_states[player][target_region.name]):
-                        # if the state we're adding already exists or a better state already exists, we didn't improve
-                        continue
-                    improved_states.append(s)
-                if improved_states:
-                    self._hk_per_player_resource_states[player][target_region.name] += improved_states
+                target_states = self._hk_per_player_resource_states[player][target_region.name]
+                for index, s in reversed(list(enumerate(avaliable_states))):
+                    for previous in target_states:
+                        if s == previous or lt(previous, s):
+                            # if the state we're adding already exists or a better state already exists, we didn't improve
+                            avaliable_states.pop(index)
+                            break
+                if avaliable_states:
+                    target_states += avaliable_states
                     # indicies_to_pop = []
-                    # for index, s in enumerate(self._hk_per_player_resource_states[player][target_region.name]):
-                    #     if any(lt(other, s) for other in self._hk_per_player_resource_states[player][target_region.name]):
+                    # for index, s in enumerate(target_states):
+                    #     if any(lt(other, s) for other in target_states):
                     #         indicies_to_pop.append(index)
                     # for index in reversed(indicies_to_pop):
                     #     # reverse so we can blindly pop
-                    #     self._hk_per_player_resource_states[player][target_region.name].pop(index)
+                    #     target_states.pop(index)
 
-                    for index, s in reversed(list(enumerate(self._hk_per_player_resource_states[player][target_region.name]))):
-                        if any(lt(other, s)
-                                for other in self._hk_per_player_resource_states[player][target_region.name]
-                                if other is not s):  # TODO make sure this doesn't ever break
-                            self._hk_per_player_resource_states[player][target_region.name].pop(index)
+                    for index, s in reversed(list(enumerate(target_states))):
+                        for other in [t_s for t_s in target_states if t_s is not s]:  # TODO make sure this doesn't ever break
+                            if lt(other, s):
+                                target_states.pop(index)
+                                break
 
                     self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
                     # self._hk_stale[player] = True
-                assert self._hk_per_player_resource_states[player][target_region.name]
+                assert target_states
                 return True
         else:
             return False
@@ -193,7 +194,10 @@ def em_lt(state1: dict, state2: dict) -> bool:
 
 def lt(state1: dict, state2: dict) -> bool:
     # TODO rename to le and/or revert this
-    return all(v1 <= state2.get(key, 0) for key, v1 in state1.items())
+    for key, v1 in state1.items():
+        if not v1 <= state2.get(key, 0):
+            return False
+    return True
 
     # if state1 == state2:
     #     breakpoint()
