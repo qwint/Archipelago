@@ -765,7 +765,7 @@ class EquipCharmVariable(RCStateVariable):
         overcharm = False
         for _ in (None,):  # there's an interation in upstream i don't want to lose sight of
             if self.has_state_requirements(state_blob):
-                ret = has_notch_requirments()
+                ret = self.has_notch_requirments()
                 if ret == self.EquipResult.NONE:
                     continue
                 elif ret == self.EquipResult.OVERCHARM:
@@ -774,11 +774,11 @@ class EquipCharmVariable(RCStateVariable):
                     return ret
         return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
-    def do_equip_charm(self, *args):
+    def do_equip_charm(self, state_blob, *args):
         state_blob["USEDNOTCHES"] += self.get_notch_cost()
         state_blob[self.term] = True
         state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.get_notch_cost())
-        if state_blob["USEDNOTCHES"] > state["NOTCHES"]:
+        if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
 
     def is_equipped(self, state_blob):
