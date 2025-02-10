@@ -24,12 +24,12 @@ def count_number_of_matches_state(state, player, nx, ny):
     return t
         
 def count_number_of_matches_pieces(pieces, nx, ny):
-    pieces_groups = group_groups(pieces, nx, ny)
-    return len(pieces) - len(pieces_groups)
+    len_pieces_groups = group_groups(pieces, nx, ny)
+    return len(pieces) - len_pieces_groups
 
 def group_groups(pieces, nx, ny):
     pieces_set = set(pieces)
-    all_groups = []
+    all_groups = 0
     
     while pieces_set:
         current_group = [pieces_set.pop()]
@@ -48,9 +48,8 @@ def group_groups(pieces, nx, ny):
             if piece % nx != 0:
                 candidates.append(piece + 1)
                 
-            for candidate in candidates:
-                if candidate in pieces_set:
-                    current_group.append(candidate)
-                    pieces_set.remove(candidate)
-        all_groups.append(current_group)
+            movable_candidates = [c for c in candidates if c in pieces_set]
+            current_group += movable_candidates
+            pieces_set.difference_update(movable_candidates)
+        all_groups += 1
     return all_groups
