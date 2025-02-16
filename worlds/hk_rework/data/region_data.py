@@ -29150,12 +29150,17 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "RIGHTCLAW"
+                            "ACID"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
-                    },
+                    }
+                ],
+                "target": "Fungus2_06[left2]"
+            },
+            {
+                "logic": [
                     {
                         "item_requirements": [
                             "ACID"
@@ -29175,6 +29180,15 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -29212,19 +29226,6 @@ regions = [
                     }
                 ],
                 "target": "Fungus2_06[top1]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "ACID"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Fungus2_06[left2]"
             }
         ],
         "locations": [],
@@ -49483,6 +49484,53 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "BACKGROUNDPOGOS",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL]"
+                        ]
                     }
                 ],
                 "target": "Rancid_Egg-Queen's_Gardens"
@@ -80756,6 +80804,15 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "LEFTCLAW",
+                    "ENEMYPOGOS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
                     "ENEMYPOGOS"
                 ],
                 "location_requirements": [],
@@ -91326,6 +91383,15 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "LEFTCLAW",
+                    "ENEMYPOGOS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
                     "ENEMYPOGOS"
                 ],
                 "location_requirements": [],
@@ -91391,6 +91457,15 @@ locations = [
                 "item_requirements": [
                     "LEFTSUPERDASH",
                     "RIGHTCLAW"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "ENEMYPOGOS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -98166,7 +98241,6 @@ locations = [
                 "item_requirements": [
                     "RIGHTCLAW",
                     "RIGHTSUPERDASH",
-                    "RIGHTDASH",
                     "WINGS"
                 ],
                 "location_requirements": [],
@@ -98243,8 +98317,6 @@ locations = [
                 "item_requirements": [
                     "RIGHTCLAW",
                     "RIGHTSUPERDASH",
-                    "LEFTDASH",
-                    "RIGHTDASH",
                     "WINGS"
                 ],
                 "location_requirements": [],
@@ -100564,7 +100636,8 @@ locations = [
                     "Broke_420_Rock_Quake_Floor_1",
                     "Broke_420_Rock_Quake_Floor_2",
                     "Broke_420_Rock_Quake_Floor_3",
-                    "Broke_420_Rock_Quake_Floor_4"
+                    "Broke_420_Rock_Quake_Floor_4",
+                    "Broke_420_Rock_Quake_Floor_5"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
