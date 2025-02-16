@@ -569,6 +569,7 @@ class EquipCharmVariable(RCStateVariable):
     charm_id: int
     charm_name: str
     notch_cost: int
+    charm_key: str
 
     class EquipResult(IntEnum):
         NONE = 1
@@ -579,6 +580,7 @@ class EquipCharmVariable(RCStateVariable):
         super().__init__(term)
         self.charm_id, self.charm_name = self.charm_id_and_name(term)
         self.notch_cost = world.charm_names_and_costs[self.charm_name]
+        self.charm_key = f"CHARM{self.charm_id}"
 
     @staticmethod
     def get_name(charm: int | str) -> str:
@@ -626,18 +628,19 @@ class EquipCharmVariable(RCStateVariable):
         return item_state.has(self.charm_name, player)
 
     def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
-        # TODO figure this out
-        charm_key = f"CHARM{self.charm_id}"
-        if charm_key in state_blob:
-            return True, state_blob
-        if f"no{charm_key}" in state_blob:
-            return False, state_blob
+        return self.try_equip(state_blob, item_state, player), state_blob
+
+    def try_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
+        if self.charm_key in state_blob:
+            return True
+        if f"no{self.charm_key}" in state_blob:
+            return False
         if not self.has_item(item_state, player):
-            return False, state_blob
-        else:
-            # TODO
-            state_blob[charm_key] = 1
-            return True, state_blob
+            return False
+        if self.can_equip(state_blob, item_state, player):
+            self.do_equip_charm(state_blob)
+            return True
+        return False
 
     @property
     def anti_term(self) -> str:
@@ -681,7 +684,7 @@ class EquipCharmVariable(RCStateVariable):
 
     def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
         return (self.has_charm(item_state, player) and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments() != self.EquipResult.NONE)
+                and self.has_notch_requirments(state_blob, item_state, player) != self.EquipResult.NONE)
 
     def can_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
         if state_blob is None or not self.has_charm(item_state, player):
@@ -701,7 +704,9 @@ class EquipCharmVariable(RCStateVariable):
 
     def do_equip_charm(self, state_blob: Counter) -> None:
         state_blob["USEDNOTCHES"] += self.notch_cost
+        # one of these 2 should probably go at some point
         state_blob[self.term] = True
+        state_blob[self.charm_key] = True
         state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.notch_cost)
         if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
