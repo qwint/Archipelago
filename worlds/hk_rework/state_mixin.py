@@ -765,11 +765,23 @@ class FragileCharmVariable(EquipCharmVariable):
 class WhiteFragmentEquipVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
     void: bool
+    quantity: int
+
+    # the init stuff might need to go in parse_term, not sure yet how that's being handled
+    def __init__(self, term: str, world: "HKWorld"):
+        super().__init__(term, world)
+        if self.charm_name == "Kingsoul":
+            self.quantity = 2
+        if self.charm_name == "Void_Heart":
+            self.quantity = 3
+
+    def has_charm(self, item_state: CollectionState, player: int) -> bool:
+        return item_state.has(self.charm_name, player, self.quantity)
 
     def parse_term(self, charm: str | int) -> None:
         self.charm_id, self.charm_name = self.charm_id_and_name(charm)
-        self.void = charm == "Void_Heart"
-        assert not self.void == (charm == "Kingsoul")
+        self.void = self.charm_name == "Void_Heart"
+        assert not self.void == (self.charm_name == "Kingsoul")
 
     @classmethod
     def TryMatch(cls, term: str) -> bool:
