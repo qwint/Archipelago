@@ -732,9 +732,25 @@ class FragileCharmVariable(EquipCharmVariable):
         24: ["Fragile_Greed", "Unbreakable_Greed"],
         25: ["Fragile_Strength", "Unbreakable_Strength"],
     }
+    # todo: break_bool matters when dealing with Shade Skips
+    break_bool: bool
+    # todo: determine logic for repair term. Probably access to Leggy and some sort of money logic to repair?
+    repair_term: bool
 
-    # def parse_term(self):
-    #     pass
+    def __init__(self, term: str, world: "HKWorld"):
+        super().__init__(term, world)
+        self.break_bool = False
+        self.repair_term = True  # make false later after figuring out how to slot in leggy access
+
+    # todo: break_bool matters when dealing with Shade Skips
+    def break_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
+        if state_blob[self.charm_key] >= 2:
+            return
+
+    def has_state_requirements(self, state_blob: Counter) -> bool:
+        return (super().has_state_requirements(state_blob)
+                and ((state_blob[self.charm_key] >= 2)
+                     or (not self.break_bool and self.repair_term)))
 
     @classmethod
     def TryMatch(cls, term: str) -> bool:
@@ -744,17 +760,6 @@ class FragileCharmVariable(EquipCharmVariable):
                 return True
         # else
         return False
-
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
-        # TODO flush out with charm notch checking etc.
-        if self.has_item(item_state, player):
-            return True, state_blob
-        else:
-            return False, state_blob
 
 
 class WhiteFragmentEquipVariable(EquipCharmVariable):
