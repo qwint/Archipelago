@@ -270,7 +270,7 @@ class RCStateVariable(metaclass=resource_state_handler):
         """"""
         return []
 
-    def ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> Counter:  # -> Generator["state_blob"]:
+    def ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> Generator[Counter]:
         # print(self)
         # return (output_state for valid, output_state in [self._ModifyState(state_blob, item_state, player)] if valid)
         valid, output_state = self._ModifyState(state_blob, item_state, player)
@@ -568,14 +568,14 @@ class CastSpellVariable(RCStateVariable):
     @classmethod
     def try_spend_soul(cls, amount: int, max_soul: int, reserves: int, soul: int, valid: bool) -> tuple[int, int, bool]:
         if not valid:
-            return reserves, soul, valid
+            return (reserves, soul, valid)
         if soul < amount:
-            return reserves, soul, False
+            return (reserves, soul, False)
 
         transfer_amt = min(reserves, max_soul - soul)
         soul += transfer_amt
         reserves -= transfer_amt
-        return reserves, soul, True
+        return (reserves, soul, True)
 
     def try_cast_all(self, cost_per_cast: int, max_soul: int, reserves: int, soul: int) -> bool:
         ret = True
@@ -708,22 +708,22 @@ class EquipCharmVariable(RCStateVariable):
             return charm
 
     @staticmethod
-    def get_id(charm: str | int) -> int:
+    def get_id(charm: str) -> int:
         """Convert charm name to id, or just return the id"""
         if charm.isdigit():
-            return charm
+            return int(charm)
         else:
             return charm_name_to_id[charm] + 1
 
     @staticmethod
-    def charm_id_and_name(charm: str | int) -> Tuple[int, str]:
+    def charm_id_and_name(charm: str) -> Tuple[int, str]:
         """Convert 1 indexed charm id or charm name to both"""
-        if not charm.isdigit():
-            return charm_name_to_id[charm] + 1, charm
+        if charm.isdigit():
+            return int(charm), charm_names[int(charm) - 1]
         else:
-            return charm, charm_names[charm - 1]  # TODO
+            return charm_name_to_id[charm] + 1, charm
 
-    def parse_term(self, charm: str | int) -> None:
+    def parse_term(self, charm: str) -> None:
         self.charm_id, self.charm_name = self.charm_id_and_name(charm)
 
     @classmethod
@@ -950,7 +950,7 @@ class RegainSoulVariable(RCStateVariable):
     prefix: str = "$REGAINSOUL"
     amount: int
 
-    def parse_term(self, amount: int | str | float) -> None:  # qwint what type is this supposed to be?
+    def parse_term(self, amount: str) -> None:
         self.amount = int(amount)
 
     @classmethod
