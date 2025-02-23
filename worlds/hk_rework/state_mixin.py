@@ -742,7 +742,7 @@ class EquipCharmVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state: CollectionState, player: int) -> bool:
-        return item_state.has(self.charm_name, player)
+        return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
     def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         return self.try_equip(state_blob, item_state, player), state_blob
@@ -774,10 +774,8 @@ class EquipCharmVariable(RCStateVariable):
 
     @staticmethod
     def get_total_notches(item_state: CollectionState, player: int) -> int:
-        # replace the magic number with a constant later, or put it in the state blob, or something else
-        starting_notches = 3
         collected_notches = item_state.count(iname.CHARM_NOTCH, player)
-        return starting_notches + collected_notches
+        return BASE_NOTCHES + collected_notches
 
     def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
         if self.notch_cost <= 0 or self.is_equipped(state_blob):
@@ -791,24 +789,20 @@ class EquipCharmVariable(RCStateVariable):
         if net_notches + overcharm_save > 0 and not state_blob["CANNOTOVERCHARM"]:
             return self.EquipResult.OVERCHARM
 
-    # HasCharmProgression
-    def has_charm(self, item_state: CollectionState, player: int) -> bool:
-        return item_state.has(self.charm_name, player)
-
     def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState, player) -> bool:
-        return (self.has_charm(item_state, player) and self.has_state_requirements(state_blob)
+        return (self.has_item(item_state, player) and self.has_state_requirements(state_blob)
                 and self.has_notch_requirments(state_blob, item_state, player) == self.EquipResult.NONOVERCHARM)
 
     def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
-        return (self.has_charm(item_state, player) and self.has_state_requirements(state_blob)
+        return (self.has_item(item_state, player) and self.has_state_requirements(state_blob)
                 and self.has_notch_requirments(state_blob, item_state, player) != self.EquipResult.NONE)
 
     def can_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
-        if state_blob is None or not self.has_charm(item_state, player):
+        if not self.has_item(item_state, player):
             return self.EquipResult.NONE
 
         overcharm = False
-        for _ in (None,):  # there's an interation in upstream I don't want to lose sight of
+        for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
             if self.has_state_requirements(state_blob):
                 ret = self.has_notch_requirments(state_blob, item_state, player)
                 if ret == self.EquipResult.NONE:
