@@ -16,8 +16,6 @@ from .data.constants.item_names import LocationNames as iname
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-state_blob = dict[str, int]
-
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
 class default_state_factory():
@@ -490,7 +488,7 @@ class CastSpellVariable(RCStateVariable):
                 self.after = arg[6:]
             elif arg == "noDG":
                 raise Exception("no dreamgate is currently not implemented")
-                self.can_dreamgate = False
+                # self.can_dreamgate = False
             elif arg == "NOLEFTSTALL":
                 self.no_left_stall = True
             elif arg == "NORIGHTSTALL":
@@ -651,10 +649,10 @@ class ShriekPogoVariable(CastSpellVariable):
     def can_exclude(self, options):
         return True
         # TODO add the option lol
-        on = bool(options.ShriekPogoSkips)
-        difficult = sum(self.casts) > 3
-        difficult_on = bool(options.DifficultSkips)
-        return (not on) or (difficult and not difficult_on)
+        # on = bool(options.ShriekPogoSkips)
+        # difficult = sum(self.casts) > 3
+        # difficult_on = bool(options.DifficultSkips)
+        # return (not on) or (difficult and not difficult_on)
 
 
 class SlopeballVariable(CastSpellVariable):
@@ -677,7 +675,7 @@ class SlopeballVariable(CastSpellVariable):
     def can_exclude(self, options):
         return True
         # TODO add the option lol
-        return bool(options.SlopeBallSkips)
+        # return bool(options.SlopeBallSkips)
 
 
 class EquipCharmVariable(RCStateVariable):
@@ -687,19 +685,12 @@ class EquipCharmVariable(RCStateVariable):
     excluded_charm_ids: tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
-    notch_cost: int
     charm_key: str
 
     class EquipResult(IntEnum):
         NONE = 1
         OVERCHARM = 2
         NONOVERCHARM = 3
-
-    def __init__(self, term: str, world: "HKWorld"):
-        super().__init__(term)
-        self.charm_id, self.charm_name = self.charm_id_and_name(term)
-        self.notch_cost = world.charm_names_and_costs[self.charm_name]
-        self.charm_key = f"CHARM{self.charm_id}"
 
     # maybe remove this later if it ends up not being useful compared to charm_id_and_name
     @staticmethod
@@ -726,8 +717,9 @@ class EquipCharmVariable(RCStateVariable):
         else:
             return charm_name_to_id[charm] + 1, charm
 
-    def parse_term(self, charm: str) -> None:
-        self.charm_id, self.charm_name = self.charm_id_and_name(charm)
+    def parse_term(self, term: str) -> None:
+        self.charm_id, self.charm_name = self.charm_id_and_name(term)
+        self.charm_key = f"CHARM{self.charm_id}"
 
     @classmethod
     def TryMatch(cls, term: str) -> bool:
@@ -758,7 +750,7 @@ class EquipCharmVariable(RCStateVariable):
         if not self.has_item(item_state, player):
             return False
         if self.can_equip(state_blob, item_state, player):
-            self.do_equip_charm(state_blob)
+            self.do_equip_charm(state_blob, item_state, player)
             return True
         return False
 
@@ -780,15 +772,19 @@ class EquipCharmVariable(RCStateVariable):
         collected_notches = item_state.count(iname.CHARM_NOTCH, player)
         return BASE_NOTCHES + collected_notches
 
+    def get_notch_cost(self, item_state: CollectionState, player: int) -> int:
+        return item_state.hk_charm_costs[player][self.charm_name]
+
     def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
-        if self.notch_cost <= 0 or self.is_equipped(state_blob):
+        notch_cost = self.get_notch_cost(item_state, player)
+        if notch_cost <= 0 or self.is_equipped(state_blob):
             return self.EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else self.EquipResult.NONOVERCHARM
         # can be equipped
-        net_notches = self.get_total_notches(item_state, player) - state_blob["USEDNOTCHES"] - self.notch_cost
+        net_notches = self.get_total_notches(item_state, player) - state_blob["USEDNOTCHES"] - notch_cost
         if net_notches >= 0:
             return self.EquipResult.NONOVERCHARM
         # something to figure out if you can overcharm to get this on
-        overcharm_save = max(self.notch_cost, state_blob["MAXNOTCHCOST"])
+        overcharm_save = max(notch_cost, state_blob["MAXNOTCHCOST"])
         if net_notches + overcharm_save > 0 and not state_blob["CANNOTOVERCHARM"]:
             return self.EquipResult.OVERCHARM
 
@@ -816,12 +812,13 @@ class EquipCharmVariable(RCStateVariable):
                     return ret
         return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
-    def do_equip_charm(self, state_blob: Counter) -> None:
-        state_blob["USEDNOTCHES"] += self.notch_cost
+    def do_equip_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
+        notch_cost = self.get_notch_cost(item_state, player)
+        state_blob["USEDNOTCHES"] += notch_cost
         # one of these 2 should probably go at some point
         state_blob[self.term] = True
         state_blob[self.charm_key] = True
-        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.notch_cost)
+        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], notch_cost)
         if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
 
@@ -851,8 +848,8 @@ class FragileCharmVariable(EquipCharmVariable):
     # todo: determine logic for repair term. Probably access to Leggy and some sort of money logic to repair?
     repair_term: bool
 
-    def __init__(self, term: str, world: "HKWorld"):
-        super().__init__(term, world)
+    def parse_term(self, term: str) -> None:
+        super().parse_term(term)
         self.break_bool = False
         self.repair_term = True  # make false later after figuring out how to slot in leggy access
 
@@ -881,21 +878,14 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     void: bool
     quantity: int
 
-    # the init stuff might need to go in parse_term, not sure yet how that's being handled
-    def __init__(self, term: str, world: "HKWorld"):
-        super().__init__(term, world)
+    def parse_term(self, charm: str) -> None:
+        self.charm_id, self.charm_name = self.charm_id_and_name(charm)
+        self.void = self.charm_name == "Void_Heart"
+        assert not self.void == (self.charm_name == "Kingsoul")
         if self.charm_name == "Kingsoul":
             self.quantity = 2
         if self.charm_name == "Void_Heart":
             self.quantity = 3
-
-    def has_charm(self, item_state: CollectionState, player: int) -> bool:
-        return item_state.has(self.charm_name, player, self.quantity)
-
-    def parse_term(self, charm: str | int) -> None:
-        self.charm_id, self.charm_name = self.charm_id_and_name(charm)
-        self.void = self.charm_name == "Void_Heart"
-        assert not self.void == (self.charm_name == "Kingsoul")
 
     @classmethod
     def TryMatch(cls, term: str) -> bool:
