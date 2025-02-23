@@ -699,11 +699,12 @@ class EquipCharmVariable(RCStateVariable):
         self.notch_cost = world.charm_names_and_costs[self.charm_name]
         self.charm_key = f"CHARM{self.charm_id}"
 
+    # maybe remove this later if it ends up not being useful compared to charm_id_and_name
     @staticmethod
-    def get_name(charm: int | str) -> str:
+    def get_name(charm: str) -> str:
         """Convert charm id to name, or just return the name"""
         if charm.isdigit():
-            return charm_names[charm - 1]
+            return charm_names[int(charm) - 1]
         else:
             return charm
 
@@ -716,7 +717,7 @@ class EquipCharmVariable(RCStateVariable):
             return charm_name_to_id[charm] + 1
 
     @staticmethod
-    def charm_id_and_name(charm: str) -> Tuple[int, str]:
+    def charm_id_and_name(charm: str) -> tuple[int, str]:
         """Convert 1 indexed charm id or charm name to both"""
         if charm.isdigit():
             return int(charm), charm_names[int(charm) - 1]
@@ -907,6 +908,7 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
+    # todo for later: make this functional, either in state blob or item state, whatever it ends up being
     def has_item(self, item_state: CollectionState, player: int) -> bool:
         if self.void:
             count = 3
