@@ -1,9 +1,9 @@
-from typing import TYPE_CHECKING, Tuple, NamedTuple, Dict, Set, Any, List, Type, Generator, Optional, ClassVar
 from collections import Counter, defaultdict
+from collections.abc import Generator
 from copy import deepcopy
-from itertools import chain
-import enum
 from enum import IntEnum
+from itertools import chain
+from typing import TYPE_CHECKING, NamedTuple, Any, ClassVar
 
 from BaseClasses import MultiWorld, CollectionState, Region
 from Utils import KeyedDefaultDict
@@ -16,12 +16,14 @@ from .data.constants.item_names import LocationNames as iname
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-state_blob = Dict[str, int]
+state_blob = dict[str, int]
 
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
 class default_state_factory():
-    def __call__(self, defaults={}) -> Counter:
+    def __call__(self, defaults=None) -> Counter:
+        if defaults is None:
+            defaults = {}
         ret = Counter({"NOFLOWER": 1, "NOPASSEDCHARMEQUIP": 1})
         for key, value in defaults.items():
             ret[key] = value
@@ -38,23 +40,23 @@ BASE_HEALTH = 4
 
 class HKLogicMixin(LogicMixin):
     multiworld: MultiWorld
-    _hk_per_player_resource_states: Dict[int, Dict[str, List[Counter]]]
+    _hk_per_player_resource_states: dict[int, dict[str, list[Counter]]]
     """resource state blob to map regions and their avalible resource states"""
     # state blob is [Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "CHARMNOTCHESSPENT": 0})]
 
-    _hk_per_player_sweepable_entrances: Dict[int, Set[str]]
+    _hk_per_player_sweepable_entrances: dict[int, set[str]]
     """mapping for entrances that need to be statefully swept"""
 
-    _hk_stale: Dict[int, bool]
+    _hk_stale: dict[int, bool]
     """TODO: make an item stale and a resource_state_stale difference"""
 
-    _hk_free_entrances: Dict[int, Set[str]]
+    _hk_free_entrances: dict[int, set[str]]
     """mapping for entrances that will not alter resource state no matter how many more items we get"""
 
-    _hk_entrance_clause_cache: Dict[int, Dict[str, Dict[int, bool]]]
+    _hk_entrance_clause_cache: dict[int, dict[str, dict[int, bool]]]
     """mapping for clauses per entrance per player to short circuit non-resource state calculations"""
 
-    _hk_processed_item_cache: Dict[int, Counter]
+    _hk_processed_item_cache: dict[int, Counter]
 
     hk_charm_costs: dict[int, dict[str, int]]
     """mapping for charm costs per player"""
@@ -234,7 +236,7 @@ def lt(state1: dict, state2: dict) -> bool:
 # don't care about full equality because of codepath
 
 
-class resource_state_handler(Type):
+class resource_state_handler(type):
     handlers: list["RCStateVariable"] = []
 
     def __new__(mcs, name, bases, dct):
@@ -277,7 +279,7 @@ class RCStateVariable(metaclass=resource_state_handler):
         if valid:
             yield output_state
 
-    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> Tuple[bool, Counter]:
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         pass
 
     def can_exclude(self, options) -> bool:
@@ -347,11 +349,11 @@ class GTVariable(DirectCompare, RCStateVariable):
 
 
 class RCResetter():
-    reset_state: Dict[str, Any]
+    reset_state: dict[str, Any]
     """Target state to reset to"""
     opt_in: bool = False
     """Flag to determine if unhandled terms are reset"""
-    reset_properties: Dict[str, str]  # TODO - flesh this out
+    reset_properties: dict[str, str]  # TODO - flesh this out
     """
     Dict of requirement: terms to reset,
     use ANY for terms that can be reset with no requirment
@@ -464,9 +466,9 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
 
 class CastSpellVariable(RCStateVariable):
     prefix: str = "$CASTSPELL"
-    casts: List[int]
-    before: Optional[str]
-    after: Optional[str]
+    casts: list[int]
+    before: str | None
+    after: str | None
     equip_st: "EquipCharmVariable"
 
     def __init__(self, *args):
@@ -617,7 +619,7 @@ class CastSpellVariable(RCStateVariable):
 
 class ShriekPogoVariable(CastSpellVariable):
     prefix = "$SHRIEKPOGO"
-    stall_cast: Optional[CastSpellVariable]
+    stall_cast: CastSpellVariable | None
 
     @classmethod
     def TryMatch(cls, term: str):
@@ -682,7 +684,7 @@ class EquipCharmVariable(RCStateVariable):
     prefix: str = "$EQUIPPEDCHARM"
     equip_prefix: str = "CHARM"
     no_equip_prefix: str = "noCHARM"
-    excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
+    excluded_charm_ids: tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
     notch_cost: int
