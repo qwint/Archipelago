@@ -74,13 +74,25 @@
                         <div class="game-options">
                             <div class="left">
                                 {% for option_name, option in group_options.items() %}
-								    <div>
+                                    {% if loop.index <= (loop.length / 2)|round(0,"ceil") %}
 								        {{ inputs.OptionTitle(option_name, option) }}
-								        {{ form[option_name] }}
-								        {{ inputs.RandomizeButton(option_name, option)}}
-								    </div>
+								        <div class="select-container">
+								            {{ form[option_name] }}
+								            {{ inputs.RandomizeButton(option_name, option)}}
+								        </div>
+								    {% endif %}
 								{% endfor %}
                             </div>
+                            <div class="right">
+                                {% for option_name, option in group_options.items() %}
+                                    {% if loop.index > (loop.length / 2)|round(0,"ceil") %}
+								        {{ inputs.OptionTitle(option_name, option) }}
+								        <div class="select-container">
+								            {{ form[option_name] }}
+								            {{ inputs.RandomizeButton(option_name, option)}}
+								        </div>
+								    {% endif %}
+								{% endfor %}
                         </div>
                     </details>
                 {% endfor %}
