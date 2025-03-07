@@ -273,6 +273,7 @@ class HKWorld(RandomizerCoreWorld):
     event_locations: List[str]
     ranges: Dict[str, Tuple[int, int]]
     charm_costs: List[int]
+    charm_names_and_costs: dict[str, int]
 
     def __init__(self, multiworld, player):
         super(HKWorld, self).__init__(multiworld, player)
@@ -767,6 +768,8 @@ class HKWorld(RandomizerCoreWorld):
                 self.ranges[term] = maxi.value, mini.value
             else:
                 self.ranges[term] = mini.value, maxi.value
+
+        self.charm_names_and_costs = dict(zip(charm_names, charm_costs))
 
         self.split_cloak_direction = self.random.randint(0, 1)
 

@@ -1,23 +1,28 @@
-from BaseClasses import MultiWorld, CollectionState, Region
-from typing import TYPE_CHECKING, Tuple, NamedTuple, Dict, Set, Any, List, Type, Generator, Optional, ClassVar
-from worlds.AutoWorld import LogicMixin
-from .Charms import names as charm_names, charm_name_to_id
 from collections import Counter, defaultdict
+from collections.abc import Generator
 from copy import deepcopy
-from Utils import KeyedDefaultDict
+from enum import IntEnum
 from itertools import chain
-import enum
+from typing import TYPE_CHECKING, NamedTuple, Any, ClassVar
+
+from BaseClasses import MultiWorld, CollectionState, Region
+from Utils import KeyedDefaultDict
+from worlds.AutoWorld import LogicMixin
+
+from .Charms import names as charm_names, charm_name_to_id
+from .Options import HKOptions
+from .data.constants.item_names import LocationNames as iname
 
 if TYPE_CHECKING:
     from . import HKWorld, HKClause
 
-state_blob = Dict[str, int]
-
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
 class default_state_factory():
-    def __call__(self, defaults={}):
-        ret = defaultdict(int, {"NOFLOWER": 1, "NOPASSEDCHARMEQUIP": 1})
+    def __call__(self, defaults=None) -> Counter:
+        if defaults is None:
+            defaults = {}
+        ret = Counter({"NOFLOWER": 1, "NOPASSEDCHARMEQUIP": 1})
         for key, value in defaults.items():
             ret[key] = value
         return ret
@@ -33,25 +38,28 @@ BASE_HEALTH = 4
 
 class HKLogicMixin(LogicMixin):
     multiworld: MultiWorld
-    _hk_per_player_resource_states: Dict[int, Dict[str, List[Counter]]]
+    _hk_per_player_resource_states: dict[int, dict[str, list[Counter]]]
     """resource state blob to map regions and their avalible resource states"""
     # state blob is [Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "CHARMNOTCHESSPENT": 0})]
 
-    _hk_per_player_sweepable_entrances: Dict[int, Set[str]]
+    _hk_per_player_sweepable_entrances: dict[int, set[str]]
     """mapping for entrances that need to be statefully swept"""
 
-    _hk_stale: Dict[int, bool]
+    _hk_stale: dict[int, bool]
     """TODO: make an item stale and a resource_state_stale difference"""
 
-    _hk_free_entrances: Dict[int, Set[str]]
+    _hk_free_entrances: dict[int, set[str]]
     """mapping for entrances that will not alter resource state no matter how many more items we get"""
 
-    _hk_entrance_clause_cache: Dict[int, Dict[str, Dict[int, bool]]]
+    _hk_entrance_clause_cache: dict[int, dict[str, dict[int, bool]]]
     """mapping for clauses per entrance per player to short circuit non-resource state calculations"""
 
-    _hk_processed_item_cache: Dict[int, Counter]
+    _hk_processed_item_cache: dict[int, Counter]
 
-    def init_mixin(self, multiworld) -> None:
+    hk_charm_costs: dict[int, dict[str, int]]
+    """mapping for charm costs per player"""
+
+    def init_mixin(self, multiworld: MultiWorld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
         self._hk_per_player_resource_states = {
@@ -64,6 +72,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_stale = {player: True for player in players}
         self._hk_sweeping = {player: False for player in players}
         self._hk_processed_item_cache = {player: Counter() for player in players}
+        self.hk_charm_costs = {player: multiworld.worlds[player].charm_names_and_costs for player in players}
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
@@ -76,10 +85,12 @@ class HKLogicMixin(LogicMixin):
         other._hk_per_player_resource_states = {player: self._hk_per_player_resource_states[player].copy() for player in players}
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
+        # intentionally setting by reference since it doesn't change after being set
+        other.hk_charm_costs = {player: self.hk_charm_costs[player] for player in players}
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
-    def _hk_apply_and_validate_state(self, clause: "HKClause", region, target_region=None) -> bool:
+    def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
         player = region.player
         # avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
 
@@ -137,7 +148,7 @@ class HKLogicMixin(LogicMixin):
         else:
             return False
 
-    def _hk_sweep(self, player):
+    def _hk_sweep(self, player: int):
         if self._hk_sweeping[player]:
             return
         self._hk_sweeping[player] = True
@@ -162,7 +173,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_sweeping[player] = False
 
 
-def ge(state1, state2) -> bool:
+def ge(state1: dict, state2: dict) -> bool:
     return state1.keys() >= state2.keys() and all(v2 <= state1[key] for key, v2 in state2.items())
 
 
@@ -223,7 +234,7 @@ def lt(state1: dict, state2: dict) -> bool:
 # don't care about full equality because of codepath
 
 
-class resource_state_handler(Type):
+class resource_state_handler(type):
     handlers: list["RCStateVariable"] = []
 
     def __new__(mcs, name, bases, dct):
@@ -235,7 +246,7 @@ class resource_state_handler(Type):
 class RCStateVariable(metaclass=resource_state_handler):
     prefix: str
 
-    def __init__(self, term):
+    def __init__(self, term: str):
         assert term.startswith(self.prefix)
 
         # expecting "prefix" or "prefix[one,two,three]"
@@ -259,14 +270,14 @@ class RCStateVariable(metaclass=resource_state_handler):
         """"""
         return []
 
-    def ModifyState(self, state_blob, item_state, player):  # -> Generator["state_blob"]:
+    def ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> Generator[Counter]:
         # print(self)
         # return (output_state for valid, output_state in [self._ModifyState(state_blob, item_state, player)] if valid)
         valid, output_state = self._ModifyState(state_blob, item_state, player)
         if valid:
             yield output_state
 
-    def _ModifyState(self, state_blob, item_state, player) -> Tuple[bool, "state_blob"]:
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         pass
 
     def can_exclude(self, options) -> bool:
@@ -275,17 +286,17 @@ class RCStateVariable(metaclass=resource_state_handler):
 
 class DirectCompare():
     term: str
-    op: ClassVar[str]
+    op: str
     value: str  # may be int or bool
 
-    def __init__(self, term):
+    def __init__(self, term: str):
         self.term, self.value = (*term.split(self.op),)
 
     @classmethod
     def TryMatch(cls, term: str):
         return cls.op in term
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions):
         return False
 
 
@@ -298,7 +309,7 @@ class EQVariable(DirectCompare, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         if self.value.isdigit():
             return state_blob[self.term] == int(self.value), state_blob
         else:
@@ -316,7 +327,7 @@ class GTVariable(DirectCompare, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         assert self.value.isdigit()
         return state_blob[self.term] > int(self.value), state_blob
 
@@ -330,17 +341,17 @@ class GTVariable(DirectCompare, RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         assert self.value.isdigit()
         return state_blob[self.term] < int(self.value), state_blob
 
 
 class RCResetter():
-    reset_state: Dict[str, Any]
+    reset_state: dict[str, Any]
     """Target state to reset to"""
     opt_in: bool = False
     """Flag to determine if unhandled terms are reset"""
-    reset_properties: Dict[str, str]  # TODO - flesh this out
+    reset_properties: dict[str, str]  # TODO - flesh this out
     """
     Dict of requirement: terms to reset,
     use ANY for terms that can be reset with no requirment
@@ -350,7 +361,7 @@ class RCResetter():
     def parse_term(self):
         pass
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         # TODO: confirm this is always correct, and deletion isn't too big an assumption
         if self.opt_in:
             for key, value in self.reset_properties.items():
@@ -371,20 +382,20 @@ class RCResetter():
             return True, ret
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions) -> bool:
         return False
 
 
 class BenchResetVariable(RCResetter, RCStateVariable):
-    prefix = "$BENCHRESET"
-    reset_state = {
+    prefix: str = "$BENCHRESET"
+    reset_state: dict[str, str] = {
         "NOPASSEDCHARMEQUIP": False
     }
     opt_in = False
-    reset_properties = {
+    reset_properties: dict[str, str] = {
         "CANNOTREGAINSOUL": "NONE",
         "CANNOTSHADESKIP": "NONE",
         "BROKEHEART": "NONE",
@@ -452,17 +463,17 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
 
 
 class CastSpellVariable(RCStateVariable):
-    prefix = "$CASTSPELL"
-    casts: List[int]
-    before: Optional[str]
-    after: Optional[str]
+    prefix: str = "$CASTSPELL"
+    casts: list[int]
+    before: str | None
+    after: str | None
     equip_st: "EquipCharmVariable"
 
     def __init__(self, *args):
         super().__init__(*args)
         self.equip_st = EquipCharmVariable("$EQUIPPEDCHARM[Spell_Twister]")
 
-    def parse_term(self, *args):
+    def parse_term(self, *args) -> None:
         self.casts = []
         self.before = None
         self.after = None
@@ -477,7 +488,7 @@ class CastSpellVariable(RCStateVariable):
                 self.after = arg[6:]
             elif arg == "noDG":
                 raise Exception("no dreamgate is currently not implemented")
-                self.can_dreamgate = False
+                # self.can_dreamgate = False
             elif arg == "NOLEFTSTALL":
                 self.no_left_stall = True
             elif arg == "NORIGHTSTALL":
@@ -491,14 +502,14 @@ class CastSpellVariable(RCStateVariable):
             self.casts.append(1)
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def ModifyState(self, state_blob, item_state, player):
+    def ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> Generator[Counter]:
         max_soul = self.get_max_soul(state_blob)
         if not state_blob["CANNOTREGAINSOUL"] and self.before:
             soul = self.get_max_soul(state_blob)
@@ -530,15 +541,15 @@ class CastSpellVariable(RCStateVariable):
                 self.recover_soul(sum(self.casts) * 33, stateST)
             yield stateST
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions) -> bool:
         return False
 
-    def do_all_casts(self, cost_per_cast, reserves, state_blob):
+    def do_all_casts(self, cost_per_cast: int, reserves: int, state_blob: Counter) -> None:
         for cast in self.casts:
             reserves = self.spend_soul(cost_per_cast * cast, reserves, state_blob)
 
     @classmethod
-    def spend_soul(cls, amount, reserve, state_blob):
+    def spend_soul(cls, amount: int, reserve: int, state_blob: Counter) -> int:
         if reserve >= amount:
             state_blob["SPENTRESERVESOUL"] += amount
             reserve -= amount
@@ -555,7 +566,7 @@ class CastSpellVariable(RCStateVariable):
         return reserve
 
     @classmethod
-    def try_spend_soul(cls, amount, max_soul, reserves, soul, valid):
+    def try_spend_soul(cls, amount: int, max_soul: int, reserves: int, soul: int, valid: bool) -> tuple[int, int, bool]:
         if not valid:
             return (reserves, soul, valid)
         if soul < amount:
@@ -566,14 +577,14 @@ class CastSpellVariable(RCStateVariable):
         reserves -= transfer_amt
         return (reserves, soul, True)
 
-    def try_cast_all(self, cost_per_cast, max_soul, reserves, soul):
+    def try_cast_all(self, cost_per_cast: int, max_soul: int, reserves: int, soul: int) -> bool:
         ret = True
         for cast in self.casts:
             reserves, soul, ret = self.try_spend_soul(cost_per_cast * cast, max_soul, reserves, soul, ret)
         return ret
 
     @classmethod
-    def recover_soul(cls, amount, state_blob):
+    def recover_soul(cls, amount: int, state_blob: Counter) -> None:
         soul_diff = state_blob["SPENTSOUL"]
         if soul_diff >= amount:
             state_blob["SPENTSOUL"] -= amount
@@ -588,25 +599,25 @@ class CastSpellVariable(RCStateVariable):
             amount -= reserve_diff
 
     @classmethod
-    def get_max_soul(cls, state_blob):
+    def get_max_soul(cls, state_blob: Counter) -> int:
         return 99 - state_blob["SOULLIMITER"]
 
     @classmethod
-    def get_soul(cls, state_blob):
+    def get_soul(cls, state_blob: Counter) -> int:
         return cls.get_max_soul(state_blob) - state_blob["SPENTSOUL"]
 
     @classmethod
-    def get_max_reserves(cls, state_blob, item_state, player):
+    def get_max_reserves(cls, state_blob: Counter, item_state: CollectionState, player) -> int:
         return (item_state.count("VesselFragment", player) // 3) * 33
 
     @classmethod
-    def get_reserves(cls, state_blob, item_state, player):
+    def get_reserves(cls, state_blob: Counter, item_state: CollectionState, player: int) -> int:
         return cls.get_max_reserves(state_blob, item_state, player) - state_blob["SPENTRESERVESOUL"]
 
 
 class ShriekPogoVariable(CastSpellVariable):
     prefix = "$SHRIEKPOGO"
-    stall_cast: Optional[CastSpellVariable]
+    stall_cast: CastSpellVariable | None
 
     @classmethod
     def TryMatch(cls, term: str):
@@ -638,10 +649,10 @@ class ShriekPogoVariable(CastSpellVariable):
     def can_exclude(self, options):
         return True
         # TODO add the option lol
-        on = bool(options.ShriekPogoSkips)
-        difficult = sum(self.casts) > 3
-        difficult_on = bool(options.DifficultSkips)
-        return (not on) or (difficult and not difficult_on)
+        # on = bool(options.ShriekPogoSkips)
+        # difficult = sum(self.casts) > 3
+        # difficult_on = bool(options.DifficultSkips)
+        # return (not on) or (difficult and not difficult_on)
 
 
 class SlopeballVariable(CastSpellVariable):
@@ -664,39 +675,57 @@ class SlopeballVariable(CastSpellVariable):
     def can_exclude(self, options):
         return True
         # TODO add the option lol
-        return bool(options.SlopeBallSkips)
+        # return bool(options.SlopeBallSkips)
 
 
 class EquipCharmVariable(RCStateVariable):
-    # TODO - skipped
-    prefix = "$EQUIPPEDCHARM"
-    equip_prefix = "CHARM"
-    no_equip_prefix = "noCHARM"
-    excluded_charm_ids: Tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
+    prefix: str = "$EQUIPPEDCHARM"
+    equip_prefix: str = "CHARM"
+    no_equip_prefix: str = "noCHARM"
+    excluded_charm_ids: tuple[int] = (23, 24, 25, 36,)  # fragiles and Kingsoul
     charm_id: int
     charm_name: str
+    charm_key: str
 
-    class EquipResult(enum.Enum):
+    class EquipResult(IntEnum):
         NONE = 1
         OVERCHARM = 2
         NONOVERCHARM = 3
 
+    # maybe remove this later if it ends up not being useful compared to charm_id_and_name
     @staticmethod
-    def charm_id_and_name(charm) -> Tuple[int, str]:
-        """Convert 1 indexed charm id or charm name to both"""
-        if not charm.isdigit():
-            return charm_name_to_id[charm] + 1, charm
+    def get_name(charm: str) -> str:
+        """Convert charm id to name, or just return the name"""
+        if charm.isdigit():
+            return charm_names[int(charm) - 1]
         else:
-            return charm, charm_names[charm - 1]  # TODO
+            return charm
 
-    def parse_term(self, charm):
-        self.charm_id, self.charm_name = self.charm_id_and_name(charm)
+    @staticmethod
+    def get_id(charm: str) -> int:
+        """Convert charm name to id, or just return the id"""
+        if charm.isdigit():
+            return int(charm)
+        else:
+            return charm_name_to_id[charm] + 1
+
+    @staticmethod
+    def charm_id_and_name(charm: str) -> tuple[int, str]:
+        """Convert 1 indexed charm id or charm name to both"""
+        if charm.isdigit():
+            return int(charm), charm_names[int(charm) - 1]
+        else:
+            return charm_name_to_id[charm] + 1, charm
+
+    def parse_term(self, term: str) -> None:
+        self.charm_id, self.charm_name = self.charm_id_and_name(term)
+        self.charm_key = f"CHARM{self.charm_id}"
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         if term.startswith(cls.prefix):
             # strip the $EQUIPPEDCHARM[] from the term and extract the 1 indexed charm id
-            charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
+            charm_id = cls.get_id(term[len(cls.prefix)+1:-1])
             # covered by other handlers
             if charm_id not in cls.excluded_charm_ids:
                 return True
@@ -707,65 +736,74 @@ class EquipCharmVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def has_item(self, item_state, player):
+    def has_item(self, item_state: CollectionState, player: int) -> bool:
         return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
-    def _ModifyState(self, state_blob, item_state, player):
-        # TODO figure this out
-        charm_key = f"CHARM{self.charm_id}"
-        if charm_key in state_blob:
-            return True, state_blob
-        if f"no{charm_key}" in state_blob:
-            return False, state_blob
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
+        return self.try_equip(state_blob, item_state, player), state_blob
+
+    def try_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
+        if self.charm_key in state_blob:
+            return True
+        if f"no{self.charm_key}" in state_blob:
+            return False
         if not self.has_item(item_state, player):
-            return False, state_blob
-        else:
-            # TODO
-            state_blob[charm_key] = 1
-            return True, state_blob
+            return False
+        if self.can_equip(state_blob, item_state, player):
+            self.do_equip_charm(state_blob, item_state, player)
+            return True
+        return False
 
     @property
-    def anti_term(self):
+    def anti_term(self) -> str:
         return f"{self.no_equip_prefix}{self.charm_id}"
 
     @property
-    def term(self):
+    def term(self) -> str:
         return f"{self.equip_prefix}{self.charm_id}"
 
-    def get_notch_cost(self, *args):
-        # TODO
-        return 2
-
-    def has_charm_progression(self, *args):
-        # TODO
-        return False
-
-    def has_state_requirements(self, state_blob):
-        if (state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]):
+    def has_state_requirements(self, state_blob: Counter) -> bool:
+        if state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]:
             return False
         return True
 
-    def has_notch_requirments(self, *args) -> "EquipResult":
-        # TODO
-        return self.EquipResult.NONOVERCHARM
+    @staticmethod
+    def get_total_notches(item_state: CollectionState, player: int) -> int:
+        collected_notches = item_state.count(iname.CHARM_NOTCH, player)
+        return BASE_NOTCHES + collected_notches
 
-    def can_equip_non_overcharm(self, *args):
-        return (self.has_charm_progression() and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments() == self.EquipResult.NONOVERCHARM)
+    def get_notch_cost(self, item_state: CollectionState, player: int) -> int:
+        return item_state.hk_charm_costs[player][self.charm_name]
 
-    def can_equip_overcharm(self, *args):
-        return (self.has_charm_progression() and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments() != self.EquipResult.NONE)
+    def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
+        notch_cost = self.get_notch_cost(item_state, player)
+        if notch_cost <= 0 or self.is_equipped(state_blob):
+            return self.EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else self.EquipResult.NONOVERCHARM
+        # can be equipped
+        net_notches = self.get_total_notches(item_state, player) - state_blob["USEDNOTCHES"] - notch_cost
+        if net_notches >= 0:
+            return self.EquipResult.NONOVERCHARM
+        # something to figure out if you can overcharm to get this on
+        overcharm_save = max(notch_cost, state_blob["MAXNOTCHCOST"])
+        if net_notches + overcharm_save > 0 and not state_blob["CANNOTOVERCHARM"]:
+            return self.EquipResult.OVERCHARM
 
-    def can_equip(self, state_blob, item_state, player):
-        # TODO there's some shenanagins in upstream i'm not understanding rn
-        if state_blob is None or not self.has_charm_progression():
+    def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState, player) -> bool:
+        return (self.has_item(item_state, player) and self.has_state_requirements(state_blob)
+                and self.has_notch_requirments(state_blob, item_state, player) == self.EquipResult.NONOVERCHARM)
+
+    def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
+        return (self.has_item(item_state, player) and self.has_state_requirements(state_blob)
+                and self.has_notch_requirments(state_blob, item_state, player) != self.EquipResult.NONE)
+
+    def can_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
+        if not self.has_item(item_state, player):
             return self.EquipResult.NONE
 
         overcharm = False
-        for _ in (None,):  # there's an interation in upstream i don't want to lose sight of
+        for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
             if self.has_state_requirements(state_blob):
-                ret = self.has_notch_requirments()
+                ret = self.has_notch_requirments(state_blob, item_state, player)
                 if ret == self.EquipResult.NONE:
                     continue
                 elif ret == self.EquipResult.OVERCHARM:
@@ -774,39 +812,59 @@ class EquipCharmVariable(RCStateVariable):
                     return ret
         return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
-    def do_equip_charm(self, state_blob, *args):
-        state_blob["USEDNOTCHES"] += self.get_notch_cost()
+    def do_equip_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
+        notch_cost = self.get_notch_cost(item_state, player)
+        state_blob["USEDNOTCHES"] += notch_cost
+        # one of these 2 should probably go at some point
         state_blob[self.term] = True
-        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], self.get_notch_cost())
+        state_blob[self.charm_key] = True
+        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], notch_cost)
         if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
 
-    def is_equipped(self, state_blob):
+    def is_equipped(self, state_blob: Counter) -> bool:
         return bool(state_blob[self.term])
 
-    def set_unequippable(self, state_blob):
+    def set_unequippable(self, state_blob: Counter) -> None:
         state_blob[self.anti_term] = True
 
-    def get_avaliable_notches(self, state_blob):
+    @staticmethod
+    def get_avaliable_notches(state_blob: Counter) -> int:
         return state_blob["NOTCHES"] - state_blob["USEDNOTCHES"]
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions) -> bool:
         return False
 
 
 class FragileCharmVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
-    fragile_lookup = {
+    fragile_lookup: dict[int, list[str]] = {
         23: ["Fragile_Heart", "Unbreakable_Heart"],
         24: ["Fragile_Greed", "Unbreakable_Greed"],
         25: ["Fragile_Strength", "Unbreakable_Strength"],
     }
+    # todo: break_bool matters when dealing with Shade Skips
+    break_bool: bool
+    # todo: determine logic for repair term. Probably access to Leggy and some sort of money logic to repair?
+    repair_term: bool
 
-    # def parse_term(self):
-    #     pass
+    def parse_term(self, term: str) -> None:
+        super().parse_term(term)
+        self.break_bool = False
+        self.repair_term = True  # make false later after figuring out how to slot in leggy access
+
+    # todo: break_bool matters when dealing with Shade Skips
+    def break_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
+        if state_blob[self.charm_key] >= 2:
+            return
+
+    def has_state_requirements(self, state_blob: Counter) -> bool:
+        return (super().has_state_requirements(state_blob)
+                and ((state_blob[self.charm_key] >= 2)
+                     or (not self.break_bool and self.repair_term)))
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         if term.startswith(cls.prefix):
             charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
             if charm_id in cls.fragile_lookup:
@@ -814,29 +872,23 @@ class FragileCharmVariable(EquipCharmVariable):
         # else
         return False
 
-    # @classmethod
-    # def GetTerms(cls):
-    #     return (term for term in ("VessleFragments",))
-
-    def _ModifyState(self, state_blob, item_state, player):
-        # TODO flush out with charm notch checking etc.
-        if self.has_item(item_state, player):
-            return True, state_blob
-        else:
-            return False, state_blob
-
 
 class WhiteFragmentEquipVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
     void: bool
+    quantity: int
 
-    def parse_term(self, charm):
+    def parse_term(self, charm: str) -> None:
         self.charm_id, self.charm_name = self.charm_id_and_name(charm)
-        self.void = charm == "Void_Heart"
-        assert not self.void == (charm == "Kingsoul")
+        self.void = self.charm_name == "Void_Heart"
+        assert not self.void == (self.charm_name == "Kingsoul")
+        if self.charm_name == "Kingsoul":
+            self.quantity = 2
+        if self.charm_name == "Void_Heart":
+            self.quantity = 3
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         if term.startswith(cls.prefix):
             charm_id, _ = cls.charm_id_and_name(term[len(cls.prefix)+1:-1])
             if charm_id == 36:
@@ -848,14 +900,15 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def has_item(self, item_state, player):
+    # todo for later: make this functional, either in state blob or item state, whatever it ends up being
+    def has_item(self, item_state: CollectionState, player: int) -> bool:
         if self.void:
             count = 3
         else:
             count = 2
         return item_state._hk_processed_item_cache[player]["WHITEFRAGMENT"] >= count
 
-    # def _ModifyState(self, state_blob, item_state, player):
+    # def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
     #     # TODO figure this out
     #     # TODO actually
     #     print(self.void)
@@ -863,40 +916,40 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
 
 
 class FlowerProviderVariable(RCStateVariable):
-    prefix = "$FLOWERGET"
+    prefix: str = "$FLOWERGET"
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         state_blob["NOFLOWER"] = False
         return True, state_blob
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         return term == cls.prefix
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions) -> bool:
         return False
 
 
 class RegainSoulVariable(RCStateVariable):
-    prefix = "$REGAINSOUL"
+    prefix: str = "$REGAINSOUL"
     amount: int
 
-    def parse_term(self, amount):
+    def parse_term(self, amount: str) -> None:
         self.amount = int(amount)
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         if state_blob["CANNOTREGAINSOUL"]:
             return False, state_blob
         if state_blob["SPENTALLSOUL"]:
@@ -916,21 +969,21 @@ class RegainSoulVariable(RCStateVariable):
                 state_blob["SPENTRESERVESOUL"] = 0
         return True, state_blob
 
-    def get_max_reserve_soul(item_state, player):
-        return (item_state[player]["VesselFragment"] // 3) * 33
+    def get_max_reserve_soul(self, item_state: CollectionState, player: int) -> int:
+        return (item_state.count("VesselFragment", player) // 3) * 33
 
-    def get_max_soul(state_blob):
+    def get_max_soul(self, state_blob: Counter) -> int:
         return 99 - state_blob["SOULLIMITER"]
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions) -> bool:
         return False
 
 
 class ShadeStateVariable(RCStateVariable):
-    prefix = "$SHADESKIP"
+    prefix: str = "$SHADESKIP"
     health: int
 
-    def parse_term(self, *args):
+    def parse_term(self, *args) -> None:
         if len(args) == 1:
             hits = args[0]
             self.health = hits[:-4]
@@ -940,14 +993,14 @@ class ShadeStateVariable(RCStateVariable):
             raise Exception(f"unknown {self.prefix} term, args: {args}")
 
     @classmethod
-    def TryMatch(cls, term: str):
+    def TryMatch(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     # @classmethod
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         # TODO fill out when i finish equipped item variable
         if state_blob["SpentShade"]:
             return False, state_blob
@@ -955,7 +1008,7 @@ class ShadeStateVariable(RCStateVariable):
             state_blob["SpentShade"] = True
             return True, state_blob
 
-    def can_exclude(self, options):
+    def can_exclude(self, options: HKOptions) -> bool:
         return not bool(options.ShadeSkips)
 
 
@@ -974,7 +1027,7 @@ class SpendSoulVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         if state_blob["SPENTALLSOUL"]:
             return False, state_blob
 
@@ -999,7 +1052,7 @@ class SpendSoulVariable(RCStateVariable):
     def get_soul(self, state_blob):
         return 99 - state_blob["SOULLIMITER"] - state_blob["SPENTSOUL"]
 
-    def get_reserve_soul(self, state_blob, item_state, player):
+    def get_reserve_soul(self, state_blob: Counter, item_state: CollectionState, player: int):
         return ((item_state.count("VesselFragment", player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
 
     def can_exclude(self, options):
@@ -1020,7 +1073,7 @@ class StagStateVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         state_blob["NOFLOWER"] = 1
         return True, state_blob 
 
@@ -1043,7 +1096,7 @@ class StagStateVariable(RCStateVariable):
 #     # def GetTerms(cls):
 #     #     return (term for term in ("VessleFragments",))
 
-#     def _ModifyState(self, state_blob, item_state, player):
+#     def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
 #         pass
 
 #     def can_exclude(self, options):
@@ -1066,7 +1119,7 @@ class TakeDamageVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         # TODO figure this out
         if self.damage + state_blob["DAMAGE"] >= BASE_HEALTH:
             return False, state_blob
@@ -1096,7 +1149,7 @@ class WarpToBenchResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
             return self.bench_reset._ModifyState(state_blob, item_state, player)
@@ -1124,7 +1177,7 @@ class WarpToStartResetVariable(RCStateVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _ModifyState(self, state_blob, item_state, player):
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
         valid, state_blob = self.sq_reset._ModifyState(state_blob, item_state, player)
         if valid:
             return self.start_reset._ModifyState(state_blob, item_state, player)
