@@ -273,7 +273,7 @@ class HKWorld(RandomizerCoreWorld):
     event_locations: List[str]
     ranges: Dict[str, Tuple[int, int]]
     charm_costs: List[int]
-    charm_names_and_costs: dict[str, int]
+    charm_names_and_costs: dict[int, dict[str, int]] = {}  # per player cache
 
     def __init__(self, multiworld, player):
         super(HKWorld, self).__init__(multiworld, player)
@@ -507,8 +507,7 @@ class HKWorld(RandomizerCoreWorld):
                 if req == "NOFLOWER=FALSE":
                     # TODO there's a handler but flowerprovider is not working yet
                     continue
-
-                handler = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))
+                handler = resource_state_handler.get_handler(req)
                 if handler.can_exclude(self.options):
                     skip_clause = True
                 else:
@@ -769,7 +768,8 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.ranges[term] = mini.value, maxi.value
 
-        self.charm_names_and_costs = dict(zip(charm_names, charm_costs))
+        self.charm_names_and_costs[self.player] = {name: (charm_costs[index] if name != "Void_Heart" else 0)
+                                                   for name, index in charm_name_to_id.items()}
 
         self.split_cloak_direction = self.random.randint(0, 1)
 

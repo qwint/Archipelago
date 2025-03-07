@@ -72,7 +72,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_stale = {player: True for player in players}
         self._hk_sweeping = {player: False for player in players}
         self._hk_processed_item_cache = {player: Counter() for player in players}
-        self.hk_charm_costs = {player: multiworld.worlds[player].charm_names_and_costs for player in players}
+        self.hk_charm_costs = cls.charm_names_and_costs
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
@@ -236,11 +236,20 @@ def lt(state1: dict, state2: dict) -> bool:
 
 class resource_state_handler(type):
     handlers: list["RCStateVariable"] = []
+    _handler_cache: "dict[str, RCStateVariable]" = {}
 
     def __new__(mcs, name, bases, dct):
         new_class = super().__new__(mcs, name, bases, dct)
         resource_state_handler.handlers.append(new_class)
         return new_class
+
+    @staticmethod
+    def get_handler(req: str) -> "RCStateVariable":
+        if req in resource_state_handler._handler_cache:
+            return resource_state_handler._handler_cache[req]
+        ret = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))
+        resource_state_handler._handler_cache[req] = ret
+        return ret
 
 
 class RCStateVariable(metaclass=resource_state_handler):
@@ -535,11 +544,12 @@ class CastSpellVariable(RCStateVariable):
         stateST = state_blob.copy()
         if (self.try_cast_all(24, max_soul, reserves, soul)
                 and self.equip_st.can_equip(stateST, item_state, player)):
-            stateST = list(self.equip_st.ModifyState(stateST, item_state, player))[0]  # we know EquipCharmVariable only yields once
-            self.do_all_casts(24, reserves, stateST)
-            if not stateST["CANNOTREGAINSOUL"] and self.after:
-                self.recover_soul(sum(self.casts) * 33, stateST)
-            yield stateST
+            check, stateST = self.equip_st._ModifyState(stateST, item_state, player)  # we know EquipCharmVariable only yields once
+            if check:
+                self.do_all_casts(24, reserves, stateST)
+                if not stateST["CANNOTREGAINSOUL"] and self.after:
+                    self.recover_soul(sum(self.casts) * 33, stateST)
+                yield stateST
 
     def can_exclude(self, options: HKOptions) -> bool:
         return False
@@ -879,7 +889,7 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     quantity: int
 
     def parse_term(self, charm: str) -> None:
-        self.charm_id, self.charm_name = self.charm_id_and_name(charm)
+        super().parse_term(charm)
         self.void = self.charm_name == "Void_Heart"
         assert not self.void == (self.charm_name == "Kingsoul")
         if self.charm_name == "Kingsoul":
