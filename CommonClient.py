@@ -164,13 +164,13 @@ class ClientCommandProcessor(CommandProcessor):
             self.output(key)
         return True
 
-    def _cmd_items(self) -> None:
+    def _cmd_items(self) -> bool:
         """List all item names for the currently running game."""
-        self.output_datapackage_part("item_name_to_id", "Item Names")
+        return self.output_datapackage_part("item_name_to_id", "Item Names")
 
-    def _cmd_locations(self) -> None:
+    def _cmd_locations(self) -> bool:
         """List all location names for the currently running game."""
-        self.output_datapackage_part("location_name_to_id", "Location Names")
+        return self.output_datapackage_part("location_name_to_id", "Location Names")
 
     def output_group_part(self, group_key: typing.Literal["item_name_groups", "location_name_groups"],
                           filter_key: str,
@@ -208,24 +208,24 @@ class ClientCommandProcessor(CommandProcessor):
         return True
 
     @mark_raw
-    def _cmd_item_groups(self, key: str = "") -> None:
+    def _cmd_item_groups(self, key: str = "") -> bool:
         """
         List all item group names for the currently running game.
 
         :param key: Which item group to filter to. Will log all groups if empty.
         """
-        self.output_group_part("item_name_groups", key, "Item")
+        return self.output_group_part("item_name_groups", key, "Item")
 
     @mark_raw
-    def _cmd_location_groups(self, key: str = "") -> None:
+    def _cmd_location_groups(self, key: str = "") -> bool:
         """
         List all location group names for the currently running game.
 
         :param key: Which item group to filter to. Will log all groups if empty.
         """
-        self.output_group_part("location_name_groups", key, "Location")
+        return self.output_group_part("location_name_groups", key, "Location")
 
-    def _cmd_ready(self):
+    def _cmd_ready(self) -> bool:
         """Send ready status to server."""
         self.ctx.ready = not self.ctx.ready
         if self.ctx.ready:
@@ -235,6 +235,7 @@ class ClientCommandProcessor(CommandProcessor):
             state = ClientStatus.CLIENT_CONNECTED
             self.output("Unreadied.")
         async_start(self.ctx.send_msgs([{"cmd": "StatusUpdate", "status": state}]), name="send StatusUpdate")
+        return True
 
     def default(self, raw: str):
         """The default message parser to be used when parsing any messages that do not match a command"""
