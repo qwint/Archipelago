@@ -100,7 +100,11 @@ class ClientCommandProcessor(CommandProcessor):
         return True
 
     def get_current_datapackage(self) -> dict[str, typing.Any]:
-        """Return datapackage for current game if known"""
+        """
+        Return datapackage for current game if known.
+
+        :return: The datapackage for the currently registered game. If not found, an empty dictionary will be returned.
+        """
         if not self.ctx.game:
             return {}
         checksum = self.ctx.checksums[self.ctx.game]
@@ -137,7 +141,15 @@ class ClientCommandProcessor(CommandProcessor):
             self.output("No missing location checks found.")
         return True
 
-    def output_datapackage_part(self, key: str, name: str) -> None:
+    def output_datapackage_part(self, key: str, name: str) -> bool:
+        """
+        Helper to digest a specific section of this game's datapackage.
+
+        :param key: The dictionary key in the datapackage.
+        :param name: Printed to the user as context for the part.
+
+        :return: Whether the process was successful.
+        """
         if not self.ctx.game:
             self.output(f"No game set, cannot determine {name}.")
             return False
@@ -150,6 +162,7 @@ class ClientCommandProcessor(CommandProcessor):
         self.output(f"{name} for {self.ctx.game}")
         for key in lookup:
             self.output(key)
+        return True
 
     def _cmd_items(self) -> None:
         """List all item names for the currently running game."""
@@ -159,7 +172,18 @@ class ClientCommandProcessor(CommandProcessor):
         """List all location names for the currently running game."""
         self.output_datapackage_part("location_name_to_id", "Location Names")
 
-    def output_group_part(self, group_key: str, filter_key: str, name: str) -> None:
+    def output_group_part(self, group_key: typing.Literal["item_name_groups", "location_name_groups"],
+                          filter_key: str,
+                          name: str) -> bool:
+        """
+        Logs an item or location group from the player's game's datapackage.
+
+        :param group_key: Either Item or Location group to be processed.
+        :param filter_key: Which group key to filter to. If an empty string is passed will log all item/location groups.
+        :param name: Printed to the user as context for the part.
+
+        :return: Whether the process was successful.
+        """
         if not self.ctx.game:
             self.output(f"No game set, cannot determine existing {name} Groups.")
             return False
@@ -181,15 +205,24 @@ class ClientCommandProcessor(CommandProcessor):
             self.output(f"{name} Groups for {self.ctx.game}")
             for group in lookup:
                 self.output(group)
+        return True
 
     @mark_raw
-    def _cmd_item_groups(self, key="") -> None:
-        """List all item group names for the currently running game."""
+    def _cmd_item_groups(self, key: str = "") -> None:
+        """
+        List all item group names for the currently running game.
+
+        :param key: Which item group to filter to. Will log all groups if empty.
+        """
         self.output_group_part("item_name_groups", key, "Item")
 
     @mark_raw
-    def _cmd_location_groups(self, key="") -> None:
-        """List all location group names for the currently running game."""
+    def _cmd_location_groups(self, key: str = "") -> None:
+        """
+        List all location group names for the currently running game.
+
+        :param key: Which item group to filter to. Will log all groups if empty.
+        """
         self.output_group_part("location_name_groups", key, "Location")
 
     def _cmd_ready(self):
