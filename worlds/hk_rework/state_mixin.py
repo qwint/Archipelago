@@ -247,7 +247,12 @@ class resource_state_handler(type):
     def get_handler(req: str) -> "RCStateVariable":
         if req in resource_state_handler._handler_cache:
             return resource_state_handler._handler_cache[req]
-        ret = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))
+        # ret = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))
+        for handler in resource_state_handler.handlers:
+            if handler.TryMatch(req):
+                ret = handler(req)
+                continue
+        assert ret
         resource_state_handler._handler_cache[req] = ret
         return ret
 
