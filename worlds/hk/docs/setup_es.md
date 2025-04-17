@@ -8,7 +8,7 @@
 
 1. Inicia Lumafly y asegúrate que encuentre el directorio de instalación de tu Hollow Knight.
 2. Haz clic en el botón "Instalar" cerca de la entrada para el mod de Archipelago.
-   * Si lo deseas, instala también el "Archipelago Map Mod" para tener un mapa y tracker dentro del juego.
+    * Si lo deseas, instala también el "Archipelago Map Mod" para tener un mapa y tracker dentro del juego.
 3. Ejecuta el juego, ¡Ya está todo listo!
 
 ### Qué hacer si Lumafly falla al buscar tu instalación de Xbox Game Pass
@@ -41,9 +41,9 @@ Puedes usar la [página de configuraciones para Hollow Knight](/games/Hollow%20K
 4. Ingresa los campos correspondientes al servidor de Archipelago que vas a jugar.
 5. Presiona **Start** para inciar la partida, el juego se detendrá por unos segundos mientras configura todos los posicionamientos de objetos.
 6. El juego inmediatamente se iniciará en el juego randomizado.
-   * Si estas esperando por una cuenta atras para empezar, espera aque termine antes de presionar Start.
-   * O presiona el botón de Pausa una vez estes dentro del juego.
-   
+    * Si estas esperando por una cuenta atras para empezar, espera aque termine antes de presionar Start.
+    * O presiona el botón de Pausa una vez estes dentro del juego.
+
 ## Comandos
 Mientras juegas en el Multiworld puedes interactuar con el servidor con una variedad de comandos anotados en la
 [Guía de comandos](/tutorial/Archipelago/commands/en). Como este juego no tiene actualmente un cliente de texto, puedes de forma opcional conectarte al multiworld con el Text Client, que se puede encontrar en la
