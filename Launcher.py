@@ -9,6 +9,7 @@ Additional components can be added to worlds.LauncherComponents.components.
 """
 
 import argparse
+import asyncio
 import logging
 import multiprocessing
 import shlex
@@ -28,7 +29,8 @@ if __name__ == "__main__":
 import settings
 import Utils
 from Utils import (init_logging, is_frozen, is_linux, is_macos, is_windows, local_path, messagebox, open_filename,
-                   user_path)
+                   user_path, stream_input)
+from MultiServer import CommandProcessor, console
 from worlds.LauncherComponents import Component, components, icon_paths, SuffixIdentifier, Type
 
 
@@ -436,6 +438,47 @@ def run_gui(path: str, args: Any) -> None:
     refresh_components = None
 
 
+def run_cli():
+    class LauncherCommandProcessor(CommandProcessor):
+        ctx: "LauncherContext"
+
+        def __init__(self, ctx):
+            self.ctx = ctx
+
+        def default(self, raw: str):
+            if raw in self.ctx.component_lookup:
+                logging.info(f"now running component {raw}")
+                run_component(self.ctx.component_lookup[raw])
+                self.ctx.exit_event.set()
+            else:
+                logging.info(f"{raw} matched no components, use /list to see all avaliable components")
+
+        def _cmd_exit(self):
+            self.ctx.exit_event.set()
+
+        def _cmd_list(self):  # TODO add filter text / category
+            logging.info("Avaliable Components are:")
+            for component in self.ctx.component_lookup:
+                logging.info(component)
+
+    class LauncherContext():
+        commandprocessor: LauncherCommandProcessor
+        exit_event: asyncio.Event
+        component_lookup: dict[str, Component]
+
+        def __init__(self):
+            self.exit_event = asyncio.Event()
+            self.commandprocessor = LauncherCommandProcessor(self)
+            self.component_lookup = {c.display_name: c for c in components}
+
+    async def console_loop():
+        ctx = LauncherContext()
+        await console(ctx)
+        await ctx.exit_event.wait()
+
+    asyncio.run(console_loop())
+
+
 def run_component(component: Component, *args):
     if component.func:
         component.func(*args)
@@ -471,7 +514,11 @@ def main(args: Optional[Union[argparse.Namespace, dict]] = None):
     elif "component" in args:
         run_component(args["component"], *args["args"])
     elif not args["update_settings"]:
-        run_gui(path, args.get("args", ()))
+        from CommonClient import gui_enabled
+        if gui_enabled:
+            run_gui(path, args.get("args", ()))
+        else:
+            run_cli()
 
 
 if __name__ == '__main__':
@@ -490,6 +537,7 @@ if __name__ == '__main__':
                                 "connect with.")
     run_group.add_argument("args", nargs="*",
                            help="Arguments to pass to component.")
+    run_group.add_argument("--nogui", action="store_false", help="Use in-terminal ui")
     main(parser.parse_args())
 
     from worlds.LauncherComponents import processes
