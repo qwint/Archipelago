@@ -215,12 +215,15 @@ def main(args=None) -> Tuple[argparse.Namespace, int]:
                 settings: Tuple[argparse.Namespace, ...] = settings_cache[path] if settings_cache[path] else \
                     tuple(roll_settings(yaml, args.plando) for yaml in weights_cache[path])
                 for settingsObject in settings:
+                    erargs.player_options[player] = {}
                     for k, v in vars(settingsObject).items():
                         if v is not None:
                             try:
-                                getattr(erargs, k)[player] = v
-                            except AttributeError:
-                                setattr(erargs, k, {player: v})
+                                if k in ("name",):
+                                    setattr(erargs, k, {player: v})  # ~~~~
+                                erargs.player_options[player][k] = v
+                            # except AttributeError:
+                            #     setattr(erargs.player_options, k, {player: v})
                             except Exception as e:
                                 raise Exception(f"Error setting {k} to {v} for player {player}") from e
 

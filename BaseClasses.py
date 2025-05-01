@@ -216,22 +216,13 @@ class MultiWorld():
         self.seed_name = name if name else str(self.seed)
 
     def set_options(self, args: Namespace) -> None:
-        # TODO - remove this section once all worlds use options dataclasses
         from worlds import AutoWorld
-
-        all_keys: Set[str] = {key for player in self.player_ids for key in
-                              AutoWorld.AutoWorldRegister.world_types[self.game[player]].options_dataclass.type_hints}
-        for option_key in all_keys:
-            option = Utils.DeprecateDict(f"Getting options from multiworld is now deprecated. "
-                                         f"Please use `self.options.{option_key}` instead.", True)
-            option.update(getattr(args, option_key, {}))
-            setattr(self, option_key, option)
 
         for player in self.player_ids:
             world_type = AutoWorld.AutoWorldRegister.world_types[self.game[player]]
             self.worlds[player] = world_type(self, player)
             options_dataclass: type[Options.PerGameCommonOptions] = world_type.options_dataclass
-            self.worlds[player].options = options_dataclass(**{option_key: getattr(args, option_key)[player]
+            self.worlds[player].options = options_dataclass(**{option_key: getattr(args.options[player], option_key)
                                                                for option_key in options_dataclass.type_hints})
 
     def set_item_links(self):
