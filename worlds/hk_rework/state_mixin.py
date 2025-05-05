@@ -548,7 +548,7 @@ class CastSpellVariable(RCStateVariable):
             if check:
                 self.do_all_casts(24, reserves, stateST)
                 if not stateST["CANNOTREGAINSOUL"] and self.after:
-                    self.recover_soul(sum(self.casts) * 33, stateST)
+                    self.recover_soul(sum(self.casts) * 24, stateST)
                 yield stateST
 
     def can_exclude(self, options: HKOptions) -> bool:
