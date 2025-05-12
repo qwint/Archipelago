@@ -17,6 +17,7 @@ from .data.location_data import multi_locations, locations as locations_metadata
 from .data.option_data import logic_options, pool_options
 from .data.item_data import progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term
 
+from .constants import shop_cost_types, randomizable_starting_items, gamename, base_id, SIMPLE_STATE_LOGIC
 from .Options import hollow_knight_options, hollow_knight_randomize_options, Goal, WhitePalace, CostSanity, \
     shop_to_option, HKOptions
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
@@ -25,25 +26,6 @@ from .Charms import names as charm_names, charm_name_to_id
 from .Items import item_name_groups, item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
-
-# Shop cost types.
-shop_cost_types: Dict[str, Tuple[str, ...]] = {
-    "Egg_Shop": ("RANCIDEGGS",),
-    "Grubfather": ("GRUBS",),
-    "Seer": ("ESSENCE",),
-    "Salubra_(Requires_Charms)": ("CHARMS", "GEO"),
-    "Sly": ("GEO",),
-    "Sly_(Key)": ("GEO",),
-    "Iselda": ("GEO",),
-    "Salubra": ("GEO",),
-    "Leg_Eater": ("GEO",),
-}
-
-randomizable_starting_items: Dict[str, Tuple[str, ...]] = {
-    "RandomizeFocus": ("Focus",),
-    "RandomizeSwim": ("Swim",),
-    "RandomizeNail": ('Upslash', 'Leftslash', 'Rightslash')
-}
 
 
 class HKWeb(WebWorld):
@@ -57,11 +39,6 @@ class HKWeb(WebWorld):
     )]
 
     bug_report_page = "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
-
-
-gamename = "Hollow Knight"
-base_id = 0x1000000
-SIMPLE_STATE_LOGIC = True
 
 
 class HKClause(NamedTuple):
@@ -81,6 +58,19 @@ default_hk_rule = [HKClause(
     hk_region_requirements=[],
     hk_state_requirements=[],
     )]
+
+
+def cacheless_hk_access_rule(spot: Location | Entrance, state: CollectionState) -> bool:
+    for clause in spot.hk_rule:
+        # check regions first when evaluating locations because cache should be set by now
+        for region in clause.hk_region_requirements:
+            if not state.can_reach_region(region, spot.player):
+                return False
+        if state.has_all_counts(clause.hk_item_requirements, spot.player):
+            if state._hk_apply_and_validate_state(clause, spot.parent_region):
+                return True
+    # no clause was True,
+    return False
 
 
 class HKLocation(Location):
@@ -117,17 +107,7 @@ class HKLocation(Location):
                 return False
         return self.hk_access_rule(state) if self.access_set else True
 
-    def hk_access_rule(self, state: CollectionState) -> bool:
-        for clause in self.hk_rule:
-            # check regions first when evaluating locations because cache should be set by now
-            for region in clause.hk_region_requirements:
-                if not state.can_reach_region(region, self.player):
-                    return False
-            if state.has_all_counts(clause.hk_item_requirements, self.player):
-                if state._hk_apply_and_validate_state(clause, self.parent_region):
-                    return True
-        # no clause was True,
-        return False
+    hk_access_rule = cacheless_hk_access_rule
 
     def sort_costs(self):
         if self.costs is None:
@@ -167,36 +147,37 @@ class HKEntrance(Entrance):
         state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
         return True
 
-    def hk_access_rule(self, state: CollectionState) -> bool:
-        if self.hk_rule == default_hk_rule:
-            assert False, "should never have to be here"
-            # state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
-            # state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
-            # return True
-        if self.name not in state._hk_entrance_clause_cache[self.player]:
-            # if there's no cache for this entrance, make one with everything False
-            cache = state._hk_entrance_clause_cache[self.player][self.name] = \
-                {index: False for index in range(len(self.hk_rule))}
-        else:
-            cache = state._hk_entrance_clause_cache[self.player][self.name]
+    if SIMPLE_STATE_LOGIC:
+        hk_access_rule = cacheless_hk_access_rule
+    else:
+        def hk_access_rule(self, state: CollectionState) -> bool:
+            assert self.hk_rule != default_hk_rule, "should never have to be here"
+            # if self.hk_rule == default_hk_rule:
+            #     state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
+            #     state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
+            #     return True
+            if self.name not in state._hk_entrance_clause_cache[self.player]:
+                # if there's no cache for this entrance, make one with everything False
+                cache = state._hk_entrance_clause_cache[self.player][self.name] = \
+                    {index: False for index in range(len(self.hk_rule))}
+            else:
+                cache = state._hk_entrance_clause_cache[self.player][self.name]
 
-        # check every clause, caching item state accessibility
-        valid_clauses = False
-        for index, clause in enumerate(self.hk_rule):
-            if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
-                cache[index] = True
+            # check every clause, caching item state accessibility
+            valid_clauses = False
+            for index, clause in enumerate(self.hk_rule):
+                if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
+                    cache[index] = True
 
-                # region sweep might not be done, so checking items is likely faster
-                reachable = True
-                for region in clause.hk_region_requirements:
-                    if not state.can_reach_region(region, self.player):
-                        reachable = False
-                if reachable and state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
-                    valid_clauses = True
-                    if SIMPLE_STATE_LOGIC:
-                        return True
+                    # region sweep might not be done, so checking items is likely faster
+                    reachable = True
+                    for region in clause.hk_region_requirements:
+                        if not state.can_reach_region(region, self.player):
+                            reachable = False
+                    if reachable and state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
+                        valid_clauses = True
 
-        return valid_clauses
+            return valid_clauses
 
 
 class HKRegion(Region):

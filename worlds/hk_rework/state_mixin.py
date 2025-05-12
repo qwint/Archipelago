@@ -9,6 +9,7 @@ from BaseClasses import MultiWorld, CollectionState, Region
 from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
+from .constants import SIMPLE_STATE_LOGIC, BASE_SOUL, BASE_NOTCHES, BASE_HEALTH
 from .Charms import names as charm_names, charm_name_to_id
 from .Options import HKOptions
 from .data.constants.item_names import LocationNames as iname
@@ -29,11 +30,6 @@ class default_state_factory():
 
 
 default_state = default_state_factory()
-
-
-BASE_SOUL = 12
-BASE_NOTCHES = 3
-BASE_HEALTH = 4
 
 
 class HKLogicMixin(LogicMixin):
@@ -62,6 +58,8 @@ class HKLogicMixin(LogicMixin):
     def init_mixin(self, multiworld: MultiWorld) -> None:
         from . import HKWorld as cls
         players = multiworld.get_game_players(cls.game)
+        if not players:
+            return
         self._hk_per_player_resource_states = {
             player: KeyedDefaultDict(lambda region: [default_state()] if region == "Menu" else [])
             for player in players
@@ -79,13 +77,11 @@ class HKLogicMixin(LogicMixin):
         #     self.prog_items[player]["SHADE_HEALTH"] = max(int(BASE_HEALTH/2), 1)
         #     self.prog_items[player]["TOTAL_NOTCHES"] = BASE_NOTCHES
 
-        from . import SIMPLE_STATE_LOGIC
-        if SIMPLE_STATE_LOGIC:
-            self._hk_apply_and_validate_state = lambda *args, **kwargs: True
-
     def copy_mixin(self, other) -> CollectionState:
         from . import HKWorld as cls
         players = self.multiworld.get_game_players(cls.game)
+        if not players:
+            return other
         other._hk_per_player_resource_states = {player: self._hk_per_player_resource_states[player].copy() for player in players}
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
@@ -94,63 +90,67 @@ class HKLogicMixin(LogicMixin):
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
-    def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
-        player = region.player
-        # avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
+    if SIMPLE_STATE_LOGIC:
+        def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
+            return True
+    else:
+        def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
+            player = region.player
+            # avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
 
-        # if avaliable_states is None:
-        #     region.can_reach(self)
-        #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+            # if avaliable_states is None:
+            #     region.can_reach(self)
+            #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
 
-        # unneeded?
-        avaliable_states = [s.copy() for s in self._hk_per_player_resource_states[player][region.name]]
-        # loses the can_reach parent call, potentially re-add it?
+            # unneeded?
+            avaliable_states = [s.copy() for s in self._hk_per_player_resource_states[player][region.name]]
+            # loses the can_reach parent call, potentially re-add it?
 
-        if not avaliable_states:
-            # no valid parent states
-            return False
+            if not avaliable_states:
+                # no valid parent states
+                return False
 
-        if target_region:
-            persist = True
-        else:
-            persist = False
-
-        for handler in clause.hk_state_requirements:
-            avaliable_states = [s for input_state in avaliable_states for s in handler.ModifyState(input_state, self, player)]
-
-        if len(avaliable_states):
-            if not persist:
-                return True
+            if target_region:
+                persist = True
             else:
-                target_states = self._hk_per_player_resource_states[player][target_region.name]
-                for index, s in reversed(list(enumerate(avaliable_states))):
-                    for previous in target_states:
-                        if s == previous or lt(previous, s):
-                            # if the state we're adding already exists or a better state already exists, we didn't improve
-                            avaliable_states.pop(index)
-                            break
-                if avaliable_states:
-                    target_states += avaliable_states
-                    # indicies_to_pop = []
-                    # for index, s in enumerate(target_states):
-                    #     if any(lt(other, s) for other in target_states):
-                    #         indicies_to_pop.append(index)
-                    # for index in reversed(indicies_to_pop):
-                    #     # reverse so we can blindly pop
-                    #     target_states.pop(index)
+                persist = False
 
-                    for index, s in reversed(list(enumerate(target_states))):
-                        for other in [t_s for t_s in target_states if t_s is not s]:  # TODO make sure this doesn't ever break
-                            if lt(other, s):
-                                target_states.pop(index)
+            for handler in clause.hk_state_requirements:
+                avaliable_states = [s for input_state in avaliable_states for s in handler.ModifyState(input_state, self, player)]
+
+            if len(avaliable_states):
+                if not persist:
+                    return True
+                else:
+                    target_states = self._hk_per_player_resource_states[player][target_region.name]
+                    for index, s in reversed(list(enumerate(avaliable_states))):
+                        for previous in target_states:
+                            if s == previous or lt(previous, s):
+                                # if the state we're adding already exists or a better state already exists, we didn't improve
+                                avaliable_states.pop(index)
                                 break
+                    if avaliable_states:
+                        target_states += avaliable_states
+                        # indicies_to_pop = []
+                        # for index, s in enumerate(target_states):
+                        #     if any(lt(other, s) for other in target_states):
+                        #         indicies_to_pop.append(index)
+                        # for index in reversed(indicies_to_pop):
+                        #     # reverse so we can blindly pop
+                        #     target_states.pop(index)
 
-                    self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
-                    # self._hk_stale[player] = True
-                assert target_states
-                return True
-        else:
-            return False
+                        for index, s in reversed(list(enumerate(target_states))):
+                            for other in [t_s for t_s in target_states if t_s is not s]:  # TODO make sure this doesn't ever break
+                                if lt(other, s):
+                                    target_states.pop(index)
+                                    break
+
+                        self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
+                        # self._hk_stale[player] = True
+                    assert target_states
+                    return True
+            else:
+                return False
 
     def _hk_sweep(self, player: int):
         if self._hk_sweeping[player]:
