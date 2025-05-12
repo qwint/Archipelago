@@ -79,6 +79,10 @@ class HKLogicMixin(LogicMixin):
         #     self.prog_items[player]["SHADE_HEALTH"] = max(int(BASE_HEALTH/2), 1)
         #     self.prog_items[player]["TOTAL_NOTCHES"] = BASE_NOTCHES
 
+        from . import SIMPLE_STATE_LOGIC
+        if SIMPLE_STATE_LOGIC:
+            self._hk_apply_and_validate_state = lambda *args, **kwargs: True
+
     def copy_mixin(self, other) -> CollectionState:
         from . import HKWorld as cls
         players = self.multiworld.get_game_players(cls.game)
@@ -296,6 +300,9 @@ class RCStateVariable(metaclass=resource_state_handler):
 
     def can_exclude(self, options) -> bool:
         return True
+
+    def add_simple_item_reqs(self, items: Counter) -> None:
+        pass
 
 
 class DirectCompare():
@@ -669,6 +676,10 @@ class ShriekPogoVariable(CastSpellVariable):
         # difficult_on = bool(options.DifficultSkips)
         # return (not on) or (difficult and not difficult_on)
 
+    def add_simple_item_reqs(self, items: Counter) -> None:
+        items["SCREAM"] = 2
+        items["WINGS"] = 1
+
 
 class SlopeballVariable(CastSpellVariable):
     prefix = "$SLOPEBALL"
@@ -691,6 +702,9 @@ class SlopeballVariable(CastSpellVariable):
         return True
         # TODO add the option lol
         # return bool(options.SlopeBallSkips)
+
+    def add_simple_item_reqs(self, items: Counter) -> None:
+        items["FIREBALL"] = items.get("FIREBALL", 1)
 
 
 class EquipCharmVariable(RCStateVariable):
@@ -850,6 +864,9 @@ class EquipCharmVariable(RCStateVariable):
     def can_exclude(self, options: HKOptions) -> bool:
         return False
 
+    def add_simple_item_reqs(self, items: Counter) -> None:
+        items[self.charm_key] = 1  # TODO this won't work until i make charms actually show up in state proper
+
 
 class FragileCharmVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"
@@ -886,6 +903,10 @@ class FragileCharmVariable(EquipCharmVariable):
                 return True
         # else
         return False
+
+    def add_simple_item_reqs(self, items: Counter) -> None:
+        super().add_simple_item_reqs(items)
+        items["Can_Repair_Fragile_Charms"] = 1
 
 
 class WhiteFragmentEquipVariable(EquipCharmVariable):
@@ -928,6 +949,14 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     #     # TODO actually
     #     print(self.void)
     #     return super()._ModifyState(state_blob, item_state, player)
+
+    def add_simple_item_reqs(self, items: Counter) -> None:
+        if self.void:
+            count = 3
+        else:
+            count = 2
+        if items[self.charm_key] < count:
+            items[self.charm_key] = count
 
 
 class FlowerProviderVariable(RCStateVariable):

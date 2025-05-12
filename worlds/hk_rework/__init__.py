@@ -61,6 +61,7 @@ class HKWeb(WebWorld):
 
 gamename = "Hollow Knight"
 base_id = 0x1000000
+SIMPLE_STATE_LOGIC = True
 
 
 class HKClause(NamedTuple):
@@ -192,6 +193,8 @@ class HKEntrance(Entrance):
                         reachable = False
                 if reachable and state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
                     valid_clauses = True
+                    if SIMPLE_STATE_LOGIC:
+                        return True
 
         return valid_clauses
 
@@ -199,15 +202,16 @@ class HKEntrance(Entrance):
 class HKRegion(Region):
     entrance_type = HKEntrance
 
-    def can_reach(self, state) -> bool:
-        if self in state.reachable_regions[self.player]:
-            return True
-        if not state.stale[self.player] and not state._hk_stale[self.player]:
-            # if the cache is updated we can use the cache
+    if not SIMPLE_STATE_LOGIC:
+        def can_reach(self, state) -> bool:
+            if self in state.reachable_regions[self.player]:
+                return True
+            if not state.stale[self.player] and not state._hk_stale[self.player]:
+                # if the cache is updated we can use the cache
+                return super().can_reach(state)
+            if state._hk_stale[self.player]:
+                state._hk_sweep(self.player)
             return super().can_reach(state)
-        if state._hk_stale[self.player]:
-            state._hk_sweep(self.player)
-        return super().can_reach(state)
 
 
 shop_locations = multi_locations
@@ -521,6 +525,11 @@ class HKWorld(RandomizerCoreWorld):
                 continue
             for item in items:
                 assert item == "FALSE" or item in affecting_items_by_term or item in affected_terms_by_item or item in event_locations, f"{item} not found in advancements"
+            if SIMPLE_STATE_LOGIC and state_requirements:
+                for handler in state_requirements:
+                    # assume for now that there will only be additional items for now, we can change this api later
+                    handler.add_simple_item_reqs(items)
+                state_requirements = []
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
@@ -923,6 +932,8 @@ class HKWorld(RandomizerCoreWorld):
     def collect(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
+            if item.name in charm_name_to_id:
+                state.prog_items[player][f"CHARM{charm_name_to_id[item.name] + 1}"] += 1
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] += 1
@@ -940,13 +951,15 @@ class HKWorld(RandomizerCoreWorld):
 
                 for term in effects.keys():
                     state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[term])
-
-            state._hk_stale[item.player] = True
+            if not SIMPLE_STATE_LOGIC:
+                state._hk_stale[item.player] = True
         return item.advancement
 
     def remove(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
+            if item.name in charm_name_to_id:
+                state.prog_items[player][f"CHARM{charm_name_to_id[item.name] + 1}"] -= 1
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] -= 1
@@ -986,7 +999,8 @@ class HKWorld(RandomizerCoreWorld):
                 entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits
                 }
 
-            state._hk_stale[item.player] = True
+            if not SIMPLE_STATE_LOGIC:
+                state._hk_stale[item.player] = True
         return item.advancement
 
     def fill_slot_data(self):
