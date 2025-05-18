@@ -1,4 +1,4 @@
-SIMPLE_STATE_LOGIC = True
+SIMPLE_STATE_LOGIC = False
 
 # Shop cost types.
 shop_cost_types: dict[str, tuple[str, ...]] = {

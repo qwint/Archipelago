@@ -506,11 +506,6 @@ class HKWorld(RandomizerCoreWorld):
                 continue
             for item in items:
                 assert item == "FALSE" or item in affecting_items_by_term or item in affected_terms_by_item or item in event_locations, f"{item} not found in advancements"
-            if SIMPLE_STATE_LOGIC and state_requirements:
-                for handler in state_requirements:
-                    # assume for now that there will only be additional items for now, we can change this api later
-                    handler.add_simple_item_reqs(items)
-                state_requirements = []
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
@@ -522,11 +517,23 @@ class HKWorld(RandomizerCoreWorld):
     def set_rule(self, spot, rule):
         # set hk_rule instead of access_rule because our Location class defines a custom access_rule
         if isinstance(spot, HKEntrance):
+            if SIMPLE_STATE_LOGIC:
+                for i, clause in reversed(list(enumerate(rule))):
+                    if clause.hk_state_requirements:
+                        # skip all entrances with state requirements so we know they're always repeatable
+                        del rule[i]
             relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
             relevant_terms.update({term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.GetTerms()})
             for term in relevant_terms:
                 # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh
                 self.entrance_by_term[term].append(spot.name)
+        else:
+            if SIMPLE_STATE_LOGIC:
+                for clause in rule:
+                    if clause.hk_state_requirements:
+                        # assume for now that there will only be additional items for now, we can change this api later
+                        for handler in clause.hk_state_requirements:
+                            handler.add_simple_item_reqs(clause.hk_item_requirements)
 
         spot.set_hk_rule(rule)
 

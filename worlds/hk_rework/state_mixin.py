@@ -766,7 +766,8 @@ class EquipCharmVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state: CollectionState, player: int) -> bool:
-        return bool(item_state._hk_processed_item_cache[player][self.charm_name])
+        return item_state.has(self.charm_name, player)
+        # return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
     def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
         return self.try_equip(state_blob, item_state, player), state_blob
@@ -865,7 +866,7 @@ class EquipCharmVariable(RCStateVariable):
         return False
 
     def add_simple_item_reqs(self, items: Counter) -> None:
-        items[self.charm_key] = 1  # TODO this won't work until i make charms actually show up in state proper
+        items[self.charm_key] = 1
 
 
 class FragileCharmVariable(EquipCharmVariable):
@@ -936,14 +937,14 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     # def GetTerms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    # todo for later: make this functional, either in state blob or item state, whatever it ends up being
     def has_item(self, item_state: CollectionState, player: int) -> bool:
         if self.void:
             count = 3
         else:
             count = 2
-        return item_state._hk_processed_item_cache[player]["WHITEFRAGMENT"] >= count
+        return item_state.has(self.charm_name, player, count)
 
+    # TODO double check this is not necessary with has_item defined
     # def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
     #     # TODO figure this out
     #     # TODO actually
