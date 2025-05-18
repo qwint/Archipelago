@@ -12,7 +12,7 @@ field_defaults = {
     "MAXNOTCHCOST": 0,
     "USEDSHADE": 0,
     "OVERCHARMED": 0,
-    "SPENTALLSOUL": 0,
+    "CANNOTOVERCHARM": 0,
     "CANNOTREGAINSOUL": 0,
     "CANNOTSHADESKIP": 0,
     "BROKEHEART": 0,

@@ -1379,19 +1379,6 @@ regions = [
             {
                 "logic": [
                     {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$STAGSTATEMODIFIER"
-                        ]
-                    }
-                ],
-                "target": "Can_Stag"
-            },
-            {
-                "logic": [
-                    {
                         "item_requirements": [
                             "RIGHTDASH"
                         ],
@@ -2771,7 +2758,86 @@ regions = [
                 "target": "Mask_Shard-Waterways"
             },
             {
-                "logic": [],
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ENEMYPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[after:ROOMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[after:ROOMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$TAKEDAMAGE"
+                        ]
+                    }
+                ],
                 "target": "Geo_Rock-Waterways_Left"
             },
             {
@@ -12410,8 +12476,8 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
+                            "RIGHTDASH",
                             "LEFTSLASH",
                             "LEFTDASH"
                         ],
@@ -12422,8 +12488,8 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
+                            "RIGHTDASH",
                             "RIGHTSLASH",
                             "LEFTDASH"
                         ],
@@ -12434,8 +12500,8 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
+                            "RIGHTDASH",
                             "UPSLASH",
                             "LEFTDASH"
                         ],
@@ -12446,7 +12512,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "LEFTSLASH",
@@ -12459,7 +12524,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "RIGHTSLASH",
@@ -12472,7 +12536,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "UPSLASH",
@@ -12485,11 +12548,11 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Cyclone_Slash",
-                            "LEFTDASH"
+                            "LEFTDASH",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -12498,7 +12561,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Cyclone_Slash",
@@ -12511,11 +12573,11 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Great_Slash",
-                            "LEFTDASH"
+                            "LEFTDASH",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -12524,7 +12586,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Great_Slash",
@@ -12537,11 +12598,11 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "DIFFICULTSKIPS",
-                            "LEFTDASH"
+                            "LEFTDASH",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -12550,7 +12611,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "DIFFICULTSKIPS",
@@ -12563,8 +12623,8 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
+                            "RIGHTDASH",
                             "LEFTSLASH",
                             "LEFTDASH"
                         ],
@@ -12575,8 +12635,8 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
+                            "RIGHTDASH",
                             "RIGHTSLASH",
                             "LEFTDASH"
                         ],
@@ -12587,8 +12647,8 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
+                            "RIGHTDASH",
                             "UPSLASH",
                             "LEFTDASH"
                         ],
@@ -12599,7 +12659,6 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "LEFTSLASH",
@@ -12612,7 +12671,6 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "RIGHTSLASH",
@@ -12625,7 +12683,6 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "UPSLASH",
@@ -12638,11 +12695,11 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Cyclone_Slash",
-                            "LEFTDASH"
+                            "LEFTDASH",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -12651,7 +12708,6 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Cyclone_Slash",
@@ -12664,11 +12720,11 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Great_Slash",
-                            "LEFTDASH"
+                            "LEFTDASH",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -12677,7 +12733,6 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "Great_Slash",
@@ -12690,11 +12745,11 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "DIFFICULTSKIPS",
-                            "LEFTDASH"
+                            "LEFTDASH",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -12703,7 +12758,6 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH>1",
-                            "RIGHTDASH",
                             "SPELLS>1",
                             "PROFICIENTCOMBAT",
                             "DIFFICULTSKIPS",
@@ -13887,8 +13941,1686 @@ regions = [
         ]
     },
     {
+        "name": "Defeated_Xero",
+        "exits": [],
+        "locations": [
+            "Defeated_Xero"
+        ],
+        "transitions": []
+    },
+    {
+        "name": "RestingGrounds_02[top1]",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Cyclone_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Great_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Defeated_Xero"
+            },
+            {
+                "logic": [],
+                "target": "RestingGrounds_02"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "DREAMNAIL",
+                            "Defeated_Xero"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Boss_Essence-Xero"
+            }
+        ],
+        "locations": [],
+        "transitions": [
+            "RestingGrounds_02[top1]"
+        ]
+    },
+    {
         "name": "RestingGrounds_02",
         "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Cyclone_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Great_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Cyclone_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Great_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Cyclone_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Great_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Cyclone_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Great_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "FIREBALL",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "LEFTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "SCREAM",
+                            "RIGHTDASH",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "FIREBALL",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "PROFICIENTCOMBAT",
+                            "SCREAM",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "RIGHTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "UPSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Cyclone_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "BACKGROUNDPOGOS",
+                            "DREAMNAIL",
+                            "DIFFICULTSKIPS",
+                            "PROFICIENTCOMBAT",
+                            "Great_Slash"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Defeated_Xero"
+            },
             {
                 "logic": [
                     {
@@ -13958,9 +15690,7 @@ regions = [
                 "target": "Boss_Essence-Xero"
             }
         ],
-        "locations": [
-            "Defeated_Xero"
-        ],
+        "locations": [],
         "transitions": [
             "RestingGrounds_02[right1]",
             "RestingGrounds_02[left1]"
@@ -14804,19 +16534,6 @@ regions = [
                     }
                 ],
                 "target": "Defeated_Marmu"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$STAGSTATEMODIFIER"
-                        ]
-                    }
-                ],
-                "target": "Can_Stag"
             },
             {
                 "logic": [],
@@ -18141,6 +19858,14 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
+                            "Stag_Nest_Stag"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
                             "STAGS>8"
                         ],
                         "location_requirements": [],
@@ -18377,6 +20102,28 @@ regions = [
         "transitions": [
             "Fungus2_02[right1]"
         ]
+    },
+    {
+        "name": "Queen's_Gardens_Stag",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$STAGSTATEMODIFIER"
+                        ]
+                    }
+                ],
+                "target": "Can_Stag"
+            }
+        ],
+        "locations": [
+            "Queen's_Gardens_Stag"
+        ],
+        "transitions": []
     },
     {
         "name": "Ruins1_29[left1]",
@@ -18939,7 +20686,7 @@ regions = [
                     {
                         "item_requirements": [
                             "Broke_Crypts_One_Way_Floor",
-                            "LEFTCLAW"
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -18948,7 +20695,18 @@ regions = [
                     {
                         "item_requirements": [
                             "Broke_Crypts_One_Way_Floor",
-                            "RIGHTCLAW"
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Broke_Crypts_One_Way_Floor",
+                            "LEFTCLAW",
+                            "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -21390,6 +23148,34 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[before:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[before:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
                             "Broke_Pilgrim's_Way_Quake_Floor"
                         ],
                         "location_requirements": [],
@@ -21400,6 +23186,129 @@ regions = [
                     }
                 ],
                 "target": "Fungus2_21[left1]"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTSUPERDASH",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "WINGS",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[before:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM",
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[before:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Broke_Pilgrim's_Way_Quake_Floor",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[7,before:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Broke_Pilgrim's_Way_Quake_Floor",
+                            "WINGS",
+                            "LEFTDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[7,before:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Broke_Pilgrim's_Way_Quake_Floor"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[7,before:ITEMSOUL]",
+                            "$SHRIEKPOGO[2,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Broke_Pilgrim's_Way_Quake_Floor",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[7,before:ITEMSOUL]",
+                            "$SHRIEKPOGO[1,before:AREASOUL]"
+                        ]
+                    }
+                ],
+                "target": "Soul_Totem-Pilgrim's_Way"
             }
         ],
         "locations": [
@@ -22200,6 +24109,19 @@ regions = [
         ],
         "transitions": [
             "Cliffs_04[right1]"
+        ]
+    },
+    {
+        "name": "Deepnest_45_v02[left1]",
+        "exits": [],
+        "locations": [
+            "Broke_Weavers_Den_Secret_Wall",
+            "Weaversong",
+            "Geo_Chest-Weavers_Den",
+            "Rancid_Egg-Weaver's_Den"
+        ],
+        "transitions": [
+            "Deepnest_45_v02[left1]"
         ]
     },
     {
@@ -24647,14 +26569,117 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "LEFTCLAW",
-                            "RIGHTCLAW",
                             "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "LEFTCLAW",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "LEFTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTDASH",
+                            "LEFTCLAW",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "LEFTCLAW",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
                     },
                     {
                         "item_requirements": [
@@ -27281,8 +29306,9 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
+                            "WINGS",
                             "LEFTCLAW",
-                            "RIGHTCLAW"
+                            "RIGHTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27293,7 +29319,8 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "LEFTCLAW"
+                            "RIGHTCLAW",
+                            "LEFTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27304,7 +29331,58 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "RIGHTCLAW"
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27315,7 +29393,123 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "COMPLEXSKIPS"
+                            "LEFTCLAW",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "LEFTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]",
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "LEFTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]",
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "RIGHTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]",
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27385,8 +29579,9 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
+                            "WINGS",
                             "LEFTCLAW",
-                            "RIGHTCLAW"
+                            "RIGHTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27397,7 +29592,8 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "LEFTCLAW"
+                            "RIGHTCLAW",
+                            "LEFTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27408,7 +29604,58 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "RIGHTCLAW"
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -27419,7 +29666,123 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "COMPLEXSKIPS"
+                            "LEFTCLAW",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "LEFTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "LEFTSLASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]",
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "LEFTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]",
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "RIGHTDASH>1",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]",
+                            "$BENCHRESET"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "COMPLEXSKIPS",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -28037,6 +30400,15 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
                             "RIGHTSUPERDASH"
                         ],
                         "location_requirements": [],
@@ -28746,7 +31118,8 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "Cyclone_Slash"
+                            "Cyclone_Slash",
+                            "OBSCURESKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -28754,7 +31127,8 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "Great_Slash"
+                            "Great_Slash",
+                            "OBSCURESKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -29201,6 +31575,14 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP"
+                        ]
                     },
                     {
                         "item_requirements": [
@@ -30570,6 +32952,410 @@ regions = [
         ]
     },
     {
+        "name": "Fungus2_21[left1]",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTDASH",
+                            "LEFTDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[1,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "WINGS",
+                            "LEFTDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[1,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "ACID",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ACID",
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ACID",
+                            "WINGS",
+                            "LEFTDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ACID"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "ACID",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[1,before:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "OBSCURESKIPS",
+                            "DANGEROUSSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,1,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,1,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    }
+                ],
+                "target": "Soul_Totem-Pilgrim's_Way"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ACID",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "OBSCURESKIPS",
+                            "DANGEROUSSKIPS",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,1,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "FIREBALLSKIPS",
+                            "SCREAM",
+                            "CREST"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,1,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    }
+                ],
+                "target": "Fungus2_21[right1]"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,1,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2,1,before:AREASOUL,after:ITEMSOUL]"
+                        ]
+                    }
+                ],
+                "target": "Fungus2_21[left1]"
+            }
+        ],
+        "locations": [
+            "Lore_Tablet-Pilgrim's_Way_2"
+        ],
+        "transitions": [
+            "Fungus2_21[left1]"
+        ]
+    },
+    {
         "name": "Fungus2_23[right2]",
         "exits": [
             {
@@ -30589,6 +33375,155 @@ regions = [
         "locations": [],
         "transitions": [
             "Fungus2_23[right2]"
+        ]
+    },
+    {
+        "name": "Fungus2_29",
+        "exits": [
+            {
+                "logic": [],
+                "target": "Fungus2_29[right1]"
+            },
+            {
+                "logic": [],
+                "target": "Fungus2_29[bot1]"
+            }
+        ],
+        "locations": [
+            "Rancid_Egg-Fungal_Core",
+            "Geo_Rock-Fungal_Core_Entrance",
+            "Soul_Totem-Fungal_Core"
+        ],
+        "transitions": []
+    },
+    {
+        "name": "Fungus2_29[right1]",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[3,before:MAPAREASOUL]"
+                        ]
+                    }
+                ],
+                "target": "Fungus2_29"
+            }
+        ],
+        "locations": [],
+        "transitions": [
+            "Fungus2_29[right1]"
+        ]
+    },
+    {
+        "name": "Fungus2_29[bot1]",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "ENEMYPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:ROOMSOUL]"
+                        ]
+                    }
+                ],
+                "target": "Fungus2_29"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Fungus2_29[right1]"
+            }
+        ],
+        "locations": [],
+        "transitions": [
+            "Fungus2_29[bot1]"
         ]
     },
     {
@@ -36477,6 +39412,42 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "ENEMYPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
                     }
                 ],
                 "target": "Hive_03_c[left1]"
@@ -36797,7 +39768,7 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Heart]"
+                            "$LIFEBLOOD"
                         ]
                     },
                     {
@@ -36810,7 +39781,7 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Heart]"
+                            "$LIFEBLOOD"
                         ]
                     },
                     {
@@ -36820,79 +39791,7 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "PRECISEMOVEMENT",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Core]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Core]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Core]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "PRECISEMOVEMENT",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Joni's_Blessing]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Joni's_Blessing]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Joni's_Blessing]"
+                            "$LIFEBLOOD"
                         ]
                     }
                 ],
@@ -37026,27 +39925,7 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "King's_Brand"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Lifeblood_Core]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "King's_Brand"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Joni's_Blessing]"
+                            "$LIFEBLOOD"
                         ]
                     }
                 ],
@@ -37832,6 +40711,50 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "LEFTCLAW",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
                             "WINGS"
                         ],
                         "location_requirements": [],
@@ -37843,8 +40766,7 @@ regions = [
                             "RIGHTCLAW",
                             "SWIM",
                             "LEFTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -37862,6 +40784,115 @@ regions = [
                         "region_requirements": [],
                         "state_modifiers": [
                             "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "SWIM",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "SWIM",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "DAMAGEBOOSTS",
+                            "RIGHTDASH",
+                            "LEFTCLAW",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP",
+                            "$TAKEDAMAGE"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "DAMAGEBOOSTS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL",
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL",
+                            "$SHADESKIP",
+                            "$TAKEDAMAGE"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "DAMAGEBOOSTS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL",
+                            "$SHADESKIP",
+                            "$TAKEDAMAGE"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "DAMAGEBOOSTS",
+                            "FIREBALLSKIPS",
+                            "SCREAM",
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL",
+                            "$SHADESKIP",
+                            "$TAKEDAMAGE"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "DAMAGEBOOSTS",
+                            "FIREBALLSKIPS",
+                            "SCREAM",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL",
+                            "$SHADESKIP",
+                            "$TAKEDAMAGE"
                         ]
                     }
                 ],
@@ -38497,8 +41528,7 @@ regions = [
                             "LEFTSUPERDASH",
                             "LEFTCLAW",
                             "RIGHTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38517,11 +41547,34 @@ regions = [
                     {
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
+                            "LEFTSUPERDASH",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
+                            "LEFTSUPERDASH",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
                             "SWIM",
                             "LEFTCLAW",
                             "RIGHTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38540,11 +41593,34 @@ regions = [
                     {
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
+                            "SWIM",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
+                            "SWIM",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
                             "LEFTDASH>1",
                             "LEFTDASH",
                             "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "RIGHTDASH"
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38557,6 +41633,66 @@ regions = [
                         "item_requirements": [
                             "Lit_Abyss_Lighthouse",
                             "LEFTDASH>1",
+                            "LEFTDASH",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
+                            "LEFTDASH>1",
+                            "LEFTDASH",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
+                            "LEFTDASH>1",
+                            "LEFTDASH",
+                            "RIGHTCLAW",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
+                            "RIGHTDASH>1",
+                            "LEFTDASH",
+                            "LEFTCLAW",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "Lit_Abyss_Lighthouse",
+                            "RIGHTDASH>1",
                             "LEFTDASH",
                             "WINGS"
                         ],
@@ -38573,8 +41709,8 @@ regions = [
                             "RIGHTDASH>1",
                             "LEFTDASH",
                             "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "RIGHTDASH"
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38588,7 +41724,8 @@ regions = [
                             "Lit_Abyss_Lighthouse",
                             "RIGHTDASH>1",
                             "LEFTDASH",
-                            "WINGS"
+                            "RIGHTCLAW",
+                            "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38602,8 +41739,7 @@ regions = [
                             "LEFTSUPERDASH",
                             "LEFTCLAW",
                             "RIGHTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38624,11 +41760,36 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
                             "SWIM",
                             "LEFTCLAW",
                             "RIGHTCLAW",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38649,11 +41810,36 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "SWIM",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "SWIM",
+                            "RIGHTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
                             "LEFTDASH>1",
                             "LEFTDASH",
                             "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "RIGHTDASH"
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38679,11 +41865,41 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "LEFTDASH>1",
+                            "LEFTDASH",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]",
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTDASH>1",
+                            "LEFTDASH",
+                            "RIGHTCLAW",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]",
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
                             "RIGHTDASH>1",
                             "LEFTDASH",
                             "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "RIGHTDASH"
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -38698,6 +41914,37 @@ regions = [
                             "RIGHTDASH>1",
                             "LEFTDASH",
                             "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]",
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH>1",
+                            "LEFTDASH",
+                            "LEFTCLAW",
+                            "RIGHTDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Void_Heart]",
+                            "$EQUIPPEDCHARM[Sharp_Shadow]",
+                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH>1",
+                            "LEFTDASH",
+                            "RIGHTCLAW",
+                            "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -39038,6 +42285,15 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
                             "SPIKETUNNELS"
                         ],
                         "location_requirements": [],
@@ -39191,6 +42447,15 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -39790,6 +43055,16 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
                             "SPIKETUNNELS"
                         ],
                         "location_requirements": [],
@@ -39801,6 +43076,16 @@ regions = [
                             "LEFTCLAW",
                             "WINGS",
                             "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "WINGS",
+                            "RIGHTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -40912,6 +44197,16 @@ regions = [
                         "item_requirements": [
                             "RIGHTSUPERDASH",
                             "WINGS",
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "WINGS",
                             "SPIKETUNNELS"
                         ],
                         "location_requirements": [],
@@ -40923,6 +44218,16 @@ regions = [
                             "RIGHTSUPERDASH",
                             "RIGHTCLAW",
                             "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "RIGHTCLAW",
+                            "LEFTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -42236,6 +45541,17 @@ regions = [
                         "item_requirements": [
                             "LEFTSUPERDASH",
                             "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "WINGS",
                             "SPIKETUNNELS"
                         ],
                         "location_requirements": [],
@@ -42247,6 +45563,17 @@ regions = [
                             "LEFTSUPERDASH",
                             "RIGHTCLAW",
                             "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "RIGHTCLAW",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -47530,33 +50857,6 @@ regions = [
         ]
     },
     {
-        "name": "RestingGrounds_02[top1]",
-        "exits": [
-            {
-                "logic": [],
-                "target": "RestingGrounds_02"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "DREAMNAIL",
-                            "Defeated_Xero"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Boss_Essence-Xero"
-            }
-        ],
-        "locations": [],
-        "transitions": [
-            "RestingGrounds_02[top1]"
-        ]
-    },
-    {
         "name": "RestingGrounds_02[bot1]",
         "exits": [
             {
@@ -48512,6 +51812,43 @@ regions = [
         "name": "Mines_11",
         "exits": [
             {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "ENEMYPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Mines_11[top1]"
+            },
+            {
                 "logic": [],
                 "target": "Mines_11[bot1]"
             }
@@ -48520,8 +51857,7 @@ regions = [
             "Shopkeeper's_Key"
         ],
         "transitions": [
-            "Mines_11[right1]",
-            "Mines_11[top1]"
+            "Mines_11[right1]"
         ]
     },
     {
@@ -48561,6 +51897,19 @@ regions = [
         "locations": [],
         "transitions": [
             "Mines_11[bot1]"
+        ]
+    },
+    {
+        "name": "Mines_11[top1]",
+        "exits": [
+            {
+                "logic": [],
+                "target": "Mines_11"
+            }
+        ],
+        "locations": [],
+        "transitions": [
+            "Mines_11[top1]"
         ]
     },
     {
@@ -49005,6 +52354,370 @@ regions = [
         ]
     },
     {
+        "name": "Mines_31",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL"
+                        ]
+                    }
+                ],
+                "target": "Crystal_Heart"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL"
+                        ]
+                    }
+                ],
+                "target": "Split_Crystal_Heart"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "PRECISEMOVEMENT",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL"
+                        ]
+                    }
+                ],
+                "target": "Soul_Totem-Crystal_Heart_2"
+            }
+        ],
+        "locations": [
+            "Soul_Totem-Crystal_Heart_1"
+        ],
+        "transitions": []
+    },
+    {
+        "name": "Mines_31[left1]",
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[2]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[4,before:AREASOUL]"
+                        ]
+                    }
+                ],
+                "target": "Mines_31"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Crystal_Heart"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Split_Crystal_Heart"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTSUPERDASH",
+                            "RIGHTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Soul_Totem-Crystal_Heart_2"
+            }
+        ],
+        "locations": [
+            "Grub-Crystal_Heart",
+            "Geo_Rock-Crystal_Peak_Before_Crystal_Heart"
+        ],
+        "transitions": [
+            "Mines_31[left1]"
+        ]
+    },
+    {
         "name": "Fungus3_04",
         "exits": [],
         "locations": [],
@@ -49373,6 +53086,14 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP"
+                        ]
                     }
                 ],
                 "target": "Fungus3_34[left1]"
@@ -49433,6 +53154,14 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]"
+                        ]
                     }
                 ],
                 "target": "Rancid_Egg-Queen's_Gardens"
@@ -49471,6 +53200,14 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP"
+                        ]
                     }
                 ],
                 "target": "Fungus3_34"
@@ -49505,6 +53242,17 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP[2HITS]"
+                        ]
                     },
                     {
                         "item_requirements": [
@@ -56967,6 +60715,17 @@ regions = [
                         "state_modifiers": [
                             "$EQUIPPEDCHARM[Spore_Shroom]"
                         ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Spore_Shroom]"
+                        ]
                     }
                 ],
                 "target": "Lore_Tablet-Fungal_Wastes_Hidden"
@@ -57051,6 +60810,17 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
+                            "ENEMYPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Spore_Shroom]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
                             "ENEMYPOGOS"
                         ],
                         "location_requirements": [],
@@ -57230,329 +61000,12 @@ regions = [
         ]
     },
     {
-        "name": "Fungus2_21[left1]",
-        "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "RIGHTDASH",
-                            "CREST"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "CREST"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "ACID",
-                            "CREST"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS",
-                            "FIREBALLSKIPS",
-                            "FIREBALL",
-                            "CREST"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$CASTSPELL[3,before:AREASOUL,after:ITEMSOUL]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS",
-                            "FIREBALLSKIPS",
-                            "SCREAM",
-                            "CREST"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$CASTSPELL[3,before:AREASOUL,after:ITEMSOUL]"
-                        ]
-                    }
-                ],
-                "target": "Fungus2_21[right1]"
-            }
-        ],
-        "locations": [
-            "Soul_Totem-Pilgrim's_Way",
-            "Lore_Tablet-Pilgrim's_Way_2"
-        ],
-        "transitions": [
-            "Fungus2_21[left1]"
-        ]
-    },
-    {
         "name": "Fungus2_28[left1]",
         "exits": [],
         "locations": [],
         "transitions": [
             "Fungus2_28[left1]",
             "Fungus2_28[left2]"
-        ]
-    },
-    {
-        "name": "Fungus2_29[right1]",
-        "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[3,before:MAPAREASOUL,after:AREASOUL]"
-                        ]
-                    }
-                ],
-                "target": "Fungus2_29[bot1]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[3,before:MAPAREASOUL]"
-                        ]
-                    }
-                ],
-                "target": "Rancid_Egg-Fungal_Core"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[3,before:MAPAREASOUL]"
-                        ]
-                    }
-                ],
-                "target": "Geo_Rock-Fungal_Core_Entrance"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[3,before:MAPAREASOUL]"
-                        ]
-                    }
-                ],
-                "target": "Soul_Totem-Fungal_Core"
-            }
-        ],
-        "locations": [],
-        "transitions": [
-            "Fungus2_29[right1]"
-        ]
-    },
-    {
-        "name": "Fungus2_29[bot1]",
-        "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "RIGHTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Fungus2_29[right1]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                        ]
-                    }
-                ],
-                "target": "Rancid_Egg-Fungal_Core"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
-                            "ENEMYPOGOS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Geo_Rock-Fungal_Core_Entrance"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                        ]
-                    }
-                ],
-                "target": "Soul_Totem-Fungal_Core"
-            }
-        ],
-        "locations": [],
-        "transitions": [
-            "Fungus2_29[bot1]"
         ]
     },
     {
@@ -57602,7 +61055,24 @@ regions = [
     },
     {
         "name": "Deepnest_10[right3]",
-        "exits": [],
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "RIGHTCLAW",
+                            "WINGS",
+                            "LEFTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Soul_Totem-Distant_Village"
+            }
+        ],
         "locations": [],
         "transitions": [
             "Deepnest_10[right3]"
@@ -58690,18 +62160,6 @@ regions = [
         ],
         "transitions": [
             "Deepnest_44[top1]"
-        ]
-    },
-    {
-        "name": "Deepnest_45_v02[left1]",
-        "exits": [],
-        "locations": [
-            "Weaversong",
-            "Geo_Chest-Weavers_Den",
-            "Rancid_Egg-Weaver's_Den"
-        ],
-        "transitions": [
-            "Deepnest_45_v02[left1]"
         ]
     },
     {
@@ -66442,9 +69900,21 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
-                            "RIGHTCLAW",
                             "LEFTDASH",
-                            "PRECISEMOVEMENT"
+                            "PRECISEMOVEMENT",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW",
+                            "LEFTDASH",
+                            "PRECISEMOVEMENT",
+                            "LEFTSLASH",
+                            "DIFFICULTSKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -66636,21 +70106,6 @@ regions = [
         "locations": [],
         "transitions": [
             "Mines_30[right1]"
-        ]
-    },
-    {
-        "name": "Mines_31[left1]",
-        "exits": [],
-        "locations": [
-            "Crystal_Heart",
-            "Grub-Crystal_Heart",
-            "Split_Crystal_Heart",
-            "Geo_Rock-Crystal_Peak_Before_Crystal_Heart",
-            "Soul_Totem-Crystal_Heart_1",
-            "Soul_Totem-Crystal_Heart_2"
-        ],
-        "transitions": [
-            "Mines_31[left1]"
         ]
     },
     {
@@ -67957,12 +71412,32 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "RIGHTDASH",
-                            "WINGS"
+                            "WINGS",
+                            "RIGHTDASH"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "OBSCURESKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
                     }
                 ],
                 "target": "White_Palace_04[right2]"
@@ -68011,6 +71486,95 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTDASH",
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "LEFTSUPERDASH",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "PRECISEMOVEMENT",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "PRECISEMOVEMENT",
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "WINGS",
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "WINGS",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "WINGS",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "LEFTSUPERDASH",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
                     }
                 ],
                 "target": "White_Palace_04[top1]"
@@ -68046,6 +71610,89 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTDASH",
+                            "OBSCURESKIPS",
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "LEFTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "PRECISEMOVEMENT",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTSUPERDASH",
+                            "PRECISEMOVEMENT",
+                            "OBSCURESKIPS",
+                            "RIGHTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "WINGS",
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "WINGS",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "WINGS",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "OBSCURESKIPS",
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "LEFTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
                     }
                 ],
                 "target": "Soul_Totem-White_Palace_Left"
@@ -68063,8 +71710,6 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "LEFTCLAW",
-                            "LEFTDASH",
                             "RIGHTDASH"
                         ],
                         "location_requirements": [],
@@ -68073,8 +71718,7 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "LEFTCLAW",
-                            "PRECISEMOVEMENT"
+                            "WINGS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -68082,17 +71726,6 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "WINGS",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
                             "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
@@ -68115,10 +71748,9 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "LEFTCLAW",
-                            "RIGHTCLAW",
                             "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTCLAW",
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -68127,8 +71759,16 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -68449,7 +72089,36 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
-                            "LEFTDASH",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
                             "RIGHTDASH"
                         ],
                         "location_requirements": [],
@@ -68459,12 +72128,290 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "LEFTDASH",
-                            "RIGHTDASH"
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTSUPERDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTDASH",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "LEFTCLAW",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "RIGHTSUPERDASH",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "OBSCURESKIPS",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "OBSCURESKIPS",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "RIGHTDASH",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]",
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "RIGHTDASH",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]",
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]",
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "LEFTCLAW",
+                            "RIGHTSUPERDASH",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]",
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "FIREBALLSKIPS",
+                            "FIREBALL"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]",
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "DANGEROUSSKIPS",
+                            "DIFFICULTSKIPS",
+                            "FIREBALLSKIPS",
+                            "SCREAM"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$EQUIPPEDCHARM[Dashmaster]",
+                            "$EQUIPPEDCHARM[Sprintmaster]",
+                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
+                        ]
                     }
                 ],
                 "target": "White_Palace_14[right1]"
@@ -68594,6 +72541,55 @@ regions = [
                     }
                 ],
                 "target": "White_Palace_15[left1]"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "LEFTCLAW",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SLOPEBALL[before:AREASOUL,after:ROOMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SLOPEBALL[before:AREASOUL,after:ROOMSOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL]"
+                        ]
+                    }
+                ],
+                "target": "White_Palace_15[right1]"
             }
         ],
         "locations": [],
@@ -68976,6 +72972,14 @@ regions = [
         ]
     },
     {
+        "name": "Crystal_Heart",
+        "exits": [],
+        "locations": [
+            "Crystal_Heart"
+        ],
+        "transitions": []
+    },
+    {
         "name": "Shade_Cloak",
         "exits": [],
         "locations": [
@@ -69185,14 +73189,6 @@ regions = [
         "exits": [],
         "locations": [
             "Rancid_Egg-Sheo"
-        ],
-        "transitions": []
-    },
-    {
-        "name": "Rancid_Egg-Fungal_Core",
-        "exits": [],
-        "locations": [
-            "Rancid_Egg-Fungal_Core"
         ],
         "transitions": []
     },
@@ -69626,14 +73622,6 @@ regions = [
         "transitions": []
     },
     {
-        "name": "Queen's_Gardens_Stag",
-        "exits": [],
-        "locations": [
-            "Queen's_Gardens_Stag"
-        ],
-        "transitions": []
-    },
-    {
         "name": "City_Storerooms_Stag",
         "exits": [],
         "locations": [
@@ -69726,6 +73714,14 @@ regions = [
         "exits": [],
         "locations": [
             "Grimmkin_Flame-Hive"
+        ],
+        "transitions": []
+    },
+    {
+        "name": "Split_Crystal_Heart",
+        "exits": [],
+        "locations": [
+            "Split_Crystal_Heart"
         ],
         "transitions": []
     },
@@ -70096,14 +74092,6 @@ regions = [
         "transitions": []
     },
     {
-        "name": "Geo_Rock-Fungal_Core_Entrance",
-        "exits": [],
-        "locations": [
-            "Geo_Rock-Fungal_Core_Entrance"
-        ],
-        "transitions": []
-    },
-    {
         "name": "Geo_Rock-Queen's_Gardens_Above_Marmu",
         "exits": [],
         "locations": [
@@ -70454,10 +74442,10 @@ regions = [
         "transitions": []
     },
     {
-        "name": "Soul_Totem-Fungal_Core",
+        "name": "Soul_Totem-Pilgrim's_Way",
         "exits": [],
         "locations": [
-            "Soul_Totem-Fungal_Core"
+            "Soul_Totem-Pilgrim's_Way"
         ],
         "transitions": []
     },
@@ -70490,6 +74478,14 @@ regions = [
         "exits": [],
         "locations": [
             "Soul_Totem-Hallownest_Crown"
+        ],
+        "transitions": []
+    },
+    {
+        "name": "Soul_Totem-Crystal_Heart_2",
+        "exits": [],
+        "locations": [
+            "Soul_Totem-Crystal_Heart_2"
         ],
         "transitions": []
     },
@@ -70717,6 +74713,7 @@ locations = [
             {
                 "item_requirements": [
                     "COMPLEXSKIPS",
+                    "DAMAGEBOOSTS",
                     "LEFTCLAW",
                     "RIGHTCLAW",
                     "FIREBALLSKIPS",
@@ -70733,6 +74730,7 @@ locations = [
             {
                 "item_requirements": [
                     "COMPLEXSKIPS",
+                    "DAMAGEBOOSTS",
                     "LEFTCLAW",
                     "RIGHTCLAW",
                     "FIREBALLSKIPS",
@@ -75510,261 +79508,7 @@ locations = [
     },
     {
         "name": "Defeated_Xero",
-        "logic": [
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "FIREBALL",
-                    "LEFTDASH",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "FIREBALL",
-                    "LEFTDASH",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "FIREBALL",
-                    "LEFTDASH",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "FIREBALL",
-                    "RIGHTDASH",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "FIREBALL",
-                    "RIGHTDASH",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "FIREBALL",
-                    "RIGHTDASH",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "SCREAM",
-                    "LEFTDASH",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "SCREAM",
-                    "LEFTDASH",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "SCREAM",
-                    "LEFTDASH",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "SCREAM",
-                    "RIGHTDASH",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "SCREAM",
-                    "RIGHTDASH",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "SCREAM",
-                    "RIGHTDASH",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "PROFICIENTCOMBAT",
-                    "FIREBALL",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "PROFICIENTCOMBAT",
-                    "FIREBALL",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "PROFICIENTCOMBAT",
-                    "FIREBALL",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "PROFICIENTCOMBAT",
-                    "SCREAM",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "PROFICIENTCOMBAT",
-                    "SCREAM",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "PROFICIENTCOMBAT",
-                    "SCREAM",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "DIFFICULTSKIPS",
-                    "PROFICIENTCOMBAT",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "DIFFICULTSKIPS",
-                    "PROFICIENTCOMBAT",
-                    "RIGHTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "DIFFICULTSKIPS",
-                    "PROFICIENTCOMBAT",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "DIFFICULTSKIPS",
-                    "PROFICIENTCOMBAT",
-                    "Cyclone_Slash"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "DREAMNAIL",
-                    "DIFFICULTSKIPS",
-                    "PROFICIENTCOMBAT",
-                    "Great_Slash"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            }
-        ],
+        "logic": [],
         "is_event": True
     },
     {
@@ -78899,6 +82643,129 @@ locations = [
         "is_event": True
     },
     {
+        "name": "Broke_Weavers_Den_Secret_Wall",
+        "logic": [
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "WINGS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "WINGS",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "ENEMYPOGOS",
+                    "LEFTSUPERDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "ENEMYPOGOS",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "ENEMYPOGOS",
+                    "DIFFICULTSKIPS",
+                    "LEFTSUPERDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "SCREAM"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$CASTSPELL[before:AREASOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "SCREAM"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$CASTSPELL[before:AREASOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "FIREBALL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$CASTSPELL[before:AREASOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "ENEMYPOGOS",
+                    "FIREBALL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$CASTSPELL[before:AREASOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "ENEMYPOGOS",
+                    "DIFFICULTSKIPS",
+                    "FIREBALL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$CASTSPELL[before:AREASOUL]"
+                ]
+            }
+        ],
+        "is_event": True
+    },
+    {
         "name": "Broke_Basin_Grub_Quake_Floor",
         "logic": [
             {
@@ -80381,9 +84248,70 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW",
+                    "RIGHTSUPERDASH",
                     "Herrah"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH",
+                    "Herrah"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "Herrah"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "LEFTDASH>1"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH>1"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -80455,20 +84383,6 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "LEFTCLAW",
-                    "Herrah"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "LEFTCLAW",
                     "LEFTSLASH"
                 ],
                 "location_requirements": [],
@@ -80527,51 +84441,7 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "RIGHTCLAW",
-                    "Herrah"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
                     "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "LEFTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "LEFTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -80590,21 +84460,6 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "COMPLEXSKIPS",
-                    "Herrah"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHADESKIP[2HITS]",
                     "$BENCHRESET",
                     "$SHRIEKPOGO[1,2,2]",
                     "$SHRIEKPOGO[3,before:ROOMSOUL]"
@@ -80848,76 +84703,7 @@ locations = [
     },
     {
         "name": "Crystal_Heart",
-        "logic": [
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2,1]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2,1]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHADESKIP[2HITS]"
-                ]
-            },
-            {
-                "item_requirements": [],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[4,before:AREASOUL]"
-                ]
-            }
-        ],
+        "logic": [],
         "is_event": False
     },
     {
@@ -82517,8 +86303,8 @@ locations = [
             },
             {
                 "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS"
+                    "WINGS",
+                    "LEFTCLAW"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -82528,6 +86314,16 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "ENEMYPOGOS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "ENEMYPOGOS",
+                    "DIFFICULTSKIPS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -83486,6 +87282,7 @@ locations = [
             {
                 "item_requirements": [
                     "RIGHTCLAW",
+                    "Broke_Weavers_Den_Secret_Wall",
                     "LEFTDASH",
                     "WINGS"
                 ],
@@ -83496,6 +87293,7 @@ locations = [
             {
                 "item_requirements": [
                     "RIGHTCLAW",
+                    "Broke_Weavers_Den_Secret_Wall",
                     "LEFTSUPERDASH",
                     "LEFTDASH"
                 ],
@@ -83506,6 +87304,7 @@ locations = [
             {
                 "item_requirements": [
                     "RIGHTCLAW",
+                    "Broke_Weavers_Den_Secret_Wall",
                     "LEFTSUPERDASH",
                     "SPIKETUNNELS"
                 ],
@@ -83516,7 +87315,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW",
+                    "ENEMYPOGOS",
+                    "Broke_Weavers_Den_Secret_Wall",
                     "LEFTDASH"
                 ],
                 "location_requirements": [],
@@ -83526,7 +87326,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW",
+                    "ENEMYPOGOS",
+                    "Broke_Weavers_Den_Secret_Wall",
                     "LEFTSUPERDASH",
                     "SPIKETUNNELS"
                 ],
@@ -83536,118 +87337,85 @@ locations = [
             },
             {
                 "item_requirements": [
-                    "WINGS",
+                    "LEFTCLAW",
                     "ENEMYPOGOS",
-                    "LEFTDASH",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "LEFTDASH",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
+                    "DIFFICULTSKIPS",
+                    "Broke_Weavers_Den_Secret_Wall",
                     "LEFTSUPERDASH",
-                    "SPIKETUNNELS",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "LEFTSUPERDASH",
-                    "SPIKETUNNELS",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
                     "LEFTDASH",
-                    "FIREBALL"
+                    "DANGEROUSSKIPS",
+                    "COMPLEXSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "Broke_Weavers_Den_Secret_Wall",
+                    "FIREBALLSKIPS",
+                    "WINGS",
+                    "FIREBALL",
+                    "SPIKETUNNELS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "$CASTSPELL[before:ROOMSOUL]"
+                    "$CASTSPELL[3,before:AREASOUL]"
                 ]
             },
             {
                 "item_requirements": [
                     "WINGS",
                     "ENEMYPOGOS",
-                    "LEFTDASH",
-                    "SCREAM"
+                    "Broke_Weavers_Den_Secret_Wall",
+                    "FIREBALLSKIPS",
+                    "FIREBALL",
+                    "SPIKETUNNELS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "$CASTSPELL[before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "LEFTSUPERDASH",
-                    "SPIKETUNNELS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "LEFTSUPERDASH",
-                    "SPIKETUNNELS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[before:ROOMSOUL]"
+                    "$CASTSPELL[3,before:AREASOUL]"
                 ]
             },
             {
                 "item_requirements": [
                     "RIGHTCLAW",
-                    "LEFTDASH"
+                    "Broke_Weavers_Den_Secret_Wall",
+                    "FIREBALLSKIPS",
+                    "WINGS",
+                    "SCREAM",
+                    "SPIKETUNNELS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "$SHRIEKPOGO[3,before:AREASOUL]"
+                    "$CASTSPELL[4,before:AREASOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "ENEMYPOGOS",
+                    "Broke_Weavers_Den_Secret_Wall",
+                    "FIREBALLSKIPS",
+                    "SCREAM",
+                    "SPIKETUNNELS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$CASTSPELL[4,before:AREASOUL]"
                 ]
             },
             {
                 "item_requirements": [
                     "RIGHTCLAW",
+                    "Broke_Weavers_Den_Secret_Wall",
+                    "FIREBALLSKIPS",
+                    "WINGS",
                     "SPIKETUNNELS"
                 ],
                 "location_requirements": [],
@@ -83659,67 +87427,15 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW",
+                    "ENEMYPOGOS",
+                    "Broke_Weavers_Den_Secret_Wall",
+                    "FIREBALLSKIPS",
                     "SPIKETUNNELS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
                     "$SHRIEKPOGO[3,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "SPIKETUNNELS",
-                    "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[3,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "SPIKETUNNELS",
-                    "UPSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[3,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "SPIKETUNNELS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[3,before:AREASOUL]",
-                    "$CASTSPELL[before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "ENEMYPOGOS",
-                    "SPIKETUNNELS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[3,before:AREASOUL]",
-                    "$CASTSPELL[before:ROOMSOUL]"
                 ]
             }
         ],
@@ -84329,32 +88045,7 @@ locations = [
     },
     {
         "name": "Wanderer's_Journal-Crystal_Peak_Crawlers",
-        "logic": [
-            {
-                "item_requirements": [
-                    "RIGHTCLAW"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "ENEMYPOGOS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            }
-        ],
+        "logic": [],
         "is_event": False
     },
     {
@@ -85045,6 +88736,32 @@ locations = [
                 "state_modifiers": []
             },
             {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTDASH",
+                    "ENEMYPOGOS",
+                    "COMPLEXSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTDASH",
+                    "ENEMYPOGOS",
+                    "COMPLEXSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]"
+                ]
+            },
+            {
                 "item_requirements": [],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -85131,6 +88848,16 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "OBSCURESKIPS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -87080,6 +90807,18 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "LEFTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "OBSCURESKIPS",
+                    "DREAMNAIL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
                     "WINGS",
                     "LEFTCLAW",
                     "DREAMNAIL"
@@ -87244,6 +90983,17 @@ locations = [
                     "WINGS",
                     "LEFTDASH",
                     "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTCLAW",
+                    "OBSCURESKIPS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -89101,8 +92851,8 @@ locations = [
         "logic": [
             {
                 "item_requirements": [
-                    "LEFTDASH",
-                    "LEFTCLAW"
+                    "LEFTCLAW",
+                    "LEFTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -89110,8 +92860,10 @@ locations = [
             },
             {
                 "item_requirements": [
-                    "LEFTDASH",
-                    "RIGHTCLAW"
+                    "LEFTCLAW",
+                    "LEFTSUPERDASH",
+                    "DANGEROUSSKIPS",
+                    "DIFFICULTSKIPS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -89119,12 +92871,82 @@ locations = [
             },
             {
                 "item_requirements": [
-                    "LEFTDASH",
-                    "WINGS"
+                    "RIGHTCLAW",
+                    "LEFTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH",
+                    "DANGEROUSSKIPS",
+                    "DIFFICULTSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTSUPERDASH",
+                    "DANGEROUSSKIPS",
+                    "DIFFICULTSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "OBSCURESKIPS",
+                    "DANGEROUSSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Dashmaster]",
+                    "$EQUIPPEDCHARM[Sprintmaster]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "OBSCURESKIPS",
+                    "DANGEROUSSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Dashmaster]",
+                    "$EQUIPPEDCHARM[Sprintmaster]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "OBSCURESKIPS",
+                    "DANGEROUSSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Dashmaster]",
+                    "$EQUIPPEDCHARM[Sprintmaster]"
+                ]
             }
         ],
         "is_event": False
@@ -90015,6 +93837,16 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "LEFTCLAW"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "LEFTDASH",
+                    "OBSCURESKIPS"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -91508,76 +95340,7 @@ locations = [
     },
     {
         "name": "Split_Crystal_Heart",
-        "logic": [
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2,1,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2,1,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHADESKIP[2HITS]"
-                ]
-            },
-            {
-                "item_requirements": [],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[4,before:AREASOUL]"
-                ]
-            }
-        ],
+        "logic": [],
         "is_event": False
     },
     {
@@ -93939,8 +97702,9 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW"
+                    "RIGHTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -93951,7 +97715,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -93962,7 +97727,58 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "RIGHTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -93973,7 +97789,126 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "COMPLEXSKIPS"
+                    "LEFTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94203,8 +98138,9 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW"
+                    "RIGHTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94215,7 +98151,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94226,7 +98163,58 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "RIGHTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94237,7 +98225,126 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "COMPLEXSKIPS"
+                    "LEFTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94527,8 +98634,9 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW"
+                    "RIGHTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94540,7 +98648,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94552,7 +98661,62 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "RIGHTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94564,7 +98728,132 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "COMPLEXSKIPS"
+                    "LEFTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94796,8 +99085,9 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW"
+                    "RIGHTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94809,7 +99099,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94821,7 +99112,62 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "RIGHTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -94833,7 +99179,132 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "COMPLEXSKIPS"
+                    "LEFTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95065,8 +99536,9 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW"
+                    "RIGHTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95078,7 +99550,8 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "LEFTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95090,7 +99563,62 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "RIGHTCLAW"
+                    "RIGHTCLAW",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95102,7 +99630,132 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
-                    "COMPLEXSKIPS"
+                    "LEFTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "LEFTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH>1",
+                    "LEFTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$SHADESKIP[2HITS]",
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "COMPLEXSKIPS",
+                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95532,9 +100185,70 @@ locations = [
             },
             {
                 "item_requirements": [
+                    "WINGS",
                     "LEFTCLAW",
-                    "RIGHTCLAW",
+                    "RIGHTSUPERDASH",
                     "Herrah"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTSUPERDASH",
+                    "Herrah"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "Herrah"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "LEFTDASH>1"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$BENCHRESET",
+                    "$SHRIEKPOGO[1,2,2]",
+                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH>1"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95606,20 +100320,6 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "LEFTCLAW",
-                    "Herrah"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "LEFTCLAW",
                     "LEFTSLASH"
                 ],
                 "location_requirements": [],
@@ -95678,51 +100378,7 @@ locations = [
                 "item_requirements": [
                     "WINGS",
                     "RIGHTCLAW",
-                    "Herrah"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
                     "LEFTSLASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "LEFTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "LEFTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -95741,21 +100397,6 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "$BENCHRESET",
-                    "$SHRIEKPOGO[1,2,2]",
-                    "$SHRIEKPOGO[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "COMPLEXSKIPS",
-                    "Herrah"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHADESKIP[2HITS]",
                     "$BENCHRESET",
                     "$SHRIEKPOGO[1,2,2]",
                     "$SHRIEKPOGO[3,before:ROOMSOUL]"
@@ -98063,117 +102704,7 @@ locations = [
     },
     {
         "name": "Soul_Totem-Pilgrim's_Way",
-        "logic": [
-            {
-                "item_requirements": [
-                    "RIGHTCLAW",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "RIGHTCLAW",
-                    "RIGHTSUPERDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "RIGHTCLAW",
-                    "ACID"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS",
-                    "RIGHTSUPERDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS",
-                    "ACID"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[1,1,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[2,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[2,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "LEFTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[1,before:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "LEFTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[1,before:AREASOUL]"
-                ]
-            }
-        ],
+        "logic": [],
         "is_event": False
     },
     {
@@ -98208,164 +102739,12 @@ locations = [
     },
     {
         "name": "Soul_Totem-Crystal_Heart_1",
-        "logic": [
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "RIGHTSUPERDASH",
-                    "PRECISEMOVEMENT"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "RIGHTCLAW",
-                    "RIGHTSUPERDASH",
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHADESKIP[2HITS]"
-                ]
-            },
-            {
-                "item_requirements": [],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[4,before:AREASOUL]"
-                ]
-            }
-        ],
+        "logic": [],
         "is_event": False
     },
     {
         "name": "Soul_Totem-Crystal_Heart_2",
-        "logic": [
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "RIGHTCLAW",
-                    "RIGHTSUPERDASH",
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2,1]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$CASTSPELL[2,1]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHADESKIP[2HITS]"
-                ]
-            },
-            {
-                "item_requirements": [],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[4,before:AREASOUL]"
-                ]
-            }
-        ],
+        "logic": [],
         "is_event": False
     },
     {
@@ -98659,8 +103038,6 @@ locations = [
             {
                 "item_requirements": [
                     "RIGHTCLAW",
-                    "LEFTDASH",
-                    "RIGHTDASH",
                     "LEFTSUPERDASH"
                 ],
                 "location_requirements": [],
@@ -111396,50 +115773,6 @@ transitions = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "LEFTCLAW",
-                    "RIGHTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SLOPEBALL[before:AREASOUL,after:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "WINGS",
-                    "RIGHTCLAW",
-                    "LEFTDASH"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SLOPEBALL[before:AREASOUL,after:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "LEFTCLAW"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTCLAW"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL]"
-                ]
             }
         ]
     },
@@ -111733,6 +116066,7 @@ transition_to_region_map = {
     "Hive_05[left1]": "Hive_05[left1]",
     "GG_Lurker[left1]": "GG_Lurker[left1]",
     "Fungus2_32[left1]": "Fungus2_32[left1]",
+    "RestingGrounds_02[top1]": "RestingGrounds_02[top1]",
     "RestingGrounds_02[right1]": "RestingGrounds_02",
     "RestingGrounds_02[left1]": "RestingGrounds_02",
     "Fungus3_40[right1]": "Fungus3_40[right1]",
@@ -111798,6 +116132,7 @@ transition_to_region_map = {
     "RestingGrounds_05[left3]": "RestingGrounds_05",
     "RestingGrounds_05[right2]": "RestingGrounds_05",
     "Cliffs_04[right1]": "Cliffs_04[right1]",
+    "Deepnest_45_v02[left1]": "Deepnest_45_v02[left1]",
     "Abyss_17[top1]": "Abyss_17[top1]",
     "Deepnest_East_02[right1]": "Deepnest_East_02",
     "Deepnest_East_16[left1]": "Deepnest_East_16[left1]",
@@ -111939,7 +116274,10 @@ transition_to_region_map = {
     "Fungus2_18[bot1]": "Fungus2_18[bot1]",
     "Fungus2_20[right1]": "Fungus2_20",
     "Fungus2_20[left1]": "Fungus2_20",
+    "Fungus2_21[left1]": "Fungus2_21[left1]",
     "Fungus2_23[right2]": "Fungus2_23[right2]",
+    "Fungus2_29[right1]": "Fungus2_29[right1]",
+    "Fungus2_29[bot1]": "Fungus2_29[bot1]",
     "Deepnest_01[right1]": "Deepnest_01",
     "Deepnest_01[left1]": "Deepnest_01",
     "Deepnest_01[bot1]": "Deepnest_01[bot1]",
@@ -112077,7 +116415,6 @@ transition_to_region_map = {
     "Ruins2_04[door_Ruin_House_01]": "Ruins2_04[door_Ruin_House_01]",
     "Ruins2_04[door_Ruin_House_03]": "Ruins2_04[door_Ruin_House_03]",
     "Ruins2_04[door_Ruin_Elevator]": "Ruins2_04[door_Ruin_Elevator]",
-    "RestingGrounds_02[top1]": "RestingGrounds_02[top1]",
     "RestingGrounds_02[bot1]": "RestingGrounds_02[bot1]",
     "RestingGrounds_05[right1]": "RestingGrounds_05[right1]",
     "RestingGrounds_05[bot1]": "RestingGrounds_05[bot1]",
@@ -112100,14 +116437,15 @@ transition_to_region_map = {
     "Mines_10[left1]": "Mines_10[left1]",
     "Mines_10[bot1]": "Mines_10[bot1]",
     "Mines_11[right1]": "Mines_11",
-    "Mines_11[top1]": "Mines_11",
     "Mines_11[bot1]": "Mines_11[bot1]",
+    "Mines_11[top1]": "Mines_11[top1]",
     "Mines_20[right1]": "Mines_20[right1]",
     "Mines_20[right2]": "Mines_20[right2]",
     "Mines_23[left1]": "Mines_23[left1]",
     "Mines_23[top1]": "Mines_23[top1]",
     "Mines_23[right2]": "Mines_23[right2]",
     "Mines_23[right1]": "Mines_23[right1]",
+    "Mines_31[left1]": "Mines_31[left1]",
     "Fungus3_04[right1]": "Fungus3_04",
     "Fungus3_04[right2]": "Fungus3_04",
     "Fungus3_04[left1]": "Fungus3_04[left1]",
@@ -112245,11 +116583,8 @@ transition_to_region_map = {
     "Fungus2_12[bot1]": "Fungus2_12[bot1]",
     "Fungus2_19[top1]": "Fungus2_19[top1]",
     "Fungus2_19[left1]": "Fungus2_19[left1]",
-    "Fungus2_21[left1]": "Fungus2_21[left1]",
     "Fungus2_28[left1]": "Fungus2_28[left1]",
     "Fungus2_28[left2]": "Fungus2_28[left1]",
-    "Fungus2_29[right1]": "Fungus2_29[right1]",
-    "Fungus2_29[bot1]": "Fungus2_29[bot1]",
     "Fungus2_30[bot1]": "Fungus2_30[bot1]",
     "Fungus2_30[top1]": "Fungus2_30[top1]",
     "Fungus2_33[right1]": "Fungus2_33[right1]",
@@ -112276,7 +116611,6 @@ transition_to_region_map = {
     "Deepnest_43[left1]": "Deepnest_43[left1]",
     "Deepnest_43[right1]": "Deepnest_43[left1]",
     "Deepnest_44[top1]": "Deepnest_44[top1]",
-    "Deepnest_45_v02[left1]": "Deepnest_45_v02[left1]",
     "Room_Mask_Maker[right1]": "Room_Mask_Maker[right1]",
     "Deepnest_East_01[right1]": "Deepnest_East_01[right1]",
     "Deepnest_East_01[top1]": "Deepnest_East_01[top1]",
@@ -112403,7 +116737,6 @@ transition_to_region_map = {
     "Mines_28[bot1]": "Mines_28[bot1]",
     "Mines_30[left1]": "Mines_30[left1]",
     "Mines_30[right1]": "Mines_30[right1]",
-    "Mines_31[left1]": "Mines_31[left1]",
     "Mines_33[right1]": "Mines_33[right1]",
     "Mines_33[left1]": "Mines_33[left1]",
     "Mines_34[bot1]": "Mines_34[bot1]",

@@ -1140,6 +1140,7 @@ class Terms(StrEnum):
     BROKE_CRYSTALLIZED_MOUND_QUAKE_FLOOR = "Broke_Crystallized_Mound_Quake_Floor"
     BROKE_RESTING_GROUNDS_QUAKE_FLOOR = "Broke_Resting_Grounds_Quake_Floor"
     BROKE_CLIFFS_DARK_ROOM_QUAKE_FLOOR = "Broke_Cliffs_Dark_Room_Quake_Floor"
+    BROKE_WEAVERS_DEN_SECRET_WALL = "Broke_Weavers_Den_Secret_Wall"
     BROKE_BASIN_GRUB_QUAKE_FLOOR = "Broke_Basin_Grub_Quake_Floor"
     BROKE_LOWER_EDGE_QUAKE_FLOOR = "Broke_Lower_Edge_Quake_Floor"
     BROKE_ORO_QUAKE_FLOOR_1 = "Broke_Oro_Quake_Floor_1"

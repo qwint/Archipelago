@@ -8031,7 +8031,7 @@ transitions = {
     }
 }
 starts = {
-    "king's_pass": {
+    "kings_pass": {
         "logic_name": "King's Pass",
         "granted_transition": "Tutorial_01[right1]",
         "logic": []
@@ -8066,7 +8066,7 @@ starts = {
         "granted_transition": "Fungus3_25[right1]",
         "logic": []
     },
-    "queen's_station": {
+    "queens_station": {
         "logic_name": "Queen's Station",
         "granted_transition": "Fungus2_01[left1]",
         "logic": []
@@ -8154,7 +8154,7 @@ starts = {
         "granted_transition": "Ruins1_17[right1]",
         "logic": []
     },
-    "king's_station": {
+    "kings_station": {
         "logic_name": "King's Station",
         "granted_transition": "Ruins2_10b[right1]",
         "logic": []
@@ -8218,7 +8218,7 @@ starts = {
             }
         ]
     },
-    "kingdom's_edge": {
+    "kingdoms_edge": {
         "logic_name": "Kingdom's Edge",
         "granted_transition": "Deepnest_East_15[left1]",
         "logic": [
@@ -8258,7 +8258,7 @@ starts = {
             }
         ]
     },
-    "hallownest's_crown": {
+    "hallownests_crown": {
         "logic_name": "Hallownest's Crown",
         "granted_transition": "Mines_34[bot1]",
         "logic": [
@@ -8339,7 +8339,7 @@ starts = {
             }
         ]
     },
-    "queen's_gardens": {
+    "queens_gardens": {
         "logic_name": "Queen's Gardens",
         "granted_transition": "Fungus3_13[left1]",
         "logic": [

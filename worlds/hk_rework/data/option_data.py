@@ -301,7 +301,7 @@ pool_options = {
             "costs": []
         },
         {
-            "item": "Grimmchild2",
+            "item": "Grimmchild1",
             "location": "Grimmchild",
             "costs": []
         },
