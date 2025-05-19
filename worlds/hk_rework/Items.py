@@ -1,6 +1,6 @@
 from .data.option_data import pool_options
 from .data.location_data import multi_locations
-from .data.item_data import affecting_items_by_term, progression_effect_lookup, non_progression_items
+from .data.item_effects import affecting_items_by_term, progression_effect_lookup, non_progression_items
 
 # strip "Randomize" from pool options and use their names as group names
 item_name_groups = {
@@ -37,7 +37,3 @@ item_name_groups['Skills'] |= item_name_groups['Vertical'] | item_name_groups['H
 
 items = {item for item in progression_effect_lookup.keys()} | set(non_progression_items)
 items |= {"One_Geo", "Soul_Refill"}
-item_name_to_id = {
-    item_name: item_id for item_id, item_name in
-    enumerate(sorted(items), start=0x1000000)
-}

@@ -25,6 +25,7 @@ StartLocation = type("StartLocation", (Choice,), {
                "This is currently only locked to King's Pass.",
     **locations,
 })
+StartLocation.options["king's_pass"] = StartLocation.option_kings_pass  # ugly override to add the old, bad-name an an alias
 del (locations)
 
 option_docstrings = {

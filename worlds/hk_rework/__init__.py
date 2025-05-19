@@ -12,10 +12,12 @@ from worlds.AutoWorld import WebWorld
 from .template_world import RandomizerCoreWorld
 
 from .state_mixin import resource_state_handler, RCStateVariable, HKLogicMixin  # all that's needed to add the mixin
-from .data.region_data import regions, locations, transition_to_region_map  # transitions
+from .data.ids import item_name_to_id, location_name_to_id
+from .data.region_structure import regions, locations, transition_to_region_map  # transitions
+from .data.trando_data import starts
 from .data.location_data import multi_locations, locations as locations_metadata
 from .data.option_data import logic_options, pool_options
-from .data.item_data import progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term
+from .data.item_effects import progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term
 
 from .constants import shop_cost_types, randomizable_starting_items, gamename, base_id, SIMPLE_STATE_LOGIC
 from .Options import hollow_knight_options, hollow_knight_randomize_options, Goal, WhitePalace, CostSanity, \
@@ -23,7 +25,7 @@ from .Options import hollow_knight_options, hollow_knight_randomize_options, Goa
 from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
 from .Charms import names as charm_names, charm_name_to_id
 
-from .Items import item_name_groups, item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
+from .Items import item_name_groups  # , item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 
 logger = logging.getLogger("Hollow Knight")
 
@@ -213,15 +215,6 @@ for i in vanilla_cost_data:
 
 hk_regions = [region for region in cast(List[Dict[str, Any]], regions) if not region["name"].startswith("$")]
 hk_locations = [location for location in cast(List[Dict[str, Any]], locations)]
-
-
-datapackage_locs = {loc["name"] for loc in locations if not loc["is_event"]}
-datapackage_locs = [loc for loc in datapackage_locs if loc not in multi_locations]
-datapackage_locs += [f"{shop}_{i+1}" for shop in multi_locations for i in range(16) if shop != "Start"]
-location_name_to_id = {
-    location_name: location_id for location_id, location_name in
-    enumerate(sorted(datapackage_locs), start=0x1000000)
-}
 
 
 class HKWorld(RandomizerCoreWorld):
@@ -538,7 +531,6 @@ class HKWorld(RandomizerCoreWorld):
         spot.set_hk_rule(rule)
 
     def get_connections(self) -> "List[Tuple[str, str, Optional[Any]]]":
-        from .data.trando_data import starts
         connection_map = super().get_connections()
 
         key = self.options.StartLocation.current_key
@@ -656,10 +648,10 @@ class HKWorld(RandomizerCoreWorld):
             item_table.remove(item_name)
             item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
-        # Grimmchild 2 always gets added, switch if needed
-        if self.options.RandomizeGrimmkinFlames and self.options.RandomizeCharms:
-            item_table.remove("Grimmchild2")
-            item_table.append("Grimmchild1")
+        # Grimmchild 1 always gets added, switch if needed
+        if not self.options.RandomizeGrimmkinFlames and self.options.RandomizeCharms:
+            item_table.remove("Grimmchild1")
+            item_table.append("Grimmchild2")
 
         if self.options.RandomizeElevatorPass:
             item_table.append("Elevator_Pass")
@@ -698,7 +690,7 @@ class HKWorld(RandomizerCoreWorld):
             "Grimmchild1", "Grimmchild2"
         }
 
-        from .data.item_data import non_progression_items, affecting_items_by_term
+        from .data.item_effects import non_progression_items, affecting_items_by_term
 
         if name in non_progression_items:
             classification = ItemClassification.filler
@@ -1003,6 +995,7 @@ class HKWorld(RandomizerCoreWorld):
                 pass  # C# side is currently typed as dict[str, int], drop what doesn't fit
             else:
                 options[option_name] = optionvalue
+        slot_data["options"]["StartLocationName"] = starts[self.options.StartLocation.current_key]["logic_name"]
 
         # 32 bit int
         slot_data["seed"] = self.random.randint(-2147483647, 2147483646)
@@ -1025,6 +1018,7 @@ class HKWorld(RandomizerCoreWorld):
                 if location.costs:
                     location_costs[location.name] = location.costs
         slot_data["location_costs"] = location_costs
+        # TODO apply geo caps here and spoiler
 
         slot_data["notch_costs"] = self.charm_costs
 

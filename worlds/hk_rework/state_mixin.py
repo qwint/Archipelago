@@ -249,6 +249,7 @@ class resource_state_handler(type):
 
     @staticmethod
     def get_handler(req: str) -> "RCStateVariable":
+        ret = None
         if req in resource_state_handler._handler_cache:
             return resource_state_handler._handler_cache[req]
         # ret = next(handler(req) for handler in resource_state_handler.handlers if handler.TryMatch(req))
@@ -256,7 +257,7 @@ class resource_state_handler(type):
             if handler.TryMatch(req):
                 ret = handler(req)
                 continue
-        assert ret
+        assert ret, f"searched for a handler for req {req} and did not find one"
         resource_state_handler._handler_cache[req] = ret
         return ret
 
@@ -766,7 +767,7 @@ class EquipCharmVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state: CollectionState, player: int) -> bool:
-        return item_state.has(self.charm_name, player)
+        return item_state.has(self.charm_key, player)
         # return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
     def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
@@ -942,7 +943,7 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
             count = 3
         else:
             count = 2
-        return item_state.has(self.charm_name, player, count)
+        return item_state.has(self.charm_key, player, count)
 
     # TODO double check this is not necessary with has_item defined
     # def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
@@ -1174,6 +1175,33 @@ class TakeDamageVariable(RCStateVariable):
 
     def can_exclude(self, options):
         # can not actually be excluded because the damage skip option is checked in logic seperately
+        return False
+
+
+class LifebloodCountVariable(RCStateVariable):
+    prefix = "$LIFEBLOOD"
+    required_blue_masks: int
+    hp_manager: TakeDamageVariable
+    joni_manager: EquipCharmVariable
+
+    def parse_term(self, required_blue_masks=1):
+        self.required_blue_masks = required_blue_masks
+        self.hp_manager = TakeDamageVariable(TakeDamageVariable.prefix)
+        self.joni_manager = EquipCharmVariable(f"{EquipCharmVariable.prefix}[Joni's_Blessing]")
+        # set hp state manager and joni's equip charm variable
+
+    @classmethod
+    def TryMatch(cls, term: str):
+        return term.startswith(cls.prefix)
+
+    def _ModifyState(self, state_blob: Counter, item_state: CollectionState, player: int):
+        valid, state_blob = self.hp_manager._ModifyState(state_blob, item_state, player)
+        if valid:
+            return self.joni_manager._ModifyState(state_blob, item_state, player)
+        else:
+            return False, state_blob
+
+    def can_exclude(self, options):
         return False
 
 
