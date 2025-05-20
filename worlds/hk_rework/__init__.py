@@ -702,7 +702,7 @@ class HKWorld(RandomizerCoreWorld):
             classification |= ItemClassification.useful
         if (name not in progression_charms and name in affecting_items_by_term["CHARMS"]):
             classification |= ItemClassification.skip_balancing
-        if name == "Mimic_Grub":
+        if name == "Mimic_Grub" or name == "Quill":
             classification |= ItemClassification.trap
 
         return classification
@@ -725,7 +725,7 @@ class HKWorld(RandomizerCoreWorld):
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.get_filler_items())
 
-    def validate_start(self, start_location_key: str) -> bool:
+    def validate_start(self, start_location_key: str) -> list[list[str]]:
         test_state = CollectionState(self.multiworld)
         valid_items = ["ITEMRANDO", "2MASKS"]  # TODO: properly handle these assumptions (non-er and non-cursed masks)
         if self.options.EnemyPogos:
@@ -743,11 +743,11 @@ class HKWorld(RandomizerCoreWorld):
         start_location_logic = starts[start_location_key]["logic"]
         valid_start = False
         if not start_location_logic:  # empty logic means always good
-            return True
+            return []
         for clause in start_location_logic:  # TODO: assuming only item_requirements are relevant
             if all(i in valid_items for i in clause["item_requirements"]):
-                return True
-        return False
+                return []
+        return [clause["item_requirements"] for clause in start_location_logic]
 
     def generate_early(self):
         options = self.options
@@ -783,8 +783,10 @@ class HKWorld(RandomizerCoreWorld):
         self.split_cloak_direction = self.random.randint(0, 1)
 
         start_location_key = self.options.StartLocation.current_key
-        if not self.validate_start(start_location_key):
-            raise OptionError(f"Start Location {start_location_key} was invalid with other Options.")
+        start_validation = self.validate_start(start_location_key)
+        if start_validation:
+            raise OptionError(f"Start Location {start_location_key} was invalid with other Options. "
+                              f"Requirements not met are:\n{start_validation}")
             # TODO consider warning and resetting to KP
         self.start_location_region = transition_to_region_map[starts[start_location_key]["granted_transition"]]
         # actually connect it later once we have regions created
