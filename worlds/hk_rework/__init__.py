@@ -283,6 +283,7 @@ class HKWorld(RandomizerCoreWorld):
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
                 self.multiworld.get_location(location, self.player).costs = costs
+        self.get_region("Menu").connect(self.get_region(self.start_location_region))
 
     def create_items(self):
         pool_count = super().create_items()
@@ -532,11 +533,6 @@ class HKWorld(RandomizerCoreWorld):
 
     def get_connections(self) -> "List[Tuple[str, str, Optional[Any]]]":
         connection_map = super().get_connections()
-
-        key = self.options.StartLocation.current_key
-        start_region = transition_to_region_map[starts[key]["granted_transition"]]
-        connection_map.append(("Menu", start_region, starts[key]["logic"]))
-
         return connection_map
 
     def get_location_map(self) -> "List[Tuple[str, str, Optional[Any]]]":
@@ -729,6 +725,30 @@ class HKWorld(RandomizerCoreWorld):
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.get_filler_items())
 
+    def validate_start(self, start_location_key: str) -> bool:
+        test_state = CollectionState(self.multiworld)
+        valid_items = ["ITEMRANDO", "2MASKS"]  # TODO: properly handle these assumptions (non-er and non-cursed masks)
+        if self.options.EnemyPogos:
+            valid_items.append("ENEMYPOGOS")
+        if test_state.has_group("Vertical", self.player):
+            valid_items.append("VERTICAL")
+        if self.options.RandomizeSwim:
+            valid_items.append("SWIM")
+        if self.options.DarkRooms:
+            valid_items.append("DARKROOMS")
+        if self.options.ShadeSkips:
+            valid_items.append("SHADESKIPS")
+        if self.options.DangerousSkips:
+            valid_items.append("DANGEROUSSKIPS")
+        start_location_logic = starts[start_location_key]["logic"]
+        valid_start = False
+        if not start_location_logic:  # empty logic means always good
+            return True
+        for clause in start_location_logic:  # TODO: assuming only item_requirements are relevant
+            if all(i in valid_items for i in clause["item_requirements"]):
+                return True
+        return False
+
     def generate_early(self):
         options = self.options
         hybrid_chance = getattr(options, f"CostSanityHybridChance").value
@@ -761,6 +781,13 @@ class HKWorld(RandomizerCoreWorld):
                                                    for name, index in charm_name_to_id.items()}
 
         self.split_cloak_direction = self.random.randint(0, 1)
+
+        start_location_key = self.options.StartLocation.current_key
+        if not self.validate_start(start_location_key):
+            raise OptionError(f"Start Location {start_location_key} was invalid with other Options.")
+            # TODO consider warning and resetting to KP
+        self.start_location_region = transition_to_region_map[starts[start_location_key]["granted_transition"]]
+        # actually connect it later once we have regions created
 
     @classmethod
     def stage_generate_early(cls, multiworld):
