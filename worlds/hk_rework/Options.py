@@ -128,7 +128,7 @@ shop_to_option = {
     "Egg_Shop": "EggShopSlots",
 }
 
-hollow_knight_randomize_options: typing.Dict[str, type(Option)] = {}
+hollow_knight_randomize_options: dict[str, type(Option)] = {}
 
 splitter_pattern = re.compile(r'(?<!^)(?=[A-Z])')
 for option_name, option_data in pool_options.items():
@@ -151,7 +151,7 @@ for option_name, option_data in pool_options.items():
     globals()[option.__name__] = option
     hollow_knight_randomize_options[option.__name__] = option
 
-hollow_knight_logic_options: typing.Dict[str, type(Option)] = {}
+hollow_knight_logic_options: dict[str, type(Option)] = {}
 for option_name in logic_options.values():
     if option_name in hollow_knight_randomize_options:
         continue
@@ -282,15 +282,15 @@ class RandomCharmCosts(NamedRange):
     range_start = 0
     range_end = 240
     default = -1
-    vanilla_costs: typing.List[int] = vanilla_costs
+    vanilla_costs: list[int] = vanilla_costs
     charm_count: int = len(vanilla_costs)
     special_range_names = {
         "vanilla": -1,
         "shuffle": -2
     }
 
-    def get_costs(self, random_source: Random) -> typing.List[int]:
-        charms: typing.List[int]
+    def get_costs(self, random_source: Random) -> list[int]:
+        charms: list[int]
         if -1 == self.value:
             return self.vanilla_costs.copy()
         elif -2 == self.value:
@@ -341,7 +341,7 @@ class PlandoCharmCosts(OptionDict):
                 # will fail schema afterwords
                 self.value[key] = data
 
-    def get_costs(self, charm_costs: typing.List[int]) -> typing.List[int]:
+    def get_costs(self, charm_costs: list[int]) -> list[int]:
         for name, cost in self.value.items():
             charm_costs[charm_names.index(name)] = cost
         return charm_costs
@@ -548,7 +548,7 @@ class CostSanityHybridChance(Range):
     display_name = "Costsanity Hybrid Chance"
 
 
-cost_sanity_weights: typing.Dict[str, type(Option)] = {}
+cost_sanity_weights: dict[str, type(Option)] = {}
 for term, cost in cost_terms.items():
     option_name = f"CostSanity{cost.option}Weight"
     display_name = f"Costsanity {cost.option} Weight"
@@ -568,7 +568,7 @@ for term, cost in cost_terms.items():
     globals()[option.__name__] = option
     cost_sanity_weights[option.__name__] = option
 
-hollow_knight_options: typing.Dict[str, type(Option)] = {
+hollow_knight_options: dict[str, type(Option)] = {
     **hollow_knight_randomize_options,
     RandomizeElevatorPass.__name__: RandomizeElevatorPass,
     **hollow_knight_logic_options,

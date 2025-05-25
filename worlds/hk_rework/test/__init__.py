@@ -13,7 +13,7 @@ class HKTestBase(WorldTestBase):
 
     def assertAccessIndependency(
             self,
-            locations: typing.List[str],
+            locations: list[str],
             possible_items: typing.Iterable[typing.Iterable[str]],
             only_check_listed: bool = False) -> None:
         """Asserts that the provided locations can't be reached without
@@ -41,7 +41,7 @@ class HKTestBase(WorldTestBase):
 
     def assertAccessWithout(
             self,
-            locations: typing.List[str],
+            locations: list[str],
             possible_items: typing.Iterable[typing.Iterable[str]]) -> None:
         """Asserts that the provided locations can't be reached without the
         listed items but can be reached with any
@@ -77,7 +77,7 @@ class linkedTestHK():
     game = "Hollow Knight"
     world: HKWorld
     expected_grubs: int
-    item_link_group: typing.List[typing.Dict[str, typing.Any]]
+    item_link_group: list[dict[str, typing.Any]]
 
     def setup_item_links(self, args):
         setattr(args, "item_links",

@@ -1,6 +1,6 @@
 from BaseClasses import Region, Location, Item, ItemClassification, CollectionState
 from worlds.AutoWorld import World
-from typing import List, Dict, Any, Callable, Tuple, Optional
+from typing import Any, Callable
 
 
 class RandomizerCoreWorld(World):
@@ -10,22 +10,22 @@ class RandomizerCoreWorld(World):
     # item_name_to_id = {name: index for index, name in enumerate([item["name"] for item in item_table], base_id)}
     location_name_to_id = {}
     item_name_to_id = {}
-    rc_regions: List[Dict[str, Any]] = {}
-    rc_locations: List[Dict[str, Any]] = {}
+    rc_regions: list[dict[str, Any]] = {}
+    rc_locations: list[dict[str, Any]] = {}
     item_class = Item
     location_class = Location
     region_class = Region
 
-    def get_region_list(self) -> List[str]:
+    def get_region_list(self) -> list[str]:
         return [region["name"] for region in self.rc_regions]
 
-    def get_connections(self) -> "List[Tuple(str, str, Optional[Any])]":
+    def get_connections(self) -> list[tuple[str, str, Any | None]]:
         return [
             (region["name"], exit["target"], exit["logic"])
             for region in self.rc_regions for exit in region["exits"]
             ]
 
-    def get_location_map(self) -> "List[Tuple(str, str, Optional[Any])]":
+    def get_location_map(self) -> list[tuple[str, str, Any | None]]:
         rule_lookup = {location["name"]: location["logic"] for location in self.rc_locations}
         return [
             (region["name"], location, rule_lookup[location])
@@ -41,7 +41,7 @@ class RandomizerCoreWorld(World):
         """Used to parse the logic format into an access_rule for Entrances and Locations."""
         return lambda state: True
 
-    def get_item_list(self) -> List[str]:
+    def get_item_list(self) -> list[str]:
         """
         Called by create_items() to get a full list of item names to create for the world.
         Items sould be added to the list multiple times if you need multiple copies,
