@@ -2,7 +2,7 @@
 vanilla_costs: list[int] = [1, 1, 1, 2, 2, 2, 3, 2, 3, 1, 3, 1, 3, 1, 2, 2, 1, 2, 3, 2,
                             4, 2, 2, 2, 3, 1, 4, 2, 4, 1, 2, 3, 2, 4, 3, 5, 1, 3, 2, 2]
 
-names: list[str] = [
+charm_names: list[str] = [
     "Gathering Swarm",
     "Wayward Compass",
     "Grubsong",
@@ -45,7 +45,7 @@ names: list[str] = [
     "Grimmchild"
 ]
 
-charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(names)}
+charm_name_to_id = {"_".join(name.split(" ")): index for index, name in enumerate(charm_names)}
                     # TODO >:(
 charm_name_to_id["Queen_Fragment"] = charm_name_to_id["Kingsoul"]
 charm_name_to_id["King_Fragment"] = charm_name_to_id["Kingsoul"]

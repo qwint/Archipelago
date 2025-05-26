@@ -19,8 +19,7 @@ from BaseClasses import (
 from settings import Bool, Group
 from worlds.AutoWorld import WebWorld, World
 
-from .Charms import charm_name_to_id
-from .Charms import names as charm_names
+from .Charms import charm_name_to_id, charm_names
 from .constants import SIMPLE_STATE_LOGIC, gamename, randomizable_starting_items, shop_cost_types
 from .data.ids import item_name_to_id, location_name_to_id
 from .data.item_effects import (

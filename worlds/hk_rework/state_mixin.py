@@ -8,8 +8,7 @@ from BaseClasses import CollectionState, MultiWorld, Region
 from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
-from .Charms import charm_name_to_id
-from .Charms import names as charm_names
+from .Charms import charm_name_to_id, charm_names
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, SIMPLE_STATE_LOGIC  # noqa: F401
 from .data.constants.item_names import LocationNames as ItemNames  # TODO change this when export is fixed
 from .Options import HKOptions
