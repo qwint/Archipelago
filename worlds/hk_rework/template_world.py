@@ -1,5 +1,6 @@
-from BaseClasses import Region, Location, Item, ItemClassification, CollectionState
 from typing import Any, Callable, ClassVar
+
+from BaseClasses import CollectionState, Item, ItemClassification, Location, Region
 
 
 class RandomizerCoreWorld:

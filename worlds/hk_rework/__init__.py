@@ -1,38 +1,54 @@
 import itertools
 import logging
 import operator
-
-from copy import deepcopy
 from collections import Counter, defaultdict
-from typing import Any, NamedTuple, cast, ClassVar
+from copy import deepcopy
+from typing import Any, ClassVar, NamedTuple, cast
 
 from BaseClasses import (
-    Location, Item, ItemClassification, Tutorial, CollectionState, MultiWorld, Region, Entrance, LocationProgressType,
+    CollectionState,
+    Entrance,
+    Item,
+    ItemClassification,
+    Location,
+    LocationProgressType,
+    MultiWorld,
+    Region,
+    Tutorial,
 )
-from settings import Group, Bool
+from settings import Bool, Group
 from worlds.AutoWorld import WebWorld, World
 
-from .template_world import RandomizerCoreWorld
-
-from .state_mixin import ResourceStateHandler, RCStateVariable, HKLogicMixin as HKLogicMixin
+from .Charms import charm_name_to_id
+from .Charms import names as charm_names
+from .constants import SIMPLE_STATE_LOGIC, gamename, randomizable_starting_items, shop_cost_types
 from .data.ids import item_name_to_id, location_name_to_id
-from .data.region_structure import regions, locations, transition_to_region_map  # transitions
-from .data.trando_data import starts
-from .data.location_data import multi_locations, locations as locations_metadata
-from .data.option_data import logic_options, pool_options
 from .data.item_effects import (
-    progression_effect_lookup, non_progression_items, affected_terms_by_item, affecting_items_by_term,
+    affected_terms_by_item,
+    affecting_items_by_term,
+    non_progression_items,
+    progression_effect_lookup,
 )
-
-from .constants import shop_cost_types, randomizable_starting_items, gamename, SIMPLE_STATE_LOGIC
-from .Options import (
-    hollow_knight_options, hollow_knight_randomize_options, Goal, WhitePalace, CostSanity, shop_to_option, HKOptions,
-    GrubHuntGoal,
-)
-from .Rules import cost_terms, _hk_can_beat_thk, _hk_siblings_ending, _hk_can_beat_radiance
-from .Charms import names as charm_names, charm_name_to_id
-
+from .data.location_data import locations as locations_metadata
+from .data.location_data import multi_locations
+from .data.option_data import logic_options, pool_options
+from .data.region_structure import locations, regions, transition_to_region_map  # transitions
+from .data.trando_data import starts
 from .Items import item_name_groups  # , item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
+from .Options import (
+    CostSanity,
+    Goal,
+    GrubHuntGoal,
+    HKOptions,
+    WhitePalace,
+    hollow_knight_options,
+    hollow_knight_randomize_options,
+    shop_to_option,
+)
+from .Rules import _hk_can_beat_radiance, _hk_can_beat_thk, _hk_siblings_ending, cost_terms
+from .state_mixin import HKLogicMixin as HKLogicMixin
+from .state_mixin import RCStateVariable, ResourceStateHandler
+from .template_world import RandomizerCoreWorld
 
 logger = logging.getLogger("Hollow Knight")
 

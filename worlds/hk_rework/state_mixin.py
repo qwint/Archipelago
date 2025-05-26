@@ -4,14 +4,15 @@ from enum import IntEnum
 from itertools import chain
 from typing import TYPE_CHECKING, Any, ClassVar
 
-from BaseClasses import MultiWorld, CollectionState, Region
+from BaseClasses import CollectionState, MultiWorld, Region
 from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
-from .constants import SIMPLE_STATE_LOGIC, BASE_SOUL, BASE_NOTCHES, BASE_HEALTH  # noqa: F401
-from .Charms import names as charm_names, charm_name_to_id
-from .Options import HKOptions
+from .Charms import charm_name_to_id
+from .Charms import names as charm_names
+from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, SIMPLE_STATE_LOGIC  # noqa: F401
 from .data.constants.item_names import LocationNames as ItemNames  # TODO change this when export is fixed
+from .Options import HKOptions
 
 if TYPE_CHECKING:
     from . import HKClause

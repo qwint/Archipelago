@@ -1,4 +1,4 @@
-from .data.item_effects import affecting_items_by_term, progression_effect_lookup, non_progression_items
+from .data.item_effects import affecting_items_by_term, non_progression_items, progression_effect_lookup
 from .data.option_data import pool_options
 
 # strip "Randomize" from pool options and use their names as group names

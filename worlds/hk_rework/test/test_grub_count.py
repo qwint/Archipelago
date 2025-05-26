@@ -1,6 +1,8 @@
 import typing
-from test.bases import WorldTestBase
+
 from Options import ItemLinks
+from test.bases import WorldTestBase
+
 from .bases import LinkedTestHK
 
 
