@@ -111,6 +111,43 @@ class TestRandomizeNone(HKTestBase):
     }
 
 
+class TestUnshuffledRandomizeNone(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
+        "AddUnshuffledLocations": True,
+        "Goal": "any",
+
+        "RandomizeDreamers": False,
+        "RandomizeSkills": False,
+        "RandomizeFocus": False,
+        "RandomizeSwim": False,
+        "RandomizeCharms": False,
+        "RandomizeKeys": False,
+        "RandomizeMaskShards": False,
+        "RandomizeVesselFragments": False,
+        "RandomizeCharmNotches": False,
+        "RandomizePaleOre": False,
+        "RandomizeGeoChests": False,
+        "RandomizeJunkPitChests": False,
+        "RandomizeRancidEggs": False,
+        "RandomizeRelics": False,
+        "RandomizeWhisperingRoots": False,
+        "RandomizeBossEssence": False,
+        "RandomizeGrubs": False,
+        "RandomizeMimics": False,
+        "RandomizeMaps": False,
+        "RandomizeStags": False,
+        "RandomizeLifebloodCocoons": False,
+        "RandomizeGrimmkinFlames": False,
+        "RandomizeJournalEntries": False,
+        "RandomizeNail": False,
+        "RandomizeGeoRocks": False,
+        "RandomizeBossGeo": False,
+        "RandomizeSoulTotems": False,
+        "RandomizeLoreTablets": False,
+        "RandomizeElevatorPass": False,
+    }
+
+
 class TestSplitAll(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
