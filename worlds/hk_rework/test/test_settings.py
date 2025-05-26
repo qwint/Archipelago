@@ -1,44 +1,45 @@
-from . import HKTestBase, selectSeedHK
+import typing
+from .bases import HKTestBase
 
 
-class TestGoal_any(HKTestBase):
-    options = {
+class TestGoalAny(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
     }
 
 
-class TestGoal_hollowknight(HKTestBase):
-    options = {
+class TestGoalHollowknight(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "hollowknight",
     }
 
 
-class TestGoal_siblings(HKTestBase):
-    options = {
+class TestGoalSiblings(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "siblings",
     }
 
 
-class TestGoal_radiance(HKTestBase):
-    options = {
+class TestGoalRadiance(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "radiance",
     }
 
 # TODO put these back when implemented again
-# class TestGoal_godhome(HKTestBase):
-#     options = {
+# class TestGoalGodhome(HKTestBase):
+#     options: typing.ClassVar[dict[str, str]] = {
 #         "Goal": "godhome",
 #     }
 
 
-# class TestGoal_godhome_flower(HKTestBase):
-#     options = {
+# class TestGoalGodhomeFlower(HKTestBase):
+#     options: typing.ClassVar[dict[str, str]] = {
 #         "Goal": "godhome_flower",
 #     }
 
 
-class TestRandomize_All(HKTestBase):
-    options = {
+class TestRandomizeAll(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
 
         "RandomizeDreamers": True,
@@ -73,8 +74,8 @@ class TestRandomize_All(HKTestBase):
     }
 
 
-class TestRandomize_None(HKTestBase):
-    options = {
+class TestRandomizeNone(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
 
         "RandomizeDreamers": False,
@@ -109,8 +110,8 @@ class TestRandomize_None(HKTestBase):
     }
 
 
-class TestSplit_All(HKTestBase):
-    options = {
+class TestSplitAll(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
 
         "SplitCrystalHeart": True,
@@ -119,8 +120,8 @@ class TestSplit_All(HKTestBase):
     }
 
 
-class TestCosts_All(HKTestBase):
-    options = {
+class TestCostsAll(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
 
         "EggShopSlots": 9,

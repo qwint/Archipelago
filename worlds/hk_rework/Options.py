@@ -1,13 +1,14 @@
-import typing
 import re
-from dataclasses import dataclass, make_dataclass
+import typing
+from dataclasses import make_dataclass
+from schema import And, Schema, Optional
+from Options import (
+    Option, DefaultOnToggle, Toggle, Choice, Range, OptionDict, NamedRange, DeathLink, PerGameCommonOptions
+)
 
 from .data.option_data import logic_options, pool_options
 from .data.trando_data import starts
 from .Rules import cost_terms
-from schema import And, Schema, Optional
-
-from Options import Option, DefaultOnToggle, Toggle, Choice, Range, OptionDict, NamedRange, DeathLink, PerGameCommonOptions
 from .Charms import vanilla_costs, names as charm_names
 
 if typing.TYPE_CHECKING:
@@ -26,7 +27,8 @@ StartLocation = type("StartLocation", (Choice,), {
                "This is currently only locked to King's Pass.",
     **locations,
 })
-StartLocation.options["king's_pass"] = StartLocation.option_kings_pass  # ugly override to add the old, bad-name an an alias
+StartLocation.options["king's_pass"] = StartLocation.option_kings_pass
+# ugly override to add the old, bad-name an an alias
 del (locations)
 
 option_docstrings = {
@@ -69,8 +71,8 @@ option_docstrings = {
     "RandomizeGrimmkinFlames": "Randomize Grimmkin Flames into the item pool and open their locations for "
                                "randomization.",
     "RandomizeJournalEntries": "Randomize the Hunter's Journal as well as the findable journal entries into the item "
-                               "pool, and open their locations\n    for randomization. Does not include journal entries "
-                               "gained by killing enemies.",
+                               "pool, and open their locations\n    for randomization. Does not include journal "
+                               "entries  gained by killing enemies.",
     "RandomizeNail": "Removes the ability to swing the nail left, right and up, and shuffles these into the item pool.",
     "RandomizeGeoRocks": "Randomize Geo Rock rewards into the item pool and open their locations for randomization.",
     "RandomizeBossGeo": "Randomize boss Geo drops into the item pool and open those locations for randomization.",
@@ -130,7 +132,7 @@ shop_to_option = {
 
 hollow_knight_randomize_options: dict[str, type(Option)] = {}
 
-splitter_pattern = re.compile(r'(?<!^)(?=[A-Z])')
+splitter_pattern = re.compile(r"(?<!^)(?=[A-Z])")
 for option_name, option_data in pool_options.items():
     items = [pair["item"] for pair in option_data]
     locations = [pair["item"] for pair in option_data]
@@ -284,7 +286,7 @@ class RandomCharmCosts(NamedRange):
     default = -1
     vanilla_costs: list[int] = vanilla_costs
     charm_count: int = len(vanilla_costs)
-    special_range_names = {
+    special_range_names: typing.ClassVar[dict[str, int]] = {
         "vanilla": -1,
         "shuffle": -2
     }
@@ -293,18 +295,17 @@ class RandomCharmCosts(NamedRange):
         charms: list[int]
         if -1 == self.value:
             return self.vanilla_costs.copy()
-        elif -2 == self.value:
+        if -2 == self.value:
             charms = self.vanilla_costs.copy()
             random_source.shuffle(charms)
             return charms
-        else:
-            charms = [0] * self.charm_count
-            for x in range(self.value):
+        charms = [0] * self.charm_count
+        for x in range(self.value):
+            index = random_source.randint(0, self.charm_count - 1)
+            while charms[index] > 5:
                 index = random_source.randint(0, self.charm_count - 1)
-                while charms[index] > 5:
-                    index = random_source.randint(0, self.charm_count - 1)
-                charms[index] += 1
-            return charms
+            charms[index] += 1
+        return charms
 
 
 class CharmCost(Range):
@@ -317,7 +318,8 @@ class PlandoCharmCosts(OptionDict):
     display_name = "Charm Notch Cost Plando"
     valid_keys = frozenset(charm_names)
     schema = Schema({
-        Optional(name): And(int, lambda n: 6 >= n >= 0, error="Charm costs must be integers in the range 0-6.") for name in charm_names
+        Optional(name): And(int, lambda n: 6 >= n >= 0, error="Charm costs must be integers in the range 0-6.")
+        for name in charm_names
         })
 
     def __init__(self, value):
@@ -330,7 +332,7 @@ class PlandoCharmCosts(OptionDict):
                 if data.lower() == "vanilla" and key in self.valid_keys:
                     self.value[key] = vanilla_costs[charm_names.index(key)]
                     continue
-                elif data.lower() == "default":
+                if data.lower() == "default":
                     # default is too easily confused with vanilla but actually 0
                     # skip CharmCost resolution to fail schema afterwords
                     self.value[key] = data
@@ -454,7 +456,7 @@ class GrubHuntGoal(NamedRange):
     display_name = "Grub Hunt Goal"
     range_start = 1
     range_end = 46
-    special_range_names = {"all": -1, "forty_six": 46}
+    special_range_names: typing.ClassVar[dict[str, int]] = {"all": -1, "forty_six": 46}
     default = 46
 
 
@@ -560,7 +562,7 @@ for term, cost in cost_terms.items():
         ),
         "default": cost.weight
     }
-    if cost == 'GEO':
+    if cost == "GEO":
         extra_data["__doc__"] += " Geo costs will never be chosen for Grubfather, Seer, or Egg Shop."
 
     option = type(option_name, (Range,), extra_data)
@@ -595,4 +597,4 @@ hollow_knight_options: dict[str, type(Option)] = {
 }
 
 # https://github.com/python/mypy/issues/6063 unfortunatly mypy hates this
-HKOptions = make_dataclass("HKOptions", [(name, option) for name, option in hollow_knight_options.items()], bases=(PerGameCommonOptions,))
+HKOptions = make_dataclass("HKOptions", list(hollow_knight_options.items()), bases=(PerGameCommonOptions,))

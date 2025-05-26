@@ -1,11 +1,10 @@
 import unittest
-from worlds.AutoWorld import AutoWorldRegister
 from test.general import setup_solo_multiworld
 from .. import HKWorld
 
 
 class TestBase(unittest.TestCase):
-    def testCollect(self):
+    def test_collect(self):
         game_name, world_type = "Hollow Knight", HKWorld
         multiworld = setup_solo_multiworld(world_type)
         proxy_world = multiworld.worlds[1]
@@ -36,7 +35,7 @@ class TestBase(unittest.TestCase):
 
             multiworld.state.prog_items = empty_state.prog_items
 
-    # def testCollect_split_cloak(self):
+    # def test_collect_split_cloak(self):
     #     game_name, world_type = "Hollow Knight", HKWorld
     #     multiworld = setup_solo_multiworld(world_type)
     #     proxy_world = multiworld.worlds[1]
@@ -118,7 +117,7 @@ class TestBase(unittest.TestCase):
 
         multiworld.state.prog_items = empty_state.prog_items
 
-    def testCollect_cloak_iterations(self):
+    def test_collect_cloak_iterations(self):
 
         # LLR
         with self.subTest("LLR"):
@@ -416,8 +415,8 @@ class TestBase(unittest.TestCase):
                 {"Mothwing_Cloak": 1, "LEFTDASH": 1, "RIGHTDASH": 1},
             )
 
-    def testCollect_charm(self):
-        game_name, world_type = "Hollow Knight", HKWorld
+    def test_collect_charm(self):
+        world_type = HKWorld
         multiworld = setup_solo_multiworld(world_type)
         empty_state = multiworld.state
 
@@ -457,16 +456,16 @@ class TestBase(unittest.TestCase):
         all_state.remove(unbreakable_strength)
         assert all_state.prog_items[1]["CHARMS"] == 37
 
-    def testCollect_charm(self):
-        game_name, world_type = "Hollow Knight", HKWorld
-        multiworld = setup_solo_multiworld(world_type)
-        empty_state = multiworld.state
+    # def test_collect_charm_just_whitefragment(self):
+    #     game_name, world_type = "Hollow Knight", HKWorld
+    #     multiworld = setup_solo_multiworld(world_type)
+    #     empty_state = multiworld.state
 
-        king_fragment = next(item for item in multiworld.itempool if item.name == "King_Fragment")
-        queen_fragment = next(item for item in multiworld.itempool if item.name == "Queen_Fragment")
+    #     king_fragment = next(item for item in multiworld.itempool if item.name == "King_Fragment")
+    #     queen_fragment = next(item for item in multiworld.itempool if item.name == "Queen_Fragment")
 
-        assert empty_state.prog_items[1]["CHARMS"] == 0
-        empty_state.collect(king_fragment)
-        assert empty_state.prog_items[1]["CHARMS"] == 0
-        empty_state.collect(queen_fragment)
-        assert empty_state.prog_items[1]["CHARMS"] == 1
+    #     assert empty_state.prog_items[1]["CHARMS"] == 0
+    #     empty_state.collect(king_fragment)
+    #     assert empty_state.prog_items[1]["CHARMS"] == 0
+    #     empty_state.collect(queen_fragment)
+    #     assert empty_state.prog_items[1]["CHARMS"] == 1

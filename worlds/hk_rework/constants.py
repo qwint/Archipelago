@@ -16,7 +16,7 @@ shop_cost_types: dict[str, tuple[str, ...]] = {
 randomizable_starting_items: dict[str, tuple[str, ...]] = {
     "RandomizeFocus": ("Focus",),
     "RandomizeSwim": ("Swim",),
-    "RandomizeNail": ('Upslash', 'Leftslash', 'Rightslash')
+    "RandomizeNail": ("Upslash", "Leftslash", "Rightslash")
 }
 
 gamename = "Hollow Knight"

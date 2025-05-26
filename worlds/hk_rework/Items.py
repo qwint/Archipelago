@@ -1,6 +1,5 @@
-from .data.option_data import pool_options
-from .data.location_data import multi_locations
 from .data.item_effects import affecting_items_by_term, progression_effect_lookup, non_progression_items
+from .data.option_data import pool_options
 
 # strip "Randomize" from pool options and use their names as group names
 item_name_groups = {
@@ -38,5 +37,5 @@ item_name_groups["Skills"] |= item_name_groups["Vertical"] | item_name_groups["H
 item_name_groups["SoulTotems"].add("Soul_Refill")
 
 
-items = {item for item in progression_effect_lookup.keys()} | set(non_progression_items)
+items = set(progression_effect_lookup.keys()) | set(non_progression_items)
 items |= {"One_Geo", "Soul_Refill"}

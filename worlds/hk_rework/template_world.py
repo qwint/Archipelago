@@ -1,17 +1,14 @@
 from BaseClasses import Region, Location, Item, ItemClassification, CollectionState
-from worlds.AutoWorld import World
-from typing import Any, Callable
+from typing import Any, Callable, ClassVar
 
 
-class RandomizerCoreWorld(World):
+class RandomizerCoreWorld:
     # location_name_to_id = {
     #     name: index for index, name in enumerate([location["name"] for location in locations], base_id)
     # }
     # item_name_to_id = {name: index for index, name in enumerate([item["name"] for item in item_table], base_id)}
-    location_name_to_id = {}
-    item_name_to_id = {}
-    rc_regions: list[dict[str, Any]] = {}
-    rc_locations: list[dict[str, Any]] = {}
+    rc_regions: ClassVar[list[dict[str, Any]]] = {}
+    rc_locations: ClassVar[list[dict[str, Any]]] = {}
     item_class = Item
     location_class = Location
     region_class = Region
@@ -39,7 +36,7 @@ class RandomizerCoreWorld(World):
 
     def create_rule(self, rule: Any) -> Callable[[CollectionState], bool]:
         """Used to parse the logic format into an access_rule for Entrances and Locations."""
-        return lambda state: True
+        return staticmethod(lambda state: True)
 
     def get_item_list(self) -> list[str]:
         """
@@ -53,15 +50,11 @@ class RandomizerCoreWorld(World):
         """Used to get the Item Classification by name for every item added to the Multiworld"""
         return ItemClassification.progression
 
-    def get_filler_item_name(self) -> str:
-        """Called by RandomizerCoreWorld and Core whenever more items need to be created for your World"""
-        return ""
-
 # common methods
     def create_regions(self) -> None:
         # create a local map of get_region_list names to region object for referencing in create_regions
         # and adding those regions to the multiworld
-        regions = {region: None for region in self.get_region_list()}
+        regions = dict.fromkeys(self.get_region_list(), None)
         for region in regions.keys():
             regions[region] = self.region_class(region, self.player, self.multiworld)
             self.multiworld.regions.append(regions[region])

@@ -20,23 +20,23 @@ cost_terms = {x.term: x for x in (
 
 
 def _hk_nail_combat(state, player) -> bool:
-    return state.has_any({'LEFTSLASH', 'RIGHTSLASH', 'UPSLASH'}, player)
+    return state.has_any({"LEFTSLASH", "RIGHTSLASH", "UPSLASH"}, player)
 
 
-def _hk_option(world, option_name: str) -> int:
-    return getattr(world.options, option_name).value
+def _hk_option(state, player, option_name: str) -> int:
+    return getattr(state.multiworld.worlds[player].options, option_name).value
 
 
 def _hk_can_beat_thk(state, player) -> bool:
     return (
-        state.has('Opened_Black_Egg_Temple', player)
-        and (state.count('FIREBALL', player) + state.count('SCREAM', player) + state.count('QUAKE', player)) > 1
+        state.has("Opened_Black_Egg_Temple", player)
+        and (state.count("FIREBALL", player) + state.count("SCREAM", player) + state.count("QUAKE", player)) > 1
         and _hk_nail_combat(state, player)
         and (
-            state.has_any({'LEFTDASH', 'RIGHTDASH'}, player)
-            or _hk_option(state.multiworld.worlds[player], 'ProficientCombat')
+            state.has_any({"LEFTDASH", "RIGHTDASH"}, player)
+            or _hk_option(state, player, "ProficientCombat")
         )
-        and state.has('FOCUS', player)
+        and state.has("FOCUS", player)
     )
 
 
@@ -46,17 +46,17 @@ def _hk_siblings_ending(state, player) -> bool:
 
 def _hk_can_beat_radiance(state, player) -> bool:
     return (
-        state.has('Opened_Black_Egg_Temple', player)
+        state.has("Opened_Black_Egg_Temple", player)
         and _hk_nail_combat(state, player)
         and state.has("CHARM36", player, 3)
-        and state.has('DREAMNAIL', player)
+        and state.has("DREAMNAIL", player)
         and (
-            (state.has('LEFTCLAW', player) and state.has('RIGHTCLAW', player))
-            or state.has('WINGS', player)
+            (state.has("LEFTCLAW", player) and state.has("RIGHTCLAW", player))
+            or state.has("WINGS", player)
         )
-        and (state.count('FIREBALL', player) + state.count('SCREAM', player) + state.count('QUAKE', player)) > 1
+        and (state.count("FIREBALL", player) + state.count("SCREAM", player) + state.count("QUAKE", player)) > 1
         and (
-            (state.has('LEFTDASH', player, 2) and state.has('RIGHTDASH', player, 2))  # Both Shade Cloaks
-            or (_hk_option(state.multiworld.worlds[player], 'ProficientCombat') and state.has('QUAKE', player))  # or Dive
+            (state.has("LEFTDASH", player, 2) and state.has("RIGHTDASH", player, 2))  # Both Shade Cloaks
+            or (_hk_option(state, player, "ProficientCombat") and state.has("QUAKE", player))  # or Dive
         )
     )

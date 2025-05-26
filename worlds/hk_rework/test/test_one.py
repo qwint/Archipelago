@@ -1,7 +1,8 @@
-from . import HKTestBase, selectSeedHK
+import typing
+from .bases import HKTestBase
 
 
-class TestGoal_any(HKTestBase):
-    options = {
+class TestGoalAny(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
     }
