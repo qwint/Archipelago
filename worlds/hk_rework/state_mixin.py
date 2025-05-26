@@ -81,7 +81,10 @@ class HKLogicMixin(LogicMixin):
         players = self.multiworld.get_game_players(HKWorld.game)
         if not players:
             return other
-        other._hk_per_player_resource_states = {player: self._hk_per_player_resource_states[player].copy() for player in players}
+        other._hk_per_player_resource_states = {
+            player: self._hk_per_player_resource_states[player].copy()
+            for player in players
+        }
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
         # intentionally setting by reference since it doesn't change after being set
@@ -115,7 +118,11 @@ class HKLogicMixin(LogicMixin):
                 persist = False
 
             for handler in clause.hk_state_requirements:
-                avaliable_states = [s for input_state in avaliable_states for s in handler.modify_state(input_state, self, player)]
+                avaliable_states = [
+                    s
+                    for input_state in avaliable_states
+                    for s in handler.modify_state(input_state, self, player)
+                ]
 
             if len(avaliable_states):
                 if not persist:
@@ -124,7 +131,8 @@ class HKLogicMixin(LogicMixin):
                 for index, s in reversed(list(enumerate(avaliable_states))):
                     for previous in target_states:
                         if s == previous or lt(previous, s):
-                            # if the state we're adding already exists or a better state already exists, we didn't improve
+                            # if the state we're adding already exists
+                            # or a better state already exists, we didn't improve
                             avaliable_states.pop(index)
                             break
                 if avaliable_states:
@@ -138,7 +146,8 @@ class HKLogicMixin(LogicMixin):
                     #     target_states.pop(index)
 
                     for index, s in reversed(list(enumerate(target_states))):
-                        for other in [t_s for t_s in target_states if t_s is not s]:  # TODO make sure this doesn't ever break
+                        for other in [t_s for t_s in target_states if t_s is not s]:
+                            # TODO make sure this doesn't ever break
                             if lt(other, s):
                                 target_states.pop(index)
                                 break
@@ -167,9 +176,13 @@ class HKLogicMixin(LogicMixin):
             #     entrance.can_reach(self)
             #     # then we haven't done a single can_reach on it, let normal sweep handle that
             #     continue
-
-            # for index in [index for index, status in self._hk_entrance_clause_cache[player][entrance_name].items() if status]:
-            #     self._hk_apply_and_validate_state(entrance.hk_rule[index], entrance.parent_region, target_region=entrance.connected_region)
+            # cur_entrance_cache = self._hk_entrance_clause_cache[player][entrance_name]
+            # for index in [index for index, status in cur_entrance_cache.items() if status]:
+            #     self._hk_apply_and_validate_state(
+            #         entrance.hk_rule[index],
+            #         entrance.parent_region,
+            #         target_region=entrance.connected_region
+            #     )
         self._hk_stale[player] = False
         self._hk_sweeping[player] = False
 
@@ -213,19 +226,22 @@ def lt(state1: dict, state2: dict) -> bool:
             return False
     return True
 
-    # if state1 == state2:
-    #     breakpoint()
-    # if state1.keys() - state2.keys():
-    #     # if any keys exist in state1 that aren't present in state2, state1 cannot be less than
-    #     return False
-    # # if state1["SPENTSOUL"] > state2["SPENTSOUL"]:
-    # #     # see if shortcircuting common keys adds speedups
-    # #     return False
-    # if any(v1 > state2[key] for key, v1 in state1.items()):
-    #     return False
-    # return True
-    # return sum(state1[key] <= state2[key] for key in state1.keys()) == 1 and sum(state1[key] < state2[key] for key in state1.keys()) == 1
-    # return not ge(state1, state2)
+#     if state1 == state2:
+#         breakpoint()
+#     if state1.keys() - state2.keys():
+#         # if any keys exist in state1 that aren't present in state2, state1 cannot be less than
+#         return False
+#     # if state1["SPENTSOUL"] > state2["SPENTSOUL"]:
+#     #     # see if shortcircuting common keys adds speedups
+#     #     return False
+#     if any(v1 > state2[key] for key, v1 in state1.items()):
+#         return False
+#     return True
+#     return (
+#         sum(state1[key] <= state2[key] for key in state1.keys()) == 1
+#         and sum(state1[key] < state2[key] for key in state1.keys()) == 1
+#     )
+#     return not ge(state1, state2)
 
 # negative values won't exist
 # best case is falsy
@@ -557,7 +573,8 @@ class CastSpellVariable(RCStateVariable):
         state_st = state_blob.copy()
         if (self.try_cast_all(24, max_soul, reserves, soul)
                 and self.equip_st.can_equip(state_st, item_state, player)):
-            check, state_st = self.equip_st._modify_state(state_st, item_state, player)  # we know EquipCharmVariable only yields once
+            check, state_st = self.equip_st._modify_state(state_st, item_state, player)
+            # we know EquipCharmVariable only yields once
             if check:
                 self.do_all_casts(24, reserves, state_st)
                 if not state_st["CANNOTREGAINSOUL"] and self.after:
@@ -1009,7 +1026,8 @@ class RegainSoulVariable(RCStateVariable):
         else:
             state_blob["SPENTSOUL"] = 0
             amount = self.amount - soul_diff
-            reserve_diff = (self.get_max_reserve_soul(item_state, player) - state_blob["SPENTRESERVESOUL"])  # i simplified this
+            reserve_diff = (self.get_max_reserve_soul(item_state, player) - state_blob["SPENTRESERVESOUL"])
+            # i simplified this
             if amount < reserve_diff:
                 state_blob["SPENTRESERVESOUL"] -= amount
             else:

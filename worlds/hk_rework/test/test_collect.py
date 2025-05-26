@@ -63,8 +63,11 @@ class TestBase(unittest.TestCase):
     #             with self.subTest("Item State Remove", item_name=item_name, game_name=game_name):
     #                 multiworld.state.remove(item)
 
-    #         self.assertEqual(multiworld.state.prog_items, empty_state.prog_items,
-    #                          f"Item Collect -> Remove should restore empty state.\n{multiworld.state.prog_items}\n\n{empty_state.prog_items}")
+    #         self.assertEqual(
+    #             multiworld.state.prog_items, empty_state.prog_items,
+    #             "Item Collect -> Remove should restore empty state.\n"
+    #             f"{multiworld.state.prog_items}\n\n{empty_state.prog_items}"
+    #         )
 
     #         multiworld.state.prog_items = empty_state.prog_items
 
@@ -93,7 +96,8 @@ class TestBase(unittest.TestCase):
             if item_name in final_state:
                 self.assertEqual(
                     multiworld.state._hk_processed_item_cache[1][item_name], final_state[item_name],
-                    f"expected {final_state[item_name]} {item_name}, found {multiworld.state._hk_processed_item_cache[1][item_name]}"
+                    f"expected {final_state[item_name]} {item_name}, "
+                    f"found {multiworld.state._hk_processed_item_cache[1][item_name]}"
                     f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
                     )
             else:

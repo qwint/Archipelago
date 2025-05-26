@@ -80,7 +80,10 @@ class HKWeb(WebWorld):
 
     tutorials: ClassVar[list[Tutorial]] = [setup_en, setup_pt_br]
 
-    bug_report_page = "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
+    bug_report_page = (
+        "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new"
+        "?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
+    )
 
 
 class HKClause(NamedTuple):
@@ -196,7 +199,11 @@ class HKEntrance(Entrance):
             assert self.hk_rule != default_hk_rule, "should never have to be here"
             # if self.hk_rule == default_hk_rule:
             #     state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
-            #     state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
+            #     state._hk_apply_and_validate_state(
+            #         default_hk_rule[0],
+            #         self.parent_region,
+            #         target_region=self.connected_region
+            #     )
             #     return True
             if self.name not in state._hk_entrance_clause_cache[self.player]:
                 # if there's no cache for this entrance, make one with everything False
@@ -216,7 +223,10 @@ class HKEntrance(Entrance):
                     for region in clause.hk_region_requirements:
                         if not state.can_reach_region(region, self.player):
                             reachable = False
-                    if reachable and state._hk_apply_and_validate_state(clause, self.parent_region, target_region=self.connected_region):
+                    if reachable and state._hk_apply_and_validate_state(
+                            clause,
+                            self.parent_region,
+                            target_region=self.connected_region):
                         valid_clauses = True
 
             return valid_clauses
@@ -235,6 +245,13 @@ class HKRegion(Region):
             if state._hk_stale[self.player]:
                 state._hk_sweep(self.player)
             return super().can_reach(state)
+
+
+def location_name_for_mapping(pool_pair: dict[str, str]) -> str:
+    """helper function to abstract away using item name as a unique key for shop locations"""
+    if pool_pair["location"] not in multi_locations:
+        return pool_pair["location"]
+    return f"{pool_pair['location']}|{pool_pair['item']}"
 
 
 shop_locations = multi_locations
@@ -282,7 +299,7 @@ class HKWorld(RandomizerCoreWorld, World):
     rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations}
     region_lookup: ClassVar[dict[str, str]] = {location: r["name"] for r in hk_regions for location in r["locations"]}
     pool_lookup: ClassVar[dict[str, str]] = {
-        pair["location"] if pair["location"] not in multi_locations else f"{pair['location']}_{pair['item']}": pair["item"]
+        location_name_for_mapping(pair): pair["item"]
         for option, pairs in pool_options.items()
         for pair in pairs
         }
@@ -363,7 +380,7 @@ class HKWorld(RandomizerCoreWorld, World):
         # lookup table of locations that need to be created with their item like events but need ids like non-events
         if self.options.AddUnshuffledLocations:
             unshuffled_location_lookup = {
-                pair["locations"] if pair["locations"] not in self.created_multi_locations else f"{pair['locations']}_{pair['items']}": option
+                location_name_for_mapping(pair): option
                 for option, pairs in pool_options.items()
                 for pair in pairs
                 # TODO double check logic
@@ -374,7 +391,9 @@ class HKWorld(RandomizerCoreWorld, World):
         # meant to add events used in logic and to add any non-randomized item/locations as events
         # also makes the unshuffled ap items if add_unshuffled is true
         for event_location in self.event_locations:
-            def create_location(location: tuple[str, int | None], rule: Any, item: tuple[str, int | None] | None, region: "Region"):
+            name_id_pair = tuple[str, int | None]
+
+            def create_location(location: name_id_pair, rule: Any, item: name_id_pair | None, region: Region):
                 loc = self.location_class(self.player, location[0], location[1], region)
                 if rule:
                     self.set_rule(loc, self.create_rule(rule))
@@ -397,17 +416,19 @@ class HKWorld(RandomizerCoreWorld, World):
                 item = (item_name, None)
                 # if we don't have an item for the location it is a pure event, name the item same as the location
 
-            if event_location in self.pool_lookup and event_location.split(f"_{self.pool_lookup[event_location]}")[0] in shop_locations:
-                shop = event_location.split(f"_{self.pool_lookup[event_location]}")[0]
+            needs_event_code = event_location not in unshuffled_location_lookup
+            if event_location in self.pool_lookup and event_location.split("|")[0] in shop_locations:
+                shop = event_location.split("|")[0]
                 # TODO see if this can be cleaned up
 
-                # if we're placing a shop location it will be formatted as "shop_item" but we only have data per shop prefix
+                # if we're placing a shop location it will be formatted as "shop_item"
+                # but we only have data per shop prefix so parse the shop prefix out
                 location_name = f"{shop}_{len(self.created_multi_locations[shop])+1}"
                 lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
                 # fix because Salubra_(Requires_Charms) isn't actually in the source data
 
                 rule = self.rule_lookup[lookup_shop]
-                code = None if event_location not in unshuffled_location_lookup else self.location_name_to_id[location_name]
+                code = None if needs_event_code else self.location_name_to_id[location_name]
                 region = self.multiworld.get_region(self.region_lookup[lookup_shop], self.player)
 
                 loc = create_location((location_name, code), rule, item, region)
@@ -423,7 +444,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 continue
 
             rule = self.rule_lookup[event_location]
-            code = None if event_location not in unshuffled_location_lookup else self.location_name_to_id[event_location]
+            code = None if needs_event_code else self.location_name_to_id[event_location]
             region = self.multiworld.get_region(self.region_lookup[event_location], self.player)
 
             loc = create_location((event_location, code), rule, item, region)
@@ -491,7 +512,8 @@ class HKWorld(RandomizerCoreWorld, World):
 
 # black box methods
     def create_rule(self, rule: Any) -> list[HKClause]:
-        # TODO consider caching on these as they should be deterministic, but they need options so only deterministic per world
+        # TODO consider caching on these as they should be deterministic,
+        # TODO Cont. but they need options so only deterministic per world
         def parse_item_logic(reqs: list) -> tuple[bool, Counter[str]]:  # Mapping[str, int]:
             # handle both keys of item name and keys of itemname>count
             ret: Counter[str] = Counter()
@@ -543,7 +565,12 @@ class HKWorld(RandomizerCoreWorld, World):
             if skip_clause:
                 continue
             for item in items:
-                assert item == "FALSE" or item in affecting_items_by_term or item in affected_terms_by_item or item in event_locations, f"{item} not found in advancements"
+                assert (
+                    item == "FALSE"
+                    or item in affecting_items_by_term
+                    or item in affected_terms_by_item
+                    or item in event_locations
+                ), f"{item} not found in advancements"
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
                 hk_region_requirements=clause["region_requirements"],
@@ -561,7 +588,9 @@ class HKWorld(RandomizerCoreWorld, World):
                         # skip all entrances with state requirements so we know they're always repeatable
                         del rule[i]
             relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
-            relevant_terms.update({term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.get_terms()})
+            relevant_terms.update(
+                {term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.get_terms()}
+            )
             for term in relevant_terms:
                 # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh
                 self.entrance_by_term[term].append(spot.name)
@@ -595,11 +624,14 @@ class HKWorld(RandomizerCoreWorld, World):
             exclusions.remove("King_Fragment")
 
         self.event_locations += [
-            pair["location"] if pair["location"] not in self.created_multi_locations else f"{pair['location']}_{pair['item']}"
+            location_name_for_mapping(pair)
             for option, pairs in pool_options.items()
             for pair in pairs
             # TODO confirm logic
-            if (not getattr(self.options, option) and (option not in logicless_options or self.options.AddUnshuffledLocations))
+            if (
+                not getattr(self.options, option)
+                and (option not in logicless_options or self.options.AddUnshuffledLocations)
+                )
             or pair["location"] in exclusions
             ]
 
@@ -644,7 +676,12 @@ class HKWorld(RandomizerCoreWorld, World):
             location_list.append("Focus")
 
         # build out the map per location in the list
-        location_map = [(region["name"], location, self.rule_lookup[location]) for region in self.rc_regions for location in region["locations"] if location in location_list]
+        location_map = [
+            (region["name"], location, self.rule_lookup[location])
+            for region in self.rc_regions
+            for location in region["locations"]
+            if location in location_list
+        ]
 
         # TODO bandaid fix to make sure these don't ever get added to the pool
         assert not [obj for obj in location_map if obj[1] in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
@@ -717,9 +754,11 @@ class HKWorld(RandomizerCoreWorld, World):
         else:
             # Any goal
             multiworld.completion_condition[player] = (
-                lambda state: _hk_siblings_ending(state, player) and _hk_can_beat_radiance(state, player) and  # state.count("Godhome_Flower_Quest", player) and \  # TODO add this in later
-                self.can_grub_goal(state)
-                )
+                lambda state: _hk_siblings_ending(state, player)
+                and _hk_can_beat_radiance(state, player)
+                # and state.count("Godhome_Flower_Quest", player)  # TODO add this in later
+                and self.can_grub_goal(state)
+            )
 
     def can_grub_goal(self, state: CollectionState) -> bool:
         return all(state.has("GRUBS", owner, count) for owner, count in self.grub_player_count.items())
@@ -861,7 +900,10 @@ class HKWorld(RandomizerCoreWorld, World):
             if all(weight == 0 for weight in weights.values()):
                 raise OptionError(f"CostSanity was on for {player_name} but no currencies are enabled")
             if all(weight == 0 for name, weight in weights.items() if name != "GEO"):
-                raise OptionError(f"CostSanityHybridChance was on for {player_name} but no non-geo currencies are enabled for non-geo shops")
+                raise OptionError(
+                    f"CostSanityHybridChance was on for {player_name}"
+                    "but no non-geo currencies are enabled for non-geo shops"
+                )
             # hybrid_chance = options.CostSanityHybridChance.value
             # if hybrid_chance and len([name for name, weight in weights.items() if name is not "GEO" and weight != 0]):
             #     raise OptionError(f"temp")
@@ -1194,12 +1236,12 @@ class HKWorld(RandomizerCoreWorld, World):
         if hybrid_chance > 0:
             if len(weights) == 1:
                 logger.warning(
-                    f"Only one cost type is available for CostSanity in {self.multiworld.player_name[self.player]}'s world."
+                    f"Only one cost type is available for CostSanity in {self.player_name}'s world."
                     f" CostSanityHybridChance will not trigger in geo shop locations."
                 )
             if len(weights_geoless) == 1:
                 logger.warning(
-                    f"Only one cost type is available for CostSanity in {self.multiworld.player_name[self.player]}'s world."
+                    f"Only one cost type is available for CostSanity in {self.player_name}'s world."
                     f" CostSanityHybridChance will not trigger in geoless locations."
                 )
 
@@ -1211,9 +1253,9 @@ class HKWorld(RandomizerCoreWorld, World):
                     continue
                 if location.name == "Vessel_Fragment-Basin":
                     continue
-                if setting == CostSanity.option_notshops and location.basename in self.created_multi_locations:   # multi_locations:
+                if setting == CostSanity.option_notshops and location.basename in self.created_multi_locations:
                     continue
-                if setting == CostSanity.option_shopsonly and location.basename not in self.created_multi_locations:  # multi_locations:
+                if setting == CostSanity.option_shopsonly and location.basename not in self.created_multi_locations:
                     continue
                 if location.basename in {"Grubfather", "Seer", "Egg_Shop"}:
                     our_weights = dict(weights_geoless)
