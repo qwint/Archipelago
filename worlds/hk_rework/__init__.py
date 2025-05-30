@@ -832,6 +832,9 @@ class HKWorld(RandomizerCoreWorld, World):
             assert name not in progression_effect_lookup
         elif name in progression_effect_lookup:
             classification = ItemClassification.progression
+        else:
+            logger.warning(f"unknown item {name} setting to progression")
+            classification = ItemClassification.progression
         if name in affecting_items_by_term["DREAMER"] or \
                 name in affecting_items_by_term["GRUBS"] or \
                 name in affecting_items_by_term["ESSENCE"] or \
@@ -1088,8 +1091,13 @@ class HKWorld(RandomizerCoreWorld, World):
     def collect(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
+
+            # TODO these both aparentally should be implied by threshold?
             if item.name in charm_name_to_id:
                 state.prog_items[player][f"CHARM{charm_name_to_id[item.name] + 1}"] += 1
+            elif item.name.endswith("_Stag"):
+                state.prog_items[player][item.name] += 1
+
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] += 1
@@ -1116,6 +1124,8 @@ class HKWorld(RandomizerCoreWorld, World):
             player = item.player
             if item.name in charm_name_to_id:
                 state.prog_items[player][f"CHARM{charm_name_to_id[item.name] + 1}"] -= 1
+            elif item.name.endswith("_Stag"):
+                state.prog_items[player][item.name] -= 1
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] -= 1
