@@ -1074,11 +1074,12 @@ class HKWorld(RandomizerCoreWorld, World):
         elif lookup["type"] == "threshold":
             count = state._hk_processed_item_cache[player][lookup["term"]]
             if count == lookup["threshold"]:
-                return lookup["at_threshold"]
-            elif count < lookup["threshold"]:  # noqa: RET505
-                return lookup["below_threshold"]
+                ret = lookup["at_threshold"]
+            elif count < lookup["threshold"]:
+                ret = lookup["below_threshold"]
             else:
-                return lookup["above_threshold"]
+                ret = lookup["above_threshold"]
+            return {lookup["term"]: 1, **ret}
 
         else:
             raise Exception(f"unknown type {lookup['type']}")
@@ -1091,13 +1092,6 @@ class HKWorld(RandomizerCoreWorld, World):
     def collect(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
-
-            # TODO these both aparentally should be implied by threshold?
-            if item.name in charm_name_to_id:
-                state.prog_items[player][f"CHARM{charm_name_to_id[item.name] + 1}"] += 1
-            elif item.name.endswith("_Stag"):
-                state.prog_items[player][item.name] += 1
-
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] += 1
@@ -1122,10 +1116,6 @@ class HKWorld(RandomizerCoreWorld, World):
     def remove(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
-            if item.name in charm_name_to_id:
-                state.prog_items[player][f"CHARM{charm_name_to_id[item.name] + 1}"] -= 1
-            elif item.name.endswith("_Stag"):
-                state.prog_items[player][item.name] -= 1
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] -= 1

@@ -10,7 +10,7 @@ from worlds.AutoWorld import LogicMixin
 
 from .Charms import charm_name_to_id, charm_names
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, SIMPLE_STATE_LOGIC  # noqa: F401
-from .data.constants.item_names import LocationNames as ItemNames  # TODO change this when export is fixed
+from .data.constants.item_names import ItemNames
 from .Options import HKOptions
 
 if TYPE_CHECKING:
@@ -784,7 +784,7 @@ class EquipCharmVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state: CollectionState, player: int) -> bool:
-        return item_state.has(self.charm_key, player)
+        return item_state.has(self.charm_name, player)
         # return bool(item_state._hk_processed_item_cache[player][self.charm_name])
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
@@ -961,7 +961,7 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
             count = 3
         else:
             count = 2
-        return item_state.has(self.charm_key, player, count)
+        return item_state.has("WHITEFRAGMENT", player, count)
 
     # TODO double check this is not necessary with has_item defined
     # def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
