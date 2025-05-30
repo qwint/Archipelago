@@ -144,15 +144,9 @@ hollow_knight_randomize_options: dict[str, type(Option)] = {}
 
 splitter_pattern = re.compile(r"(?<!^)(?=[A-Z])")
 for option_name, option_data in pool_options.items():
-    items = [pair["item"] for pair in option_data]
-    locations = [pair["item"] for pair in option_data]
-    extra_data = {"__module__": __name__, "items": items, "locations": locations}
+    extra_data = {"__module__": __name__}
     if option_name in option_docstrings:
-        if option_name == "RandomizeFocus":
-            # pool options for focus are just lying
-            count = 1
-        else:
-            count = len([pair["location"] for pair in option_data if pair["location"] != "Start"])
+        count = len(option_data["randomized"]["locations"])
         extra_data["__doc__"] = option_docstrings[option_name] + \
             f"\n    This option adds approximately {count} location{'s' if count != 1 else ''}."
     if option_name in default_on:

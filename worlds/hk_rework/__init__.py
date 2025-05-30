@@ -41,7 +41,6 @@ from .Options import (
     HKOptions,
     WhitePalace,
     hollow_knight_options,
-    hollow_knight_randomize_options,
     shop_to_option,
 )
 from .Rules import _hk_can_beat_radiance, _hk_can_beat_thk, _hk_siblings_ending, cost_terms
@@ -247,17 +246,10 @@ class HKRegion(Region):
             return super().can_reach(state)
 
 
-def location_name_for_mapping(pool_pair: dict[str, str]) -> str:
-    """helper function to abstract away using item name as a unique key for shop locations"""
-    if pool_pair["location"] not in multi_locations:
-        return pool_pair["location"]
-    return f"{pool_pair['location']}|{pool_pair['item']}"
-
-
 shop_locations = multi_locations
 event_locations = [location["name"] for location in locations if location["is_event"]
                    and location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
-vanilla_cost_data = [pair for option in pool_options.values() for pair in option if pair["costs"]]
+vanilla_cost_data = [pair for option in pool_options.values() for pair in option["vanilla"] if pair["costs"]]
 vanilla_location_costs = {
     pair["location"]: {cost["term"]: cost["amount"] for cost in pair["costs"]}
     for pair in vanilla_cost_data
@@ -298,11 +290,6 @@ class HKWorld(RandomizerCoreWorld, World):
 
     rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations}
     region_lookup: ClassVar[dict[str, str]] = {location: r["name"] for r in hk_regions for location in r["locations"]}
-    pool_lookup: ClassVar[dict[str, str]] = {
-        location_name_for_mapping(pair): pair["item"]
-        for option, pairs in pool_options.items()
-        for pair in pairs
-        }
     entrance_by_term: dict[str, list[str]]
 
     cached_filler_items: ClassVar[dict[int, list[str]]] = {}  # per player cache
@@ -338,7 +325,9 @@ class HKWorld(RandomizerCoreWorld, World):
         if "King_Fragment" in self.white_palace_exclusions():
             self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
 
-        location_to_option = {key["location"]: option for option, keys in pool_options.items() for key in keys}
+        location_to_option = {
+            location: option for option, data in pool_options.items() for location in data["randomized"]["locations"]
+        }
         location_to_option["Elevator_Pass"] = "RandomizeElevatorPass"
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
@@ -377,80 +366,47 @@ class HKWorld(RandomizerCoreWorld, World):
             region1.connect(region2, connection[2])
 
     def add_all_events(self):
-        # lookup table of locations that need to be created with their item like events but need ids like non-events
-        if self.options.AddUnshuffledLocations:
-            unshuffled_location_lookup = {
-                location_name_for_mapping(pair): option
-                for option, pairs in pool_options.items()
-                for pair in pairs
-                # TODO double check logic
-                }
-        else:
-            unshuffled_location_lookup = {}
+        location_to_region = {loc: reg["name"] for reg in regions for loc in reg["locations"]}
 
-        # meant to add events used in logic and to add any non-randomized item/locations as events
-        # also makes the unshuffled ap items if add_unshuffled is true
-        for event_location in self.event_locations:
-            name_id_pair = tuple[str, int | None]
+        def create_location(item: str, location: str, costs: list[dict]):
+            if location in shop_locations:
+                loc = self.add_shop_location(location)
+            else:
+                region = self.get_region(location_to_region[location])
+                if not self.options.AddUnshuffledLocations or location in self.event_locations:
+                    loc_id = None
+                else:
+                    loc_id = self.location_name_to_id[location]
+                loc = self.location_class(self.player, location, loc_id, region)
+                region.locations.append(loc)
 
-            def create_location(location: name_id_pair, rule: Any, item: name_id_pair | None, region: Region):
-                loc = self.location_class(self.player, location[0], location[1], region)
+                rule = self.rule_lookup.get(location)
                 if rule:
                     self.set_rule(loc, self.create_rule(rule))
-                if item:
-                    loc.place_locked_item(
-                        self.item_class(item[0], ItemClassification.progression, item[1], self.player)
-                    )
-                    loc.show_in_spoiler = False
-                return loc
+            assert item
+            if item:
+                if not self.options.AddUnshuffledLocations or item in self.event_locations:
+                    item_id = None
+                else:
+                    item_id = self.item_name_to_id[item]
+                loc.place_locked_item(
+                    self.item_class(item, ItemClassification.progression, item_id, self.player)
+                )
+                loc.show_in_spoiler = False
+            return loc
 
-            if event_location.startswith("Start"):
-                continue
-                # TODO handle this better / get better extracted itemdata
+        for option, option_data in pool_options.items():
+            if not getattr(self.options, option):
+                for pair in option_data["vanilla"]:
+                    if pair["location"] == "Start":
+                        continue
+                    create_location(pair["item"], pair["location"], pair["costs"])
+        for event in self.event_locations:
+            create_location(event, event, [])
 
-            if event_location in unshuffled_location_lookup:
-                item_name = self.pool_lookup[event_location]
-                item = (item_name, self.item_name_to_id[item_name])
-            else:
-                item_name = self.pool_lookup.get(event_location, event_location)
-                item = (item_name, None)
-                # if we don't have an item for the location it is a pure event, name the item same as the location
-
-            needs_event_code = event_location not in unshuffled_location_lookup
-            if event_location in self.pool_lookup and event_location.split("|")[0] in shop_locations:
-                shop = event_location.split("|")[0]
-                # TODO see if this can be cleaned up
-
-                # if we're placing a shop location it will be formatted as "shop_item"
-                # but we only have data per shop prefix so parse the shop prefix out
-                location_name = f"{shop}_{len(self.created_multi_locations[shop])+1}"
-                lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
-                # fix because Salubra_(Requires_Charms) isn't actually in the source data
-
-                rule = self.rule_lookup[lookup_shop]
-                code = None if needs_event_code else self.location_name_to_id[location_name]
-                region = self.multiworld.get_region(self.region_lookup[lookup_shop], self.player)
-
-                loc = create_location((location_name, code), rule, item, region)
-                costs = self.vanilla_shop_costs.get((shop, item[0]))
-                if costs:
-                    loc.costs = costs.pop()
-                    loc.sort_costs()
-                    loc.vanilla = True
-                    # setting vanilla=True so shop sorting doesn't shuffle the price around
-                self.created_multi_locations[shop].append(loc)
-                loc.basename = shop  # for costsanity pool checking
-                region.locations.append(loc)
-                continue
-
-            rule = self.rule_lookup[event_location]
-            code = None if needs_event_code else self.location_name_to_id[event_location]
-            region = self.multiworld.get_region(self.region_lookup[event_location], self.player)
-
-            loc = create_location((event_location, code), rule, item, region)
-            region.locations.append(loc)
-
-    def add_shop_location(self, shop, index):
+    def add_shop_location(self, shop, index=None):
+        if index is None:
+            index = len(self.created_multi_locations[shop])
         lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
         # fix because Salubra_(Requires_Charms) isn't actually in the source data
 
@@ -475,6 +431,7 @@ class HKWorld(RandomizerCoreWorld, World):
         self.created_multi_locations[shop].append(loc)
         loc.basename = shop  # for costsanity pool checking
         region.locations.append(loc)
+        return loc
 
     def add_shop_locations(self):
         # TODO logicless event items that get culled don't take up shop space
@@ -569,7 +526,7 @@ class HKWorld(RandomizerCoreWorld, World):
                     item == "FALSE"
                     or item in affecting_items_by_term
                     or item in affected_terms_by_item
-                    or item in event_locations
+                    or item in self.event_locations
                 ), f"{item} not found in advancements"
             hk_rule.append(HKClause(
                 hk_item_requirements=dict(items),
@@ -623,24 +580,12 @@ class HKWorld(RandomizerCoreWorld, World):
         if "King_Fragment" in exclusions:
             exclusions.remove("King_Fragment")
 
-        self.event_locations += [
-            location_name_for_mapping(pair)
-            for option, pairs in pool_options.items()
-            for pair in pairs
-            # TODO confirm logic
-            if (
-                not getattr(self.options, option)
-                and (option not in logicless_options or self.options.AddUnshuffledLocations)
-                )
-            or pair["location"] in exclusions
-            ]
-
         location_list = [
-            pair["location"]
-            for option, pairs in pool_options.items()
-            for pair in pairs
-            if pair["location"] not in self.event_locations and getattr(self.options, option)
-            and pair["location"] not in self.created_multi_locations
+            location
+            for option, data in pool_options.items()
+            for location in data["randomized"]["locations"]
+            if location not in self.event_locations and getattr(self.options, option)
+            and location not in self.created_multi_locations
             ]
 
         # options not handled in pool_options
@@ -698,10 +643,10 @@ class HKWorld(RandomizerCoreWorld, World):
 
         # build out item_table (including counts) by option, excluding items in junk
         item_table = [
-            pair["item"]
-            for option, pairs in pool_options.items()
-            for pair in pairs
-            if getattr(self.options, option) and pair["item"] not in junk
+            item
+            for option, data in pool_options.items()
+            for item in data["randomized"]["items"]
+            if getattr(self.options, option) and item not in junk
         ]
 
         # options not handled in pool_options
@@ -724,10 +669,10 @@ class HKWorld(RandomizerCoreWorld, World):
             item_table.remove(item_name)
             item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
-        # Grimmchild 1 always gets added, switch if needed
-        if not self.options.RandomizeGrimmkinFlames and self.options.RandomizeCharms:
-            item_table.remove("Grimmchild1")
-            item_table.append("Grimmchild2")
+        # Grimmchild 2 always gets added, switch if needed
+        if self.options.RandomizeCharms and not self.options.RandomizeGrimmkinFlames:
+            item_table.remove("Grimmchild2")
+            item_table.append("Grimmchild1")
 
         if self.options.RandomizeElevatorPass:
             item_table.append("Elevator_Pass")
@@ -858,8 +803,7 @@ class HKWorld(RandomizerCoreWorld, World):
                     "RandomizeRancidEggs"
             ):
                 if getattr(self.options, group):
-                    # TODO hollow_knight_randomize_options and pool_options seem equivilant
-                    fillers.extend(item for item in hollow_knight_randomize_options[group].items if item not in
+                    fillers.extend(item for item in pool_options[group]["randomized"]["items"] if item not in
                                    exclusions)
             self.cached_filler_items[self.player] = fillers
         return self.cached_filler_items[self.player]
@@ -1008,8 +952,9 @@ class HKWorld(RandomizerCoreWorld, World):
                 and name != "King_Fragment"
                 })
 
-        loc_to_item = {pair["location"]: pair["item"] for pool in pool_options.values() for pair in pool}
-        exclusions.update({loc_to_item[loc] for loc in exclusions if loc in loc_to_item})
+        # TODO update or remove this
+        # loc_to_item = {pair["location"]: pair["item"] for pool in pool_options.values() for pair in pool}
+        # exclusions.update({loc_to_item[loc] for loc in exclusions if loc in loc_to_item})
 
         if wp == WhitePalace.option_exclude:
             exclusions.add("King_Fragment")

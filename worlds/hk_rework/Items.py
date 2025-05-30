@@ -3,7 +3,7 @@ from .data.option_data import pool_options
 
 # strip "Randomize" from pool options and use their names as group names
 item_name_groups = {
-    key[9:]: {pair["item"] for pair in value}
+    key[9:]: {item for item in value["randomized"]["items"]}
     for key, value in pool_options.items()
 
     # TODO dynamically exclude these if possible
@@ -20,7 +20,7 @@ item_name_groups["Dive"] = set(affecting_items_by_term["QUAKE"])
 item_name_groups["Fireball"] = set(affecting_items_by_term["FIREBALL"])
 item_name_groups["Scream"] = set(affecting_items_by_term["SCREAM"])
 item_name_groups["Grimmchild"] = set(affecting_items_by_term["Grimmchild"])
-item_name_groups["Charms"] |= item_name_groups["Grimmchild"]  # Grimmchild2 isn't in the pool_options for charms
+item_name_groups["Charms"] |= item_name_groups["Grimmchild"]  # Grimmchild1 isn't in the pool_options for charms
 item_name_groups["WhiteFragments"] = set(affecting_items_by_term["WHITEFRAGMENT"])
 item_name_groups["DreamNails"] = set(affecting_items_by_term["DREAMNAIL"])
 
