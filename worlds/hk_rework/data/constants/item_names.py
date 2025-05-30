@@ -9,7 +9,7 @@ except ImportError:
         pass
 
 
-class LocationNames(StrEnum):
+class ItemNames(StrEnum):
     LURIEN = "Lurien"
     MONOMON = "Monomon"
     HERRAH = "Herrah"
