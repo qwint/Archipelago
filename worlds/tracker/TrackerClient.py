@@ -909,9 +909,9 @@ class TrackerGameContext(CommonContext):
                 self.ui.tabs.show_map = False
             if self.tracker_world:
                 if "load_map" in self.command_processor.commands:
-                    self.command_processor.commands["load_map"] = None
+                    del self.command_processor.commands["load_map"]
                 if "list_maps" in self.command_processor.commands:
-                    self.command_processor.commands["list_maps"] = None
+                    del self.command_processor.commands["list_maps"]
                 self.map_id = None
                 self.root_pack_path = None
             self.tracker_world = None
