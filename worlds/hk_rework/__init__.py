@@ -262,7 +262,7 @@ for i in vanilla_cost_data:
     costs = {cost["term"]: cost["amount"] for cost in i["costs"]}
     vanilla_shop_costs[(i["location"], i["item"])].append(costs)
 
-hk_regions = [region for region in cast(list[dict[str, Any]], regions) if not region["name"].startswith("$")]
+hk_regions = [region for region in cast(list[dict[str, Any]], regions) if not region["name"].startswith("$") and not region["name"] == "Bench-Godhome_Roof"]
 hk_locations = cast(list[dict[str, Any]], list(locations))
 
 
