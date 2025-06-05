@@ -1,12 +1,11 @@
 import typing
 
 from Options import ItemLinks
-from test.bases import WorldTestBase
 
-from .bases import LinkedTestHK
+from .bases import LinkedTestHK, HKGoalBase
 
 
-class TestGrubcountLimited(LinkedTestHK, WorldTestBase):
+class TestGrubcountLimited(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": 20,
@@ -21,7 +20,7 @@ class TestGrubcountLimited(LinkedTestHK, WorldTestBase):
     expected_grubs = 20
 
 
-class TestGrubcountDefault(LinkedTestHK, WorldTestBase):
+class TestGrubcountDefault(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "Goal": "any",
@@ -35,7 +34,7 @@ class TestGrubcountDefault(LinkedTestHK, WorldTestBase):
     expected_grubs = 46
 
 
-class TestGrubcountAllUnlinked(LinkedTestHK, WorldTestBase):
+class TestGrubcountAllUnlinked(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": "all",
@@ -45,7 +44,7 @@ class TestGrubcountAllUnlinked(LinkedTestHK, WorldTestBase):
     expected_grubs = 46
 
 
-class TestGrubcountAllLinked(LinkedTestHK, WorldTestBase):
+class TestGrubcountAllLinked(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": "all",
@@ -60,7 +59,7 @@ class TestGrubcountAllLinked(LinkedTestHK, WorldTestBase):
     expected_grubs = 46 + 23
 
 
-class TestReplacementOnly(LinkedTestHK, WorldTestBase):
+class TestReplacementOnly(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": "all",
@@ -87,7 +86,7 @@ class TestReplacementOnly(LinkedTestHK, WorldTestBase):
         return args
 
 
-class TestReplacementOnlyUnlinked(LinkedTestHK, WorldTestBase):
+class TestReplacementOnlyUnlinked(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": "all",
@@ -114,7 +113,7 @@ class TestReplacementOnlyUnlinked(LinkedTestHK, WorldTestBase):
         return args
 
 
-class TestIgnoreOthers(LinkedTestHK, WorldTestBase):
+class TestIgnoreOthers(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": "all",
@@ -142,7 +141,7 @@ class TestIgnoreOthers(LinkedTestHK, WorldTestBase):
         return args
 
 
-class TestReplacementOnlyLinked(LinkedTestHK, WorldTestBase):
+class TestReplacementOnlyLinked(LinkedTestHK, HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "RandomizeGrubs": True,
         "GrubHuntGoal": "all",

@@ -8,10 +8,16 @@ from worlds.AutoWorld import AutoWorldRegister, call_all
 
 from .. import HKWorld
 
+RUN_FILL_TESTS = False
+
 
 class HKTestBase(WorldTestBase):
     game = "Hollow Knight"
     world: HKWorld
+
+    def test_fill(self):
+        if RUN_FILL_TESTS:
+            super().test_fill()
 
     # def assert_access_independency(
     #         self,
@@ -64,11 +70,20 @@ class HKTestBase(WorldTestBase):
     #             f"{location} is not reachable without {all_items}")
 
 
-class SelectSeedHK(WorldTestBase):
-    game = "Hollow Knight"
-    # player: typing.ClassVar[int] = 1
+class HKGoalBase(HKTestBase):
+    """Class to not run any default state tests and just check goal reachability"""
+    run_default_tests = False
+    # consider adding accessdependency-type code for all-but-required cannot beat
+
+    def test_goal(self):
+        """Asserts empty state cannot complete the goal but all state can"""
+        self.assertBeatable(False)
+        self.multiworld.state = self.multiworld.get_all_state(False)
+        self.assertBeatable(True)
+
+
+class SelectSeedHK(HKTestBase):
     seed = 0
-    world: HKWorld
 
     def world_setup(self, *args, **kwargs):
         super().world_setup(self.seed)

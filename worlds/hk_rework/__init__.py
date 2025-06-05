@@ -706,7 +706,7 @@ class HKWorld(RandomizerCoreWorld, World):
             )
 
     def can_grub_goal(self, state: CollectionState) -> bool:
-        return all(state.has("GRUBS", owner, count) for owner, count in self.grub_player_count.items())
+        return all(state.has("Grub", owner, count) for owner, count in self.grub_player_count.items())
 
     @classmethod
     def stage_pre_fill(cls, multiworld: "MultiWorld"):
@@ -1037,6 +1037,10 @@ class HKWorld(RandomizerCoreWorld, World):
     def collect(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
+            if item.name == "Grub":
+                # to make sure grub counting is consistent across Groups etc.
+                state.prog_items[player][item.name] += 1
+
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] += 1
@@ -1061,6 +1065,10 @@ class HKWorld(RandomizerCoreWorld, World):
     def remove(self, state, item: HKItem) -> bool:
         if item.advancement:
             player = item.player
+            if item.name == "Grub":
+                # to make sure grub counting is consistent across Groups etc.
+                state.prog_items[player][item.name] -= 1
+
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] -= 1

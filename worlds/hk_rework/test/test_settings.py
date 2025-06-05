@@ -1,39 +1,39 @@
 import typing
 
-from .bases import HKTestBase
+from .bases import HKTestBase, HKGoalBase
 
 
-class TestGoalAny(HKTestBase):
+class TestGoalAny(HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
     }
 
 
-class TestGoalHollowknight(HKTestBase):
+class TestGoalHollowknight(HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "hollowknight",
     }
 
 
-class TestGoalSiblings(HKTestBase):
+class TestGoalSiblings(HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "siblings",
     }
 
 
-class TestGoalRadiance(HKTestBase):
+class TestGoalRadiance(HKGoalBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "radiance",
     }
 
 # TODO put these back when implemented again
-# class TestGoalGodhome(HKTestBase):
+# class TestGoalGodhome(HKGoalBase):
 #     options: typing.ClassVar[dict[str, str]] = {
 #         "Goal": "godhome",
 #     }
 
 
-# class TestGoalGodhomeFlower(HKTestBase):
+# class TestGoalGodhomeFlower(HKGoalBase):
 #     options: typing.ClassVar[dict[str, str]] = {
 #         "Goal": "godhome_flower",
 #     }
