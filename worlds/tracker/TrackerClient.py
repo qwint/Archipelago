@@ -761,7 +761,7 @@ class TrackerGameContext(CommonContext):
                 return args
             for option_name, option_value in args._get_kwargs():
                 if isinstance(option_value, dict) and player in option_value:
-                    set_value = self.common_option_overrides[slot_name].get(option_name, False) or option_value[player]
+                    set_value = self.common_option_overrides.get(slot_name, {}).get(option_name, False) or option_value[player]
                     setattr(args, option_name, {1: set_value})
             return args
 
