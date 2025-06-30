@@ -45,8 +45,8 @@ class FancyCommandProcessor(SuperContext.command_processor):
                      if any(s in slot.group_members for s in slot_ids)}
         self.ctx.filter_for = slot_ids | group_ids
         if self.ctx.filter_for:
-            logger.info("Watching Players list updated for slots"
-                        f"{self.ctx.slot_info[slot].name for slot in self.ctx.filter_for}")
+            logger.info("Watching Players list updated for slots" +
+                        str({self.ctx.slot_info[slot].name for slot in self.ctx.filter_for}))
         else:
             logger.info("No matching slots found for those player names, Watch Players filter cleared.")
 
