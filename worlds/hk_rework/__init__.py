@@ -670,7 +670,7 @@ class HKWorld(RandomizerCoreWorld, World):
             item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
         # Grimmchild 2 always gets added, switch if needed
-        if self.options.RandomizeCharms and not self.options.RandomizeGrimmkinFlames:
+        if self.options.RandomizeGrimmkinFlames or not self.options.RandomizeCharms:
             item_table.remove("Grimmchild2")
             item_table.append("Grimmchild1")
 
