@@ -29,6 +29,27 @@ regions = [
                     }
                 ],
                 "target": "Opened_Shaman_Pillar"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "Defeated_Sanctum_Warrior"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Defeated_Elegant_Warrior"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Defeated_Any_Soul_Warrior"
             }
         ],
         "locations": [
@@ -3932,11 +3953,26 @@ regions = [
     },
     {
         "name": "Room_Colosseum_01[left1]",
-        "exits": [],
+        "exits": [
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "Defeated_Colosseum_3"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Defeated_Any_Soul_Warrior"
+            }
+        ],
         "locations": [
             "Defeated_Colosseum_Zote",
             "Defeated_Colosseum_1",
             "Defeated_Colosseum_2",
+            "Defeated_Colosseum_3",
             "Charm_Notch-Colosseum",
             "Pale_Ore-Colosseum"
         ],
@@ -10590,6 +10626,36 @@ regions = [
         "transitions": []
     },
     {
+        "name": "Ruins1_23[top1]",
+        "exits": [
+            {
+                "logic": [],
+                "target": "Defeated_Sanctum_Warrior"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "Defeated_Sanctum_Warrior"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Ruins1_23[right1]"
+            },
+            {
+                "logic": [],
+                "target": "Boss_Geo-Sanctum_Soul_Warrior"
+            }
+        ],
+        "locations": [],
+        "transitions": [
+            "Ruins1_23[top1]"
+        ]
+    },
+    {
         "name": "Ruins1_23",
         "exits": [
             {
@@ -10614,7 +10680,17 @@ regions = [
                         "item_requirements": [
                             "RIGHTCLAW",
                             "LEFTSUPERDASH",
-                            "ENEMYPOGOS"
+                            "BACKGROUNDPOGOS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "LEFTSUPERDASH",
+                            "OBSCURESKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -10711,7 +10787,18 @@ regions = [
                         "item_requirements": [
                             "RIGHTCLAW",
                             "LEFTSUPERDASH",
-                            "ENEMYPOGOS",
+                            "BACKGROUNDPOGOS",
+                            "Defeated_Sanctum_Warrior"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "LEFTSUPERDASH",
+                            "OBSCURESKIPS",
                             "Defeated_Sanctum_Warrior"
                         ],
                         "location_requirements": [],
@@ -10748,75 +10835,27 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
-                    }
-                ],
-                "target": "Boss_Geo-Sanctum_Soul_Warrior"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
                     },
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
-                            "ENEMYPOGOS"
+                            "LEFTSUPERDASH",
+                            "OBSCURESKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
                     }
                 ],
-                "target": "Lore_Tablet-Sanctum_Entrance"
-            }
-        ],
-        "locations": [],
-        "transitions": [
-            "Ruins1_23[bot1]",
-            "Ruins1_23[left1]"
-        ]
-    },
-    {
-        "name": "Ruins1_23[top1]",
-        "exits": [
-            {
-                "logic": [],
-                "target": "Defeated_Sanctum_Warrior"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "Defeated_Sanctum_Warrior"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Ruins1_23[right1]"
-            },
-            {
-                "logic": [],
                 "target": "Boss_Geo-Sanctum_Soul_Warrior"
             }
         ],
-        "locations": [],
+        "locations": [
+            "Lore_Tablet-Sanctum_Entrance"
+        ],
         "transitions": [
-            "Ruins1_23[top1]"
+            "Ruins1_23[bot1]",
+            "Ruins1_23[left1]"
         ]
     },
     {
@@ -26759,6 +26798,8 @@ regions = [
         ],
         "locations": [
             "Opened_Black_Egg_Temple",
+            "Defeated_Any_Hollow_Knight",
+            "Defeated_Any_Radiance",
             "World_Sense",
             "Lore_Tablet-World_Sense"
         ],
@@ -29148,7 +29189,15 @@ regions = [
                 "target": "GG_Waterways"
             }
         ],
-        "locations": [],
+        "locations": [
+            "Defeated_Pantheon_1",
+            "Defeated_Pantheon_2",
+            "Defeated_Pantheon_3",
+            "Opened_Pantheon_4",
+            "Defeated_Pantheon_4",
+            "Hit_Pantheon_5_Unlock_Orb",
+            "Defeated_Pantheon_5"
+        ],
         "transitions": []
     },
     {
@@ -34210,7 +34259,8 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
-                            "OBSCURESKIPS"
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -34241,7 +34291,8 @@ regions = [
                     {
                         "item_requirements": [
                             "RIGHTCLAW",
-                            "OBSCURESKIPS"
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -34319,6 +34370,62 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS",
+                            "DANGEROUSSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS",
+                            "RIGHTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [
+                            "Deepnest_03[left1]"
+                        ],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS",
+                            "DANGEROUSSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [
+                            "Deepnest_03[left1]"
+                        ],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP"
+                        ]
                     }
                 ],
                 "target": "Grub-Deepnest_Spike"
@@ -34341,6 +34448,26 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP"
+                        ]
                     }
                 ],
                 "target": "Geo_Rock-Deepnest_Below_Spike_Grub"
@@ -34349,8 +34476,7 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "LEFTCLAW",
-                            "RIGHTCLAW"
+                            "WINGS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -34358,7 +34484,17 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "WINGS"
+                            "LEFTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHADESKIP"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -34443,19 +34579,6 @@ regions = [
                     }
                 ],
                 "target": "Geo_Rock-Deepnest_Below_Spike_Grub"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Geo_Rock-Deepnest_Spike_Grub_Right"
             }
         ],
         "locations": [],
@@ -49953,36 +50076,6 @@ regions = [
             {
                 "logic": [],
                 "target": "Ruins1_23"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "ENEMYPOGOS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Lore_Tablet-Sanctum_Entrance"
             }
         ],
         "locations": [],
@@ -57577,6 +57670,14 @@ regions = [
         "transitions": [
             "White_Palace_13[left3]"
         ]
+    },
+    {
+        "name": "Defeated_Any_Soul_Warrior",
+        "exits": [],
+        "locations": [
+            "Defeated_Any_Soul_Warrior"
+        ],
+        "transitions": []
     },
     {
         "name": "Room_shop[left1]",
@@ -74578,14 +74679,6 @@ regions = [
         "transitions": []
     },
     {
-        "name": "Lore_Tablet-Sanctum_Entrance",
-        "exits": [],
-        "locations": [
-            "Lore_Tablet-Sanctum_Entrance"
-        ],
-        "transitions": []
-    },
-    {
         "name": "Lore_Tablet-Mantis_Outskirts",
         "exits": [],
         "locations": [
@@ -83340,6 +83433,2903 @@ locations = [
             {
                 "item_requirements": [
                     "DREAMER>2"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Any_Soul_Warrior",
+        "logic": [],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Any_Hollow_Knight",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "Cyclone_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "DIFFICULTSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Any_Radiance",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "WINGS",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "Opened_Black_Egg_Temple",
+                    "Defeated_Any_Hollow_Knight",
+                    "DREAMNAIL",
+                    "LEFTCLAW",
+                    "RIGHTCLAW",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Colosseum_3",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "LEFTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "RIGHTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "UPSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "LEFTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "RIGHTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "UPSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "LEFTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "RIGHTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "UPSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "Cyclone_Slash",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "Great_Slash",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "LEFTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "DIFFICULTSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "LEFTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "RIGHTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "LEFTDASH",
+                    "UPSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "LEFTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "RIGHTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "RIGHTDASH",
+                    "UPSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "LEFTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "RIGHTSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "UPSLASH",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "Cyclone_Slash",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "Great_Slash",
+                    "FOCUS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "RIGHTCLAW",
+                    "SPELLS>1",
+                    "PROFICIENTCOMBAT",
+                    "DIFFICULTSKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Can_Replenish_Geo",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT",
+                    "WINGS",
+                    "SPELLS>1"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Pantheon_1",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Defeated_Gruz_Mother",
+                    "Defeated_False_Knight",
+                    "Defeated_Hornet_1",
+                    "Defeated_Gorb",
+                    "Defeated_Dung_Defender",
+                    "Defeated_Any_Soul_Warrior",
+                    "Defeated_Brooding_Mawlek"
+                ],
+                "location_requirements": [
+                    "Boss_Geo-Massive_Moss_Charger"
+                ],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Pantheon_2",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Defeated_Xero",
+                    "Defeated_Crystal_Guardian",
+                    "Defeated_Soul_Master",
+                    "Defeated_Colosseum_2",
+                    "Defeated_Mantis_Lords",
+                    "Defeated_Marmu",
+                    "Defeated_Nosk",
+                    "Defeated_Flukemarm",
+                    "Defeated_Broken_Vessel"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Pantheon_3",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Defeated_Hive_Knight",
+                    "Defeated_Elder_Hu",
+                    "Defeated_Collector",
+                    "Defeated_Colosseum_2",
+                    "Defeated_Grimm",
+                    "Defeated_Galien",
+                    "Defeated_Uumuu",
+                    "Defeated_Hornet_2"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Opened_Pantheon_4",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Pantheon_4",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Opened_Pantheon_4",
+                    "Defeated_Enraged_Guardian",
+                    "Defeated_Broken_Vessel",
+                    "Defeated_No_Eyes",
+                    "Defeated_Traitor_Lord",
+                    "Defeated_Dung_Defender",
+                    "Defeated_False_Knight",
+                    "Defeated_Markoth",
+                    "Defeated_Watcher_Knights",
+                    "Defeated_Soul_Master"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Hit_Pantheon_5_Unlock_Orb",
+        "logic": [
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "LEFTCLAW",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            },
+            {
+                "item_requirements": [
+                    "WINGS",
+                    "RIGHTCLAW",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "$EQUIPPEDCHARM[Void_Heart]"
+                ]
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Defeated_Pantheon_5",
+        "logic": [
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "LEFTDASH>1",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "RIGHTDASH>1",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "FIREBALL>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "SCREAM>1",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "CURSED",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "CURSED",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "FIREBALL",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "PROFICIENTCOMBAT",
+                    "SCREAM",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Hit_Pantheon_5_Unlock_Orb",
+                    "LEFTCLAW",
+                    "WINGS",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3",
+                    "Defeated_Pantheon_4",
+                    "LEFTDASH",
+                    "RIGHTDASH",
+                    "QUAKE",
+                    "DIFFICULTSKIPS",
+                    "PROFICIENTCOMBAT"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -103296,7 +106286,42 @@ locations = [
     },
     {
         "name": "Lore_Tablet-Sanctum_Entrance",
-        "logic": [],
+        "logic": [
+            {
+                "item_requirements": [
+                    "LEFTCLAW"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "WINGS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "BACKGROUNDPOGOS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "RIGHTCLAW",
+                    "OBSCURESKIPS"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
         "is_event": False
     },
     {
@@ -116044,9 +119069,9 @@ transition_to_region_map = {
     "Fungus2_15[top3]": "Fungus2_15[top3]",
     "Fungus2_15[right1]": "Fungus2_15[right1]",
     "Fungus2_15[left1]": "Fungus2_15[left1]",
+    "Ruins1_23[top1]": "Ruins1_23[top1]",
     "Ruins1_23[bot1]": "Ruins1_23",
     "Ruins1_23[left1]": "Ruins1_23",
-    "Ruins1_23[top1]": "Ruins1_23[top1]",
     "Ruins1_24[right1]": "Ruins1_24[right1]",
     "Mines_18[left1]": "Mines_18[left1]",
     "Mines_18[right1]": "Mines_18[left1]",
