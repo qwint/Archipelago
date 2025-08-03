@@ -43,7 +43,7 @@ from .Options import (
     hollow_knight_options,
     shop_to_option,
 )
-from .Rules import _hk_can_beat_radiance, _hk_can_beat_thk, _hk_siblings_ending, cost_terms
+from .Rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
 from .state_mixin import RCStateVariable, ResourceStateHandler
 from .template_world import RandomizerCoreWorld
@@ -669,8 +669,8 @@ class HKWorld(RandomizerCoreWorld, World):
             item_table.remove(item_name)
             item_table += [f"{prefix}_{item_name}" for prefix in directions]
 
-        # Grimmchild 2 always gets added, switch if needed
-        if self.options.RandomizeGrimmkinFlames or not self.options.RandomizeCharms:
+        # Grimmchild 2 added in the pool options but should be handled as 1 in vanilla event placement
+        if "Grimmchild2" in item_table and (self.options.RandomizeGrimmkinFlames or not self.options.RandomizeCharms):
             item_table.remove("Grimmchild2")
             item_table.append("Grimmchild1")
 
@@ -685,23 +685,23 @@ class HKWorld(RandomizerCoreWorld, World):
         player = self.player
         goal = self.options.Goal
         if goal == Goal.option_hollowknight:
-            multiworld.completion_condition[player] = lambda state: _hk_can_beat_thk(state, player)
+            multiworld.completion_condition[player] = lambda state: state.has("Defeated_Any_Hollow_Knight", player)
         elif goal == Goal.option_siblings:
-            multiworld.completion_condition[player] = lambda state: _hk_siblings_ending(state, player)
+            multiworld.completion_condition[player] = lambda state: state.has("Defeated_Any_Hollow_Knight", player) and state.has("WHITEFRAGMENT", player, 3)
         elif goal == Goal.option_radiance:
-            multiworld.completion_condition[player] = lambda state: _hk_can_beat_radiance(state, player)
+            multiworld.completion_condition[player] = lambda state: state.has("Defeated_Any_Radiance", player)
         elif goal == Goal.option_godhome:
             multiworld.completion_condition[player] = lambda state: state.has("Defeated_Pantheon_5", player)
         elif goal == Goal.option_godhome_flower:
-            multiworld.completion_condition[player] = lambda state: state.has("Godhome_Flower_Quest", player)
+            multiworld.completion_condition[player] = lambda state: state.has("Godhome_Flower_Quest", player)  # TODO
         elif goal == Goal.option_grub_hunt:
             multiworld.completion_condition[player] = lambda state: self.can_grub_goal(state)
         else:
             # Any goal
             multiworld.completion_condition[player] = (
-                lambda state: _hk_siblings_ending(state, player)
-                and _hk_can_beat_radiance(state, player)
-                # and state.count("Godhome_Flower_Quest", player)  # TODO add this in later
+                lambda state: state.has("Defeated_Any_Hollow_Knight", player) and state.has("WHITEFRAGMENT", player, 3)
+                and state.has("Defeated_Any_Radiance", player)
+                and state.has("Defeated_Pantheon_5", player)  # TODO upgrade this to godhome flower quest later
                 and self.can_grub_goal(state)
             )
 

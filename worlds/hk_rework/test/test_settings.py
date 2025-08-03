@@ -26,13 +26,13 @@ class TestGoalRadiance(HKGoalBase):
         "Goal": "radiance",
     }
 
+
+class TestGoalGodhome(HKGoalBase):
+    options: typing.ClassVar[dict[str, str]] = {
+        "Goal": "godhome",
+    }
+
 # TODO put these back when implemented again
-# class TestGoalGodhome(HKGoalBase):
-#     options: typing.ClassVar[dict[str, str]] = {
-#         "Goal": "godhome",
-#     }
-
-
 # class TestGoalGodhomeFlower(HKGoalBase):
 #     options: typing.ClassVar[dict[str, str]] = {
 #         "Goal": "godhome_flower",
