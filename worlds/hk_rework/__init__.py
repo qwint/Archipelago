@@ -693,7 +693,7 @@ class HKWorld(RandomizerCoreWorld, World):
         elif goal == Goal.option_godhome:
             multiworld.completion_condition[player] = lambda state: state.has("Defeated_Pantheon_5", player)
         elif goal == Goal.option_godhome_flower:
-            multiworld.completion_condition[player] = lambda state: state.has("Godhome_Flower_Quest", player)  # TODO
+            multiworld.completion_condition[player] = lambda state: state.has("Godhome_Flower_Quest", player) and state.has('Godtuner', player)  # TODO
         elif goal == Goal.option_grub_hunt:
             multiworld.completion_condition[player] = lambda state: self.can_grub_goal(state)
         else:
@@ -759,8 +759,8 @@ class HKWorld(RandomizerCoreWorld, World):
                 player = world.player
                 world.grub_player_count = {player: world.grub_count}
 
-    def get_item_classification(self, name: str) -> ItemClassification:
-
+    @staticmethod
+    def get_item_classification(name: str) -> ItemClassification:
         progression_charms = {
             # Baldur Killers
             "Grubberfly's_Elegy", "Weaversong", "Glowing_Womb",
