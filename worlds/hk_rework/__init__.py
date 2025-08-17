@@ -45,7 +45,7 @@ from .Options import (
 )
 from .Rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
-from .state_mixin import RCStateVariable, ResourceStateHandler
+from .resource_state_vars import RCStateVariable, ResourceStateHandler
 from .template_world import RandomizerCoreWorld
 
 logger = logging.getLogger("Hollow Knight")
