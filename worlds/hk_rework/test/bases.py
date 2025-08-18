@@ -1,7 +1,9 @@
+import random
 import typing
 from argparse import Namespace
 
 from BaseClasses import CollectionState, MultiWorld
+from Generate import get_seed_name
 from Options import ItemLinks
 from test.bases import WorldTestBase
 from worlds.AutoWorld import AutoWorldRegister, call_all
@@ -87,6 +89,29 @@ class SelectSeedHK(HKTestBase):
 
     def world_setup(self, *args, **kwargs):
         super().world_setup(self.seed)
+
+
+class NoStepHK(HKTestBase):
+    run_default_tests = False
+
+    def world_setup(self, seed: typing.Optional[int] = None) -> None:
+        self.multiworld = MultiWorld(1)
+        self.multiworld.game[self.player] = self.game
+        self.multiworld.player_name = {self.player: "Tester"}
+        self.multiworld.set_seed(seed)
+        random.seed(self.multiworld.seed)
+        self.multiworld.seed_name = get_seed_name(random)  # only called to get same RNG progression as Generate.py
+        args = Namespace()
+        for name, option in AutoWorldRegister.world_types[self.game].options_dataclass.type_hints.items():
+            setattr(args, name, {
+                1: option.from_any(self.options.get(name, option.default))
+            })
+        self.multiworld.set_options(args)
+        self.multiworld.state = CollectionState(self.multiworld)
+        self.world = self.multiworld.worlds[self.player]
+        gen_steps = ("generate_early",)  # "create_regions", "create_items", "set_rules", "generate_basic")
+        for step in gen_steps:
+            call_all(self.multiworld, step)
 
 
 class LinkedTestHK:

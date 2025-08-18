@@ -75,18 +75,19 @@ class RCStateVariable(metaclass=ResourceStateHandler):
     def add_simple_item_reqs(self, items: Counter) -> None:
         pass
 
-from .cast_spell import *
-from .direct_compare import *
-from .equip_charm import *
-from .flower_provider import *
-from .lifeblood_count import *
-from .regain_soul import *
-from .resetter import *
-from .shade_state import *
-from .spend_soul import *
-from .stag_state import *
-from .take_damage import *
-from .warp_to import *
+
+from .cast_spell import *  # noqa: E402
+from .direct_compare import *  # noqa: E402
+from .equip_charm import *  # noqa: E402
+from .flower_provider import *  # noqa: E402
+from .lifeblood_count import *  # noqa: E402
+from .regain_soul import *  # noqa: E402
+from .resetter import *  # noqa: E402
+from .shade_state import *  # noqa: E402
+from .spend_soul import *  # noqa: E402
+from .stag_state import *  # noqa: E402
+from .take_damage import *  # noqa: E402
+from .warp_to import *  # noqa: E402
 
 
 # TODO - i don't know what this is for; says it's for handling subhandlers but not sure when
