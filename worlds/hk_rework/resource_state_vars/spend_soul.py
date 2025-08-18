@@ -10,7 +10,7 @@ class SpendSoulVariable(RCStateVariable):
     amount: int
 
     def parse_term(self, amount):
-        self.amount = amount
+        self.amount = int(amount)
 
     @classmethod
     def try_match(cls, term: str):
@@ -46,7 +46,7 @@ class SpendSoulVariable(RCStateVariable):
         return 99 - state_blob["SOULLIMITER"] - state_blob["SPENTSOUL"]
 
     def get_reserve_soul(self, state_blob: Counter, item_state: CollectionState, player: int):
-        return ((item_state.count("VesselFragment", player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
+        return ((item_state.count("VESSELFRAGMENTS", player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
 
     def can_exclude(self, options):
         return False
