@@ -1,6 +1,7 @@
 import random
 import typing
 from argparse import Namespace
+from collections import Counter
 
 from BaseClasses import CollectionState, MultiWorld
 from Generate import get_seed_name
@@ -9,6 +10,7 @@ from test.bases import WorldTestBase
 from worlds.AutoWorld import AutoWorldRegister, call_all
 
 from .. import HKWorld
+from ..resource_state_vars import ResourceStateHandler
 
 RUN_FILL_TESTS = False
 
@@ -167,3 +169,43 @@ class LinkedTestHK:
     def test_grub_count(self) -> None:
         assert self.world.grub_count == self.expected_grubs, \
                f"Expected {self.expected_grubs} but found {self.world.grub_count}"
+
+
+class StateVarSetup:
+    key: str
+    """relevant state variable key"""
+    resource: dict[str, int]
+    """starting Resource State"""
+    cs: dict[str, int]
+    """starting CollectionState"""
+    prep_vars: typing.Iterable[str]
+    """other state variable keys to modify state before use"""
+
+    @staticmethod
+    def get_one_state(func, *args, **kwargs):
+        states = [s for s in func(*args, **kwargs)]
+        assert len(states) == 1, f"Expected one state but got {len(states)}"
+        return states[0]
+
+    def get_initialized_args(self):
+        state = CollectionState(self.multiworld)
+        for item, i in self.cs.items():
+            # assert item in self.world.item_name_to_id, f"Unknown item collected {item}"
+            for _ in range(i):
+                state.collect(self.world.create_item(item))
+        rs = Counter(self.resource)
+        for prep in self.prep_vars:
+            rs = self.get_one_state(ResourceStateHandler.get_handler(prep).modify_state, rs, state, self.player)
+        return rs, state, self.player
+
+    # TODO: cached?
+    def get_handler(self, key=None):
+        if not key:
+            key = self.key
+        return ResourceStateHandler.get_handler(key)
+
+    def get_modified_state(self):
+        rs, cs, pi = self.get_initialized_args()
+
+        handler = self.get_handler()
+        return [s for s in handler.modify_state(rs, cs, pi)]
