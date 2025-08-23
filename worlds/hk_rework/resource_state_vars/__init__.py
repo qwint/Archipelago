@@ -34,6 +34,8 @@ class ResourceStateHandler(type):
 
 class RCStateVariable(metaclass=ResourceStateHandler):
     prefix: str
+    # player: int
+    # TODO: add this to the constructor and refactor out of all the function calls
 
     def __init__(self, term: str):
         assert term.startswith(self.prefix)
