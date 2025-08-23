@@ -173,6 +173,10 @@ class EquipCharmVariable(RCStateVariable):
     def add_simple_item_reqs(self, items: Counter) -> None:
         items[self.charm_key] = 1
 
+    @staticmethod
+    def generate_charm_combinations():
+        ...
+
 
 class FragileCharmVariable(EquipCharmVariable):
     # prefix = "$EQUIPPEDCHARM"

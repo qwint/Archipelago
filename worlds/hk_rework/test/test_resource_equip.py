@@ -1,28 +1,27 @@
+from itertools import zip_longest
 from typing import Iterable, NamedTuple
 
 from test.param import classvar_matrix
 
 from .bases import NoStepHK, StateVarSetup
+from ..Charms import charm_names, charm_name_to_id
+from ..resource_state_vars.equip_charm import EquipCharmVariable
+
+charm_item_names = list(charm_name_to_id.keys())
 
 
 class inputs(NamedTuple):
-    key: str | None = None
-    resource: dict[str, int] = {}
-    cs: dict[str, int] = {}
-    prep_vars: Iterable[str] = ()
-
-    assert_empty: bool = False
-    expecteds: Iterable[Iterable[tuple[int, int, int, int]]] = ()
-    expected: tuple[int, int, int, int] | None = None
-    limit: int = 0
-    spend: int = 0
+    notches: int
+    notch_costs: Iterable[int]
+    equip_results: Iterable[bool]
+    ended_overcharmed: bool
 
 
 class TestBasicEquips(StateVarSetup, NoStepHK):
     key = "$EQUIPPEDCHARM[Gathering_Swarm]"
     resource = {"NOTCHES": 1}
     cs = {"Gathering_Swarm": 1}
-    prep_vars = []
+    prep_vars = ()
 
     def test_basic_equip(self):
         # TODO update if i end up on a different return signature than tuple[bool, stateblob] for try_equip
@@ -65,46 +64,95 @@ class TestBasicEquips(StateVarSetup, NoStepHK):
         self.assertEqual(res_other["MAXNOTCHCOST"], 1)
 
 
-# equip_notch_matrix = [
-#     inputs(expected=(33, 0, 33, 0)),
-#     inputs(cs={"Vessel_Fragment": 3}, expected=(0, 33, 33, 0)),
-#     inputs(expected=None, spend=67),  # TODO: update to LimitSoul function or similar
-# ]
+equip_notch_matrix = [
+    inputs(1, (1,), (True,), False),
+    inputs(3, (1, 2, 1), (True, True, True), True),
+    inputs(3, (1, 2, 2), (True, True, False), False),
+    inputs(3, (2, 2, 1), (True, True, False), True),
+    inputs(3, (2, 2, 0), (True, True, True), True),
+    inputs(3, (4, 1, 1), (True, True, True), True),
+    inputs(3, (4, 1, 1, 1), (True, True, True, False), True),
+    inputs(3, (1, 1, 1, 4), (True, True, True, False), False),
+    inputs(3, (0, 1, 0), (True, True, True), False),
+]
 
 
-# @classvar_matrix(matrix_vars=equip_notch_matrix)
-# class TestEquipNotch(StateVarSetup, NoStepHK):
-#     matrix_vars: inputs
-#     notches: int
-#     notch_costs: list[int]
-#     equip_results: list[bool]
-#     ended_overcharmed: bool
+@classvar_matrix(matrix_vars=equip_notch_matrix)
+class TestEquipNotch(StateVarSetup, NoStepHK):
+    cs = {"NOPASSEDCHARMEQUIP": 0}
+    prep_vars = ()
 
-#     def setUp(self):
-#         super().setUp()
-#         self.resource = self.matrix_vars.resource
-#         self.cs = self.matrix_vars.cs
-#         self.prep_vars = self.matrix_vars.prep_vars
+    charm_count: int
 
-#         self.expected = self.matrix_vars.expected
-#         self.spend = self.matrix_vars.spend
+    matrix_vars: inputs
+    notches: int
+    notch_costs: Iterable[int]
+    equip_results: Iterable[bool]
+    ended_overcharmed: bool
 
-    # def test_round_spend(self):
-    #     rs, cs, pi = self.get_initialized_args()
-    #     manager = self.get_handler()
+    def setUp(self):
+        super().setUp()
+        self.charm_count = len(self.matrix_vars.notch_costs)
+        self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
+        self.cs["NOTCHES"] = self.matrix_vars.notches
 
-    #     if spend:
-    #         rs = self.get_one_state(manager.spend_soul, rs, cs, pi, spend)
-    #         rs = self.get_one_state(manager.restore_all_soul, rs, cs, pi, True)
+        self.notch_costs = self.matrix_vars.notch_costs  # TODO: Handle in PlandoCharmCosts ?
+        self.equip_results = self.matrix_vars.equip_results
+        self.ended_overcharmed = self.matrix_vars.ended_overcharmed
 
-    #     rs = self.get_one_state(manager.limit_soul, rs, cs, pi, 33, True)
-    #     if expected is None:
-    #         assert not manager.limit_soul(rs, cs, pi, 0, False)
-    #     else:
-    #         rs = self.get_one_state(manager.limit_soul, rs, cs, pi, 0, False)
-    #         self.assertEqual((
-    #                     s["SPENTSOUL"],
-    #                     s["SPENTRESERVESOUL"],
-    #                     s["REQUIREDMAXSOUL"],
-    #                     s["SOULLIMITER"],
-    #                 ), self.expected)
+    def test_equip_sequence(self):
+        rs, cs, pi = self.get_initialized_args()
+        handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
+
+        # TODO: yea handle in PlandoCharmCosts before setup..
+        cs.hk_charm_costs[self.player].update({
+            charm_name: self.notch_costs[i]
+            for i, charm_name in zip(
+                range(self.charm_count),
+                charm_names
+            )
+        })
+
+        for i, cost in enumerate(self.notch_costs):
+            result, rs = handlers[i].try_equip(rs, cs, pi)
+            assert result == self.equip_results[i]
+
+        assert rs["OVERCHARMED"] == self.ended_overcharmed
+
+
+class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
+    cs = {"NOPASSEDCHARMEQUIP": 0, "NOTCHES": 3}
+    prep_vars = ()
+
+    charm_count: int = 2
+    notch_costs: Iterable[int] = (3, 6)
+    expecteds = [
+        {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "noCHARM2": 1},
+        {"NOPASSEDCHARMEQUIP": 0, "CHARM1": 1, "noCHARM2": 1, "USEDNOTCHES": 3, "MAXNOTCHCOST": 3},
+        {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "CHARM2": 1, "OVERCHARMED": 1,  "USEDNOTCHES": 6, "MAXNOTCHCOST": 6},
+    ]
+
+    def setUp(self):
+        super().setUp()
+        self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
+
+    def test_combos(self):
+        rs, cs, pi = self.get_initialized_args()
+        handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
+
+        # TODO: yea handle in PlandoCharmCosts before setup..
+        cs.hk_charm_costs[self.player].update({
+            charm_name: self.notch_costs[i]
+            for i, charm_name in zip(
+                range(self.charm_count),
+                charm_names
+            )
+        })
+
+        output_states = EquipCharmVariable.generate_charm_combinations(rs, cs, pi, handlers)
+
+        for state, expected in zip_longest(output_states, expecteds):
+            # if states is longer or shorter than expecteds one side will be None and fail the compare
+            self.assertEqual(state, expected)
+            for handler in handlers:
+                self.assertTrue(handler.is_determined(state, cs, pi))
