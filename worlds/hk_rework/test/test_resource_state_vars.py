@@ -67,6 +67,7 @@ one_mask = {"MASKSHARDS": 4}
 two_mask = {"MASKSHARDS": 8}
 
 shrogo = {"Monarch_Wings": 1, "Abyss_Shriek": 2}  # include options
+slobo = {"Vengeful_Spirit": 1}  # include options
 
 input_matrix = [
     inputs("FOO=0"),
@@ -101,7 +102,7 @@ input_matrix = [
     inputs("$SHADESKIP[2HITS]", resource={**two_mask, "NOTCHES": 6, "BROKEHEART": 1},
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
 
-    inputs("$SHRIEKPOGO", assert_empty=True),
+    inputs("$SHRIEKPOGO", assert_empty=True),  # with and without option on
     inputs("$SHRIEKPOGO", assert_empty=True, cs={"Monarch_Wings": 1}),
     inputs("$SHRIEKPOGO", assert_empty=True, cs={"Abyss_Shriek": 2}),
 
@@ -113,7 +114,10 @@ input_matrix = [
     inputs("$SHRIEKPOGO[3,1]", cs={**shrogo, "Vessel_Fragment": 3}),  # Difficult skips
     inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3, "Mothwing_Cloak": 1}),  # Difficult skips
 
-    # TODO, add shrogo, slopeball,
+    inputs("$SLOPEBALL", assert_empty=True),  # with and without option on
+    inputs("$SLOPEBALL", assert_empty=True, cs=slobo, resource={"SPENTSOUL": 99}),
+    inputs("$SLOPEBALL", cs=slobo),
+
     inputs("$TAKEDAMAGE", assert_empty=True,  resource=one_mask),
     inputs("$TAKEDAMAGE", assert_empty=False, resource=two_mask),
     inputs("$TAKEDAMAGE", assert_empty=True,  resource=two_mask, prep_vars=("$TAKEDAMAGE",)),
