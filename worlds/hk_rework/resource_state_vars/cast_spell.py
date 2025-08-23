@@ -186,14 +186,14 @@ class ShriekPogoVariable(CastSpellVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def modify_state(self, state_blob, item_state, player):
+    def _modify_state(self, state_blob, item_state, player):
         if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, player):
             return False, state_blob
-        elif self.stall_cast and ((not self.no_left_stall and item_state["LEFTDASH"])  # noqa: RET505
-                                  (not self.no_right_stall and item_state["RIGHTDASH"])):
-            return self.stall_cast.modify_state(state_blob, item_state, player)
+        elif self.stall_cast and ((not self.no_left_stall and item_state.has("LEFTDASH", player))  # noqa: RET505
+                                  (not self.no_right_stall and item_state.has("RIGHTDASH", player))):
+            return self.stall_cast._modify_state(state_blob, item_state, player)
         else:
-            return super().modify_state(state_blob, item_state, player)
+            return super()._modify_state(state_blob, item_state, player)
 
     def can_exclude(self, options):
         return True
