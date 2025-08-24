@@ -36,9 +36,6 @@ input_matrix = [
     inputs("$LIFEBLOOD", resource=ers, assert_empty=True),
     *[inputs("$LIFEBLOOD", resource=ers, cs={charm: 1}, notches=4)
       for charm in ("Lifeblood_Heart", "Lifeblood_Core", "Joni's_Blessing")],
-    inputs("$LIFEBLOOD", resource=ers, cs={"Lifeblood_Heart": 1}, assert_empty=True, prep_vars=("$TAKEDAMAGE[2]",)),
-    *[inputs("$LIFEBLOOD", resource=ers, cs={charm: 1}, prep_vars=("$TAKEDAMAGE[2]",))
-      for charm in ("Lifeblood_Core", "Joni's_Blessing")],
 
     # inputs("$SHADESKIP", assert_empty=True),  # theoretically checking if the option is disabled but idk
     inputs("$SHADESKIP", resource={"USEDSHADE": 1}, assert_empty=True),
