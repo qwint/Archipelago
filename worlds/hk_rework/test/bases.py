@@ -10,6 +10,7 @@ from test.bases import WorldTestBase
 from worlds.AutoWorld import AutoWorldRegister, call_all
 
 from .. import HKWorld
+from ..state_mixin import default_state
 from ..resource_state_vars import ResourceStateHandler
 
 RUN_FILL_TESTS = False
@@ -193,7 +194,7 @@ class StateVarSetup:
             # assert item in self.world.item_name_to_id, f"Unknown item collected {item}"
             for _ in range(i):
                 state.collect(self.world.create_item(item))
-        rs = Counter(self.resource)
+        rs = default_state(self.resource)
         for prep in self.prep_vars:
             rs = self.get_one_state(ResourceStateHandler.get_handler(prep, self.player).modify_state, rs, state)
         return rs, state

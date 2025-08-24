@@ -76,14 +76,19 @@ class EquipCharmVariable(RCStateVariable):
     def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         return self.try_equip(state_blob, item_state), state_blob
 
+    def _try_equip(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+        if self.is_equipped(state_blob):
+            return True, state_blob
+        if self.can_equip(state_blob, item_state) != self.EquipResult.NONE:
+            ret = state_blob.copy()
+            self.do_equip_charm(ret, item_state)
+            return True, ret
+        return False, state_blob
+
     def try_equip(self, state_blob: Counter, item_state: CollectionState) -> bool:
-        if self.charm_key in state_blob:
+        if self.is_equipped(state_blob):
             return True
-        if f"no{self.charm_key}" in state_blob:
-            return False
-        if not self.has_item(item_state):
-            return False
-        if self.can_equip(state_blob, item_state):
+        if self.can_equip(state_blob, item_state) != self.EquipResult.NONE:
             self.do_equip_charm(state_blob, item_state)
             return True
         return False
@@ -131,20 +136,26 @@ class EquipCharmVariable(RCStateVariable):
                 and self.has_notch_requirments(state_blob, item_state) != self.EquipResult.NONE)
 
     def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
-        if not self.has_item(item_state):
+        if not self.has_charm_progression(item_state) or not self.has_state_requirements(state_blob):
             return self.EquipResult.NONE
+        return self.has_notch_requirments(state_blob, item_state)
 
-        overcharm = False
-        for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
-            if self.has_state_requirements(state_blob):
-                ret = self.has_notch_requirments(state_blob, item_state)
-                if ret == self.EquipResult.NONE:
-                    continue
-                elif ret == self.EquipResult.OVERCHARM:  # noqa: RET507
-                    overcharm = True
-                elif ret == self.EquipResult.NONOVERCHARM:
-                    return ret
-        return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
+    # TODO: pretty sure this is for some overload i don't understand
+    # def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
+    #     if not self.has_item(item_state):
+    #         return self.EquipResult.NONE
+
+    #     overcharm = False
+    #     for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
+    #         if self.has_state_requirements(state_blob):
+    #             ret = self.has_notch_requirments(state_blob, item_state)
+    #             if ret == self.EquipResult.NONE:
+    #                 continue
+    #             elif ret == self.EquipResult.OVERCHARM:  # noqa: RET507
+    #                 overcharm = True
+    #             elif ret == self.EquipResult.NONOVERCHARM:
+    #                 return ret
+    #     return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
     def do_equip_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
         notch_cost = self.get_notch_cost(item_state)
@@ -152,7 +163,7 @@ class EquipCharmVariable(RCStateVariable):
         # one of these 2 should probably go at some point
         state_blob[self.term] = True
         state_blob[self.charm_key] = True
-        state_blob["MAXNOTCHCOST"] = min(state_blob["MAXNOTCHCOST"], notch_cost)
+        state_blob["MAXNOTCHCOST"] = max(state_blob["MAXNOTCHCOST"], notch_cost)
         if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
             state_blob["OVERCHARMED"] = True
 
@@ -175,7 +186,7 @@ class EquipCharmVariable(RCStateVariable):
     def is_determined(self, state_blob: Counter, item_state: CollectionState) -> bool:
         return state_blob[self.term] or state_blob[self.anti_term]
 
-    def has_charm_progression(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def has_charm_progression(self, item_state: CollectionState) -> bool:
         return self.has_item(item_state)
 
     @staticmethod
@@ -185,7 +196,7 @@ class EquipCharmVariable(RCStateVariable):
         for c in charm_list:
             if not c.is_determined(base_state, item_state):
                 if (
-                    not c.has_charm_progression(base_state, item_state)
+                    not c.has_charm_progression(item_state)
                     or not c.has_state_requirements(base_state, item_state)
                     or not c.has_notch_requirments(base_state, item_state)
                 ):
