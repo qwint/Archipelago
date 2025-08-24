@@ -70,10 +70,21 @@ class SoulManager(metaclass=ResourceStateHandler):
             soul.soul += transfer
             soul.reserve_soul -= transfer
 
-    def try_spend_soul_sequence(self):
-        ...
+    def try_spend_soul_sequence(self, state_blob: Counter, item_state: CollectionState, amount: int, casts: list[int]) -> bool:
+        soul = self.get_soul_info(state_blob, item_state)
+        # ret = state_blob.copy()
+        for cast in casts:
+            group_total = cast * amount
+            if soul.soul < group_total:
+                return False
+            self.spend_and_rebalance(state_blob, item_state, group_total, soul)
+        # state_blob = ret  # ??
+        return True
 
     def try_spend_soul_slow(self):
+        ...
+
+    def try_resore_soul(self):
         ...
 
     def spend_all_soul(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:

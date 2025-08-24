@@ -9,6 +9,7 @@ from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, SIMPLE_STATE_LOGIC 
 
 if TYPE_CHECKING:
     from . import HKClause
+    from .resource_state_vars.cast_spell import NearbySoul
 
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
@@ -48,6 +49,9 @@ class HKLogicMixin(LogicMixin):
     hk_charm_costs: dict[int, dict[str, int]]
     """mapping for charm costs per player"""
 
+    _hk_soul_modes: "dict[int, NearbySoul]"
+    """mapping of soul mode per player"""
+
     def init_mixin(self, multiworld: MultiWorld) -> None:
         from . import HKWorld
         players = multiworld.get_game_players(HKWorld.game)
@@ -64,6 +68,8 @@ class HKLogicMixin(LogicMixin):
         self._hk_sweeping = dict.fromkeys(players, False)
         self._hk_processed_item_cache = {player: Counter() for player in players}
         self.hk_charm_costs = HKWorld.charm_names_and_costs
+        from .resource_state_vars.cast_spell import NearbySoul
+        self._hk_soul_modes = {player: NearbySoul.ITEMSOUL for player in players}  # this will be a dict on the world like charm costs at sometime
         for player in players:
             self.prog_items[player]["MASKSHARDS"] = BASE_HEALTH*4
             self.prog_items[player]["NOTCHES"] = BASE_NOTCHES

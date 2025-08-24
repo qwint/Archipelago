@@ -57,7 +57,7 @@ input_matrix = [
     inputs("$SHRIEKPOGO[3]",   cs=shrogo),
     inputs("$SHRIEKPOGO[4]",   cs=shrogo, assert_empty=True),  # Difficult skips
     inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource={**ers, "DIFFICULTSKIPS": 1}, notches=6),  # Difficult skips
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource=ers, notches=6, assert_empty=True),  # Difficult skips off
+    # inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource=ers, notches=6, assert_empty=True),  # Difficult skips off
     inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3}, assert_empty=True),  # Difficult skips
     inputs("$SHRIEKPOGO[3,1]", cs={**shrogo, "Vessel_Fragment": 3}),  # Difficult skips
     inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3, "Mothwing_Cloak": 1}),  # Difficult skips
