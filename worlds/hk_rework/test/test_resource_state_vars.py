@@ -40,12 +40,12 @@ input_matrix = [
     inputs("$SHADESKIP"),
     inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),  # TODO make sure that this aligns with how i set up damage state var in the future
     inputs("$SHADESKIP[2HITS]", masks=16),
-    inputs("$SHADESKIP[2HITS]", masks=8, notches=6,
-           cs={"NOPASSEDCHARMEQUIP": 0, "Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}),
-    inputs("$SHADESKIP[2HITS]", masks=8, notches=6,
-           cs={"NOPASSEDCHARMEQUIP": 0, "Unbreakable_Strength": 1, "Fragile_Heart": 1}),
-    inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1}, masks=8, notches=6,
-           cs={"NOPASSEDCHARMEQUIP": 0, "Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
+    inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
+           cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}),
+    inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
+           cs={"Unbreakable_Strength": 1, "Fragile_Heart": 1}),
+    inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1, "NOPASSEDCHARMEQUIP": 0}, masks=8, notches=6,
+           cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
 
     inputs("$SHRIEKPOGO", assert_empty=True),  # with and without option on
     inputs("$SHRIEKPOGO", assert_empty=True, cs={"Monarch_Wings": 1}),
