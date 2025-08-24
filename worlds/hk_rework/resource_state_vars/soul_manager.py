@@ -58,8 +58,7 @@ class SoulManager(metaclass=ResourceStateHandler):
 
     def spend_without_rebalance(self, state_blob: Counter, item_state: CollectionState, amount: int, soul: SoulInfo) -> None:
         state_blob["SPENTSOUL"] += amount
-        # TODO: TrySetIntToValue
-        state_blob["REQUIREDMAXSOUL"] = state_blob["SPENTSOUL"]
+        state_blob["REQUIREDMAXSOUL"] = max(state_blob["REQUIREDMAXSOUL"], state_blob["SPENTSOUL"])
         soul.soul -= amount
 
     def rebalance_reserve(self, state_blob: Counter, item_state: CollectionState, soul: SoulInfo) -> None:

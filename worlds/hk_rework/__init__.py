@@ -20,7 +20,7 @@ from settings import Bool, Group
 from worlds.AutoWorld import WebWorld, World
 
 from .Charms import charm_name_to_id, charm_names
-from .constants import SIMPLE_STATE_LOGIC, gamename, randomizable_starting_items, shop_cost_types
+from .constants import gamename, randomizable_starting_items, shop_cost_types
 from .data.ids import item_name_to_id, location_name_to_id
 from .data.item_effects import (
     affected_terms_by_item,
@@ -191,59 +191,55 @@ class HKEntrance(Entrance):
         state._hk_apply_and_validate_state(default_hk_rule[0], self.parent_region, target_region=self.connected_region)
         return True
 
-    if SIMPLE_STATE_LOGIC:
-        hk_access_rule = cacheless_hk_access_rule
-    else:
-        def hk_access_rule(self, state: CollectionState) -> bool:
-            assert self.hk_rule != default_hk_rule, "should never have to be here"
-            # if self.hk_rule == default_hk_rule:
-            #     state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
-            #     state._hk_apply_and_validate_state(
-            #         default_hk_rule[0],
-            #         self.parent_region,
-            #         target_region=self.connected_region
-            #     )
-            #     return True
-            if self.name not in state._hk_entrance_clause_cache[self.player]:
-                # if there's no cache for this entrance, make one with everything False
-                cache = state._hk_entrance_clause_cache[self.player][self.name] = \
-                    dict.fromkeys(range(len(self.hk_rule)), False)
-            else:
-                cache = state._hk_entrance_clause_cache[self.player][self.name]
+    def hk_access_rule(self, state: CollectionState) -> bool:
+        assert self.hk_rule != default_hk_rule, "should never have to be here"
+        # if self.hk_rule == default_hk_rule:
+        #     state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
+        #     state._hk_apply_and_validate_state(
+        #         default_hk_rule[0],
+        #         self.parent_region,
+        #         target_region=self.connected_region
+        #     )
+        #     return True
+        if self.name not in state._hk_entrance_clause_cache[self.player]:
+            # if there's no cache for this entrance, make one with everything False
+            cache = state._hk_entrance_clause_cache[self.player][self.name] = \
+                dict.fromkeys(range(len(self.hk_rule)), False)
+        else:
+            cache = state._hk_entrance_clause_cache[self.player][self.name]
 
-            # check every clause, caching item state accessibility
-            valid_clauses = False
-            for index, clause in enumerate(self.hk_rule):
-                if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
-                    cache[index] = True
+        # check every clause, caching item state accessibility
+        valid_clauses = False
+        for index, clause in enumerate(self.hk_rule):
+            if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
+                cache[index] = True
 
-                    # region sweep might not be done, so checking items is likely faster
-                    reachable = True
-                    for region in clause.hk_region_requirements:
-                        if not state.can_reach_region(region, self.player):
-                            reachable = False
-                    if reachable and state._hk_apply_and_validate_state(
-                            clause,
-                            self.parent_region,
-                            target_region=self.connected_region):
-                        valid_clauses = True
+                # region sweep might not be done, so checking items is likely faster
+                reachable = True
+                for region in clause.hk_region_requirements:
+                    if not state.can_reach_region(region, self.player):
+                        reachable = False
+                if reachable and state._hk_apply_and_validate_state(
+                        clause,
+                        self.parent_region,
+                        target_region=self.connected_region):
+                    valid_clauses = True
 
-            return valid_clauses
+        return valid_clauses
 
 
 class HKRegion(Region):
     entrance_type = HKEntrance
 
-    if not SIMPLE_STATE_LOGIC:
-        def can_reach(self, state) -> bool:
-            if self in state.reachable_regions[self.player]:
-                return True
-            if not state.stale[self.player] and not state._hk_stale[self.player]:
-                # if the cache is updated we can use the cache
-                return super().can_reach(state)
-            if state._hk_stale[self.player]:
-                state._hk_sweep(self.player)
+    def can_reach(self, state) -> bool:
+        if self in state.reachable_regions[self.player]:
+            return True
+        if not state.stale[self.player] and not state._hk_stale[self.player]:
+            # if the cache is updated we can use the cache
             return super().can_reach(state)
+        if state._hk_stale[self.player]:
+            state._hk_sweep(self.player)
+        return super().can_reach(state)
 
 
 shop_locations = multi_locations
@@ -539,11 +535,6 @@ class HKWorld(RandomizerCoreWorld, World):
     def set_rule(self, spot, rule):
         # set hk_rule instead of access_rule because our Location class defines a custom access_rule
         if isinstance(spot, HKEntrance):
-            if SIMPLE_STATE_LOGIC:
-                for i, clause in reversed(list(enumerate(rule))):
-                    if clause.hk_state_requirements:
-                        # skip all entrances with state requirements so we know they're always repeatable
-                        del rule[i]
             relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
             relevant_terms.update(
                 {term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.get_terms()}
@@ -551,13 +542,6 @@ class HKWorld(RandomizerCoreWorld, World):
             for term in relevant_terms:
                 # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh
                 self.entrance_by_term[term].append(spot.name)
-        else:
-            if SIMPLE_STATE_LOGIC:
-                for clause in rule:
-                    if clause.hk_state_requirements:
-                        # assume for now that there will only be additional items for now, we can change this api later
-                        for handler in clause.hk_state_requirements:
-                            handler.add_simple_item_reqs(clause.hk_item_requirements)
 
         spot.set_hk_rule(rule)
 
@@ -1058,8 +1042,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
                 for term in effects.keys():
                     state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[term])
-            if not SIMPLE_STATE_LOGIC:
-                state._hk_stale[item.player] = True
+            state._hk_stale[item.player] = True
         return item.advancement
 
     def remove(self, state, item: HKItem) -> bool:
@@ -1108,8 +1091,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits
                 }
 
-            if not SIMPLE_STATE_LOGIC:
-                state._hk_stale[item.player] = True
+            state._hk_stale[item.player] = True
         return item.advancement
 
     def fill_slot_data(self):

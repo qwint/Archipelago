@@ -63,8 +63,6 @@ class RCStateVariable(metaclass=ResourceStateHandler):
         return []
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
-        # print(self)
-        # return (output_state for valid, output_state in [self._modify_state(state_blob, item_state)] if valid)
         valid, output_state = self._modify_state(state_blob, item_state)
         if valid:
             yield output_state
@@ -91,25 +89,3 @@ from .spend_soul import *  # noqa: E402
 from .stag_state import *  # noqa: E402
 from .take_damage import *  # noqa: E402
 from .warp_to import *  # noqa: E402
-
-
-# TODO - i don't know what this is for; says it's for handling subhandlers but not sure when
-# class StateModifierWrapper(RCStateVariable):
-#     prefix = "$BENCHRESET"
-
-#     def parse_term(self):
-#         pass
-
-#     @classmethod
-#     def try_match(cls, term: str):
-#         return term.startswith(cls.prefix)
-
-#     # @classmethod
-#     # def get_terms(cls):
-#     #     return (term for term in ("VessleFragments",))
-
-#     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
-#         pass
-
-#     def can_exclude(self, options):
-#         return False

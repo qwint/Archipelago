@@ -14,7 +14,7 @@ class TestHPManager(StateVarSetup, NoStepHK):
         self.assertEqual(healths, (lazy, white, blue), (
             f"Expected LAZYSPENTHP={'max' if lazy == HealthManager.max_damage else lazy}, "
             f"SPENTHP={white}, SPENTBLUEHP={blue}, but were {healths} instead."
-        ))  # TODO make sure this isn't over-reporting info
+        ))
 
     def test_strict_early(self):
         rs, cs = self.get_initialized_args()

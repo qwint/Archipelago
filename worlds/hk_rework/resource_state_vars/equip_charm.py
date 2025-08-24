@@ -142,23 +142,6 @@ class EquipCharmVariable(RCStateVariable):
             return EquipResult.NONE
         return self.has_notch_requirments(state_blob, item_state)
 
-    # TODO: pretty sure this is for some overload i don't understand
-    # def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
-    #     if not self.has_item(item_state):
-    #         return EquipResult.NONE
-
-    #     overcharm = False
-    #     for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
-    #         if self.has_state_requirements(state_blob, item_state):
-    #             ret = self.has_notch_requirments(state_blob, item_state)
-    #             if ret == EquipResult.NONE:
-    #                 continue
-    #             elif ret == EquipResult.OVERCHARM:  # noqa: RET507
-    #                 overcharm = True
-    #             elif ret == EquipResult.NONOVERCHARM:
-    #                 return ret
-    #     return EquipResult.OVERCHARM if overcharm else EquipResult.NONE
-
     def do_equip_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
         notch_cost = self.get_notch_cost(item_state)
         state_blob["USEDNOTCHES"] += notch_cost
@@ -308,13 +291,6 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
         else:
             count = 2
         return item_state.has("WHITEFRAGMENT", self.player, count)
-
-    # TODO double check this is not necessary with has_item defined
-    # def _modify_state(self, state_blob: Counter, item_state: CollectionState, self.player: int):
-    #     # TODO figure this out
-    #     # TODO actually
-    #     print(self.void)
-    #     return super()._modify_state(state_blob, item_state)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         if self.void:

@@ -35,10 +35,10 @@ input_matrix = [
 
     # inputs("$SHADESKIP", assert_empty=True),  # theoretically checking if the option is disabled but idk
     inputs("$SHADESKIP", resource={"USEDSHADE": 1}, assert_empty=True),
-    inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),  # TODO: make sure this aligns with having void heart equipped
+    inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),
     inputs("$SHADESKIP", resource={"REQUIREDMAXSOUL": 67}, assert_empty=True),
     inputs("$SHADESKIP"),
-    inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),  # TODO make sure that this aligns with how i set up damage state var in the future
+    inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),
     inputs("$SHADESKIP[2HITS]", masks=16),
     inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}),

@@ -1,5 +1,3 @@
-SIMPLE_STATE_LOGIC = False
-
 # Shop cost types.
 shop_cost_types: dict[str, tuple[str, ...]] = {
     "Egg_Shop": ("RANCIDEGGS",),
