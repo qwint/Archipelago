@@ -255,7 +255,7 @@ class FragileCharmVariable(EquipCharmVariable):
 
     def has_state_requirements(self, state_blob: Counter, item_state: CollectionState) -> bool:
         return (super().has_state_requirements(state_blob, item_state)
-                and ((item_state.has(self.charm_key, self.player, 2))
+                and ((self.has_unbreakable_item(item_state))
                      or (not state_blob[self.break_term] and item_state.has("Can_Repair_Fragile_Charms", self.player))))
 
     @classmethod
@@ -266,6 +266,9 @@ class FragileCharmVariable(EquipCharmVariable):
                 return True
         # else
         return False
+
+    def has_unbreakable_item(self, item_state: CollectionState) -> bool:
+        return item_state.has_from_list(self.fragile_lookup[self.charm_id], self.player, 2)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         super().add_simple_item_reqs(items)

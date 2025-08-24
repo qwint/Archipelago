@@ -43,7 +43,7 @@ input_matrix = [
     inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}),
     inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
-           cs={"Unbreakable_Strength": 1, "Fragile_Heart": 1}),
+           cs={"Unbreakable_Heart": 1, "Fragile_Heart": 1}),
     inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1, "NOPASSEDCHARMEQUIP": 0}, masks=8, notches=6,
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
 
