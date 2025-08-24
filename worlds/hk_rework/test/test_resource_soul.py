@@ -47,23 +47,23 @@ class TestSoulSpend(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
-        if limit:
-            rs = manager.limit_soul(rs, cs, limit, True)
+        if self.limit:
+            rs = self.get_one_state(manager.limit_soul, rs, cs, self.limit, True)
 
+        states = [rs]
         for i, expected in enumerate(self.expecteds):
-            outputs = [s for s in manager.modify_state(rs, cs)]
+            states = [s for rs in states for s in manager.spend_soul(rs, cs, 33)]
             self.assertEqual([(
                     s["SPENTSOUL"],
                     s["SPENTRESERVESOUL"],
                     s["REQUIREDMAXSOUL"],
                     s["SOULLIMITER"],
-                ) for s in outputs], expected, f"Failed on expected index {i}")
-            rs = outputs[0] if outputs else []
+                ) for s in states], expected, f"Failed on expected index {i}")
 
 
 soul_restore_matrix = [
     inputs(expected=(0, 0, 66, 0)),
-    inputs(expected=(0, 0, 66, 0)),
+    inputs(expected=(0, 0, 66, 0), cs={"Vessel_Fragment": 3}),
     inputs(expected=(0, 0, 66, 33), limit=33),
 ]
 
@@ -89,31 +89,32 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
-        if limit:
-            rs = manager.limit_soul(rs, cs, limit)
+        if self.limit:
+            rs = self.get_one_state(manager.limit_soul, rs, cs, self.limit, True)
+        rs2 = rs.copy()
 
         rs = self.get_one_state(manager.spend_soul, rs, cs, 66)
         rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
         self.assertEqual((
-                    s["SPENTSOUL"],
-                    s["SPENTRESERVESOUL"],
-                    s["REQUIREDMAXSOUL"],
-                    s["SOULLIMITER"],
-                ), self.expected)
+                    rs["SPENTSOUL"],
+                    rs["SPENTRESERVESOUL"],
+                    rs["REQUIREDMAXSOUL"],
+                    rs["SOULLIMITER"],
+                ), self.expected, "test one")
 
-        rs = self.get_one_state(manager.spend_all_soul, rs, cs)
-        rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
+        rs2 = self.get_one_state(manager.spend_all_soul, rs2, cs)
+        rs2 = self.get_one_state(manager.restore_all_soul, rs2, cs, True)
         self.assertEqual((
-                    s["SPENTSOUL"],
-                    s["SPENTRESERVESOUL"],
-                    s["REQUIREDMAXSOUL"],
-                    s["SOULLIMITER"],
+                    rs2["SPENTSOUL"],
+                    rs2["SPENTRESERVESOUL"],
+                    rs2["REQUIREDMAXSOUL"],
+                    rs2["SOULLIMITER"],
                 ), (
                 self.expected[0],
                 self.expected[1],
-                manager.get_soul_info(rs, cs).max_soul,
+                manager.get_soul_info(rs2, cs).max_soul,
                 self.expected[3],
-                ))
+                ), "test two")
 
 
 soul_round_matrix = [
@@ -143,18 +144,19 @@ class TestRoundSpend(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
-        if spend:
-            rs = self.get_one_state(manager.spend_soul, rs, cs, spend)
+        if self.spend:
+            rs = self.get_one_state(manager.spend_soul, rs, cs, self.spend)
             rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
 
-        rs = self.get_one_state(manager.limit_soul, rs, cs, 33, True)
-        if expected is None:
-            assert not manager.limit_soul(rs, cs, 0, False)
+        outputs = [s for s in manager.limit_soul(rs, cs, 33, True)]
+        outputs = [s for rs in outputs for s in manager.limit_soul(rs, cs, 0, False)]
+        if self.expected is None:
+            assert not outputs
         else:
-            rs = self.get_one_state(manager.limit_soul, rs, cs, 0, False)
+            self.assertEqual(len(outputs), 1)
             self.assertEqual((
-                        s["SPENTSOUL"],
-                        s["SPENTRESERVESOUL"],
-                        s["REQUIREDMAXSOUL"],
-                        s["SOULLIMITER"],
+                        outputs[0]["SPENTSOUL"],
+                        outputs[0]["SPENTRESERVESOUL"],
+                        outputs[0]["REQUIREDMAXSOUL"],
+                        outputs[0]["SOULLIMITER"],
                     ), self.expected)
