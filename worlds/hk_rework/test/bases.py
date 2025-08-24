@@ -198,7 +198,6 @@ class StateVarSetup:
             rs = self.get_one_state(ResourceStateHandler.get_handler(prep, self.player).modify_state, rs, state)
         return rs, state
 
-    # TODO: cached?
     def get_handler(self, key=None):
         if not key:
             key = self.key

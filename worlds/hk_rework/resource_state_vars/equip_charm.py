@@ -1,6 +1,6 @@
 from collections import Counter
 from enum import IntEnum
-from typing import ClassVar
+from typing import ClassVar, Iterable
 
 from BaseClasses import CollectionState
 
@@ -172,9 +172,48 @@ class EquipCharmVariable(RCStateVariable):
     def add_simple_item_reqs(self, items: Counter) -> None:
         items[self.charm_key] = 1
 
+    def is_determined(self, state_blob: Counter, item_state: CollectionState) -> bool:
+        return state_blob[self.term] or state_blob[self.anti_term]
+
+    def has_charm_progression(self, state_blob: Counter, item_state: CollectionState) -> bool:
+        return self.has_item(item_state)
+
     @staticmethod
-    def generate_charm_combinations():
-        ...
+    def generate_charm_combinations(state_blob: Counter, item_state: CollectionState, charm_list: "Iterable[EquipCharmVariable]"):
+        charms = []
+        base_state = state_blob.copy()
+        for c in charm_list:
+            if not c.is_determined(base_state, item_state):
+                if (
+                    not c.has_charm_progression(base_state, item_state)
+                    or not c.has_state_requirements(base_state, item_state)
+                    or not c.has_notch_requirments(base_state, item_state)
+                ):
+                    c.set_unequippable(base_state)
+                else:
+                    charms.add(c)
+
+        charm_len = len(charms)
+        if charm_len == 0:
+            yield base_state
+            return
+        elif charm_len > 30:
+            raise Exception("Out of range when calculating generate_charm_combinations")
+
+        p = 1 << charm_len
+        for i in range(p):
+            cur_state = base_state.copy()
+            for j in range(charm_len):
+                f = 1 << j
+                if (i & f) == f:  # equip
+                    if not charms[j].try_equip(cur_state, item_state):
+                        # should only fail due to out of notches
+                        break
+                else:  # do not equip
+                    charms[j].set_unequippable(cur_state)
+            else:
+                # only yield if we did not break
+                yield cur_state
 
 
 class FragileCharmVariable(EquipCharmVariable):

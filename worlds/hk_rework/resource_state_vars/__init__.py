@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 from collections.abc import Generator
 from typing import ClassVar
 
@@ -10,7 +10,8 @@ RCStateVariable = object  # for future typing
 
 class ResourceStateHandler(type):
     handlers: ClassVar[list[RCStateVariable]] = []
-    _handler_cache: ClassVar[dict[str, RCStateVariable]] = {}
+    _handler_cache: ClassVar[dict[int, dict[str, RCStateVariable]]] = defaultdict(dict)
+    # TODO: check if this cache could crash and burn if it is reused for other multiworlds
 
     def __new__(mcs, name, bases, dct):
         new_class = super().__new__(mcs, name, bases, dct)
@@ -20,15 +21,15 @@ class ResourceStateHandler(type):
     @staticmethod
     def get_handler(req: str, player: int) -> RCStateVariable:
         ret = None
-        if req in ResourceStateHandler._handler_cache:
-            return ResourceStateHandler._handler_cache[req]
-        # ret = next(handler(req) for handler in ResourceStateHandler.handlers if handler.try_match(req))
+        if req in ResourceStateHandler._handler_cache[player]:
+            return ResourceStateHandler._handler_cache[player][req]
+
         for handler in ResourceStateHandler.handlers:
             if handler.try_match(req):
                 ret = handler(req, player)
                 continue
         assert ret, f"searched for a handler for req {req} and did not find one"
-        ResourceStateHandler._handler_cache[req] = ret
+        ResourceStateHandler._handler_cache[player][req] = ret
         return ret
 
 

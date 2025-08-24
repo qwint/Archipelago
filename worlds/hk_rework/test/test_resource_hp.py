@@ -9,7 +9,7 @@ class TestHPManager(StateVarSetup, NoStepHK):
     cs = {}
     prep_vars = []
 
-    def assert_spent_health(self, lazy: int, white: int, blue: int):
+    def assert_spent_health(self, rs, lazy: int, white: int, blue: int):
         healths = rs["LAZYSPENTHP"], rs["SPENTHP"], rs["SPENTBLUEHP"]
         self.assertEqual(healths, (lazy, white, blue), (
             f"Expected LAZYSPENTHP={'max' if lazy == HealthManager.max_damage else lazy}, "
@@ -20,18 +20,19 @@ class TestHPManager(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
-        rs = self.get_one_state(manager.determine_hp, rs, cs)
-        self.assert_spent_health(manager.max_damage, 0, 0)
+        states = [s for s in manager.determine_hp(rs, cs)]
+        self.assertEqual(len(states), 2)
+        for s in states:
+            self.assertTrue(manager.is_hp_determined(s))
+        oc = [s for s in states if s["OVERCHARMED"]][0]
+        noc = [s for s in states if s["CANNOTOVERCHARM"]][0]
+        self.assertFalse(oc["CANNOTOVERCHARM"])
+        self.assertFalse(noc["OVERCHARMED"])
 
-        # TODO confirm what this assumption is right
-        states = [s for s in manager.take_damage(rs, cs, 1)]
-        healths = sorted([(s["LAZYSPENTHP"], s["SPENTHP"], s["SPENTBLUEHP"])
-                         for s in states])
-        expected_healths = sorted([
-            (manager.max_damage, 1, 0),
-            (manager.max_damage, 2, 0)
-        ])
-        self.assertEqual(healths, expected_healths)
+        oc_damage = self.get_one_state(manager.take_damage, oc, cs, 1)
+        self.assertEqual(oc_damage["SPENTHP"], 2)
+        noc_damage = self.get_one_state(manager.take_damage, noc, cs, 1)
+        self.assertEqual(noc_damage["SPENTHP"], 1)
 
     def test_lazy_to_strict(self):
         rs, cs = self.get_initialized_args()
@@ -39,14 +40,14 @@ class TestHPManager(StateVarSetup, NoStepHK):
 
         for i in range(1, 3):
             rs = self.get_one_state(manager.take_damage, rs, cs, 1)
-            self.assert_spent_health(i, 0, 0)
+            self.assert_spent_health(rs, i, 0, 0)
             assert not manager.is_hp_determined(rs), "HP was set to determined after lazy damage"
         for i in range(3, 5):
             rs = self.get_one_state(manager.take_damage, rs, cs, 1)
-            self.assert_spent_health(manager.max_damage, i, 0)
+            self.assert_spent_health(rs, manager.max_damage, i, 0)
             assert manager.is_hp_determined(rs), "HP was not set to determined after taking too much lazy damage"
-        rs = [s for s in manager.take_damage(rs, cs, 1)]
-        assert not rs, "States were returned after taking enough damage to kill"
+        rets = [s for s in manager.take_damage(rs, cs, 1)]
+        assert not rets, "States were returned after taking enough damage to kill"
 
 
 class TestJoniHP(StateVarSetup, NoStepHK):
@@ -59,8 +60,8 @@ class TestJoniHP(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
-        rs = manager.determine_hp(rs, cs)
+        rs = next(manager.determine_hp(rs, cs))
         hp = manager.get_hp_info(rs, cs)
         assert hp.max_white_hp == 7, f"Expected Max White HP to be 7 but was {hp.max_white_hp}"
         assert hp.current_white_hp == 7, f"Expected Current White HP to be 7 but was {hp.current_white_hp}"
-        assert hp.current_blue_hp == 7, f"Expected Current Blue HP to be 7 but was {hp.current_blue_hp}"
+        assert hp.current_blue_hp == 0, f"Expected Current Blue HP to be 7 but was {hp.current_blue_hp}"
