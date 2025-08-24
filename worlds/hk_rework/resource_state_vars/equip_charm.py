@@ -102,7 +102,7 @@ class EquipCharmVariable(RCStateVariable):
     def term(self) -> str:
         return f"{self.equip_prefix}{self.charm_id}"
 
-    def has_state_requirements(self, state_blob: Counter) -> bool:
+    def has_state_requirements(self, state_blob: Counter, item_state: CollectionState) -> bool:
         if state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]:
             return False
         return True
@@ -130,15 +130,15 @@ class EquipCharmVariable(RCStateVariable):
         return EquipResult.NONE  # TODO doublecheck
 
     def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
-        return (self.has_item(item_state) and self.has_state_requirements(state_blob)
+        return (self.has_item(item_state) and self.has_state_requirements(state_blob, item_state)
                 and self.has_notch_requirments(state_blob, item_state) == EquipResult.NONOVERCHARM)
 
     def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
-        return (self.has_item(item_state) and self.has_state_requirements(state_blob)
+        return (self.has_item(item_state) and self.has_state_requirements(state_blob, item_state)
                 and self.has_notch_requirments(state_blob, item_state) != EquipResult.NONE)
 
     def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
-        if not self.has_charm_progression(item_state) or not self.has_state_requirements(state_blob):
+        if not self.has_charm_progression(item_state) or not self.has_state_requirements(state_blob, item_state):
             return EquipResult.NONE
         return self.has_notch_requirments(state_blob, item_state)
 
@@ -149,7 +149,7 @@ class EquipCharmVariable(RCStateVariable):
 
     #     overcharm = False
     #     for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
-    #         if self.has_state_requirements(state_blob):
+    #         if self.has_state_requirements(state_blob, item_state):
     #             ret = self.has_notch_requirments(state_blob, item_state)
     #             if ret == EquipResult.NONE:
     #                 continue
@@ -198,7 +198,7 @@ class EquipCharmVariable(RCStateVariable):
             if not c.is_determined(base_state, item_state):
                 if (
                     not c.has_charm_progression(item_state)
-                    or not c.has_state_requirements(base_state)
+                    or not c.has_state_requirements(base_state, item_state)
                     or not c.has_notch_requirments(base_state, item_state)
                 ):
                     c.set_unequippable(base_state)
@@ -235,25 +235,28 @@ class FragileCharmVariable(EquipCharmVariable):
         24: ["Fragile_Greed", "Unbreakable_Greed"],
         25: ["Fragile_Strength", "Unbreakable_Strength"],
     }
-    # todo: break_bool matters when dealing with Shade Skips
-    break_bool: bool
-    # todo: determine logic for repair term. Probably access to Leggy and some sort of money logic to repair?
-    repair_term: bool
+    break_term: str
 
     def parse_term(self, term: str) -> None:
         super().parse_term(term)
-        self.break_bool = False
-        self.repair_term = True  # make false later after figuring out how to slot in leggy access
+        term_postfix = ["HEART", "GREED", "STRENGTH"][self.charm_id - 23]
+        self.break_term = f"BROKE{term_postfix}"
 
-    # todo: break_bool matters when dealing with Shade Skips
     def break_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
-        if state_blob[self.charm_key] >= 2:
+        if item_state.has(self.charm_key, self.player, 2):
             return
+        if state_blob[self.term]:
+            state_blob[self.term] = 0
+            state_blob["USEDNOTCHES"] -= self.get_notch_cost(item_state)
+            if state_blob["OVERCHARMED"]:
+                state_blob["OVERCHARMED"] = 0
+            state_blob[self.anti_term] = 1
+            state_blob[self.break_term] = 1
 
-    def has_state_requirements(self, state_blob: Counter) -> bool:
-        return (super().has_state_requirements(state_blob)
-                and ((state_blob[self.charm_key] >= 2)
-                     or (not self.break_bool and self.repair_term)))
+    def has_state_requirements(self, state_blob: Counter, item_state: CollectionState) -> bool:
+        return (super().has_state_requirements(state_blob, item_state)
+                and ((item_state.has(self.charm_key, self.player, 2))
+                     or (not state_blob[self.break_term] and item_state.has("Can_Repair_Fragile_Charms", self.player))))
 
     @classmethod
     def try_match(cls, term: str) -> bool:

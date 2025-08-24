@@ -55,9 +55,8 @@ class ShadeStateVariable(RCStateVariable):
         self.voidheart.set_unequippable(state_blob)
         state_blob["USEDSHADE"] = 1
 
-        test_state = state_blob.copy()
-        test_one = self.sp_manager.try_set_soul_limit(test_state, item_state, 33, True)
-        test_two = self.sp_manager.try_set_soul_limit(test_state, item_state, 0, False)
+        test_one = self.sp_manager.try_set_soul_limit(state_blob, item_state, 33, True)
+        test_two = self.sp_manager.try_set_soul_limit(state_blob, item_state, 0, False)
         if not test_one or not test_two:
             # edge case where using a shade skip is not safe to re-trace the path
             return False
