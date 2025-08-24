@@ -64,7 +64,7 @@ class TestSoulSpend(StateVarSetup, NoStepHK):
 soul_restore_matrix = [
     inputs(expected=(0, 0, 66, 0)),
     inputs(expected=(0, 0, 66, 0)),
-    inputs(expected=(0, 0, 66, 33), limit=33),  # TODO: update to LimitSoul function or similar
+    inputs(expected=(0, 0, 66, 33), limit=33),
 ]
 
 
@@ -119,7 +119,7 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
 soul_round_matrix = [
     inputs(expected=(33, 0, 33, 0)),
     inputs(cs={"Vessel_Fragment": 3}, expected=(0, 33, 33, 0)),
-    inputs(expected=None, spend=67),  # TODO: update to LimitSoul function or similar
+    inputs(expected=None, spend=67),
 ]
 
 

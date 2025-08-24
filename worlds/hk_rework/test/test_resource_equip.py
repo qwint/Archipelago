@@ -86,17 +86,22 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
 
     matrix_vars: inputs
     notches: int
-    notch_costs: Iterable[int]
     equip_results: Iterable[bool]
     ended_overcharmed: bool
 
     def setUp(self):
-        super().setUp()
         self.charm_count = len(self.matrix_vars.notch_costs)
+        self.options["PlandoCharmCosts"] = {
+            charm_name: self.matrix_vars.notch_costs[i]
+            for i, charm_name in zip(
+                range(self.charm_count),
+                charm_names
+            )
+        }
+        super().setUp()
         self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
         self.cs["NOTCHES"] = self.matrix_vars.notches
 
-        self.notch_costs = self.matrix_vars.notch_costs  # TODO: Handle in PlandoCharmCosts ?
         self.equip_results = self.matrix_vars.equip_results
         self.ended_overcharmed = self.matrix_vars.ended_overcharmed
 
@@ -104,16 +109,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
 
-        # TODO: yea handle in PlandoCharmCosts before setup..
-        cs.hk_charm_costs[self.player].update({
-            charm_name: self.notch_costs[i]
-            for i, charm_name in zip(
-                range(self.charm_count),
-                charm_names
-            )
-        })
-
-        for i, cost in enumerate(self.notch_costs):
+        for i in range(self.charm_count):
             result, rs = handlers[i].try_equip(rs, cs)
             assert result == self.equip_results[i]
 
@@ -133,21 +129,19 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
     ]
 
     def setUp(self):
+        self.options["PlandoCharmCosts"] = {
+            charm_name: self.notch_costs[i]
+            for i, charm_name in zip(
+                range(self.charm_count),
+                charm_names
+            )
+        }
         super().setUp()
         self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
 
     def test_combos(self):
         rs, cs = self.get_initialized_args()
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
-
-        # TODO: yea handle in PlandoCharmCosts before setup..
-        cs.hk_charm_costs[self.player].update({
-            charm_name: self.notch_costs[i]
-            for i, charm_name in zip(
-                range(self.charm_count),
-                charm_names
-            )
-        })
 
         output_states = EquipCharmVariable.generate_charm_combinations(rs, cs, handlers)
 
