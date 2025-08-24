@@ -150,12 +150,12 @@ class HealthManager(metaclass=ResourceStateHandler):
         if not self.is_hp_determined(state_blob):
             rets = [r for r in self.determine_hp(state_blob, item_state)]
             for r in rets:
-                yield self.do_focus(r, item_state, amount)
+                yield from self.do_focus(r, item_state, amount)
             return
-        if any(c.is_determined(state_blob, item_state) for c in self.focus_charms):
+        if any(not c.is_determined(state_blob, item_state) for c in self.focus_charms):
             rets = [r for r in EquipCharmVariable.generate_charm_combinations(state_blob, item_state, self.focus_charms)]
             for r in rets:
-                yield self.do_focus(r, item_state, amount)
+                yield from self.do_focus(r, item_state, amount)
             return
         if not self.ssm.try_spend_soul(state_blob, item_state, 33):
             return
@@ -198,11 +198,12 @@ class HealthManager(metaclass=ResourceStateHandler):
         if state_blob["CANNOTOVERCHARM"] or state_blob["OVERCHARMED"]:
             yield state_blob
         else:
-            ret = state_blob.copy()
-            state_blob["CANNOTOVERCHARM"] = 1
-            ret["OVERCHARMED"] = 1
-            yield state_blob
-            yield ret
+            oc = state_blob.copy()
+            oc["OVERCHARMED"] = 1
+            yield oc
+            noc = state_blob.copy()
+            noc["CANNOTOVERCHARM"] = 1
+            yield noc
 
     def get_hp_info(self, state_blob: Counter, item_state: CollectionState) -> HPInfo:
         if not self.is_hp_determined(state_blob):

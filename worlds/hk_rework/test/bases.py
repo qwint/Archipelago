@@ -183,6 +183,8 @@ class StateVarSetup:
     """other state variable keys to modify state before use"""
     notch_override: int | None = None
     """if set forces NOTCHES to be a specific value"""
+    mask_override: int | None = None
+    """if set forces MASKSHARDS to be a specific value"""
 
     @staticmethod
     def get_one_state(func, *args, **kwargs):
@@ -198,6 +200,8 @@ class StateVarSetup:
                 state.collect(self.world.create_item(item))
         if self.notch_override is not None:
             state.prog_items[self.player]["NOTCHES"] = self.notch_override
+        if self.mask_override is not None:
+            state.prog_items[self.player]["MASKSHARDS"] = self.mask_override
         rs = default_state(self.resource)
         for prep in self.prep_vars:
             rs = self.get_one_state(ResourceStateHandler.get_handler(prep, self.player).modify_state, rs, state)

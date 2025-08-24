@@ -11,16 +11,7 @@ from ..Options import HKOptions
 
 class SoulManager(metaclass=ResourceStateHandler):
     prefix = "$HPSM"
-    # max_soul = 99
-    # """Used to max out lazy hp to signal it is determined"""
     player: int
-    # lifeblood_heart: EquipCharmVariable
-    # lifeblood_core: EquipCharmVariable
-    # jonis: EquipCharmVariable
-    # fragile_heart: EquipCharmVariable
-    # hiveblood: EquipCharmVariable
-    # deep_focus: EquipCharmVariable
-    # ssm: SoulManager
 
     @classmethod
     def try_match(cls, term: str) -> bool:

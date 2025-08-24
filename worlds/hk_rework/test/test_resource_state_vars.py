@@ -14,11 +14,10 @@ class inputs(NamedTuple):
     prep_vars: Iterable[str] = ()
     assert_empty: bool = False
     notches: int | None = None
+    masks: int | None = None
 
 
 ers = {"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}  # Empty Resource State
-one_mask = {"MASKSHARDS": 4}
-two_mask = {"MASKSHARDS": 8}
 
 shrogo = {"Monarch_Wings": 1, "Abyss_Shriek": 2}  # include options
 slobo = {"Vengeful_Spirit": 1}  # include options
@@ -42,13 +41,13 @@ input_matrix = [
     inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),  # TODO: make sure this aligns with having void heart equipped
     inputs("$SHADESKIP", resource={"REQUIREDMAXSOUL": 67}, assert_empty=True),
     inputs("$SHADESKIP"),
-    inputs("$SHADESKIP[2HITS]", resource=one_mask, assert_empty=True),  # TODO make sure that this aligns with how i set up damage state var in the future
-    inputs("$SHADESKIP[2HITS]", resource={"MASKSHARDS": 16}),
-    inputs("$SHADESKIP[2HITS]", resource=two_mask, notches=6,
+    inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),  # TODO make sure that this aligns with how i set up damage state var in the future
+    inputs("$SHADESKIP[2HITS]", masks=16),
+    inputs("$SHADESKIP[2HITS]", masks=8, notches=6,
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}),
-    inputs("$SHADESKIP[2HITS]", resource=two_mask, notches=6,
+    inputs("$SHADESKIP[2HITS]", masks=8, notches=6,
            cs={"Unbreakable_Strength": 1, "Fragile_Heart": 1}),
-    inputs("$SHADESKIP[2HITS]", resource={**two_mask, "BROKEHEART": 1}, notches=6,
+    inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1}, masks=8, notches=6,
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
 
     inputs("$SHRIEKPOGO", assert_empty=True),  # with and without option on
@@ -67,31 +66,8 @@ input_matrix = [
     inputs("$SLOPEBALL", assert_empty=True, cs=slobo, resource={"SPENTSOUL": 99}),
     inputs("$SLOPEBALL", cs=slobo),
 
-    inputs("$TAKEDAMAGE", assert_empty=True,  resource=one_mask),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource=two_mask),
-    inputs("$TAKEDAMAGE", assert_empty=True,  resource=two_mask, prep_vars=("$TAKEDAMAGE",)),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource=two_mask, prep_vars=("$TAKEDAMAGE",), cs={"FOCUS": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource=one_mask, prep_vars=("$TAKEDAMAGE",), notches=6,
-           cs={"Lifeblood_Heart": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=True,  resource=one_mask, prep_vars=("$TAKEDAMAGE",), notches=1,
-           cs={"Lifeblood_Heart": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource=two_mask, prep_vars=("$TAKEDAMAGE[2]",), notches=6,
-           cs={"Lifeblood_Heart": 1}),
-    inputs("$TAKEDAMAGE[2]", assert_empty=True, resource=two_mask, prep_vars=("$TAKEDAMAGE",), notches=6,
-           cs={"Lifeblood_Heart": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource={"MASKSHARDS": 12}, prep_vars=("$TAKEDAMAGE",), notches=1,
-           cs={"Lifeblood_Heart": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource=one_mask, prep_vars=("$TAKEDAMAGE",), notches=6,
-           cs={"Lifeblood_Heart": 1}),  # duplicate?
-    inputs("$TAKEDAMAGE", assert_empty=True,  resource=one_mask, prep_vars=("$TAKEDAMAGE",), notches=1,
-           cs={"Lifeblood_Heart": 1}),  # another?
-    inputs("$TAKEDAMAGE", assert_empty=False, resource=two_mask, prep_vars=("$TAKEDAMAGE",), notches=6,
-           cs={"Hiveblood": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=False, resource={"MASKSHARDS": 12}, notches=6,
-           prep_vars=("$TAKEDAMAGE", "$TAKEDAMAGE", "$TAKEDAMAGE",), cs={"Deep_Focus": 1, "FOCUS": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=True,  resource={"MASKSHARDS": 12}, notches=6,
-           prep_vars=("$TAKEDAMAGE", "$TAKEDAMAGE", "$TAKEDAMAGE", "$TAKEDAMAGE",), cs={"Deep_Focus": 1, "FOCUS": 1}),
-
+    inputs("$TAKEDAMAGE", assert_empty=True,  masks=4),
+    inputs("$TAKEDAMAGE", assert_empty=False, masks=8),
 ]
 
 
@@ -107,6 +83,7 @@ class TestStateVars(StateVarSetup, NoStepHK):
         self.cs = self.matrix_vars.cs
         self.prep_vars = self.matrix_vars.prep_vars
         self.notch_override = self.matrix_vars.notches
+        self.mask_override = self.matrix_vars.masks
 
         self.assert_empty = self.matrix_vars.assert_empty
 

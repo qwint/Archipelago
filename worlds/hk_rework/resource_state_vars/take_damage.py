@@ -3,7 +3,7 @@ from collections import Counter
 from BaseClasses import CollectionState
 
 from . import RCStateVariable
-from ..constants import BASE_HEALTH
+from .health_manager import HealthManager
 
 
 class TakeDamageVariable(RCStateVariable):
@@ -12,6 +12,7 @@ class TakeDamageVariable(RCStateVariable):
 
     def parse_term(self, damage=1):
         self.damage = int(damage)
+        self.hp_manager = HealthManager(HealthManager.prefix, self.player)
         pass
 
     @classmethod
@@ -22,13 +23,8 @@ class TakeDamageVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
-        # TODO figure this out
-        if self.damage + state_blob["DAMAGE"] >= BASE_HEALTH:
-            return False, state_blob
-        else:  # noqa: RET505
-            state_blob["DAMAGE"] += self.damage
-            return True, state_blob
+    def modify_state(self, state_blob: Counter, item_state: CollectionState):
+        yield from self.hp_manager.take_damage(state_blob, item_state, self.damage)
 
     def can_exclude(self, options):
         # can not actually be excluded because the damage skip option is checked in logic seperately
