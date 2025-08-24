@@ -126,21 +126,21 @@ class SoulManager(metaclass=ResourceStateHandler):
         reserve_soul = max_reserve_soul - state_blob["SPENTRESERVESOUL"]
         return SoulInfo(soul, max_soul, reserve_soul, max_reserve_soul)
 
-    def try_set_soul_limit(self, state_blob: Counter, item_state: CollectionState, amount: int, applies_to_prior_path: bool):
-        if applies_to_prior_path and state_blob["REQUIREDMAXSOUL"] > amount:
+    def try_set_soul_limit(self, state_blob: Counter, item_state: CollectionState, limiter: int, applies_to_prior_path: bool):
+        if applies_to_prior_path and state_blob["REQUIREDMAXSOUL"] > limiter:
             return False
         current = state_blob["SOULLIMITER"]
-        if amount > current:
-            state_blob["SOULLIMITER"] = amount
-        elif amount < current:
-            state_blob["SOULLIMITER"] = amount
-            self.try_spend_soul(state_blob, item_state, current - amount)
+        if limiter > current:
+            state_blob["SOULLIMITER"] = limiter
+        elif limiter < current:
+            state_blob["SOULLIMITER"] = limiter
+            self.try_spend_soul(state_blob, item_state, current - limiter)
 
         return True
 
-    def limit_soul(self, state_blob: Counter, item_state: CollectionState, amount: int, applies_to_prior_path: bool):
+    def limit_soul(self, state_blob: Counter, item_state: CollectionState, limiter: int, applies_to_prior_path: bool):
         ret = state_blob.copy()
-        if self.try_set_soul_limit(ret, item_state, amount, applies_to_prior_path):
+        if self.try_set_soul_limit(ret, item_state, limiter, applies_to_prior_path):
             yield ret
 
     def soul_info(self):

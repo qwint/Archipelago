@@ -5,7 +5,7 @@ from BaseClasses import CollectionState
 
 from . import RCStateVariable
 from .soul_manager import SoulManager
-from .equip_charm import EquipCharmVariable, EquipResult
+from .equip_charm import EquipCharmVariable, EquipResult, FragileCharmVariable
 from ..Options import HKOptions
 
 
@@ -13,14 +13,14 @@ class ShadeStateVariable(RCStateVariable):
     prefix: str = "$SHADESKIP"
     health: int
 
-    fragile_heart: EquipCharmVariable
+    fragile_heart: FragileCharmVariable
     voidheart: EquipCharmVariable
     jonis: EquipCharmVariable
     sp_manager: SoulManager
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.fragile_heart = EquipCharmVariable("$EQUIPPEDCHARM[Fragile_Heart]", self.player)
+        self.fragile_heart = FragileCharmVariable("$EQUIPPEDCHARM[Fragile_Heart]", self.player)
         self.voidheart = EquipCharmVariable("$EQUIPPEDCHARM[Void_Heart]", self.player)
         self.jonis = EquipCharmVariable("$EQUIPPEDCHARM[Joni's_Blessing]", self.player)
         self.sp_manager = SoulManager(SoulManager.prefix, self.player)
@@ -55,7 +55,10 @@ class ShadeStateVariable(RCStateVariable):
         self.voidheart.set_unequippable(state_blob)
         state_blob["USEDSHADE"] = 1
 
-        if self.sp_manager.try_set_soul_limit(state_blob, item_state, 33, True) or not self.sp_manager.try_set_soul_limit(state_blob, item_state, 0, False):
+        test_state = state_blob.copy()
+        test_one = self.sp_manager.try_set_soul_limit(test_state, item_state, 33, True)
+        test_two = self.sp_manager.try_set_soul_limit(test_state, item_state, 0, False)
+        if not test_one or not test_two:
             # edge case where using a shade skip is not safe to re-trace the path
             return False
         if not self.check_health_requirement(state_blob, item_state):
@@ -75,7 +78,7 @@ class ShadeStateVariable(RCStateVariable):
         self.jonis.set_unequippable(state_blob)
 
         hp = (item_state.count("MASKSHARDS", self.player) // 4) // 2
-        if hp > self.health or self.health == hp + 1 and self.fragile_heart.can_equip(state_blob, item_state) != EquipResult.NONE:
+        if hp >= self.health or self.health == hp + 1 and self.fragile_heart.can_equip(state_blob, item_state) != EquipResult.NONE:
             self.fragile_heart.break_charm(state_blob, item_state)
             return True
         return False

@@ -6,7 +6,7 @@ from typing import NamedTuple, Iterable
 from BaseClasses import CollectionState
 
 from . import ResourceStateHandler
-from .equip_charm import EquipCharmVariable
+from .equip_charm import EquipCharmVariable, FragileCharmVariable
 from .soul_manager import SoulManager
 from ..Options import HKOptions
 
@@ -52,7 +52,7 @@ class HealthManager(metaclass=ResourceStateHandler):
     lifeblood_heart: EquipCharmVariable
     lifeblood_core: EquipCharmVariable
     jonis: EquipCharmVariable
-    fragile_heart: EquipCharmVariable
+    fragile_heart: FragileCharmVariable
     hiveblood: EquipCharmVariable
     deep_focus: EquipCharmVariable
     ssm: SoulManager
@@ -66,7 +66,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         self.lb_heart = EquipCharmVariable("$EQUIPPEDCHARM[Lifeblood_Heart]", self.player)
         self.lb_core = EquipCharmVariable("$EQUIPPEDCHARM[Lifeblood_Core]", self.player)
         self.jonis = EquipCharmVariable("$EQUIPPEDCHARM[Joni's_Blessing]", self.player)
-        self.fragile_heart = EquipCharmVariable("$EQUIPPEDCHARM[Fragile_Heart]", self.player)
+        self.fragile_heart = FragileCharmVariable("$EQUIPPEDCHARM[Fragile_Heart]", self.player)
         self.hiveblood = EquipCharmVariable("$EQUIPPEDCHARM[Hiveblood]", self.player)
         self.deep_focus = EquipCharmVariable("$EQUIPPEDCHARM[Deep_Focus]", self.player)
         self.ssm = SoulManager("$SSM", self.player)
