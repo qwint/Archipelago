@@ -122,7 +122,9 @@ class ShriekPogoVariable(CastSpellVariable):
     def parse_term(self, *args):
         self.left_stall = "NOLEFTSTALL" not in args
         self.right_stall = "NORIGHTSTALL" not in args
-        args = [a for a in args if a not in ("NOLEFTSTALL", "NORIGHTSTALL")]
+        if "NOSTALL" in args:
+            self.left_stall, self.right_stall = False, False
+        args = [a for a in args if a not in ("NOLEFTSTALL", "NORIGHTSTALL", "NOSTALL")]
         super().parse_term(*args)
         if any(cast > 1 for cast in self.casts) and (self.left_stall or self.right_stall):
             sub_params = list(chain.from_iterable([["1"] * int(i) if i.isdigit() else [i] for i in args]))
