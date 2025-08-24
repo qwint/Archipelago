@@ -11,6 +11,12 @@ from ..data.constants.item_names import ItemNames
 from ..Options import HKOptions
 
 
+class EquipResult(IntEnum):
+    NONE = 1
+    OVERCHARM = 2
+    NONOVERCHARM = 3
+
+
 class EquipCharmVariable(RCStateVariable):
     prefix: str = "$EQUIPPEDCHARM"
     equip_prefix: str = "CHARM"
@@ -19,11 +25,6 @@ class EquipCharmVariable(RCStateVariable):
     charm_id: int
     charm_name: str
     charm_key: str
-
-    class EquipResult(IntEnum):
-        NONE = 1
-        OVERCHARM = 2
-        NONOVERCHARM = 3
 
     # maybe remove this later if it ends up not being useful compared to charm_id_and_name
     @staticmethod
@@ -79,7 +80,7 @@ class EquipCharmVariable(RCStateVariable):
     def _try_equip(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         if self.is_equipped(state_blob):
             return True, state_blob
-        if self.can_equip(state_blob, item_state) != self.EquipResult.NONE:
+        if self.can_equip(state_blob, item_state) != EquipResult.NONE:
             ret = state_blob.copy()
             self.do_equip_charm(ret, item_state)
             return True, ret
@@ -88,7 +89,7 @@ class EquipCharmVariable(RCStateVariable):
     def try_equip(self, state_blob: Counter, item_state: CollectionState) -> bool:
         if self.is_equipped(state_blob):
             return True
-        if self.can_equip(state_blob, item_state) != self.EquipResult.NONE:
+        if self.can_equip(state_blob, item_state) != EquipResult.NONE:
             self.do_equip_charm(state_blob, item_state)
             return True
         return False
@@ -117,46 +118,46 @@ class EquipCharmVariable(RCStateVariable):
     def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
         notch_cost = self.get_notch_cost(item_state)
         if notch_cost <= 0 or self.is_equipped(state_blob):
-            return self.EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else self.EquipResult.NONOVERCHARM
+            return EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else EquipResult.NONOVERCHARM
         # can be equipped
         net_notches = self.get_total_notches(item_state) - state_blob["USEDNOTCHES"] - notch_cost
         if net_notches >= 0:
-            return self.EquipResult.NONOVERCHARM
+            return EquipResult.NONOVERCHARM
         # something to figure out if you can overcharm to get this on
         overcharm_save = max(notch_cost, state_blob["MAXNOTCHCOST"])
         if net_notches + overcharm_save > 0 and not state_blob["CANNOTOVERCHARM"]:
-            return self.EquipResult.OVERCHARM
-        return self.EquipResult.NONE  # TODO doublecheck
+            return EquipResult.OVERCHARM
+        return EquipResult.NONE  # TODO doublecheck
 
     def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
         return (self.has_item(item_state) and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments(state_blob, item_state) == self.EquipResult.NONOVERCHARM)
+                and self.has_notch_requirments(state_blob, item_state) == EquipResult.NONOVERCHARM)
 
     def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
         return (self.has_item(item_state) and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments(state_blob, item_state) != self.EquipResult.NONE)
+                and self.has_notch_requirments(state_blob, item_state) != EquipResult.NONE)
 
     def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
         if not self.has_charm_progression(item_state) or not self.has_state_requirements(state_blob):
-            return self.EquipResult.NONE
+            return EquipResult.NONE
         return self.has_notch_requirments(state_blob, item_state)
 
     # TODO: pretty sure this is for some overload i don't understand
     # def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
     #     if not self.has_item(item_state):
-    #         return self.EquipResult.NONE
+    #         return EquipResult.NONE
 
     #     overcharm = False
     #     for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
     #         if self.has_state_requirements(state_blob):
     #             ret = self.has_notch_requirments(state_blob, item_state)
-    #             if ret == self.EquipResult.NONE:
+    #             if ret == EquipResult.NONE:
     #                 continue
-    #             elif ret == self.EquipResult.OVERCHARM:  # noqa: RET507
+    #             elif ret == EquipResult.OVERCHARM:  # noqa: RET507
     #                 overcharm = True
-    #             elif ret == self.EquipResult.NONOVERCHARM:
+    #             elif ret == EquipResult.NONOVERCHARM:
     #                 return ret
-    #     return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
+    #     return EquipResult.OVERCHARM if overcharm else EquipResult.NONE
 
     def do_equip_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
         notch_cost = self.get_notch_cost(item_state)
