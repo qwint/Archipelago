@@ -19,9 +19,10 @@ class inputs(NamedTuple):
 
 class TestBasicEquips(StateVarSetup, NoStepHK):
     key = "$EQUIPPEDCHARM[Gathering_Swarm]"
-    resource = {"NOTCHES": 1}
     cs = {"Gathering_Swarm": 1}
+    resource = {}
     prep_vars = ()
+    notch_override = 1
 
     def test_basic_equip(self):
         rs, cs = self.get_initialized_args()
@@ -78,7 +79,7 @@ equip_notch_matrix = [
 
 @classvar_matrix(matrix_vars=equip_notch_matrix)
 class TestEquipNotch(StateVarSetup, NoStepHK):
-    cs = {"NOPASSEDCHARMEQUIP": 0}
+    resource = {"NOPASSEDCHARMEQUIP": 0}
     prep_vars = ()
 
     charm_count: int
@@ -98,8 +99,8 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
             )
         }
         super().setUp()
-        self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
-        self.cs["NOTCHES"] = self.matrix_vars.notches
+        self.cs = {charm_name: 1 for charm_name in charm_item_names[:self.charm_count]}
+        self.notch_override = self.matrix_vars.notches
 
         self.equip_results = self.matrix_vars.equip_results
         self.ended_overcharmed = self.matrix_vars.ended_overcharmed
@@ -116,7 +117,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
 
 
 class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
-    cs = {"NOPASSEDCHARMEQUIP": 0, "NOTCHES": 3}
+    resource = {"NOPASSEDCHARMEQUIP": 0}
     prep_vars = ()
 
     charm_count: int = 2
@@ -126,6 +127,7 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
         {"NOPASSEDCHARMEQUIP": 0, "CHARM1": 1, "noCHARM2": 1, "USEDNOTCHES": 3, "MAXNOTCHCOST": 3},
         {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "CHARM2": 1, "OVERCHARMED": 1,  "USEDNOTCHES": 6, "MAXNOTCHCOST": 6},
     ]
+    notch_override = 3
 
     def setUp(self):
         self.options["PlandoCharmCosts"] = {
@@ -136,10 +138,11 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
             )
         }
         super().setUp()
-        self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
+        self.cs = {charm_name: 1 for charm_name in charm_item_names[:self.charm_count]}
 
     def test_combos(self):
         rs, cs = self.get_initialized_args()
+        del rs["NOFLOWER"]  # TODO: get rid of this exception probably
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
 
         output_states = EquipCharmVariable.generate_charm_combinations(rs, cs, handlers)

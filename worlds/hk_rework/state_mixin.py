@@ -66,6 +66,7 @@ class HKLogicMixin(LogicMixin):
         self.hk_charm_costs = HKWorld.charm_names_and_costs
         for player in players:
             self.prog_items[player]["MASKSHARDS"] = BASE_HEALTH*4
+            self.prog_items[player]["NOTCHES"] = BASE_NOTCHES
         # for player in players:
         #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
         #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH

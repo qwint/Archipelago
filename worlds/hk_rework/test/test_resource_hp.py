@@ -52,13 +52,18 @@ class TestHPManager(StateVarSetup, NoStepHK):
 
 class TestJoniHP(StateVarSetup, NoStepHK):
     key = "$HPSM"
-    resource = {"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0, "NOTCHES": 4, "CANNOTOVERCHARM": 1}
+    resource = {"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0, "CANNOTOVERCHARM": 1}
     cs = {"Joni's_Blessing": 1}
-    prep_vars = ["$EQUIPPEDCHARM[Joni's_Blessing]"]
+    prep_vars = ()
+    notch_override = 4
 
     def test_joni_info(self):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
+        joni_handler = self.get_handler("$EQUIPPEDCHARM[Joni's_Blessing]")
+
+        self.assertTrue(joni_handler.try_equip(rs, cs))
+        rs["CANNOTOVERCHARM"] = 1
 
         rs = next(manager.determine_hp(rs, cs))
         hp = manager.get_hp_info(rs, cs)

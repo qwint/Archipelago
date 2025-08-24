@@ -107,8 +107,9 @@ class EquipCharmVariable(RCStateVariable):
         return True
 
     def get_total_notches(self, item_state: CollectionState) -> int:
-        collected_notches = item_state.count(ItemNames.CHARM_NOTCH, self.player)
-        return BASE_NOTCHES + collected_notches
+        return item_state.count("NOTCHES", self.player)
+        # collected_notches = item_state.count(ItemNames.CHARM_NOTCH, self.player)
+        # return BASE_NOTCHES + collected_notches
 
     def get_notch_cost(self, item_state: CollectionState) -> int:
         return item_state.hk_charm_costs[self.player][self.charm_name]
@@ -164,7 +165,7 @@ class EquipCharmVariable(RCStateVariable):
         state_blob[self.term] = True
         state_blob[self.charm_key] = True
         state_blob["MAXNOTCHCOST"] = max(state_blob["MAXNOTCHCOST"], notch_cost)
-        if state_blob["USEDNOTCHES"] > state_blob["NOTCHES"]:
+        if state_blob["USEDNOTCHES"] > item_state.count("NOTCHES", self.player):
             state_blob["OVERCHARMED"] = True
 
     def is_equipped(self, state_blob: Counter) -> bool:
@@ -173,9 +174,8 @@ class EquipCharmVariable(RCStateVariable):
     def set_unequippable(self, state_blob: Counter) -> None:
         state_blob[self.anti_term] = True
 
-    @staticmethod
-    def get_avaliable_notches(state_blob: Counter) -> int:
-        return state_blob["NOTCHES"] - state_blob["USEDNOTCHES"]
+    def get_avaliable_notches(self, state_blob: Counter, item_state: CollectionState) -> int:
+        return item_state.count("NOTCHES", self.player) - state_blob["USEDNOTCHES"]
 
     def can_exclude(self, options: HKOptions) -> bool:
         return False
@@ -197,12 +197,12 @@ class EquipCharmVariable(RCStateVariable):
             if not c.is_determined(base_state, item_state):
                 if (
                     not c.has_charm_progression(item_state)
-                    or not c.has_state_requirements(base_state, item_state)
+                    or not c.has_state_requirements(base_state)
                     or not c.has_notch_requirments(base_state, item_state)
                 ):
                     c.set_unequippable(base_state)
                 else:
-                    charms.add(c)
+                    charms.append(c)
 
         charm_len = len(charms)
         if charm_len == 0:
