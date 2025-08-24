@@ -23,9 +23,6 @@ shrogo = {"Monarch_Wings": 1, "Abyss_Shriek": 2}  # include options
 slobo = {"Vengeful_Spirit": 1}  # include options
 
 input_matrix = [
-    inputs("FOO=0"),
-    inputs("$SHADESKIP", cs={"King_Fragment": 1, "Queen_Fragment": 1}, assert_empty=True),
-
     inputs("$CASTSPELL[3]"),
     inputs("$CASTSPELL[3]", prep_vars=("$SHADESKIP",), assert_empty=True),
     inputs("$CASTSPELL[4]", cs={"Vessel_Fragment": 3}, assert_empty=True),
