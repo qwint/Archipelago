@@ -91,13 +91,13 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
 
     def setUp(self):
         self.charm_count = len(self.matrix_vars.notch_costs)
-        self.options["PlandoCharmCosts"] = {
-            charm_name: self.matrix_vars.notch_costs[i]
+        self.options = {"PlandoCharmCosts": {
+            charm_name: self.notch_costs[i]
             for i, charm_name in zip(
                 range(self.charm_count),
                 charm_names
             )
-        }
+        }}
         super().setUp()
         self.cs = {charm_name: 1 for charm_name in charm_item_names[:self.charm_count]}
         self.notch_override = self.matrix_vars.notches
@@ -130,13 +130,13 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
     notch_override = 3
 
     def setUp(self):
-        self.options["PlandoCharmCosts"] = {
+        self.options = {"PlandoCharmCosts": {
             charm_name: self.notch_costs[i]
             for i, charm_name in zip(
                 range(self.charm_count),
                 charm_names
             )
-        }
+        }}
         super().setUp()
         self.cs = {charm_name: 1 for charm_name in charm_item_names[:self.charm_count]}
 
