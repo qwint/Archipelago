@@ -9,6 +9,7 @@ from .health_manager import HealthManager
 class TakeDamageVariable(RCStateVariable):
     prefix = "$TAKEDAMAGE"
     damage: int
+    hp_manager: HealthManager
 
     def parse_term(self, damage=1):
         self.damage = int(damage)
