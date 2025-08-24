@@ -13,7 +13,7 @@ class FlowerProviderVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         state_blob["NOFLOWER"] = False
         return True, state_blob
 

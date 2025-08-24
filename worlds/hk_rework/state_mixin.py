@@ -115,7 +115,7 @@ class HKLogicMixin(LogicMixin):
                 avaliable_states = [
                     s
                     for input_state in avaliable_states
-                    for s in handler.modify_state(input_state, self, player)
+                    for s in handler.modify_state(input_state, self)
                 ]
 
             if len(avaliable_states):

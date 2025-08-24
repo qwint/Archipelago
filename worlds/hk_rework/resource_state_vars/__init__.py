@@ -18,14 +18,14 @@ class ResourceStateHandler(type):
         return new_class
 
     @staticmethod
-    def get_handler(req: str) -> RCStateVariable:
+    def get_handler(req: str, player: int) -> RCStateVariable:
         ret = None
         if req in ResourceStateHandler._handler_cache:
             return ResourceStateHandler._handler_cache[req]
         # ret = next(handler(req) for handler in ResourceStateHandler.handlers if handler.try_match(req))
         for handler in ResourceStateHandler.handlers:
             if handler.try_match(req):
-                ret = handler(req)
+                ret = handler(req, player)
                 continue
         assert ret, f"searched for a handler for req {req} and did not find one"
         ResourceStateHandler._handler_cache[req] = ret
@@ -34,11 +34,11 @@ class ResourceStateHandler(type):
 
 class RCStateVariable(metaclass=ResourceStateHandler):
     prefix: str
-    # player: int
-    # TODO: add this to the constructor and refactor out of all the function calls
+    player: int
 
-    def __init__(self, term: str):
+    def __init__(self, term: str, player: int):
         assert term.startswith(self.prefix)
+        self.player = player
 
         # expecting "prefix" or "prefix[one,two,three]"
         if term != self.prefix:
@@ -61,14 +61,14 @@ class RCStateVariable(metaclass=ResourceStateHandler):
         """"""
         return []
 
-    def modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> Generator[Counter]:
+    def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         # print(self)
-        # return (output_state for valid, output_state in [self._modify_state(state_blob, item_state, player)] if valid)
-        valid, output_state = self._modify_state(state_blob, item_state, player)
+        # return (output_state for valid, output_state in [self._modify_state(state_blob, item_state)] if valid)
+        valid, output_state = self._modify_state(state_blob, item_state)
         if valid:
             yield output_state
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         pass
 
     def can_exclude(self, options) -> bool:
@@ -107,7 +107,7 @@ from .warp_to import *  # noqa: E402
 #     # def get_terms(cls):
 #     #     return (term for term in ("VessleFragments",))
 
-#     def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+#     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
 #         pass
 
 #     def can_exclude(self, options):

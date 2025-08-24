@@ -25,40 +25,40 @@ class TestBasicEquips(StateVarSetup, NoStepHK):
 
     def test_basic_equip(self):
         # TODO update if i end up on a different return signature than tuple[bool, stateblob] for try_equip
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
         handler = self.get_handler()
 
-        self.assertFalse(handler.try_equip(rs, cs, pi)[0])  
-        self.assertFalse(handler.is_equipped(rs, cs, pi))
+        self.assertFalse(handler.try_equip(rs, cs)[0])  
+        self.assertFalse(handler.is_equipped(rs, cs))
         self.assertEqual(rs["USEDNOTCHES"], 0)
         self.assertEqual(rs["MAXNOTCHCOST"], 0)
 
         resource["NOPASSEDCHARMEQUIP"] = 0
-        res_bool, res_state = handler.try_equip(rs, cs, pi)
+        res_bool, res_state = handler.try_equip(rs, cs)
         self.assertTrue(res_bool)
         # test original state
-        self.assertFalse(handler.is_equipped(rs, cs, pi))
+        self.assertFalse(handler.is_equipped(rs, cs))
         self.assertEqual(rs["USEDNOTCHES"], 0)
         self.assertEqual(rs["MAXNOTCHCOST"], 0)
         # test output state
-        self.assertTrue(handler.is_equipped(res_state, cs, pi))
+        self.assertTrue(handler.is_equipped(res_state, cs))
         self.assertEqual(res_state["USEDNOTCHES"], 1)
         self.assertEqual(res_state["MAXNOTCHCOST"], 1)
 
         other = rs.copy()  # for later
 
-        handler.set_unequippable(rs, cs, pi)
-        res_bool, res_state = handler.try_equip(rs, cs, pi)
+        handler.set_unequippable(rs, cs)
+        res_bool, res_state = handler.try_equip(rs, cs)
         self.assertFalse(res_bool)
         self.assertEqual(res_state["USEDNOTCHES"], 0)
         self.assertEqual(res_state["MAXNOTCHCOST"], 0)
 
-        other_bool, res_other = handler.try_equip(other, cs, pi)
+        other_bool, res_other = handler.try_equip(other, cs)
         self.assertTrue(other_bool)
         self.assertEqual(res_other["USEDNOTCHES"], 1)
         self.assertEqual(res_other["MAXNOTCHCOST"], 1)
 
-        other_bool, res_other = handler.try_equip(other, cs, pi)
+        other_bool, res_other = handler.try_equip(other, cs)
         self.assertTrue(other_bool)
         self.assertEqual(res_other["USEDNOTCHES"], 1)
         self.assertEqual(res_other["MAXNOTCHCOST"], 1)
@@ -101,7 +101,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
         self.ended_overcharmed = self.matrix_vars.ended_overcharmed
 
     def test_equip_sequence(self):
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
 
         # TODO: yea handle in PlandoCharmCosts before setup..
@@ -114,7 +114,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
         })
 
         for i, cost in enumerate(self.notch_costs):
-            result, rs = handlers[i].try_equip(rs, cs, pi)
+            result, rs = handlers[i].try_equip(rs, cs)
             assert result == self.equip_results[i]
 
         assert rs["OVERCHARMED"] == self.ended_overcharmed
@@ -137,7 +137,7 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
         self.resource = {charm_name for charm_name in charm_item_names[:self.charm_count]}
 
     def test_combos(self):
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
 
         # TODO: yea handle in PlandoCharmCosts before setup..
@@ -149,10 +149,10 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
             )
         })
 
-        output_states = EquipCharmVariable.generate_charm_combinations(rs, cs, pi, handlers)
+        output_states = EquipCharmVariable.generate_charm_combinations(rs, cs, handlers)
 
         for state, expected in zip_longest(output_states, expecteds):
             # if states is longer or shorter than expecteds one side will be None and fail the compare
             self.assertEqual(state, expected)
             for handler in handlers:
-                self.assertTrue(handler.is_determined(state, cs, pi))
+                self.assertTrue(handler.is_determined(state, cs))

@@ -23,7 +23,7 @@ class RCResetter:
     def parse_term(self):
         pass
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         # TODO: confirm this is always correct, and deletion isn't too big an assumption
         if self.opt_in:
             for key, value in self.reset_properties.items():

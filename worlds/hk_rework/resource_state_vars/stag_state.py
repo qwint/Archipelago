@@ -19,7 +19,7 @@ class StagStateVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         state_blob["NOFLOWER"] = 1
         return True, state_blob
 

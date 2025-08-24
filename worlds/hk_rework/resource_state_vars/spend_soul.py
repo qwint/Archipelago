@@ -20,7 +20,7 @@ class SpendSoulVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         if state_blob["SPENTALLSOUL"]:
             return False, state_blob
 
@@ -28,7 +28,7 @@ class SpendSoulVariable(RCStateVariable):
         if soul < self.amount:
             return False, state_blob
 
-        reserve_soul = self.get_reserve_soul(state_blob, item_state, player)
+        reserve_soul = self.get_reserve_soul(state_blob, item_state)
         if reserve_soul >= self.amount:
             state_blob["SPENTRESERVESOUL"] += self.amount
         else:
@@ -45,8 +45,8 @@ class SpendSoulVariable(RCStateVariable):
     def get_soul(self, state_blob):
         return 99 - state_blob["SOULLIMITER"] - state_blob["SPENTSOUL"]
 
-    def get_reserve_soul(self, state_blob: Counter, item_state: CollectionState, player: int):
-        return ((item_state.count("VESSELFRAGMENTS", player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
+    def get_reserve_soul(self, state_blob: Counter, item_state: CollectionState):
+        return ((item_state.count("VESSELFRAGMENTS", self.player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
 
     def can_exclude(self, options):
         return False

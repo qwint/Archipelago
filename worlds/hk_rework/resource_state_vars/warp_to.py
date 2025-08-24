@@ -12,8 +12,8 @@ class WarpToBenchResetVariable(RCStateVariable):
     bench_reset: BenchResetVariable
 
     def parse_term(self):
-        self.sq_reset = SaveQuitResetVariable(SaveQuitResetVariable.prefix)
-        self.bench_reset = BenchResetVariable(BenchResetVariable.prefix)
+        self.sq_reset = SaveQuitResetVariable(SaveQuitResetVariable.prefix, self.player)
+        self.bench_reset = BenchResetVariable(BenchResetVariable.prefix, self.player)
 
     @classmethod
     def try_match(cls, term: str):
@@ -23,10 +23,10 @@ class WarpToBenchResetVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
-        valid, state_blob = self.sq_reset._modify_state(state_blob, item_state, player)
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
+        valid, state_blob = self.sq_reset._modify_state(state_blob, item_state)
         if valid:
-            return self.bench_reset._modify_state(state_blob, item_state, player)
+            return self.bench_reset._modify_state(state_blob, item_state)
         else:  # noqa: RET505
             return False, state_blob
 
@@ -40,8 +40,8 @@ class WarpToStartResetVariable(RCStateVariable):
     start_reset: StartRespawnResetVariable
 
     def parse_term(self):
-        self.sq_reset = SaveQuitResetVariable(SaveQuitResetVariable.prefix)
-        self.start_reset = StartRespawnResetVariable(StartRespawnResetVariable.prefix)
+        self.sq_reset = SaveQuitResetVariable(SaveQuitResetVariable.prefix, self.player)
+        self.start_reset = StartRespawnResetVariable(StartRespawnResetVariable.prefix, self.player)
 
     @classmethod
     def try_match(cls, term: str):
@@ -51,10 +51,10 @@ class WarpToStartResetVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
-        valid, state_blob = self.sq_reset._modify_state(state_blob, item_state, player)
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
+        valid, state_blob = self.sq_reset._modify_state(state_blob, item_state)
         if valid:
-            return self.start_reset._modify_state(state_blob, item_state, player)
+            return self.start_reset._modify_state(state_blob, item_state)
         else:  # noqa: RET505
             return False, state_blob
 

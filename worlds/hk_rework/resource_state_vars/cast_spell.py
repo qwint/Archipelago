@@ -18,7 +18,7 @@ class CastSpellVariable(RCStateVariable):
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.equip_st = EquipCharmVariable("$EQUIPPEDCHARM[Spell_Twister]")
+        self.equip_st = EquipCharmVariable("$EQUIPPEDCHARM[Spell_Twister]", self.player)
 
     def parse_term(self, *args) -> None:
         self.casts = []
@@ -56,17 +56,17 @@ class CastSpellVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> Generator[Counter]:
+    def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         max_soul = self.get_max_soul(state_blob)
         if not state_blob["CANNOTREGAINSOUL"] and self.before:
             soul = self.get_max_soul(state_blob)
-            reserves = self.get_reserves(state_blob, item_state, player)
+            reserves = self.get_reserves(state_blob, item_state)
         elif state_blob["SPENTALLSOUL"]:
             soul = 0
             reserves = 0
         else:
             soul = self.get_soul(state_blob)
-            reserves = self.get_reserves(state_blob, item_state, player)
+            reserves = self.get_reserves(state_blob, item_state)
 
         # try without spell twister
         if (not self.equip_st.is_equipped(state_blob)
@@ -81,8 +81,8 @@ class CastSpellVariable(RCStateVariable):
         # try with spell twister
         state_st = state_blob.copy()
         if (self.try_cast_all(24, max_soul, reserves, soul)
-                and self.equip_st.can_equip(state_st, item_state, player)):
-            check, state_st = self.equip_st._modify_state(state_st, item_state, player)
+                and self.equip_st.can_equip(state_st, item_state)):
+            check, state_st = self.equip_st._modify_state(state_st, item_state)
             # we know EquipCharmVariable only yields once
             if check:
                 self.do_all_casts(24, reserves, state_st)
@@ -155,13 +155,11 @@ class CastSpellVariable(RCStateVariable):
     def get_soul(cls, state_blob: Counter) -> int:
         return cls.get_max_soul(state_blob) - state_blob["SPENTSOUL"]
 
-    @classmethod
-    def get_max_reserves(cls, state_blob: Counter, item_state: CollectionState, player) -> int:
-        return (item_state.count("VesselFragment", player) // 3) * 33
+    def get_max_reserves(self, state_blob: Counter, item_state: CollectionState) -> int:
+        return (item_state.count("VesselFragment", self.player) // 3) * 33
 
-    @classmethod
-    def get_reserves(cls, state_blob: Counter, item_state: CollectionState, player: int) -> int:
-        return cls.get_max_reserves(state_blob, item_state, player) - state_blob["SPENTRESERVESOUL"]
+    def get_reserves(self, state_blob: Counter, item_state: CollectionState) -> int:
+        return self.get_max_reserves(state_blob, item_state) - state_blob["SPENTRESERVESOUL"]
 
 
 class ShriekPogoVariable(CastSpellVariable):
@@ -178,7 +176,7 @@ class ShriekPogoVariable(CastSpellVariable):
             sub_params = list(chain.from_iterable([["1"] * int(i) if i.isdigit() else [i] for i in args]))
             # flatten any > 1 cast value into that many copies of 1
             # to tell downstream that there can be a break to regain soul
-            self.stall_cast = CastSpellVariable(f"{CastSpellVariable.prefix}[{','.join(sub_params)}]")
+            self.stall_cast = CastSpellVariable(f"{CastSpellVariable.prefix}[{','.join(sub_params)}]", self.player)
         else:
             self.stall_cast = None
 
@@ -186,14 +184,14 @@ class ShriekPogoVariable(CastSpellVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob, item_state, player):
-        if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, player):
+    def _modify_state(self, state_blob, item_state):
+        if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, self.player):
             return False, state_blob
-        elif self.stall_cast and ((not self.no_left_stall and item_state.has("LEFTDASH", player))  # noqa: RET505
-                                  (not self.no_right_stall and item_state.has("RIGHTDASH", player))):
-            return self.stall_cast._modify_state(state_blob, item_state, player)
+        elif self.stall_cast and ((not self.no_left_stall and item_state.has("LEFTDASH", self.player))  # noqa: RET505
+                                  (not self.no_right_stall and item_state.has("RIGHTDASH", self.player))):
+            return self.stall_cast._modify_state(state_blob, item_state)
         else:
-            return super()._modify_state(state_blob, item_state, player)
+            return super()._modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
         return True
@@ -219,11 +217,11 @@ class SlopeballVariable(CastSpellVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob, item_state, player):
-        if not item_state.has("FIREBALL", player):
+    def _modify_state(self, state_blob, item_state):
+        if not item_state.has("FIREBALL", self.player):
             return False, state_blob
         else:  # noqa: RET505
-            return super()._modify_state(state_blob, item_state, player)
+            return super()._modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
         return True

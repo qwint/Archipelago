@@ -195,17 +195,17 @@ class StateVarSetup:
                 state.collect(self.world.create_item(item))
         rs = Counter(self.resource)
         for prep in self.prep_vars:
-            rs = self.get_one_state(ResourceStateHandler.get_handler(prep).modify_state, rs, state, self.player)
-        return rs, state, self.player
+            rs = self.get_one_state(ResourceStateHandler.get_handler(prep, self.player).modify_state, rs, state)
+        return rs, state
 
     # TODO: cached?
     def get_handler(self, key=None):
         if not key:
             key = self.key
-        return ResourceStateHandler.get_handler(key)
+        return ResourceStateHandler.get_handler(key, self.player)
 
     def get_modified_state(self):
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
 
         handler = self.get_handler()
-        return [s for s in handler.modify_state(rs, cs, pi)]
+        return [s for s in handler.modify_state(rs, cs)]

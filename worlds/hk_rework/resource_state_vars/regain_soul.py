@@ -21,11 +21,11 @@ class RegainSoulVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         if state_blob["CANNOTREGAINSOUL"]:
             return False, state_blob
         if state_blob["SPENTALLSOUL"]:
-            state_blob["SPENTRESERVESOUL"] = self.get_max_reserve_soul(item_state, player)
+            state_blob["SPENTRESERVESOUL"] = self.get_max_reserve_soul(item_state)
             state_blob["SPENTSOUL"] = self.get_max_soul(state_blob)
             state_blob["SPENTALLSOUL"] = False
         soul_diff = self.get_max_soul(state_blob) - state_blob["SPENTSOUL"]  # i simplified this
@@ -34,7 +34,7 @@ class RegainSoulVariable(RCStateVariable):
         else:
             state_blob["SPENTSOUL"] = 0
             amount = self.amount - soul_diff
-            reserve_diff = (self.get_max_reserve_soul(item_state, player) - state_blob["SPENTRESERVESOUL"])
+            reserve_diff = (self.get_max_reserve_soul(item_state) - state_blob["SPENTRESERVESOUL"])
             # i simplified this
             if amount < reserve_diff:
                 state_blob["SPENTRESERVESOUL"] -= amount
@@ -42,8 +42,8 @@ class RegainSoulVariable(RCStateVariable):
                 state_blob["SPENTRESERVESOUL"] = 0
         return True, state_blob
 
-    def get_max_reserve_soul(self, item_state: CollectionState, player: int) -> int:
-        return (item_state.count("VesselFragment", player) // 3) * 33
+    def get_max_reserve_soul(self, item_state: CollectionState) -> int:
+        return (item_state.count("VesselFragment", self.player) // 3) * 33
 
     def get_max_soul(self, state_blob: Counter) -> int:
         return 99 - state_blob["SOULLIMITER"]

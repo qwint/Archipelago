@@ -509,7 +509,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 if req == "NOFLOWER=FALSE":
                     # TODO there's a handler but flowerprovider is not working yet
                     continue
-                handler = ResourceStateHandler.get_handler(req)
+                handler = ResourceStateHandler.get_handler(req, self.player)
                 if handler.can_exclude(self.options):
                     skip_clause = True
                 else:

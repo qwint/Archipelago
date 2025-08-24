@@ -69,22 +69,22 @@ class EquipCharmVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def has_item(self, item_state: CollectionState, player: int) -> bool:
-        return item_state.has(self.charm_name, player)
-        # return bool(item_state._hk_processed_item_cache[player][self.charm_name])
+    def has_item(self, item_state: CollectionState) -> bool:
+        return item_state.has(self.charm_name, self.player)
+        # return bool(item_state._hk_processed_item_cache[self.player][self.charm_name])
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
-        return self.try_equip(state_blob, item_state, player), state_blob
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+        return self.try_equip(state_blob, item_state), state_blob
 
-    def try_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
+    def try_equip(self, state_blob: Counter, item_state: CollectionState) -> bool:
         if self.charm_key in state_blob:
             return True
         if f"no{self.charm_key}" in state_blob:
             return False
-        if not self.has_item(item_state, player):
+        if not self.has_item(item_state):
             return False
-        if self.can_equip(state_blob, item_state, player):
-            self.do_equip_charm(state_blob, item_state, player)
+        if self.can_equip(state_blob, item_state):
+            self.do_equip_charm(state_blob, item_state)
             return True
         return False
 
@@ -101,20 +101,19 @@ class EquipCharmVariable(RCStateVariable):
             return False
         return True
 
-    @staticmethod
-    def get_total_notches(item_state: CollectionState, player: int) -> int:
-        collected_notches = item_state.count(ItemNames.CHARM_NOTCH, player)
+    def get_total_notches(self, item_state: CollectionState) -> int:
+        collected_notches = item_state.count(ItemNames.CHARM_NOTCH, self.player)
         return BASE_NOTCHES + collected_notches
 
-    def get_notch_cost(self, item_state: CollectionState, player: int) -> int:
-        return item_state.hk_charm_costs[player][self.charm_name]
+    def get_notch_cost(self, item_state: CollectionState) -> int:
+        return item_state.hk_charm_costs[self.player][self.charm_name]
 
-    def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
-        notch_cost = self.get_notch_cost(item_state, player)
+    def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
+        notch_cost = self.get_notch_cost(item_state)
         if notch_cost <= 0 or self.is_equipped(state_blob):
             return self.EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else self.EquipResult.NONOVERCHARM
         # can be equipped
-        net_notches = self.get_total_notches(item_state, player) - state_blob["USEDNOTCHES"] - notch_cost
+        net_notches = self.get_total_notches(item_state) - state_blob["USEDNOTCHES"] - notch_cost
         if net_notches >= 0:
             return self.EquipResult.NONOVERCHARM
         # something to figure out if you can overcharm to get this on
@@ -123,22 +122,22 @@ class EquipCharmVariable(RCStateVariable):
             return self.EquipResult.OVERCHARM
         return self.EquipResult.NONE  # TODO doublecheck
 
-    def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState, player) -> bool:
-        return (self.has_item(item_state, player) and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments(state_blob, item_state, player) == self.EquipResult.NONOVERCHARM)
+    def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
+        return (self.has_item(item_state) and self.has_state_requirements(state_blob)
+                and self.has_notch_requirments(state_blob, item_state) == self.EquipResult.NONOVERCHARM)
 
-    def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState, player: int) -> bool:
-        return (self.has_item(item_state, player) and self.has_state_requirements(state_blob)
-                and self.has_notch_requirments(state_blob, item_state, player) != self.EquipResult.NONE)
+    def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
+        return (self.has_item(item_state) and self.has_state_requirements(state_blob)
+                and self.has_notch_requirments(state_blob, item_state) != self.EquipResult.NONE)
 
-    def can_equip(self, state_blob: Counter, item_state: CollectionState, player: int) -> EquipResult:
-        if not self.has_item(item_state, player):
+    def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
+        if not self.has_item(item_state):
             return self.EquipResult.NONE
 
         overcharm = False
         for _ in (None,):  # there's an iteration in upstream I don't want to lose sight of
             if self.has_state_requirements(state_blob):
-                ret = self.has_notch_requirments(state_blob, item_state, player)
+                ret = self.has_notch_requirments(state_blob, item_state)
                 if ret == self.EquipResult.NONE:
                     continue
                 elif ret == self.EquipResult.OVERCHARM:  # noqa: RET507
@@ -147,8 +146,8 @@ class EquipCharmVariable(RCStateVariable):
                     return ret
         return self.EquipResult.OVERCHARM if overcharm else self.EquipResult.NONE
 
-    def do_equip_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
-        notch_cost = self.get_notch_cost(item_state, player)
+    def do_equip_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
+        notch_cost = self.get_notch_cost(item_state)
         state_blob["USEDNOTCHES"] += notch_cost
         # one of these 2 should probably go at some point
         state_blob[self.term] = True
@@ -196,7 +195,7 @@ class FragileCharmVariable(EquipCharmVariable):
         self.repair_term = True  # make false later after figuring out how to slot in leggy access
 
     # todo: break_bool matters when dealing with Shade Skips
-    def break_charm(self, state_blob: Counter, item_state: CollectionState, player: int) -> None:
+    def break_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
         if state_blob[self.charm_key] >= 2:
             return
 
@@ -246,19 +245,19 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def has_item(self, item_state: CollectionState, player: int) -> bool:
+    def has_item(self, item_state: CollectionState) -> bool:
         if self.void:
             count = 3
         else:
             count = 2
-        return item_state.has("WHITEFRAGMENT", player, count)
+        return item_state.has("WHITEFRAGMENT", self.player, count)
 
     # TODO double check this is not necessary with has_item defined
-    # def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    # def _modify_state(self, state_blob: Counter, item_state: CollectionState, self.player: int):
     #     # TODO figure this out
     #     # TODO actually
     #     print(self.void)
-    #     return super()._modify_state(state_blob, item_state, player)
+    #     return super()._modify_state(state_blob, item_state)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         if self.void:

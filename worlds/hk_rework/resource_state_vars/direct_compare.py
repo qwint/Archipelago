@@ -11,8 +11,9 @@ class DirectCompare:
     op: str
     value: str  # may be int or bool
 
-    def __init__(self, term: str):
+    def __init__(self, term: str, player: int):
         self.term, self.value = (*term.split(self.op),)
+        self.player = player
 
     @classmethod
     def try_match(cls, term: str):
@@ -31,7 +32,7 @@ class EQVariable(DirectCompare, RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         if self.value.isdigit():
             return state_blob[self.term] == int(self.value), state_blob
         else:  # noqa: RET505
@@ -49,7 +50,7 @@ class GTVariable(DirectCompare, RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         assert self.value.isdigit()
         return state_blob[self.term] > int(self.value), state_blob
 
@@ -63,6 +64,6 @@ class LTVariable(DirectCompare, RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         assert self.value.isdigit()
         return state_blob[self.term] < int(self.value), state_blob

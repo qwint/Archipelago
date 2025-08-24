@@ -27,7 +27,7 @@ class ShadeStateVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
         # TODO fill out when i finish equipped item variable
         if state_blob["SpentShade"]:
             return False, state_blob

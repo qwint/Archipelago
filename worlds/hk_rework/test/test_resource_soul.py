@@ -44,14 +44,14 @@ class TestSoulSpend(StateVarSetup, NoStepHK):
         self.limit = self.matrix_vars.limit
 
     def test_spend_soul(self):
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
         if limit:
-            rs = manager.limit_soul(rs, cs, pi, limit, True)
+            rs = manager.limit_soul(rs, cs, limit, True)
 
         for i, expected in enumerate(self.expecteds):
-            outputs = [s for s in manager.modify_state(rs, cs, pi)]
+            outputs = [s for s in manager.modify_state(rs, cs)]
             self.assertEqual([(
                     s["SPENTSOUL"],
                     s["SPENTRESERVESOUL"],
@@ -86,14 +86,14 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
         self.limit = self.matrix_vars.limit
 
     def test_restore_soul(self):
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
         if limit:
-            rs = manager.limit_soul(rs, cs, pi, limit)
+            rs = manager.limit_soul(rs, cs, limit)
 
-        rs = self.get_one_state(manager.spend_soul, rs, cs, pi, 66)
-        rs = self.get_one_state(manager.restore_all_soul, rs, cs, pi, True)
+        rs = self.get_one_state(manager.spend_soul, rs, cs, 66)
+        rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
         self.assertEqual((
                     s["SPENTSOUL"],
                     s["SPENTRESERVESOUL"],
@@ -101,8 +101,8 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
                     s["SOULLIMITER"],
                 ), self.expected)
 
-        rs = self.get_one_state(manager.spend_all_soul, rs, cs, pi)
-        rs = self.get_one_state(manager.restore_all_soul, rs, cs, pi, True)
+        rs = self.get_one_state(manager.spend_all_soul, rs, cs)
+        rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
         self.assertEqual((
                     s["SPENTSOUL"],
                     s["SPENTRESERVESOUL"],
@@ -111,7 +111,7 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
                 ), (
                 self.expected[0],
                 self.expected[1],
-                manager.get_soul_info(rs, cs, pi).max_soul,
+                manager.get_soul_info(rs, cs).max_soul,
                 self.expected[3],
                 ))
 
@@ -140,18 +140,18 @@ class TestRoundSpend(StateVarSetup, NoStepHK):
         self.spend = self.matrix_vars.spend
 
     def test_round_spend(self):
-        rs, cs, pi = self.get_initialized_args()
+        rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
         if spend:
-            rs = self.get_one_state(manager.spend_soul, rs, cs, pi, spend)
-            rs = self.get_one_state(manager.restore_all_soul, rs, cs, pi, True)
+            rs = self.get_one_state(manager.spend_soul, rs, cs, spend)
+            rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
 
-        rs = self.get_one_state(manager.limit_soul, rs, cs, pi, 33, True)
+        rs = self.get_one_state(manager.limit_soul, rs, cs, 33, True)
         if expected is None:
-            assert not manager.limit_soul(rs, cs, pi, 0, False)
+            assert not manager.limit_soul(rs, cs, 0, False)
         else:
-            rs = self.get_one_state(manager.limit_soul, rs, cs, pi, 0, False)
+            rs = self.get_one_state(manager.limit_soul, rs, cs, 0, False)
             self.assertEqual((
                         s["SPENTSOUL"],
                         s["SPENTRESERVESOUL"],

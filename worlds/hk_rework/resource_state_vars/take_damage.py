@@ -22,7 +22,7 @@ class TakeDamageVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState, player: int):
+    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         # TODO figure this out
         if self.damage + state_blob["DAMAGE"] >= BASE_HEALTH:
             return False, state_blob
