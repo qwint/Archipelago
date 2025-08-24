@@ -136,7 +136,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         for charm in self.focus_charms:
             if not charm.is_determined(state_blob, item_state):
                 return False
-        if not self.ssm.try_spend_soul(state, item_state, 33):
+        if not self.ssm.try_spend_soul(state_blob, item_state, 33):
             return False
         heal_amount = self.get_heal_amount(state_blob, item_state)
 

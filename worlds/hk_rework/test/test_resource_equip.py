@@ -92,7 +92,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
     def setUp(self):
         self.charm_count = len(self.matrix_vars.notch_costs)
         self.options = {"PlandoCharmCosts": {
-            charm_name: self.notch_costs[i]
+            charm_name: self.matrix_vars.notch_costs[i]
             for i, charm_name in zip(
                 range(self.charm_count),
                 charm_names
