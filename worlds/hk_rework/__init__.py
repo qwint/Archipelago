@@ -664,6 +664,19 @@ class HKWorld(RandomizerCoreWorld, World):
 
         return item_table
 
+    def can_godhome_flower(self, state: CollectionState):
+        if not state.has_all_counts({"Godtuner": 1, "Defeated_Pantheon_5": 1}, self.player):
+            return False
+
+        if not state.can_reach_region("GG_Waterways", self.player):
+            # cannot deliver flower
+            return False
+        for state_blob in state._hk_per_player_resource_states[self.player]["GG_Waterways"]:
+            if not state_blob["NOFLOWER"]:
+                # if any valid state gets us to godseeker with the flower unbroken
+                return True
+        return False
+
 # ported from original HK
     def set_victory(self) -> None:
         multiworld = self.multiworld
@@ -678,7 +691,7 @@ class HKWorld(RandomizerCoreWorld, World):
         elif goal == Goal.option_godhome:
             multiworld.completion_condition[player] = lambda state: state.has("Defeated_Pantheon_5", player)
         elif goal == Goal.option_godhome_flower:
-            multiworld.completion_condition[player] = lambda state: state.has("Godhome_Flower_Quest", player) and state.has('Godtuner', player)  # TODO
+            multiworld.completion_condition[player] = self.can_godhome_flower
         elif goal == Goal.option_grub_hunt:
             multiworld.completion_condition[player] = lambda state: self.can_grub_goal(state)
         else:
@@ -686,7 +699,7 @@ class HKWorld(RandomizerCoreWorld, World):
             multiworld.completion_condition[player] = (
                 lambda state: state.has("Defeated_Any_Hollow_Knight", player) and state.has("WHITEFRAGMENT", player, 3)
                 and state.has("Defeated_Any_Radiance", player)
-                and state.has("Defeated_Pantheon_5", player)  # TODO upgrade this to godhome flower quest later
+                and self.can_godhome_flower(state)
                 and self.can_grub_goal(state)
             )
 

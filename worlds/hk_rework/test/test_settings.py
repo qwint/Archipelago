@@ -32,11 +32,11 @@ class TestGoalGodhome(HKGoalBase):
         "Goal": "godhome",
     }
 
-# TODO put these back when implemented again
-# class TestGoalGodhomeFlower(HKGoalBase):
-#     options: typing.ClassVar[dict[str, str]] = {
-#         "Goal": "godhome_flower",
-#     }
+
+class TestGoalGodhomeFlower(HKGoalBase):
+    options: typing.ClassVar[dict[str, str]] = {
+        "Goal": "godhome_flower",
+    }
 
 
 class TestRandomizeAll(HKTestBase):
