@@ -440,20 +440,22 @@ class HKWorld(RandomizerCoreWorld, World):
 
     def add_extra_shop_locations(self, count):
         # Add additional shop items, as needed.
-        if count > 0:
-            shops = [shop for shop, locations in self.created_multi_locations.items() if len(locations) < 16]
-            if not self.options.EggShopSlots.value:  # No eggshop, so don't place items there
-                shops.remove("Egg_Shop")
+        if not count > 0:
+            return
+        shops = [shop for shop, locations in self.created_multi_locations.items() if len(locations) < 16]
+        if not self.options.EggShopSlots.value:  # No eggshop, so don't place items there
+            shops.remove("Egg_Shop")
 
-            if shops:
-                for _ in range(count):
-                    shop = self.random.choice(shops)
-                    index = len(self.created_multi_locations[shop])
-                    self.add_shop_location(shop, index)
-                    if len(self.created_multi_locations[shop]) >= 16:
-                        shops.remove(shop)
-                        if not shops:
-                            break
+        if not shops:
+            return
+        for _ in range(count):
+            shop = self.random.choice(shops)
+            index = len(self.created_multi_locations[shop])
+            self.add_shop_location(shop, index)
+            if len(self.created_multi_locations[shop]) >= 16:
+                shops.remove(shop)
+                if not shops:
+                    break
 
     def handle_starting_inventory(self):
         def precollect(item, code):
@@ -502,17 +504,13 @@ class HKWorld(RandomizerCoreWorld, World):
             skip_clause = False
 
             for req in clause["state_modifiers"]:
-                # print(req)
-                if req == "NOFLOWER=FALSE":
-                    # TODO there's a handler but flowerprovider is not working yet
-                    continue
                 handler = ResourceStateHandler.get_handler(req, self.player)
                 if handler.can_exclude(self.options):
                     skip_clause = True
                 else:
                     state_requirements.append(handler)
 
-            # checking for a False condidtion before and after item parsing for short circuiting
+            # checking for a False condition before and after item parsing for short circuiting
             if skip_clause:
                 continue
             skip_clause, items = parse_item_logic(item_requirements)
@@ -956,6 +954,10 @@ class HKWorld(RandomizerCoreWorld, World):
 
         if wp == WhitePalace.option_exclude:
             exclusions.add("King_Fragment")
+            # these aren't item groups anymore
+            # exclusions.update(item_name_groups["PalaceJournal"])
+            # exclusions.update(item_name_groups["PalaceLore"])
+            # exclusions.update(item_name_groups["PalaceTotem"])
         return exclusions
 
     @staticmethod

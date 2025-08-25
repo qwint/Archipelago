@@ -4,10 +4,6 @@ from BaseClasses import CollectionState, Item, ItemClassification, Location, Reg
 
 
 class RandomizerCoreWorld:
-    # location_name_to_id = {
-    #     name: index for index, name in enumerate([location["name"] for location in locations], base_id)
-    # }
-    # item_name_to_id = {name: index for index, name in enumerate([item["name"] for item in item_table], base_id)}
     rc_regions: ClassVar[list[dict[str, Any]]] = {}
     rc_locations: ClassVar[list[dict[str, Any]]] = {}
     item_class = Item
