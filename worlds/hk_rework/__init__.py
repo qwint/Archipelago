@@ -383,6 +383,7 @@ class HKWorld(RandomizerCoreWorld, World):
             if item:
                 if not self.options.AddUnshuffledLocations or item in self.event_locations:
                     item_id = None
+                    loc.address = None
                 else:
                     item_id = self.item_name_to_id[item]
                 loc.place_locked_item(

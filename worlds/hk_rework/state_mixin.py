@@ -129,7 +129,7 @@ class HKLogicMixin(LogicMixin):
             target_states = self._hk_per_player_resource_states[player][target_region.name]
             for index, s in reversed(list(enumerate(avaliable_states))):
                 for previous in target_states:
-                    if s == previous or lt(previous, s):
+                    if eq(s, previous) or lt(previous, s):
                         # if the state we're adding already exists
                         # or a better state already exists, we didn't improve
                         avaliable_states.pop(index)
@@ -216,6 +216,14 @@ def em_lt(state1: dict, state2: dict) -> bool:
                 # state1's value is less than state2's, so state1 could be a strict subset of state2
                 less_than = True
         return less_than
+
+
+def eq(x: dict, y: dict) -> bool:
+    keys = x.keys() | y.keys()
+    for key in keys:
+        if not x[key] == y[key]:
+            return False
+    return True
 
 
 def lt(state1: dict, state2: dict) -> bool:
