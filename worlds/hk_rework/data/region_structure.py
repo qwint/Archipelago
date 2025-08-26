@@ -18632,18 +18632,6 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "RIGHTDASH",
-                            "RIGHTSLASH",
-                            "DIFFICULTSKIPS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Mark_of_Pride]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
                             "RIGHTSUPERDASH",
                             "RIGHTSLASH",
                             "DIFFICULTSKIPS"
@@ -26650,52 +26638,10 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "LEFTDASH",
-                            "LEFTCLAW",
-                            "OBSCURESKIPS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "LEFTCLAW",
-                            "DANGEROUSSKIPS",
-                            "DIFFICULTSKIPS",
-                            "OBSCURESKIPS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
                             "WINGS",
                             "LEFTCLAW",
                             "DANGEROUSSKIPS",
                             "DIFFICULTSKIPS",
-                            "OBSCURESKIPS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
-                            "RIGHTCLAW",
-                            "LEFTDASH",
                             "OBSCURESKIPS"
                         ],
                         "location_requirements": [],
@@ -40538,38 +40484,6 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "RIGHTCLAW",
-                            "SWIM",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "SWIM",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
                             "DAMAGEBOOSTS",
                             "RIGHTDASH",
                             "Lit_Abyss_Lighthouse",
@@ -40890,32 +40804,6 @@ regions = [
                             "SWIM",
                             "LEFTCLAW",
                             "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "SWIM",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "SWIM",
-                            "LEFTCLAW",
-                            "RIGHTDASH",
-                            "PRECISEMOVEMENT"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -41020,22 +40908,6 @@ regions = [
                     }
                 ],
                 "target": "Abyss_09[right2]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    }
-                ],
-                "target": "Abyss_09[left1]"
             }
         ],
         "locations": [],
@@ -41046,603 +40918,6 @@ regions = [
     {
         "name": "Abyss_09[right1]",
         "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTSUPERDASH",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTSUPERDASH",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "SWIM",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "SWIM",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SWIM",
-                            "Lit_Abyss_Lighthouse"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SWIM",
-                            "Lit_Abyss_Lighthouse",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SWIM",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SWIM",
-                            "LEFTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SWIM",
-                            "RIGHTDASH>1",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "Lit_Abyss_Lighthouse",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "SWIM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]",
-                            "$EQUIPPEDCHARM[Void_Heart]",
-                            "$EQUIPPEDCHARM[Sharp_Shadow]",
-                            "$SHRIEKPOGO[1,1,1,1,1,1,1]"
-                        ]
-                    }
-                ],
-                "target": "Abyss_09[right1]"
-            },
             {
                 "logic": [
                     {
@@ -42805,18 +42080,6 @@ regions = [
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "SPIKETUNNELS",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
                         "state_modifiers": []
                     },
                     {
@@ -43328,18 +42591,6 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
                             "SPIKETUNNELS",
                             "RIGHTDASH"
                         ],
@@ -43722,109 +42973,6 @@ regions = [
                     }
                 ],
                 "target": "Abyss_01[left1]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "RIGHTDASH",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "RIGHTDASH",
-                            "LEFTDASH",
-                            "FIREBALLSKIPS",
-                            "FIREBALL"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$CASTSPELL"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "RIGHTDASH",
-                            "LEFTDASH",
-                            "FIREBALLSKIPS",
-                            "SCREAM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$CASTSPELL"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "RIGHTDASH",
-                            "RIGHTCLAW",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "RIGHTDASH",
-                            "FIREBALLSKIPS",
-                            "FIREBALL",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$CASTSPELL",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "RIGHTDASH",
-                            "FIREBALLSKIPS",
-                            "SCREAM",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$CASTSPELL",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    }
-                ],
-                "target": "Abyss_01[left2]"
             },
             {
                 "logic": [
@@ -44681,18 +43829,6 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
                             "SPIKETUNNELS",
                             "LEFTDASH"
                         ],
@@ -45387,109 +44523,6 @@ regions = [
                     }
                 ],
                 "target": "Abyss_01[right1]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "LEFTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTDASH",
-                            "FIREBALLSKIPS",
-                            "FIREBALL"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$CASTSPELL[2]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTDASH",
-                            "FIREBALLSKIPS",
-                            "SCREAM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$CASTSPELL[2]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTCLAW",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "FIREBALLSKIPS",
-                            "FIREBALL",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$CASTSPELL[2]",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "FIREBALLSKIPS",
-                            "SCREAM",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$CASTSPELL[2]",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    }
-                ],
-                "target": "Abyss_01[right2]"
             },
             {
                 "logic": [
@@ -55802,54 +54835,6 @@ regions = [
                         "item_requirements": [
                             "OBSCURESKIPS",
                             "LEFTSUPERDASH",
-                            "WINGS",
-                            "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "SPIKETUNNELS",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "OBSCURESKIPS",
-                            "LEFTSUPERDASH",
-                            "LEFTDASH",
-                            "LEFTCLAW",
-                            "WINGS",
-                            "RIGHTDASH",
-                            "SPIKETUNNELS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "OBSCURESKIPS",
-                            "LEFTSUPERDASH",
-                            "LEFTDASH",
-                            "LEFTCLAW",
-                            "RIGHTCLAW",
-                            "RIGHTDASH",
-                            "SPIKETUNNELS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "OBSCURESKIPS",
-                            "LEFTSUPERDASH",
                             "LEFTDASH",
                             "LEFTCLAW",
                             "FIREBALLSKIPS",
@@ -57151,49 +56136,6 @@ regions = [
                         "state_modifiers": [
                             "$CASTSPELL"
                         ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTDASH",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTDASH",
-                            "RIGHTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
                     }
                 ],
                 "target": "White_Palace_13[right1]"
@@ -57202,68 +56144,6 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "LEFTSUPERDASH",
-                            "RIGHTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "LEFTSUPERDASH",
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$SHRIEKPOGO[before:ROOMSOUL]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "LEFTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$SHRIEKPOGO[1,2,before:ROOMSOUL]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "LEFTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$SHRIEKPOGO[1,3,before:ROOMSOUL]"
-                        ]
-                    }
-                ],
-                "target": "White_Palace_13[left1]"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
                             "RIGHTCLAW",
                             "LEFTSUPERDASH",
                             "RIGHTSUPERDASH",
@@ -57308,21 +56188,6 @@ regions = [
                             "LEFTDASH",
                             "LEFTCLAW",
                             "WINGS",
-                            "LEFTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTSUPERDASH",
-                            "SPIKETUNNELS",
-                            "LEFTDASH",
-                            "RIGHTCLAW",
-                            "RIGHTDASH",
                             "LEFTSUPERDASH"
                         ],
                         "location_requirements": [],
@@ -59433,21 +58298,6 @@ regions = [
                     {
                         "item_requirements": [
                             "LEFTCLAW",
-                            "Dash_Slash",
-                            "RIGHTDASH",
-                            "OBSCURESKIPS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "WINGS",
-                            "LEFTDASH",
                             "Dash_Slash",
                             "RIGHTDASH",
                             "OBSCURESKIPS"
@@ -65685,78 +64535,6 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "RIGHTDASH",
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "RIGHTDASH",
-                            "BACKGROUNDPOGOS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTDASH>1",
-                            "RIGHTDASH",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "RIGHTDASH",
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "RIGHTDASH",
-                            "BACKGROUNDPOGOS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTDASH>1",
-                            "RIGHTDASH",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Void_Heart]"
-                        ]
                     }
                 ],
                 "target": "Shade_Cloak"
@@ -72333,75 +71111,6 @@ regions = [
                     },
                     {
                         "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "LEFTCLAW",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "DANGEROUSSKIPS",
-                            "DIFFICULTSKIPS",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
-                            "OBSCURESKIPS",
-                            "RIGHTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
-                            "OBSCURESKIPS",
-                            "LEFTCLAW",
-                            "RIGHTSUPERDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
                             "WINGS",
                             "OBSCURESKIPS",
                             "DANGEROUSSKIPS",
@@ -72412,72 +71121,6 @@ regions = [
                         "state_modifiers": [
                             "$EQUIPPEDCHARM[Dashmaster]",
                             "$EQUIPPEDCHARM[Sprintmaster]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "RIGHTDASH",
-                            "FIREBALLSKIPS",
-                            "FIREBALL"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]",
-                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "RIGHTDASH",
-                            "FIREBALLSKIPS",
-                            "SCREAM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]",
-                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "LEFTCLAW",
-                            "RIGHTSUPERDASH",
-                            "FIREBALLSKIPS",
-                            "FIREBALL"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]",
-                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "OBSCURESKIPS",
-                            "LEFTCLAW",
-                            "RIGHTSUPERDASH",
-                            "FIREBALLSKIPS",
-                            "SCREAM"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$EQUIPPEDCHARM[Dashmaster]",
-                            "$EQUIPPEDCHARM[Sprintmaster]",
-                            "$CASTSPELL[3,before:AREASOUL,after:AREASOUL]"
                         ]
                     },
                     {
@@ -81383,27 +80026,7 @@ locations = [
             },
             {
                 "item_requirements": [
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Glowing_Womb]"
-                ]
-            },
-            {
-                "item_requirements": [
                     "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Glowing_Womb]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "QUAKE"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -81424,18 +80047,6 @@ locations = [
             {
                 "item_requirements": [
                     "Great_Slash"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Glowing_Womb]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "Dash_Slash",
-                    "LEFTDASH",
-                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -81503,29 +80114,7 @@ locations = [
             {
                 "item_requirements": [
                     "OBSCURESKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Weaversong]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "OBSCURESKIPS",
                     "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Weaversong]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "OBSCURESKIPS",
-                    "QUAKE"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -81548,19 +80137,6 @@ locations = [
                 "item_requirements": [
                     "OBSCURESKIPS",
                     "Great_Slash"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Weaversong]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "OBSCURESKIPS",
-                    "Dash_Slash",
-                    "LEFTDASH",
-                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -81632,31 +80208,7 @@ locations = [
                 "item_requirements": [
                     "FOCUS",
                     "OBSCURESKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Spore_Shroom]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "FOCUS",
-                    "OBSCURESKIPS",
                     "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Spore_Shroom]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "FOCUS",
-                    "OBSCURESKIPS",
-                    "QUAKE"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -81681,20 +80233,6 @@ locations = [
                     "FOCUS",
                     "OBSCURESKIPS",
                     "Great_Slash"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Spore_Shroom]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "FOCUS",
-                    "OBSCURESKIPS",
-                    "Dash_Slash",
-                    "LEFTDASH",
-                    "RIGHTDASH"
                 ],
                 "location_requirements": [],
                 "region_requirements": [],
@@ -97173,74 +95711,6 @@ locations = [
                 "item_requirements": [
                     "RIGHTSUPERDASH",
                     "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
                     "ACIDSKIPS"
                 ],
                 "location_requirements": [],
@@ -97314,74 +95784,6 @@ locations = [
                 "item_requirements": [
                     "ACID",
                     "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
                     "ACIDSKIPS"
                 ],
                 "location_requirements": [],
@@ -97443,86 +95845,6 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
             },
             {
                 "item_requirements": [
@@ -106637,74 +104959,6 @@ locations = [
                 "item_requirements": [
                     "RIGHTSUPERDASH",
                     "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "RIGHTSUPERDASH",
-                    "Defeated_Uumuu",
                     "ACIDSKIPS",
                     "LEFTCLAW"
                 ],
@@ -106834,74 +105088,6 @@ locations = [
                 "item_requirements": [
                     "ACID",
                     "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACID",
-                    "Defeated_Uumuu",
                     "ACIDSKIPS",
                     "LEFTCLAW"
                 ],
@@ -107019,86 +105205,6 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": []
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "LEFTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "FIREBALL"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
-            },
-            {
-                "item_requirements": [
-                    "ACIDSKIPS",
-                    "LEFTDASH",
-                    "LEFTCLAW",
-                    "WINGS",
-                    "Defeated_Uumuu",
-                    "RIGHTCLAW",
-                    "RIGHTDASH>1",
-                    "RIGHTDASH",
-                    "FIREBALLSKIPS",
-                    "SCREAM"
-                ],
-                "location_requirements": [],
-                "region_requirements": [],
-                "state_modifiers": [
-                    "$EQUIPPEDCHARM[Sharp_Shadow]",
-                    "$CASTSPELL[3,before:ROOMSOUL]"
-                ]
             },
             {
                 "item_requirements": [

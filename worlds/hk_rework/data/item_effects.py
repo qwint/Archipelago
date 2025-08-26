@@ -22,12 +22,6 @@ progression_effect_lookup = {
         },
         "type": "incrementTerms"
     },
-    "World_Sense": {
-        "effects": {
-            "World_Sense": 1
-        },
-        "type": "incrementTerms"
-    },
     "Mothwing_Cloak": {
         "effects": {
             "LEFTDASH": 1,
@@ -722,39 +716,9 @@ progression_effect_lookup = {
         },
         "type": "incrementTerms"
     },
-    "Pale_Ore": {
-        "effects": {
-            "PALEORE": 1
-        },
-        "type": "incrementTerms"
-    },
     "Rancid_Egg": {
         "effects": {
             "RANCIDEGGS": 1
-        },
-        "type": "incrementTerms"
-    },
-    "Wanderer's_Journal": {
-        "effects": {
-            "WANDERERSJOURNALS": 1
-        },
-        "type": "incrementTerms"
-    },
-    "Hallownest_Seal": {
-        "effects": {
-            "HALLOWNESTSEALS": 1
-        },
-        "type": "incrementTerms"
-    },
-    "King's_Idol": {
-        "effects": {
-            "KINGSIDOLS": 1
-        },
-        "type": "incrementTerms"
-    },
-    "Arcane_Egg": {
-        "effects": {
-            "ARCANEEGGS": 1
         },
         "type": "incrementTerms"
     },
@@ -1314,7 +1278,9 @@ progression_effect_lookup = {
     }
 }
 non_progression_items = [
+    "World_Sense",
     "Collector's_Map",
+    "Pale_Ore",
     "Geo_Chest-False_Knight",
     "Geo_Chest-Soul_Master",
     "Geo_Chest-Watcher_Knights",
@@ -1329,6 +1295,10 @@ non_progression_items = [
     "Geo_Chest-Junk_Pit_5",
     "Lumafly_Escape",
     "One_Geo",
+    "Wanderer's_Journal",
+    "Hallownest_Seal",
+    "King's_Idol",
+    "Arcane_Egg",
     "Mimic_Grub",
     "Quill",
     "Crossroads_Map",
@@ -1430,9 +1400,6 @@ affected_terms_by_item = {
     "Herrah": [
         "DREAMER",
         "Herrah"
-    ],
-    "World_Sense": [
-        "World_Sense"
     ],
     "Mothwing_Cloak": [
         "LEFTDASH",
@@ -1741,23 +1708,8 @@ affected_terms_by_item = {
     "Salubra's_Blessing": [
         "Salubra's_Blessing"
     ],
-    "Pale_Ore": [
-        "PALEORE"
-    ],
     "Rancid_Egg": [
         "RANCIDEGGS"
-    ],
-    "Wanderer's_Journal": [
-        "WANDERERSJOURNALS"
-    ],
-    "Hallownest_Seal": [
-        "HALLOWNESTSEALS"
-    ],
-    "King's_Idol": [
-        "KINGSIDOLS"
-    ],
-    "Arcane_Egg": [
-        "ARCANEEGGS"
     ],
     "Whispering_Root-Crossroads": [
         "ESSENCE"
@@ -1941,9 +1893,6 @@ affecting_items_by_term = {
     ],
     "Herrah": [
         "Herrah"
-    ],
-    "World_Sense": [
-        "World_Sense"
     ],
     "LEFTDASH": [
         "Mothwing_Cloak",
@@ -2245,23 +2194,8 @@ affecting_items_by_term = {
     "Salubra's_Blessing": [
         "Salubra's_Blessing"
     ],
-    "PALEORE": [
-        "Pale_Ore"
-    ],
     "RANCIDEGGS": [
         "Rancid_Egg"
-    ],
-    "WANDERERSJOURNALS": [
-        "Wanderer's_Journal"
-    ],
-    "HALLOWNESTSEALS": [
-        "Hallownest_Seal"
-    ],
-    "KINGSIDOLS": [
-        "King's_Idol"
-    ],
-    "ARCANEEGGS": [
-        "Arcane_Egg"
     ],
     "ESSENCE": [
         "Whispering_Root-Crossroads",

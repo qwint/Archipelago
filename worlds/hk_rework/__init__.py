@@ -781,7 +781,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 name in affecting_items_by_term["ESSENCE"] or \
                 name in affecting_items_by_term["RANCIDEGGS"]:
             classification |= ItemClassification.skip_balancing
-        if name in affecting_items_by_term["PALEORE"] or name in affecting_items_by_term["VESSELFRAGMENTS"]:
+        if name in ("Pale_Ore", "Arcane_Egg", "King's_Idol", "Hallownest_Seal", "Wanderer's_Journal"):
             classification |= ItemClassification.useful
         if (name not in progression_charms and name in affecting_items_by_term["CHARMS"]):
             classification |= ItemClassification.skip_balancing
