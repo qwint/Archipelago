@@ -148,12 +148,10 @@ class ShriekPogoVariable(CastSpellVariable):
             yield from super().modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
-        return True
-        # TODO add the option lol
-        # on = bool(options.ShriekPogoSkips)
-        # difficult = sum(self.casts) > 3
-        # difficult_on = bool(options.DifficultSkips)
-        # return (not on) or (difficult and not difficult_on)
+        on = bool(options.ShriekPogos)
+        difficult = sum(self.casts) > 3
+        difficult_on = bool(options.DifficultSkips)
+        return (not on) or (difficult and not difficult_on)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         items["SCREAM"] = 2
@@ -178,9 +176,7 @@ class SlopeballVariable(CastSpellVariable):
             yield from super().modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
-        return True
-        # TODO add the option lol
-        # return bool(options.SlopeBallSkips)
+        return bool(options.Slopeballs)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         items["FIREBALL"] = items.get("FIREBALL", 1)

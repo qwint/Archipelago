@@ -101,6 +101,10 @@ option_docstrings = {
     "ShadeSkips": "Places shade skips into logic which utilize the player's shade for pogoing or damage boosting.",
     "InfectionSkips": "Places skips into logic which are only possible after the crossroads become infected.",
     "FireballSkips": "Places skips into logic which require the use of spells to reset fall speed while in mid-air.",
+    "Slopeballs": "Places skips into logic which require the use of Vengeful Spirit on a slope to pogo off the "
+                  "projectile and gain height.",
+    "ShriekPogos": "Places skips into logic which require the use of Abyssal Shriek and Monarch Wings to pogo off "
+                   "the projectile to reset your air actions and gain height.",
     "SpikeTunnels": "Places skips into logic which require the navigation of narrow tunnels filled with spikes.",
     "AcidSkips": "Places skips into logic which require crossing a pool of acid without Isma's Tear, or water if swim "
                  "is disabled.",
