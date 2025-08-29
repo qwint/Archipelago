@@ -319,7 +319,7 @@ class HKWorld(RandomizerCoreWorld, World):
         self.add_shop_locations()
 
         if "King_Fragment" in self.white_palace_exclusions():
-            self.multiworld.get_location("King_Fragment", self.player).progress_type = LocationProgressType.EXCLUDED
+            self.get_location("King_Fragment").progress_type = LocationProgressType.EXCLUDED
 
         location_to_option = {
             location: option for option, data in pool_options.items() for location in data["randomized"]["locations"]
@@ -327,14 +327,13 @@ class HKWorld(RandomizerCoreWorld, World):
         location_to_option["Elevator_Pass"] = "RandomizeElevatorPass"
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
-                self.multiworld.get_location(location, self.player).costs = costs
+                self.get_location(location).costs = costs
         self.get_region("Menu").connect(self.get_region(self.start_location_region))
 
     def create_items(self):
         pool_count = super().create_items()
 
-        item_difference = \
-            pool_count - len(self.multiworld.get_unfilled_locations(self.player))
+        item_difference = pool_count - len(self.multiworld.get_unfilled_locations(self.player))
         if item_difference > 0:
             self.add_extra_shop_locations(item_difference)
 
@@ -357,8 +356,8 @@ class HKWorld(RandomizerCoreWorld, World):
             ]
 
         for connection in vanilla_connections:
-            region1 = self.multiworld.get_region(connection[0], self.player)
-            region2 = self.multiworld.get_region(connection[1], self.player)
+            region1 = self.get_region(connection[0])
+            region2 = self.get_region(connection[1])
             region1.connect(region2, connection[2])
 
     def add_all_events(self):
@@ -415,7 +414,7 @@ class HKWorld(RandomizerCoreWorld, World):
             }
 
         rule = self.rule_lookup[lookup_shop]
-        region = self.multiworld.get_region(self.region_lookup[lookup_shop], self.player)
+        region = self.get_region(self.region_lookup[lookup_shop])
         location_name = f"{shop}_{index+1}"
         code = self.location_name_to_id[location_name]
 
@@ -459,7 +458,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
     def handle_starting_inventory(self):
         def precollect(item, code):
-            self.multiworld.push_precollected(self.item_class(item, ItemClassification.progression, code, self.player))
+            self.push_precollected(self.item_class(item, ItemClassification.progression, code, self.player))
         precollect("Downslash", self.item_name_to_id["Downslash"])
         for option, items in randomizable_starting_items.items():
             if not getattr(self.options, option):
@@ -683,7 +682,8 @@ class HKWorld(RandomizerCoreWorld, World):
         if goal == Goal.option_hollowknight:
             multiworld.completion_condition[player] = lambda state: state.has("Defeated_Any_Hollow_Knight", player)
         elif goal == Goal.option_siblings:
-            multiworld.completion_condition[player] = lambda state: state.has("Defeated_Any_Hollow_Knight", player) and state.has("WHITEFRAGMENT", player, 3)
+            multiworld.completion_condition[player] = lambda state: (state.has("Defeated_Any_Hollow_Knight", player)
+                                                                     and state.has("WHITEFRAGMENT", player, 3))
         elif goal == Goal.option_radiance:
             multiworld.completion_condition[player] = lambda state: state.has("Defeated_Any_Radiance", player)
         elif goal == Goal.option_godhome:
@@ -705,7 +705,7 @@ class HKWorld(RandomizerCoreWorld, World):
         return all(state.has("Grub", owner, count) for owner, count in self.grub_player_count.items())
 
     @classmethod
-    def stage_pre_fill(cls, multiworld: "MultiWorld"):
+    def stage_pre_fill(cls, multiworld: MultiWorld):
         worlds = [world for world in multiworld.get_game_worlds(cls.game) if world.options.Goal in ["any", "grub_hunt"]]
         if worlds:
             grubs = [item for item in multiworld.get_items() if item.name == "Grub"]
@@ -839,7 +839,7 @@ class HKWorld(RandomizerCoreWorld, World):
         }
         if options.CostSanity:
             from Options import OptionError
-            player_name = self.multiworld.get_player_name(self.player)
+            player_name = self.player_name
             if all(weight == 0 for weight in weights.values()):
                 raise OptionError(f"CostSanity was on for {player_name} but no currencies are enabled")
             if all(weight == 0 for name, weight in weights.items() if name != "GEO"):
@@ -899,30 +899,25 @@ class HKWorld(RandomizerCoreWorld, World):
 
     @classmethod
     def stage_write_spoiler(cls, multiworld: MultiWorld, spoiler_handle):
-        # hk_players = multiworld.get_game_players(cls.game)
         hk_worlds = multiworld.get_game_worlds(cls.game)
         spoiler_handle.write("\n\nCharm Notches:")
-        # for player in hk_players:
         for hk_world in hk_worlds:
             player = hk_world.player
             name = multiworld.get_player_name(player)
             spoiler_handle.write(f"\n{name}\n")
-            # hk_world: HKWorld = multiworld.worlds[player]
             for charm_number, cost in enumerate(hk_world.charm_costs):
                 spoiler_handle.write(f"\n{charm_names[charm_number]}: {cost}")
 
         spoiler_handle.write("\n\nShop Prices:")
-        # for player in hk_players:
         for hk_world in hk_worlds:
             player = hk_world.player
-            name = multiworld.get_player_name(player)
+            name = hk_world.player_name
             spoiler_handle.write(f"\n{name}\n")
-            # hk_world: HKWorld = multiworld.worlds[player]
 
             if hk_world.options.CostSanity.value:
                 for loc in sorted(
                     (
-                        loc for loc in itertools.chain(*(region.locations for region in multiworld.get_regions(player)))
+                        loc for loc in itertools.chain(*(region.locations for region in hk_world.get_regions()))
                         if loc.costs
                     ), key=operator.attrgetter("name")
                 ):
@@ -1104,7 +1099,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
             state._hk_entrance_clause_cache[item.player] = {}
             state._hk_per_player_sweepable_entrances[item.player] = {
-                entrance.name for entrance in self.multiworld.get_region("Menu", self.player).exits
+                entrance.name for entrance in self.get_region("Menu").exits
                 }
 
             state._hk_stale[item.player] = True
@@ -1122,7 +1117,8 @@ class HKWorld(RandomizerCoreWorld, World):
                 optionvalue = int(option.value)
                 options[option_name] = optionvalue
             except TypeError:
-                pass  # C# side is currently typed as dict[str, int], drop what doesn't fit
+                pass
+
         slot_data["options"]["StartLocationName"] = starts[self.options.StartLocation.current_key]["logic_name"]
 
         # 32 bit int
@@ -1130,7 +1126,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         # HKAP 0.1.0 and later cost data.
         location_costs = {}
-        for region in self.multiworld.get_regions(self.player):
+        for region in self.get_regions():
             for location in region.locations:
                 if location.costs:
                     location_costs[location.name] = location.costs
@@ -1165,7 +1161,7 @@ class HKWorld(RandomizerCoreWorld, World):
         def _compute_weights(weights: dict, desc: str) -> dict[str, int]:
             if all(x == 0 for x in weights.values()):
                 logger.warning(
-                    f"All {desc} weights were zero for {self.multiworld.player_name[self.player]}."
+                    f"All {desc} weights were zero for {self.player_name}."
                     f" Setting them to one instead."
                 )
                 weights = dict.fromkeys(weights, 1)
@@ -1196,7 +1192,7 @@ class HKWorld(RandomizerCoreWorld, World):
                     f" CostSanityHybridChance will not trigger in geoless locations."
                 )
 
-        for region in self.multiworld.get_regions(self.player):
+        for region in self.get_regions():
             for location in region.locations:
                 if location.vanilla:
                     continue
