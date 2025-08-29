@@ -148,10 +148,15 @@ class ShriekPogoVariable(CastSpellVariable):
             yield from super().modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
-        on = bool(options.ShriekPogos)
-        difficult = sum(self.casts) > 3
-        difficult_on = bool(options.DifficultSkips)
-        return (not on) or (difficult and not difficult_on)
+        if not bool(options.ShriekPogos):
+            return True
+        if bool(options.DifficultSkips):
+            # the casts don't matter
+            return False
+        if sum(self.casts) > 3:
+            # difficult off, so exclude any 4+ cast shrogos
+            return True
+        return False
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         items["SCREAM"] = 2
