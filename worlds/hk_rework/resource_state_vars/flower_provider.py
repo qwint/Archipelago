@@ -23,3 +23,7 @@ class FlowerProviderVariable(RCStateVariable):
 
     def can_exclude(self, options: HKOptions) -> bool:
         return False
+
+    @property
+    def terms(self) -> list[str]:
+        return []

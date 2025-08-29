@@ -19,9 +19,9 @@ class WarpToBenchResetVariable(RCStateVariable):
     def try_match(cls, term: str):
         return term.startswith(cls.prefix)
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return self.sq_reset.terms + self.bench_reset.terms
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         valid, state_blob = self.sq_reset._modify_state(state_blob, item_state)
@@ -47,9 +47,9 @@ class WarpToStartResetVariable(RCStateVariable):
     def try_match(cls, term: str):
         return term.startswith(cls.prefix)
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return self.sq_reset.terms + self.start_reset.terms
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         valid, state_blob = self.sq_reset._modify_state(state_blob, item_state)

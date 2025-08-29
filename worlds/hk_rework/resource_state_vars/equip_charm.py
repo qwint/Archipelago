@@ -66,9 +66,9 @@ class EquipCharmVariable(RCStateVariable):
         # else
         return False
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return [self.charm_name, "NOTCHES"]
 
     def has_item(self, item_state: CollectionState) -> bool:
         return item_state.has(self.charm_name, self.player)
@@ -225,6 +225,10 @@ class FragileCharmVariable(EquipCharmVariable):
         term_postfix = ["HEART", "GREED", "STRENGTH"][self.charm_id - 23]
         self.break_term = f"BROKE{term_postfix}"
 
+    @property
+    def terms(self) -> list[str]:
+        return super().terms + ["Can_Repair_Fragile_Charms"]
+
     def break_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
         if item_state.has(self.charm_key, self.player, 2):
             return
@@ -280,10 +284,6 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
                 return True
         # else
         return False
-
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
 
     def has_item(self, item_state: CollectionState) -> bool:
         if self.void:

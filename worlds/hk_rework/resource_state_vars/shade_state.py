@@ -38,9 +38,11 @@ class ShadeStateVariable(RCStateVariable):
     def try_match(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        if self.health > 1:
+            return ["MASKSHARDS"]
+        return []
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         ret = state_blob.copy()

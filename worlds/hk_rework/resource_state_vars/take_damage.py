@@ -20,9 +20,9 @@ class TakeDamageVariable(RCStateVariable):
     def try_match(cls, term: str):
         return term.startswith(cls.prefix)
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return self.hp_manager.terms
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState):
         yield from self.hp_manager.take_damage(state_blob, item_state, self.damage)

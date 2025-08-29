@@ -61,6 +61,23 @@ class HealthManager(metaclass=ResourceStateHandler):
     def try_match(cls, term: str) -> bool:
         return term == cls.prefix
 
+    @property
+    def terms(self) -> list[str]:
+        sub_terms = [
+            term
+            for sub_var in [
+                self.lifeblood_heart,
+                self.lifeblood_core,
+                self.jonis,
+                self.fragile_heart,
+                self.hiveblood,
+                self.deep_focus,
+                self.ssm,
+            ]
+            for term in sub_var.terms
+        ]
+        return sub_terms + ["MASKSHARDS", "FOCUS"]
+
     def __init__(self, term: str, player: int):
         self.player = player
         self.lb_heart = EquipCharmVariable("$EQUIPPEDCHARM[Lifeblood_Heart]", self.player)

@@ -61,9 +61,9 @@ class CastSpellVariable(RCStateVariable):
     def can_exclude(self, options: HKOptions) -> bool:
         return False
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return self.equip_st.terms + self.sp_manager.terms
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         if self.nearby_soul_to_bool(item_state, self.before_soul):
@@ -134,9 +134,16 @@ class ShriekPogoVariable(CastSpellVariable):
         else:
             self.stall_cast = None
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        self_terms = ["SCREAM"]
+        if self.left_stall:
+            self_terms.append("LEFTDASH")
+        if self.right_stall:
+            self_terms.append("RIGHTDASH")
+        if self.stall_cast:
+            self_terms += self.stall_cast.terms
+        return super().terms + self_terms
 
     def modify_state(self, state_blob, item_state):
         if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, self.player):
@@ -170,9 +177,9 @@ class SlopeballVariable(CastSpellVariable):
     def try_match(cls, term: str):
         return term.startswith(cls.prefix)
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return super().terms + ["FIREBALL"]
 
     def modify_state(self, state_blob, item_state):
         if not item_state.has("FIREBALL", self.player):

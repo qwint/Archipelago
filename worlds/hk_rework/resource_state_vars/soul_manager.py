@@ -31,6 +31,10 @@ class SoulManager(metaclass=ResourceStateHandler):
     def try_match(cls, term: str) -> bool:
         return term == cls.prefix
 
+    @property
+    def terms(self) -> list[str]:
+        return ["VESSELFRAGMENTS"]
+
     def __init__(self, term: str, player: int):
         self.player = player
 

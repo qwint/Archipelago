@@ -33,3 +33,7 @@ class LifebloodCountVariable(RCStateVariable):
 
     def can_exclude(self, options):
         return False
+
+    @property
+    def terms(self) -> list[str]:
+        return self.hp_manager.terms + self.joni_manager.terms

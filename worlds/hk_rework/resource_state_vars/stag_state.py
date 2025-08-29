@@ -15,9 +15,9 @@ class StagStateVariable(RCStateVariable):
     def try_match(cls, term: str):
         return term.startswith(cls.prefix)
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
+    @property
+    def terms(self) -> list[str]:
+        return []
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         state_blob["NOFLOWER"] = 1

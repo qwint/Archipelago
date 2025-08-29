@@ -22,15 +22,15 @@ class DirectCompare:
     def can_exclude(self, options: HKOptions):
         return False
 
+    @property
+    def terms(self) -> list[str]:
+        return [self.term]
+
 
 class EQVariable(DirectCompare, RCStateVariable):
     term: str
     op: str = "="
     value: str  # may be int or bool
-
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         if self.value.isdigit():
@@ -46,10 +46,6 @@ class GTVariable(DirectCompare, RCStateVariable):
     op: str = ">"
     value: str
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
-
     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         assert self.value.isdigit()
         return state_blob[self.term] > int(self.value), state_blob
@@ -59,10 +55,6 @@ class LTVariable(DirectCompare, RCStateVariable):
     term: str
     op: str = "<"
     value: str
-
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState):
         assert self.value.isdigit()
