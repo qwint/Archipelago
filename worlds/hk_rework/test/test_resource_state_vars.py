@@ -4,7 +4,62 @@ from test.param import classvar_matrix
 
 from .bases import NoStepHK, StateVarSetup
 
-# TODO: add skipped when tests for state vars with required option values
+
+class ExcludeMixin:
+    def test_create_vars(self):
+        for key, skip in self.skip_handler.items():
+            with self.subTest(key=key, skip=skip):
+                handler = self.get_handler(key)
+                exclude_this = handler.can_exclude(self.world.options)
+                self.assertEqual(exclude_this, skip)
+
+
+class TestExcludeByOptionAllOn(ExcludeMixin, NoStepHK, StateVarSetup):
+    options = {
+        "ShadeSkips": True,
+        "ShriekPogos": True,
+        "Slopeballs": True,
+        "DifficultSkips": True,
+    }
+    skip_handler = {
+        "$SHADESKIP": False,
+        "$SHRIEKPOGO": False,
+        "$SHRIEKPOGO[4]": False,
+        "$SHRIEKPOGO[3,1]": False,
+        "$SLOPEBALL": False,
+    }
+
+
+class TestExcludeByOptionNoDifficult(NoStepHK, StateVarSetup):
+    options = {
+        "ShadeSkips": True,
+        "ShriekPogos": True,
+        "Slopeballs": True,
+        "DifficultSkips": False,
+    }
+    skip_handler = {
+        "$SHADESKIP": False,
+        "$SHRIEKPOGO": False,
+        "$SHRIEKPOGO[4]": True,
+        "$SHRIEKPOGO[3,1]": True,
+        "$SLOPEBALL": False,
+    }
+
+
+class TestExcludeByOptionAllOff(NoStepHK, StateVarSetup):
+    options = {
+        "ShadeSkips": False,
+        "ShriekPogos": False,
+        "Slopeballs": False,
+        "DifficultSkips": True,
+    }
+    skip_handler = {
+        "$SHADESKIP": True,
+        "$SHRIEKPOGO": True,
+        "$SHRIEKPOGO[4]": True,
+        "$SHRIEKPOGO[3,1]": True,
+        "$SLOPEBALL": True,
+    }
 
 
 class inputs(NamedTuple):
@@ -19,8 +74,8 @@ class inputs(NamedTuple):
 
 ers = {"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}  # Empty Resource State
 
-shrogo = {"Monarch_Wings": 1, "Abyss_Shriek": 2}  # include options
-slobo = {"Vengeful_Spirit": 1}  # include options
+shrogo = {"Monarch_Wings": 1, "Abyss_Shriek": 2}
+slobo = {"Vengeful_Spirit": 1}
 
 input_matrix = [
     inputs("$CASTSPELL[3]"),
@@ -33,7 +88,6 @@ input_matrix = [
     *[inputs("$LIFEBLOOD", resource=ers, cs={charm: 1}, notches=4)
       for charm in ("Lifeblood_Heart", "Lifeblood_Core", "Joni's_Blessing")],
 
-    # inputs("$SHADESKIP", assert_empty=True),  # theoretically checking if the option is disabled but idk
     inputs("$SHADESKIP", resource={"USEDSHADE": 1}, assert_empty=True),
     inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),
     inputs("$SHADESKIP", resource={"REQUIREDMAXSOUL": 67}, assert_empty=True),
@@ -47,19 +101,18 @@ input_matrix = [
     inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1, "NOPASSEDCHARMEQUIP": 0}, masks=8, notches=6,
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
 
-    inputs("$SHRIEKPOGO", assert_empty=True),  # with and without option on
+    inputs("$SHRIEKPOGO", assert_empty=True),
     inputs("$SHRIEKPOGO", assert_empty=True, cs={"Monarch_Wings": 1}),
     inputs("$SHRIEKPOGO", assert_empty=True, cs={"Abyss_Shriek": 2}),
 
     inputs("$SHRIEKPOGO[3]",   cs=shrogo),
-    inputs("$SHRIEKPOGO[4]",   cs=shrogo, assert_empty=True),  # Difficult skips
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource={**ers, "DIFFICULTSKIPS": 1}, notches=6),  # Difficult skips
-    # inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource=ers, notches=6, assert_empty=True),  # Difficult skips off
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3}, assert_empty=True),  # Difficult skips
-    inputs("$SHRIEKPOGO[3,1]", cs={**shrogo, "Vessel_Fragment": 3}),  # Difficult skips
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3, "Mothwing_Cloak": 1}),  # Difficult skips
+    inputs("$SHRIEKPOGO[4]",   cs=shrogo, assert_empty=True),
+    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource=ers, notches=6),
+    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3}, assert_empty=True),
+    inputs("$SHRIEKPOGO[3,1]", cs={**shrogo, "Vessel_Fragment": 3}),
+    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3, "Mothwing_Cloak": 1}),
 
-    inputs("$SLOPEBALL", assert_empty=True),  # with and without option on
+    inputs("$SLOPEBALL", assert_empty=True),
     inputs("$SLOPEBALL", assert_empty=True, cs=slobo, resource={"SPENTSOUL": 99}),
     inputs("$SLOPEBALL", cs=slobo),
 
