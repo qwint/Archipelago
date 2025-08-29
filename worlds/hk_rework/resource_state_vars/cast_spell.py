@@ -181,7 +181,7 @@ class SlopeballVariable(CastSpellVariable):
             yield from super().modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
-        return bool(options.Slopeballs)
+        return not bool(options.Slopeballs)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
         items["FIREBALL"] = items.get("FIREBALL", 1)
