@@ -251,7 +251,10 @@ for i in vanilla_cost_data:
     costs = {cost["term"]: cost["amount"] for cost in i["costs"]}
     vanilla_shop_costs[(i["location"], i["item"])].append(costs)
 
-hk_regions = [region for region in cast(list[dict[str, Any]], regions) if not region["name"].startswith("$") and not region["name"] == "Bench-Godhome_Roof"]
+hk_regions = [
+    region for region in cast(list[dict[str, Any]], regions)
+    if not region["name"].startswith("$") and not region["name"] == "Bench-Godhome_Roof"
+]
 hk_locations = cast(list[dict[str, Any]], list(locations))
 
 
@@ -542,13 +545,13 @@ class HKWorld(RandomizerCoreWorld, World):
     #     return connection_map
 
     def get_location_map(self) -> list[tuple[str, str, Any | None]]:
-        # Vanilla placements of the following items have no impact on logic, thus we can avoid creating these items and
-        # locations entirely when the option to randomize them is disabled.
-        logicless_options = {
-            "RandomizeVesselFragments", "RandomizeGeoChests", "RandomizeJunkPitChests", "RandomizeRelics",
-            "RandomizeMaps", "RandomizeJournalEntries", "RandomizeGeoRocks", "RandomizeBossGeo",
-            "RandomizeLoreTablets", "RandomizeSoulTotems", "RandomizeLifebloodCocoons",
-        }
+        # # Vanilla placements of the following items have no impact on logic, thus we can avoid creating these items
+        # # and locations entirely when the option to randomize them is disabled.
+        # logicless_options = {
+        #     "RandomizeVesselFragments", "RandomizeGeoChests", "RandomizeJunkPitChests", "RandomizeRelics",
+        #     "RandomizeMaps", "RandomizeJournalEntries", "RandomizeGeoRocks", "RandomizeBossGeo",
+        #     "RandomizeLoreTablets", "RandomizeSoulTotems", "RandomizeLifebloodCocoons",
+        # }
 
         # make our location_list off of location per option
         # and add any necessary location for logic to event_locations to be create later

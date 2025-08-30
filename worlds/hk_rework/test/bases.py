@@ -1,7 +1,6 @@
 import random
 import typing
 from argparse import Namespace
-from collections import Counter
 
 from BaseClasses import CollectionState, MultiWorld
 from Generate import get_seed_name
@@ -23,56 +22,6 @@ class HKTestBase(WorldTestBase):
     def test_fill(self):
         if RUN_FILL_TESTS:
             super().test_fill()
-
-    # def assert_access_independency(
-    #         self,
-    #         locations: list[str],
-    #         possible_items: typing.Iterable[typing.Iterable[str]],
-    #         only_check_listed: bool = False) -> None:
-    #     """Asserts that the provided locations can't be reached without
-    #     the listed items but can be reached with any
-    #     one of the provided combinations"""
-    #     all_items = [
-    #         item_name for
-    #         item_names in
-    #         possible_items for
-    #         item_name in
-    #         item_names
-    #         ]
-
-    #     state = CollectionState(self.multiworld)
-
-    #     for item_names in possible_items:
-    #         items = self.get_items_by_name(item_names)
-    #         for item in items:
-    #             self.collect_all_but(item.name)
-    #         for location in locations:
-    #             self.assertTrue(state.can_reach(location, "Location", 1),
-    #                             f"{location} not reachable with {item_names}")
-    #         for item in items:
-    #             state.remove(item)
-
-    # def assert_access_without(
-    #         self,
-    #         locations: list[str],
-    #         possible_items: typing.Iterable[typing.Iterable[str]]) -> None:
-    #     """Asserts that the provided locations can't be reached without the
-    #     listed items but can be reached with any
-    #     one of the provided combinations"""
-    #     all_items = [
-    #         item_name for
-    #         item_names in
-    #         possible_items for
-    #         item_name in
-    #         item_names
-    #         ]
-
-    #     state = CollectionState(self.multiworld)
-    #     self.collect_all_but(all_items, state)
-    #     for location in locations:
-    #         self.assertTrue(
-    #             state.can_reach(location, "Location", 1),
-    #             f"{location} is not reachable without {all_items}")
 
 
 class HKGoalBase(HKTestBase):
@@ -188,7 +137,7 @@ class StateVarSetup:
 
     @staticmethod
     def get_one_state(func, *args, **kwargs):
-        states = [s for s in func(*args, **kwargs)]
+        states = list(func(*args, **kwargs))
         assert len(states) == 1, f"Expected one state but got {len(states)}"
         return states[0]
 
@@ -216,4 +165,4 @@ class StateVarSetup:
         rs, cs = self.get_initialized_args()
 
         handler = self.get_handler()
-        return [s for s in handler.modify_state(rs, cs)]
+        return list(handler.modify_state(rs, cs))

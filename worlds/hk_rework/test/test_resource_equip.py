@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 from itertools import zip_longest
-from typing import Iterable, NamedTuple
+from typing import NamedTuple
 
 from test.param import classvar_matrix
 
@@ -10,7 +11,7 @@ from ..resource_state_vars.equip_charm import EquipCharmVariable
 charm_item_names = list(charm_name_to_id.keys())
 
 
-class inputs(NamedTuple):
+class Inputs(NamedTuple):
     notches: int
     notch_costs: Iterable[int]
     equip_results: Iterable[bool]
@@ -65,15 +66,15 @@ class TestBasicEquips(StateVarSetup, NoStepHK):
 
 
 equip_notch_matrix = [
-    inputs(1, (1,), (True,), False),
-    inputs(3, (1, 2, 1), (True, True, True), True),
-    inputs(3, (1, 2, 2), (True, True, False), False),
-    inputs(3, (2, 2, 1), (True, True, False), True),
-    inputs(3, (2, 2, 0), (True, True, True), True),
-    inputs(3, (4, 1, 1), (True, True, True), True),
-    inputs(3, (4, 1, 1, 1), (True, True, True, False), True),
-    inputs(3, (1, 1, 1, 4), (True, True, True, False), False),
-    inputs(3, (0, 1, 0), (True, True, True), False),
+    Inputs(1, (1,), (True,), False),
+    Inputs(3, (1, 2, 1), (True, True, True), True),
+    Inputs(3, (1, 2, 2), (True, True, False), False),
+    Inputs(3, (2, 2, 1), (True, True, False), True),
+    Inputs(3, (2, 2, 0), (True, True, True), True),
+    Inputs(3, (4, 1, 1), (True, True, True), True),
+    Inputs(3, (4, 1, 1, 1), (True, True, True, False), True),
+    Inputs(3, (1, 1, 1, 4), (True, True, True, False), False),
+    Inputs(3, (0, 1, 0), (True, True, True), False),
 ]
 
 
@@ -84,7 +85,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
 
     charm_count: int
 
-    matrix_vars: inputs
+    matrix_vars: Inputs
     notches: int
     equip_results: Iterable[bool]
     ended_overcharmed: bool
@@ -99,7 +100,7 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
             )
         }}
         super().setUp()
-        self.cs = {charm_name: 1 for charm_name in charm_item_names[:self.charm_count]}
+        self.cs = dict.fromkeys(charm_item_names[:self.charm_count], 1)
         self.notch_override = self.matrix_vars.notches
 
         self.equip_results = self.matrix_vars.equip_results
@@ -138,7 +139,7 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
             )
         }}
         super().setUp()
-        self.cs = {charm_name: 1 for charm_name in charm_item_names[:self.charm_count]}
+        self.cs = dict.fromkeys(charm_item_names[:self.charm_count], 1)
 
     def test_combos(self):
         rs, cs = self.get_initialized_args()

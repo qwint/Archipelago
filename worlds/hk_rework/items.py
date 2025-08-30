@@ -3,7 +3,7 @@ from .data.option_data import pool_options
 
 # strip "Randomize" from pool options and use their names as group names
 item_name_groups = {
-    key[9:]: {item for item in value["randomized"]["items"]}
+    key[9:]: set(value["randomized"]["items"])
     for key, value in pool_options.items()
 
     # TODO dynamically exclude these if possible

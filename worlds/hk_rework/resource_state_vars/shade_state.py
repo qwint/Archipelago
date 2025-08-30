@@ -79,7 +79,10 @@ class ShadeStateVariable(RCStateVariable):
         self.jonis.set_unequippable(state_blob)
 
         hp = (item_state.count("MASKSHARDS", self.player) // 4) // 2
-        if hp >= self.health or self.health == hp + 1 and self.fragile_heart.can_equip(state_blob, item_state) != EquipResult.NONE:
+        if (
+            hp >= self.health
+            or (self.health == hp + 1 and self.fragile_heart.can_equip(state_blob, item_state) != EquipResult.NONE)
+        ):
             self.fragile_heart.break_charm(state_blob, item_state)
             return True
         return False

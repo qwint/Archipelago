@@ -1,4 +1,5 @@
-from typing import Iterable, NamedTuple
+from collections.abc import Iterable
+from typing import ClassVar, NamedTuple
 
 from test.param import classvar_matrix
 
@@ -6,6 +7,8 @@ from .bases import NoStepHK, StateVarSetup
 
 
 class ExcludeMixin:
+    skip_handler: ClassVar[dict[str, bool]]
+
     def test_create_vars(self):
         for key, skip in self.skip_handler.items():
             with self.subTest(key=key, skip=skip):
@@ -62,7 +65,7 @@ class TestExcludeByOptionAllOff(NoStepHK, StateVarSetup):
     }
 
 
-class inputs(NamedTuple):
+class Inputs(NamedTuple):
     key: str | None = None
     resource: dict[str, int] = {}
     cs: dict[str, int] = {}
@@ -78,52 +81,52 @@ shrogo = {"Monarch_Wings": 1, "Abyss_Shriek": 2}
 slobo = {"Vengeful_Spirit": 1}
 
 input_matrix = [
-    inputs("$CASTSPELL[3]"),
-    inputs("$CASTSPELL[3]", prep_vars=("$SHADESKIP",), assert_empty=True),
-    inputs("$CASTSPELL[4]", cs={"Vessel_Fragment": 3}, assert_empty=True),
-    inputs("$CASTSPELL[4]", resource={"NOPASSEDCHARMEQUIP": 0}, cs={"Spell_Twister": 1}, notches=6),
-    inputs("$CASTSPELL[3,1]", cs={"Vessel_Fragment": 3}),
+    Inputs("$CASTSPELL[3]"),
+    Inputs("$CASTSPELL[3]", prep_vars=("$SHADESKIP",), assert_empty=True),
+    Inputs("$CASTSPELL[4]", cs={"Vessel_Fragment": 3}, assert_empty=True),
+    Inputs("$CASTSPELL[4]", resource={"NOPASSEDCHARMEQUIP": 0}, cs={"Spell_Twister": 1}, notches=6),
+    Inputs("$CASTSPELL[3,1]", cs={"Vessel_Fragment": 3}),
 
-    inputs("$LIFEBLOOD", resource=ers, assert_empty=True),
-    *[inputs("$LIFEBLOOD", resource=ers, cs={charm: 1}, notches=4)
+    Inputs("$LIFEBLOOD", resource=ers, assert_empty=True),
+    *[Inputs("$LIFEBLOOD", resource=ers, cs={charm: 1}, notches=4)
       for charm in ("Lifeblood_Heart", "Lifeblood_Core", "Joni's_Blessing")],
 
-    inputs("$SHADESKIP", resource={"USEDSHADE": 1}, assert_empty=True),
-    inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),
-    inputs("$SHADESKIP", resource={"REQUIREDMAXSOUL": 67}, assert_empty=True),
-    inputs("$SHADESKIP"),
-    inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),
-    inputs("$SHADESKIP[2HITS]", masks=16),
-    inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
+    Inputs("$SHADESKIP", resource={"USEDSHADE": 1}, assert_empty=True),
+    Inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),
+    Inputs("$SHADESKIP", resource={"REQUIREDMAXSOUL": 67}, assert_empty=True),
+    Inputs("$SHADESKIP"),
+    Inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),
+    Inputs("$SHADESKIP[2HITS]", masks=16),
+    Inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}),
-    inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
+    Inputs("$SHADESKIP[2HITS]", masks=8, notches=6, resource={"NOPASSEDCHARMEQUIP": 0},
            cs={"Unbreakable_Heart": 1, "Fragile_Heart": 1}),
-    inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1, "NOPASSEDCHARMEQUIP": 0}, masks=8, notches=6,
+    Inputs("$SHADESKIP[2HITS]", resource={"BROKEHEART": 1, "NOPASSEDCHARMEQUIP": 0}, masks=8, notches=6,
            cs={"Can_Repair_Fragile_Charms": 1, "Fragile_Heart": 1}, assert_empty=True),
 
-    inputs("$SHRIEKPOGO", assert_empty=True),
-    inputs("$SHRIEKPOGO", assert_empty=True, cs={"Monarch_Wings": 1}),
-    inputs("$SHRIEKPOGO", assert_empty=True, cs={"Abyss_Shriek": 2}),
+    Inputs("$SHRIEKPOGO", assert_empty=True),
+    Inputs("$SHRIEKPOGO", assert_empty=True, cs={"Monarch_Wings": 1}),
+    Inputs("$SHRIEKPOGO", assert_empty=True, cs={"Abyss_Shriek": 2}),
 
-    inputs("$SHRIEKPOGO[3]",   cs=shrogo),
-    inputs("$SHRIEKPOGO[4]",   cs=shrogo, assert_empty=True),
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource=ers, notches=6),
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3}, assert_empty=True),
-    inputs("$SHRIEKPOGO[3,1]", cs={**shrogo, "Vessel_Fragment": 3}),
-    inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3, "Mothwing_Cloak": 1}),
+    Inputs("$SHRIEKPOGO[3]",   cs=shrogo),
+    Inputs("$SHRIEKPOGO[4]",   cs=shrogo, assert_empty=True),
+    Inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Spell_Twister": 1}, resource=ers, notches=6),
+    Inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3}, assert_empty=True),
+    Inputs("$SHRIEKPOGO[3,1]", cs={**shrogo, "Vessel_Fragment": 3}),
+    Inputs("$SHRIEKPOGO[4]",   cs={**shrogo, "Vessel_Fragment": 3, "Mothwing_Cloak": 1}),
 
-    inputs("$SLOPEBALL", assert_empty=True),
-    inputs("$SLOPEBALL", assert_empty=True, cs=slobo, resource={"SPENTSOUL": 99}),
-    inputs("$SLOPEBALL", cs=slobo),
+    Inputs("$SLOPEBALL", assert_empty=True),
+    Inputs("$SLOPEBALL", assert_empty=True, cs=slobo, resource={"SPENTSOUL": 99}),
+    Inputs("$SLOPEBALL", cs=slobo),
 
-    inputs("$TAKEDAMAGE", assert_empty=True,  masks=4),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=8),
+    Inputs("$TAKEDAMAGE", assert_empty=True,  masks=4),
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=8),
 ]
 
 
 @classvar_matrix(matrix_vars=input_matrix)
 class TestStateVars(StateVarSetup, NoStepHK):
-    matrix_vars: inputs
+    matrix_vars: Inputs
     assert_empty: bool
 
     def setUp(self):

@@ -24,7 +24,7 @@ class LifebloodCountVariable(RCStateVariable):
         return term.startswith(cls.prefix)
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState):
-        rets = [s for s in self.hp_manager.determine_hp(state_blob, item_state)]
+        rets = list(self.hp_manager.determine_hp(state_blob, item_state))
         for r in rets:
             info = self.hp_manager.get_hp_info(r, item_state)
             blue_masks = info.current_blue_hp + (info.current_white_hp if self.joni_manager.is_equipped(r) else 0)

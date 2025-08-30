@@ -1,13 +1,12 @@
 from collections import Counter
+from collections.abc import Iterable
 from enum import IntEnum
-from typing import ClassVar, Iterable
+from typing import ClassVar
 
 from BaseClasses import CollectionState
 
 from . import RCStateVariable
 from ..charms import charm_name_to_id, charm_names
-from ..constants import BASE_NOTCHES
-from ..data.constants.item_names import ItemNames
 from ..options import HKOptions
 
 
@@ -109,8 +108,6 @@ class EquipCharmVariable(RCStateVariable):
 
     def get_total_notches(self, item_state: CollectionState) -> int:
         return item_state.count("NOTCHES", self.player)
-        # collected_notches = item_state.count(ItemNames.CHARM_NOTCH, self.player)
-        # return BASE_NOTCHES + collected_notches
 
     def get_notch_cost(self, item_state: CollectionState) -> int:
         return item_state._hk_charm_costs[self.player][self.charm_name]
@@ -174,7 +171,7 @@ class EquipCharmVariable(RCStateVariable):
         return self.has_item(item_state)
 
     @staticmethod
-    def generate_charm_combinations(state_blob: Counter, item_state: CollectionState, charm_list: "Iterable[EquipCharmVariable]"):
+    def generate_charm_combinations(state_blob, item_state, charm_list: "Iterable[EquipCharmVariable]"):
         charms = []
         base_state = state_blob.copy()
         for c in charm_list:
@@ -227,7 +224,7 @@ class FragileCharmVariable(EquipCharmVariable):
 
     @property
     def terms(self) -> list[str]:
-        return super().terms + ["Can_Repair_Fragile_Charms"]
+        return [*super().terms, "Can_Repair_Fragile_Charms"]
 
     def break_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
         if item_state.has(self.charm_key, self.player, 2):

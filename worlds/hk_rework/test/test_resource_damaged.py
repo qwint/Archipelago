@@ -1,11 +1,12 @@
-from typing import Iterable, NamedTuple
+from collections.abc import Iterable
+from typing import NamedTuple
 
 from test.param import classvar_matrix
 
 from .bases import NoStepHK, StateVarSetup
 
 
-class inputs(NamedTuple):
+class Inputs(NamedTuple):
     key: str | None = None
     resource: dict[str, int] = {}
     cs: dict[str, int] = {}
@@ -18,39 +19,39 @@ class inputs(NamedTuple):
 
 
 take_damage_matrix = [
-    inputs("$LIFEBLOOD", resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0},
+    Inputs("$LIFEBLOOD", resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0},
            cs={"Lifeblood_Heart": 1}, assert_empty=True, damage_count=2, notches=4),
-    *[inputs("$LIFEBLOOD", resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}, cs={charm: 1}, damage_count=2, notches=4)
+    *[Inputs("$LIFEBLOOD", resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}, cs={charm: 1}, damage_count=2, notches=4)
       for charm in ("Lifeblood_Core", "Joni's_Blessing")],
 
-    inputs("$TAKEDAMAGE", assert_empty=True,  masks=8, damage_count=1),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=8, damage_count=1, cs={"FOCUS": 1}),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=4, damage_count=1, notches=6,
+    Inputs("$TAKEDAMAGE", assert_empty=True,  masks=8, damage_count=1),
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=8, damage_count=1, cs={"FOCUS": 1}),
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=4, damage_count=1, notches=6,
            cs={"Lifeblood_Heart": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=True,  masks=4, damage_count=1, notches=1,
+    Inputs("$TAKEDAMAGE", assert_empty=True,  masks=4, damage_count=1, notches=1,
            cs={"Lifeblood_Heart": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=8, damage_count=1, damage_value=2, notches=6,
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=8, damage_count=1, damage_value=2, notches=6,
            cs={"Lifeblood_Heart": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE[2]", assert_empty=True, masks=8, damage_count=1, notches=6,
+    Inputs("$TAKEDAMAGE[2]", assert_empty=True, masks=8, damage_count=1, notches=6,
            cs={"Lifeblood_Heart": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=12, damage_count=1, notches=1,
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=12, damage_count=1, notches=1,
            cs={"Lifeblood_Heart": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=4, damage_count=1, notches=6,
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=4, damage_count=1, notches=6,
            cs={"Lifeblood_Core": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=False,  masks=4, damage_count=1, notches=1,
+    Inputs("$TAKEDAMAGE", assert_empty=False,  masks=4, damage_count=1, notches=1,
            cs={"Lifeblood_Core": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=8, damage_count=1, notches=6,
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=8, damage_count=1, notches=6,
            cs={"Hiveblood": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=False, masks=12, notches=6, damage_count=3, damage_value=2,
+    Inputs("$TAKEDAMAGE", assert_empty=False, masks=12, notches=6, damage_count=3, damage_value=2,
            cs={"Deep_Focus": 1, "FOCUS": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
-    inputs("$TAKEDAMAGE", assert_empty=True,  masks=12, notches=6, damage_count=4, damage_value=2,
+    Inputs("$TAKEDAMAGE", assert_empty=True,  masks=12, notches=6, damage_count=4, damage_value=2,
            cs={"Deep_Focus": 1, "FOCUS": 1}, resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}),
 ]
 
 
 @classvar_matrix(matrix_vars=take_damage_matrix)
 class TestDamagedVars(StateVarSetup, NoStepHK):
-    matrix_vars: inputs
+    matrix_vars: Inputs
     assert_empty: bool
     damage_count: int
     damage_value: int

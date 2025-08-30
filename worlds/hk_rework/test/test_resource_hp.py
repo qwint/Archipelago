@@ -20,12 +20,12 @@ class TestHPManager(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
 
-        states = [s for s in manager.determine_hp(rs, cs)]
+        states = list(manager.determine_hp(rs, cs))
         self.assertEqual(len(states), 2)
         for s in states:
             self.assertTrue(manager.is_hp_determined(s))
-        oc = [s for s in states if s["OVERCHARMED"]][0]
-        noc = [s for s in states if s["CANNOTOVERCHARM"]][0]
+        oc = next(s for s in states if s["OVERCHARMED"])
+        noc = next(s for s in states if s["CANNOTOVERCHARM"])
         self.assertFalse(oc["CANNOTOVERCHARM"])
         self.assertFalse(noc["OVERCHARMED"])
 
@@ -46,7 +46,7 @@ class TestHPManager(StateVarSetup, NoStepHK):
             rs = self.get_one_state(manager.take_damage, rs, cs, 1)
             self.assert_spent_health(rs, manager.max_damage, i, 0)
             assert manager.is_hp_determined(rs), "HP was not set to determined after taking too much lazy damage"
-        rets = [s for s in manager.take_damage(rs, cs, 1)]
+        rets = list(manager.take_damage(rs, cs, 1))
         assert not rets, "States were returned after taking enough damage to kill"
 
 

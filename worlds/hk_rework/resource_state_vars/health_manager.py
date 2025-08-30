@@ -1,14 +1,12 @@
 from collections import Counter
-from collections.abc import Generator
-from itertools import chain
-from typing import NamedTuple, Iterable
+from collections.abc import Generator, Iterable
+from typing import NamedTuple
 
 from BaseClasses import CollectionState
 
 from . import ResourceStateHandler
 from .equip_charm import EquipCharmVariable, FragileCharmVariable
 from .soul_manager import SoulManager
-from ..options import HKOptions
 
 
 class HPInfo(NamedTuple):
@@ -76,7 +74,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             ]
             for term in sub_var.terms
         ]
-        return sub_terms + ["MASKSHARDS", "FOCUS"]
+        return [*sub_terms, "MASKSHARDS", "FOCUS"]
 
     def __init__(self, term: str, player: int):
         self.player = player
@@ -147,7 +145,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             ret["SPENTBLUEHP"] = 0
             yield ret
 
-    def try_focus(self, state_blob: Counter, item_state: CollectionState) -> bool:  # TODO: all these try functions i need to normalize :(
+    def try_focus(self, state_blob: Counter, item_state: CollectionState) -> bool:
         if not item_state.has("FOCUS", self.player) or not self.is_hp_determined(state_blob):
             return False
         for charm in self.focus_charms:
@@ -165,12 +163,11 @@ class HealthManager(metaclass=ResourceStateHandler):
         if not item_state.has("FOCUS", self.player):
             return
         if not self.is_hp_determined(state_blob):
-            rets = [r for r in self.determine_hp(state_blob, item_state)]
-            for r in rets:
+            for r in self.determine_hp(state_blob, item_state):
                 yield from self.do_focus(r, item_state, amount)
             return
         if any(not c.is_determined(state_blob, item_state) for c in self.focus_charms):
-            rets = [r for r in EquipCharmVariable.generate_charm_combinations(state_blob, item_state, self.focus_charms)]
+            rets = list(EquipCharmVariable.generate_charm_combinations(state_blob, item_state, self.focus_charms))
             for r in rets:
                 yield from self.do_focus(r, item_state, amount)
             return
@@ -204,12 +201,11 @@ class HealthManager(metaclass=ResourceStateHandler):
 
         rets = []
         for s in self.decide_overcharm(ret_base, item_state):
-            rets += [ss for ss in EquipCharmVariable.generate_charm_combinations(s, item_state, self.determine_hp_charms)]
+            rets += list(EquipCharmVariable.generate_charm_combinations(s, item_state, self.determine_hp_charms))
 
         for _ in range(lazy_spent_hp):
             rets = [r for s in rets for r in self.take_damage(s, item_state, 1)]
-        for r in rets:
-            yield r
+        yield from rets
 
     def decide_overcharm(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         if state_blob["CANNOTOVERCHARM"] or state_blob["OVERCHARMED"]:
@@ -255,8 +251,7 @@ class HealthManager(metaclass=ResourceStateHandler):
     def take_damage(self, state_blob: Counter, item_state: CollectionState, amount: int) -> Generator[Counter]:
         if not self.is_hp_determined(state_blob):
             if amount > 1 or not self.can_take_next_lazy_hit(state_blob, item_state):
-                rets = [s for s in self.determine_hp(state_blob, item_state)]
-                for r in rets:
+                for r in self.determine_hp(state_blob, item_state):
                     yield from self.take_damage_strict(r, item_state, amount, True)
                 return
             else:
@@ -266,17 +261,16 @@ class HealthManager(metaclass=ResourceStateHandler):
         else:
             yield from self.take_damage_strict(state_blob, item_state, amount, True)
 
-    def take_damage_sequence(self, state_blob: Counter, item_state: CollectionState, amounts: Iterable[int]) -> Generator[Counter]:
+    def take_damage_sequence(self, state_blob, item_state, amounts: Iterable[int]) -> Generator[Counter]:
         if not self.is_hp_determined(state_blob):
-            rets = [s for s in self.determine_hp(state_blob, item_state)]
-            for r in rets:
+            for r in self.determine_hp(state_blob, item_state):
                 yield self.take_damage_sequence(r, item_state, amounts)
             return
 
         rets = [state_blob.copy()]
         for i, amount in enumerate(amounts):
             wait_after_hit = i == len(amounts) - 1
-            rets = [r for r in self.take_damage_strict(state_blob, item_state, amount, wait_after_hit)]
+            rets = list(self.take_damage_strict(state_blob, item_state, amount, wait_after_hit))
         for r in rets:
             yield r
 
@@ -286,7 +280,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         total_hits = (max_hp - 1) // 2
         return total_hits - hits_taken > 0
 
-    def take_damage_strict(self, state_blob: Counter, item_state: CollectionState, amount: int, wait_after_hit: bool) -> Generator[Counter]:
+    def take_damage_strict(self, state_blob, item_state, amount: int, wait_after_hit: bool) -> Generator[Counter]:
         adj_amount = 2 * amount if state_blob["OVERCHARMED"] else amount
 
         info = self.get_hp_info(state_blob, item_state)
@@ -294,12 +288,13 @@ class HealthManager(metaclass=ResourceStateHandler):
         if hit.survives:
             ret = state_blob.copy()
             yield self.do_hit(ret, item_state, hit)
-        else:
-            rets = [r for r in EquipCharmVariable.generate_charm_combinations(state_blob, item_state, self.before_death_charms)]
-            for r in rets:
-                yield from self.take_damage_desperate(state_blob, item_state, amount, True)
+            return
+        # else
+        rets = list(EquipCharmVariable.generate_charm_combinations(state_blob, item_state, self.before_death_charms))
+        for r in rets:
+            yield from self.take_damage_desperate(state_blob, item_state, amount, True)
 
-    def take_damage_desperate(self, state_blob: Counter, item_state: CollectionState, amount: int, wait_after_hit: bool) -> Generator[Counter]:
+    def take_damage_desperate(self, state_blob, item_state, amount: int, wait_after_hit: bool) -> Generator[Counter]:
         adj_amount = 2 * amount if state_blob["OVERCHARMED"] else amount
         info = self.get_hp_info(state_blob, item_state)
 
@@ -311,7 +306,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             heal_avail = info.max_white_hp - info.current_white_hp
             heal_req = 1 + deficit
             if heal_amount > 0 and heal_avail >= heal_req:
-                rets = [s for s in self.do_focus(state_blob, item_state, heal_req)]
+                rets = list(self.do_focus(state_blob, item_state, heal_req))
             else:
                 return
         else:

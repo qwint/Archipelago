@@ -1,11 +1,12 @@
-from typing import Iterable, NamedTuple
+from collections.abc import Iterable
+from typing import NamedTuple
 
 from test.param import classvar_matrix
 
 from .bases import NoStepHK, StateVarSetup
 
 
-class inputs(NamedTuple):
+class Inputs(NamedTuple):
     key: str | None = None
     resource: dict[str, int] = {}
     cs: dict[str, int] = {}
@@ -18,11 +19,11 @@ class inputs(NamedTuple):
 
 
 soul_spend_matrix = [
-    inputs(resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0},
+    Inputs(resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0},
            expecteds=[[(33, 0, 33, 0)], [(66, 0, 66, 0)], [(99, 0, 99, 0)], []]),
-    inputs(resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}, cs={"Vessel_Fragment": 3},
+    Inputs(resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0}, cs={"Vessel_Fragment": 3},
            expecteds=[[(0, 33, 33, 0)], [(33, 33, 33, 0)], [(66, 33, 66, 0)], [(99, 33, 99, 0)], []]),
-    inputs(resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0, "SOULLIMITER": 33},
+    Inputs(resource={"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0, "SOULLIMITER": 33},
            expecteds=[[(33, 0, 33, 33)], [(66, 0, 66, 33)], []], limit=33),
 ]
 
@@ -30,7 +31,7 @@ soul_spend_matrix = [
 @classvar_matrix(matrix_vars=soul_spend_matrix)
 class TestSoulSpend(StateVarSetup, NoStepHK):
     key = "$SSM"
-    matrix_vars: inputs
+    matrix_vars: Inputs
     expecteds: Iterable[list[tuple[int, int, int, int]]]
     limit: int = 0
 
@@ -62,16 +63,16 @@ class TestSoulSpend(StateVarSetup, NoStepHK):
 
 
 soul_restore_matrix = [
-    inputs(expected=(0, 0, 66, 0)),
-    inputs(expected=(0, 0, 66, 0), cs={"Vessel_Fragment": 3}),
-    inputs(expected=(0, 0, 66, 33), limit=33),
+    Inputs(expected=(0, 0, 66, 0)),
+    Inputs(expected=(0, 0, 66, 0), cs={"Vessel_Fragment": 3}),
+    Inputs(expected=(0, 0, 66, 33), limit=33),
 ]
 
 
 @classvar_matrix(matrix_vars=soul_restore_matrix)
 class TestRestoreSpend(StateVarSetup, NoStepHK):
     key = "$SSM"
-    matrix_vars: inputs
+    matrix_vars: Inputs
     expected: tuple[int, int, int, int]
     limit: int = 0
 
@@ -118,16 +119,16 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
 
 
 soul_round_matrix = [
-    inputs(expected=(33, 0, 33, 0)),
-    inputs(cs={"Vessel_Fragment": 3}, expected=(0, 33, 33, 0)),
-    inputs(expected=None, spend=67),
+    Inputs(expected=(33, 0, 33, 0)),
+    Inputs(cs={"Vessel_Fragment": 3}, expected=(0, 33, 33, 0)),
+    Inputs(expected=None, spend=67),
 ]
 
 
 @classvar_matrix(matrix_vars=soul_round_matrix)
 class TestRoundSpend(StateVarSetup, NoStepHK):
     key = "$SSM"
-    matrix_vars: inputs
+    matrix_vars: Inputs
     expected: tuple[int, int, int, int] | None
     spend: int = 0
 
@@ -148,7 +149,7 @@ class TestRoundSpend(StateVarSetup, NoStepHK):
             rs = self.get_one_state(manager.spend_soul, rs, cs, self.spend)
             rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
 
-        outputs = [s for s in manager.limit_soul(rs, cs, 33, True)]
+        outputs = list(manager.limit_soul(rs, cs, 33, True))
         outputs = [s for rs in outputs for s in manager.limit_soul(rs, cs, 0, False)]
         if self.expected is None:
             assert not outputs

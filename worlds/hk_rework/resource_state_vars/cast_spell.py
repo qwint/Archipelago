@@ -63,7 +63,7 @@ class CastSpellVariable(RCStateVariable):
 
     @property
     def terms(self) -> list[str]:
-        return self.equip_st.terms + self.sp_manager.terms
+        return [*self.equip_st.terms, *self.sp_manager.terms]
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         if self.nearby_soul_to_bool(item_state, self.before_soul):
@@ -148,7 +148,7 @@ class ShriekPogoVariable(CastSpellVariable):
     def modify_state(self, state_blob, item_state):
         if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, self.player):
             return
-        elif self.stall_cast and ((self.left_stall and item_state.has("LEFTDASH", self.player))  # noqa: RET505
+        elif self.stall_cast and ((self.left_stall and item_state.has("LEFTDASH", self.player))
                                   or (self.right_stall and item_state.has("RIGHTDASH", self.player))):
             yield from self.stall_cast.modify_state(state_blob, item_state)
         else:
@@ -179,13 +179,13 @@ class SlopeballVariable(CastSpellVariable):
 
     @property
     def terms(self) -> list[str]:
-        return super().terms + ["FIREBALL"]
+        return [*super().terms, "FIREBALL"]
 
     def modify_state(self, state_blob, item_state):
         if not item_state.has("FIREBALL", self.player):
             return
-        else:  # noqa: RET505
-            yield from super().modify_state(state_blob, item_state)
+        # else
+        yield from super().modify_state(state_blob, item_state)
 
     def can_exclude(self, options):
         return not bool(options.Slopeballs)

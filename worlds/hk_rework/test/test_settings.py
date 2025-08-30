@@ -1,6 +1,6 @@
 import typing
 
-from .bases import HKTestBase, HKGoalBase
+from .bases import HKGoalBase, HKTestBase
 
 
 class TestGoalAny(HKGoalBase):
