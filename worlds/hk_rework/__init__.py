@@ -33,7 +33,7 @@ from .data.location_data import multi_locations
 from .data.option_data import logic_options, pool_options
 from .data.region_structure import locations, regions, transition_to_region_map  # transitions
 from .data.trando_data import starts
-from .Items import item_name_groups  # , item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
+from .items import item_name_groups  # , item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
 from .options import (
     CostSanity,
     Goal,
