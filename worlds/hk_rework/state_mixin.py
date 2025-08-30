@@ -111,11 +111,6 @@ class HKLogicMixin(LogicMixin):
             # no valid parent states
             return False
 
-        if target_region:
-            persist = True
-        else:
-            persist = False
-
         for handler in clause.hk_state_requirements:
             avaliable_states = [
                 s
@@ -123,39 +118,50 @@ class HKLogicMixin(LogicMixin):
                 for s in handler.modify_state(input_state, self)
             ]
 
-        if len(avaliable_states):
-            if not persist:
-                return True
-            target_states = self._hk_per_player_resource_states[player][target_region.name]
-            for index, s in reversed(list(enumerate(avaliable_states))):
-                for previous in target_states:
-                    if eq(s, previous) or lt(previous, s):
-                        # if the state we're adding already exists
-                        # or a better state already exists, we didn't improve
-                        avaliable_states.pop(index)
-                        break
-            if avaliable_states:
-                target_states += avaliable_states
-                # indicies_to_pop = []
-                # for index, s in enumerate(target_states):
-                #     if any(lt(other, s) for other in target_states):
-                #         indicies_to_pop.append(index)
-                # for index in reversed(indicies_to_pop):
-                #     # reverse so we can blindly pop
-                #     target_states.pop(index)
-
-                for index, s in reversed(list(enumerate(target_states))):
-                    for other in [t_s for t_s in target_states if t_s is not s]:
-                        # TODO make sure this doesn't ever break
-                        if lt(other, s):
-                            target_states.pop(index)
-                            break
-
-                self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
-                # self._hk_stale[player] = True
-            assert target_states
+        if not avaliable_states:
+            return False
+        if not target_region:
+            # don't persist
             return True
-        return False
+        target_states = self._hk_per_player_resource_states[player][target_region.name]
+        for index, s in reversed(list(enumerate(avaliable_states))):
+            for previous in target_states:
+                if eq(s, previous) or lt(previous, s):
+                    # if the state we're adding already exists
+                    # or a better state already exists, we didn't improve
+                    avaliable_states.pop(index)
+                    break
+        if avaliable_states:
+            # for exit in target_region.exits:
+            #     if exit.hk_rule is None:
+            #         self._hk_per_player_sweepable_entrances[player].add(exit.name)
+            #         continue
+            #     relevant_terms = sorted({
+            #         term
+            #         for clause in exit.hk_rule
+            #         for handler in clause.hk_state_requirements
+            #         for term in handler.terms
+            #     })
+            #     for term in relevant_terms:
+            #         prev = max(0, 0, *[s[term] for s in target_states])
+            #         new = max(0, 0, *[s[term] for s in avaliable_states])
+            #         if prev > new:
+            #             self._hk_per_player_sweepable_entrances[player].add(exit.name)
+            #             break
+
+            target_states += avaliable_states
+
+            for index, s in reversed(list(enumerate(target_states))):
+                for other in [t_s for t_s in target_states if t_s is not s]:
+                    # TODO make sure this doesn't ever break
+                    if lt(other, s):
+                        target_states.pop(index)
+                        break
+
+            self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
+            # self._hk_stale[player] = True
+        assert target_states
+        return True
 
     def _hk_sweep(self, player: int):
         if self._hk_sweeping[player]:
