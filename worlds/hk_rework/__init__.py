@@ -6,6 +6,7 @@ from copy import deepcopy
 from typing import Any, ClassVar, cast
 
 from BaseClasses import CollectionState, ItemClassification, LocationProgressType, MultiWorld
+from Options import OptionError
 from worlds.AutoWorld import World
 
 from .charms import charm_name_to_id, charm_names
@@ -21,9 +22,9 @@ from .data.item_effects import (
 from .data.location_data import locations as locations_metadata
 from .data.location_data import multi_locations
 from .data.option_data import logic_options, pool_options
-from .data.region_structure import locations, regions, transition_to_region_map  # transitions
-from .data.trando_data import starts
-from .items import item_name_groups  # , item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
+from .data.region_structure import locations, regions, transition_to_region_map
+from .data.trando_data import starts, transitions
+from .items import item_name_groups
 from .options import (
     CostSanity,
     Goal,
@@ -298,7 +299,6 @@ class HKWorld(RandomizerCoreWorld, World):
             for data in cost_terms.values()
         }
         if options.CostSanity:
-            from Options import OptionError
             player_name = self.player_name
             if all(weight == 0 for weight in weights.values()):
                 raise OptionError(f"CostSanity was on for {player_name} but no currencies are enabled")
@@ -588,8 +588,6 @@ class HKWorld(RandomizerCoreWorld, World):
         return all(state.has("Grub", owner, count) for owner, count in self.grub_player_count.items())
 
     def add_vanilla_connections(self):
-        from .data.trando_data import transitions
-
         transition_name_to_region = {
             transition: region["name"]
             for region in self.rc_regions
