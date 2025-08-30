@@ -5,10 +5,10 @@ from typing import ClassVar, Iterable
 from BaseClasses import CollectionState
 
 from . import RCStateVariable
-from ..Charms import charm_name_to_id, charm_names
+from ..charms import charm_name_to_id, charm_names
 from ..constants import BASE_NOTCHES
 from ..data.constants.item_names import ItemNames
-from ..Options import HKOptions
+from ..options import HKOptions
 
 
 class EquipResult(IntEnum):

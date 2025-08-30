@@ -3,7 +3,7 @@ from collections import Counter
 from BaseClasses import CollectionState
 
 from . import RCStateVariable
-from ..Options import HKOptions
+from ..options import HKOptions
 
 
 class RegainSoulVariable(RCStateVariable):

@@ -6,7 +6,7 @@ from BaseClasses import CollectionState
 from . import RCStateVariable
 from .soul_manager import SoulManager
 from .equip_charm import EquipCharmVariable, EquipResult, FragileCharmVariable
-from ..Options import HKOptions
+from ..options import HKOptions
 
 
 class ShadeStateVariable(RCStateVariable):

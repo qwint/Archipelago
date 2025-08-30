@@ -5,7 +5,7 @@ from BaseClasses import CollectionState
 
 from . import RCStateVariable
 from ..state_mixin import default_state
-from ..Options import HKOptions
+from ..options import HKOptions
 
 
 class RCResetter:
@@ -75,9 +75,6 @@ class BenchResetVariable(RCResetter, RCStateVariable):
         "SPENTSOUL": "Salubra's_Blessing + CANNOTREGAINSOUL=FALSE",
         "SPENTRESERVESOUL": "Salubra's_Blessing + CANNOTREGAINSOUL=FALSE",
     }
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
 
 
 class HotSpringResetVariable(RCResetter, RCStateVariable):
@@ -91,9 +88,6 @@ class HotSpringResetVariable(RCResetter, RCStateVariable):
         "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
         "SPENTHP": "ANY",
     }
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
 
 
 class SaveQuitResetVariable(RCResetter, RCStateVariable):
@@ -107,10 +101,6 @@ class SaveQuitResetVariable(RCResetter, RCStateVariable):
         "SPENTALLSOUL": "CANNOTREGAINSOUL=FALSE",
     }
 
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))
-
 
 class StartRespawnResetVariable(RCResetter, RCStateVariable):
     prefix = "$STARTRESPAWN"
@@ -122,7 +112,3 @@ class StartRespawnResetVariable(RCResetter, RCStateVariable):
         "SPENTRESERVESOUL": "CANNOTREGAINSOUL=FALSE",
         "SPENTHP": "ANY",
     }
-
-    # @classmethod
-    # def get_terms(cls):
-    #     return (term for term in ("VessleFragments",))

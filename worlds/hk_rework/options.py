@@ -16,10 +16,10 @@ from Options import (
     Toggle,
 )
 
-from .Charms import charm_names, vanilla_costs
+from .charms import charm_names, vanilla_costs
 from .data.option_data import logic_options, pool_options
 from .data.trando_data import starts
-from .Rules import cost_terms
+from .rules import cost_terms
 
 if typing.TYPE_CHECKING:
     # avoid import during runtime

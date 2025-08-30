@@ -19,7 +19,7 @@ from BaseClasses import (
 from settings import Bool, Group
 from worlds.AutoWorld import WebWorld, World
 
-from .Charms import charm_name_to_id, charm_names
+from .charms import charm_name_to_id, charm_names
 from .constants import gamename, randomizable_starting_items, shop_cost_types
 from .data.ids import item_name_to_id, location_name_to_id
 from .data.item_effects import (
@@ -34,7 +34,7 @@ from .data.option_data import logic_options, pool_options
 from .data.region_structure import locations, regions, transition_to_region_map  # transitions
 from .data.trando_data import starts
 from .Items import item_name_groups  # , item_name_to_id  # item_table, lookup_type_to_names, item_name_groups
-from .Options import (
+from .options import (
     CostSanity,
     Goal,
     GrubHuntGoal,
@@ -43,7 +43,7 @@ from .Options import (
     hollow_knight_options,
     shop_to_option,
 )
-from .Rules import cost_terms
+from .rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
 from .resource_state_vars import RCStateVariable, ResourceStateHandler
 from .template_world import RandomizerCoreWorld

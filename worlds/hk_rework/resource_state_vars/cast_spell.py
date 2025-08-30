@@ -8,7 +8,7 @@ from BaseClasses import CollectionState
 from . import RCStateVariable
 from .equip_charm import EquipCharmVariable
 from .soul_manager import SoulManager
-from ..Options import HKOptions
+from ..options import HKOptions
 
 
 class NearbySoul(IntEnum):

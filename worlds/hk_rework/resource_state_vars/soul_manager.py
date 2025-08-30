@@ -7,7 +7,7 @@ from BaseClasses import CollectionState
 
 from . import ResourceStateHandler
 from .equip_charm import EquipCharmVariable
-from ..Options import HKOptions
+from ..options import HKOptions
 
 
 class SoulInfo:
