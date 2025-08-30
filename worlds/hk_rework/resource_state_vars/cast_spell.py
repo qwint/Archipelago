@@ -1,14 +1,14 @@
 from collections import Counter
-from enum import IntEnum
 from collections.abc import Generator
+from enum import IntEnum
 from itertools import chain
 
 from BaseClasses import CollectionState
 
+from ..options import HKOptions
 from . import RCStateVariable
 from .equip_charm import EquipCharmVariable
 from .soul_manager import SoulManager
-from ..options import HKOptions
 
 
 class NearbySoul(IntEnum):

@@ -4,7 +4,6 @@ from typing import ClassVar
 
 from BaseClasses import CollectionState
 
-
 RCStateVariable = object  # for future typing
 
 

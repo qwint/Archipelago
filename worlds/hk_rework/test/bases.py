@@ -10,8 +10,8 @@ from test.bases import WorldTestBase
 from worlds.AutoWorld import AutoWorldRegister, call_all
 
 from .. import HKWorld
-from ..state_mixin import default_state
 from ..resource_state_vars import ResourceStateHandler
+from ..state_mixin import default_state
 
 RUN_FILL_TESTS = False
 

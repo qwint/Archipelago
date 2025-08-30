@@ -4,9 +4,9 @@ from typing import ClassVar, NamedTuple
 
 from test.param import classvar_matrix
 
-from .bases import NoStepHK, StateVarSetup
-from ..charms import charm_names, charm_name_to_id
+from ..charms import charm_name_to_id, charm_names
 from ..resource_state_vars.equip_charm import EquipCharmVariable
+from .bases import NoStepHK, StateVarSetup
 
 charm_item_names = list(charm_name_to_id.keys())
 

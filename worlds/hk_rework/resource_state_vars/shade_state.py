@@ -3,10 +3,10 @@ from collections.abc import Generator
 
 from BaseClasses import CollectionState
 
-from . import RCStateVariable
-from .soul_manager import SoulManager
-from .equip_charm import EquipCharmVariable, EquipResult, FragileCharmVariable
 from ..options import HKOptions
+from . import RCStateVariable
+from .equip_charm import EquipCharmVariable, EquipResult, FragileCharmVariable
+from .soul_manager import SoulManager
 
 
 class ShadeStateVariable(RCStateVariable):

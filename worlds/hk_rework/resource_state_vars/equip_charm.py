@@ -5,9 +5,9 @@ from typing import ClassVar
 
 from BaseClasses import CollectionState
 
-from . import RCStateVariable
 from ..charms import charm_name_to_id, charm_names
 from ..options import HKOptions
+from . import RCStateVariable
 
 
 class EquipResult(IntEnum):

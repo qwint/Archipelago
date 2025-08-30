@@ -2,8 +2,8 @@ from collections import Counter
 
 from BaseClasses import CollectionState
 
-from . import RCStateVariable
 from ..options import HKOptions
+from . import RCStateVariable
 
 
 class FlowerProviderVariable(RCStateVariable):

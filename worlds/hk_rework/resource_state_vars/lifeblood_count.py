@@ -3,8 +3,8 @@ from collections import Counter
 from BaseClasses import CollectionState
 
 from . import RCStateVariable
-from .health_manager import HealthManager
 from .equip_charm import EquipCharmVariable
+from .health_manager import HealthManager
 
 
 class LifebloodCountVariable(RCStateVariable):

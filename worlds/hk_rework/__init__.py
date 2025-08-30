@@ -34,10 +34,10 @@ from .options import (
     hollow_knight_options,
     shop_to_option,
 )
-from .rules import cost_terms
-from .state_mixin import HKLogicMixin as HKLogicMixin
 from .resource_state_vars import ResourceStateHandler
 from .resource_state_vars.cast_spell import NearbySoul
+from .rules import cost_terms
+from .state_mixin import HKLogicMixin as HKLogicMixin
 from .template_world import RandomizerCoreWorld
 
 logger = logging.getLogger("Hollow Knight")

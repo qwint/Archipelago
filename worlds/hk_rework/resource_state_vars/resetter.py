@@ -3,9 +3,9 @@ from typing import Any, ClassVar
 
 from BaseClasses import CollectionState
 
-from . import RCStateVariable
-from ..state_mixin import default_state
 from ..options import HKOptions
+from ..state_mixin import default_state
+from . import RCStateVariable
 
 
 class RCResetter:

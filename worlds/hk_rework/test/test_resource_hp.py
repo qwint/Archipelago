@@ -1,8 +1,7 @@
 from typing import ClassVar
 
-from .bases import NoStepHK, StateVarSetup
-
 from ..resource_state_vars.health_manager import HealthManager
+from .bases import NoStepHK, StateVarSetup
 
 
 class TestHPManager(StateVarSetup, NoStepHK):

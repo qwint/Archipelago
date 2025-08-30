@@ -2,7 +2,7 @@ import typing
 
 from Options import ItemLinks
 
-from .bases import LinkedTestHK, HKGoalBase
+from .bases import HKGoalBase, LinkedTestHK
 
 
 class TestGrubcountLimited(LinkedTestHK, HKGoalBase):
