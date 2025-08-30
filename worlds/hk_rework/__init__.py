@@ -5,12 +5,11 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from typing import Any, ClassVar, cast
 
-from BaseClasses import CollectionState, ItemClassification, LocationProgressType, MultiWorld, Tutorial
-from settings import Bool, Group
-from worlds.AutoWorld import WebWorld, World
+from BaseClasses import CollectionState, ItemClassification, LocationProgressType, MultiWorld
+from worlds.AutoWorld import World
 
 from .charms import charm_name_to_id, charm_names
-from .classes import HKClause, HKEntrance, HKItem, HKLocation, HKRegion
+from .classes import HKClause, HKEntrance, HKItem, HKLocation, HKRegion, HKSettings, HKWeb
 from .constants import gamename, randomizable_starting_items, shop_cost_types
 from .data.ids import item_name_to_id, location_name_to_id
 from .data.item_effects import (
@@ -41,50 +40,6 @@ from .resource_state_vars.cast_spell import NearbySoul
 from .template_world import RandomizerCoreWorld
 
 logger = logging.getLogger("Hollow Knight")
-
-
-class HollowKnightSettings(Group):
-    class DisableMapModSpoilers(Bool):
-        """Disallows the APMapMod from showing spoiler placements."""
-
-    disable_spoilers: DisableMapModSpoilers | bool = False
-
-
-class HKWeb(WebWorld):
-    setup_en = Tutorial(
-        "Mod Setup and Use Guide",
-        "A guide to playing Hollow Knight with Archipelago.",
-        "English",
-        "setup_en.md",
-        "setup/en",
-        ["Ijwu"]
-    )
-
-    setup_pt_br = Tutorial(
-        setup_en.tutorial_name,
-        setup_en.description,
-        "Português Brasileiro",
-        "setup_pt_br.md",
-        "setup/pt_br",
-        ["JoaoVictor-FA"]
-    )
-
-    setup_es = Tutorial(
-        setup_en.tutorial_name,
-        setup_en.description,
-        "Español",
-        "setup_es.md",
-        "setup/es",
-        ["GreenMarco", "Panto UwUr"]
-    )
-
-    tutorials = [setup_en, setup_pt_br, setup_es]
-    game_info_languages = ["en", "es"]
-
-    bug_report_page = (
-        "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new"
-        "?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
-    )
 
 
 shop_locations = multi_locations
@@ -123,7 +78,7 @@ class HKWorld(RandomizerCoreWorld, World):
     item_name_to_id = item_name_to_id
     options_dataclass = HKOptions
     options: HKOptions
-    settings: ClassVar[HollowKnightSettings]
+    settings: ClassVar[HKSettings]
     item_name_groups = item_name_groups
 
     rc_regions: list[dict[str, Any]] = hk_regions

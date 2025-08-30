@@ -6,11 +6,58 @@ from BaseClasses import (
     Item,
     Location,
     Region,
+    Tutorial,
 )
+from settings import Bool, Group
+from worlds.AutoWorld import WebWorld
 
 from .constants import gamename
 from .resource_state_vars import RCStateVariable
 from .rules import cost_terms
+
+
+class HKSettings(Group):
+    class DisableMapModSpoilers(Bool):
+        """Disallows the APMapMod from showing spoiler placements."""
+
+    disable_spoilers: DisableMapModSpoilers | bool = False
+
+
+class HKWeb(WebWorld):
+    setup_en = Tutorial(
+        "Mod Setup and Use Guide",
+        "A guide to playing Hollow Knight with Archipelago.",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["Ijwu"]
+    )
+
+    setup_pt_br = Tutorial(
+        setup_en.tutorial_name,
+        setup_en.description,
+        "Português Brasileiro",
+        "setup_pt_br.md",
+        "setup/pt_br",
+        ["JoaoVictor-FA"]
+    )
+
+    setup_es = Tutorial(
+        setup_en.tutorial_name,
+        setup_en.description,
+        "Español",
+        "setup_es.md",
+        "setup/es",
+        ["GreenMarco", "Panto UwUr"]
+    )
+
+    tutorials = [setup_en, setup_pt_br, setup_es]
+    game_info_languages = ["en", "es"]
+
+    bug_report_page = (
+        "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new"
+        "?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
+    )
 
 
 class HKClause(NamedTuple):
