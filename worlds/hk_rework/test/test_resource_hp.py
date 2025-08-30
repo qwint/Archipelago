@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from .bases import NoStepHK, StateVarSetup
 
 from ..resource_state_vars.health_manager import HealthManager
@@ -5,9 +7,9 @@ from ..resource_state_vars.health_manager import HealthManager
 
 class TestHPManager(StateVarSetup, NoStepHK):
     key = "$HPSM"
-    resource = {}
-    cs = {}
-    prep_vars = []
+    resource: ClassVar[dict[str, int]] = {}
+    cs: ClassVar[dict[str, int]] = {}
+    prep_vars = ()
 
     def assert_spent_health(self, rs, lazy: int, white: int, blue: int):
         healths = rs["LAZYSPENTHP"], rs["SPENTHP"], rs["SPENTBLUEHP"]
@@ -52,8 +54,8 @@ class TestHPManager(StateVarSetup, NoStepHK):
 
 class TestJoniHP(StateVarSetup, NoStepHK):
     key = "$HPSM"
-    resource = {"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0, "CANNOTOVERCHARM": 1}
-    cs = {"Joni's_Blessing": 1}
+    resource: ClassVar[dict[str, int]] = {"NOPASSEDCHARMEQUIP": 0, "NOFLOWER": 0, "CANNOTOVERCHARM": 1}
+    cs: ClassVar[dict[str, int]] = {"Joni's_Blessing": 1}
     prep_vars = ()
     notch_override = 4
 

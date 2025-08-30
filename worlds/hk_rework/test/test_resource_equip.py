@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from itertools import zip_longest
-from typing import NamedTuple
+from typing import ClassVar, NamedTuple
 
 from test.param import classvar_matrix
 
@@ -20,8 +20,8 @@ class Inputs(NamedTuple):
 
 class TestBasicEquips(StateVarSetup, NoStepHK):
     key = "$EQUIPPEDCHARM[Gathering_Swarm]"
-    cs = {"Gathering_Swarm": 1}
-    resource = {}
+    cs: ClassVar[dict[str, int]] = {"Gathering_Swarm": 1}
+    resource: ClassVar[dict[str, int]] = {}
     prep_vars = ()
     notch_override = 1
 
@@ -80,7 +80,7 @@ equip_notch_matrix = [
 
 @classvar_matrix(matrix_vars=equip_notch_matrix)
 class TestEquipNotch(StateVarSetup, NoStepHK):
-    resource = {"NOPASSEDCHARMEQUIP": 0}
+    resource: ClassVar[dict[str, int]] = {"NOPASSEDCHARMEQUIP": 0}
     prep_vars = ()
 
     charm_count: int
@@ -118,12 +118,12 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
 
 
 class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
-    resource = {"NOPASSEDCHARMEQUIP": 0}
+    resource: ClassVar[dict[str, int]] = {"NOPASSEDCHARMEQUIP": 0}
     prep_vars = ()
 
     charm_count: int = 2
     notch_costs: Iterable[int] = (3, 6)
-    expecteds = [
+    expecteds: ClassVar[dict[str, int]] = [
         {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "noCHARM2": 1},
         {"NOPASSEDCHARMEQUIP": 0, "CHARM1": 1, "noCHARM2": 1, "USEDNOTCHES": 3, "MAXNOTCHCOST": 3},
         {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "CHARM2": 1, "OVERCHARMED": 1,  "USEDNOTCHES": 6, "MAXNOTCHCOST": 6},

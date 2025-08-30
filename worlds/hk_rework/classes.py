@@ -1,4 +1,4 @@
-from typing import NamedTuple
+from typing import ClassVar, NamedTuple
 
 from BaseClasses import (
     CollectionState,
@@ -51,8 +51,8 @@ class HKWeb(WebWorld):
         ["GreenMarco", "Panto UwUr"]
     )
 
-    tutorials = [setup_en, setup_pt_br, setup_es]
-    game_info_languages = ["en", "es"]
+    tutorials: ClassVar[list[Tutorial]] = [setup_en, setup_pt_br, setup_es]
+    game_info_languages: ClassVar[list[str]] = ["en", "es"]
 
     bug_report_page = (
         "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new"

@@ -8,8 +8,8 @@ from .bases import NoStepHK, StateVarSetup
 
 class Inputs(NamedTuple):
     key: str | None = None
-    resource: dict[str, int] = {}
-    cs: dict[str, int] = {}
+    resource: dict[str, int] = {}  # noqa: RUF012
+    cs: dict[str, int] = {}  # noqa: RUF012
     prep_vars: Iterable[str] = ()
     assert_empty: bool = False
     notches: int | None = None

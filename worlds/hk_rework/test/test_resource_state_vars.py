@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from typing import ClassVar, NamedTuple
+from typing import Any, ClassVar, NamedTuple
 
 from test.param import classvar_matrix
 
@@ -18,13 +18,13 @@ class ExcludeMixin:
 
 
 class TestExcludeByOptionAllOn(ExcludeMixin, NoStepHK, StateVarSetup):
-    options = {
+    options: ClassVar[dict[str, Any]] = {
         "ShadeSkips": True,
         "ShriekPogos": True,
         "Slopeballs": True,
         "DifficultSkips": True,
     }
-    skip_handler = {
+    skip_handler: ClassVar[dict[str, bool]] = {
         "$SHADESKIP": False,
         "$SHRIEKPOGO": False,
         "$SHRIEKPOGO[4]": False,
@@ -34,13 +34,13 @@ class TestExcludeByOptionAllOn(ExcludeMixin, NoStepHK, StateVarSetup):
 
 
 class TestExcludeByOptionNoDifficult(NoStepHK, StateVarSetup):
-    options = {
+    options: ClassVar[dict[str, Any]] = {
         "ShadeSkips": True,
         "ShriekPogos": True,
         "Slopeballs": True,
         "DifficultSkips": False,
     }
-    skip_handler = {
+    skip_handler: ClassVar[dict[str, bool]] = {
         "$SHADESKIP": False,
         "$SHRIEKPOGO": False,
         "$SHRIEKPOGO[4]": True,
@@ -50,13 +50,13 @@ class TestExcludeByOptionNoDifficult(NoStepHK, StateVarSetup):
 
 
 class TestExcludeByOptionAllOff(NoStepHK, StateVarSetup):
-    options = {
+    options: ClassVar[dict[str, Any]] = {
         "ShadeSkips": False,
         "ShriekPogos": False,
         "Slopeballs": False,
         "DifficultSkips": True,
     }
-    skip_handler = {
+    skip_handler: ClassVar[dict[str, bool]] = {
         "$SHADESKIP": True,
         "$SHRIEKPOGO": True,
         "$SHRIEKPOGO[4]": True,
@@ -67,8 +67,8 @@ class TestExcludeByOptionAllOff(NoStepHK, StateVarSetup):
 
 class Inputs(NamedTuple):
     key: str | None = None
-    resource: dict[str, int] = {}
-    cs: dict[str, int] = {}
+    resource: dict[str, int] = {}  # noqa: RUF012
+    cs: dict[str, int] = {}  # noqa: RUF012
     prep_vars: Iterable[str] = ()
     assert_empty: bool = False
     notches: int | None = None

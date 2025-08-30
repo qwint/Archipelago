@@ -1,6 +1,7 @@
 import random
-import typing
 from argparse import Namespace
+from collections.abc import Iterable
+from typing import Any, ClassVar
 
 from BaseClasses import CollectionState, MultiWorld
 from Generate import get_seed_name
@@ -46,7 +47,7 @@ class SelectSeedHK(HKTestBase):
 class NoStepHK(HKTestBase):
     run_default_tests = False
 
-    def world_setup(self, seed: typing.Optional[int] = None) -> None:
+    def world_setup(self, seed: int | None = None) -> None:
         self.multiworld = MultiWorld(1)
         self.multiworld.game[self.player] = self.game
         self.multiworld.player_name = {self.player: "Tester"}
@@ -71,7 +72,7 @@ class LinkedTestHK:
     game = "Hollow Knight"
     world: HKWorld
     expected_grubs: int
-    item_link_group: list[dict[str, typing.Any]]
+    item_link_group: list[dict[str, Any]]
 
     def setup_item_links(self, args):
         setattr(args, "item_links",
@@ -124,11 +125,11 @@ class LinkedTestHK:
 class StateVarSetup:
     key: str
     """relevant state variable key"""
-    resource: dict[str, int]
+    resource: ClassVar[dict[str, int]]
     """starting Resource State"""
-    cs: dict[str, int]
+    cs: ClassVar[dict[str, int]]
     """starting CollectionState"""
-    prep_vars: typing.Iterable[str]
+    prep_vars: Iterable[str]
     """other state variable keys to modify state before use"""
     notch_override: int | None = None
     """if set forces NOTCHES to be a specific value"""
