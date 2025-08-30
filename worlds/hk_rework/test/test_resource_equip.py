@@ -1,6 +1,7 @@
 from collections.abc import Iterable
+from dataclasses import dataclass
 from itertools import zip_longest
-from typing import ClassVar, NamedTuple
+from typing import ClassVar
 
 from test.param import classvar_matrix
 
@@ -11,7 +12,8 @@ from .bases import NoStepHK, StateVarSetup
 charm_item_names = list(charm_name_to_id.keys())
 
 
-class Inputs(NamedTuple):
+@dataclass
+class Inputs:
     notches: int
     notch_costs: Iterable[int]
     equip_results: Iterable[bool]

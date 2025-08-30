@@ -1,5 +1,6 @@
 from collections.abc import Iterable
-from typing import Any, ClassVar, NamedTuple
+from dataclasses import dataclass, field
+from typing import Any, ClassVar
 
 from test.param import classvar_matrix
 
@@ -65,10 +66,11 @@ class TestExcludeByOptionAllOff(NoStepHK, StateVarSetup):
     }
 
 
-class Inputs(NamedTuple):
+@dataclass
+class Inputs:
     key: str | None = None
-    resource: dict[str, int] = {}  # noqa: RUF012
-    cs: dict[str, int] = {}  # noqa: RUF012
+    resource: dict[str, int] = field(default_factory=dict)
+    cs: dict[str, int] = field(default_factory=dict)
     prep_vars: Iterable[str] = ()
     assert_empty: bool = False
     notches: int | None = None
