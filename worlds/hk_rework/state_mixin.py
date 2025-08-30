@@ -46,7 +46,7 @@ class HKLogicMixin(LogicMixin):
 
     _hk_processed_item_cache: dict[int, Counter]
 
-    hk_charm_costs: dict[int, dict[str, int]]
+    _hk_charm_costs: dict[int, dict[str, int]]
     """mapping for charm costs per player"""
 
     _hk_soul_modes: "dict[int, NearbySoul]"
@@ -67,9 +67,8 @@ class HKLogicMixin(LogicMixin):
         self._hk_stale = dict.fromkeys(players, True)
         self._hk_sweeping = dict.fromkeys(players, False)
         self._hk_processed_item_cache = {player: Counter() for player in players}
-        self.hk_charm_costs = HKWorld.charm_names_and_costs
-        from .resource_state_vars.cast_spell import NearbySoul
-        self._hk_soul_modes = {player: NearbySoul.ITEMSOUL for player in players}  # this will be a dict on the world like charm costs at sometime
+        self._hk_charm_costs = HKWorld.charm_names_and_costs
+        self._hk_soul_modes = HKWorld.soul_modes
         for player in players:
             self.prog_items[player]["MASKSHARDS"] = BASE_HEALTH*4
             self.prog_items[player]["NOTCHES"] = BASE_NOTCHES
@@ -91,7 +90,7 @@ class HKLogicMixin(LogicMixin):
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
         # intentionally setting by reference since it doesn't change after being set
-        other.hk_charm_costs = {player: self.hk_charm_costs[player] for player in players}
+        other._hk_charm_costs = {player: self._hk_charm_costs[player] for player in players}
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 

@@ -46,6 +46,7 @@ from .options import (
 from .rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
 from .resource_state_vars import RCStateVariable, ResourceStateHandler
+from .resource_state_vars.cast_spell import NearbySoul
 from .template_world import RandomizerCoreWorld
 
 logger = logging.getLogger("Hollow Knight")
@@ -287,6 +288,7 @@ class HKWorld(RandomizerCoreWorld, World):
     ranges: dict[str, tuple[int, int]]
     charm_costs: list[int]
     charm_names_and_costs: ClassVar[dict[int, dict[str, int]]] = {}  # per player cache
+    soul_modes: ClassVar[dict[int, NearbySoul]] = {}  # per player cache
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -856,6 +858,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         self.charm_names_and_costs[self.player] = {name: (charm_costs[index] if name != "Void_Heart" else 0)
                                                    for name, index in charm_name_to_id.items()}
+        self.soul_modes[self.player] = NearbySoul.ITEMSOUL  # make dynamic with ER support
 
         self.split_cloak_direction = self.random.randint(0, 1)
 

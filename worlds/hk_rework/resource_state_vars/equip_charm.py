@@ -113,7 +113,7 @@ class EquipCharmVariable(RCStateVariable):
         # return BASE_NOTCHES + collected_notches
 
     def get_notch_cost(self, item_state: CollectionState) -> int:
-        return item_state.hk_charm_costs[self.player][self.charm_name]
+        return item_state._hk_charm_costs[self.player][self.charm_name]
 
     def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
         notch_cost = self.get_notch_cost(item_state)
