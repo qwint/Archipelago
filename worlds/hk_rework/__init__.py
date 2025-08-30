@@ -78,7 +78,17 @@ class HKWeb(WebWorld):
         ["JoaoVictor-FA"]
     )
 
-    tutorials: ClassVar[list[Tutorial]] = [setup_en, setup_pt_br]
+    setup_es = Tutorial(
+        setup_en.tutorial_name,
+        setup_en.description,
+        "Español",
+        "setup_es.md",
+        "setup/es",
+        ["GreenMarco", "Panto UwUr"]
+    )
+
+    tutorials = [setup_en, setup_pt_br, setup_es]
+    game_info_languages = ["en", "es"]
 
     bug_report_page = (
         "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new"
