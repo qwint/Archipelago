@@ -10,6 +10,9 @@ class RegainSoulVariable(RCStateVariable):
     prefix: str = "$REGAINSOUL"
     amount: int
 
+    def __init__(self, *args, **kwargs):
+        raise NotImplementedError("Not Fully Implemented, use soul_manager instead if possible")
+
     def parse_term(self, amount: str) -> None:
         self.amount = int(amount)
 

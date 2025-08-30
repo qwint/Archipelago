@@ -49,8 +49,8 @@ class HealthManager(metaclass=ResourceStateHandler):
     max_damage = 99
     """Used to max out lazy hp to signal it is determined"""
     player: int
-    lifeblood_heart: EquipCharmVariable
-    lifeblood_core: EquipCharmVariable
+    lb_heart: EquipCharmVariable
+    lb_core: EquipCharmVariable
     jonis: EquipCharmVariable
     fragile_heart: FragileCharmVariable
     hiveblood: EquipCharmVariable
@@ -66,8 +66,8 @@ class HealthManager(metaclass=ResourceStateHandler):
         sub_terms = [
             term
             for sub_var in [
-                self.lifeblood_heart,
-                self.lifeblood_core,
+                self.lb_heart,
+                self.lb_core,
                 self.jonis,
                 self.fragile_heart,
                 self.hiveblood,

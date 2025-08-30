@@ -57,10 +57,9 @@ class RCStateVariable(metaclass=ResourceStateHandler):
         """Returns True if this class can handle the passed in term"""
         return False
 
-    @classmethod
-    def get_terms(cls):
-        """"""
-        return []
+    @property
+    def terms(self) -> list[str]:
+        raise NotImplementedError()
 
     def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
         valid, output_state = self._modify_state(state_blob, item_state)
@@ -68,7 +67,7 @@ class RCStateVariable(metaclass=ResourceStateHandler):
             yield output_state
 
     def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
-        pass
+        raise NotImplementedError()
 
     def can_exclude(self, options) -> bool:
         return True

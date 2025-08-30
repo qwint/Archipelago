@@ -9,6 +9,9 @@ class SpendSoulVariable(RCStateVariable):
     prefix = "$SPENDSOUL"
     amount: int
 
+    def __init__(self, *args, **kwargs):
+        raise NotImplementedError("Not Fully Implemented, use soul_manager instead if possible")
+
     def parse_term(self, amount):
         self.amount = int(amount)
 

@@ -193,14 +193,6 @@ class HKEntrance(Entrance):
 
     def hk_access_rule(self, state: CollectionState) -> bool:
         assert self.hk_rule != default_hk_rule, "should never have to be here"
-        # if self.hk_rule == default_hk_rule:
-        #     state._hk_entrance_clause_cache[self.player][self.name] = {0: True}
-        #     state._hk_apply_and_validate_state(
-        #         default_hk_rule[0],
-        #         self.parent_region,
-        #         target_region=self.connected_region
-        #     )
-        #     return True
         if self.name not in state._hk_entrance_clause_cache[self.player]:
             # if there's no cache for this entrance, make one with everything False
             cache = state._hk_entrance_clause_cache[self.player][self.name] = \
@@ -535,7 +527,7 @@ class HKWorld(RandomizerCoreWorld, World):
         if isinstance(spot, HKEntrance):
             relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
             relevant_terms.update(
-                {term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.get_terms()}
+                {term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.terms}
             )
             for term in relevant_terms:
                 # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh

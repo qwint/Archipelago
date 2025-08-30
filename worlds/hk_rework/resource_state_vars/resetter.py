@@ -50,6 +50,10 @@ class RCResetter:
     def can_exclude(self, options: HKOptions) -> bool:
         return False
 
+    @property
+    def terms(self) -> list[str]:
+        return []
+
 
 class BenchResetVariable(RCResetter, RCStateVariable):
     prefix: str = "$BENCHRESET"
