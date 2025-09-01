@@ -89,8 +89,6 @@ class HKLogicMixin(LogicMixin):
         }
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
-        # intentionally setting by reference since it doesn't change after being set
-        other._hk_charm_costs = {player: self._hk_charm_costs[player] for player in players}
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
 
