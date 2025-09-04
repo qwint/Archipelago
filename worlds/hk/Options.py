@@ -1,13 +1,25 @@
-import typing
 import re
+import typing
 from dataclasses import make_dataclass
 
-from .ExtractedData import logic_options, starts, pool_options
-from .Rules import cost_terms
-from schema import And, Schema, Optional
+from schema import And, Optional, Schema
 
-from Options import Option, DefaultOnToggle, Toggle, Choice, Range, OptionDict, NamedRange, DeathLink, PerGameCommonOptions
-from .Charms import vanilla_costs, names as charm_names
+from Options import (
+    Choice,
+    DeathLink,
+    DefaultOnToggle,
+    NamedRange,
+    Option,
+    OptionDict,
+    PerGameCommonOptions,
+    Range,
+    Toggle,
+)
+
+from .charms import charm_names, vanilla_costs
+from .data.option_data import logic_options, pool_options
+from .data.trando_data import starts
+from .rules import cost_terms
 
 if typing.TYPE_CHECKING:
     # avoid import during runtime
@@ -25,6 +37,8 @@ StartLocation = type("StartLocation", (Choice,), {
                "This is currently only locked to King's Pass.",
     **locations,
 })
+StartLocation.options["king's_pass"] = StartLocation.option_kings_pass
+# ugly override to add the old, bad-name an an alias
 del (locations)
 
 option_docstrings = {
@@ -67,8 +81,8 @@ option_docstrings = {
     "RandomizeGrimmkinFlames": "Randomize Grimmkin Flames into the item pool and open their locations for "
                                "randomization.",
     "RandomizeJournalEntries": "Randomize the Hunter's Journal as well as the findable journal entries into the item "
-                               "pool, and open their locations\n    for randomization. Does not include journal entries "
-                               "gained by killing enemies.",
+                               "pool, and open their locations\n    for randomization. Does not include journal "
+                               "entries  gained by killing enemies.",
     "RandomizeNail": "Removes the ability to swing the nail left, right and up, and shuffles these into the item pool.",
     "RandomizeGeoRocks": "Randomize Geo Rock rewards into the item pool and open their locations for randomization.",
     "RandomizeBossGeo": "Randomize boss Geo drops into the item pool and open those locations for randomization.",
@@ -87,6 +101,10 @@ option_docstrings = {
     "ShadeSkips": "Places shade skips into logic which utilize the player's shade for pogoing or damage boosting.",
     "InfectionSkips": "Places skips into logic which are only possible after the crossroads become infected.",
     "FireballSkips": "Places skips into logic which require the use of spells to reset fall speed while in mid-air.",
+    "Slopeballs": "Places skips into logic which require the use of Vengeful Spirit on a slope to pogo off the "
+                  "projectile and gain height.",
+    "ShriekPogos": "Places skips into logic which require the use of Abyssal Shriek and Monarch Wings to pogo off "
+                   "the projectile to reset your air actions and gain height.",
     "SpikeTunnels": "Places skips into logic which require the navigation of narrow tunnels filled with spikes.",
     "AcidSkips": "Places skips into logic which require crossing a pool of acid without Isma's Tear, or water if swim "
                  "is disabled.",
@@ -111,7 +129,7 @@ default_on = {
     "RandomizeRancidEggs",
     "RandomizeRelics",
     "RandomizeStags",
-    "RandomizeLifebloodCocoons"
+    "RandomizeLifebloodCocoons",
 }
 
 shop_to_option = {
@@ -126,17 +144,13 @@ shop_to_option = {
     "Egg_Shop": "EggShopSlots",
 }
 
-hollow_knight_randomize_options: typing.Dict[str, type(Option)] = {}
+hollow_knight_randomize_options: dict[str, type(Option)] = {}
 
-splitter_pattern = re.compile(r'(?<!^)(?=[A-Z])')
+splitter_pattern = re.compile(r"(?<!^)(?=[A-Z])")
 for option_name, option_data in pool_options.items():
-    extra_data = {"__module__": __name__, "items": option_data[0], "locations": option_data[1]}
+    extra_data = {"__module__": __name__}
     if option_name in option_docstrings:
-        if option_name == "RandomizeFocus":
-            # pool options for focus are just lying
-            count = 1
-        else:
-            count = len([loc for loc in option_data[1] if loc != "Start"])
+        count = len(option_data["randomized"]["locations"])
         extra_data["__doc__"] = option_docstrings[option_name] + \
             f"\n    This option adds approximately {count} location{'s' if count != 1 else ''}."
     if option_name in default_on:
@@ -147,7 +161,7 @@ for option_name, option_data in pool_options.items():
     globals()[option.__name__] = option
     hollow_knight_randomize_options[option.__name__] = option
 
-hollow_knight_logic_options: typing.Dict[str, type(Option)] = {}
+hollow_knight_logic_options: dict[str, type(Option)] = {}
 for option_name in logic_options.values():
     if option_name in hollow_knight_randomize_options:
         continue
@@ -278,29 +292,28 @@ class RandomCharmCosts(NamedRange):
     range_start = 0
     range_end = 240
     default = -1
-    vanilla_costs: typing.List[int] = vanilla_costs
+    vanilla_costs: list[int] = vanilla_costs
     charm_count: int = len(vanilla_costs)
-    special_range_names = {
+    special_range_names: typing.ClassVar[dict[str, int]] = {
         "vanilla": -1,
         "shuffle": -2
     }
 
-    def get_costs(self, random_source: Random) -> typing.List[int]:
-        charms: typing.List[int]
+    def get_costs(self, random_source: Random) -> list[int]:
+        charms: list[int]
         if -1 == self.value:
             return self.vanilla_costs.copy()
-        elif -2 == self.value:
+        if -2 == self.value:
             charms = self.vanilla_costs.copy()
             random_source.shuffle(charms)
             return charms
-        else:
-            charms = [0] * self.charm_count
-            for x in range(self.value):
+        charms = [0] * self.charm_count
+        for x in range(self.value):
+            index = random_source.randint(0, self.charm_count - 1)
+            while charms[index] > 5:
                 index = random_source.randint(0, self.charm_count - 1)
-                while charms[index] > 5:
-                    index = random_source.randint(0, self.charm_count - 1)
-                charms[index] += 1
-            return charms
+            charms[index] += 1
+        return charms
 
 
 class CharmCost(Range):
@@ -313,7 +326,8 @@ class PlandoCharmCosts(OptionDict):
     display_name = "Charm Notch Cost Plando"
     valid_keys = frozenset(charm_names)
     schema = Schema({
-        Optional(name): And(int, lambda n: 6 >= n >= 0, error="Charm costs must be integers in the range 0-6.") for name in charm_names
+        Optional(name): And(int, lambda n: 6 >= n >= 0, error="Charm costs must be integers in the range 0-6.")
+        for name in charm_names
         })
 
     def __init__(self, value):
@@ -326,7 +340,7 @@ class PlandoCharmCosts(OptionDict):
                 if data.lower() == "vanilla" and key in self.valid_keys:
                     self.value[key] = vanilla_costs[charm_names.index(key)]
                     continue
-                elif data.lower() == "default":
+                if data.lower() == "default":
                     # default is too easily confused with vanilla but actually 0
                     # skip CharmCost resolution to fail schema afterwords
                     self.value[key] = data
@@ -337,7 +351,7 @@ class PlandoCharmCosts(OptionDict):
                 # will fail schema afterwords
                 self.value[key] = data
 
-    def get_costs(self, charm_costs: typing.List[int]) -> typing.List[int]:
+    def get_costs(self, charm_costs: list[int]) -> list[int]:
         for name, cost in self.value.items():
             charm_costs[charm_names.index(name)] = cost
         return charm_costs
@@ -450,7 +464,7 @@ class GrubHuntGoal(NamedRange):
     display_name = "Grub Hunt Goal"
     range_start = 1
     range_end = 46
-    special_range_names = {"all": -1, "forty_six": 46}
+    special_range_names: typing.ClassVar[dict[str, int]] = {"all": -1, "forty_six": 46}
     default = 46
 
 
@@ -544,7 +558,7 @@ class CostSanityHybridChance(Range):
     display_name = "Costsanity Hybrid Chance"
 
 
-cost_sanity_weights: typing.Dict[str, type(Option)] = {}
+cost_sanity_weights: dict[str, type(Option)] = {}
 for term, cost in cost_terms.items():
     option_name = f"CostSanity{cost.option}Weight"
     display_name = f"Costsanity {cost.option} Weight"
@@ -556,7 +570,7 @@ for term, cost in cost_terms.items():
         ),
         "default": cost.weight
     }
-    if cost == 'GEO':
+    if cost == "GEO":
         extra_data["__doc__"] += " Geo costs will never be chosen for Grubfather, Seer, or Egg Shop."
 
     option = type(option_name, (Range,), extra_data)
@@ -564,7 +578,7 @@ for term, cost in cost_terms.items():
     globals()[option.__name__] = option
     cost_sanity_weights[option.__name__] = option
 
-hollow_knight_options: typing.Dict[str, type(Option)] = {
+hollow_knight_options: dict[str, type(Option)] = {
     **hollow_knight_randomize_options,
     RandomizeElevatorPass.__name__: RandomizeElevatorPass,
     **hollow_knight_logic_options,
@@ -590,4 +604,5 @@ hollow_knight_options: typing.Dict[str, type(Option)] = {
     **cost_sanity_weights
 }
 
-HKOptions = make_dataclass("HKOptions", [(name, option) for name, option in hollow_knight_options.items()], bases=(PerGameCommonOptions,))
+# https://github.com/python/mypy/issues/6063 unfortunatly mypy hates this
+HKOptions = make_dataclass("HKOptions", list(hollow_knight_options.items()), bases=(PerGameCommonOptions,))
