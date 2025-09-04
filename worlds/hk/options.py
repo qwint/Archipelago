@@ -236,7 +236,7 @@ class MinimumEggPrice(Range):
     rich_text_doc = False
     display_name = "Minimum Egg Price"
     range_start = 1
-    range_end = 20
+    range_end = 21
     default = 1
 
 
