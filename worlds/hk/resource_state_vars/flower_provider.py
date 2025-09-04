@@ -1,9 +1,5 @@
-from collections import Counter
-
-from BaseClasses import CollectionState
-
 from ..options import HKOptions
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 
 
 class FlowerProviderVariable(RCStateVariable):
@@ -13,7 +9,7 @@ class FlowerProviderVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         state_blob["NOFLOWER"] = False
         return True, state_blob
 

@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 from collections import Counter, defaultdict
 from collections.abc import Generator
 from typing import ClassVar
 
 from BaseClasses import CollectionState
 
-RCStateVariable = object  # for future typing
+# For ease of typing in submodules
+cs = CollectionState
+rs = Counter
 
 
 class ResourceStateHandler(type):
@@ -47,7 +51,7 @@ class RCStateVariable(metaclass=ResourceStateHandler):
         else:
             self.parse_term()
 
-    def parse_term(self, *args):
+    def parse_term(self, *args) -> None:
         """Subclasses should use this to expect parameter counts for init"""
         pass
 
@@ -60,12 +64,12 @@ class RCStateVariable(metaclass=ResourceStateHandler):
     def terms(self) -> list[str]:
         raise NotImplementedError()
 
-    def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         valid, output_state = self._modify_state(state_blob, item_state)
         if valid:
             yield output_state
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         raise NotImplementedError()
 
     def can_exclude(self, options) -> bool:

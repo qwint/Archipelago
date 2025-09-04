@@ -1,13 +1,13 @@
+from __future__ import annotations
+
 from collections import Counter
-from collections.abc import Iterable
+from collections.abc import Generator, Iterable
 from enum import IntEnum
 from typing import ClassVar
 
-from BaseClasses import CollectionState
-
 from ..charms import charm_name_to_id, charm_names
 from ..options import HKOptions
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 
 
 class EquipResult(IntEnum):
@@ -69,14 +69,14 @@ class EquipCharmVariable(RCStateVariable):
     def terms(self) -> list[str]:
         return [self.charm_name, "NOTCHES"]
 
-    def has_item(self, item_state: CollectionState) -> bool:
+    def has_item(self, item_state: cs) -> bool:
         return item_state.has(self.charm_name, self.player)
         # return bool(item_state._hk_processed_item_cache[self.player][self.charm_name])
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         return self.try_equip(state_blob, item_state), state_blob
 
-    def _try_equip(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+    def _try_equip(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         if self.is_equipped(state_blob):
             return True, state_blob
         if self.can_equip(state_blob, item_state) != EquipResult.NONE:
@@ -85,7 +85,7 @@ class EquipCharmVariable(RCStateVariable):
             return True, ret
         return False, state_blob
 
-    def try_equip(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def try_equip(self, state_blob: rs, item_state: cs) -> bool:
         if self.is_equipped(state_blob):
             return True
         if self.can_equip(state_blob, item_state) != EquipResult.NONE:
@@ -101,18 +101,18 @@ class EquipCharmVariable(RCStateVariable):
     def term(self) -> str:
         return f"{self.equip_prefix}{self.charm_id}"
 
-    def has_state_requirements(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def has_state_requirements(self, state_blob: rs, item_state: cs) -> bool:
         if state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]:
             return False
         return True
 
-    def get_total_notches(self, item_state: CollectionState) -> int:
+    def get_total_notches(self, item_state: cs) -> int:
         return item_state.count("NOTCHES", self.player)
 
-    def get_notch_cost(self, item_state: CollectionState) -> int:
+    def get_notch_cost(self, item_state: cs) -> int:
         return item_state._hk_charm_costs[self.player][self.charm_name]
 
-    def has_notch_requirments(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
+    def has_notch_requirments(self, state_blob: rs, item_state: cs) -> EquipResult:
         notch_cost = self.get_notch_cost(item_state)
         if notch_cost <= 0 or self.is_equipped(state_blob):
             return EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else EquipResult.NONOVERCHARM
@@ -126,20 +126,20 @@ class EquipCharmVariable(RCStateVariable):
             return EquipResult.OVERCHARM
         return EquipResult.NONE  # TODO doublecheck
 
-    def can_equip_non_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def can_equip_non_overcharm(self, state_blob: rs, item_state: cs) -> bool:
         return (self.has_item(item_state) and self.has_state_requirements(state_blob, item_state)
                 and self.has_notch_requirments(state_blob, item_state) == EquipResult.NONOVERCHARM)
 
-    def can_equip_overcharm(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def can_equip_overcharm(self, state_blob: rs, item_state: cs) -> bool:
         return (self.has_item(item_state) and self.has_state_requirements(state_blob, item_state)
                 and self.has_notch_requirments(state_blob, item_state) != EquipResult.NONE)
 
-    def can_equip(self, state_blob: Counter, item_state: CollectionState) -> EquipResult:
+    def can_equip(self, state_blob: rs, item_state: cs) -> EquipResult:
         if not self.has_charm_progression(item_state) or not self.has_state_requirements(state_blob, item_state):
             return EquipResult.NONE
         return self.has_notch_requirments(state_blob, item_state)
 
-    def do_equip_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
+    def do_equip_charm(self, state_blob: rs, item_state: cs) -> None:
         notch_cost = self.get_notch_cost(item_state)
         state_blob["USEDNOTCHES"] += notch_cost
         # one of these 2 should probably go at some point
@@ -149,13 +149,13 @@ class EquipCharmVariable(RCStateVariable):
         if state_blob["USEDNOTCHES"] > item_state.count("NOTCHES", self.player):
             state_blob["OVERCHARMED"] = True
 
-    def is_equipped(self, state_blob: Counter) -> bool:
+    def is_equipped(self, state_blob: rs) -> bool:
         return bool(state_blob[self.term])
 
-    def set_unequippable(self, state_blob: Counter) -> None:
+    def set_unequippable(self, state_blob: rs) -> None:
         state_blob[self.anti_term] = True
 
-    def get_avaliable_notches(self, state_blob: Counter, item_state: CollectionState) -> int:
+    def get_avaliable_notches(self, state_blob: rs, item_state: cs) -> int:
         return item_state.count("NOTCHES", self.player) - state_blob["USEDNOTCHES"]
 
     def can_exclude(self, options: HKOptions) -> bool:
@@ -164,14 +164,18 @@ class EquipCharmVariable(RCStateVariable):
     def add_simple_item_reqs(self, items: Counter) -> None:
         items[self.charm_key] = 1
 
-    def is_determined(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def is_determined(self, state_blob: rs, item_state: cs) -> bool:
         return state_blob[self.term] or state_blob[self.anti_term]
 
-    def has_charm_progression(self, item_state: CollectionState) -> bool:
+    def has_charm_progression(self, item_state: cs) -> bool:
         return self.has_item(item_state)
 
     @staticmethod
-    def generate_charm_combinations(state_blob, item_state, charm_list: "Iterable[EquipCharmVariable]"):
+    def generate_charm_combinations(
+            state_blob: rs,
+            item_state: cs,
+            charm_list: Iterable[EquipCharmVariable],
+    ) -> Generator[rs]:
         charms = []
         base_state = state_blob.copy()
         for c in charm_list:
@@ -226,7 +230,7 @@ class FragileCharmVariable(EquipCharmVariable):
     def terms(self) -> list[str]:
         return [*super().terms, "Can_Repair_Fragile_Charms"]
 
-    def break_charm(self, state_blob: Counter, item_state: CollectionState) -> None:
+    def break_charm(self, state_blob: rs, item_state: cs) -> None:
         if item_state.has(self.charm_key, self.player, 2):
             return
         if state_blob[self.term]:
@@ -237,7 +241,7 @@ class FragileCharmVariable(EquipCharmVariable):
             state_blob[self.anti_term] = 1
             state_blob[self.break_term] = 1
 
-    def has_state_requirements(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def has_state_requirements(self, state_blob: rs, item_state: cs) -> bool:
         return (super().has_state_requirements(state_blob, item_state)
                 and ((self.has_unbreakable_item(item_state))
                      or (not state_blob[self.break_term] and item_state.has("Can_Repair_Fragile_Charms", self.player))))
@@ -251,7 +255,7 @@ class FragileCharmVariable(EquipCharmVariable):
         # else
         return False
 
-    def has_unbreakable_item(self, item_state: CollectionState) -> bool:
+    def has_unbreakable_item(self, item_state: cs) -> bool:
         return item_state.has_from_list(self.fragile_lookup[self.charm_id], self.player, 2)
 
     def add_simple_item_reqs(self, items: Counter) -> None:
@@ -282,7 +286,7 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
         # else
         return False
 
-    def has_item(self, item_state: CollectionState) -> bool:
+    def has_item(self, item_state: cs) -> bool:
         if self.void:
             count = 3
         else:

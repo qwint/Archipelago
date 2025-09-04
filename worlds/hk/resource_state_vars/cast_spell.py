@@ -3,10 +3,8 @@ from collections.abc import Generator
 from enum import IntEnum
 from itertools import chain
 
-from BaseClasses import CollectionState
-
 from ..options import HKOptions
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 from .equip_charm import EquipCharmVariable
 from .soul_manager import SoulManager
 
@@ -65,7 +63,7 @@ class CastSpellVariable(RCStateVariable):
     def terms(self) -> list[str]:
         return [*self.equip_st.terms, *self.sp_manager.terms]
 
-    def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if self.nearby_soul_to_bool(item_state, self.before_soul):
             self.sp_manager.try_restore_all_soul(state_blob, item_state, True)
         if not self.equip_st.is_determined(state_blob, item_state):
@@ -91,16 +89,16 @@ class CastSpellVariable(RCStateVariable):
                 if self.try_cast(ret, item_state, 33):
                     yield ret
 
-    def nearby_soul_to_bool(self, item_state, soul: NearbySoul):
+    def nearby_soul_to_bool(self, item_state: cs, soul: NearbySoul) -> bool:
         if soul > NearbySoul.NONE and soul <= NearbySoul.ROOMSOUL:
             mode = self.get_mode(item_state)
             return mode > NearbySoul.NONE and mode <= soul
         return False
 
-    def get_mode(self, item_state):
+    def get_mode(self, item_state: cs) -> NearbySoul:
         return item_state._hk_soul_modes[self.player]
 
-    def try_cast(self, state_blob, item_state, amount_per_cast) -> bool:
+    def try_cast(self, state_blob: rs, item_state: cs, amount_per_cast) -> bool:
         if not self.sp_manager.try_spend_soul_sequence(state_blob, item_state, amount_per_cast, self.casts):
             return False
         if self.nearby_soul_to_bool(item_state, self.after_soul):
@@ -116,10 +114,10 @@ class ShriekPogoVariable(CastSpellVariable):
     right_stall: bool
 
     @classmethod
-    def try_match(cls, term: str):
+    def try_match(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
-    def parse_term(self, *args):
+    def parse_term(self, *args) -> None:
         self.left_stall = "NOLEFTSTALL" not in args
         self.right_stall = "NORIGHTSTALL" not in args
         if "NOSTALL" in args:
@@ -145,7 +143,7 @@ class ShriekPogoVariable(CastSpellVariable):
             self_terms += self.stall_cast.terms
         return super().terms + self_terms
 
-    def modify_state(self, state_blob, item_state):
+    def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if not item_state.has_all_counts({"SCREAM": 2, "WINGS": 1}, self.player):
             return
         elif self.stall_cast and ((self.left_stall and item_state.has("LEFTDASH", self.player))
@@ -154,7 +152,7 @@ class ShriekPogoVariable(CastSpellVariable):
         else:
             yield from super().modify_state(state_blob, item_state)
 
-    def can_exclude(self, options):
+    def can_exclude(self, options) -> bool:
         if not bool(options.ShriekPogos):
             return True
         if bool(options.DifficultSkips):
@@ -174,20 +172,20 @@ class SlopeballVariable(CastSpellVariable):
     prefix = "$SLOPEBALL"
 
     @classmethod
-    def try_match(cls, term: str):
+    def try_match(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     @property
     def terms(self) -> list[str]:
         return [*super().terms, "FIREBALL"]
 
-    def modify_state(self, state_blob, item_state):
+    def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if not item_state.has("FIREBALL", self.player):
             return
         # else
         yield from super().modify_state(state_blob, item_state)
 
-    def can_exclude(self, options):
+    def can_exclude(self, options) -> bool:
         return not bool(options.Slopeballs)
 
     def add_simple_item_reqs(self, items: Counter) -> None:

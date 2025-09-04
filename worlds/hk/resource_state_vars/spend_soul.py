@@ -1,8 +1,4 @@
-from collections import Counter
-
-from BaseClasses import CollectionState
-
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 
 
 class SpendSoulVariable(RCStateVariable):
@@ -12,18 +8,18 @@ class SpendSoulVariable(RCStateVariable):
     def __init__(self, *args, **kwargs):
         raise NotImplementedError("Not Fully Implemented, use soul_manager instead if possible")
 
-    def parse_term(self, amount):
+    def parse_term(self, amount) -> None:
         self.amount = int(amount)
 
     @classmethod
-    def try_match(cls, term: str):
+    def try_match(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     # @classmethod
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState):
+    def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         if state_blob["SPENTALLSOUL"]:
             return False, state_blob
 
@@ -45,11 +41,11 @@ class SpendSoulVariable(RCStateVariable):
 
         return True, state_blob
 
-    def get_soul(self, state_blob):
+    def get_soul(self, state_blob: rs) -> int:
         return 99 - state_blob["SOULLIMITER"] - state_blob["SPENTSOUL"]
 
-    def get_reserve_soul(self, state_blob: Counter, item_state: CollectionState):
+    def get_reserve_soul(self, state_blob: rs, item_state: cs) -> int:
         return ((item_state.count("VESSELFRAGMENTS", self.player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
 
-    def can_exclude(self, options):
+    def can_exclude(self, options) -> bool:
         return False

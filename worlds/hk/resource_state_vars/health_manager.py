@@ -2,9 +2,7 @@ from collections import Counter
 from collections.abc import Generator, Iterable
 from typing import NamedTuple
 
-from BaseClasses import CollectionState
-
-from . import ResourceStateHandler
+from . import ResourceStateHandler, cs, rs
 from .equip_charm import EquipCharmVariable, FragileCharmVariable
 from .soul_manager import SoulManager
 
@@ -87,18 +85,18 @@ class HealthManager(metaclass=ResourceStateHandler):
         self.ssm = SoulManager("$SSM", self.player)
 
     @property
-    def determine_hp_charms(self):
+    def determine_hp_charms(self) -> Iterable[EquipCharmVariable]:
         return self.hiveblood, self.lb_heart, self.lb_core, self.fragile_heart, self.jonis
 
     @property
-    def focus_charms(self):
+    def focus_charms(self) -> Iterable[EquipCharmVariable]:
         return self.deep_focus, self.jonis
 
     @property
-    def before_death_charms(self):
+    def before_death_charms(self) -> Iterable[EquipCharmVariable]:
         return self.hiveblood, self.lb_heart, self.lb_core, self.fragile_heart, self.jonis, self.deep_focus
 
-    def give_blue_health(self, state_blob: Counter, item_state: CollectionState, amount: int) -> Generator[Counter]:
+    def give_blue_health(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
             rets = self.determine_hp(state_blob, item_state)
             for ret in rets:
@@ -108,7 +106,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             ret["SPENTBLUEHP"] -= amount
             yield ret
 
-    def give_health(self, state_blob: Counter, item_state: CollectionState, amount: int) -> Generator[Counter]:
+    def give_health(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
             if state_blob["LAZYSPENTHP"] > 0:
                 rets = self.determine_hp(state_blob, item_state)
@@ -121,7 +119,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             ret["SPENTHP"] = max(0, ret["SPENTHP"] - amount)
             yield ret
 
-    def restore_white_health(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def restore_white_health(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
             if state_blob["LAZYSPENTHP"] == 0:
                 yield state_blob
@@ -134,7 +132,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             ret["SPENTHP"] = 0
             yield ret
 
-    def restore_all_health(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def restore_all_health(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
             ret = state_blob.copy()
             ret["LAZYSPENTHP"] = 0
@@ -145,7 +143,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             ret["SPENTBLUEHP"] = 0
             yield ret
 
-    def try_focus(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def try_focus(self, state_blob: rs, item_state: cs) -> bool:
         if not item_state.has("FOCUS", self.player) or not self.is_hp_determined(state_blob):
             return False
         for charm in self.focus_charms:
@@ -159,7 +157,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             state_blob["SPENTHP"] = max(0, state_blob["SPENTHP"] - heal_amount)
         return True
 
-    def do_focus(self, state_blob: Counter, item_state: CollectionState, amount: int) -> Generator[Counter]:
+    def do_focus(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
         if not item_state.has("FOCUS", self.player):
             return
         if not self.is_hp_determined(state_blob):
@@ -180,17 +178,17 @@ class HealthManager(metaclass=ResourceStateHandler):
         ret["SPENTHP"] = max(0, spent_hp - amount * heal_amount)
         yield ret
 
-    def get_heal_amount(self, state_blob: Counter, item_state: CollectionState) -> int:
+    def get_heal_amount(self, state_blob: rs, item_state: cs) -> int:
         if self.jonis.is_equipped(state_blob):
             return 0
         if self.deep_focus.is_equipped(state_blob):
             return 2
         return 1
 
-    def is_hp_determined(self, state_blob: Counter) -> Generator[Counter]:
+    def is_hp_determined(self, state_blob: rs) -> Generator[rs]:
         return state_blob["LAZYSPENTHP"] == self.max_damage
 
-    def determine_hp(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def determine_hp(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if self.is_hp_determined(state_blob):
             yield state_blob
             return
@@ -207,7 +205,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             rets = [r for s in rets for r in self.take_damage(s, item_state, 1)]
         yield from rets
 
-    def decide_overcharm(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def decide_overcharm(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if state_blob["CANNOTOVERCHARM"] or state_blob["OVERCHARMED"]:
             yield state_blob
         else:
@@ -218,7 +216,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             noc["CANNOTOVERCHARM"] = 1
             yield noc
 
-    def get_hp_info(self, state_blob: Counter, item_state: CollectionState) -> HPInfo:
+    def get_hp_info(self, state_blob: rs, item_state: cs) -> HPInfo:
         if not self.is_hp_determined(state_blob):
             raise Exception("get_hp_info called on state with indeterminate hp.")
         max_hp = item_state.count("MASKSHARDS", self.player) // 4
@@ -234,7 +232,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             blue_hp += 4
         return HPInfo(hp, blue_hp, max_hp)
 
-    def do_hit(self, state_blob, item_state, hit: HitInfo) -> Counter:
+    def do_hit(self, state_blob: rs, item_state: cs, hit: HitInfo) -> Counter:
         if not hit.survives:
             raise Exception("do_hit on lethal damage")
         ret = state_blob.copy()
@@ -248,7 +246,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         ret["NOFLOWER"] = 1
         return ret
 
-    def take_damage(self, state_blob: Counter, item_state: CollectionState, amount: int) -> Generator[Counter]:
+    def take_damage(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
             if amount > 1 or not self.can_take_next_lazy_hit(state_blob, item_state):
                 for r in self.determine_hp(state_blob, item_state):
@@ -261,7 +259,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         else:
             yield from self.take_damage_strict(state_blob, item_state, amount, True)
 
-    def take_damage_sequence(self, state_blob, item_state, amounts: Iterable[int]) -> Generator[Counter]:
+    def take_damage_sequence(self, state_blob: rs, item_state: cs, amounts: Iterable[int]) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
             for r in self.determine_hp(state_blob, item_state):
                 yield self.take_damage_sequence(r, item_state, amounts)
@@ -274,13 +272,13 @@ class HealthManager(metaclass=ResourceStateHandler):
         for r in rets:
             yield r
 
-    def can_take_next_lazy_hit(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def can_take_next_lazy_hit(self, state_blob: rs, item_state: cs) -> bool:
         hits_taken = state_blob["LAZYSPENTHP"]
         max_hp = item_state.count("MASKSHARDS", self.player) // 4
         total_hits = (max_hp - 1) // 2
         return total_hits - hits_taken > 0
 
-    def take_damage_strict(self, state_blob, item_state, amount: int, wait_after_hit: bool) -> Generator[Counter]:
+    def take_damage_strict(self, state_blob: rs, item_state: cs, amount: int, wait_after_hit: bool) -> Generator[rs]:
         adj_amount = 2 * amount if state_blob["OVERCHARMED"] else amount
 
         info = self.get_hp_info(state_blob, item_state)
@@ -294,7 +292,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         for r in rets:
             yield from self.take_damage_desperate(state_blob, item_state, amount, True)
 
-    def take_damage_desperate(self, state_blob, item_state, amount: int, wait_after_hit: bool) -> Generator[Counter]:
+    def take_damage_desperate(self, state_blob: rs, item_state: cs, amount: int, wait_after_hit: bool) -> Generator[rs]:
         adj_amount = 2 * amount if state_blob["OVERCHARMED"] else amount
         info = self.get_hp_info(state_blob, item_state)
 

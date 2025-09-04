@@ -1,8 +1,6 @@
-from collections import Counter
+from collections.abc import Generator
 
-from BaseClasses import CollectionState
-
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 from .health_manager import HealthManager
 
 
@@ -11,22 +9,22 @@ class TakeDamageVariable(RCStateVariable):
     damage: int
     hp_manager: HealthManager
 
-    def parse_term(self, damage=1):
+    def parse_term(self, damage=1) -> None:
         self.damage = int(damage)
         self.hp_manager = HealthManager(HealthManager.prefix, self.player)
         pass
 
     @classmethod
-    def try_match(cls, term: str):
+    def try_match(cls, term: str) -> bool:
         return term.startswith(cls.prefix)
 
     @property
     def terms(self) -> list[str]:
         return self.hp_manager.terms
 
-    def modify_state(self, state_blob: Counter, item_state: CollectionState):
+    def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         yield from self.hp_manager.take_damage(state_blob, item_state, self.damage)
 
-    def can_exclude(self, options):
+    def can_exclude(self, options) -> bool:
         # can not actually be excluded because the damage skip option is checked in logic seperately
         return False

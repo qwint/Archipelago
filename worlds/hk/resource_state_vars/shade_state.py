@@ -1,10 +1,7 @@
-from collections import Counter
 from collections.abc import Generator
 
-from BaseClasses import CollectionState
-
 from ..options import HKOptions
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 from .equip_charm import EquipCharmVariable, EquipResult, FragileCharmVariable
 from .soul_manager import SoulManager
 
@@ -44,12 +41,12 @@ class ShadeStateVariable(RCStateVariable):
             return ["MASKSHARDS"]
         return []
 
-    def modify_state(self, state_blob: Counter, item_state: CollectionState) -> Generator[Counter]:
+    def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         ret = state_blob.copy()
         if self.do_shade_skip(ret, item_state):
             yield ret
 
-    def do_shade_skip(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def do_shade_skip(self, state_blob: rs, item_state: cs) -> bool:
         if self.voidheart.is_equipped(state_blob):
             return False
         if state_blob["CANNOTSHADESKIP"] or state_blob["USEDSHADE"]:
@@ -70,7 +67,7 @@ class ShadeStateVariable(RCStateVariable):
             # just not worth it
         return True
 
-    def check_health_requirement(self, state_blob: Counter, item_state: CollectionState) -> bool:
+    def check_health_requirement(self, state_blob: rs, item_state: cs) -> bool:
         if self.health == 1:
             return True
 

@@ -1,9 +1,5 @@
-from collections import Counter
-
-from BaseClasses import CollectionState
-
 from ..options import HKOptions
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 
 
 class RegainSoulVariable(RCStateVariable):
@@ -24,7 +20,7 @@ class RegainSoulVariable(RCStateVariable):
     # def get_terms(cls):
     #     return (term for term in ("VessleFragments",))
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         if state_blob["CANNOTREGAINSOUL"]:
             return False, state_blob
         if state_blob["SPENTALLSOUL"]:
@@ -45,10 +41,10 @@ class RegainSoulVariable(RCStateVariable):
                 state_blob["SPENTRESERVESOUL"] = 0
         return True, state_blob
 
-    def get_max_reserve_soul(self, item_state: CollectionState) -> int:
+    def get_max_reserve_soul(self, item_state: cs) -> int:
         return (item_state.count("VesselFragment", self.player) // 3) * 33
 
-    def get_max_soul(self, state_blob: Counter) -> int:
+    def get_max_soul(self, state_blob: rs) -> int:
         return 99 - state_blob["SOULLIMITER"]
 
     def can_exclude(self, options: HKOptions) -> bool:

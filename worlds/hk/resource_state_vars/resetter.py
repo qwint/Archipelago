@@ -1,11 +1,8 @@
-from collections import Counter
 from typing import Any, ClassVar
-
-from BaseClasses import CollectionState
 
 from ..options import HKOptions
 from ..state_mixin import default_state
-from . import RCStateVariable
+from . import RCStateVariable, cs, rs
 
 
 class RCResetter:
@@ -20,10 +17,10 @@ class RCResetter:
     use NONE for terms that will never be reset even with opt_in False
     """
 
-    def parse_term(self):
+    def parse_term(self) -> None:
         pass
 
-    def _modify_state(self, state_blob: Counter, item_state: CollectionState) -> tuple[bool, Counter]:
+    def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         # TODO: confirm this is always correct, and deletion isn't too big an assumption
         if self.opt_in:
             for key, value in self.reset_properties.items():
