@@ -2,13 +2,68 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from collections.abc import Generator
+from copy import copy
+# from dataclasses import dataclass
 from typing import ClassVar
 
 from BaseClasses import CollectionState
 
+from ..data.constants.state_field_names import StateFieldNames
+
+
+bit_per_key = {name: 1 << i for i, name in enumerate(StateFieldNames)}
+
+
+# @dataclass
+class ResourceState:
+    field: int = bit_per_key[StateFieldNames.NOPASSEDCHARMEQUIP] | bit_per_key[StateFieldNames.NOFLOWER]
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            if value is bool:
+                self.set_bool(key, value)
+            else:
+                self.set_int(key, value)
+
+    def set_int(self, key: str, value: int):
+        assert hasattr(self, key)
+        setattr(self, key, value)
+        self.set_bool(key, value)
+
+    def set_bool(self, key: str, value: bool):
+        if value:
+            # set the bit with an OR
+            self.field |= bit_per_key[key]
+        else:
+            # null the bit with an inverse AND
+            self.field &= (~bit_per_key[key])
+
+    def get_int(self, key: str) -> int:
+        return getattr(self, key, 0)
+
+    def get_bool(self, key) -> bool:
+        return bool(self.field & bit_per_key[key])
+
+    def copy(self):
+        return copy(self)
+
+
+# default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
+class DefaultStateFactory:
+    def __call__(self, defaults=None) -> Counter:
+        if defaults is None:
+            defaults = {}
+        ret = ResourceState(**defaults)
+        # for key, value in defaults.items():
+        #     ret[key] = value
+        return ret
+
+
+default_state = DefaultStateFactory()
+
 # For ease of typing in submodules
 cs = CollectionState
-rs = Counter
+rs = ResourceState
 
 
 class ResourceStateHandler(type):

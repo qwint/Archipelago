@@ -102,7 +102,7 @@ class EquipCharmVariable(RCStateVariable):
         return f"{self.equip_prefix}{self.charm_id}"
 
     def has_state_requirements(self, state_blob: rs, item_state: cs) -> bool:
-        if state_blob["NOPASSEDCHARMEQUIP"] or state_blob[self.anti_term]:
+        if state_blob.get_bool("NOPASSEDCHARMEQUIP") or state_blob.get_bool(self.anti_term):
             return False
         return True
 
@@ -115,14 +115,14 @@ class EquipCharmVariable(RCStateVariable):
     def has_notch_requirments(self, state_blob: rs, item_state: cs) -> EquipResult:
         notch_cost = self.get_notch_cost(item_state)
         if notch_cost <= 0 or self.is_equipped(state_blob):
-            return EquipResult.OVERCHARM if state_blob["OVERCHARMED"] else EquipResult.NONOVERCHARM
+            return EquipResult.OVERCHARM if state_blob.get_bool("OVERCHARMED") else EquipResult.NONOVERCHARM
         # can be equipped
-        net_notches = self.get_total_notches(item_state) - state_blob["USEDNOTCHES"] - notch_cost
+        net_notches = self.get_total_notches(item_state) - state_blob.get_bool("USEDNOTCHES") - notch_cost
         if net_notches >= 0:
             return EquipResult.NONOVERCHARM
         # something to figure out if you can overcharm to get this on
-        overcharm_save = max(notch_cost, state_blob["MAXNOTCHCOST"])
-        if net_notches + overcharm_save > 0 and not state_blob["CANNOTOVERCHARM"]:
+        overcharm_save = max(notch_cost, state_blob.get_int("MAXNOTCHCOST"))
+        if net_notches + overcharm_save > 0 and not state_blob.get_bool("CANNOTOVERCHARM"):
             return EquipResult.OVERCHARM
         return EquipResult.NONE  # TODO doublecheck
 
@@ -141,22 +141,22 @@ class EquipCharmVariable(RCStateVariable):
 
     def do_equip_charm(self, state_blob: rs, item_state: cs) -> None:
         notch_cost = self.get_notch_cost(item_state)
-        state_blob["USEDNOTCHES"] += notch_cost
+        state_blob.set_int("USEDNOTCHES", notch_cost + state_blob.get_int("USEDNOTCHES"))
         # one of these 2 should probably go at some point
-        state_blob[self.term] = True
-        state_blob[self.charm_key] = True
-        state_blob["MAXNOTCHCOST"] = max(state_blob["MAXNOTCHCOST"], notch_cost)
-        if state_blob["USEDNOTCHES"] > item_state.count("NOTCHES", self.player):
-            state_blob["OVERCHARMED"] = True
+        state_blob.set_bool(self.term, True)
+        state_blob.set_bool(self.charm_key, True)
+        state_blob.set_int("MAXNOTCHCOST", max(state_blob.get_int("MAXNOTCHCOST"), notch_cost))
+        if state_blob.get_int("USEDNOTCHES") > item_state.count("NOTCHES", self.player):
+            state_blob.set_bool("OVERCHARMED", True)
 
     def is_equipped(self, state_blob: rs) -> bool:
-        return bool(state_blob[self.term])
+        return state_blob.get_bool(self.term)
 
     def set_unequippable(self, state_blob: rs) -> None:
-        state_blob[self.anti_term] = True
+        state_blob.set_bool(self.anti_term, True)
 
     def get_avaliable_notches(self, state_blob: rs, item_state: cs) -> int:
-        return item_state.count("NOTCHES", self.player) - state_blob["USEDNOTCHES"]
+        return item_state.count("NOTCHES", self.player) - state_blob.get_int("USEDNOTCHES")
 
     def can_exclude(self, options: HKOptions) -> bool:
         return False
@@ -165,7 +165,7 @@ class EquipCharmVariable(RCStateVariable):
         items[self.charm_key] = 1
 
     def is_determined(self, state_blob: rs, item_state: cs) -> bool:
-        return state_blob[self.term] or state_blob[self.anti_term]
+        return state_blob.get_bool(self.term) or state_blob.get_bool(self.anti_term)
 
     def has_charm_progression(self, item_state: cs) -> bool:
         return self.has_item(item_state)
@@ -233,18 +233,19 @@ class FragileCharmVariable(EquipCharmVariable):
     def break_charm(self, state_blob: rs, item_state: cs) -> None:
         if item_state.has(self.charm_key, self.player, 2):
             return
-        if state_blob[self.term]:
-            state_blob[self.term] = 0
-            state_blob["USEDNOTCHES"] -= self.get_notch_cost(item_state)
-            if state_blob["OVERCHARMED"]:
-                state_blob["OVERCHARMED"] = 0
-            state_blob[self.anti_term] = 1
-            state_blob[self.break_term] = 1
+        if state_blob.get_bool(self.term):
+            state_blob.set_bool(self.term, False)
+            state_blob.set_int("USEDNOTCHES", state_blob.get_int("USEDNOTCHES") - self.get_notch_cost(item_state))
+            if state_blob.get_bool("OVERCHARMED"):
+                state_blob.set_int("OVERCHARMED", 0)
+            state_blob.set_bool(self.anti_term, True)
+            state_blob.set_bool(self.break_term, True)
 
     def has_state_requirements(self, state_blob: rs, item_state: cs) -> bool:
         return (super().has_state_requirements(state_blob, item_state)
                 and ((self.has_unbreakable_item(item_state))
-                     or (not state_blob[self.break_term] and item_state.has("Can_Repair_Fragile_Charms", self.player))))
+                     or (not state_blob.get_bool(self.break_term)
+                         and item_state.has("Can_Repair_Fragile_Charms", self.player))))
 
     @classmethod
     def try_match(cls, term: str) -> bool:

@@ -6,24 +6,11 @@ from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL  # noqa: F401
+from .resource_state_vars import default_state
 
 if TYPE_CHECKING:
     from . import HKClause
     from .resource_state_vars.cast_spell import NearbySoul
-
-
-# default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
-class DefaultStateFactory:
-    def __call__(self, defaults=None) -> Counter:
-        if defaults is None:
-            defaults = {}
-        ret = Counter({"NOFLOWER": 1, "NOPASSEDCHARMEQUIP": 1})
-        for key, value in defaults.items():
-            ret[key] = value
-        return ret
-
-
-default_state = DefaultStateFactory()
 
 
 class HKLogicMixin(LogicMixin):

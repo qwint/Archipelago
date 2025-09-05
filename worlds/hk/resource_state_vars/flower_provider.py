@@ -10,7 +10,7 @@ class FlowerProviderVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
-        state_blob["NOFLOWER"] = False
+        state_blob.set_bool("NOFLOWER", False)
         return True, state_blob
 
     @classmethod

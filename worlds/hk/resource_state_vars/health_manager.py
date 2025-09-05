@@ -108,7 +108,7 @@ class HealthManager(metaclass=ResourceStateHandler):
 
     def give_health(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
-            if state_blob["LAZYSPENTHP"] > 0:
+            if state_blob.get_int("LAZYSPENTHP") > 0:
                 rets = self.determine_hp(state_blob, item_state)
                 for ret in rets:
                     yield next(self.give_health(ret, item_state, amount))
@@ -121,7 +121,7 @@ class HealthManager(metaclass=ResourceStateHandler):
 
     def restore_white_health(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if not self.is_hp_determined(state_blob):
-            if state_blob["LAZYSPENTHP"] == 0:
+            if state_blob.get_int("LAZYSPENTHP") == 0:
                 yield state_blob
             else:
                 rets = self.determine_hp(state_blob, item_state)
@@ -153,8 +153,8 @@ class HealthManager(metaclass=ResourceStateHandler):
             return False
         heal_amount = self.get_heal_amount(state_blob, item_state)
 
-        if state_blob["SPENTHP"] > 0:
-            state_blob["SPENTHP"] = max(0, state_blob["SPENTHP"] - heal_amount)
+        if state_blob.get_int("SPENTHP") > 0:
+            state_blob.set_int("SPENTHP", max(0, state_blob.get_int("SPENTHP") - heal_amount))
         return True
 
     def do_focus(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
@@ -186,7 +186,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         return 1
 
     def is_hp_determined(self, state_blob: rs) -> Generator[rs]:
-        return state_blob["LAZYSPENTHP"] == self.max_damage
+        return state_blob.get_int("LAZYSPENTHP") == self.max_damage
 
     def determine_hp(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if self.is_hp_determined(state_blob):
@@ -206,7 +206,7 @@ class HealthManager(metaclass=ResourceStateHandler):
         yield from rets
 
     def decide_overcharm(self, state_blob: rs, item_state: cs) -> Generator[rs]:
-        if state_blob["CANNOTOVERCHARM"] or state_blob["OVERCHARMED"]:
+        if state_blob.get_bool("CANNOTOVERCHARM") or state_blob.get_bool("OVERCHARMED"):
             yield state_blob
         else:
             oc = state_blob.copy()
@@ -224,8 +224,8 @@ class HealthManager(metaclass=ResourceStateHandler):
             max_hp += 2
         if self.jonis.is_equipped(state_blob):
             max_hp = int(1.4 * max_hp)
-        hp = max_hp - state_blob["SPENTHP"]
-        blue_hp = -state_blob["SPENTBLUEHP"]
+        hp = max_hp - state_blob.get_int("SPENTHP")
+        blue_hp = -state_blob.get_int("SPENTBLUEHP")
         if self.lb_heart.is_equipped(state_blob):
             blue_hp += 2
         if self.lb_core.is_equipped(state_blob):
@@ -273,13 +273,13 @@ class HealthManager(metaclass=ResourceStateHandler):
             yield r
 
     def can_take_next_lazy_hit(self, state_blob: rs, item_state: cs) -> bool:
-        hits_taken = state_blob["LAZYSPENTHP"]
+        hits_taken = state_blob.get_int("LAZYSPENTHP")
         max_hp = item_state.count("MASKSHARDS", self.player) // 4
         total_hits = (max_hp - 1) // 2
         return total_hits - hits_taken > 0
 
     def take_damage_strict(self, state_blob: rs, item_state: cs, amount: int, wait_after_hit: bool) -> Generator[rs]:
-        adj_amount = 2 * amount if state_blob["OVERCHARMED"] else amount
+        adj_amount = 2 * amount if state_blob.get_bool("OVERCHARMED") else amount
 
         info = self.get_hp_info(state_blob, item_state)
         hit = HitInfo(info, adj_amount, wait_after_hit)
@@ -293,7 +293,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             yield from self.take_damage_desperate(state_blob, item_state, amount, True)
 
     def take_damage_desperate(self, state_blob: rs, item_state: cs, amount: int, wait_after_hit: bool) -> Generator[rs]:
-        adj_amount = 2 * amount if state_blob["OVERCHARMED"] else amount
+        adj_amount = 2 * amount if state_blob.get_int("OVERCHARMED") else amount
         info = self.get_hp_info(state_blob, item_state)
 
         deficit = adj_amount - info.current_white_hp
