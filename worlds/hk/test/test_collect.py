@@ -1,41 +1,50 @@
 import unittest
 
+from BaseClasses import CollectionState, MultiWorld
+
 from test.general import setup_solo_multiworld
 
 from .. import HKWorld
 
 
 class TestBase(unittest.TestCase):
+    game_name = "Hollow Knight"
+    world_type = HKWorld
+    multiworld: MultiWorld
+    world: HKWorld
+
+    def setUp(self):
+        self.multiworld = setup_solo_multiworld(self.world_type)
+        self.world = self.multiworld.worlds[1]
+
     def test_collect(self):
-        game_name, world_type = "Hollow Knight", HKWorld
-        multiworld = setup_solo_multiworld(world_type)
-        proxy_world = multiworld.worlds[1]
-        empty_state = multiworld.state.copy()
+        empty_state = CollectionState(self.multiworld)
+        state_under_test = CollectionState(self.multiworld)
 
-        for item_name in world_type.item_name_to_id:
-            with self.subTest("Create Item", item_name=item_name, game_name=game_name):
-                item = proxy_world.create_item(item_name)
+        for item_name in self.world_type.item_name_to_id:
+            with self.subTest("Create Item", item_name=item_name):
+                item = self.world.create_item(item_name)
 
-            with self.subTest("Item Name", item_name=item_name, game_name=game_name):
+            with self.subTest("Item Name", item_name=item_name):
                 self.assertEqual(item.name, item_name)
 
             if item.advancement:
-                with self.subTest("Item State Collect", item_name=item_name, game_name=game_name):
-                    multiworld.state.collect(item, True)
+                with self.subTest("Item State Collect", item_name=item_name):
+                    state_under_test.collect(item, True)
 
-                with self.subTest("Item State Remove", item_name=item_name, game_name=game_name):
-                    multiworld.state.remove(item)
+                with self.subTest("Item State Remove", item_name=item_name):
+                    state_under_test.remove(item)
 
-                    self.assertEqual(multiworld.state.prog_items, empty_state.prog_items,
+                    self.assertEqual(state_under_test.prog_items, empty_state.prog_items,
                                      "Item Collect -> Remove should restore empty state.")
             else:
-                with self.subTest("Item State Collect No Change", item_name=item_name, game_name=game_name):
+                with self.subTest("Item State Collect No Change", item_name=item_name):
                     # Non-Advancement should not modify state.
-                    base_state = multiworld.state.prog_items.copy()
-                    multiworld.state.collect(item)
-                    self.assertEqual(base_state, multiworld.state.prog_items)
+                    base_state = state_under_test.prog_items.copy()
+                    state_under_test.collect(item)
+                    self.assertEqual(base_state, state_under_test.prog_items)
 
-            multiworld.state.prog_items = empty_state.prog_items
+            state_under_test.prog_items = empty_state.prog_items
 
     # def test_collect_split_cloak(self):
     #     game_name, world_type = "Hollow Knight", HKWorld
@@ -48,19 +57,19 @@ class TestBase(unittest.TestCase):
     #     for cloaks in [l_cloaks, r_cloaks]:
     #         items = []
     #         for item_name in cloaks:
-    #             with self.subTest("Create Item", item_name=item_name, game_name=game_name):
+    #             with self.subTest("Create Item", item_name=item_name):
     #                 item = proxy_world.create_item(item_name)
     #                 items.append(item)
 
-    #             with self.subTest("Item Name", item_name=item_name, game_name=game_name):
+    #             with self.subTest("Item Name", item_name=item_name):
     #                 self.assertEqual(item.name, item_name)
 
     #             if item.advancement:
-    #                 with self.subTest("Item State Collect", item_name=item_name, game_name=game_name):
+    #                 with self.subTest("Item State Collect", item_name=item_name):
     #                     multiworld.state.collect(item, True)
     #         proxy_world.random.shuffle(items)
     #         for item in items:
-    #             with self.subTest("Item State Remove", item_name=item_name, game_name=game_name):
+    #             with self.subTest("Item State Remove", item_name=item_name):
     #                 multiworld.state.remove(item)
 
     #         self.assertEqual(
@@ -72,58 +81,57 @@ class TestBase(unittest.TestCase):
     #         multiworld.state.prog_items = empty_state.prog_items
 
     def cloak_test(self, collect_cloaks, remove_cloaks, final_state):
-        game_name, world_type = "Hollow Knight", HKWorld
-        multiworld = setup_solo_multiworld(world_type)
-        proxy_world = multiworld.worlds[1]
-        empty_state = multiworld.state.copy()
+        empty_state = CollectionState(self.multiworld)
+        state_under_test = CollectionState(self.multiworld)
 
         items = []
         for item_name in collect_cloaks:
-            with self.subTest("Create Item", item_name=item_name, game_name=game_name):
-                item = proxy_world.create_item(item_name)
+            with self.subTest("Create Item", item_name=item_name):
+                item = self.world.create_item(item_name)
                 items.append(item)
 
-            with self.subTest("Item State Collect", item_name=item_name, game_name=game_name):
-                multiworld.state.collect(item, True)
+            with self.subTest("Item State Collect", item_name=item_name):
+                state_under_test.collect(item, True)
 
         for item_name in remove_cloaks:
             index, item = next((index, item) for index, item in enumerate(items) if item.name == item_name)
             items.pop(index)
-            with self.subTest("Item State Remove", item_name=item_name, game_name=game_name):
-                multiworld.state.remove(item)
+            with self.subTest("Item State Remove", item_name=item_name):
+                state_under_test.remove(item)
 
         for item_name in ("Left_Mothwing_Cloak", "Right_Mothwing_Cloak",):
             if item_name in final_state:
                 self.assertEqual(
-                    multiworld.state._hk_processed_item_cache[1][item_name], final_state[item_name],
+                    state_under_test._hk_processed_item_cache[1][item_name], final_state[item_name],
                     f"expected {final_state[item_name]} {item_name}, "
-                    f"found {multiworld.state._hk_processed_item_cache[1][item_name]}"
+                    f"found {state_under_test._hk_processed_item_cache[1][item_name]}"
                     f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
                     )
             else:
                 self.assertEqual(
-                    multiworld.state._hk_processed_item_cache[1][item_name], 0,
-                    f"expected 0 {item_name}, found {multiworld.state._hk_processed_item_cache[1][item_name]}"
+                    state_under_test._hk_processed_item_cache[1][item_name], 0,
+                    f"expected 0 {item_name}, found {state_under_test._hk_processed_item_cache[1][item_name]}"
                     f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
                     )
 
         for item_name in ("LEFTDASH", "RIGHTDASH",):
             if item_name in final_state:
                 self.assertEqual(
-                    multiworld.state.prog_items[1][item_name], final_state[item_name],
-                    f"expected {final_state[item_name]} {item_name}, found {multiworld.state.prog_items[1][item_name]}"
+                    state_under_test.prog_items[1][item_name], final_state[item_name],
+                    f"expected {final_state[item_name]} {item_name}, found {state_under_test.prog_items[1][item_name]}"
                     f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
                     )
             else:
                 self.assertEqual(
-                    multiworld.state.prog_items[1][item_name], 0,
-                    f"expected 0 {item_name}, found {multiworld.state.prog_items[1][item_name]}"
+                    state_under_test.prog_items[1][item_name], 0,
+                    f"expected 0 {item_name}, found {state_under_test.prog_items[1][item_name]}"
                     f"\nTest collected\n{collect_cloaks}\nand removed\n{remove_cloaks}\n"
                     )
 
-        multiworld.state.prog_items = empty_state.prog_items
+        state_under_test.prog_items = empty_state.prog_items
 
     def test_collect_cloak_iterations(self):
+
 
         # LLR
         with self.subTest("LLR"):
@@ -422,15 +430,14 @@ class TestBase(unittest.TestCase):
             )
 
     def test_collect_charm(self):
-        world_type = HKWorld
-        multiworld = setup_solo_multiworld(world_type)
-        empty_state = multiworld.state
+        empty_state = CollectionState(self.multiworld)
+        state_under_test = CollectionState(self.multiworld)
 
-        king_fragment = next(item for item in multiworld.itempool if item.name == "King_Fragment")
-        queen_fragment = next(item for item in multiworld.itempool if item.name == "Queen_Fragment")
-        deep_focus = next(item for item in multiworld.itempool if item.name == "Deep_Focus")
-        fragile_strength = next(item for item in multiworld.itempool if item.name == "Fragile_Strength")
-        unbreakable_strength = next(item for item in multiworld.itempool if item.name == "Unbreakable_Strength")
+        king_fragment = next(item for item in self.multiworld.itempool if item.name == "King_Fragment")
+        queen_fragment = next(item for item in self.multiworld.itempool if item.name == "Queen_Fragment")
+        deep_focus = next(item for item in self.multiworld.itempool if item.name == "Deep_Focus")
+        fragile_strength = next(item for item in self.multiworld.itempool if item.name == "Fragile_Strength")
+        unbreakable_strength = next(item for item in self.multiworld.itempool if item.name == "Unbreakable_Strength")
 
         assert empty_state.prog_items[1]["CHARMS"] == 0
         empty_state.collect(king_fragment)
@@ -446,7 +453,7 @@ class TestBase(unittest.TestCase):
         empty_state.collect(unbreakable_strength)
         assert empty_state.prog_items[1]["CHARMS"] == 3
 
-        all_state = multiworld.get_all_state(False)
+        all_state = self.multiworld.get_all_state(False)
 
         assert all_state.prog_items[1]["CHARMS"] == 40
         all_state.remove(king_fragment)
