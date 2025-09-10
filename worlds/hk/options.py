@@ -27,14 +27,23 @@ if typing.TYPE_CHECKING:
 else:
     Random = typing.Any
 
-locations = {"option_" + start: i for i, start in enumerate(starts)}
+filtered_starts = [
+    key for key, data in starts.items()
+    if not data["logic"]  # empty logic is always valid
+    or any(
+        # strip starts that are only valid with ER as that is not implemented yet
+        not any(req in ("MAPAREARANDO", "FULLAREARANDO", "ROOMRANDO",) for req in clause["item_requirements"])
+        for clause in data["logic"]
+    )
+]
+locations = {"option_" + start: i for i, start in enumerate(filtered_starts)}
 # This way the dynamic start names are picked up by the MetaClass Choice belongs to
 StartLocation = type("StartLocation", (Choice,), {
     "__module__": __name__,
     "auto_display_name": False,
     "display_name": "Start Location",
     "__doc__": "Choose your start location. "
-               "This is currently only locked to King's Pass.",
+               "Some start locations require specific Options to be enabled in order to be valid.",
     **locations,
 })
 StartLocation.options["king's_pass"] = StartLocation.option_kings_pass
