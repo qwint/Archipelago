@@ -1,6 +1,8 @@
 from copy import deepcopy
 from enum import IntEnum
 from typing import Dict, List, Any, Union, ClassVar
+import orjson
+import pkgutil
 
 from BaseClasses import Tutorial, ItemClassification, LocationProgressType
 from settings import Group
@@ -76,7 +78,9 @@ class AnimalWellWorld(World):
     """
     game = "ANIMAL WELL"
     web = AnimalWellWeb()
-    version_string: str = "v0.5.3"
+    # todo: whenever Silvris' PR gets merged, use the access on the world class instead of this
+    apworld_manifest = orjson.loads(pkgutil.get_data(__name__, "archipelago.json").decode("utf-8"))
+    version_string: str = "v" + apworld_manifest["world_version"]
 
     options: AnimalWellOptions
     options_dataclass = AnimalWellOptions
