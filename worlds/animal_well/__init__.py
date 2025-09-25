@@ -13,7 +13,6 @@ from .region_data import AWData, traversal_requirements
 from .region_scripts import create_regions_and_set_rules
 from .options import AnimalWellOptions, aw_option_presets, Goal, FinalEggLocation, aw_option_groups, BunniesAsChecks
 from .names import ItemNames, LocationNames, RegionNames
-# todo: remove animal_well_map.pdn
 
 
 class AWSettings(Group):
