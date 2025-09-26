@@ -389,8 +389,8 @@ class HKWorld(RandomizerCoreWorld, World):
         self.add_all_events()
         self.add_shop_locations()
 
-        if "King_Fragment" in self.white_palace_exclusions():
-            self.get_location("King_Fragment").progress_type = LocationProgressType.EXCLUDED
+        for loc in self.white_palace_exclusions():
+            self.get_location(loc).progress_type = LocationProgressType.EXCLUDED
 
         location_to_option = {
             location: option for option, data in pool_options.items() for location in data["randomized"]["locations"]
