@@ -310,10 +310,10 @@ class TrackerGameContext(CommonContext):
         if self.disconnected_intentionally: return CurrentTrackerState.init_empty_state()
         self.tracker_core.set_missing_locations(self.missing_locations)
         self.tracker_core.set_items_received(self.tracker_items_received)
-        hints = []
+        hints = {}
         if f"_read_hints_{self.team}_{self.slot}" in self.stored_data:
             from NetUtils import HintStatus
-            hints = [ hint["location"] for hint in self.stored_data[f"_read_hints_{self.team}_{self.slot}"] if hint["status"] != HintStatus.HINT_FOUND and self.slot_concerns_self(hint["finding_player"]) ]
+            hints = { hint["location"]:hint["status"] for hint in self.stored_data[f"_read_hints_{self.team}_{self.slot}"] if hint["status"] not in [HintStatus.HINT_FOUND, HintStatus.HINT_AVOID ]and self.slot_concerns_self(hint["finding_player"]) }
         self.tracker_core.set_hints( hints)
         try:
             updateTracker_ret = self.tracker_core.updateTracker()
