@@ -1161,6 +1161,11 @@ def explain(ctx: TrackerGameContext, dest_name: str):
         parent_region = location.parent_region
     elif dest_name in ctx.tracker_core.multiworld.regions.region_cache[ctx.tracker_core.player_id]:
         parent_region = ctx.tracker_core.multiworld.get_region(dest_name,ctx.tracker_core.player_id)
+    else:
+        from Utils import get_fuzzy_results
+        results = get_fuzzy_results(dest_name,set(ctx.tracker_core.multiworld.regions.location_cache[ctx.tracker_core.player_id].keys()).union(set(ctx.tracker_core.multiworld.regions.region_cache[ctx.tracker_core.player_id].keys())),limit=1)[0]
+        logger.error(f"Did you mean '{results[0]}' ({results[1]}% sure)? ")
+        return
     if parent_region:
         if location:
             logger.info(f"Parent region ({parent_region.name})")
