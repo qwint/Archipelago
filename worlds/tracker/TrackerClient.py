@@ -1038,7 +1038,12 @@ class TrackerGameContext(CommonContext):
                     logger.error("Internal generation failed, something has gone wrong")
                     logger.error("Run the /faris_asked command and post the results in the discord")
                 if self.ui is not None and hasattr(connected_cls, "tracker_world"):
-                    self.tracker_world = UTMapTabData(self.slot, self.team, **connected_cls.tracker_world)
+                    self.tracker_world = UTMapTabData(self.slot, self.team, **getattr(connected_cls,"tracker_world",{}))
+                elif self.ui is not None and hasattr(self.tracker_core.get_current_world(),"tracker_world"):
+                    self.tracker_world = UTMapTabData(self.slot, self.team, **getattr(self.tracker_core.get_current_world(),"tracker_world",{}))
+                else:
+                    self.tracker_world = None
+                if self.tracker_world:
                     self.load_pack()
                     if self.tracker_world:  # don't show the map if loading failed
                         self.ui.show_map = True
@@ -1048,9 +1053,6 @@ class TrackerGameContext(CommonContext):
                         icon_key = self.tracker_world.location_setting_key
                         if icon_key:
                             self.set_notify(icon_key)
-                else:
-                    self.tracker_world = None
-                if self.tracker_world:
                     if "load_map" not in self.command_processor.commands or not self.command_processor.commands["load_map"]:
                         self.command_processor.commands["load_map"] = cmd_load_map
                     if "list_maps" not in self.command_processor.commands or not self.command_processor.commands["list_maps"]:
