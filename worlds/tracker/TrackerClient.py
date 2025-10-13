@@ -238,7 +238,7 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         if self.ctx.game:
             connected_cls = AutoWorld.AutoWorldRegister.world_types.get(self.ctx.game)
             if self.ctx.checksums[self.ctx.game] != connected_cls.get_data_package_data()["checksum"]:
-                logger.error(f"Local checksum = {self.ctx.checksums[self.ctx.game]} | remote checksum = {connected_cls.get_data_package_data()["checksum"]}")
+                logger.error(f"Local checksum = {self.ctx.checksums[self.ctx.game]} | remote checksum = {connected_cls.get_data_package_data()['checksum']}")
 
 
 def cmd_load_map(self: TrackerCommandProcessor, map_id: str = "0"):
