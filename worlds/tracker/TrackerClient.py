@@ -527,7 +527,8 @@ class TrackerGameContext(CommonContext):
                 from zipfile import is_zipfile
                 packRef = current_world.settings[self.tracker_world.external_pack_key]
                 if packRef == "":
-                    packRef = open_filename("Select Poptracker pack", filetypes=[("Poptracker Pack", [".zip"])])
+                    prompt_desc = getattr(current_world.settings[self.tracker_world.external_pack_key],"ut_dialog_name","Select Poptracker pack")
+                    packRef = open_filename(prompt_desc, filetypes=[("Poptracker Pack", [".zip"])])
                     current_world.settings[self.tracker_world.external_pack_key] = packRef
                     current_world.settings._changed = True
                 if packRef:
