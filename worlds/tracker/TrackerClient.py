@@ -106,11 +106,12 @@ class TrackerCommandProcessor(ClientCommandProcessor):
     @mark_raw
     def _cmd_ignore(self, location_name: str = ""):
         """Ignore a location so it doesn't appear in the tracker list"""
-        if not self.ctx.game:
+        currentWorld = self.ctx.tracker_core.get_current_world()
+        if not currentWorld:
             logger.info("Game not yet loaded")
             return
 
-        location_name_to_id = AutoWorld.AutoWorldRegister.world_types[self.ctx.game].location_name_to_id
+        location_name_to_id = currentWorld.location_name_to_id
         if location_name not in location_name_to_id:
             logger.info(f"Unrecognized location {location_name}")
             return
@@ -120,13 +121,28 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         logger.info(f"Added {location_name} to ignore list.")
 
     @mark_raw
+    def _cmd_ignore_all(self):
+        """Ignore all currently in logic locations... if that's something you want to do"""
+        currentWorld = self.ctx.tracker_core.get_current_world()
+        if not currentWorld:
+            logger.error("Game not yet loaded")
+            return
+        updatetracker_ret = self.ctx.updateTracker()
+        location_name_to_id = currentWorld.location_name_to_id
+        for loc in updatetracker_ret.in_logic_locations:
+            if loc in location_name_to_id:
+                self.ctx.tracker_core.ignored_locations.add(location_name_to_id[loc])
+        self.ctx.updateTracker()
+
+    @mark_raw
     def _cmd_unignore(self, location_name: str = ""):
         """Stop ignoring a location so it appears in the tracker list again"""
-        if not self.ctx.game:
+        currentWorld = self.ctx.tracker_core.get_current_world()
+        if not currentWorld:
             logger.info("Game not yet loaded")
             return
 
-        location_name_to_id = AutoWorld.AutoWorldRegister.world_types[self.ctx.game].location_name_to_id
+        location_name_to_id = currentWorld.location_name_to_id
         if location_name not in location_name_to_id:
             logger.info(f"Unrecognized location {location_name}")
             return
