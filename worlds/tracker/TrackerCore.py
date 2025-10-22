@@ -262,7 +262,6 @@ class TrackerCore():
                 "set_rules",
                 "connect_entrances",
                 "generate_basic",
-                "pre_fill",
             )
         )
 
