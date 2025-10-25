@@ -219,10 +219,22 @@ class TrackerCommandProcessor(ClientCommandProcessor):
         """Explains the rule for a location, if the world supports it"""
         if not self.ctx.game:
             logger.info("Not yet loaded into a game")
+            return
         if self.ctx.stored_data and "_read_race_mode" in self.ctx.stored_data and self.ctx.stored_data["_read_race_mode"]:
             logger.info("Explain is disabled during Race Mode")
             return
         explain(self.ctx, lookup_name)
+
+    @mark_raw
+    def _cmd_explain_more(self, argument:str=""):
+        """Asks the internal world to explain more, used to expland on /explain and /get_logical_path"""
+        if not self.ctx.game:
+            logger.info("Not yet loaded into a game")
+            return
+        if self.ctx.stored_data and "_read_race_mode" in self.ctx.stored_data and self.ctx.stored_data["_read_race_mode"]:
+            logger.info("Explain is disabled during Race Mode")
+            return
+        explain_more(self.ctx, argument)
 
     def _cmd_faris_asked(self):
         """Print out the error message and any other information we think might be useful"""
@@ -1366,6 +1378,26 @@ def load_json_zip(pack, path):
     with zipfile.ZipFile(pack) as parentFile:
         with parentFile.open(path) as childFile:
             return json.loads(childFile.read().decode('utf-8-sig'))
+
+def explain_more(ctx: TrackerGameContext, argument: str):
+    from NetUtils import JSONMessagePart
+    if ctx.tracker_core.player_id is None or ctx.tracker_core.multiworld is None:
+        logger.error("Player YAML not installed of Generator failed")
+        ctx.set_page(f"Check Player YAMLs for error; Tracker {UT_VERSION} for AP version {__version__}")
+        return
+    current_world = ctx.tracker_core.get_current_world()
+    assert current_world
+    state = ctx.updateTracker().state
+    if not state: return
+
+    if hasattr(current_world, "explain_more"):
+        returned_json = current_world.explain_more(argument, state)
+        if returned_json:
+            ctx.ui.print_json(returned_json)
+            return
+        logger.info("Nothing to explain")
+    logger.error("Current world to track doesn't support command /explain_more")
+    
 
 def explain(ctx: TrackerGameContext, dest_name: str):
     from NetUtils import JSONMessagePart
