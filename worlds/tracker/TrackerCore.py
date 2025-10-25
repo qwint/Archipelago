@@ -298,7 +298,8 @@ class TrackerCore():
         prog_items = Counter()
         all_items = Counter()
 
-        callback_list = []
+        callback_list:list[str] = []
+        glitches_callback_list:list[str] = []
 
         item_id_to_name = self.multiworld.worlds[self.player_id].item_id_to_name
         location_id_to_name = self.multiworld.worlds[self.player_id].location_id_to_name
@@ -330,7 +331,7 @@ class TrackerCore():
         regions = []
         locations = []
         readable_locations = []
-        glitches_locations:list[str] = []
+        glitches_locations:list[int] = []
         hinted_locations = []
         for temp_loc in self.multiworld.get_reachable_locations(state, self.player_id):
             if temp_loc.address is None or isinstance(temp_loc.address, list):
@@ -402,7 +403,8 @@ class TrackerCore():
                         continue # already in logic
                     try:
                         if (temp_loc.address in self.missing_locations):
-                            glitches_locations.append(temp_loc.name)
+                            glitches_locations.append(temp_loc.address)
+                            glitches_callback_list.append(temp_loc.name)
                             region = ""
                             if temp_loc.parent_region is not None:  
                                 region = temp_loc.parent_region.name
@@ -438,7 +440,7 @@ class TrackerCore():
                         pass
         self.glitched_locations = glitches_locations
 
-        return CurrentTrackerState(all_items, prog_items, glitches_locations, events, callback_list, regions, unconnected_entrances, readable_locations, hinted_locations, state)
+        return CurrentTrackerState(all_items, prog_items, glitches_callback_list, events, callback_list, regions, unconnected_entrances, readable_locations, hinted_locations, state)
     
     def write_empty_yaml(self, game, player_name, tempdir):
         import json
