@@ -91,6 +91,15 @@ class TrackerCommandProcessor(ClientCommandProcessor):
                 logger.info(event)
 
     @mark_raw
+    def _cmd_event_locations(self, filter_text: str = ""):
+        """Print the list of current event locations in logic"""
+        logger.info("Current Event Locations:")
+        currentState = self.ctx.updateTracker()
+        for location in sorted(currentState.event_locations):
+            if filter_text in location:
+                logger.info(location)
+
+    @mark_raw
     def _cmd_manually_collect(self, item_name: str = ""):
         """Manually adds an item name to the CollectionState to test"""
         self.ctx.tracker_core.manual_items.append(item_name)
@@ -495,24 +504,26 @@ class TrackerGameContext(CommonContext):
 
         return (name, maps) if name is not None else maps
 
-    def parse_map_group_node_names(self, node, curr_path):
+    def parse_map_group_node_names(self, node: str | tuple, curr_path: str, has_siblings: bool):
         if isinstance(node, str):
+            if has_siblings:
+                curr_path = node if curr_path is None else f"{curr_path}/{node}"
             self.map_to_name[node] = curr_path
         else:
             name = node[0]
             curr_path = name if curr_path is None else f"{curr_path}/{name}"
             if isinstance(node[1], list):
                 for x in node[1]:
-                    self.parse_map_group_node_names(x, curr_path)
+                    self.parse_map_group_node_names(x, curr_path, len(node[1]) > 1)
             else:
-                self.parse_map_group_node_names(node[1], curr_path)
+                self.parse_map_group_node_names(node[1], curr_path, False)
 
     def parse_map_groups(self):
         self.map_to_name = {}
         if self.tracker_world.map_page_groups is not None:
             self.map_groups = self.tracker_world.map_page_groups
             for x in self.map_groups:
-                self.parse_map_group_node_names(x, None)
+                self.parse_map_group_node_names(x, None, True)
             return
         all_layouts = []
         for layout in self.layouts:
