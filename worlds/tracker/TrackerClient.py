@@ -1486,8 +1486,10 @@ def get_logical_path(ctx: TrackerGameContext, dest_name: str):
         if location.can_reach(state):
             relevent_region = location.parent_region
     else:
-        logger.info(f"{dest_name} not found in the multiworld")
-
+        from Utils import get_fuzzy_results
+        results = get_fuzzy_results(dest_name,set(ctx.tracker_core.multiworld.regions.location_cache[ctx.tracker_core.player_id].keys()).union(set(ctx.tracker_core.multiworld.regions.region_cache[ctx.tracker_core.player_id].keys())),limit=1)[0]
+        logger.error(f"Did you mean '{results[0]}' ({results[1]}% sure)? ")
+        return
     if state:
         if relevent_region:
             # stolen from core
