@@ -37,7 +37,7 @@ class TrackerCore():
         self.locations_available = []
         self.launch_multiworld = None
         self.multiworld = None
-        self.enforce_deferred_connections = DeferredEntranceMode.default
+        self.enforce_deferred_connections = None
         self.enable_glitched_logic = True
         self.glitched_locations = []
         self.quit_after_update = print_list or print_count
@@ -190,7 +190,8 @@ class TrackerCore():
                 args[option_name].update(player_mapping)
 
         try:
-            yaml_path, self.output_format, self.hide_excluded, self.use_split, self.enforce_deferred_connections, self.enable_glitched_logic = self._set_host_settings()
+            yaml_path, self.output_format, self.hide_excluded, self.use_split, enforce_deferred_connections, self.enable_glitched_logic = self._set_host_settings()
+            if self.enforce_deferred_connections is None: self.enforce_deferred_connections = enforce_deferred_connections
             # strip command line args, they won't be useful from the client anyway
             sys.argv = sys.argv[:1]
             args = mystery_argparse()
@@ -270,6 +271,7 @@ class TrackerCore():
         multiworld.generation_is_fake = True
         if self.re_gen_passthrough is not None:
             multiworld.re_gen_passthrough = self.re_gen_passthrough
+        if self.enforce_deferred_connections is None: self.enforce_deferred_connections = DeferredEntranceMode.default
         multiworld.enforce_deferred_connections = self.enforce_deferred_connections.value
 
         multiworld.set_seed(seed, args.race, str(args.outputname) if args.outputname else None)
