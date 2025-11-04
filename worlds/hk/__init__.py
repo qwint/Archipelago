@@ -365,7 +365,7 @@ class HKWorld(RandomizerCoreWorld, World):
             valid_items.append("ENEMYPOGOS")
         if test_state.has_group("Vertical", self.player):
             valid_items.append("VERTICAL")
-        if self.options.RandomizeSwim:
+        if not self.options.RandomizeSwim:
             valid_items.append("SWIM")
         if self.options.DarkRooms:
             valid_items.append("DARKROOMS")
