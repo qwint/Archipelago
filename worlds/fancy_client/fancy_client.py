@@ -131,6 +131,6 @@ def run_fancy_textclient(*launcher_args):
 
     parser = get_base_parser(description="Gameless Archipelago Client, for text interfacing.")
     parsed_args = parser.parse_args(launcher_args)
-    colorama.init()
+    colorama.just_fix_windows_console()
     asyncio.run(main(parsed_args))
     colorama.deinit()
