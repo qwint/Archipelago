@@ -30,6 +30,7 @@ from .options import (
     Goal,
     GrubHuntGoal,
     HKOptions,
+    StartLocation,
     WhitePalace,
     hollow_knight_options,
     shop_to_option,
@@ -328,16 +329,18 @@ class HKWorld(RandomizerCoreWorld, World):
 
         self.split_cloak_direction = self.random.randint(0, 1)
 
-        if self.options.StartLocation != StartLocation.option_kings_pass:
+        if self.options.StartLocation == StartLocation.option_kings_pass:
             # Temporarily skip location validation on default start to workaround worlds with bad logicmixins
+            self.start_location_region = transition_to_region_map[starts[self.options.StartLocation.current_key]["granted_transition"]]
+        else:
             start_location_key = self.options.StartLocation.current_key
             start_validation = self.validate_start(start_location_key)
             if start_validation:
                 raise OptionError(f"Start Location {start_location_key} was invalid with other Options. "
                                   f"Requirements not met are:\n{start_validation}")
                 # TODO consider warning and resetting to KP
-        self.start_location_region = transition_to_region_map[starts[start_location_key]["granted_transition"]]
-        # actually connect it later once we have regions created
+            self.start_location_region = transition_to_region_map[starts[start_location_key]["granted_transition"]]
+            # actually connect it later once we have regions created
 
         # defaulting so completion condition isn't incorrect before pre_fill
         self.grub_count = (
