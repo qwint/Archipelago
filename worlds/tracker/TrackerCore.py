@@ -379,7 +379,7 @@ class TrackerCore():
             except Exception:
                 self.log_to_tab("ERROR: location " + temp_loc.name + " broke something, report this to discord")
                 pass
-        events = [location.item.name for location in state.advancements if location.player == self.player_id]
+        events = [location.item.name for location in state.advancements if location.player == self.player_id and location.item is not None]
         event_locations = [location.name for location in state.advancements if location.player == self.player_id]
         unconnected_entrances = [entrance for region in state.reachable_regions[self.player_id] for entrance in region.exits if entrance.can_reach(state) and entrance.connected_region is None]
         self.locations_available = locations
