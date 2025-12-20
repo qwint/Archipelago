@@ -34,10 +34,11 @@ class CurrentTrackerState(NamedTuple):
     readable_locations: list[str]
     hinted_locations: list
     state: Optional[CollectionState]
+    go_mode: str
 
     @staticmethod
     def init_empty_state() -> "CurrentTrackerState":
-        return CurrentTrackerState(Counter(),Counter(),[],[],[],[],[],[],[],[],None)
+        return CurrentTrackerState(Counter(),Counter(),[],[],[],[],[],[],[],[],None,"No")
 
 class DeferredEntranceMode(Enum):
     """Determines how worlds should be allowed to use deferred entrances

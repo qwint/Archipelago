@@ -382,9 +382,10 @@ class TrackerCore():
         events = [location.item.name for location in state.advancements if location.player == self.player_id]
         event_locations = [location.name for location in state.advancements if location.player == self.player_id]
         unconnected_entrances = [entrance for region in state.reachable_regions[self.player_id] for entrance in region.exits if entrance.can_reach(state) and entrance.connected_region is None]
-
+        go_mode_in_logic = self.multiworld.has_beaten_game(state, self.player_id)
         self.locations_available = locations
         glitches_item_name = getattr(self.multiworld.worlds[self.player_id],"glitches_item_name","")
+        glitched_go_mode = False
         if glitches_item_name:
             try:
                 world_item = self.multiworld.create_item(glitches_item_name, self.player_id)
@@ -394,6 +395,7 @@ class TrackerCore():
             else:
                 state.sweep_for_advancements(
                     locations=[location for location in self.multiworld.get_locations(self.player_id) if (not location.address)])
+                glitched_go_mode = self.multiworld.has_beaten_game(state, self.player_id)
                 for temp_loc in self.multiworld.get_reachable_locations(state, self.player_id):
                     if temp_loc.address is None or isinstance(temp_loc.address, list):
                         continue
@@ -442,7 +444,14 @@ class TrackerCore():
                         pass
         self.glitched_locations = glitches_locations
 
-        return CurrentTrackerState(all_items, prog_items, glitches_callback_list, events, event_locations, callback_list, regions, unconnected_entrances, readable_locations, hinted_locations, state)
+        go_mode_status: str
+        if go_mode_in_logic:
+            go_mode_status = "Yes"
+        elif glitched_go_mode:
+            go_mode_status = "Glitched"
+        else:
+            go_mode_status = "No"
+        return CurrentTrackerState(all_items, prog_items, glitches_callback_list, events, event_locations, callback_list, regions, unconnected_entrances, readable_locations, hinted_locations, state, go_mode_status)
 
     def write_empty_yaml(self, game, player_name, tempdir):
         import json
