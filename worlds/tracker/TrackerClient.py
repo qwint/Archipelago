@@ -58,14 +58,6 @@ def get_ut_color(color: str)->str:
     if not hasattr(get_ut_color,"utTextColor"):
         get_ut_color.utTextColor = UTTextColor()
     return str(getattr(get_ut_color.utTextColor,color,"DD00FF"))
-
-def get_go_mode_color(go_mode_status: str)->str:
-    if go_mode_status == "No":
-        return get_ut_color("out_of_logic")
-    elif go_mode_status == "Glitched":
-        return get_ut_color("glitched")
-    return get_ut_color("in_logic")
-    
     
 class TrackerCommandProcessor(ClientCommandProcessor):
     ctx: "TrackerGameContext"
@@ -393,6 +385,9 @@ class TrackerGameContext(CommonContext):
             raise e
         if updateTracker_ret.state is None:
             return updateTracker_ret # core.updateTracker failed, just pass it along
+        current_world = self.tracker_core.get_current_world()
+        if current_world is None:
+            return updateTracker_ret #something has gone VERY badly, should never happen but makes the type checker happy
         if self.tracker_page:
             self.tracker_page.refresh_from_data()
         if self.update_callback is not None:
@@ -431,7 +426,7 @@ class TrackerGameContext(CommonContext):
                 relevent_coords = self.deferred_dict.get(entrance_name,[])
                 if not relevent_coords:
                     continue
-                temp_entrance = self.tracker_core.get_current_world().get_entrance(entrance_name)
+                temp_entrance = current_world.get_entrance(entrance_name)
                 if temp_entrance.can_reach(updateTracker_ret.state):
                     if temp_entrance.connected_region:
                         status = "passed"
@@ -441,7 +436,7 @@ class TrackerGameContext(CommonContext):
                     status = "impassable"
                 for coord in relevent_coords:
                     coord.update_status(entrance_name, status)
-            event_loc_cache = [loc for loc in self.tracker_core.get_current_world().get_locations() if loc.address is None and loc.parent_region is not None]
+            event_loc_cache = [loc for loc in current_world.get_locations() if loc.address is None and loc.parent_region is not None]
             for loc in event_loc_cache:
                 relevent_coords = self.ldeferred_dict.get(loc.name,[])
                 if not relevent_coords:
@@ -475,7 +470,12 @@ class TrackerGameContext(CommonContext):
         if hasattr(self, "tracker_hinted_locs_label"):
             self.tracker_hinted_locs_label.text = f"Hinted: [color={get_ut_color('hinted_in_logic')}]{len(updateTracker_ret.hinted_locations)}[/color]"
         if hasattr(self, "tracker_go_mode_label"):
-            self.tracker_go_mode_label.text = f"Go mode: [color={get_go_mode_color(updateTracker_ret.go_mode)}]{updateTracker_ret.go_mode}[/color]"
+            if self.tracker_core.multiworld.has_beaten_game(updateTracker_ret.state,current_world.player):
+                self.tracker_go_mode_label.text = f"Go mode: [color={get_ut_color("in_logic")}]Yes[/color]"
+            elif updateTracker_ret.glitches_state and self.tracker_core.multiworld.has_beaten_game(updateTracker_ret.glitches_state,current_world.player):
+                self.tracker_go_mode_label.text = f"Go mode: [color={get_ut_color("out_of_logic")}]No[/color]"
+            else:
+                self.tracker_go_mode_label.text = f"Go mode: [color={get_ut_color("glitched")}]Glitched[/color]"
 
         return updateTracker_ret
 
