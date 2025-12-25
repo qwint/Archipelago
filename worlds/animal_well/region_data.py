@@ -521,6 +521,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location),
         rname.bear_kangaroo_waterfall:
             AWData(AWType.region),
+        rname.top_of_the_well:
+            AWData(AWType.region, [[iname.bubble_long, iname.disc], [iname.disc_hop_hard, iname.precise_tricks]]),
     },
     rname.bear_middle_phone_room: {
         lname.fruit_23:
