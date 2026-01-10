@@ -1267,6 +1267,7 @@ class TrackerGameContext(CommonContext):
                 if not self.tracker_core.multiworld:
                     logger.error("Internal generation failed, something has gone wrong")
                     logger.error("Run the /faris_asked command and post the results in the discord")
+                    return #if this has failed we don't want to even try anything else
                 if self.ui is not None and hasattr(connected_cls, "tracker_world"):
                     self.tracker_world = UTMapTabData(self.slot, self.team, **getattr(connected_cls,"tracker_world",{}))
                 elif self.ui is not None and hasattr(self.tracker_core.get_current_world(),"tracker_world"):
