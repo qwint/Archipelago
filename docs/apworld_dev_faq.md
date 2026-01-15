@@ -6,6 +6,7 @@ including [Contributing](contributing.md), [Adding Games](<adding games.md>), an
 
 ---
 
+<a name="restrictive-starts"></a>
 ### My game has a restrictive start that leads to fill errors
 
 A "restrictive start" here means having a combination of very few sphere 1 locations and potentially requiring more
@@ -27,6 +28,7 @@ Some alternative ways to try to fix this problem are:
 
 ---
 
+<a name="pool-balancing"></a>
 ### I have multiple options that change the item/location pool counts and need to make sure I am not submitting more/fewer items than locations
 
 In an ideal situation your system for producing locations and items wouldn't leave any opportunity for them to be
@@ -55,6 +57,7 @@ item_pool += [self.create_filler() for _ in range(total_locations - len(item_poo
 
 ---
 
+<a name="indirect-conditions"></a>
 ### I learned about indirect conditions in the world API document, but I want to know more. What are they and why are they necessary?
 
 The world API document mentions how to use `multiworld.register_indirect_condition` to register indirect conditions and
@@ -93,6 +96,7 @@ much faster.
 
 ---
 
+<a name="corrupted-multidata"></a>
 ### I uploaded the generated output of my world to the webhost and webhost is erroring on corrupted multidata
 
 The error `Could not load multidata. File may be corrupted or incompatible.` occurs when uploading a locally generated
@@ -112,6 +116,7 @@ Common situations where this can happen include:
 
 ---
 
+<a name="tedious-itemless"></a>
 ### Some locations are technically possible to check with few or no items, but they'd be very tedious or frustrating. How do worlds deal with this?
 
 Sometimes the game can be modded to skip these locations or make them less tedious. But when this issue is due to a fundamental aspect of the game, then the general answer is "soft logic" (and its subtypes like "combat logic", "money logic", etc.). For example: you can logically require that a player have several helpful items before fighting the final boss, even if a skilled player technically needs no items to beat it. Randomizer logic should describe what's *fun* rather than what's technically possible.
@@ -125,6 +130,7 @@ Remember that all items referenced by logic (however hard or soft) must be `prog
 
 ---
 
+<a name="missable-rules"></a>
 ### What if my game has "missable" or "one-time-only" locations or region connections?
 
 Archipelago logic assumes that once a region or location becomes reachable, it stays reachable forever, no matter what 
