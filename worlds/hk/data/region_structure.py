@@ -26483,33 +26483,7 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "LEFTDASH"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW",
-                            "LEFTSUPERDASH"
+                            "Opened_Waterways_Exit"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -30023,6 +29997,15 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
                             "WINGS",
                             "ENEMYPOGOS",
                             "RIGHTCLAW"
@@ -30034,44 +30017,12 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "ENEMYPOGOS",
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHADESKIP"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
                             "ENEMYPOGOS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": [
                             "$SHADESKIP"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     },
                     {
@@ -34422,7 +34373,26 @@ regions = [
                 "logic": [
                     {
                         "item_requirements": [
+                            "LEFTCLAW",
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
                             "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW",
+                            "ENEMYPOGOS",
+                            "COMPLEXSKIPS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -34437,14 +34407,6 @@ regions = [
                         "state_modifiers": [
                             "$SHADESKIP"
                         ]
-                    },
-                    {
-                        "item_requirements": [
-                            "RIGHTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
                     }
                 ],
                 "target": "Geo_Rock-Deepnest_Spike_Grub_Right"
@@ -34525,6 +34487,19 @@ regions = [
                     }
                 ],
                 "target": "Geo_Rock-Deepnest_Below_Spike_Grub"
+            },
+            {
+                "logic": [
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    }
+                ],
+                "target": "Geo_Rock-Deepnest_Spike_Grub_Right"
             }
         ],
         "locations": [],
@@ -34932,6 +34907,16 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "Opened_Tramway_Exit_Gate"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO"
+                        ]
                     }
                 ],
                 "target": "Deepnest_26[left1]"
@@ -34954,6 +34939,14 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO"
+                        ]
                     }
                 ],
                 "target": "Deepnest_26[left2]"
@@ -34976,6 +34969,54 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "LEFTSUPERDASH"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS",
+                            "RIGHTCLAW",
+                            "OBSCURESKIPS",
+                            "PRECISEMOVEMENT"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO",
+                            "$SHADESKIP"
+                        ]
                     }
                 ],
                 "target": "Lifeblood_Cocoon-Failed_Tramway"
@@ -58934,6 +58975,16 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "ACID"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SLOPEBALL"
+                        ]
+                    },
+                    {
+                        "item_requirements": [
                             "COMPLEXSKIPS",
                             "ACIDSKIPS",
                             "WINGS",
@@ -61466,8 +61517,7 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "LEFTCLAW",
-                            "ENEMYPOGOS"
+                            "LEFTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -61567,8 +61617,7 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "LEFTCLAW",
-                            "ENEMYPOGOS"
+                            "LEFTCLAW"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
@@ -61715,6 +61764,15 @@ regions = [
                     },
                     {
                         "item_requirements": [
+                            "LEFTCLAW",
+                            "WINGS"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
                             "WINGS",
                             "ENEMYPOGOS",
                             "RIGHTCLAW"
@@ -61726,44 +61784,12 @@ regions = [
                     {
                         "item_requirements": [
                             "WINGS",
-                            "ENEMYPOGOS",
-                            "LEFTCLAW"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHADESKIP"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "WINGS",
                             "ENEMYPOGOS"
                         ],
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": [
                             "$SHADESKIP"
-                        ]
-                    },
-                    {
-                        "item_requirements": [
-                            "LEFTCLAW",
-                            "WINGS"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": [
-                            "$SHRIEKPOGO[2,before:ROOMSOUL]"
                         ]
                     },
                     {
@@ -64829,6 +64855,16 @@ regions = [
                         "location_requirements": [],
                         "region_requirements": [],
                         "state_modifiers": []
+                    },
+                    {
+                        "item_requirements": [
+                            "RIGHTCLAW"
+                        ],
+                        "location_requirements": [],
+                        "region_requirements": [],
+                        "state_modifiers": [
+                            "$SHRIEKPOGO[2,before:AREASOUL,after:AREASOUL]"
+                        ]
                     }
                 ],
                 "target": "Abyss_20[top1]"
@@ -94146,6 +94182,107 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "FIREBALL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "SCREAM"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "QUAKE"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "Cyclone_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "Dash_Slash",
+                    "LEFTDASH",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
             }
         ],
         "is_event": False
@@ -103102,6 +103239,107 @@ locations = [
             {
                 "item_requirements": [
                     "WINGS",
+                    "Dash_Slash",
+                    "LEFTDASH",
+                    "RIGHTDASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "LEFTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "RIGHTSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "UPSLASH"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "FIREBALL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "SCREAM"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "QUAKE"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "Cyclone_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
+                    "Great_Slash"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "ENEMYPOGOS",
+                    "DANGEROUSSKIPS",
+                    "RIGHTCLAW",
                     "Dash_Slash",
                     "LEFTDASH",
                     "RIGHTDASH"

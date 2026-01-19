@@ -8307,6 +8307,7 @@ starts = {
                     "ITEMRANDO",
                     "ENEMYPOGOS",
                     "SHADESKIPS",
+                    "PRECISEMOVEMENT",
                     "2MASKS"
                 ],
                 "location_requirements": [],

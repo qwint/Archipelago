@@ -43,6 +43,20 @@ class TestEnemyPogoStarts(StartsBase, NoStepHK):
     options = {
         "EnemyPogos": "true",
 
+        "PreciseMovement": "false",
+        "RandomizeSwim": "false",
+        "DangerousSkips": "true",
+        "ShadeSkips": "true",
+    }
+    valid_starts = ["mantis_village", "kingdoms_edge", "queens_gardens"]
+    invalid_starts = ["west_waterways"]
+
+
+class TestPreciseEnemyPogoStarts(StartsBase, NoStepHK):
+    options = {
+        "EnemyPogos": "true",
+        "PreciseMovement": "true",
+
         "RandomizeSwim": "false",
         "DangerousSkips": "true",
         "ShadeSkips": "true",

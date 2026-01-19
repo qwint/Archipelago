@@ -376,6 +376,8 @@ class HKWorld(RandomizerCoreWorld, World):
             valid_items.append("DARKROOMS")
         if self.options.ShadeSkips:
             valid_items.append("SHADESKIPS")
+        if self.options.PreciseMovement:
+            valid_items.append("PRECISEMOVEMENT")
         if self.options.DangerousSkips:
             valid_items.append("DANGEROUSSKIPS")
         start_location_logic = starts[start_location_key]["logic"]
