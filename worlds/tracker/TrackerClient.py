@@ -580,12 +580,21 @@ class TrackerGameContext(CommonContext):
                     if is_zipfile(packRef):
                         current_world.settings.update({self.tracker_world.external_pack_key: packRef})
                         current_world.settings._changed = True
-                        for map_page in self.tracker_world.map_page_maps:
-                            self.maps += load_json_zip(packRef, f"{map_page}")
-                        for loc_page in self.tracker_world.map_page_locations:
-                            self.locs += load_json_zip(packRef, f"{loc_page}")
-                        for layout_page in self.tracker_world.map_page_layouts:
-                            self.layouts.append(load_json_zip(packRef, f"{layout_page}"))
+                        if self.tracker_world.map_page_folder:
+                            PACK_NAME = current_world.__class__.__module__
+                            for map_page in self.tracker_world.map_page_maps:
+                                self.maps += load_json(PACK_NAME, f"/{self.tracker_world.map_page_folder}/{map_page}")
+                            for loc_page in self.tracker_world.map_page_locations:
+                                self.locs += load_json(PACK_NAME, f"/{self.tracker_world.map_page_folder}/{loc_page}")
+                            for layout_page in self.tracker_world.map_page_layouts:
+                                self.layouts.append(load_json(PACK_NAME, f"/{self.tracker_world.map_page_folder}/{layout_page}"))
+                        else:
+                            for map_page in self.tracker_world.map_page_maps:
+                                self.maps += load_json_zip(packRef, f"{map_page}")
+                            for loc_page in self.tracker_world.map_page_locations:
+                                self.locs += load_json_zip(packRef, f"{loc_page}")
+                            for layout_page in self.tracker_world.map_page_layouts:
+                                self.layouts.append(load_json_zip(packRef, f"{layout_page}"))
                     else:
                         current_world.settings.update({self.tracker_world.external_pack_key: ""}) #failed to find a pack, prompt next launch
                         current_world.settings._changed = True
