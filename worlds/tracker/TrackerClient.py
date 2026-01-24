@@ -248,7 +248,7 @@ class TrackerCommandProcessor(ClientCommandProcessor):
 
     @mark_raw
     def _cmd_explain_more(self, argument:str=""):
-        """Asks the internal world to explain more, used to expland on /explain and /get_logical_path"""
+        """Asks the internal world to explain more, used to expand on /explain and /get_logical_path"""
         if not self.ctx.game:
             logger.info("Not yet loaded into a game")
             return
