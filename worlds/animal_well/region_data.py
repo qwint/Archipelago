@@ -1139,16 +1139,22 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.top, iname.bubble]]),
         # You can access desert egg and bobcat entry point without switching the elevator direction,
         # but you need b.wand to guarantee you can switch it back if you DO switch it.
+        rname.frog_above_tnt:
+            AWData(AWType.region, [[iname.bubble_long], [iname.disc_hop_hard]]),
     },
     rname.frog_ruby_egg_ledge: {
         lname.egg_ruby:  # this whole region just for one egg
             AWData(AWType.location),
     },
+    rname.frog_above_tnt: {
+        lname.fruit_98:
+            AWData(AWType.location, loc_type=LocType.fruit),
+    },
     rname.frog_elevator_and_ostrich_wheel: {
         lname.fruit_97:
             AWData(AWType.location, loc_type=LocType.fruit),
-        lname.fruit_98:
-            AWData(AWType.location, [[iname.bubble_short], [iname.disc_hop_hard]], loc_type=LocType.fruit),
+        rname.frog_above_tnt:
+            AWData(AWType.region, [[iname.bubble_short], [iname.disc_hop_hard]]),
             # if you have yoyo, you can swap the mouse direction and lock yourself out of the check without bubbles
         lname.fruit_107:
             AWData(AWType.location, [[iname.top]], loc_type=LocType.fruit),
