@@ -243,15 +243,15 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
                 # settings: Tuple[argparse.Namespace, ...] = settings_cache[path] if settings_cache[path] else \
                 #     tuple(roll_settings(yaml, args.plando) for yaml in weights_cache[path])
                 # for settingsObject in settings:
-                #     erargs.player_options[player] = {}
+                #     args.player_options[player] = {}
                 #     for k, v in vars(settingsObject).items():
                 #         if v is not None:
                 #             try:
                 #                 if k in ("name",):
-                #                     setattr(erargs, k, {player: v})  # ~~~~
-                #                 erargs.player_options[player][k] = v
+                #                     setattr(args, k, {player: v})  # ~~~~
+                #                 args.player_options[player][k] = v
                 #             # except AttributeError:
-                #             #     setattr(erargs.player_options, k, {player: v})
+                #             #     setattr(args.player_options, k, {player: v})
                 #             except Exception as e:
                 #                 raise Exception(f"Error setting {k} to {v} for player {player}") from e
 
@@ -262,15 +262,24 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
                     if settings_cache[path]
                     else roll_settings(yaml, args.plando)
                 )
-                
+                args.player_options[player] = {}
                 for k, v in vars(settingsObject).items():
                     if v is not None:
                         try:
-                            getattr(args, k)[player] = v
-                        except AttributeError:
-                            setattr(args, k, {player: v})
+                            if k in ("name","game",):
+                                setattr(args, k, {player: v})  # ~~~~
+                            else:
+                                args.player_options[player][k] = v
+                        # except AttributeError:
+                        #     setattr(args.player_options, k, {player: v})
                         except Exception as e:
                             raise Exception(f"Error setting {k} to {v} for player {player}") from e
+                        # try:
+                        #     getattr(args.player_options, k)[player] = v
+                        # except AttributeError:
+                        #     setattr(args.player_options, k, {player: v})
+                        # except Exception as e:
+                        #     raise Exception(f"Error setting {k} to {v} for player {player}") from e
 
                 # name was not specified
                 if player not in args.name:

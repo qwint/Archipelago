@@ -66,11 +66,9 @@ def run_locations_benchmark(freeze_gc: bool = True) -> None:
                     multiworld.game[1] = game
                     multiworld.player_name = {1: "Tester"}
                     multiworld.set_seed(0)
-                    args = argparse.Namespace()
+                    args = Namespace(player_options={1: {}})
                     for name, option in AutoWorld.AutoWorldRegister.world_types[game].options_dataclass.type_hints.items():
-                        setattr(args, name, {
-                            1: option.from_any(getattr(option, "default"))
-                        })
+                        args.player_options[1][name] = option.from_any(getattr(option, "default"))
                     multiworld.set_options(args)
                     multiworld.state = CollectionState(multiworld)
 

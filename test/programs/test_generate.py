@@ -134,6 +134,6 @@ class TestGenerateWeights(TestGenerateMain):
         for option_name, results in expected_results.items():
             for player, result in enumerate(results, 1):
                 self.assertEqual(
-                    result, getattr(namespace, option_name)[player].value,
+                    result, namespace.player_options[player][option_name].value,
                     "Generated results from weights file did not match expected value."
                 )

@@ -103,11 +103,11 @@ class TestBase(unittest.TestCase):
                 "link_replacement": link_replace,
                 "replacement_item": None,
             }]
-            args = Namespace()
-            for name, option in world.options_dataclass.type_hints.items():
-                setattr(args, name, {1: option.from_any(option.default), 2: option.from_any(option.default)})
-            setattr(args, "item_links",
-                    {1: ItemLinks.from_any(item_link_group), 2: ItemLinks.from_any(item_link_group)})
+            args = Namespace(player_options={1: {}, 2: {}})
+            for player in (1, 2):
+                for name, option in world.options_dataclass.type_hints.items():
+                    args.player_options[player][name] = option.from_any(option.default)
+                args.player_options[player]["item_links"] = ItemLinks.from_any(item_link_group)
             multiworld.set_options(args)
             multiworld.set_item_links()
             # groups get added to state during its constructor so this has to be after item links are set

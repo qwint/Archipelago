@@ -56,12 +56,11 @@ def setup_multiworld(worlds: list[type[World]] | type[World], steps: tuple[str, 
     multiworld.game = {player: world_type.game for player, world_type in enumerate(worlds, 1)}
     multiworld.player_name = {player: f"Tester{player}" for player in multiworld.player_ids}
     multiworld.set_seed(seed)
-    args = Namespace()
+    args = Namespace(player_options={})
     for player, (world_type, option_overrides) in enumerate(zip(worlds, options), 1):
+        args.player_options[player] = {}
         for key, option in world_type.options_dataclass.type_hints.items():
-            updated_options = getattr(args, key, {})
-            updated_options[player] = option.from_any(option_overrides.get(key, option.default))
-            setattr(args, key, updated_options)
+            args.player_options[player][key] = option.from_any(option_overrides.get(key, option.default))
     multiworld.set_options(args)
     multiworld.state = CollectionState(multiworld)
     for step in steps:

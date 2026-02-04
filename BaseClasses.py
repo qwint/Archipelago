@@ -228,7 +228,7 @@ class MultiWorld():
             world_type = AutoWorld.AutoWorldRegister.world_types[self.game[player]]
             self.worlds[player] = world_type(self, player)
             options_dataclass: type[Options.PerGameCommonOptions] = world_type.options_dataclass
-            self.worlds[player].options = options_dataclass(**{option_key: getattr(args.options[player], option_key)
+            self.worlds[player].options = options_dataclass(**{option_key: args.player_options[player][option_key]
                                                                for option_key in options_dataclass.type_hints})
 
     def set_item_links(self):

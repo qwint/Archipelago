@@ -70,11 +70,9 @@ class WorldTestBase(unittest.TestCase):
         self.multiworld.set_seed(seed)
         random.seed(self.multiworld.seed)
         self.multiworld.seed_name = get_seed_name(random)  # only called to get same RNG progression as Generate.py
-        args = Namespace()
+        args = Namespace(player_options={1: {}})
         for name, option in AutoWorld.AutoWorldRegister.world_types[self.game].options_dataclass.type_hints.items():
-            setattr(args, name, {
-                1: option.from_any(self.options.get(name, option.default))
-            })
+            args.player_options[1][name] = option.from_any(self.options.get(name, option.default))
         self.multiworld.set_options(args)
         self.multiworld.state = CollectionState(self.multiworld)
         self.world = self.multiworld.worlds[self.player]
