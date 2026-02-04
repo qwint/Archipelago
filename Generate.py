@@ -246,6 +246,7 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
                     if settings_cache[path]
                     else roll_settings(yaml, args.plando)
                 )
+
                 args.player_options[player] = {}
                 for k, v in vars(settingsObject).items():
                     if v is not None:
@@ -254,16 +255,8 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
                                 setattr(args, k, {player: v})  # ~~~~
                             else:
                                 args.player_options[player][k] = v
-                        # except AttributeError:
-                        #     setattr(args.player_options, k, {player: v})
                         except Exception as e:
                             raise Exception(f"Error setting {k} to {v} for player {player}") from e
-                        # try:
-                        #     getattr(args.player_options, k)[player] = v
-                        # except AttributeError:
-                        #     setattr(args.player_options, k, {player: v})
-                        # except Exception as e:
-                        #     raise Exception(f"Error setting {k} to {v} for player {player}") from e
 
                 # name was not specified
                 if player not in args.name:
