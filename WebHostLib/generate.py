@@ -156,14 +156,16 @@ def gen_game(gen_options: dict, meta: dict[str, Any] | None = None, owner=None, 
         args.sprite_pool = dict.fromkeys(range(1, args.multi+1), None)
 
         name_counter = Counter()
+        setattr(args, "player_options", {})
+        setattr(args, "game", {})
         for player, (playerfile, settings) in enumerate(gen_options.items(), 1):
+            args.player_options[player] = {}
             for k, v in settings.items():
                 if v is not None:
-                    if hasattr(args, k):
+                    if k in ("name","game",):
                         getattr(args, k)[player] = v
                     else:
-                        setattr(args, k, {player: v})
-
+                        args.player_options[player][k] = v
             if not args.name[player]:
                 args.name[player] = os.path.splitext(os.path.split(playerfile)[-1])[0]
             args.name[player] = handle_name(args.name[player], player, name_counter)
