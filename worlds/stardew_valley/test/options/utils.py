@@ -46,10 +46,9 @@ def fill_namespace_with_default(test_options: dict[str, Any] | Iterable[dict[str
     if isinstance(test_options, dict):
         test_options = [test_options]
 
-    args = Namespace()
-    for option_name, option_class in StardewValleyOptions.type_hints.items():
-        all_players_option = {}
+    args = Namespace(player_options={player_id + 1: {} for player_id in range(len(test_options))})
 
+    for option_name, option_class in StardewValleyOptions.type_hints.items():
         for player_id, player_options in enumerate(test_options):
             # Player id starts at 1
             player_id += 1
@@ -61,8 +60,6 @@ def fill_namespace_with_default(test_options: dict[str, Any] | Iterable[dict[str
                 # Values should already be verified, but just in case...
                 value.verify(StardewValleyWorld, player_name, PlandoOptions.bosses)
 
-            all_players_option[player_id] = value
-
-        setattr(args, option_name, all_players_option)
+            args.player_options[player_id][option_name] = value
 
     return args

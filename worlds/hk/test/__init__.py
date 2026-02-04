@@ -14,16 +14,13 @@ class linkedTestHK():
     item_link_group: typing.List[typing.Dict[str, typing.Any]]
 
     def setup_item_links(self, args):
-        setattr(args, "item_links",
-                {
-                    1: ItemLinks.from_any(self.item_link_group),
-                    2: ItemLinks.from_any([{
-                        "name": "ItemLinkTest",
-                        "item_pool": ["Grub"],
-                        "link_replacement": False,
-                        "replacement_item": "One_Geo",
-                    }])
-                })
+        args.player_options[1]["item_links"] = ItemLinks.from_any(self.item_link_group)
+        args.player_options[2]["item_links"] = ItemLinks.from_any([{
+            "name": "ItemLinkTest",
+            "item_pool": ["Grub"],
+            "link_replacement": False,
+            "replacement_item": "One_Geo",
+        }])
         return args
 
     def world_setup(self) -> None:
@@ -34,13 +31,11 @@ class linkedTestHK():
         self.multiworld.game = {1: self.game, 2: self.game}
         self.multiworld.player_name = {1: "Linker 1", 2: "Linker 2"}
         self.multiworld.set_seed()
-        args = Namespace()
         options_dataclass = AutoWorldRegister.world_types[self.game].options_dataclass
-        for name, option in options_dataclass.type_hints.items():
-            setattr(args, name, {
-                1: option.from_any(self.options.get(name, option.default)),
-                2: option.from_any(self.options.get(name, option.default))
-            })
+        args = Namespace(player_options={1: {}, 2: {}})
+        for player in (1, 2):
+            for name, option in options_dataclass.type_hints.items():
+                args.player_options[player][name] = option.from_any(self.options.get(name, option.default))
         args = self.setup_item_links(args)
         self.multiworld.set_options(args)
         self.multiworld.set_item_links()

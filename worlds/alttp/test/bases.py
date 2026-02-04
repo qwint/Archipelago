@@ -102,9 +102,9 @@ class LTTPTestBase(unittest.TestCase):
         self.multiworld = MultiWorld(1)
         self.multiworld.game[1] = "A Link to the Past"
         self.multiworld.set_seed(None)
-        args = Namespace()
+        args = Namespace(player_options={1: {}})
         for name, option in AutoWorldRegister.world_types["A Link to the Past"].options_dataclass.type_hints.items():
-            setattr(args, name, {1: option.from_any(getattr(option, "default"))})
+            args.player_options[1][name] = option.from_any(getattr(option, "default"))
         self.multiworld.set_options(args)
         self.multiworld.state = CollectionState(self.multiworld)
         self.world = self.multiworld.worlds[1]
