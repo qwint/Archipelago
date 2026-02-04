@@ -252,7 +252,10 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
                     if v is not None:
                         try:
                             if k in ("name","game",):
-                                setattr(args, k, {player: v})
+                                try:
+                                    getattr(args, k)[player] = v
+                                except AttributeError:
+                                    setattr(args, k, {player: v})
                             else:
                                 args.player_options[player][k] = v
                         except Exception as e:
