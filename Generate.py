@@ -239,22 +239,6 @@ def main(args=None) -> tuple[argparse.Namespace, int]:
         for doc_index, yaml in enumerate(weights_cache[path]):
             name = yaml.get("name")
             try:
-                # <<<<<<< HEAD
-                # settings: Tuple[argparse.Namespace, ...] = settings_cache[path] if settings_cache[path] else \
-                #     tuple(roll_settings(yaml, args.plando) for yaml in weights_cache[path])
-                # for settingsObject in settings:
-                #     args.player_options[player] = {}
-                #     for k, v in vars(settingsObject).items():
-                #         if v is not None:
-                #             try:
-                #                 if k in ("name",):
-                #                     setattr(args, k, {player: v})  # ~~~~
-                #                 args.player_options[player][k] = v
-                #             # except AttributeError:
-                #             #     setattr(args.player_options, k, {player: v})
-                #             except Exception as e:
-                #                 raise Exception(f"Error setting {k} to {v} for player {player}") from e
-
                 # Use the cached settings object if it exists, otherwise roll settings within the try-catch
                 # Invariant: settings_cache[path] and weights_cache[path] have the same length
                 settingsObject: argparse.Namespace = (
