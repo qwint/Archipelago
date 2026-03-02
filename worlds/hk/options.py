@@ -211,6 +211,25 @@ class SplitCrystalHeart(Toggle):
     default = False
 
 
+class RandomizeEntrances(Toggle):
+    """Enable entrance/transition randomization."""
+    display_name = "Randomize Entrances"
+    default = False
+
+
+class ShuffleEntrancesMode(Choice):
+    """How entrances should be shuffled when `Randomize Entrances` is enabled.
+
+    **Coupled:** Transitions are paired so returning through an entrance takes you back.
+
+    **Decoupled:** Any exit can lead to any entrance (not necessarily reversible).
+    """
+    display_name = "Shuffle Entrances Mode"
+    option_coupled = 1
+    option_decoupled = 2
+    default = option_coupled
+
+
 class MinimumGrubPrice(Range):
     """The minimum grub price in the range of prices that an item should cost from Grubfather."""
     display_name = "Minimum Grub Price"
@@ -596,6 +615,7 @@ hollow_knight_options: dict[str, type(Option)] = {
         for option in (
             StartLocation, Goal, GrubHuntGoal, WhitePalace, ExtraPlatforms, AddUnshuffledLocations, StartingGeo,
             DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms,
+            RandomizeEntrances, ShuffleEntrancesMode,
             MinimumGeoPrice, MaximumGeoPrice,
             MinimumGrubPrice, MaximumGrubPrice,
             MinimumEssencePrice, MaximumEssencePrice,
