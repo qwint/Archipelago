@@ -2,7 +2,7 @@ import asyncio
 import logging
 import traceback
 from collections.abc import Callable
-from CommonClient import CommonContext, gui_enabled, get_base_parser, server_loop, ClientCommandProcessor, handle_url_arg
+from CommonClient import CommonContext, get_base_parser, server_loop, ClientCommandProcessor, handle_url_arg
 import os
 import time
 import sys
@@ -11,7 +11,7 @@ from typing import Union, Any, TYPE_CHECKING
 
 from BaseClasses import CollectionState, MultiWorld, LocationProgressType, ItemClassification, Location
 from worlds.generic.Rules import exclusion_rules
-from Utils import __version__, output_path, open_filename,async_start
+from Utils import __version__, output_path, open_filename,async_start, gui_enabled
 from worlds import AutoWorld
 from . import TrackerWorld, UTMapTabData, CurrentTrackerState,UT_VERSION
 from .TrackerCore import TrackerCore
@@ -37,6 +37,8 @@ ITEMS_HANDLING = 0b111
 UT_MAP_TAB_KEY = "UT_MAP"
 
 def get_ut_color(color: str)->str:
+    if not gui_enabled:
+        return "DD00FF"
     from kvui import Widget
     from typing import ClassVar
     from kivy.properties import StringProperty
