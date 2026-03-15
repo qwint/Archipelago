@@ -12,6 +12,7 @@ from settings import Bool, Group
 from worlds.AutoWorld import WebWorld
 
 from .constants import gamename
+from .options import HKOptionGroups
 from .rules import cost_terms
 
 if TYPE_CHECKING:
@@ -60,6 +61,8 @@ class HKWeb(WebWorld):
         "https://github.com/Ijwu/Archipelago.HollowKnight/issues/new"
         "?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
     )
+
+    option_groups = HKOptionGroups
 
 
 class HKClause(NamedTuple):

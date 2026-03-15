@@ -11,6 +11,7 @@ from Options import (
     NamedRange,
     Option,
     OptionDict,
+    OptionGroup,
     PerGameCommonOptions,
     Range,
     Toggle,
@@ -680,3 +681,45 @@ hollow_knight_options: dict[str, type(Option)] = {
 
 # https://github.com/python/mypy/issues/6063 unfortunatly mypy hates this
 HKOptions = make_dataclass("HKOptions", list(hollow_knight_options.items()), bases=(PerGameCommonOptions,))
+HKOptionGroups: list[OptionGroup] = [
+    OptionGroup("Randomize Options", [
+            *hollow_knight_randomize_options.values(),
+            RandomizeElevatorPass
+        ], start_collapsed=False),
+    OptionGroup("Miscellaneous", [
+            SplitCrystalHeart,
+            SplitMothwingCloak,
+            SplitMantisClaw,
+            WhitePalace,
+            ExtraPlatforms,
+            AddUnshuffledLocations,
+            StartingGeo,
+            RandomCharmCosts,
+            PlandoCharmCosts,
+        ], start_collapsed=True),
+    OptionGroup("Logic Options", hollow_knight_logic_options.values(), start_collapsed=False),
+    OptionGroup("Goal", [Goal, GrubHuntGoal], start_collapsed=False),
+    OptionGroup("DeathLink", [DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms], start_collapsed=True),
+    OptionGroup("Entrance Rando", [StartLocation, EntranceRandoType, ShuffleEntrancesMode], start_collapsed=True),
+    OptionGroup("Shop Slots", [
+            EggShopSlots,
+            SlyShopSlots,
+            SlyKeyShopSlots,
+            IseldaShopSlots,
+            SalubraShopSlots,
+            SalubraCharmShopSlots,
+            LegEaterShopSlots,
+            GrubfatherRewardSlots,
+            SeerRewardSlots,
+            ExtraShopSlots
+        ], start_collapsed=True),
+    OptionGroup("CostSanity", [
+            MinimumGeoPrice, MaximumGeoPrice,
+            MinimumGrubPrice, MaximumGrubPrice,
+            MinimumEssencePrice, MaximumEssencePrice,
+            MinimumCharmPrice, MaximumCharmPrice,
+            MinimumEggPrice, MaximumEggPrice,
+            CostSanity, CostSanityHybridChance,
+            *cost_sanity_weights.values()
+        ], start_collapsed=True),
+]
