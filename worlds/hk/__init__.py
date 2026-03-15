@@ -5,14 +5,14 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from typing import Any, ClassVar, cast
 
-from BaseClasses import CollectionState, EntranceType, ItemClassification, LocationProgressType, MultiWorld, Region
+from BaseClasses import CollectionState, EntranceType, ItemClassification, LocationProgressType, MultiWorld
 from Options import OptionError
 from entrance_rando import disconnect_entrance_for_randomization, randomize_entrances
 from worlds.AutoWorld import World
 
 from .charms import charm_name_to_id, charm_names
 from .classes import HKClause, HKEntrance, HKItem, HKLocation, HKRegion, HKSettings, HKWeb
-from .constants import gamename, randomizable_starting_items, shop_cost_types
+from .constants import gamename, randomizable_starting_items, shop_cost_types, NearbySoul
 from .data.ids import item_name_to_id, location_name_to_id
 from .data.item_effects import (
     affected_terms_by_item,
@@ -38,7 +38,6 @@ from .options import (
     shop_to_option,
 )
 from .resource_state_vars import ResourceStateHandler
-from .resource_state_vars.cast_spell import NearbySoul
 from .rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
 from .template_world import RandomizerCoreWorld
@@ -88,13 +87,12 @@ class HKWorld(RandomizerCoreWorld, World):
     rc_locations: list[dict[str, Any]] = hk_locations
     item_class = HKItem
     location_class = HKLocation
-    explicit_indirect_conditions = True
     region_class = HKRegion
 
     rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations}
     region_lookup: ClassVar[dict[str, str]] = {location: r["name"] for r in hk_regions for location in r["locations"]}
     entrance_by_term: dict[str, list[str]]
-    entrance_pairs: list[tuple[str, str]]
+    entrance_pairs: dict[str, str]
 
     cached_filler_items: ClassVar[dict[int, list[str]]] = {}  # per player cache
     grub_count: int
@@ -116,7 +114,7 @@ class HKWorld(RandomizerCoreWorld, World):
         self.vanilla_shop_costs = deepcopy(vanilla_shop_costs)
         self.event_locations = deepcopy(event_locations)
         self.entrance_by_term = defaultdict(list)
-        self.entrance_pairs = list()
+        self.entrance_pairs = {}
 
     def white_palace_exclusions(self) -> set[str]:
         exclusions = set()
@@ -329,7 +327,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         self.charm_names_and_costs[self.player] = {name: (charm_costs[index] if name != "Void_Heart" else 0)
                                                    for name, index in charm_name_to_id.items()}
-        self.soul_modes[self.player] = NearbySoul.ITEMSOUL  # make dynamic with ER support
+        self.soul_modes[self.player] = self.options.EntranceRandoType.soul_mode
 
         self.split_cloak_direction = self.random.randint(0, 1)
 
@@ -369,7 +367,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
     def validate_start(self, start_location_key: str) -> list[list[str]]:
         test_state = CollectionState(self.multiworld)
-        valid_items = ["ITEMRANDO", "2MASKS"]  # TODO: properly handle these assumptions (non-er and non-cursed masks)
+        valid_items = ["2MASKS"]  # TODO: properly handle these assumptions (non-cursed masks)
         if self.options.EnemyPogos:
             valid_items.append("ENEMYPOGOS")
         if test_state.has_group("Vertical", self.player):
@@ -384,8 +382,9 @@ class HKWorld(RandomizerCoreWorld, World):
             valid_items.append("PRECISEMOVEMENT")
         if self.options.DangerousSkips:
             valid_items.append("DANGEROUSSKIPS")
-        if self.options.RandomizeEntrances:
-            valid_items.append("ROOMRANDO")
+
+        valid_items.append(self.options.EntranceRandoType.tag)
+
         start_location_logic = starts[start_location_key]["logic"]
 
         if not start_location_logic:  # empty logic means always good
@@ -404,6 +403,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         for loc in self.white_palace_exclusions():
             self.get_location(loc).progress_type = LocationProgressType.EXCLUDED
+
         location_to_option = {
             location: option for option, data in pool_options.items() for location in data["randomized"]["locations"]
         }
@@ -411,7 +411,7 @@ class HKWorld(RandomizerCoreWorld, World):
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
                 self.get_location(location).costs = costs
-        
+
         self.get_region("Menu").connect(self.get_region(self.start_location_region))
 
     def get_location_map(self) -> list[tuple[str, str, Any | None]]:
@@ -601,7 +601,7 @@ class HKWorld(RandomizerCoreWorld, World):
         return all(state.has("Grub", owner, count) for owner, count in self.grub_player_count.items())
 
     def connect_entrances(self):
-        if not self.options.RandomizeEntrances:
+        if not self.options.EntranceRandoType:
             return
 
         transition_names = set(transitions.keys())
@@ -612,9 +612,7 @@ class HKWorld(RandomizerCoreWorld, World):
             for ex in region.exits
             if ex.name in transition_names
             and not (
-                region.name == self.origin_region_name
-                and ex.connected_region
-                and ex.connected_region.name == self.start_location_region
+                region.name == "Menu"
             )
         ]
 
@@ -622,8 +620,10 @@ class HKWorld(RandomizerCoreWorld, World):
             return
 
         for ex in exits:
-            trans_data = transitions.get(ex.name, {})
-            sides = trans_data.get("sides", "Both")
+            trans_data = transitions[ex.name]
+            if not self.options.EntranceRandoType.test_transition(trans_data):
+                continue
+            sides = trans_data["sides"]
             ex.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
 
             disconnect_entrance_for_randomization(
@@ -642,8 +642,8 @@ class HKWorld(RandomizerCoreWorld, World):
             },
         )
 
-        self.entrance_pairs = er_state.pairings
-        
+        self.entrance_pairs = dict(er_state.pairings)
+
     def add_vanilla_connections(self):
         vanilla_connections = [
             (transition_to_region_map[name], transition_to_region_map[t["vanilla_target"]], name)
@@ -1023,6 +1023,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 pass
 
         slot_data["options"]["StartLocationName"] = starts[self.options.StartLocation.current_key]["logic_name"]
+        # slot_data["options"]["EntranceRandoTypeName"] = self.options.EntranceRandoType.current_key
 
         # 32 bit int
         slot_data["seed"] = self.random.randint(-2147483647, 2147483646)
@@ -1042,7 +1043,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         slot_data["is_race"] = self.settings.disable_spoilers or self.multiworld.is_race
 
-        slot_data["entrance_pairs"] = {src: tgt for src, tgt in self.entrance_pairs} if self.options.RandomizeEntrances else {}
+        slot_data["entrance_pairs"] = self.entrance_pairs
 
         return slot_data
 
@@ -1077,29 +1078,21 @@ class HKWorld(RandomizerCoreWorld, World):
                     for loc in locations:
                         spoiler_handle.write(f"\n{loc}: {loc.item} costing {loc.cost_text()}")
 
+    def write_spoiler_end(self, spoiler_handle):
         # Entrance randomization spoiler
-        spoiler_handle.write("\n\nEntrance Randomization:")
-        for hk_world in hk_worlds:
-            if hasattr(hk_world, "entrance_pairs"):
-                spoiler_handle.write(f"\n{hk_world.player_name}\n\nONE WAYS:")
-                duals = set()
-                for src, tgt in hk_world.entrance_pairs:
-                    if (src, tgt) in duals:
-                        continue  # already recorded as a dual
-                    dual = False
-                    for oldsrc, oldtgt in hk_world.entrance_pairs:
-                        if oldsrc == tgt and oldtgt == src:
-                            duals.add((src, tgt))
-                            duals.add((tgt, src))
-                            dual = True
-                            break
-                    if not dual:
-                        spoiler_handle.write(f"\n{src} -> {tgt}")
-                
-                spoiler_handle.write(f"\n\nTWO WAYS:")
-                done = set()
-                for dual in duals:
-                    if (dual[1], dual[0]) in done:
-                        continue
-                    done.add(dual)
-                    spoiler_handle.write(f"\n{dual[0]} <-> {dual[1]}")
+        if not self.entrance_pairs:
+            return
+        spoiler_handle.write(f"\n\n{self.player_name} Entrance Randomization:\n\nONE WAYS:")
+        two_ways = set()
+        for src, tgt in self.entrance_pairs.items():
+            if (src, tgt) in two_ways:
+                continue  # already recorded as a two_way
+            if self.entrance_pairs.get(tgt) == src:
+                two_ways.add((src, tgt))
+            else:
+                spoiler_handle.write(f"\n{src} -> {tgt}")
+
+        if two_ways:
+            spoiler_handle.write(f"\n\nTWO WAYS:")
+            for src, tgt in two_ways:
+                spoiler_handle.write(f"\n{src} <-> {tgt}")

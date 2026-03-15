@@ -16,6 +16,7 @@ from Options import (
     Toggle,
 )
 
+from .constants import NearbySoul
 from .charms import charm_names, vanilla_costs
 from .data.option_data import logic_options, pool_options
 from .data.trando_data import starts
@@ -27,16 +28,7 @@ if typing.TYPE_CHECKING:
 else:
     Random = typing.Any
 
-filtered_starts = [
-    key for key, data in starts.items()
-    if not data["logic"]  # empty logic is always valid
-    or any(
-        # strip starts that are only valid with ER as that is not implemented yet
-        not any(req in ("MAPAREARANDO", "FULLAREARANDO", "ROOMRANDO",) for req in clause["item_requirements"])
-        for clause in data["logic"]
-    )
-]
-locations = {"option_" + start: i for i, start in enumerate(filtered_starts)}
+locations = {"option_" + start: i for i, start in enumerate(starts.keys())}
 # This way the dynamic start names are picked up by the MetaClass Choice belongs to
 StartLocation = type("StartLocation", (Choice,), {
     "__module__": __name__,
@@ -211,10 +203,63 @@ class SplitCrystalHeart(Toggle):
     default = False
 
 
-class RandomizeEntrances(Toggle):
-    """Enable entrance/transition randomization."""
-    display_name = "Randomize Entrances"
-    default = False
+class EntranceRandoType(Choice):
+    """
+    Entrance randomizer type.
+
+    none: use vanilla transitions
+    map: only shuffle the entrances between map areas
+    full: only shuffle the entrances between Titled areas
+    room: shuffle all rooms entrances together
+    connected_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
+    doors: shuffle all transitions through doors together
+    """
+    display_name = "Entrance Rando Type"
+    option_none = 0
+    option_map = 1
+    option_full = 2
+    option_room = 3
+    option_connected_area = 4
+    option_doors = 5
+    default = option_none
+    tag_lookup = {
+        option_none: "ITEMRANDO",
+        option_map: "MAPAREARANDO",
+        option_full: "FULLAREARANDO",
+        option_room: "ROOMRANDO",
+        option_connected_area: "ROOMRANDO",  # treated like room rando internally
+        option_doors: "ROOMRANDO",  # treated like room rando internally
+    }
+    soul_lookup = {
+        option_none: NearbySoul.ITEMSOUL,
+        option_map: NearbySoul.MAPAREASOUL,
+        option_full: NearbySoul.AREASOUL,
+        option_room: NearbySoul.ROOMSOUL,
+        option_connected_area: NearbySoul.ROOMSOUL,
+        option_doors: NearbySoul.ROOMSOUL,
+    }
+
+    @property
+    def tag(self) -> str:
+        return self.tag_lookup[self.value]
+
+    def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
+        if self.value == self.option_none:
+            return False
+        elif self.value == self.option_map:
+            return trans_data["is_map_area_transition"]
+        elif self.value == self.option_full:
+            return trans_data["is_titled_area_transition"]
+        elif self.value == self.option_room:
+            return True
+        elif self.value == self.option_connected_area:
+            return not trans_data["is_titled_area_transition"]
+        elif self.value == self.option_doors:
+            return trans_data["direction"] == "Door"
+
+    @property
+    def soul_mode(self) -> NearbySoul:
+        return self.soul_lookup[self.value]
 
 
 class ShuffleEntrancesMode(Choice):
@@ -615,7 +660,7 @@ hollow_knight_options: dict[str, type(Option)] = {
         for option in (
             StartLocation, Goal, GrubHuntGoal, WhitePalace, ExtraPlatforms, AddUnshuffledLocations, StartingGeo,
             DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms,
-            RandomizeEntrances, ShuffleEntrancesMode,
+            EntranceRandoType, ShuffleEntrancesMode,
             MinimumGeoPrice, MaximumGeoPrice,
             MinimumGrubPrice, MaximumGrubPrice,
             MinimumEssencePrice, MaximumEssencePrice,
