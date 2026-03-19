@@ -1,6 +1,5 @@
 {
   "include": [
-    "../BizHawkClient.py",
     "../Patch.py",
     "../rule_builder/cached_world.py",
     "../rule_builder/options.py",
@@ -18,7 +17,6 @@
     "../test/programs/test_multi_server.py",
     "../test/utils/__init__.py",
     "../test/webhost/test_descriptions.py",
-    "../worlds/AutoSNIClient.py",
     "type_check.py"
   ],
 
