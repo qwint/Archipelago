@@ -575,7 +575,7 @@ cx_Freeze.setup(
     options={
         "build_exe": {
             "packages": ["worlds", "kivy", "cymem", "websockets", "kivymd"],
-            "includes": [],
+            "includes": ["pymem"],
             "excludes": ["numpy", "Cython", "PySide2", "PIL",
                          "pandas"],
             "zip_includes": [],
