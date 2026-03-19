@@ -107,7 +107,7 @@ jobs:
         shell: bash
         run: |
           cd build/exe*
-          cp Players/Templates/VVVVVV.yaml Players/
+          cp Players/Templates/APQuest.yaml Players/
           timeout 30 ./ArchipelagoGenerate
       - name: Store 7z
         uses: actions/upload-artifact@v4
@@ -201,7 +201,7 @@ jobs:
         shell: bash
         run: |
           cd build/exe*
-          cp Players/Templates/VVVVVV.yaml Players/
+          cp Players/Templates/APQuest.yaml Players/
           timeout 30 ./ArchipelagoGenerate
       - name: Store AppImage
         uses: actions/upload-artifact@v4
