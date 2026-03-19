@@ -67,72 +67,6 @@ non_apworlds: set[str] = {
 }
 
 
-def download_SNI() -> None:
-    print("Updating SNI")
-    machine_to_go = {
-        "x86_64": "amd64",
-        "aarch64": "arm64",
-        "armv7l": "arm"
-    }
-    platform_name = platform.system().lower()
-    machine_name = platform.machine().lower()
-    # force amd64 on macos until we have universal2 sni, otherwise resolve to GOARCH
-    machine_name = "universal" if platform_name == "darwin" else machine_to_go.get(machine_name, machine_name)
-    sni_version_ref = "latest" if SNI_VERSION == "latest" else f"tags/{SNI_VERSION}"
-    with urllib.request.urlopen(f"https://api.github.com/repos/alttpo/SNI/releases/{sni_version_ref}") as request:
-        data = json.load(request)
-    files = data["assets"]
-
-    source_url = None
-
-    for file in files:
-        download_url: str = file["browser_download_url"]
-        machine_match = download_url.rsplit("-", 1)[1].split(".", 1)[0] == machine_name
-        if platform_name in download_url and machine_match:
-            source_url = download_url
-            # prefer "many" builds
-            if "many" in download_url:
-                break
-            # prefer non-windows7 builds to get up-to-date dependencies
-            if platform_name == "windows" and "windows7" not in download_url:
-                break
-
-    if source_url and source_url.endswith(".zip"):
-        with urllib.request.urlopen(source_url) as download:
-            with zipfile.ZipFile(io.BytesIO(download.read()), "r") as zf:
-                for zf_member in zf.infolist():
-                    zf.extract(zf_member, path="SNI")
-        print(f"Downloaded SNI from {source_url}")
-
-    elif source_url and (source_url.endswith(".tar.xz") or source_url.endswith(".tar.gz")):
-        import tarfile
-        mode = "r:xz" if source_url.endswith(".tar.xz") else "r:gz"
-        with urllib.request.urlopen(source_url) as download:
-            sni_dir = None
-            with tarfile.open(fileobj=io.BytesIO(download.read()), mode=mode) as tf:
-                for member in tf.getmembers():
-                    if member.name.startswith("/") or "../" in member.name:
-                        raise ValueError(f"Unexpected file '{member.name}' in {source_url}")
-                    elif member.isdir() and not sni_dir:
-                        sni_dir = member.name
-                    elif member.isfile() and not sni_dir or sni_dir and not member.name.startswith(sni_dir):
-                        raise ValueError(f"Expected folder before '{member.name}' in {source_url}")
-                    elif member.isfile() and sni_dir:
-                        tf.extract(member)
-            # sadly SNI is in its own folder on non-windows, so we need to rename
-            if not sni_dir:
-                raise ValueError("Did not find SNI in archive")
-            shutil.rmtree("SNI", True)
-            os.rename(sni_dir, "SNI")
-        print(f"Downloaded SNI from {source_url}")
-
-    elif source_url:
-        print(f"Don't know how to extract SNI from {source_url}")
-
-    else:
-        print(f"No SNI found for system spec {platform_name} {machine_name}")
-
-
 signtool: str | None = None
 try:
     import socket
@@ -191,7 +125,7 @@ if is_windows:
         icon=resolve_icon(c.icon),
     ))
 
-extra_data = ["LICENSE", "data", "EnemizerCLI", "SNI"]
+extra_data = ["LICENSE", "data",]
 extra_libs = ["libssl.so", "libcrypto.so"] if is_linux else []
 
 
@@ -290,9 +224,6 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
         print("Created Manifest")
 
     def run(self) -> None:
-        # start downloading sni asap
-        sni_thread = threading.Thread(target=download_SNI, name="SNI Downloader")
-        sni_thread.start()
 
         # pre-build steps
         print(f"Outputting to: {self.buildfolder}")
@@ -324,9 +255,6 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
         for src in build_ext.get_outputs():
             print(f"copying {src} -> {self.libfolder}")
             shutil.copy(src, self.libfolder, follow_symlinks=False)
-
-        # need to finish download before copying
-        sni_thread.join()
 
         # include_files seems to not be done automatically. implement here
         for src, dst in self.include_files:
