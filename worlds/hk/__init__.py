@@ -638,19 +638,9 @@ class HKWorld(RandomizerCoreWorld, World):
             world=self,
             coupled=coupled,
             target_group_lookup={
-                # "Left": ["Left", "Right", "Top", "Bot", "Door",],
-                # "Right": ["Left", "Right", "Top", "Bot", "Door",],
-                # "Top": ["Left", "Right", "Top", "Bot", "Door",],
-                # "Bot": ["Left", "Right", "Top", "Bot", "Door",],
-                # "Door": ["Left", "Right", "Top", "Bot", "Door",],
-                # "OneWayIn": ["OneWayOut"],
-                # "OneWayOut": ["OneWayIn"],
-
-
-
                 # assuming MatchingDirections for now
-                "Left": ["Right", "Door"],
-                "Right": ["Left", "Door"],
+                "Left": ["Right", "Door", "Left"],  # TODO: ideally should self-connect
+                "Right": ["Left", "Door", "Right"],  # TODO: ideally should self-connect
                 "Top": ["Bot"],
                 "Bot": ["Top"],
                 "Door": ["Door", "Left", "Right"],
@@ -662,8 +652,6 @@ class HKWorld(RandomizerCoreWorld, World):
         self.entrance_pairs = dict(er_state.pairings)
 
     def setup_connections(self):
-        # cont = Counter()
-
         for name, trans_data in transitions.items():
             if self.options.EntranceRandoType.test_transition(trans_data):
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
@@ -673,26 +661,14 @@ class HKWorld(RandomizerCoreWorld, World):
                 direction = trans_data["direction"]  # Left/Right/Top/Bot/Door
                 sides = trans_data["sides"]  # Both/OneWayIn/OneWayOut
 
-                # if direction == "Door" or (trans_data["vanilla_target"] is not None and transitions[trans_data["vanilla_target"]]["direction"] == "Door"):
-                #     if trans_data["vanilla_target"] is None:
-                #         # is a one-way target
-                #         continue
-
-                #     region1 = self.get_region(transition_to_region_map[name])
-                #     region2 = self.get_region(transition_to_region_map[trans_data["vanilla_target"]])
-                #     region1.connect(region2, name)
-                #     continue
-
-                if sides != "OneWayIn":
-                    entrance = region1.create_exit(name)
-                    entrance.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
-                    entrance.randomization_group = direction if sides == "Both" else sides
-                    # cont[entrance.randomization_group] += 1
                 if sides != "OneWayOut":
+                    exit_obj = region1.create_exit(name)
+                    exit_obj.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
+                    exit_obj.randomization_group = direction if sides == "Both" else sides
+                if sides != "OneWayIn":
                     exit_target = region1.create_er_target(name)
                     exit_target.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
                     exit_target.randomization_group = direction if sides == "Both" else sides
-                    # cont[exit_target.randomization_group] += 1
             else:
                 # create the apppropriate vanilla entrance instead
                 if trans_data["vanilla_target"] is None:
@@ -702,7 +678,6 @@ class HKWorld(RandomizerCoreWorld, World):
                 region1 = self.get_region(transition_to_region_map[name])
                 region2 = self.get_region(transition_to_region_map[trans_data["vanilla_target"]])
                 region1.connect(region2, name)
-        # assert False, cont
 
     def add_all_events(self):
         location_to_region = {loc: reg["name"] for reg in regions for loc in reg["locations"]}

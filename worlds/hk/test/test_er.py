@@ -7,6 +7,7 @@ class TestErMapAllShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
         "EntranceRandoType": "maparea",
+        "ShuffleEntrancesMode": "coupled",
 
         "RandomizeDreamers": True,
         "RandomizeSkills": True,
@@ -81,6 +82,7 @@ class TestErMFullllShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
         "EntranceRandoType": "fullarea",
+        "ShuffleEntrancesMode": "coupled",
 
         "RandomizeDreamers": True,
         "RandomizeSkills": True,
@@ -155,6 +157,7 @@ class TestErRoomAllShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
         "EntranceRandoType": "room",
+        "ShuffleEntrancesMode": "coupled",
 
         "RandomizeDreamers": True,
         "RandomizeSkills": True,
