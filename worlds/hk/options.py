@@ -11,11 +11,13 @@ from Options import (
     NamedRange,
     Option,
     OptionDict,
+    OptionGroup,
     PerGameCommonOptions,
     Range,
     Toggle,
 )
 
+from .constants import NearbySoul
 from .charms import charm_names, vanilla_costs
 from .data.option_data import logic_options, pool_options
 from .data.trando_data import starts
@@ -27,16 +29,7 @@ if typing.TYPE_CHECKING:
 else:
     Random = typing.Any
 
-filtered_starts = [
-    key for key, data in starts.items()
-    if not data["logic"]  # empty logic is always valid
-    or any(
-        # strip starts that are only valid with ER as that is not implemented yet
-        not any(req in ("MAPAREARANDO", "FULLAREARANDO", "ROOMRANDO",) for req in clause["item_requirements"])
-        for clause in data["logic"]
-    )
-]
-locations = {"option_" + start: i for i, start in enumerate(filtered_starts)}
+locations = {"option_" + start: i for i, start in enumerate(starts.keys())}
 # This way the dynamic start names are picked up by the MetaClass Choice belongs to
 StartLocation = type("StartLocation", (Choice,), {
     "__module__": __name__,
@@ -209,6 +202,78 @@ class SplitCrystalHeart(Toggle):
     """Splits the Crystal Heart into left- and right-only versions of the item."""
     display_name = "Split Crystal Heart"
     default = False
+
+
+class EntranceRandoType(Choice):
+    """
+    Entrance randomizer type.
+
+    none: use vanilla transitions
+    maparea: only shuffle the entrances between map areas
+    fullarea: only shuffle the entrances between Titled areas
+    room: shuffle all rooms entrances together
+    connected_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
+    doors: shuffle all transitions through doors together
+    """
+    display_name = "Entrance Rando Type"
+    option_none = 0
+    option_maparea = 1
+    option_fullarea = 2
+    option_room = 3
+    option_connected_area = 4
+    option_doors = 5
+    default = option_none
+    tag_lookup = {
+        option_none: "ITEMRANDO",
+        option_maparea: "MAPAREARANDO",
+        option_fullarea: "FULLAREARANDO",
+        option_room: "ROOMRANDO",
+        option_connected_area: "ROOMRANDO",  # treated like room rando internally
+        option_doors: "ROOMRANDO",  # treated like room rando internally
+    }
+    soul_lookup = {
+        option_none: NearbySoul.ITEMSOUL,
+        option_maparea: NearbySoul.MAPAREASOUL,
+        option_fullarea: NearbySoul.AREASOUL,
+        option_room: NearbySoul.ROOMSOUL,
+        option_connected_area: NearbySoul.ROOMSOUL,
+        option_doors: NearbySoul.ROOMSOUL,
+    }
+
+    @property
+    def tag(self) -> str:
+        return self.tag_lookup[self.value]
+
+    def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
+        if self.value == self.option_none:
+            return False
+        elif self.value == self.option_maparea:
+            return trans_data["is_map_area_transition"]
+        elif self.value == self.option_fullarea:
+            return trans_data["is_titled_area_transition"]
+        elif self.value == self.option_room:
+            return True
+        elif self.value == self.option_connected_area:
+            return not trans_data["is_titled_area_transition"]
+        elif self.value == self.option_doors:
+            return trans_data["direction"] == "Door"
+
+    @property
+    def soul_mode(self) -> NearbySoul:
+        return self.soul_lookup[self.value]
+
+
+class ShuffleEntrancesMode(Choice):
+    """How entrances should be shuffled when `Randomize Entrances` is enabled.
+
+    **Coupled:** Transitions are paired so returning through an entrance takes you back.
+
+    **Decoupled:** Any exit can lead to any entrance (not necessarily reversible).
+    """
+    display_name = "Shuffle Entrances Mode"
+    option_coupled = 0
+    option_decoupled = 1
+    default = option_coupled
 
 
 class MinimumGrubPrice(Range):
@@ -596,6 +661,7 @@ hollow_knight_options: dict[str, type(Option)] = {
         for option in (
             StartLocation, Goal, GrubHuntGoal, WhitePalace, ExtraPlatforms, AddUnshuffledLocations, StartingGeo,
             DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms,
+            EntranceRandoType, ShuffleEntrancesMode,
             MinimumGeoPrice, MaximumGeoPrice,
             MinimumGrubPrice, MaximumGrubPrice,
             MinimumEssencePrice, MaximumEssencePrice,
@@ -615,3 +681,45 @@ hollow_knight_options: dict[str, type(Option)] = {
 
 # https://github.com/python/mypy/issues/6063 unfortunatly mypy hates this
 HKOptions = make_dataclass("HKOptions", list(hollow_knight_options.items()), bases=(PerGameCommonOptions,))
+HKOptionGroups: list[OptionGroup] = [
+    OptionGroup("Randomize Options", [
+            *hollow_knight_randomize_options.values(),
+            RandomizeElevatorPass
+        ], start_collapsed=False),
+    OptionGroup("Miscellaneous", [
+            SplitCrystalHeart,
+            SplitMothwingCloak,
+            SplitMantisClaw,
+            WhitePalace,
+            ExtraPlatforms,
+            AddUnshuffledLocations,
+            StartingGeo,
+            RandomCharmCosts,
+            PlandoCharmCosts,
+        ], start_collapsed=True),
+    OptionGroup("Logic Options", hollow_knight_logic_options.values(), start_collapsed=False),
+    OptionGroup("Goal", [Goal, GrubHuntGoal], start_collapsed=False),
+    OptionGroup("DeathLink", [DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms], start_collapsed=True),
+    OptionGroup("Entrance Rando", [StartLocation, EntranceRandoType, ShuffleEntrancesMode], start_collapsed=True),
+    OptionGroup("Shop Slots", [
+            EggShopSlots,
+            SlyShopSlots,
+            SlyKeyShopSlots,
+            IseldaShopSlots,
+            SalubraShopSlots,
+            SalubraCharmShopSlots,
+            LegEaterShopSlots,
+            GrubfatherRewardSlots,
+            SeerRewardSlots,
+            ExtraShopSlots
+        ], start_collapsed=True),
+    OptionGroup("CostSanity", [
+            MinimumGeoPrice, MaximumGeoPrice,
+            MinimumGrubPrice, MaximumGrubPrice,
+            MinimumEssencePrice, MaximumEssencePrice,
+            MinimumCharmPrice, MaximumCharmPrice,
+            MinimumEggPrice, MaximumEggPrice,
+            CostSanity, CostSanityHybridChance,
+            *cost_sanity_weights.values()
+        ], start_collapsed=True),
+]

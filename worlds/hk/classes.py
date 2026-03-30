@@ -1,4 +1,4 @@
-from typing import ClassVar, NamedTuple
+from typing import ClassVar, NamedTuple, TYPE_CHECKING
 
 from BaseClasses import (
     CollectionState,
@@ -12,8 +12,11 @@ from settings import Bool, Group
 from worlds.AutoWorld import WebWorld
 
 from .constants import gamename
-from .resource_state_vars import RCStateVariable
+from .options import HKOptionGroups
 from .rules import cost_terms
+
+if TYPE_CHECKING:
+    from .resource_state_vars import RCStateVariable
 
 
 class HKSettings(Group):
@@ -59,6 +62,8 @@ class HKWeb(WebWorld):
         "?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
     )
 
+    option_groups = HKOptionGroups
+
 
 class HKClause(NamedTuple):
     # Dict of item: count for state.has_all_counts()
@@ -68,7 +73,7 @@ class HKClause(NamedTuple):
     hk_region_requirements: list[str]
 
     # list of resource state terms for the clause
-    hk_state_requirements: list[RCStateVariable]
+    hk_state_requirements: "list[RCStateVariable]"
 
 
 # default logicless rule for short circuting

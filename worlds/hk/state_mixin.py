@@ -5,11 +5,10 @@ from BaseClasses import CollectionState, MultiWorld, Region
 from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
-from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL  # noqa: F401
+from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, NearbySoul  # noqa: F401
 
 if TYPE_CHECKING:
     from . import HKClause
-    from .resource_state_vars.cast_spell import NearbySoul
 
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
@@ -49,7 +48,7 @@ class HKLogicMixin(LogicMixin):
     _hk_charm_costs: dict[int, dict[str, int]]
     """mapping for charm costs per player"""
 
-    _hk_soul_modes: "dict[int, NearbySoul]"
+    _hk_soul_modes: dict[int, NearbySoul]
     """mapping of soul mode per player"""
 
     def init_mixin(self, multiworld: MultiWorld) -> None:

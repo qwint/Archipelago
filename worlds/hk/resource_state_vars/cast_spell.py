@@ -1,20 +1,12 @@
 from collections import Counter
 from collections.abc import Generator
-from enum import IntEnum
 from itertools import chain
 
+from ..constants import NearbySoul
 from ..options import HKOptions
 from . import RCStateVariable, cs, rs
 from .equip_charm import EquipCharmVariable
 from .soul_manager import SoulManager
-
-
-class NearbySoul(IntEnum):
-    NONE = 1
-    ITEMSOUL = 2
-    MAPAREASOUL = 3
-    AREASOUL = 4
-    ROOMSOUL = 5
 
 
 class CastSpellVariable(RCStateVariable):

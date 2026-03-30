@@ -1,7 +1,6 @@
 from typing import ClassVar
 
 from .bases import NoStepHK
-from ..options import filtered_starts
 
 
 class StartsBase:
