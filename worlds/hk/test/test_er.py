@@ -6,7 +6,7 @@ from .bases import HKTestBase
 class TestErMapAllShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
-        "EntranceRandoType": "map",
+        "EntranceRandoType": "maparea",
 
         "RandomizeDreamers": True,
         "RandomizeSkills": True,
@@ -43,7 +43,7 @@ class TestErMapAllShuffled(HKTestBase):
 class TestErMapNoShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
-        "EntranceRandoType": "map",
+        "EntranceRandoType": "maparea",
 
         "RandomizeDreamers": False,
         "RandomizeSkills": False,
@@ -80,7 +80,7 @@ class TestErMapNoShuffled(HKTestBase):
 class TestErMFullllShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
-        "EntranceRandoType": "full",
+        "EntranceRandoType": "fullarea",
 
         "RandomizeDreamers": True,
         "RandomizeSkills": True,
@@ -117,7 +117,7 @@ class TestErMFullllShuffled(HKTestBase):
 class TestErFullNoShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
-        "EntranceRandoType": "full",
+        "EntranceRandoType": "fullarea",
 
         "RandomizeDreamers": False,
         "RandomizeSkills": False,

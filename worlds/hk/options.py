@@ -209,32 +209,32 @@ class EntranceRandoType(Choice):
     Entrance randomizer type.
 
     none: use vanilla transitions
-    map: only shuffle the entrances between map areas
-    full: only shuffle the entrances between Titled areas
+    maparea: only shuffle the entrances between map areas
+    fullarea: only shuffle the entrances between Titled areas
     room: shuffle all rooms entrances together
     connected_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
     doors: shuffle all transitions through doors together
     """
     display_name = "Entrance Rando Type"
     option_none = 0
-    option_map = 1
-    option_full = 2
+    option_maparea = 1
+    option_fullarea = 2
     option_room = 3
     option_connected_area = 4
     option_doors = 5
     default = option_none
     tag_lookup = {
         option_none: "ITEMRANDO",
-        option_map: "MAPAREARANDO",
-        option_full: "FULLAREARANDO",
+        option_maparea: "MAPAREARANDO",
+        option_fullarea: "FULLAREARANDO",
         option_room: "ROOMRANDO",
         option_connected_area: "ROOMRANDO",  # treated like room rando internally
         option_doors: "ROOMRANDO",  # treated like room rando internally
     }
     soul_lookup = {
         option_none: NearbySoul.ITEMSOUL,
-        option_map: NearbySoul.MAPAREASOUL,
-        option_full: NearbySoul.AREASOUL,
+        option_maparea: NearbySoul.MAPAREASOUL,
+        option_fullarea: NearbySoul.AREASOUL,
         option_room: NearbySoul.ROOMSOUL,
         option_connected_area: NearbySoul.ROOMSOUL,
         option_doors: NearbySoul.ROOMSOUL,
@@ -247,9 +247,9 @@ class EntranceRandoType(Choice):
     def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
         if self.value == self.option_none:
             return False
-        elif self.value == self.option_map:
+        elif self.value == self.option_maparea:
             return trans_data["is_map_area_transition"]
-        elif self.value == self.option_full:
+        elif self.value == self.option_fullarea:
             return trans_data["is_titled_area_transition"]
         elif self.value == self.option_room:
             return True
