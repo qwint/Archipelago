@@ -639,8 +639,8 @@ class HKWorld(RandomizerCoreWorld, World):
             coupled=coupled,
             target_group_lookup={
                 # assuming MatchingDirections for now
-                "Left": ["Right", "Door", "Left"],  # TODO: ideally should self-connect
-                "Right": ["Left", "Door", "Right"],  # TODO: ideally should self-connect
+                "Left": ["Right", "Door", "Left"],  # TODO: ideally shouldn't self-connect
+                "Right": ["Left", "Door", "Right"],  # TODO: ideally shouldn't self-connect
                 "Top": ["Bot"],
                 "Bot": ["Top"],
                 "Door": ["Door", "Left", "Right"],

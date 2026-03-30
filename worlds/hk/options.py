@@ -271,8 +271,8 @@ class ShuffleEntrancesMode(Choice):
     **Decoupled:** Any exit can lead to any entrance (not necessarily reversible).
     """
     display_name = "Shuffle Entrances Mode"
-    option_coupled = 1
-    option_decoupled = 2
+    option_coupled = 0
+    option_decoupled = 1
     default = option_coupled
 
 
