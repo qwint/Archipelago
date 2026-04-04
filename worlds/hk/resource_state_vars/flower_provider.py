@@ -1,5 +1,5 @@
 from ..options import HKOptions
-from . import RCStateVariable, cs, rs
+from . import RCStateVariable, cs, rs, rs_set_value
 
 
 class FlowerProviderVariable(RCStateVariable):
@@ -10,8 +10,7 @@ class FlowerProviderVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
-        state_blob["NOFLOWER"] = False
-        return True, state_blob
+        return True, rs_set_value(state_blob, "NOFLOWER", 0)
 
     @classmethod
     def try_match(cls, term: str) -> bool:

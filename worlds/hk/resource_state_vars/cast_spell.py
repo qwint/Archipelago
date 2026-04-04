@@ -65,28 +65,30 @@ class CastSpellVariable(RCStateVariable):
 
     def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
         if self.nearby_soul_to_bool(item_state, self.before_soul):
-            self.sp_manager.try_restore_all_soul(state_blob, item_state, True)
+            _, state_blob = self.sp_manager.try_restore_all_soul(state_blob, item_state, True)
         if not self.equip_st.is_determined(state_blob, item_state):
-            state24 = state_blob.copy()
-            if self.equip_st.try_equip(state24, item_state):
-                state33 = state_blob.copy()
-                self.equip_st.set_unequippable(state33)
-                if self.try_cast(state24, item_state, 24):
+            st_equipped, state24 = self.equip_st.try_equip(state_blob, item_state)
+            if st_equipped:
+                state33 = self.equip_st.set_unequippable(state_blob)
+                casted24, state24 = self.try_cast(state24, item_state, 24)
+                if casted24:
                     yield state24
-                    if self.try_cast(state33, item_state, 33):
+                    casted33, state33 = self.try_cast(state33, item_state, 33)
+                    if casted33:
                         yield state33
             else:
-                state33 = state_blob.copy()
-                self.equip_st.set_unequippable(state33)
-                if self.try_cast(state33, item_state, 33):
+                state33 = self.equip_st.set_unequippable(state_blob)
+                casted33, state33 = self.try_cast(state33, item_state, 33)
+                if casted33:
                     yield state33
         else:
-            ret = state_blob.copy()
-            if self.equip_st.is_equipped(ret):
-                if self.try_cast(ret, item_state, 24):
+            if self.equip_st.is_equipped(state_blob):
+                casted24, ret = self.try_cast(state_blob, item_state, 24)
+                if casted24:
                     yield ret
             else:
-                if self.try_cast(ret, item_state, 33):
+                casted33, ret = self.try_cast(state_blob, item_state, 33)
+                if casted33:
                     yield ret
 
     def nearby_soul_to_bool(self, item_state: cs, soul: NearbySoul) -> bool:
@@ -98,13 +100,14 @@ class CastSpellVariable(RCStateVariable):
     def get_mode(self, item_state: cs) -> NearbySoul:
         return item_state._hk_soul_modes[self.player]
 
-    def try_cast(self, state_blob: rs, item_state: cs, amount_per_cast) -> bool:
-        if not self.sp_manager.try_spend_soul_sequence(state_blob, item_state, amount_per_cast, self.casts):
-            return False
+    def try_cast(self, state_blob: rs, item_state: cs, amount_per_cast) -> tuple[bool, rs]:
+        soul_spent, new_state = self.sp_manager.try_spend_soul_sequence(state_blob, item_state, amount_per_cast, self.casts)
+        if not soul_spent:
+            return False, state_blob
         if self.nearby_soul_to_bool(item_state, self.after_soul):
-            self.sp_manager.try_resore_soul(state_blob, item_state, sum(self.casts) * 33)
+            new_state = self.sp_manager.try_restore_soul(new_state, item_state, sum(self.casts) * 33)
             # recover the same amount of soul in all paths to respect the state ordering
-        return True
+        return True, new_state
 
 
 class ShriekPogoVariable(CastSpellVariable):

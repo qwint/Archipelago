@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from test.param import classvar_matrix
 
 from .bases import NoStepHK, StateVarSetup
+from ..resource_state_vars import rs_get_value
 
 
 @dataclass
@@ -56,10 +57,10 @@ class TestSoulSpend(StateVarSetup, NoStepHK):
         for i, expected in enumerate(self.expecteds):
             states = [s for rs in states for s in manager.spend_soul(rs, cs, 33)]
             self.assertEqual([(
-                    s["SPENTSOUL"],
-                    s["SPENTRESERVESOUL"],
-                    s["REQUIREDMAXSOUL"],
-                    s["SOULLIMITER"],
+                    rs_get_value(s, "SPENTSOUL"),
+                    rs_get_value(s, "SPENTRESERVESOUL"),
+                    rs_get_value(s, "REQUIREDMAXSOUL"),
+                    rs_get_value(s, "SOULLIMITER"),
                 ) for s in states], expected, f"Failed on expected index {i}")
 
 
@@ -93,24 +94,24 @@ class TestRestoreSpend(StateVarSetup, NoStepHK):
 
         if self.limit:
             rs = self.get_one_state(manager.limit_soul, rs, cs, self.limit, True)
-        rs2 = rs.copy()
+        rs2 = rs
 
         rs = self.get_one_state(manager.spend_soul, rs, cs, 66)
         rs = self.get_one_state(manager.restore_all_soul, rs, cs, True)
         self.assertEqual((
-                    rs["SPENTSOUL"],
-                    rs["SPENTRESERVESOUL"],
-                    rs["REQUIREDMAXSOUL"],
-                    rs["SOULLIMITER"],
+                    rs_get_value(rs, "SPENTSOUL"),
+                    rs_get_value(rs, "SPENTRESERVESOUL"),
+                    rs_get_value(rs, "REQUIREDMAXSOUL"),
+                    rs_get_value(rs, "SOULLIMITER"),
                 ), self.expected, "test one")
 
         rs2 = self.get_one_state(manager.spend_all_soul, rs2, cs)
         rs2 = self.get_one_state(manager.restore_all_soul, rs2, cs, True)
         self.assertEqual((
-                    rs2["SPENTSOUL"],
-                    rs2["SPENTRESERVESOUL"],
-                    rs2["REQUIREDMAXSOUL"],
-                    rs2["SOULLIMITER"],
+                    rs_get_value(rs2, "SPENTSOUL"),
+                    rs_get_value(rs2, "SPENTRESERVESOUL"),
+                    rs_get_value(rs2, "REQUIREDMAXSOUL"),
+                    rs_get_value(rs2, "SOULLIMITER"),
                 ), (
                 self.expected[0],
                 self.expected[1],
@@ -157,8 +158,8 @@ class TestRoundSpend(StateVarSetup, NoStepHK):
         else:
             self.assertEqual(len(outputs), 1)
             self.assertEqual((
-                        outputs[0]["SPENTSOUL"],
-                        outputs[0]["SPENTRESERVESOUL"],
-                        outputs[0]["REQUIREDMAXSOUL"],
-                        outputs[0]["SOULLIMITER"],
+                        rs_get_value(outputs[0], "SPENTSOUL"),
+                        rs_get_value(outputs[0], "SPENTRESERVESOUL"),
+                        rs_get_value(outputs[0], "REQUIREDMAXSOUL"),
+                        rs_get_value(outputs[0], "SOULLIMITER"),
                     ), self.expected)

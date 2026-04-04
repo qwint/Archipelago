@@ -96,6 +96,7 @@ input_matrix = [
     Inputs("$SHADESKIP", resource={"USEDSHADE": 1}, assert_empty=True),
     Inputs("$SHADESKIP", resource={"CHARM36": 3}, assert_empty=True),
     Inputs("$SHADESKIP", resource={"REQUIREDMAXSOUL": 67}, assert_empty=True),
+    Inputs("$SHADESKIP", prep_vars=("$CASTSPELL[2]",)),
     Inputs("$SHADESKIP"),
     Inputs("$SHADESKIP[2HITS]", masks=4, assert_empty=True),
     Inputs("$SHADESKIP[2HITS]", masks=16),

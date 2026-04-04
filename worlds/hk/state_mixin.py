@@ -6,6 +6,8 @@ from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL  # noqa: F401
+from .resource_state_vars import rs, rs_set_value, rs_leq, rs_to_dict
+from ..cvcotm.data.lname import arena_victory
 
 if TYPE_CHECKING:
     from . import HKClause
@@ -14,12 +16,14 @@ if TYPE_CHECKING:
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
 class DefaultStateFactory:
-    def __call__(self, defaults=None) -> Counter:
+    def __call__(self, defaults=None) -> rs:
         if defaults is None:
             defaults = {}
-        ret = Counter({"NOFLOWER": 1, "NOPASSEDCHARMEQUIP": 1})
+        ret = 0
+        ret = rs_set_value(ret, "NOFLOWER", 1)
+        ret = rs_set_value(ret, "NOPASSEDCHARMEQUIP", 1)
         for key, value in defaults.items():
-            ret[key] = value
+            ret = rs_set_value(ret, key, value)
         return ret
 
 
@@ -28,8 +32,8 @@ default_state = DefaultStateFactory()
 
 class HKLogicMixin(LogicMixin):
     multiworld: MultiWorld
-    _hk_per_player_resource_states: dict[int, dict[str, list[Counter]]]
-    """resource state blob to map regions and their avalible resource states"""
+    _hk_per_player_resource_states: dict[int, dict[str, list[int]]]
+    """resource state blob to map regions and their available resource states"""
     # state blob is [Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "CHARMNOTCHESSPENT": 0})]
 
     _hk_per_player_sweepable_entrances: dict[int, set[str]]
@@ -94,41 +98,53 @@ class HKLogicMixin(LogicMixin):
 
     def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
         player = region.player
-        # avaliable_states = self._hk_per_player_resource_states[player].get(region.name, None)
+        # available_states = self._hk_per_player_resource_states[player].get(region.name, None)
 
-        # if avaliable_states is None:
+        # if available_states is None:
         #     region.can_reach(self)
-        #     avaliable_states = self._hk_per_player_resource_states[player].get(region.name, [])
+        #     available_states = self._hk_per_player_resource_states[player].get(region.name, [])
 
         # unneeded?
-        avaliable_states = [s.copy() for s in self._hk_per_player_resource_states[player][region.name]]
+        available_states = [s for s in self._hk_per_player_resource_states[player][region.name]]
         # loses the can_reach parent call, potentially re-add it?
 
-        if not avaliable_states:
+        if not available_states:
             # no valid parent states
             return False
 
         for handler in clause.hk_state_requirements:
-            avaliable_states = [
+            available_states = [
                 s
-                for input_state in avaliable_states
+                for input_state in available_states
                 for s in handler.modify_state(input_state, self)
             ]
 
-        if not avaliable_states:
+        if not available_states:
             return False
         if not target_region:
             # don't persist
             return True
         target_states = self._hk_per_player_resource_states[player][target_region.name]
-        for index, s in reversed(list(enumerate(avaliable_states))):
-            for previous in target_states:
-                if eq(s, previous) or lt(previous, s):
-                    # if the state we're adding already exists
-                    # or a better state already exists, we didn't improve
-                    avaliable_states.pop(index)
-                    break
-        if avaliable_states:
+        if target_states == [0]:
+            return True
+        if len(available_states) > 1:
+            available_states.sort()
+            ind = 1
+            while ind < len(available_states):
+                for prev in range(ind):
+                    if rs_leq(available_states[prev],available_states[ind]):
+                        available_states.pop(ind)
+                        break
+                else:
+                    ind += 1
+        # for index, s in reversed(list(enumerate(available_states))):
+        #     for previous in target_states:
+        #         if rs_leq(previous, s):
+        #             # if the state we're adding already exists
+        #             # or a better state already exists, we didn't improve
+        #             available_states.pop(index)
+        #             break
+        if available_states:
             # for exit in target_region.exits:
             #     if exit.hk_rule is None:
             #         self._hk_per_player_sweepable_entrances[player].add(exit.name)
@@ -141,21 +157,59 @@ class HKLogicMixin(LogicMixin):
             #     })
             #     for term in relevant_terms:
             #         prev = max(0, 0, *[s[term] for s in target_states])
-            #         new = max(0, 0, *[s[term] for s in avaliable_states])
+            #         new = max(0, 0, *[s[term] for s in available_states])
             #         if prev > new:
             #             self._hk_per_player_sweepable_entrances[player].add(exit.name)
             #             break
 
-            target_states += avaliable_states
-
-            for index, s in reversed(list(enumerate(target_states))):
-                for other in [t_s for t_s in target_states if t_s is not s]:
-                    # TODO make sure this doesn't ever break
-                    if lt(other, s):
-                        target_states.pop(index)
-                        break
-
-            self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
+            # target_states += available_states
+            # for index, s in reversed(list(enumerate(target_states))):
+            #     for other in [t_s for t_s in target_states if t_s is not s]:
+            #         # TODO make sure this doesn't ever break
+            #         if rs_leq(other, s):
+            #             target_states.pop(index)
+            #             break
+            if available_states == target_states:
+                return True
+            # mergesort-like merging
+            target_index = 0
+            available_index = 0
+            new_useful_state = False
+            while available_index < len(available_states) or target_index < len(target_states):
+                side_to_check = -1
+                if available_index == len(available_states):
+                    side_to_check = 0
+                elif target_index == len(target_states):
+                    side_to_check = 1
+                elif target_states[target_index] == available_states[available_index]:
+                    # since it's in target_states it's not always worse than any state there
+                    # and since it's in available_states it's not always worse than any state there
+                    # so we're always free to let it stay
+                    available_index += 1
+                    target_index += 1
+                    continue
+                elif target_states[target_index] < available_states[available_index]:
+                    side_to_check = 0
+                else:
+                    side_to_check = 1
+                if side_to_check == 0:
+                    for prev in range(target_index):
+                        if rs_leq(target_states[prev], target_states[target_index]):
+                            target_states.pop(target_index)
+                            break
+                    else:
+                        target_index += 1
+                elif side_to_check == 1:
+                    for prev in range(target_index):
+                        if rs_leq(target_states[prev], available_states[available_index]):
+                            break
+                    else:
+                        new_useful_state = True
+                        target_states.insert(target_index, available_states[available_index])
+                        target_index += 1
+                    available_index += 1
+            if new_useful_state:
+                self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
             # self._hk_stale[player] = True
         assert target_states
         return True

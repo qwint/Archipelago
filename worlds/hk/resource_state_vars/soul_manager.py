@@ -1,6 +1,6 @@
 from collections.abc import Generator
 
-from . import ResourceStateHandler, cs, rs
+from . import ResourceStateHandler, cs, rs, rs_get_value, rs_set_value, rs_add_value, rs_increase_if_lower
 
 
 class SoulInfo:
@@ -32,8 +32,8 @@ class SoulManager(metaclass=ResourceStateHandler):
         self.player = player
 
     def spend_soul(self, state_blob: rs, item_state: cs, amount: int) -> Generator[rs]:
-        ret = state_blob.copy()
-        if self.try_spend_soul(ret, item_state, amount):
+        spent, ret = self.try_spend_soul(state_blob, item_state, amount)
+        if spent:
             yield ret
 
     def spend_soul_sequence(self):
@@ -42,38 +42,41 @@ class SoulManager(metaclass=ResourceStateHandler):
     def spend_soul_slow(self):
         ...
 
-    def try_spend_soul(self, state_blob: rs, item_state: cs, amount: int) -> bool:
+    def try_spend_soul(self, state_blob: rs, item_state: cs, amount: int) -> tuple[bool, rs]:
         soul = self.get_soul_info(state_blob, item_state)
         if soul.soul < amount:
-            return False
-        self.spend_and_rebalance(state_blob, item_state, amount, soul)
-        return True
+            return False, state_blob
+        state_blob = self.spend_and_rebalance(state_blob, item_state, amount, soul)
+        return True, state_blob
 
-    def spend_and_rebalance(self, state_blob: rs, item_state: cs, amount: int, soul: SoulInfo) -> None:
-        self.spend_without_rebalance(state_blob, item_state, amount, soul)
-        self.rebalance_reserve(state_blob, item_state, soul)
+    def spend_and_rebalance(self, state_blob: rs, item_state: cs, amount: int, soul: SoulInfo) -> rs:
+        state_blob = self.spend_without_rebalance(state_blob, item_state, amount, soul)
+        state_blob = self.rebalance_reserve(state_blob, item_state, soul)
+        return state_blob
 
-    def spend_without_rebalance(self, state_blob: rs, item_state: cs, amount: int, soul: SoulInfo) -> None:
-        state_blob["SPENTSOUL"] += amount
-        state_blob["REQUIREDMAXSOUL"] = max(state_blob["REQUIREDMAXSOUL"], state_blob["SPENTSOUL"])
+    def spend_without_rebalance(self, state_blob: rs, item_state: cs, amount: int, soul: SoulInfo) -> rs:
+        state_blob = rs_add_value(state_blob, "SPENTSOUL", amount)
+        state_blob = rs_increase_if_lower(state_blob, "REQUIREDMAXSOUL", rs_get_value(state_blob, "SPENTSOUL"))
         soul.soul -= amount
+        return state_blob
 
-    def rebalance_reserve(self, state_blob: rs, item_state: cs, soul: SoulInfo) -> None:
+    def rebalance_reserve(self, state_blob: rs, item_state: cs, soul: SoulInfo) -> rs:
         transfer = min(soul.max_soul - soul.soul, soul.reserve_soul)
         if transfer > 0:
-            state_blob["SPENTSOUL"] -= transfer
-            state_blob["SPENTRESERVESOUL"] += transfer
+            state_blob = rs_add_value(state_blob, "SPENTSOUL", -transfer)
+            state_blob = rs_add_value(state_blob, "SPENTRESERVESOUL", transfer)
             soul.soul += transfer
             soul.reserve_soul -= transfer
+        return state_blob
 
-    def try_spend_soul_sequence(self, state_blob: rs, item_state: cs, amount: int, casts: list[int]) -> bool:
+    def try_spend_soul_sequence(self, state_blob: rs, item_state: cs, amount: int, casts: list[int]) -> tuple[bool, rs]:
         soul = self.get_soul_info(state_blob, item_state)
         for cast in casts:
             group_total = cast * amount
             if soul.soul < group_total:
-                return False
-            self.spend_and_rebalance(state_blob, item_state, group_total, soul)
-        return True
+                return False, state_blob
+            state_blob = self.spend_and_rebalance(state_blob, item_state, group_total, soul)
+        return True, state_blob
 
     def try_spend_soul_slow(self):
         ...
@@ -82,59 +85,57 @@ class SoulManager(metaclass=ResourceStateHandler):
         ...
 
     def spend_all_soul(self, state_blob: rs, item_state: cs) -> Generator[rs]:
-        ret = state_blob.copy()
-        if self.try_spend_all_soul(ret, item_state):
+        spent, ret = self.try_spend_all_soul(state_blob, item_state)
+        if spent:
             yield ret
 
-    def try_spend_all_soul(self, state_blob: rs, item_state: cs) -> bool:
+    def try_spend_all_soul(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         info = self.get_soul_info(state_blob, item_state)
-        state_blob["SPENTSOUL"] = info.max_soul
-        state_blob["REQUIREDMAXSOUL"] = info.max_soul
-        state_blob["SPENTRESERVESOUL"] = info.max_reserve_soul
-        return True
+        state_blob = rs_set_value(state_blob, "SPENTSOUL", info.max_soul)
+        state_blob = rs_set_value(state_blob, "REQUIREDMAXSOUL", info.max_soul)
+        state_blob = rs_set_value(state_blob, "SPENTRESERVESOUL", info.max_reserve_soul)
+        return True, state_blob
 
     def restore_soul(self):
         ...
 
     def restore_all_soul(self, state_blob: rs, item_state: cs, restore_reserves: bool) -> Generator[rs]:
-        ret = state_blob.copy()
-        if self.try_restore_all_soul(ret, item_state, restore_reserves):
+        restored, ret = self.try_restore_all_soul(state_blob, item_state, restore_reserves)
+        if restored:
             yield ret
 
     def try_restore_soul(self):
         ...
 
-    def try_restore_all_soul(self, state_blob: rs, item_state: cs, restore_reserves: bool) -> bool:
-        if state_blob["CANNOTREGAINSOUL"]:
-            return False
-        state_blob["SPENTSOUL"] = 0
+    def try_restore_all_soul(self, state_blob: rs, item_state: cs, restore_reserves: bool) -> tuple[bool, rs]:
+        if rs_get_value(state_blob, "CANNOTREGAINSOUL"):
+            return False, state_blob
+        state_blob = rs_set_value(state_blob, "SPENTSOUL", 0)
         if restore_reserves:
-            state_blob["SPENTRESERVESOUL"] = 0
-        return True
+            state_blob = rs_set_value(state_blob, "SPENTRESERVESOUL", 0)
+        return True, state_blob
 
     def get_soul_info(self, state_blob: rs, item_state: cs) -> SoulInfo:
-        max_soul = 99 - state_blob["SOULLIMITER"]
-        soul = max_soul - state_blob["SPENTSOUL"]
-        vessels = item_state.count("VESSELFRAGMENTS", self.player) // 3
+        max_soul = 99 - rs_get_value(state_blob, "SOULLIMITER")
+        soul = max_soul - rs_get_value(state_blob, "SPENTSOUL")
+        vessels = min(6, item_state.count("VESSELFRAGMENTS", self.player) // 3) # max 6 so that state doesn't overflow
         max_reserve_soul = vessels * 33
-        reserve_soul = max_reserve_soul - state_blob["SPENTRESERVESOUL"]
+        reserve_soul = max_reserve_soul - rs_get_value(state_blob, "SPENTRESERVESOUL")
         return SoulInfo(soul, max_soul, reserve_soul, max_reserve_soul)
 
-    def try_set_soul_limit(self, state_blob: rs, item_state: cs, limiter: int, applies_to_prior_path: bool) -> bool:
-        if applies_to_prior_path and state_blob["REQUIREDMAXSOUL"] > limiter:
-            return False
-        current = state_blob["SOULLIMITER"]
-        if limiter > current:
-            state_blob["SOULLIMITER"] = limiter
-        elif limiter < current:
-            state_blob["SOULLIMITER"] = limiter
-            self.try_spend_soul(state_blob, item_state, current - limiter)
-
-        return True
+    def try_set_soul_limit(self, state_blob: rs, item_state: cs, limiter: int, applies_to_prior_path: bool) -> tuple[bool, rs]:
+        if applies_to_prior_path and rs_get_value(state_blob, "REQUIREDMAXSOUL") > 99 - limiter:
+            return False, state_blob
+        current = rs_get_value(state_blob, "SOULLIMITER")
+        if limiter != current:
+            state_blob = rs_add_value(state_blob, "SOULLIMITER", limiter - current)
+        if limiter < current:
+            _, state_blob = self.try_spend_soul(state_blob, item_state, current - limiter)
+        return True, state_blob
 
     def limit_soul(self, state_blob: rs, item_state: cs, limiter: int, applies_to_prior_path: bool) -> Generator[rs]:
-        ret = state_blob.copy()
-        if self.try_set_soul_limit(ret, item_state, limiter, applies_to_prior_path):
+        limited, ret = self.try_set_soul_limit(state_blob, item_state, limiter, applies_to_prior_path)
+        if limited:
             yield ret
 
     def soul_info(self):

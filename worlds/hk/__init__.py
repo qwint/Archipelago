@@ -35,12 +35,11 @@ from .options import (
     hollow_knight_options,
     shop_to_option,
 )
-from .resource_state_vars import ResourceStateHandler
+from .resource_state_vars import ResourceStateHandler, rs_get_value
 from .resource_state_vars.cast_spell import NearbySoul
 from .rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
 from .template_world import RandomizerCoreWorld
-
 logger = logging.getLogger("Hollow Knight")
 
 
@@ -586,7 +585,7 @@ class HKWorld(RandomizerCoreWorld, World):
             # cannot deliver flower
             return False
         for state_blob in state._hk_per_player_resource_states[self.player]["GG_Waterways"]:
-            if not state_blob["NOFLOWER"]:
+            if not rs_get_value(state_blob, "NOFLOWER"):
                 # if any valid state gets us to godseeker with the flower unbroken
                 return True
         return False

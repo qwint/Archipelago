@@ -1,4 +1,4 @@
-from . import RCStateVariable, cs, rs
+from . import RCStateVariable, cs, rs, rs_set_value
 
 
 class StagStateVariable(RCStateVariable):
@@ -16,8 +16,7 @@ class StagStateVariable(RCStateVariable):
         return []
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
-        state_blob["NOFLOWER"] = 1
-        return True, state_blob
+        return True, rs_set_value(state_blob, "NOFLOWER", 1)
 
     def can_exclude(self, options) -> bool:
         return False

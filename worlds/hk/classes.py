@@ -186,11 +186,14 @@ class HKEntrance(Entrance):
                 for region in clause.hk_region_requirements:
                     if not state.can_reach_region(region, self.player):
                         reachable = False
+                target = self.connected_region
                 if reachable and state._hk_apply_and_validate_state(
                         clause,
                         self.parent_region,
-                        target_region=self.connected_region):
+                        target_region=target):
                     valid_clauses = True
+                    # if target is not None and state._hk_per_player_resource_states[target.player][target.name]==[0]:
+                    #     break
 
         return valid_clauses
 
