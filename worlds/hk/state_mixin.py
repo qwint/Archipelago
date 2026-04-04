@@ -6,8 +6,7 @@ from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL  # noqa: F401
-from .resource_state_vars import rs, rs_set_value, rs_leq, rs_to_dict
-from ..cvcotm.data.lname import arena_victory
+from .resource_state_vars import rs, rs_set_value, rs_leq
 
 if TYPE_CHECKING:
     from . import HKClause

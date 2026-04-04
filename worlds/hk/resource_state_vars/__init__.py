@@ -7,10 +7,6 @@ from ..charms import charm_name_to_id, charm_names
 
 from BaseClasses import CollectionState
 
-class ResourceState:
-    maxValues=[]
-
-
 
 attribute_list = [] # list of (state part name, number of bits used)
 for charm in charm_names:
