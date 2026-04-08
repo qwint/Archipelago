@@ -120,11 +120,12 @@ class ResourceStateHandler(type):
 class RCStateVariable(metaclass=ResourceStateHandler):
     prefix: str
     player: int
+    term_name: str
 
     def __init__(self, term: str, player: int):
         assert term.startswith(self.prefix)
         self.player = player
-
+        self.term_name = term
         # expecting "prefix" or "prefix[one,two,three]"
         if term != self.prefix:
             params = term[len(self.prefix)+1:-1].split(",")

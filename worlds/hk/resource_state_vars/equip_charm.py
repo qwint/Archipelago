@@ -279,6 +279,10 @@ class WhiteFragmentEquipVariable(EquipCharmVariable):
         if self.charm_name == "Void_Heart":
             self.quantity = 3
 
+    @property
+    def terms(self) -> list[str]:
+        return ["WHITEFRAGMENT", "NOTCHES"]
+
     @classmethod
     def try_match(cls, term: str) -> bool:
         if term.startswith(cls.prefix):

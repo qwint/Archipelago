@@ -2,6 +2,7 @@ import itertools
 import logging
 import operator
 from collections import Counter, defaultdict
+from Utils import KeyedDefaultDict
 from copy import deepcopy
 from typing import Any, ClassVar, cast
 
@@ -38,7 +39,7 @@ from .options import (
 from .resource_state_vars import ResourceStateHandler, rs_get_value
 from .resource_state_vars.cast_spell import NearbySoul
 from .rules import cost_terms
-from .state_mixin import HKLogicMixin as HKLogicMixin
+from .state_mixin import HKLogicMixin as HKLogicMixin, default_state
 from .template_world import RandomizerCoreWorld
 logger = logging.getLogger("Hollow Knight")
 
@@ -91,6 +92,7 @@ class HKWorld(RandomizerCoreWorld, World):
     rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations}
     region_lookup: ClassVar[dict[str, str]] = {location: r["name"] for r in hk_regions for location in r["locations"]}
     entrance_by_term: dict[str, list[str]]
+    entrance_state_modifier_by_term: dict[str, list[tuple[str, str]]]
 
     cached_filler_items: ClassVar[dict[int, list[str]]] = {}  # per player cache
     grub_count: int
@@ -112,6 +114,7 @@ class HKWorld(RandomizerCoreWorld, World):
         self.vanilla_shop_costs = deepcopy(vanilla_shop_costs)
         self.event_locations = deepcopy(event_locations)
         self.entrance_by_term = defaultdict(list)
+        self.entrance_state_modifier_by_term = defaultdict(list)
 
     def white_palace_exclusions(self) -> set[str]:
         exclusions = set()
@@ -225,6 +228,11 @@ class HKWorld(RandomizerCoreWorld, World):
             if item.name not in progression_effect_lookup:
                 # handle events that don't have effects by adding them as their own terms
                 state.prog_items[player][item.name] += 1
+                if item.name in self.event_locations:
+                    state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[item.name])
+                    for entrance, modifier_id in self.entrance_state_modifier_by_term[item.name]:
+                        if entrance in state._hk_checked_state_modifiers[player]:
+                            state._hk_checked_state_modifiers[player][entrance].discard(modifier_id)
             else:
                 lookup = progression_effect_lookup[item.name]
                 add = True
@@ -239,6 +247,9 @@ class HKWorld(RandomizerCoreWorld, World):
 
                 for term in effects.keys():
                     state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[term])
+                    for entrance, modifier_id in self.entrance_state_modifier_by_term[term]:
+                        if entrance in state._hk_checked_state_modifiers[player]:
+                            state._hk_checked_state_modifiers[player][entrance].discard(modifier_id)
             state._hk_stale[item.player] = True
         return item.advancement
 
@@ -287,6 +298,8 @@ class HKWorld(RandomizerCoreWorld, World):
             state._hk_per_player_sweepable_entrances[item.player] = {
                 entrance.name for entrance in self.get_region("Menu").exits
                 }
+            state._hk_checked_state_modifiers[item.player] = {}
+            state._hk_per_player_resource_states[item.player] = KeyedDefaultDict(lambda region: [default_state()] if region == "Menu" else [])
 
             state._hk_stale[item.player] = True
         return item.advancement
@@ -542,9 +555,18 @@ class HKWorld(RandomizerCoreWorld, World):
         # set hk_rule instead of access_rule because our Location class defines a custom access_rule
         if isinstance(spot, HKEntrance):
             relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
-            relevant_terms.update(
-                {term for clause in rule for s_var in clause.hk_state_requirements for term in s_var.terms}
-            )
+            tried_modifiers = set()
+            for clause in rule:
+                state_modifier_id = '; '.join(handler.term_name for handler in clause.hk_state_requirements)
+                if state_modifier_id in tried_modifiers:
+                    continue
+                tried_modifiers.add(state_modifier_id)
+                cur_terms = set()
+                for handler in clause.hk_state_requirements:
+                    cur_terms.update(handler.terms)
+                relevant_terms.update(cur_terms)
+                for term in cur_terms:
+                    self.entrance_state_modifier_by_term[term].append((spot.name,state_modifier_id))
             for term in relevant_terms:
                 # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh
                 self.entrance_by_term[term].append(spot.name)

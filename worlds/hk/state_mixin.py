@@ -6,7 +6,7 @@ from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL  # noqa: F401
-from .resource_state_vars import rs, rs_set_value, rs_leq
+from .resource_state_vars import rs, rs_set_value, rs_leq, rs_to_dict
 
 if TYPE_CHECKING:
     from . import HKClause
@@ -47,6 +47,9 @@ class HKLogicMixin(LogicMixin):
     _hk_entrance_clause_cache: dict[int, dict[str, dict[int, bool]]]
     """mapping for clauses per entrance per player to short circuit non-resource state calculations"""
 
+    _hk_checked_state_modifiers: dict[int, dict[str, set[str]]]
+    """mapping for state modifiers per entrance per player to not try state modifiers which have already been tried"""
+
     _hk_processed_item_cache: dict[int, Counter]
 
     _hk_charm_costs: dict[int, dict[str, int]]
@@ -67,6 +70,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_per_player_sweepable_entrances = {player: set() for player in players}
         self._hk_free_entrances = {player: {"Menu"} for player in players}
         self._hk_entrance_clause_cache = {player: {} for player in players}
+        self._hk_checked_state_modifiers = {player: {} for player in players}
         self._hk_stale = dict.fromkeys(players, True)
         self._hk_sweeping = dict.fromkeys(players, False)
         self._hk_processed_item_cache = {player: Counter() for player in players}
@@ -87,13 +91,34 @@ class HKLogicMixin(LogicMixin):
         if not players:
             return other
         other._hk_per_player_resource_states = {
-            player: self._hk_per_player_resource_states[player].copy()
+            player: KeyedDefaultDict(lambda region: [default_state()] if region == "Menu" else [])
+            for player in players
+        }
+        for player in players:
+            for entrance in self._hk_per_player_resource_states[player]:
+                other._hk_per_player_resource_states[player][entrance] = self._hk_per_player_resource_states[player][entrance].copy()
+        other._hk_entrance_clause_cache = {
+            player: {
+                entrance: self._hk_entrance_clause_cache[player][entrance].copy()
+                for entrance in self._hk_entrance_clause_cache[player]
+            }
+            for player in players
+        }
+        other._hk_checked_state_modifiers = {
+            player: {
+                entrance: self._hk_checked_state_modifiers[player][entrance].copy()
+                for entrance in self._hk_checked_state_modifiers[player]
+            }
             for player in players
         }
         other._hk_free_entrances = {player: self._hk_free_entrances[player].copy() for player in players}
         other._hk_processed_item_cache = {player: self._hk_processed_item_cache[player].copy() for player in players}
+        other._hk_per_player_sweepable_entrances = {
+            player: entrances.copy() for player, entrances in self._hk_per_player_sweepable_entrances.items()
+        }
         return other
         # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
+        # yes we do, there's nothing stopping a state from being copied while stale
 
     def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
         player = region.player
@@ -136,38 +161,7 @@ class HKLogicMixin(LogicMixin):
                         break
                 else:
                     ind += 1
-        # for index, s in reversed(list(enumerate(available_states))):
-        #     for previous in target_states:
-        #         if rs_leq(previous, s):
-        #             # if the state we're adding already exists
-        #             # or a better state already exists, we didn't improve
-        #             available_states.pop(index)
-        #             break
         if available_states:
-            # for exit in target_region.exits:
-            #     if exit.hk_rule is None:
-            #         self._hk_per_player_sweepable_entrances[player].add(exit.name)
-            #         continue
-            #     relevant_terms = sorted({
-            #         term
-            #         for clause in exit.hk_rule
-            #         for handler in clause.hk_state_requirements
-            #         for term in handler.terms
-            #     })
-            #     for term in relevant_terms:
-            #         prev = max(0, 0, *[s[term] for s in target_states])
-            #         new = max(0, 0, *[s[term] for s in available_states])
-            #         if prev > new:
-            #             self._hk_per_player_sweepable_entrances[player].add(exit.name)
-            #             break
-
-            # target_states += available_states
-            # for index, s in reversed(list(enumerate(target_states))):
-            #     for other in [t_s for t_s in target_states if t_s is not s]:
-            #         # TODO make sure this doesn't ever break
-            #         if rs_leq(other, s):
-            #             target_states.pop(index)
-            #             break
             if available_states == target_states:
                 return True
             # mergesort-like merging
@@ -175,7 +169,6 @@ class HKLogicMixin(LogicMixin):
             available_index = 0
             new_useful_state = False
             while available_index < len(available_states) or target_index < len(target_states):
-                side_to_check = -1
                 if available_index == len(available_states):
                     side_to_check = 0
                 elif target_index == len(target_states):
@@ -208,7 +201,13 @@ class HKLogicMixin(LogicMixin):
                         target_index += 1
                     available_index += 1
             if new_useful_state:
-                self._hk_per_player_sweepable_entrances[player].update({exit.name for exit in target_region.exits})
+                self.reachable_regions[player].add(target_region)
+                for exit in target_region.exits:
+                    self._hk_per_player_sweepable_entrances[player].add(exit.name)
+                    self._hk_checked_state_modifiers[player][exit.name] = set()
+                for exit in self.multiworld.indirect_connections.get(target_region, set()):
+                    self._hk_per_player_sweepable_entrances[player].add(exit.name)
+                    self._hk_checked_state_modifiers[player][exit.name] = set()
             # self._hk_stale[player] = True
         assert target_states
         return True
@@ -217,8 +216,13 @@ class HKLogicMixin(LogicMixin):
         if self._hk_sweeping[player]:
             return
         self._hk_sweeping[player] = True
+        world = self.multiworld.worlds[player]
+        start = world.get_region(world.origin_region_name)
+        if start not in self.reachable_regions[player]:
+            self.reachable_regions[player].add(start)
+            for start_exit in start.exits:
+                self._hk_per_player_sweepable_entrances[player].add(start_exit.name)
         # assume not stale and only evaluate true clauses
-        # (region can_reach dependencies will be covered by indirect connections)
         while self._hk_per_player_sweepable_entrances[player]:
             # print(self._hk_per_player_sweepable_entrances[player])
             # random pop but i don't really care
