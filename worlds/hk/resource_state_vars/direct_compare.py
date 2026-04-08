@@ -1,5 +1,5 @@
 from ..options import HKOptions
-from . import RCStateVariable, cs, rs
+from . import RCStateVariable, cs, rs, rs_get_value
 
 
 class DirectCompare:
@@ -30,11 +30,11 @@ class EQVariable(DirectCompare, RCStateVariable):
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         if self.value.isdigit():
-            return state_blob[self.term] == int(self.value), state_blob
+            return rs_get_value(state_blob, self.term) == int(self.value), state_blob
         else:  # noqa: RET505
             v = self.value == "TRUE"
             assert v or self.value == "FALSE"
-            return state_blob[self.term] == v, state_blob
+            return rs_get_value(state_blob, self.term) == v, state_blob
 
 
 class GTVariable(DirectCompare, RCStateVariable):
@@ -44,7 +44,7 @@ class GTVariable(DirectCompare, RCStateVariable):
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         assert self.value.isdigit()
-        return state_blob[self.term] > int(self.value), state_blob
+        return rs_get_value(state_blob, self.term) > int(self.value), state_blob
 
 
 class LTVariable(DirectCompare, RCStateVariable):
@@ -54,4 +54,4 @@ class LTVariable(DirectCompare, RCStateVariable):
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         assert self.value.isdigit()
-        return state_blob[self.term] < int(self.value), state_blob
+        return rs_get_value(state_blob, self.term) < int(self.value), state_blob

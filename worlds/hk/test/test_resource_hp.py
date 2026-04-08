@@ -1,6 +1,7 @@
 from typing import ClassVar
 
 from ..resource_state_vars.health_manager import HealthManager
+from ..resource_state_vars import rs_get_value, rs_set_value
 from .bases import NoStepHK, StateVarSetup
 
 
@@ -11,7 +12,7 @@ class TestHPManager(StateVarSetup, NoStepHK):
     prep_vars = ()
 
     def assert_spent_health(self, rs, lazy: int, white: int, blue: int):
-        healths = rs["LAZYSPENTHP"], rs["SPENTHP"], rs["SPENTBLUEHP"]
+        healths = rs_get_value(rs, "LAZYSPENTHP"), rs_get_value(rs, "SPENTHP"), rs_get_value(rs, "SPENTBLUEHP")
         self.assertEqual(healths, (lazy, white, blue), (
             f"Expected LAZYSPENTHP={'max' if lazy == HealthManager.max_damage else lazy}, "
             f"SPENTHP={white}, SPENTBLUEHP={blue}, but were {healths} instead."
@@ -25,15 +26,15 @@ class TestHPManager(StateVarSetup, NoStepHK):
         self.assertEqual(len(states), 2)
         for s in states:
             self.assertTrue(manager.is_hp_determined(s))
-        oc = next(s for s in states if s["OVERCHARMED"])
-        noc = next(s for s in states if s["CANNOTOVERCHARM"])
-        self.assertFalse(oc["CANNOTOVERCHARM"])
-        self.assertFalse(noc["OVERCHARMED"])
+        oc = next(s for s in states if rs_get_value(s, "OVERCHARMED"))
+        noc = next(s for s in states if rs_get_value(s, "CANNOTOVERCHARM"))
+        self.assertFalse(rs_get_value(oc, "CANNOTOVERCHARM"))
+        self.assertFalse(rs_get_value(noc, "OVERCHARMED"))
 
         oc_damage = self.get_one_state(manager.take_damage, oc, cs, 1)
-        self.assertEqual(oc_damage["SPENTHP"], 2)
+        self.assertEqual(rs_get_value(oc_damage, "SPENTHP"), 2)
         noc_damage = self.get_one_state(manager.take_damage, noc, cs, 1)
-        self.assertEqual(noc_damage["SPENTHP"], 1)
+        self.assertEqual(rs_get_value(noc_damage, "SPENTHP"), 1)
 
     def test_lazy_to_strict(self):
         rs, cs = self.get_initialized_args()
@@ -62,9 +63,9 @@ class TestJoniHP(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         manager = self.get_handler()
         joni_handler = self.get_handler("$EQUIPPEDCHARM[Joni's_Blessing]")
-
-        self.assertTrue(joni_handler.try_equip(rs, cs))
-        rs["CANNOTOVERCHARM"] = 1
+        joni_equipped, rs = joni_handler.try_equip(rs, cs)
+        self.assertTrue(joni_equipped)
+        rs = rs_set_value(rs, "CANNOTOVERCHARM", 1)
 
         rs = next(manager.determine_hp(rs, cs))
         hp = manager.get_hp_info(rs, cs)

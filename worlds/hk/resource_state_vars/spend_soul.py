@@ -1,4 +1,4 @@
-from . import RCStateVariable, cs, rs
+from . import RCStateVariable, cs, rs, rs_get_value, rs_add_value, rs_set_value
 
 
 class SpendSoulVariable(RCStateVariable):
@@ -20,7 +20,7 @@ class SpendSoulVariable(RCStateVariable):
     #     return (term for term in ("VessleFragments",))
 
     def _modify_state(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
-        if state_blob["SPENTALLSOUL"]:
+        if rs_get_value(state_blob, "SPENTALLSOUL"):
             return False, state_blob
 
         soul = self.get_soul(state_blob)
@@ -29,23 +29,24 @@ class SpendSoulVariable(RCStateVariable):
 
         reserve_soul = self.get_reserve_soul(state_blob, item_state)
         if reserve_soul >= self.amount:
-            state_blob["SPENTRESERVESOUL"] += self.amount
+            state_blob = rs_add_value(state_blob, "SPENTRESERVESOUL", self.amount)
         else:
-            state_blob["SPENTRESERVESOUL"] += reserve_soul
-            state_blob["SPENTSOUL"] += self.amount - reserve_soul
+            state_blob = rs_add_value(state_blob, "SPENTRESERVESOUL", reserve_soul)
+            state_blob = rs_add_value(state_blob, "SPENTSOUL", self.amount - reserve_soul)
 
-        required_max_soul = state_blob["REQUIREDMAXSOUL"]
-        alt_req = max(self.amount, state_blob["SPENTSOUL"])
+        required_max_soul = rs_get_value(state_blob, "REQUIREDMAXSOUL")
+        alt_req = max(self.amount, rs_get_value(state_blob, "SPENTSOUL"))
         if alt_req > required_max_soul:
-            state_blob["REQUIREDMAXSOUL"] = alt_req
+            state_blob = rs_set_value(state_blob, "REQUIREDMAXSOUL", alt_req)
 
         return True, state_blob
 
     def get_soul(self, state_blob: rs) -> int:
-        return 99 - state_blob["SOULLIMITER"] - state_blob["SPENTSOUL"]
+        return 99 - rs_get_value(state_blob, "SOULLIMITER") - rs_get_value(state_blob, "SPENTSOUL")
 
     def get_reserve_soul(self, state_blob: rs, item_state: cs) -> int:
-        return ((item_state.count("VESSELFRAGMENTS", self.player) // 3) * 33) - state_blob["SPENTRESERVESOUL"]
+        return (((item_state.count("VESSELFRAGMENTS", self.player) // 3) * 33)
+                - rs_get_value(state_blob, "SPENTRESERVESOUL"))
 
     def can_exclude(self, options) -> bool:
         return False

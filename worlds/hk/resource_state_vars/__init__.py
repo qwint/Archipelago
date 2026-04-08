@@ -3,12 +3,93 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from collections.abc import Generator
 from typing import ClassVar
+from ..charms import charm_name_to_id, charm_names
 
 from BaseClasses import CollectionState
 
+
+attribute_list = [] # list of (state part name, number of bits used)
+for charm in charm_names:
+    charm_name = "_".join(charm.split(" "))
+    attribute_list.append((f"CHARM{charm_name_to_id[charm_name] + 1}", 1))
+    attribute_list.append((f"noCHARM{charm_name_to_id[charm_name] + 1}", 1))
+attribute_list += [
+    ("BROKEHEART", 1),
+    ("BROKEGREED", 1),
+    ("BROKESTRENGTH", 1),
+    ("NOFLOWER", 1),
+    ("NOPASSEDCHARMEQUIP", 1),
+    ("OVERCHARMED", 1),
+    ("CANNOTOVERCHARM", 1),
+    ("USEDSHADE", 1),
+    ("CANNOTSHADESKIP", 1),
+    ("SPENTALLSOUL", 1),
+    ("CANNOTREGAINSOUL", 1),
+    ("USEDNOTCHES", 5),
+    ("MAXNOTCHCOST", 5),
+    ("REQUIREDMAXSOUL", 7),
+    ("SOULLIMITER", 7),
+    ("SPENTSOUL", 7),
+    ("SPENTRESERVESOUL", 8),
+    ("SPENTHP", 7),
+    ("SPENTBLUEHP", 7),
+    ("LAZYSPENTHP", 7)
+]
+bit_length_prefix_sums = [0]
+attribute_ids = {}
+top_bits_mask = 0
+for i in range(len(attribute_list)):
+    top_bits_mask += 1 << (bit_length_prefix_sums[-1] + attribute_list[i][1])
+    bit_length_prefix_sums.append(bit_length_prefix_sums[-1] + attribute_list[i][1] + 1)
+    attribute_ids[attribute_list[i][0]] = i
+end_mask = (1 << bit_length_prefix_sums[-1]) - 1
+def rs_add_value(cur_state: int, attr: str, value: int) -> int:
+    attr_id = attribute_ids[attr]
+    return cur_state + (value << bit_length_prefix_sums[attr_id])
+def rs_get_value(cur_state: int, attr: str) -> int:
+    attr_id = attribute_ids[attr]
+    attr_len = attribute_list[attr_id][1]
+    return (cur_state >> bit_length_prefix_sums[attr_id]) & ((1 << attr_len) - 1)
+def rs_set_value(cur_state: int, attr: str, value: int) -> int:
+    attr_id = attribute_ids[attr]
+    attr_len = attribute_list[attr_id][1]
+    start_pos = bit_length_prefix_sums[attr_id]
+    cur_value = (cur_state >> start_pos) & ((1 << attr_len) - 1)
+    return cur_state + ((value - cur_value) << start_pos)
+def rs_increase_if_lower(cur_state: int, attr: str, value: int) -> int:
+    attr_id = attribute_ids[attr]
+    attr_len = attribute_list[attr_id][1]
+    pos = bit_length_prefix_sums[attr_id]
+    cur_value = (cur_state >> pos) & ((1 << attr_len) - 1)
+    if cur_value < value:
+        return cur_state + ((value - cur_value) << pos)
+    else:
+        return cur_state
+def rs_subtract_at_most(cur_state: int, attr: str, value: int) -> int:
+    attr_id = attribute_ids[attr]
+    attr_len = attribute_list[attr_id][1]
+    pos = bit_length_prefix_sums[attr_id]
+    cur_value = (cur_state >> pos) & ((1 << attr_len) - 1)
+    return cur_state - (min(cur_value, value) << pos)
+def rs_leq(state1: int, state2: int) -> bool:
+    return ((state1 + end_mask - state2) & top_bits_mask) == top_bits_mask
+def dict_to_rs(inp: dict[str,int]) -> int:
+    res = 0
+    for key in inp:
+        res = rs_add_value(res, key, inp[key])
+    return res
+def rs_to_dict(inp: int) -> dict[str,int]:
+    res = {}
+    for index in range(len(attribute_list)):
+        cur_key = attribute_list[index][0]
+        cur_value = rs_get_value(inp, cur_key)
+        if cur_value:
+            res[cur_key] = cur_value
+    return res
 # For ease of typing in submodules
 cs = CollectionState
-rs = Counter
+rs = int
+
 
 
 class ResourceStateHandler(type):
@@ -39,11 +120,12 @@ class ResourceStateHandler(type):
 class RCStateVariable(metaclass=ResourceStateHandler):
     prefix: str
     player: int
+    term_name: str
 
     def __init__(self, term: str, player: int):
         assert term.startswith(self.prefix)
         self.player = player
-
+        self.term_name = term
         # expecting "prefix" or "prefix[one,two,three]"
         if term != self.prefix:
             params = term[len(self.prefix)+1:-1].split(",")

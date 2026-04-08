@@ -180,22 +180,29 @@ class HKEntrance(Entrance):
         else:
             cache = state._hk_entrance_clause_cache[self.player][self.name]
 
-        # check every clause, caching item state accessibility
+        # check every clause, caching item state accessibility and tried resource state modifiers
         valid_clauses = False
+        if self.name not in state._hk_checked_state_modifiers[self.player]:
+            state._hk_checked_state_modifiers[self.player][self.name] = set()
+        terms = state._hk_checked_state_modifiers[self.player][self.name]
         for index, clause in enumerate(self.hk_rule):
             if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
                 cache[index] = True
-
+                cur_term = "; ".join(handler.term_name for handler in clause.hk_state_requirements)
+                if cur_term in terms:
+                    continue
                 # region sweep might not be done, so checking items is likely faster
                 reachable = True
                 for region in clause.hk_region_requirements:
                     if not state.can_reach_region(region, self.player):
                         reachable = False
-                if reachable and state._hk_apply_and_validate_state(
+                if reachable:
+                    terms.add(cur_term)
+                    if state._hk_apply_and_validate_state(
                         clause,
                         self.parent_region,
                         target_region=self.connected_region):
-                    valid_clauses = True
+                        valid_clauses = True
 
         return valid_clauses
 
@@ -206,9 +213,8 @@ class HKRegion(Region):
     def can_reach(self, state) -> bool:
         if self in state.reachable_regions[self.player]:
             return True
-        if not state.stale[self.player] and not state._hk_stale[self.player]:
-            # if the cache is updated we can use the cache
-            return super().can_reach(state)
-        if state._hk_stale[self.player]:
+        elif state._hk_stale[self.player]:
             state._hk_sweep(self.player)
-        return super().can_reach(state)
+            return self in state.reachable_regions[self.player]
+        else:
+            return False
