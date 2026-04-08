@@ -557,7 +557,7 @@ class HKWorld(RandomizerCoreWorld, World):
             relevant_terms = {term for clause in rule for term in clause.hk_item_requirements.keys()}
             tried_modifiers = set()
             for clause in rule:
-                state_modifier_id = '; '.join(handler.term_name for handler in clause.hk_state_requirements)
+                state_modifier_id = "; ".join(handler.term_name for handler in clause.hk_state_requirements)
                 if state_modifier_id in tried_modifiers:
                     continue
                 tried_modifiers.add(state_modifier_id)

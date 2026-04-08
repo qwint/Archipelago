@@ -183,7 +183,7 @@ class HKEntrance(Entrance):
         for index, clause in enumerate(self.hk_rule):
             if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
                 cache[index] = True
-                cur_term = '; '.join(handler.term_name for handler in clause.hk_state_requirements)
+                cur_term = "; ".join(handler.term_name for handler in clause.hk_state_requirements)
                 if cur_term in terms:
                     continue
                 # region sweep might not be done, so checking items is likely faster
