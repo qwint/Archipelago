@@ -6,7 +6,7 @@ from Utils import KeyedDefaultDict
 from copy import deepcopy
 from typing import Any, ClassVar, cast
 
-from BaseClasses import CollectionState, EntranceType, ItemClassification, LocationProgressType, MultiWorld
+from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld
 from Options import OptionError
 from entrance_rando import disconnect_entrance_for_randomization, randomize_entrances
 from worlds.AutoWorld import World
@@ -660,19 +660,35 @@ class HKWorld(RandomizerCoreWorld, World):
             coupled=coupled,
             target_group_lookup={
                 # assuming MatchingDirections for now
-                "Left": ["Right", "Door", "Left"],  # TODO: ideally shouldn't self-connect
-                "Right": ["Left", "Door", "Right"],  # TODO: ideally shouldn't self-connect
-                "Top": ["Bot"],
-                "Bot": ["Top"],
-                "Door": ["Door", "Left", "Right"],
-                "OneWayIn": ["OneWayOut"],
-                "OneWayOut": ["OneWayIn"],
+                "Left": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "Right": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "Top": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "Bot": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "Door": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "OneWayIn": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "OneWayOut": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
             },
+            # target_group_lookup={
+            #     # assuming MatchingDirections for now
+            #     "Left": ["Right"],  # TODO: ideally shouldn't self-connect
+            #     "Right": ["Left"],  # TODO: ideally shouldn't self-connect
+            #     "Top": ["Bot"],
+            #     "Bot": ["Top"],
+            #     "Door": ["Door"],
+            #     "OneWayIn": ["OneWayOut"],
+            #     "OneWayOut": ["OneWayIn"],
+            # },
         )
 
         self.entrance_pairs = dict(er_state.pairings)
 
     def setup_connections(self):
+        one_ways = defaultdict(list)
+        reverse_lookup = {
+            # to map doors to the opposite direction of their vanilla target
+            "Left": "Right",
+            "Right": "Left",
+        }
         for name, trans_data in transitions.items():
             if self.options.EntranceRandoType.test_transition(trans_data):
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
@@ -682,14 +698,25 @@ class HKWorld(RandomizerCoreWorld, World):
                 direction = trans_data["direction"]  # Left/Right/Top/Bot/Door
                 sides = trans_data["sides"]  # Both/OneWayIn/OneWayOut
 
+                entrance_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
+                group = direction if sides == "Both" else sides
+                if group == "Door":
+                    vanilla_target = transitions[trans_data["vanilla_target"]]
+                    group = reverse_lookup[vanilla_target["direction"]]
+                    assert group != "Door"
+
                 if sides != "OneWayOut":
                     exit_obj = region1.create_exit(name)
-                    exit_obj.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
-                    exit_obj.randomization_group = direction if sides == "Both" else sides
+                    exit_obj.randomization_type = entrance_type
+                    exit_obj.randomization_group = group
+                    if sides in ("OneWayOut", "OneWayIn"):
+                        one_ways[group].append(exit_obj)
                 if sides != "OneWayIn":
                     exit_target = region1.create_er_target(name)
-                    exit_target.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
-                    exit_target.randomization_group = direction if sides == "Both" else sides
+                    exit_target.randomization_type = entrance_type
+                    exit_target.randomization_group = group
+                    if sides in ("OneWayOut", "OneWayIn"):
+                        one_ways[group].append(exit_target)
             else:
                 # create the apppropriate vanilla entrance instead
                 if trans_data["vanilla_target"] is None:
@@ -699,6 +726,24 @@ class HKWorld(RandomizerCoreWorld, World):
                 region1 = self.get_region(transition_to_region_map[name])
                 region2 = self.get_region(transition_to_region_map[trans_data["vanilla_target"]])
                 region1.connect(region2, name)
+
+        if not one_ways:
+            return
+
+        self.random.shuffle(one_ways["OneWayIn"])
+        pairings = []  # TODO: keep track of for slot data
+
+        def _connect_one_way(source_exit: Entrance, target_entrance: Entrance) -> None:
+            """Stolen from entrance_rando"""
+            target_region = target_entrance.connected_region
+
+            target_region.entrances.remove(target_entrance)
+            source_exit.connect(target_region)
+
+            pairings.append((source_exit.name, target_entrance.name))
+            del target_entrance
+        for entrance, exit in zip(one_ways["OneWayOut"], one_ways["OneWayIn"]):
+            _connect_one_way(exit, entrance)
 
     def add_all_events(self):
         location_to_region = {loc: reg["name"] for reg in regions for loc in reg["locations"]}

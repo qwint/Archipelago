@@ -204,6 +204,10 @@ class HKEntrance(Entrance):
                         target_region=self.connected_region):
                         valid_clauses = True
 
+        if not valid_clauses:
+            state.blocked_connections[self.player].add(self)
+        elif self in state.blocked_connections:
+            state.blocked_connections[self.player].remove(self)
         return valid_clauses
 
 
