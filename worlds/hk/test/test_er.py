@@ -78,7 +78,7 @@ class TestErMapAllShuffled(HKTestBase):
 #     }
 
 
-class TestErMFullllShuffled(HKTestBase):
+class TestErFullAllShuffled(HKTestBase):
     options: typing.ClassVar[dict[str, str]] = {
         "Goal": "any",
         "EntranceRandoType": "fullarea",
