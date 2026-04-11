@@ -30,7 +30,7 @@ default_state = DefaultStateFactory()
 
 class HKLogicMixin(LogicMixin):
     multiworld: MultiWorld
-    _hk_per_player_resource_states: dict[int, dict[str, list[int]]]
+    _hk_per_player_resource_states: dict[int, dict[str, list[rs]]]
     """resource state blob to map regions and their available resource states"""
     # state blob is [Counter({"DAMAGE": 0, "SPENTSOUL": 0, "NOFLOWER": 0, "CHARMNOTCHESSPENT": 0})]
 
@@ -78,21 +78,12 @@ class HKLogicMixin(LogicMixin):
         for player in players:
             self.prog_items[player]["MASKSHARDS"] = BASE_HEALTH*4
             self.prog_items[player]["NOTCHES"] = BASE_NOTCHES
-        # for player in players:
-        #     self.prog_items[player]["TOTAL_SOUL"] = BASE_SOUL
-        #     self.prog_items[player]["TOTAL_HEALTH"] = BASE_HEALTH
-        #     self.prog_items[player]["SHADE_HEALTH"] = max(int(BASE_HEALTH/2), 1)
-        #     self.prog_items[player]["TOTAL_NOTCHES"] = BASE_NOTCHES
 
     def copy_mixin(self, other) -> CollectionState:
         from . import HKWorld
         players = self.multiworld.get_game_players(HKWorld.game)
         if not players:
             return other
-        other._hk_per_player_resource_states = {
-            player: KeyedDefaultDict(lambda region: [default_state()] if region == "Menu" else [])
-            for player in players
-        }
         for player in players:
             for entrance in self._hk_per_player_resource_states[player]:
                 other._hk_per_player_resource_states[player][entrance] = self._hk_per_player_resource_states[player][entrance].copy()
@@ -155,7 +146,7 @@ class HKLogicMixin(LogicMixin):
             ind = 1
             while ind < len(available_states):
                 for prev in range(ind):
-                    if rs_leq(available_states[prev],available_states[ind]):
+                    if rs_leq(available_states[prev], available_states[ind]):
                         available_states.pop(ind)
                         break
                 else:
