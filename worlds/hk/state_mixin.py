@@ -137,10 +137,14 @@ class HKLogicMixin(LogicMixin):
         if not target_region:
             # don't persist
             return True
+
         target_states = self._hk_per_player_resource_states[player][target_region.name]
         if target_states == [0]:
+            # target resource state is already perfect
             return True
+
         if len(available_states) > 1:
+            # sort states and clean up any subsets that won't help reachability
             available_states.sort()
             ind = 1
             while ind < len(available_states):
@@ -150,8 +154,10 @@ class HKLogicMixin(LogicMixin):
                         break
                 else:
                     ind += 1
+
         if available_states:
             if available_states == target_states:
+                # TODO: is this an appropriate assumption?
                 return True
             # mergesort-like merging
             target_index = 0
@@ -159,37 +165,47 @@ class HKLogicMixin(LogicMixin):
             new_useful_state = False
             while available_index < len(available_states) or target_index < len(target_states):
                 if available_index == len(available_states):
-                    side_to_check = 0
+                    check_available = False
                 elif target_index == len(target_states):
-                    side_to_check = 1
+                    check_available = True
                 elif target_states[target_index] == available_states[available_index]:
-                    # since it's in target_states it's not always worse than any state there
-                    # and since it's in available_states it's not always worse than any state there
-                    # so we're always free to let it stay
+                    # current available state is already present in target list
+                    # since both available and target has already been sorted and reduced,
+                    # it is safe to skip reducing either current index as both present proves
+                    # they are not subsets of any state in either list
                     available_index += 1
                     target_index += 1
                     continue
                 elif target_states[target_index] < available_states[available_index]:
-                    side_to_check = 0
+                    check_available = False
                 else:
-                    side_to_check = 1
-                if side_to_check == 0:
+                    check_available = True
+
+                if not check_available:
                     for prev in range(target_index):
                         if rs_leq(target_states[prev], target_states[target_index]):
+                            # a previous state invalidated current target state, remove
+                            # target_index now points to a new state so break and rerun
                             target_states.pop(target_index)
                             break
                     else:
+                        # no previous states invalidated the current target state, move to next
                         target_index += 1
-                elif side_to_check == 1:
+                else:
                     for prev in range(target_index):
                         if rs_leq(target_states[prev], available_states[available_index]):
+                            # a previous state invalidated current available state, break to not reach else clause
                             break
                     else:
+                        # no previous states were found to invalidate current available state, add to target
                         new_useful_state = True
                         target_states.insert(target_index, available_states[available_index])
                         target_index += 1
+                    # regardless we've checked current available state, increment index
                     available_index += 1
+
             if new_useful_state:
+                # update state caches
                 self.reachable_regions[player].add(target_region)
                 for exit in target_region.exits:
                     self._hk_per_player_sweepable_entrances[player].add(exit.name)
@@ -219,7 +235,14 @@ class HKLogicMixin(LogicMixin):
             entrance = self.multiworld.get_entrance(entrance_name, player)
             if entrance.parent_region in self.reachable_regions[player]:
                 # let normal sweep find new regions
-                entrance.can_reach(self)
+                reachable = entrance.can_reach(self)
+                if reachable and entrance.connected_region is not None:
+                    # also update metadata
+                    if entrance.connected_region not in self.path:
+                        self.path[entrance.connected_region] = (
+                            entrance.connected_region.name,
+                            self.path.get(entrance, None)
+                        )
             # if entrance_name not in self._hk_entrance_clause_cache[player]:
             #     entrance.can_reach(self)
             #     # then we haven't done a single can_reach on it, let normal sweep handle that
