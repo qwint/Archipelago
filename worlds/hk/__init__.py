@@ -467,6 +467,8 @@ class HKWorld(RandomizerCoreWorld, World):
 
         directions = ("Left", "Right")
         if self.options.SplitMantisClaw:
+            if not self.options.RandomizeSkills:
+                raise OptionError("TODO: handle this")
             location_name = "Mantis_Claw"
             if "Mantis_Claw" in location_list:
                 location_list.remove(location_name)
@@ -629,6 +631,7 @@ class HKWorld(RandomizerCoreWorld, World):
             return
 
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
+
         er_state = randomize_entrances(
             world=self,
             coupled=coupled,
@@ -644,6 +647,10 @@ class HKWorld(RandomizerCoreWorld, World):
                 # "OneWayOut": ["OneWayIn"],
             },
         )
+
+        all_state = self.multiworld.get_all_state(allow_partial_entrances=True)
+        if not all_state.can_reach_location("Mask_Shard-Grey_Mourner", self.player):
+            raise OptionError("GER created a map with no path to flower quest")
 
         self.entrance_pairs.update(er_state.pairings)
 
@@ -718,6 +725,8 @@ class HKWorld(RandomizerCoreWorld, World):
         def create_location(item: str, location: str, costs: list[dict]):
             if location in shop_locations:
                 loc = self.add_shop_location(location)
+                if item:
+                    loc.vanilla = True
             else:
                 region = self.get_region(location_to_region[location])
                 if not self.options.AddUnshuffledLocations or location in self.event_locations:
@@ -1004,7 +1013,7 @@ class HKWorld(RandomizerCoreWorld, World):
         for shop, shop_locations in self.created_multi_locations.items():
             randomized_locations = [loc for loc in shop_locations if not loc.vanilla]
             if not randomized_locations:
-                return
+                continue
             prices = sorted(
                 (loc.costs for loc in randomized_locations),
                 key=lambda costs: (len(costs), *costs.values(),)
@@ -1153,3 +1162,31 @@ class HKWorld(RandomizerCoreWorld, World):
             spoiler_handle.write(f"\n\nTWO WAYS:")
             for src, tgt in two_ways:
                 spoiler_handle.write(f"\n{src} <-> {tgt}")
+
+    def extend_hint_information(self, hint_data: dict[int, dict[int, str]]) -> None:
+        if not self.entrance_pairs:
+            return
+
+        hint_data.update({self.player: {}})
+
+        all_state = self.multiworld.get_all_state()
+
+        paths = all_state.path
+
+        transition_names = self.entrance_pairs.keys()
+        for loc in self.get_locations():
+            path_to_loc = []
+            if not loc.parent_region.can_reach(all_state):
+                hint_data[self.player][loc.address] = "Unreachable"
+                continue
+            name, connection = paths[loc.parent_region]
+            while connection is not None:
+                entrance, (region, connection) = connection
+                if entrance in transition_names:
+                    path_to_loc.append(entrance)
+
+            text = " => ".join(reversed(path_to_loc))
+            # self.spoiler_hints[loc.name] = text
+            if loc.address is not None:
+                # we want spoiler paths to events but not hint text
+                hint_data[self.player][loc.address] = text
