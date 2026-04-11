@@ -694,7 +694,7 @@ class HKWorld(RandomizerCoreWorld, World):
             return
 
         self.random.shuffle(one_ways["OneWayIn"])
-        pairings = []  # TODO: keep track of for slot data
+        pairings = []
 
         def _connect_one_way(source_exit: Entrance, target_entrance: Entrance) -> None:
             """Stolen from entrance_rando"""
