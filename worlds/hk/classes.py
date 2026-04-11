@@ -205,10 +205,9 @@ class HKEntrance(Entrance):
                 if reachable:
                     terms.add(cur_term)
                     if state._hk_apply_and_validate_state(
-                        clause,
-                        self.parent_region,
-                        target_region=self.connected_region
-                    ):
+                            clause,
+                            self.parent_region,
+                            target_region=self.connected_region):
                         valid_clauses = True
 
         return valid_clauses

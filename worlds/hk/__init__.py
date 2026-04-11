@@ -302,7 +302,9 @@ class HKWorld(RandomizerCoreWorld, World):
                 entrance.name for entrance in self.get_region("Menu").exits
                 }
             state._hk_checked_state_modifiers[item.player] = {}
-            state._hk_per_player_resource_states[item.player] = KeyedDefaultDict(lambda region: [default_state()] if region == "Menu" else [])
+            state._hk_per_player_resource_states[item.player] = KeyedDefaultDict(
+                lambda region: [default_state()] if region == "Menu" else []
+            )  # TODO: we have this code copied a couple different places, see if we can centralize it
 
             state._hk_stale[item.player] = True
         return item.advancement
@@ -573,7 +575,7 @@ class HKWorld(RandomizerCoreWorld, World):
                     cur_terms.update(handler.terms)
                 relevant_terms.update(cur_terms)
                 for term in cur_terms:
-                    self.entrance_state_modifier_by_term[term].append((spot.name,state_modifier_id))
+                    self.entrance_state_modifier_by_term[term].append((spot.name, state_modifier_id))
             for term in relevant_terms:
                 # could keep this a static method by doing spot.parent_region.multiworld.worlds[spot.player] but ugh
                 self.entrance_by_term[term].append(spot.name)

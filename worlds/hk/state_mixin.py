@@ -84,6 +84,7 @@ class HKLogicMixin(LogicMixin):
         players = self.multiworld.get_game_players(HKWorld.game)
         if not players:
             return other
+        # Copy sweepable data as state can be copied when stale
         for player in players:
             for entrance in self._hk_per_player_resource_states[player]:
                 other._hk_per_player_resource_states[player][entrance] = self._hk_per_player_resource_states[player][entrance].copy()
@@ -107,8 +108,6 @@ class HKLogicMixin(LogicMixin):
             player: entrances.copy() for player, entrances in self._hk_per_player_sweepable_entrances.items()
         }
         return other
-        # TODO do we need to copy sweepables? should be empty any time we're mucking with resource state
-        # yes we do, there's nothing stopping a state from being copied while stale
 
     def _hk_apply_and_validate_state(self, clause: "HKClause", region: Region, target_region=None) -> bool:
         player = region.player

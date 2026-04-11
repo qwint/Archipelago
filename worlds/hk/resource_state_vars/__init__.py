@@ -8,7 +8,29 @@ from ..charms import charm_name_to_id, charm_names
 from BaseClasses import CollectionState
 
 
-attribute_list = []  # list of (state part name, number of bits used)
+attribute_list = []
+"""list of tuple(term, number of bits used)"""
+
+bit_length_prefix_sums = [0]
+"""Lookup for the start bit for any given field by attribute id"""
+
+attribute_ids = {}
+"""Lookup for the attribute id for any given term"""
+
+top_bits_mask = 0
+"""
+Bit Mask for the int state of just the empty bits above the sections reserved for data,
+for comparing states to each other while catching overflows
+"""
+
+end_mask: int
+"""
+Bit Mask for the int state of every relevant bit set,
+for comparing states to each other while catching overflows
+"""
+
+# Calculate the necessary attributes
+# TODO: move this initialization into a function and differ so connections could add terms
 for charm in charm_names:
     charm_name = "_".join(charm.split(" "))
     attribute_list.append((f"CHARM{charm_name_to_id[charm_name] + 1}", 1))
@@ -35,13 +57,11 @@ attribute_list += [
     ("SPENTBLUEHP", 7),
     ("LAZYSPENTHP", 7)
 ]
-bit_length_prefix_sums = [0]
-attribute_ids = {}
-top_bits_mask = 0
 for i in range(len(attribute_list)):
     top_bits_mask += 1 << (bit_length_prefix_sums[-1] + attribute_list[i][1])
     bit_length_prefix_sums.append(bit_length_prefix_sums[-1] + attribute_list[i][1] + 1)
     attribute_ids[attribute_list[i][0]] = i
+
 end_mask = (1 << bit_length_prefix_sums[-1]) - 1
 
 
