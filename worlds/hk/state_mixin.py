@@ -237,10 +237,14 @@ class HKLogicMixin(LogicMixin):
                 # let normal sweep find new regions
                 reachable = entrance.can_reach(self)
                 if reachable and entrance.connected_region is not None:
+                    new_region = entrance.connected_region
+                    # Retry connections if the new region can unblock them
+                    for new_entrance in self.multiworld.indirect_connections.get(new_region, set()):
+                        self._hk_per_player_sweepable_entrances[player].add(new_entrance.name)
                     # also update metadata
-                    if entrance.connected_region not in self.path:
-                        self.path[entrance.connected_region] = (
-                            entrance.connected_region.name,
+                    if new_region not in self.path:
+                        self.path[new_region] = (
+                            new_region.name,
                             self.path.get(entrance, None)
                         )
             # if entrance_name not in self._hk_entrance_clause_cache[player]:

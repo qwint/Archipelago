@@ -453,7 +453,7 @@ class TestBase(unittest.TestCase):
         empty_state.collect(unbreakable_strength)
         assert empty_state.prog_items[1]["CHARMS"] == 3
 
-        all_state = self.multiworld.get_all_state(False)
+        all_state = self.multiworld.get_all_state()
 
         assert all_state.prog_items[1]["CHARMS"] == 40
         all_state.remove(king_fragment)
