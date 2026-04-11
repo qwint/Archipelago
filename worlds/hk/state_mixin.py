@@ -245,70 +245,7 @@ class HKLogicMixin(LogicMixin):
         self._hk_sweeping[player] = False
 
 
-def ge(state1: dict, state2: dict) -> bool:
-    return state1.keys() >= state2.keys() and all(v2 <= state1[key] for key, v2 in state2.items())
-
-
-# from mysteryem
-def em_lt(state1: dict, state2: dict) -> bool:
-    """Counter-like strict subset comparison"""
-    if not state1.keys() <= state2.keys():
-        # state1 is not a subset of state2, so state1 has some keys not present in state2
-        return False
-    if len(state2) > len(state1):
-        # state2 has some extra keys, so even if every key in state1 has the same value as in state2, state1 is
-        # still a strict subset of state2.
-        for key, v1 in state1.items():
-            if v1 > state2[key]:
-                return False
-        return True
-    else:  # noqa: RET505
-        # state2 has the same keys as state1, so at least one key in state1 must have a lower value than in state2
-        less_than = False
-        for key, v1 in state1.items():
-            v2 = state2[key]
-            if v1 > v2:
-                # state1 has a larger value than state2 for this key, so state1 is not a subset of state2
-                return False
-            # todo: How to best optimise this?
-            if v1 < v2:
-                # state1's value is less than state2's, so state1 could be a strict subset of state2
-                less_than = True
-        return less_than
-
-
-def eq(x: dict, y: dict) -> bool:
-    keys = x.keys() | y.keys()
-    for key in keys:
-        if not x[key] == y[key]:
-            return False
-    return True
-
-
-def lt(state1: dict, state2: dict) -> bool:
-    # TODO rename to le and/or revert this
-    for key, v1 in state1.items():
-        if not v1 <= state2.get(key, 0):
-            return False
-    return True
-
-#     if state1 == state2:
-#         breakpoint()
-#     if state1.keys() - state2.keys():
-#         # if any keys exist in state1 that aren't present in state2, state1 cannot be less than
-#         return False
-#     # if state1["SPENTSOUL"] > state2["SPENTSOUL"]:
-#     #     # see if shortcircuting common keys adds speedups
-#     #     return False
-#     if any(v1 > state2[key] for key, v1 in state1.items()):
-#         return False
-#     return True
-#     return (
-#         sum(state1[key] <= state2[key] for key in state1.keys()) == 1
-#         and sum(state1[key] < state2[key] for key in state1.keys()) == 1
-#     )
-#     return not ge(state1, state2)
-
+# Requirements for state comparison:
 # negative values won't exist
 # best case is falsy
 # keys in right that are not in left are inherently lt
