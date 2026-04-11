@@ -154,6 +154,12 @@ class HKItem(Item):
 class HKEntrance(Entrance):
     hk_rule: list[HKClause]
 
+    def can_reach(self, state: CollectionState) -> bool:
+        if not self.connected_region or not self.parent_region:
+            # add to blocked_connections for GER
+            state.blocked_connections[self.player].add(self)
+        return super().can_reach(state)
+
     def set_hk_rule(self, rules: list[HKClause]):
         if rules == default_hk_rule:
             return
@@ -201,13 +207,10 @@ class HKEntrance(Entrance):
                     if state._hk_apply_and_validate_state(
                         clause,
                         self.parent_region,
-                        target_region=self.connected_region):
+                        target_region=self.connected_region
+                    ):
                         valid_clauses = True
 
-        if not valid_clauses:
-            state.blocked_connections[self.player].add(self)
-        elif self in state.blocked_connections:
-            state.blocked_connections[self.player].remove(self)
         return valid_clauses
 
 

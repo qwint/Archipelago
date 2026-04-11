@@ -93,6 +93,7 @@ class HKWorld(RandomizerCoreWorld, World):
     rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations}
     region_lookup: ClassVar[dict[str, str]] = {location: r["name"] for r in hk_regions for location in r["locations"]}
     entrance_by_term: dict[str, list[str]]
+    entrance_pairs: dict[str, str]
     entrance_state_modifier_by_term: dict[str, list[tuple[str, str]]]
 
     cached_filler_items: ClassVar[dict[int, list[str]]] = {}  # per player cache
@@ -625,62 +626,24 @@ class HKWorld(RandomizerCoreWorld, World):
         if not self.options.EntranceRandoType:
             return
 
-        # transition_names = set(transitions.keys())
-
-        # exits = [
-        #     ex
-        #     for region in self.multiworld.get_regions(self.player)
-        #     for ex in region.exits
-        #     if ex.name in transition_names
-        #     and not (
-        #         region.name == "Menu"
-        #     )
-        # ]
-
-        # if not exits:
-        #     return
-
-        # for ex in exits:
-        #     trans_data = transitions[ex.name]
-        #     if not self.options.EntranceRandoType.test_transition(trans_data):
-        #         continue
-        #     sides = trans_data["sides"]
-        #     ex.randomization_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
-
-        #     disconnect_entrance_for_randomization(
-        #         ex,
-        #         None,
-        #         one_way_target_name=ex.name if ex.randomization_type == EntranceType.ONE_WAY else None
-        #     )
-
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
-
         er_state = randomize_entrances(
             world=self,
             coupled=coupled,
             target_group_lookup={
                 # assuming MatchingDirections for now
-                "Left": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
-                "Right": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
-                "Top": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
-                "Bot": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
-                "Door": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
-                "OneWayIn": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
-                "OneWayOut": ["Right", "Left", "Bot", "Top", "Door", "OneWayOut", "OneWayIn"],
+                "Left": ["Right"],
+                "Right": ["Left"],
+                "Top": ["Bot"],
+                "Bot": ["Top"],
+                # unnecessary for the ger call
+                # "Door": ["Door"],
+                # "OneWayIn": ["OneWayOut"],
+                # "OneWayOut": ["OneWayIn"],
             },
-            # target_group_lookup={
-            #     # assuming MatchingDirections for now
-            #     "Left": ["Right"],  # TODO: ideally shouldn't self-connect
-            #     "Right": ["Left"],  # TODO: ideally shouldn't self-connect
-            #     "Top": ["Bot"],
-            #     "Bot": ["Top"],
-            #     "Door": ["Door"],
-            #     "OneWayIn": ["OneWayOut"],
-            #     "OneWayOut": ["OneWayIn"],
-            # },
         )
 
-        self.entrance_pairs = dict(er_state.pairings)
+        self.entrance_pairs.update(er_state.pairings)
 
     def setup_connections(self):
         one_ways = defaultdict(list)
@@ -744,6 +707,8 @@ class HKWorld(RandomizerCoreWorld, World):
             del target_entrance
         for entrance, exit in zip(one_ways["OneWayOut"], one_ways["OneWayIn"]):
             _connect_one_way(exit, entrance)
+
+        self.entrance_pairs = dict(pairings)
 
     def add_all_events(self):
         location_to_region = {loc: reg["name"] for reg in regions for loc in reg["locations"]}
