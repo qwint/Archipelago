@@ -114,8 +114,11 @@ class EquipCharmVariable(RCStateVariable):
         notch_cost = self.get_notch_cost(item_state)
         if notch_cost <= 0 or self.is_equipped(state_blob):
             return EquipResult.OVERCHARM if rs_get_value(state_blob, "OVERCHARMED") else EquipResult.NONOVERCHARM
-        # can be equipped, max 20 total notches used if lots of notches are in starting inventory to not overflow
+        # can be equipped
+
         net_notches = min(20, self.get_total_notches(item_state)) - rs_get_value(state_blob, "USEDNOTCHES") - notch_cost
+        # max 20 total notches used if lots of notches are in starting inventory to not overflow
+
         if net_notches >= 0:
             return EquipResult.NONOVERCHARM
         # something to figure out if you can overcharm to get this on

@@ -8,7 +8,7 @@ from ..charms import charm_name_to_id, charm_names
 from BaseClasses import CollectionState
 
 
-attribute_list = [] # list of (state part name, number of bits used)
+attribute_list = []  # list of (state part name, number of bits used)
 for charm in charm_names:
     charm_name = "_".join(charm.split(" "))
     attribute_list.append((f"CHARM{charm_name_to_id[charm_name] + 1}", 1))
@@ -43,20 +43,32 @@ for i in range(len(attribute_list)):
     bit_length_prefix_sums.append(bit_length_prefix_sums[-1] + attribute_list[i][1] + 1)
     attribute_ids[attribute_list[i][0]] = i
 end_mask = (1 << bit_length_prefix_sums[-1]) - 1
+
+
 def rs_add_value(cur_state: int, attr: str, value: int) -> int:
+    """Adds approprate value to the int state by name"""
     attr_id = attribute_ids[attr]
     return cur_state + (value << bit_length_prefix_sums[attr_id])
+
+
 def rs_get_value(cur_state: int, attr: str) -> int:
+    """Gets approprate value from the int state by name"""
     attr_id = attribute_ids[attr]
     attr_len = attribute_list[attr_id][1]
     return (cur_state >> bit_length_prefix_sums[attr_id]) & ((1 << attr_len) - 1)
+
+
 def rs_set_value(cur_state: int, attr: str, value: int) -> int:
+    """Sets approprate value to the int state by name"""
     attr_id = attribute_ids[attr]
     attr_len = attribute_list[attr_id][1]
     start_pos = bit_length_prefix_sums[attr_id]
     cur_value = (cur_state >> start_pos) & ((1 << attr_len) - 1)
     return cur_state + ((value - cur_value) << start_pos)
+
+
 def rs_increase_if_lower(cur_state: int, attr: str, value: int) -> int:
+    """Sets appropriate value to the int state by name only if the existing value is lower than the incoming value"""
     attr_id = attribute_ids[attr]
     attr_len = attribute_list[attr_id][1]
     pos = bit_length_prefix_sums[attr_id]
@@ -65,20 +77,32 @@ def rs_increase_if_lower(cur_state: int, attr: str, value: int) -> int:
         return cur_state + ((value - cur_value) << pos)
     else:
         return cur_state
+
+
 def rs_subtract_at_most(cur_state: int, attr: str, value: int) -> int:
+    """Subtracts approprate value from the int state by name only if the result would not go negative"""
     attr_id = attribute_ids[attr]
     attr_len = attribute_list[attr_id][1]
     pos = bit_length_prefix_sums[attr_id]
     cur_value = (cur_state >> pos) & ((1 << attr_len) - 1)
     return cur_state - (min(cur_value, value) << pos)
+
+
 def rs_leq(state1: int, state2: int) -> bool:
+    """Return if state1 is less than or equal to state2"""
     return ((state1 + end_mask - state2) & top_bits_mask) == top_bits_mask
-def dict_to_rs(inp: dict[str,int]) -> int:
+
+
+def dict_to_rs(inp: dict[str, int]) -> int:
+    """Helper function to convert from a dict of term: value to an int state"""
     res = 0
     for key in inp:
         res = rs_add_value(res, key, inp[key])
     return res
-def rs_to_dict(inp: int) -> dict[str,int]:
+
+
+def rs_to_dict(inp: int) -> dict[str, int]:
+    """Helper function to convert from an int state to a dict of term: value"""
     res = {}
     for index in range(len(attribute_list)):
         cur_key = attribute_list[index][0]
@@ -86,10 +110,11 @@ def rs_to_dict(inp: int) -> dict[str,int]:
         if cur_value:
             res[cur_key] = cur_value
     return res
+
+
 # For ease of typing in submodules
 cs = CollectionState
 rs = int
-
 
 
 class ResourceStateHandler(type):
