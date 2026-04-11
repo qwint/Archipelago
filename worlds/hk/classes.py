@@ -217,10 +217,7 @@ class HKRegion(Region):
     entrance_type = HKEntrance
 
     def can_reach(self, state) -> bool:
-        if self in state.reachable_regions[self.player]:
-            return True
-        elif state._hk_stale[self.player]:
+        if state._hk_stale[self.player]:
             state._hk_sweep(self.player)
-            return self in state.reachable_regions[self.player]
-        else:
-            return False
+
+        return self in state.reachable_regions[self.player]

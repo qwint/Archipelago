@@ -600,7 +600,7 @@ class HKWorld(RandomizerCoreWorld, World):
         elif goal == Goal.option_godhome_flower:
             multiworld.completion_condition[player] = self.can_godhome_flower
         elif goal == Goal.option_grub_hunt:
-            multiworld.completion_condition[player] = lambda state: self.can_grub_goal(state)
+            multiworld.completion_condition[player] = self.can_grub_goal
         else:
             # Any goal
             multiworld.completion_condition[player] = (
@@ -624,33 +624,45 @@ class HKWorld(RandomizerCoreWorld, World):
         return False
 
     def can_grub_goal(self, state: CollectionState) -> bool:
-        return all(state.has("Grub", owner, count) for owner, count in self.grub_player_count.items())
+        if not state.can_reach_region("Crossroads_38[right1]", self.player):
+            return False
+        for owner, count in self.grub_player_count.items():
+            if not state.has("Grub", owner, count):
+                return False
+        return True
 
     def connect_entrances(self):
         if not self.options.EntranceRandoType:
             return
 
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
-
-        er_state = randomize_entrances(
-            world=self,
-            coupled=coupled,
-            target_group_lookup={
-                # assuming MatchingDirections for now
-                "Left": ["Right"],
-                "Right": ["Left"],
-                "Top": ["Bot"],
-                "Bot": ["Top"],
-                # unnecessary for the ger call
-                # "Door": ["Door"],
-                # "OneWayIn": ["OneWayOut"],
-                # "OneWayOut": ["OneWayIn"],
-            },
-        )
-
+        try:
+            er_state = randomize_entrances(
+                world=self,
+                coupled=coupled,
+                target_group_lookup={
+                    # assuming MatchingDirections for now
+                    "Left": ["Right"],
+                    "Right": ["Left"],
+                    "Top": ["Bot"],
+                    "Bot": ["Top"],
+                    # unnecessary for the ger call
+                    # "Door": ["Door"],
+                    # "OneWayIn": ["OneWayOut"],
+                    # "OneWayOut": ["OneWayIn"],
+                },
+            )
+        except Exception as ex:
+            raise OptionError("GER failed to make a map, suggest increasing the count of shuffled items/locations") from ex
         all_state = self.multiworld.get_all_state(allow_partial_entrances=True)
         if not all_state.can_reach_location("Mask_Shard-Grey_Mourner", self.player):
             raise OptionError("GER created a map with no path to flower quest")
+        if not self.multiworld.completion_condition[self.player](all_state):
+            raise OptionError(
+                "GER created a map that cannot finish completion condition, "
+                "you can retry, but not including godhome_flower or any goal "
+                "(which includes godhome_flower) will reduce the chances of this."
+            )
 
         self.entrance_pairs.update(er_state.pairings)
 
@@ -663,6 +675,8 @@ class HKWorld(RandomizerCoreWorld, World):
         }
         for name, trans_data in transitions.items():
             if self.options.EntranceRandoType.test_transition(trans_data):
+                # TODO: keep white palace vanilla when excluded?
+
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
                 # create partial entrance for GER
 
