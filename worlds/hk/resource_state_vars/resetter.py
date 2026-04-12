@@ -2,7 +2,7 @@ from typing import Any, ClassVar
 
 from ..options import HKOptions
 from ..state_mixin import default_state
-from . import RCStateVariable, cs, rs
+from . import RCStateVariable, cs, rs, rs_set_value, rs_get_value
 
 
 class RCResetter:
@@ -27,17 +27,16 @@ class RCResetter:
                 if value != "None":
                     # if the reset logic evaluates to True, update to new value
                     if key not in self.reset_state:
-                        if key in state_blob:
-                            del state_blob[key]
+                        state_blob = rs_set_value(state_blob, key, 0)
                     else:
-                        state_blob[key] = self.reset_state[key]
+                        state_blob = rs_set_value(state_blob, key, self.reset_state[key])
             return True, state_blob
         else:  # noqa: RET505
             ret = default_state(defaults=self.reset_state)
             for key, value in self.reset_properties.items():
                 if value == "None":  # TODO: fix
                     # if the reset logic evaluates to False keep old value
-                    ret[key] = state_blob[key]
+                    ret = rs_set_value(ret, key, rs_get_value(state_blob, key))
             return True, ret
 
     @classmethod
@@ -54,8 +53,8 @@ class RCResetter:
 
 class BenchResetVariable(RCResetter, RCStateVariable):
     prefix: str = "$BENCHRESET"
-    reset_state: ClassVar[dict[str, str]] = {
-        "NOPASSEDCHARMEQUIP": False
+    reset_state: ClassVar[dict[str, int]] = {
+        "NOPASSEDCHARMEQUIP": 0
     }
     opt_in = False
     reset_properties: ClassVar[dict[str, str]] = {

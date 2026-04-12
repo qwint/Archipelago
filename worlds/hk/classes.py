@@ -1,4 +1,4 @@
-from typing import ClassVar, NamedTuple
+from typing import ClassVar, NamedTuple, TYPE_CHECKING
 
 from BaseClasses import (
     CollectionState,
@@ -12,8 +12,11 @@ from settings import Bool, Group
 from worlds.AutoWorld import WebWorld
 
 from .constants import gamename
-from .resource_state_vars import RCStateVariable
+from .options import HKOptionGroups
 from .rules import cost_terms
+
+if TYPE_CHECKING:
+    from .resource_state_vars import RCStateVariable
 
 
 class HKSettings(Group):
@@ -59,6 +62,8 @@ class HKWeb(WebWorld):
         "?assignees=&labels=bug%2C+needs+investigation&template=bug_report.md&title="
     )
 
+    option_groups = HKOptionGroups
+
 
 class HKClause(NamedTuple):
     # Dict of item: count for state.has_all_counts()
@@ -68,7 +73,7 @@ class HKClause(NamedTuple):
     hk_region_requirements: list[str]
 
     # list of resource state terms for the clause
-    hk_state_requirements: list[RCStateVariable]
+    hk_state_requirements: "list[RCStateVariable]"
 
 
 # default logicless rule for short circuting
@@ -149,6 +154,12 @@ class HKItem(Item):
 class HKEntrance(Entrance):
     hk_rule: list[HKClause]
 
+    def can_reach(self, state: CollectionState) -> bool:
+        if not self.connected_region or not self.parent_region:
+            # add to blocked_connections for GER
+            state.blocked_connections[self.player].add(self)
+        return super().can_reach(state)
+
     def set_hk_rule(self, rules: list[HKClause]):
         if rules == default_hk_rule:
             return
@@ -175,22 +186,29 @@ class HKEntrance(Entrance):
         else:
             cache = state._hk_entrance_clause_cache[self.player][self.name]
 
-        # check every clause, caching item state accessibility
+        # check every clause, caching item state accessibility and tried resource state modifiers
         valid_clauses = False
+        if self.name not in state._hk_checked_state_modifiers[self.player]:
+            state._hk_checked_state_modifiers[self.player][self.name] = set()
+        terms = state._hk_checked_state_modifiers[self.player][self.name]
         for index, clause in enumerate(self.hk_rule):
             if cache[index] or state.has_all_counts(clause.hk_item_requirements, self.player):
                 cache[index] = True
-
+                cur_term = "; ".join(handler.term_name for handler in clause.hk_state_requirements)
+                if cur_term in terms:
+                    continue
                 # region sweep might not be done, so checking items is likely faster
                 reachable = True
                 for region in clause.hk_region_requirements:
                     if not state.can_reach_region(region, self.player):
                         reachable = False
-                if reachable and state._hk_apply_and_validate_state(
-                        clause,
-                        self.parent_region,
-                        target_region=self.connected_region):
-                    valid_clauses = True
+                if reachable:
+                    terms.add(cur_term)
+                    if state._hk_apply_and_validate_state(
+                            clause,
+                            self.parent_region,
+                            target_region=self.connected_region):
+                        valid_clauses = True
 
         return valid_clauses
 
@@ -199,11 +217,9 @@ class HKRegion(Region):
     entrance_type = HKEntrance
 
     def can_reach(self, state) -> bool:
-        if self in state.reachable_regions[self.player]:
-            return True
-        if not state.stale[self.player] and not state._hk_stale[self.player]:
-            # if the cache is updated we can use the cache
-            return super().can_reach(state)
         if state._hk_stale[self.player]:
+            # TODO: we may be able to return to only sweeping if self is not cached reachable
+            # if we can reasonably kick off a sweep in location can_reach only when required
             state._hk_sweep(self.player)
-        return super().can_reach(state)
+
+        return self in state.reachable_regions[self.player]

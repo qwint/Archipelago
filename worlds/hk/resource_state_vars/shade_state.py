@@ -1,7 +1,7 @@
 from collections.abc import Generator
 
 from ..options import HKOptions
-from . import RCStateVariable, cs, rs
+from . import RCStateVariable, cs, rs, rs_get_value, rs_add_value, rs_set_value, rs_to_dict
 from .equip_charm import EquipCharmVariable, EquipResult, FragileCharmVariable
 from .soul_manager import SoulManager
 
@@ -42,47 +42,46 @@ class ShadeStateVariable(RCStateVariable):
         return []
 
     def modify_state(self, state_blob: rs, item_state: cs) -> Generator[rs]:
-        ret = state_blob.copy()
-        if self.do_shade_skip(ret, item_state):
+        shade_skipped, ret = self.do_shade_skip(state_blob, item_state)
+        if shade_skipped:
             yield ret
 
-    def do_shade_skip(self, state_blob: rs, item_state: cs) -> bool:
+    def do_shade_skip(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         if self.voidheart.is_equipped(state_blob):
-            return False
-        if state_blob["CANNOTSHADESKIP"] or state_blob["USEDSHADE"]:
-            return False
-        self.voidheart.set_unequippable(state_blob)
-        state_blob["USEDSHADE"] = 1
+            return False, state_blob
+        if rs_get_value(state_blob, "CANNOTSHADESKIP") or rs_get_value(state_blob, "USEDSHADE"):
+            return False, state_blob
+        state_blob = self.voidheart.set_unequippable(state_blob)
+        state_blob = rs_add_value(state_blob, "USEDSHADE", 1)
 
-        test_one = self.sp_manager.try_set_soul_limit(state_blob, item_state, 33, True)
-        test_two = self.sp_manager.try_set_soul_limit(state_blob, item_state, 0, False)
+        test_one, state_blob = self.sp_manager.try_set_soul_limit(state_blob, item_state, 33, True)
+        test_two, state_blob = self.sp_manager.try_set_soul_limit(state_blob, item_state, 0, False)
         if not test_one or not test_two:
             # edge case where using a shade skip is not safe to re-trace the path
-            return False
-        if not self.check_health_requirement(state_blob, item_state):
+            return False, state_blob
+        requirement_checked, state_blob = self.check_health_requirement(state_blob, item_state)
+        if not requirement_checked:
             # checking joni's and fragile heart
-            return False
-        if not state_blob["NOFLOWER"]:
-            state_blob["NOFLOWER"] = 1
-            # just not worth it
-        return True
+            return False, state_blob
+        state_blob = rs_set_value(state_blob, "NOFLOWER", 1)  # just not worth it
+        return True, state_blob
 
-    def check_health_requirement(self, state_blob: rs, item_state: cs) -> bool:
+    def check_health_requirement(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:
         if self.health == 1:
-            return True
+            return True, state_blob
 
         if self.jonis.is_equipped(state_blob):
-            return False
-        self.jonis.set_unequippable(state_blob)
+            return False, state_blob
+        state_blob = self.jonis.set_unequippable(state_blob)
 
         hp = (item_state.count("MASKSHARDS", self.player) // 4) // 2
         if (
             hp >= self.health
             or (self.health == hp + 1 and self.fragile_heart.can_equip(state_blob, item_state) != EquipResult.NONE)
         ):
-            self.fragile_heart.break_charm(state_blob, item_state)
-            return True
-        return False
+            state_blob = self.fragile_heart.break_charm(state_blob, item_state)
+            return True, state_blob
+        return False, state_blob
 
     def can_exclude(self, options: HKOptions) -> bool:
         return not bool(options.ShadeSkips)

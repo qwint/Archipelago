@@ -6,6 +6,7 @@ from typing import ClassVar
 from test.param import classvar_matrix
 
 from ..charms import charm_name_to_id, charm_names
+from ..resource_state_vars import rs, rs_get_value, rs_set_value, dict_to_rs
 from ..resource_state_vars.equip_charm import EquipCharmVariable
 from .bases import NoStepHK, StateVarSetup
 
@@ -31,40 +32,41 @@ class TestBasicEquips(StateVarSetup, NoStepHK):
         rs, cs = self.get_initialized_args()
         handler = self.get_handler()
 
-        self.assertFalse(handler.try_equip(rs, cs))
+        equipped, rs = handler.try_equip(rs, cs)
+        self.assertFalse(equipped)
         self.assertFalse(handler.is_equipped(rs))
-        self.assertEqual(rs["USEDNOTCHES"], 0)
-        self.assertEqual(rs["MAXNOTCHCOST"], 0)
+        self.assertEqual(rs_get_value(rs, "USEDNOTCHES"), 0)
+        self.assertEqual(rs_get_value(rs, "MAXNOTCHCOST"), 0)
 
-        rs["NOPASSEDCHARMEQUIP"] = 0
+        rs = rs_set_value(rs, "NOPASSEDCHARMEQUIP", 0)
         res_bool, res_state = handler._try_equip(rs, cs)
         self.assertTrue(res_bool)
         # test original state
         self.assertFalse(handler.is_equipped(rs))
-        self.assertEqual(rs["USEDNOTCHES"], 0)
-        self.assertEqual(rs["MAXNOTCHCOST"], 0)
+        self.assertEqual(rs_get_value(rs, "USEDNOTCHES"), 0)
+        self.assertEqual(rs_get_value(rs, "MAXNOTCHCOST"), 0)
         # test output state
         self.assertTrue(handler.is_equipped(res_state))
-        self.assertEqual(res_state["USEDNOTCHES"], 1)
-        self.assertEqual(res_state["MAXNOTCHCOST"], 1)
+        self.assertEqual(rs_get_value(res_state, "USEDNOTCHES"), 1)
+        self.assertEqual(rs_get_value(res_state, "MAXNOTCHCOST"), 1)
 
-        other = rs.copy()  # for later
+        other = rs  # for later
 
-        handler.set_unequippable(rs)
-        res_bool = handler.try_equip(rs, cs)
+        rs = handler.set_unequippable(rs)
+        res_bool, rs = handler.try_equip(rs, cs)
         self.assertFalse(res_bool)
-        self.assertEqual(rs["USEDNOTCHES"], 0)
-        self.assertEqual(rs["MAXNOTCHCOST"], 0)
+        self.assertEqual(rs_get_value(rs, "USEDNOTCHES"), 0)
+        self.assertEqual(rs_get_value(rs, "MAXNOTCHCOST"), 0)
 
-        other_bool = handler.try_equip(other, cs)
+        other_bool, other = handler.try_equip(other, cs)
         self.assertTrue(other_bool)
-        self.assertEqual(other["USEDNOTCHES"], 1)
-        self.assertEqual(other["MAXNOTCHCOST"], 1)
+        self.assertEqual(rs_get_value(other, "USEDNOTCHES"), 1)
+        self.assertEqual(rs_get_value(other, "MAXNOTCHCOST"), 1)
 
-        other_bool = handler.try_equip(other, cs)
+        other_bool, other = handler.try_equip(other, cs)
         self.assertTrue(other_bool)
-        self.assertEqual(other["USEDNOTCHES"], 1)
-        self.assertEqual(other["MAXNOTCHCOST"], 1)
+        self.assertEqual(rs_get_value(other, "USEDNOTCHES"), 1)
+        self.assertEqual(rs_get_value(other, "MAXNOTCHCOST"), 1)
 
 
 equip_notch_matrix = [
@@ -113,10 +115,10 @@ class TestEquipNotch(StateVarSetup, NoStepHK):
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
 
         for i in range(self.charm_count):
-            result = handlers[i].try_equip(rs, cs)
+            result, rs = handlers[i].try_equip(rs, cs)
             assert result == self.equip_results[i]
 
-        assert rs["OVERCHARMED"] == self.ended_overcharmed
+        assert rs_get_value(rs, "OVERCHARMED") == self.ended_overcharmed
 
 
 class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
@@ -125,10 +127,10 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
 
     charm_count: int = 2
     notch_costs: Iterable[int] = (3, 6)
-    expecteds: ClassVar[dict[str, int]] = [
-        {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "noCHARM2": 1},
-        {"NOPASSEDCHARMEQUIP": 0, "CHARM1": 1, "noCHARM2": 1, "USEDNOTCHES": 3, "MAXNOTCHCOST": 3},
-        {"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "CHARM2": 1, "OVERCHARMED": 1,  "USEDNOTCHES": 6, "MAXNOTCHCOST": 6},
+    expecteds: ClassVar[list[rs]] = [
+        dict_to_rs({"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "noCHARM2": 1}),
+        dict_to_rs({"NOPASSEDCHARMEQUIP": 0, "CHARM1": 1, "noCHARM2": 1, "USEDNOTCHES": 3, "MAXNOTCHCOST": 3}),
+        dict_to_rs({"NOPASSEDCHARMEQUIP": 0, "noCHARM1": 1, "CHARM2": 1, "OVERCHARMED": 1,  "USEDNOTCHES": 6, "MAXNOTCHCOST": 6}),
     ]
     notch_override = 3
 
@@ -145,7 +147,7 @@ class TestGenerateCharmCombos(StateVarSetup, NoStepHK):
 
     def test_combos(self):
         rs, cs = self.get_initialized_args()
-        del rs["NOFLOWER"]  # TODO: get rid of this exception probably
+        rs = rs_set_value(rs, "NOFLOWER", 0)  # TODO: get rid of this exception probably
         handlers = [self.get_handler(f"$EQUIPPEDCHARM[{key}]") for key in charm_item_names[:self.charm_count]]
 
         output_states = EquipCharmVariable.generate_charm_combinations(rs, cs, handlers)

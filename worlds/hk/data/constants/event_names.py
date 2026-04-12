@@ -1,12 +1,6 @@
 # This file is programmatically generated, do not modify by hand
 
-try:
-    from enum import StrEnum
-except ImportError:
-    from enum import Enum
-
-    class StrEnum(str, Enum):
-        pass
+from enum import StrEnum
 
 
 class EventNames(StrEnum):
@@ -144,3 +138,4 @@ class EventNames(StrEnum):
     DEFEATED_PANTHEON_4 = "Defeated_Pantheon_4"
     HIT_PANTHEON_5_UNLOCK_ORB = "Hit_Pantheon_5_Unlock_Orb"
     DEFEATED_PANTHEON_5 = "Defeated_Pantheon_5"
+    FLOWER_QUEST_GODSEEKER = "Flower_Quest-Godseeker"

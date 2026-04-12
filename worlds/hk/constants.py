@@ -1,3 +1,5 @@
+from enum import IntEnum
+
 # Shop cost types.
 shop_cost_types: dict[str, tuple[str, ...]] = {
     "Egg_Shop": ("RANCIDEGGS",),
@@ -23,3 +25,11 @@ base_id = 0x1000000
 BASE_SOUL = 12
 BASE_NOTCHES = 3
 BASE_HEALTH = 5
+
+
+class NearbySoul(IntEnum):
+    NONE = 1
+    ITEMSOUL = 2
+    MAPAREASOUL = 3
+    AREASOUL = 4
+    ROOMSOUL = 5

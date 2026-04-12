@@ -1446,6 +1446,11 @@ pool_options = {
             },
             {
                 "item": "Rancid_Egg",
+                "location": "Rancid_Egg-Tuk_Defender's_Crest",
+                "costs": []
+            },
+            {
+                "item": "Rancid_Egg",
                 "location": "Sly",
                 "costs": [
                     {

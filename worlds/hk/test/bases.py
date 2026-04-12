@@ -33,7 +33,7 @@ class HKGoalBase(HKTestBase):
     def test_goal(self):
         """Asserts empty state cannot complete the goal but all state can"""
         self.assertBeatable(False)
-        self.multiworld.state = self.multiworld.get_all_state(False)
+        self.multiworld.state = self.multiworld.get_all_state()
         self.assertBeatable(True)
 
 

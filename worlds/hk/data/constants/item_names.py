@@ -1,12 +1,6 @@
 # This file is programmatically generated, do not modify by hand
 
-try:
-    from enum import StrEnum
-except ImportError:
-    from enum import Enum
-
-    class StrEnum(str, Enum):
-        pass
+from enum import StrEnum
 
 
 class ItemNames(StrEnum):
