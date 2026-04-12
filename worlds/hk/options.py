@@ -212,7 +212,7 @@ class EntranceRandoType(Choice):
     maparea: only shuffle the entrances between map areas
     fullarea: only shuffle the entrances between Titled areas
     room: shuffle all rooms entrances together
-    connected_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
+    connected_area: [Currently not avaliable] shuffle entrances inside Titled areas but leave the connections between them vanilla
     doors: shuffle all transitions through doors together
     """
     display_name = "Entrance Rando Type"
@@ -220,7 +220,7 @@ class EntranceRandoType(Choice):
     option_maparea = 1
     option_fullarea = 2
     option_room = 3
-    option_connected_area = 4
+    # option_connected_area = 4
     option_doors = 5
     default = option_none
     tag_lookup = {

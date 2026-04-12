@@ -218,6 +218,8 @@ class HKRegion(Region):
 
     def can_reach(self, state) -> bool:
         if state._hk_stale[self.player]:
+            # TODO: we may be able to return to only sweeping if self is not cached reachable
+            # if we can reasonably kick off a sweep in location can_reach only when required
             state._hk_sweep(self.player)
 
         return self in state.reachable_regions[self.player]
