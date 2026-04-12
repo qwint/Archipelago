@@ -241,6 +241,7 @@ class HealthManager(metaclass=ResourceStateHandler):
             yield from self.take_damage_strict(state_blob, item_state, amount, True)
 
     def take_damage_sequence(self, state_blob: rs, item_state: cs, amounts: Iterable[int]) -> Generator[rs]:
+        raise NotImplementedError("TODO: when needed research and answer comments from dorijanko's pr")
         if not self.is_hp_determined(state_blob):
             for r in self.determine_hp(state_blob, item_state):
                 yield from self.take_damage_sequence(r, item_state, amounts)
@@ -249,8 +250,8 @@ class HealthManager(metaclass=ResourceStateHandler):
         rets = [state_blob]
         for i, amount in enumerate(amounts):
             wait_after_hit = i == len(amounts) - 1
-            # I'm assuming that you should look at every option currently in rets to take damage instead of looking at state_blob
-            # but this method doesn't seem to be used anywhere so I won't be worrying about it currently
+            # I'm assuming that you should look at every option currently in rets to take damage instead of looking at
+            # state_blob but this method doesn't seem to be used anywhere so I won't be worrying about it currently
             rets = list(self.take_damage_strict(state_blob, item_state, amount, wait_after_hit))
         for r in rets:
             yield r

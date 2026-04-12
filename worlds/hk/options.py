@@ -228,7 +228,7 @@ class EntranceRandoType(Choice):
         option_maparea: "MAPAREARANDO",
         option_fullarea: "FULLAREARANDO",
         option_room: "ROOMRANDO",
-        option_connected_area: "ROOMRANDO",  # treated like room rando internally
+        # option_connected_area: "ROOMRANDO",  # treated like room rando internally
         option_doors: "ROOMRANDO",  # treated like room rando internally
     }
     soul_lookup = {
@@ -236,7 +236,7 @@ class EntranceRandoType(Choice):
         option_maparea: NearbySoul.MAPAREASOUL,
         option_fullarea: NearbySoul.AREASOUL,
         option_room: NearbySoul.ROOMSOUL,
-        option_connected_area: NearbySoul.ROOMSOUL,
+        # option_connected_area: NearbySoul.ROOMSOUL,
         option_doors: NearbySoul.ROOMSOUL,
     }
 
@@ -253,8 +253,8 @@ class EntranceRandoType(Choice):
             return trans_data["is_titled_area_transition"]
         elif self.value == self.option_room:
             return True
-        elif self.value == self.option_connected_area:
-            return not trans_data["is_titled_area_transition"]
+        # elif self.value == self.option_connected_area:
+        #     return not trans_data["is_titled_area_transition"]
         elif self.value == self.option_doors:
             return trans_data["direction"] == "Door"
 
