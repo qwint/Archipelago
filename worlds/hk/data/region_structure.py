@@ -3,57 +3,12 @@
 regions = [
     {
         "name": "Menu",
-        "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "Grimmchild"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Nightmare_Lantern_Lit"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "DREAMER"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Opened_Shaman_Pillar"
-            },
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "Defeated_Sanctum_Warrior"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    },
-                    {
-                        "item_requirements": [
-                            "Defeated_Elegant_Warrior"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Defeated_Any_Soul_Warrior"
-            }
-        ],
+        "exits": [],
         "locations": [
+            "Nightmare_Lantern_Lit",
+            "Opened_Shaman_Pillar",
             "Palace_Atrium_Gates_Opened",
+            "Defeated_Any_Soul_Warrior",
             "Start"
         ],
         "transitions": []
@@ -3953,21 +3908,7 @@ regions = [
     },
     {
         "name": "Room_Colosseum_01[left1]",
-        "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "Defeated_Colosseum_3"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Defeated_Any_Soul_Warrior"
-            }
-        ],
+        "exits": [],
         "locations": [
             "Defeated_Colosseum_Zote",
             "Defeated_Colosseum_1",
@@ -20480,36 +20421,6 @@ regions = [
         ]
     },
     {
-        "name": "Nightmare_Lantern_Lit",
-        "exits": [],
-        "locations": [
-            "Nightmare_Lantern_Lit"
-        ],
-        "transitions": []
-    },
-    {
-        "name": "Cliffs_06[left1]",
-        "exits": [
-            {
-                "logic": [
-                    {
-                        "item_requirements": [
-                            "DREAMNAIL"
-                        ],
-                        "location_requirements": [],
-                        "region_requirements": [],
-                        "state_modifiers": []
-                    }
-                ],
-                "target": "Nightmare_Lantern_Lit"
-            }
-        ],
-        "locations": [],
-        "transitions": [
-            "Cliffs_06[left1]"
-        ]
-    },
-    {
         "name": "Ruins1_05b",
         "exits": [
             {
@@ -21396,29 +21307,6 @@ regions = [
             "Opened_Mawlek_Wall"
         ],
         "transitions": []
-    },
-    {
-        "name": "Opened_Shaman_Pillar",
-        "exits": [],
-        "locations": [
-            "Opened_Shaman_Pillar"
-        ],
-        "transitions": []
-    },
-    {
-        "name": "Crossroads_06[left1]",
-        "exits": [
-            {
-                "logic": [],
-                "target": "Opened_Shaman_Pillar"
-            }
-        ],
-        "locations": [],
-        "transitions": [
-            "Crossroads_06[left1]",
-            "Crossroads_06[door1]",
-            "Crossroads_06[right1]"
-        ]
     },
     {
         "name": "Fungus3_47",
@@ -48026,6 +47914,7 @@ regions = [
             }
         ],
         "locations": [
+            "Flower_Quest-Godseeker",
             "Godtuner",
             "Geo_Chest-Junk_Pit_1",
             "Geo_Chest-Junk_Pit_2",
@@ -56578,14 +56467,6 @@ regions = [
         ]
     },
     {
-        "name": "Defeated_Any_Soul_Warrior",
-        "exits": [],
-        "locations": [
-            "Defeated_Any_Soul_Warrior"
-        ],
-        "transitions": []
-    },
-    {
         "name": "Room_shop[left1]",
         "exits": [],
         "locations": [
@@ -56645,6 +56526,16 @@ regions = [
         "locations": [],
         "transitions": [
             "Crossroads_03[top1]"
+        ]
+    },
+    {
+        "name": "Crossroads_06[left1]",
+        "exits": [],
+        "locations": [],
+        "transitions": [
+            "Crossroads_06[left1]",
+            "Crossroads_06[door1]",
+            "Crossroads_06[right1]"
         ]
     },
     {
@@ -70321,6 +70212,14 @@ regions = [
         ]
     },
     {
+        "name": "Cliffs_06[left1]",
+        "exits": [],
+        "locations": [],
+        "transitions": [
+            "Cliffs_06[left1]"
+        ]
+    },
+    {
         "name": "White_Palace_04[top1]",
         "exits": [
             {
@@ -80725,7 +80624,7 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "NOFLOWER=FALSE"
+                    "NOFLOWER=0"
                 ]
             },
             {
@@ -80736,7 +80635,7 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "NOFLOWER=FALSE"
+                    "NOFLOWER=0"
                 ]
             },
             {
@@ -80747,7 +80646,7 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "NOFLOWER=FALSE"
+                    "NOFLOWER=0"
                 ]
             },
             {
@@ -80758,7 +80657,7 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": [
-                    "NOFLOWER=FALSE"
+                    "NOFLOWER=0"
                 ]
             }
         ],
@@ -80799,7 +80698,26 @@ locations = [
     },
     {
         "name": "Nightmare_Lantern_Lit",
-        "logic": [],
+        "logic": [
+            {
+                "item_requirements": [
+                    "DREAMNAIL"
+                ],
+                "location_requirements": [],
+                "region_requirements": [
+                    "Cliffs_06[left1]"
+                ],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Grimmchild"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
         "is_event": True
     },
     {
@@ -80853,7 +80771,40 @@ locations = [
     },
     {
         "name": "Opened_Shaman_Pillar",
-        "logic": [],
+        "logic": [
+            {
+                "item_requirements": [],
+                "location_requirements": [],
+                "region_requirements": [
+                    "Crossroads_06[left1]"
+                ],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [],
+                "location_requirements": [],
+                "region_requirements": [
+                    "Crossroads_06[door1]"
+                ],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [],
+                "location_requirements": [],
+                "region_requirements": [
+                    "Crossroads_06[right1]"
+                ],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "DREAMER"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            }
+        ],
         "is_event": True
     },
     {
@@ -82017,7 +81968,34 @@ locations = [
     },
     {
         "name": "Defeated_Any_Soul_Warrior",
-        "logic": [],
+        "logic": [
+            {
+                "item_requirements": [
+                    "Defeated_Sanctum_Warrior"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Defeated_Elegant_Warrior"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": []
+            },
+            {
+                "item_requirements": [
+                    "Defeated_Colosseum_3"
+                ],
+                "location_requirements": [],
+                "region_requirements": [
+                    "Room_Colosseum_01[left1]"
+                ],
+                "state_modifiers": []
+            }
+        ],
         "is_event": True
     },
     {
@@ -84908,6 +84886,25 @@ locations = [
                 "location_requirements": [],
                 "region_requirements": [],
                 "state_modifiers": []
+            }
+        ],
+        "is_event": True
+    },
+    {
+        "name": "Flower_Quest-Godseeker",
+        "logic": [
+            {
+                "item_requirements": [
+                    "SIMPLE>3",
+                    "Defeated_Pantheon_1",
+                    "Defeated_Pantheon_2",
+                    "Defeated_Pantheon_3"
+                ],
+                "location_requirements": [],
+                "region_requirements": [],
+                "state_modifiers": [
+                    "NOFLOWER=0"
+                ]
             }
         ],
         "is_event": True
@@ -117468,7 +117465,6 @@ transition_to_region_map = {
     "Fungus2_26[left1]": "Fungus2_26[left1]",
     "Room_Mansion[left1]": "Room_Mansion[left1]",
     "Fungus3_49[right1]": "Fungus3_49[right1]",
-    "Cliffs_06[left1]": "Cliffs_06[left1]",
     "Ruins1_05b[left1]": "Ruins1_05b",
     "Ruins1_05b[right1]": "Ruins1_05b",
     "RestingGrounds_06[left1]": "RestingGrounds_06[left1]",
@@ -117476,9 +117472,6 @@ transition_to_region_map = {
     "RestingGrounds_06[top1]": "RestingGrounds_06[top1]",
     "RestingGrounds_10[top1]": "RestingGrounds_10[top1]",
     "RestingGrounds_10[left1]": "RestingGrounds_10",
-    "Crossroads_06[left1]": "Crossroads_06[left1]",
-    "Crossroads_06[door1]": "Crossroads_06[left1]",
-    "Crossroads_06[right1]": "Crossroads_06[left1]",
     "Fungus3_47[left1]": "Fungus3_47",
     "Fungus3_47[right1]": "Fungus3_47",
     "Fungus3_47[door1]": "Fungus3_47",
@@ -117855,6 +117848,9 @@ transition_to_region_map = {
     "Crossroads_02[door1]": "Crossroads_02[left1]",
     "Crossroads_02[right1]": "Crossroads_02[left1]",
     "Crossroads_03[top1]": "Crossroads_03[top1]",
+    "Crossroads_06[left1]": "Crossroads_06[left1]",
+    "Crossroads_06[door1]": "Crossroads_06[left1]",
+    "Crossroads_06[right1]": "Crossroads_06[left1]",
     "Crossroads_31[right1]": "Crossroads_31[right1]",
     "Crossroads_35[bot1]": "Crossroads_35[bot1]",
     "Crossroads_36[right1]": "Crossroads_36[right1]",
@@ -118134,6 +118130,7 @@ transition_to_region_map = {
     "Cliffs_03[right1]": "Cliffs_03[right1]",
     "Cliffs_04[left1]": "Cliffs_04[left1]",
     "Cliffs_05[left1]": "Cliffs_05[left1]",
+    "Cliffs_06[left1]": "Cliffs_06[left1]",
     "White_Palace_04[top1]": "White_Palace_04[top1]",
     "White_Palace_04[right2]": "White_Palace_04[right2]",
     "White_Palace_05[left1]": "White_Palace_05[left1]",

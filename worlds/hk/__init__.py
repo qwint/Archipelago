@@ -611,17 +611,7 @@ class HKWorld(RandomizerCoreWorld, World):
             )
 
     def can_godhome_flower(self, state: CollectionState):
-        if not state.has_all_counts({"Godtuner": 1, "Defeated_Pantheon_5": 1}, self.player):
-            return False
-
-        if not state.can_reach_region("GG_Waterways", self.player):
-            # cannot deliver flower
-            return False
-        for state_blob in state._hk_per_player_resource_states[self.player]["GG_Waterways"]:
-            if not rs_get_value(state_blob, "NOFLOWER"):
-                # if any valid state gets us to godseeker with the flower unbroken
-                return True
-        return False
+        return state.has_all_counts({"Godtuner": 1, "Defeated_Pantheon_5": 1, "Flower_Quest-Godseeker": 1}, self.player)
 
     def can_grub_goal(self, state: CollectionState) -> bool:
         if not state.can_reach_region("Crossroads_38[right1]", self.player):
@@ -676,6 +666,7 @@ class HKWorld(RandomizerCoreWorld, World):
         for name, trans_data in transitions.items():
             if self.options.EntranceRandoType.test_transition(trans_data):
                 # TODO: keep white palace vanilla when excluded?
+                # TODO: support connected_area
 
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
                 # create partial entrance for GER
