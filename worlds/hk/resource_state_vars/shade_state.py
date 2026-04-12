@@ -63,7 +63,7 @@ class ShadeStateVariable(RCStateVariable):
         if not requirement_checked:
             # checking joni's and fragile heart
             return False, state_blob
-        state_blob = rs_set_value(state_blob, "NOFLOWER", 1) # just not worth it
+        state_blob = rs_set_value(state_blob, "NOFLOWER", 1)  # just not worth it
         return True, state_blob
 
     def check_health_requirement(self, state_blob: rs, item_state: cs) -> tuple[bool, rs]:

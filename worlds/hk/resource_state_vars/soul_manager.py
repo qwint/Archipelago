@@ -118,18 +118,25 @@ class SoulManager(metaclass=ResourceStateHandler):
     def get_soul_info(self, state_blob: rs, item_state: cs) -> SoulInfo:
         max_soul = 99 - rs_get_value(state_blob, "SOULLIMITER")
         soul = max_soul - rs_get_value(state_blob, "SPENTSOUL")
-        vessels = min(6, item_state.count("VESSELFRAGMENTS", self.player) // 3) # max 6 so that state doesn't overflow
+        vessels = min(6, item_state.count("VESSELFRAGMENTS", self.player) // 3)  # max 6 so that state doesn't overflow
         max_reserve_soul = vessels * 33
         reserve_soul = max_reserve_soul - rs_get_value(state_blob, "SPENTRESERVESOUL")
         return SoulInfo(soul, max_soul, reserve_soul, max_reserve_soul)
 
-    def try_set_soul_limit(self, state_blob: rs, item_state: cs, limiter: int, applies_to_prior_path: bool) -> tuple[bool, rs]:
+    def try_set_soul_limit(
+            self,
+            state_blob: rs,
+            item_state: cs,
+            limiter: int,
+            applies_to_prior_path: bool
+    ) -> tuple[bool, rs]:
         if applies_to_prior_path and rs_get_value(state_blob, "REQUIREDMAXSOUL") > 99 - limiter:
             return False, state_blob
         current = rs_get_value(state_blob, "SOULLIMITER")
-        if limiter != current:
+        if limiter > current:
             state_blob = rs_add_value(state_blob, "SOULLIMITER", limiter - current)
-        if limiter < current:
+        elif limiter < current:
+            state_blob = rs_add_value(state_blob, "SOULLIMITER", limiter - current)
             _, state_blob = self.try_spend_soul(state_blob, item_state, current - limiter)
         return True, state_blob
 
