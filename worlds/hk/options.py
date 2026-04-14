@@ -256,7 +256,14 @@ class EntranceRandoType(Choice):
         # elif self.value == self.option_connected_area:
         #     return not trans_data["is_titled_area_transition"]
         elif self.value == self.option_doors:
-            return trans_data["direction"] == "Door"
+            from .data.trando_data import transitions
+            return (
+                trans_data["direction"] == "Door"
+                or (
+                    trans_data["vanilla_target"]
+                    and transitions[trans_data["vanilla_target"]]["direction"] == "Door"
+                )
+            )
 
     @property
     def soul_mode(self) -> NearbySoul:
