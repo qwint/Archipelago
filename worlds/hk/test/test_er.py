@@ -263,3 +263,41 @@ class TestErDoorsAllShuffled(HKTestBase):
         "RandomizeLoreTablets": True,
         "RandomizeElevatorPass": True,
     }
+
+
+class TestErConnectedAreaAllShuffled(HKTestBase):
+    options: typing.ClassVar[dict[str, str]] = {
+        "Goal": "any",
+        "EntranceRandoType": "connected_area",
+        "ShuffleEntrancesMode": "coupled",
+
+        "RandomizeDreamers": True,
+        "RandomizeSkills": True,
+        "RandomizeFocus": True,
+        "RandomizeSwim": True,
+        "RandomizeCharms": True,
+        "RandomizeKeys": True,
+        "RandomizeMaskShards": True,
+        "RandomizeVesselFragments": True,
+        "RandomizeCharmNotches": True,
+        "RandomizePaleOre": True,
+        "RandomizeGeoChests": True,
+        "RandomizeJunkPitChests": True,
+        "RandomizeRancidEggs": True,
+        "RandomizeRelics": True,
+        "RandomizeWhisperingRoots": True,
+        "RandomizeBossEssence": True,
+        "RandomizeGrubs": True,
+        "RandomizeMimics": True,
+        "RandomizeMaps": True,
+        "RandomizeStags": True,
+        "RandomizeLifebloodCocoons": True,
+        "RandomizeGrimmkinFlames": True,
+        "RandomizeJournalEntries": True,
+        "RandomizeNail": True,
+        "RandomizeGeoRocks": True,
+        "RandomizeBossGeo": True,
+        "RandomizeSoulTotems": True,
+        "RandomizeLoreTablets": True,
+        "RandomizeElevatorPass": True,
+    }

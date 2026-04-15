@@ -212,7 +212,7 @@ class EntranceRandoType(Choice):
     maparea: only shuffle the entrances between map areas
     fullarea: only shuffle the entrances between Titled areas
     room: shuffle all rooms entrances together
-    connected_area: [Currently not avaliable] shuffle entrances inside Titled areas but leave the connections between them vanilla
+    connected_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
     doors: shuffle all transitions through doors together
     """
     display_name = "Entrance Rando Type"
@@ -220,7 +220,7 @@ class EntranceRandoType(Choice):
     option_maparea = 1
     option_fullarea = 2
     option_room = 3
-    # option_connected_area = 4
+    option_connected_area = 4
     option_doors = 5
     default = option_none
     tag_lookup = {
@@ -228,7 +228,7 @@ class EntranceRandoType(Choice):
         option_maparea: "MAPAREARANDO",
         option_fullarea: "FULLAREARANDO",
         option_room: "ROOMRANDO",
-        # option_connected_area: "ROOMRANDO",  # treated like room rando internally
+        option_connected_area: "ROOMRANDO",  # treated like room rando internally
         option_doors: "ROOMRANDO",  # treated like room rando internally
     }
     soul_lookup = {
@@ -236,15 +236,17 @@ class EntranceRandoType(Choice):
         option_maparea: NearbySoul.MAPAREASOUL,
         option_fullarea: NearbySoul.AREASOUL,
         option_room: NearbySoul.ROOMSOUL,
-        # option_connected_area: NearbySoul.ROOMSOUL,
+        option_connected_area: NearbySoul.ROOMSOUL,
         option_doors: NearbySoul.ROOMSOUL,
     }
 
     @property
     def tag(self) -> str:
+        """Tag for upstream requirements based on the chosen option"""
         return self.tag_lookup[self.value]
 
     def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
+        """Test whether a particular transition should be shuffled based on the chosen option"""
         if self.value == self.option_none:
             return False
         elif self.value == self.option_maparea:
@@ -264,6 +266,13 @@ class EntranceRandoType(Choice):
                     and transitions[trans_data["vanilla_target"]]["direction"] == "Door"
                 )
             )
+
+    def get_subgroup(self, trans_data: dict[str, typing.Any]) -> str:
+        """Return a subgroup key for when entrances are shuffled together outside of the global scope"""
+        if self.value == self.option_connected_area:
+            return trans_data["titled_area"]
+        else:
+            return "global"
 
     @property
     def soul_mode(self) -> NearbySoul:
