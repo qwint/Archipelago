@@ -97,12 +97,14 @@ class HKWorld(RandomizerCoreWorld, World):
     entrance_groups: dict[str, list[HKEntrance]]
     entrance_state_modifier_by_term: dict[str, list[tuple[str, str]]]
 
-    cached_filler_items: ClassVar[dict[int, list[str]]] = {}  # per player cache
+    cached_filler_items: list[str]
     grub_count: int
     grub_player_count: dict[int, int]
     event_locations: list[str]
     ranges: dict[str, tuple[int, int]]
     charm_costs: list[int]
+
+    # TODO: un-per-player-cache these too
     charm_names_and_costs: ClassVar[dict[int, dict[str, int]]] = {}  # per player cache
     soul_modes: ClassVar[dict[int, NearbySoul]] = {}  # per player cache
 
@@ -115,6 +117,7 @@ class HKWorld(RandomizerCoreWorld, World):
         self.ranges = {}
         self.created_shop_items = 0
         self.vanilla_shop_costs = deepcopy(vanilla_shop_costs)
+        self.cached_filler_items = []
         self.event_locations = deepcopy(event_locations)
         self.entrance_by_term = defaultdict(list)
         self.entrance_pairs = {}
@@ -940,7 +943,7 @@ class HKWorld(RandomizerCoreWorld, World):
         return classification
 
     def get_filler_items(self) -> list[str]:
-        if self.player not in self.cached_filler_items:
+        if not self.cached_filler_items:
             fillers = ["One_Geo", "Soul_Refill"]
             exclusions = self.white_palace_exclusions()
             for group in (
@@ -950,8 +953,8 @@ class HKWorld(RandomizerCoreWorld, World):
                 if getattr(self.options, group):
                     fillers.extend(item for item in pool_options[group]["randomized"]["items"] if item not in
                                    exclusions)
-            self.cached_filler_items[self.player] = fillers
-        return self.cached_filler_items[self.player]
+            self.cached_filler_items = fillers
+        return self.cached_filler_items
 
     def get_filler_item_name(self) -> str:
         return self.random.choice(self.get_filler_items())
