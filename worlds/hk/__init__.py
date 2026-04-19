@@ -8,7 +8,7 @@ from typing import Any, ClassVar, cast
 
 from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld
 from Options import OptionError
-from entrance_rando import disconnect_entrance_for_randomization, randomize_entrances
+from entrance_rando import bake_target_group_lookup, randomize_entrances
 from worlds.AutoWorld import World
 
 from .charms import charm_name_to_id, charm_names
@@ -631,43 +631,76 @@ class HKWorld(RandomizerCoreWorld, World):
 
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
 
-        def _connect_entrances(group: str, entrances: list[HKEntrance] | None) -> None:
-            if entrances:
-                er_targets = [e for e in entrances if e.parent_region is None]
-                exits = [e for e in entrances if e.connected_region is None]
-            else:
-                er_targets = None
-                exits = None
-            try:
-                er_state = randomize_entrances(
-                    world=self,
-                    coupled=coupled,
-                    target_group_lookup={
-                        # assuming MatchingDirections for now
-                        "Left": ["Right"],
-                        "Right": ["Left"],
-                        "Top": ["Bot"],
-                        "Bot": ["Top"],
-                        # unnecessary for the ger call
-                        # "Door": ["Door"],
-                        # "OneWayIn": ["OneWayOut"],
-                        # "OneWayOut": ["OneWayIn"],
-                    },
-                    er_targets=er_targets,
-                    exits=exits,
-                )
-                self.entrance_pairs.update(er_state.pairings)
-            except Exception as ex:
-                raise OptionError(
-                    f"GER failed to make a map for group {group}, "
-                    "suggest increasing the count of shuffled items/locations") from ex
+        ### SUB-CALLS VERSION
 
-        for group, entrances in self.entrance_groups.items():
-            if group == "global":
-                # will do afterwards
-                continue
-            _connect_entrances(group, entrances)
-        _connect_entrances("global", None)
+        # def _connect_entrances(group: str, entrances: list[HKEntrance] | None) -> None:
+        #     if entrances:
+        #         er_targets = [e for e in entrances if e.parent_region is None]
+        #         if len(er_targets) == 0:
+        #             # edge case to catch single scene groups
+        #             return
+        #         exits = [e for e in entrances if e.connected_region is None]
+        #     else:
+        #         er_targets = None
+        #         exits = None
+        #     try:
+        #         er_state = randomize_entrances(
+        #             world=self,
+        #             coupled=coupled,
+        #             target_group_lookup={
+        #                 # assuming MatchingDirections for now
+        #                 "Left": ["Right"],
+        #                 "Right": ["Left"],
+        #                 "Top": ["Bot"],
+        #                 "Bot": ["Top"],
+        #                 # unnecessary for the ger call
+        #                 # "Door": ["Door"],
+        #                 # "OneWayIn": ["OneWayOut"],
+        #                 # "OneWayOut": ["OneWayIn"],
+        #             },
+        #             er_targets=er_targets,
+        #             exits=exits,
+        #         )
+        #         self.entrance_pairs.update(er_state.pairings)
+        #     except Exception as ex:
+        #         raise OptionError(
+        #             f"GER failed to make a map for group {group}, "
+        #             "suggest increasing the count of shuffled items/locations") from ex
+
+        # for group, entrances in self.entrance_groups.items():
+        #     if group == "global":
+        #         # will do afterwards
+        #         continue
+        #     _connect_entrances(group, entrances)
+        # _connect_entrances("global", None)
+
+
+        ### GROUP LOOKUP VERSION
+
+        def matching_direction_lookup(group: str) -> list[str]:
+            reverse_direction = {
+                # assuming MatchingDirections for now
+                "Left": "Right",
+                "Right": "Left",
+                "Top": "Bot",
+                "Bot": "Top",
+                # unnecessary for the ger call
+                # "Door": "Door",
+                # "OneWayIn": "OneWayOut",
+                # "OneWayOut": "OneWayIn",
+            }
+            if group in reverse_direction:
+                return [reverse_direction[group]]
+            subgroup, direction = group.split("|")
+            return [f"{subgroup}|{reverse_direction[direction]}"]
+
+        er_state = randomize_entrances(
+            world=self,
+            coupled=coupled,
+            target_group_lookup=bake_target_group_lookup(self, matching_direction_lookup),
+        )
+        self.entrance_pairs.update(er_state.pairings)
+
         all_state = self.multiworld.get_all_state(allow_partial_entrances=True)
         if not all_state.can_reach_location("Mask_Shard-Grey_Mourner", self.player):
             raise OptionError("GER created a map with no path to flower quest")
@@ -679,6 +712,11 @@ class HKWorld(RandomizerCoreWorld, World):
             )
 
     def setup_connections(self):
+        if self.options.WhitePalace < 3:  # less than option_include
+            self.options.SkipTitledAreaInER.value.add("Path of Pain")
+        if self.options.WhitePalace < 1:  # less than option_kingfragment
+            self.options.SkipTitledAreaInER.value.add("White Palace")
+
         one_ways = defaultdict(list)
         reverse_lookup = {
             # to map doors to the opposite direction of their vanilla target
@@ -687,9 +725,8 @@ class HKWorld(RandomizerCoreWorld, World):
         }
         self.entrance_groups = defaultdict(list)
         for name, trans_data in transitions.items():
-            if self.options.EntranceRandoType.test_transition(trans_data):
+            if self.options.EntranceRandoType.test_transition(trans_data) and self.options.SkipTitledAreaInER.test_transition(trans_data):
                 # TODO: keep white palace vanilla when excluded?
-                # TODO: support connected_area
 
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
                 # create partial entrance for GER
@@ -705,6 +742,10 @@ class HKWorld(RandomizerCoreWorld, World):
                     vanilla_target = transitions[trans_data["vanilla_target"]]
                     group = reverse_lookup[vanilla_target["direction"]]
                     assert group != "Door"
+
+                ### GROUP LOOKUP VERSION
+                if entrance_subgroup != "global":
+                    group = f"{entrance_subgroup}|{group}"
 
                 if sides != "OneWayOut":
                     exit_obj = region1.create_exit(name)

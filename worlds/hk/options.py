@@ -12,15 +12,17 @@ from Options import (
     Option,
     OptionDict,
     OptionGroup,
+    OptionSet,
     PerGameCommonOptions,
     Range,
     Toggle,
+    Visibility,
 )
 
 from .constants import NearbySoul
 from .charms import charm_names, vanilla_costs
 from .data.option_data import logic_options, pool_options
-from .data.trando_data import starts
+from .data.trando_data import starts, transitions
 from .rules import cost_terms
 
 if typing.TYPE_CHECKING:
@@ -255,17 +257,20 @@ class EntranceRandoType(Choice):
             return trans_data["is_titled_area_transition"]
         elif self.value == self.option_room:
             return True
-        # elif self.value == self.option_connected_area:
-        #     return not trans_data["is_titled_area_transition"]
+        elif self.value == self.option_connected_area:
+            target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
+            ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["titled_area"] == trans_data["titled_area"]
+            assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_titled_area_transition"]), trans_data
+            return ret
+
         elif self.value == self.option_doors:
-            from .data.trando_data import transitions
+            target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
             return (
                 trans_data["direction"] == "Door"
-                or (
-                    trans_data["vanilla_target"]
-                    and transitions[trans_data["vanilla_target"]]["direction"] == "Door"
-                )
+                or (target_trans_data and target_trans_data["direction"] == "Door")
             )
+        else:
+            raise Exception(f"Internal Error: unknown test transition {self.value} {trans_data}")
 
     def get_subgroup(self, trans_data: dict[str, typing.Any]) -> str:
         """Return a subgroup key for when entrances are shuffled together outside of the global scope"""
@@ -277,6 +282,16 @@ class EntranceRandoType(Choice):
     @property
     def soul_mode(self) -> NearbySoul:
         return self.soul_lookup[self.value]
+
+
+class SkipTitledAreaInER(OptionSet):
+    """Hidden option: skips randomizing any entrance related to the chosen regions"""
+    visibility = Visibility.spoiler
+    valid_keys = frozenset({trans_data["titled_area"] for trans_data in transitions.values()})
+
+    def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
+        target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
+        return trans_data["titled_area"] not in self.value and (target_trans_data and target_trans_data["titled_area"] not in self.value)
 
 
 class ShuffleEntrancesMode(Choice):
@@ -677,7 +692,7 @@ hollow_knight_options: dict[str, type(Option)] = {
         for option in (
             StartLocation, Goal, GrubHuntGoal, WhitePalace, ExtraPlatforms, AddUnshuffledLocations, StartingGeo,
             DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms,
-            EntranceRandoType, ShuffleEntrancesMode,
+            EntranceRandoType, ShuffleEntrancesMode, SkipTitledAreaInER,
             MinimumGeoPrice, MaximumGeoPrice,
             MinimumGrubPrice, MaximumGrubPrice,
             MinimumEssencePrice, MaximumEssencePrice,
@@ -716,7 +731,12 @@ HKOptionGroups: list[OptionGroup] = [
     OptionGroup("Logic Options", hollow_knight_logic_options.values(), start_collapsed=False),
     OptionGroup("Goal", [Goal, GrubHuntGoal], start_collapsed=False),
     OptionGroup("DeathLink", [DeathLink, DeathLinkShade, DeathLinkBreaksFragileCharms], start_collapsed=True),
-    OptionGroup("Entrance Rando", [StartLocation, EntranceRandoType, ShuffleEntrancesMode], start_collapsed=True),
+    OptionGroup("Entrance Rando", [
+            StartLocation,
+            EntranceRandoType,
+            ShuffleEntrancesMode,
+            SkipTitledAreaInER
+        ], start_collapsed=True),
     OptionGroup("Shop Slots", [
             EggShopSlots,
             SlyShopSlots,
