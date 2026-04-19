@@ -8,7 +8,7 @@ from typing import Any, ClassVar, cast
 
 from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld
 from Options import OptionError
-from entrance_rando import bake_target_group_lookup, randomize_entrances
+from entrance_rando import bake_target_group_lookup, randomize_entrances, EntranceRandomizationError
 from worlds.AutoWorld import World
 
 from .charms import charm_name_to_id, charm_names
@@ -694,11 +694,23 @@ class HKWorld(RandomizerCoreWorld, World):
             subgroup, direction = group.split("|")
             return [f"{subgroup}|{reverse_direction[direction]}"]
 
-        er_state = randomize_entrances(
-            world=self,
-            coupled=coupled,
-            target_group_lookup=bake_target_group_lookup(self, matching_direction_lookup),
-        )
+        try:
+            er_state = randomize_entrances(
+                world=self,
+                coupled=coupled,
+                target_group_lookup=bake_target_group_lookup(self, matching_direction_lookup),
+            )
+        except EntranceRandomizationError:
+            for entrances in self.entrance_groups.values():
+                for entrance in entrances:
+                    # reset to generic directions and retry
+                    entrance.randomization_group = entrance.randomization_group.split("|")[-1]
+            er_state = randomize_entrances(
+                world=self,
+                coupled=coupled,
+                target_group_lookup=bake_target_group_lookup(self, matching_direction_lookup),
+            )
+
         self.entrance_pairs.update(er_state.pairings)
 
         all_state = self.multiworld.get_all_state(allow_partial_entrances=True)
