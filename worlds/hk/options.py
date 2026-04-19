@@ -265,7 +265,7 @@ class EntranceRandoType(Choice):
 
         elif self.value == self.option_doors:
             target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
-            return (
+            return bool(
                 trans_data["direction"] == "Door"
                 or (target_trans_data and target_trans_data["direction"] == "Door")
             )
@@ -291,7 +291,7 @@ class SkipTitledAreaInER(OptionSet):
 
     def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
         target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
-        return trans_data["titled_area"] not in self.value and (target_trans_data and target_trans_data["titled_area"] not in self.value)
+        return trans_data["titled_area"] not in self.value and not (target_trans_data and target_trans_data["titled_area"] in self.value)
 
 
 class ShuffleEntrancesMode(Choice):
