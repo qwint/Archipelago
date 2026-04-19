@@ -686,8 +686,8 @@ class HKWorld(RandomizerCoreWorld, World):
                 "Bot": "Top",
                 # unnecessary for the ger call
                 # "Door": "Door",
-                # "OneWayIn": "OneWayOut",
-                # "OneWayOut": "OneWayIn",
+                "OneWayIn": "OneWayOut",
+                "OneWayOut": "OneWayIn",
             }
             if group in reverse_direction:
                 return [reverse_direction[group]]
