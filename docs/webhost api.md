@@ -17,6 +17,7 @@ Current endpoints:
 - Room API
     - [`/room_status/<suuid:room_id>`](#roomstatus)
 - Tracker API
+    - [`/tracker/version`](#tracker_version)
     - [`/tracker/<suuid:tracker>`](#tracker)
     - [`/static_tracker/<suuid:tracker>`](#statictracker)
     - [`/slot_data_tracker/<suuid:tracker>`](#slotdatatracker)
@@ -269,6 +270,12 @@ Example:
 ## Tracker Endpoints
 Endpoints to fetch information regarding players of an active WebHost room with the supplied tracker_ID. The tracker ID
 can either be viewed while on a room tracker page, or from the [room's endpoint](#room-endpoints).
+
+### `/tracker/version`
+<a name=tracker_version></a>
+
+Simple version number for breaking tracker api changes.
+Note: this endpoint was added in version `2`, so no version is assumed version `1`
 
 ### `/tracker/<suuid:tracker>`
 <a name=tracker></a>
