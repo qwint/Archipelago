@@ -625,103 +625,122 @@ class HKWorld(RandomizerCoreWorld, World):
                 return False
         return True
 
+    @staticmethod
+    def _stateless_connect_one_way(source_exit: Entrance, target_entrance: Entrance, pairings: list[tuple[str, str]]) -> None:
+        """Stolen from entrance_rando"""
+        target_region = target_entrance.connected_region
+
+        target_region.entrances.remove(target_entrance)
+        source_exit.connect(target_region)
+
+        pairings.append((source_exit.name, target_entrance.name))
+        del target_entrance
+
     def connect_entrances(self):
         if not self.options.EntranceRandoType:
             return
-
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
 
-        ### SUB-CALLS VERSION
+        from entrance_rando import ERPlacementState
 
-        # def _connect_entrances(group: str, entrances: list[HKEntrance] | None) -> None:
-        #     if entrances:
-        #         er_targets = [e for e in entrances if e.parent_region is None]
-        #         if len(er_targets) == 0:
-        #             # edge case to catch single scene groups
-        #             return
-        #         exits = [e for e in entrances if e.connected_region is None]
-        #     else:
-        #         er_targets = None
-        #         exits = None
-        #     try:
-        #         er_state = randomize_entrances(
-        #             world=self,
-        #             coupled=coupled,
-        #             target_group_lookup={
-        #                 # assuming MatchingDirections for now
-        #                 "Left": ["Right"],
-        #                 "Right": ["Left"],
-        #                 "Top": ["Bot"],
-        #                 "Bot": ["Top"],
-        #                 # unnecessary for the ger call
-        #                 # "Door": ["Door"],
-        #                 # "OneWayIn": ["OneWayOut"],
-        #                 # "OneWayOut": ["OneWayIn"],
-        #             },
-        #             er_targets=er_targets,
-        #             exits=exits,
-        #         )
-        #         self.entrance_pairs.update(er_state.pairings)
-        #     except Exception as ex:
-        #         raise OptionError(
-        #             f"GER failed to make a map for group {group}, "
-        #             "suggest increasing the count of shuffled items/locations") from ex
+        original_connect_one_way = ERPlacementState._connect_one_way
+        full_pairings = []
 
-        # for group, entrances in self.entrance_groups.items():
-        #     if group == "global":
-        #         # will do afterwards
-        #         continue
-        #     _connect_entrances(group, entrances)
-        # _connect_entrances("global", None)
+        def edited_connect_one_way(self, source_exit: Entrance, target_entrance: Entrance) -> None:
+            if not isinstance(source_exit, HKEntrance):
+                return original_connect_one_way(self, source_exit, target_entrance)
+            else:
+                full_pairings.append((source_exit.name, target_entrance.name))
+                ret = original_connect_one_way(self, source_exit, target_entrance)
+                source_exit._er_connected = True
+                target_entrance._er_connected = True
+                return ret  # code below is to edit if i need to later, but rn is a copy of og so this works
 
+            target_region = target_entrance.connected_region
 
-        ### GROUP LOOKUP VERSION
+            target_region.entrances.remove(target_entrance)
+            source_exit.connect(target_region)
 
-        def matching_direction_lookup(group: str) -> list[str]:
-            reverse_direction = {
-                # assuming MatchingDirections for now
-                "Left": "Right",
-                "Right": "Left",
-                "Top": "Bot",
-                "Bot": "Top",
-                # unnecessary for the ger call
-                # "Door": "Door",
-                "OneWayIn": "OneWayOut",
-                "OneWayOut": "OneWayIn",
-            }
-            if group in reverse_direction:
-                return [reverse_direction[group]]
-            subgroup, direction = group.split("|")
-            return [f"{subgroup}|{reverse_direction[direction]}"]
+            self.collection_state.stale[self.world.player] = True
+            self.placements.append(source_exit)
+            self.pairings.append((source_exit.name, target_entrance.name))
+            self.entrance_lookup.remove(target_entrance)
 
-        try:
+        ERPlacementState._connect_one_way = edited_connect_one_way
+
+        def _connect_entrances(group: str, entrances: list[HKEntrance] | None) -> None:
+            if entrances:
+                exits = [e for e in entrances if e.connected_region is None and not getattr(e, "_er_connected", False)]
+                er_targets = [e for e in entrances if e.parent_region is None and not getattr(e, "_er_connected", False)]
+                if len(exits) == 0:
+                    # edge case to catch single scene groups
+                    return
+                elif len(exits) == 1:
+                    # edge case where ger reads the entraces as both deadends and refuses to connec them
+                    self._stateless_connect_one_way(exits[0], er_targets[0], full_pairings)
+                    logger.debug(f"successfully matched up single entrances for group {group}")
+                    return
+                logger.debug(f"running er on {group} for {len(exits)} exits and {len(er_targets)} entrances")
+            else:
+                er_targets = None
+                exits = None
+
             er_state = randomize_entrances(
                 world=self,
                 coupled=coupled,
-                target_group_lookup=bake_target_group_lookup(self, matching_direction_lookup),
+                target_group_lookup={
+                    # assuming MatchingDirections for now
+                    "Left": ["Right"],
+                    "Right": ["Left"],
+                    "Top": ["Bot"],
+                    "Bot": ["Top"],
+                    # unnecessary for the ger call
+                    # "Door": ["Door"],
+                    # "OneWayIn": ["OneWayOut"],
+                    # "OneWayOut": ["OneWayIn"],
+                },
+                er_targets=er_targets,
+                exits=exits,
             )
-        except EntranceRandomizationError:
-            for entrances in self.entrance_groups.values():
-                for entrance in entrances:
-                    # reset to generic directions and retry
-                    entrance.randomization_group = entrance.randomization_group.split("|")[-1]
-            er_state = randomize_entrances(
-                world=self,
-                coupled=coupled,
-                target_group_lookup=bake_target_group_lookup(self, matching_direction_lookup),
-            )
+            # self.entrance_pairs.update(er_state.pairings)
+            if entrances:
+                logger.debug(f"successfully paired {len(entrances)} for group {group}")
 
-        self.entrance_pairs.update(er_state.pairings)
+        RETRY_ATTEMPTS = 3
+        for index in range(1, 1 + RETRY_ATTEMPTS):
+            for group, entrances in self.entrance_groups.items():
+                if group == "global":
+                    # will do afterwards
+                    continue
+                filtered_entrances = [e for e in entrances
+                                      if not getattr(e, "_er_connected", False)]
+                if not filtered_entrances:
+                    continue
+                try:
+                    _connect_entrances(group, entrances)
+                except EntranceRandomizationError as ex:
+                    leftovers = len([1 for e in entrances
+                                     if not getattr(e, "_er_connected", False)])
+                    if index == RETRY_ATTEMPTS:
+                        logger.info(f"GER failed for group {group}, all remaining {leftovers}/{len(filtered_entrances)} "
+                                    "entrance will be retried without group restrictions")
+                    else:
+                        logger.debug(f"Try {index} for group {group} failed, {leftovers}/{len(filtered_entrances)} unplaced.")
 
-        all_state = self.multiworld.get_all_state(allow_partial_entrances=True)
-        if not all_state.can_reach_location("Mask_Shard-Grey_Mourner", self.player):
-            raise OptionError("GER created a map with no path to flower quest")
-        if not self.multiworld.completion_condition[self.player](all_state):
-            raise OptionError(
-                "GER created a map that cannot finish completion condition, "
-                "you can retry, but not including godhome_flower or any goal "
-                "(which includes godhome_flower) will reduce the chances of this."
-            )
+        _connect_entrances("global", None)
+
+        self.entrance_pairs.update(full_pairings)
+
+        if self.options.accessibility != "minimal":
+            all_state = self.multiworld.get_all_state(allow_partial_entrances=True)
+            if not all_state.can_reach_location("Mask_Shard-Grey_Mourner", self.player):
+                raise OptionError("GER created a map with no path to flower quest")
+            if not self.multiworld.completion_condition[self.player](all_state):
+                raise OptionError(
+                    "GER created a map that cannot finish completion condition, "
+                    "you can retry, but not including godhome_flower or any goal "
+                    "(which includes godhome_flower) will reduce the chances of this."
+                )
 
     def setup_connections(self):
         if self.options.WhitePalace < 3:  # less than option_include
@@ -755,10 +774,6 @@ class HKWorld(RandomizerCoreWorld, World):
                     group = reverse_lookup[vanilla_target["direction"]]
                     assert group != "Door"
 
-                ### GROUP LOOKUP VERSION
-                if entrance_subgroup != "global":
-                    group = f"{entrance_subgroup}|{group}"
-
                 if sides != "OneWayOut":
                     exit_obj = region1.create_exit(name)
                     exit_obj.randomization_type = entrance_type
@@ -789,17 +804,8 @@ class HKWorld(RandomizerCoreWorld, World):
         self.random.shuffle(one_ways["OneWayIn"])
         pairings = []
 
-        def _connect_one_way(source_exit: Entrance, target_entrance: Entrance) -> None:
-            """Stolen from entrance_rando"""
-            target_region = target_entrance.connected_region
-
-            target_region.entrances.remove(target_entrance)
-            source_exit.connect(target_region)
-
-            pairings.append((source_exit.name, target_entrance.name))
-            del target_entrance
         for entrance, exit in zip(one_ways["OneWayOut"], one_ways["OneWayIn"]):
-            _connect_one_way(exit, entrance)
+            self._stateless_connect_one_way(exit, entrance, pairings)
 
         self.entrance_pairs = dict(pairings)
 
@@ -1261,7 +1267,8 @@ class HKWorld(RandomizerCoreWorld, World):
         for loc in self.get_locations():
             path_to_loc = []
             if not loc.parent_region.can_reach(all_state):
-                hint_data[self.player][loc.address] = "Unreachable"
+                if loc.address is not None:
+                    hint_data[self.player][loc.address] = "Unreachable"
                 continue
             name, connection = paths[loc.parent_region]
             while connection is not None:

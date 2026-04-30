@@ -126,6 +126,8 @@ class HKLocation(Location):
 
     def access_rule(self, state: CollectionState) -> bool:
         if self.costs:
+            if "GEO" in self.costs and not state.has("Can_Replenish_Geo", self.player):
+                return False
             logic_costs = {term: amount for term, amount in self.costs.items() if term != "GEO"}
             if not state.has_all_counts(logic_costs, self.player):
                 return False
