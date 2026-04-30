@@ -41,8 +41,8 @@ Example:
 }
 ```
 You'll receive a dict that contains two entries:
-- `Major` will always report the running release of the Archipelago server.
-- `Minor` will report the version of the endpoint that is running.
+- `major` will always report the running release of the Archipelago server.
+- `minor` will report the version of the endpoint that is running.
 
 If your application is programmed for `/tracker/version` `major: 0.6.7` and `minor: 1`, and your application reports something else, you'll know you need to update your application's API spec, and error accordingly.  
 You will also have the ability to support multiple versions of the API spec in this manner. Allowing you to support more than just a single version of Archipelago at a time.
