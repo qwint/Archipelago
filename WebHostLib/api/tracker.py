@@ -13,14 +13,11 @@ from WebHostLib.models import Room
 from WebHostLib.tracker import TrackerData
 
 TRACKER_MINOR_VERSION = 2
-
+TRACKER_VERSION = {"major": __version__, "minor": str(TRACKER_MINOR_VERSION)}
 
 @api_endpoints.route("/tracker/version")
 def version() -> dict[str, str]:
-    return {
-        "major": str(__version__),
-        "minor": str(TRACKER_MINOR_VERSION)
-    }
+    return TRACKER_VERSION
 
 
 class PlayerAlias(TypedDict):
