@@ -48,7 +48,7 @@ If your application is programmed for `/tracker/version` `major: 0.6.7` and `min
 You will also have the ability to support multiple versions of the API spec in this manner. Allowing you to support more than just a single version of Archipelago at a time.
 
 **As changes are made to the API, the minor version may increase independently of the major Archipelago release version.**  
-In most of cases, the minor version will always be `1`. However, you should be prepared to handle other minor versions if changes to the API are deployed out-of-release.
+In most cases, the minor version will always be `1`. However, you should be prepared to handle other minor versions if changes to the API are deployed out-of-release.
 
 ### Historical API Documentation
 Below are the 5 most recent versions of the API spec.
