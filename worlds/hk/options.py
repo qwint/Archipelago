@@ -214,7 +214,7 @@ class EntranceRandoType(Choice):
     maparea: only shuffle the entrances between map areas
     fullarea: only shuffle the entrances between Titled areas
     room: shuffle all rooms entrances together
-    connected_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
+    connected_area: shuffle entrances inside map areas but leave the connections between them vanilla
     doors: shuffle all transitions through doors together
     """
     display_name = "Entrance Rando Type"
@@ -259,8 +259,8 @@ class EntranceRandoType(Choice):
             return True
         elif self.value == self.option_connected_area:
             target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
-            ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["titled_area"] == trans_data["titled_area"]
-            assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_titled_area_transition"]), trans_data
+            ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["map_area"] == trans_data["map_area"]
+            assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_map_area_transition"]), trans_data
             return ret
 
         elif self.value == self.option_doors:
@@ -275,7 +275,7 @@ class EntranceRandoType(Choice):
     def get_subgroup(self, trans_data: dict[str, typing.Any]) -> str:
         """Return a subgroup key for when entrances are shuffled together outside of the global scope"""
         if self.value == self.option_connected_area:
-            return trans_data["titled_area"]
+            return trans_data["map_area"]
         else:
             return "global"
 
