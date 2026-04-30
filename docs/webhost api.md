@@ -303,6 +303,7 @@ can either be viewed while on a room tracker page, or from the [room's endpoint]
 <a name=tracker_version></a>
 [See API Version](#apiversion)
 
+
 ### `/tracker/<suuid:tracker>`
 <a name=tracker></a>
 **Cache timer: 60 seconds**

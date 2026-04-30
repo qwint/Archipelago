@@ -12,6 +12,7 @@ from WebHostLib.api import api_endpoints
 from WebHostLib.models import Room
 from WebHostLib.tracker import TrackerData
 
+
 TRACKER_MINOR_VERSION = 2
 
 
