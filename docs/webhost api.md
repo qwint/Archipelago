@@ -32,7 +32,7 @@ API calls to these endpoints should not be faster than the listed timer. This wi
 
 ## API Versions
 <a name="apiversion"></a>
-In order to provide the ability for applications to verify they have the correct API specs, each API endpoint is given a `Major` and `Minor` version number via their own `/<endpoint>/version`.  
+In order to provide the ability for applications to verify they have the correct API specs, each API endpoint is given a `major` and `minor` version number via their own `/<endpoint>/version`.  
 Example:
 ```json
 {
@@ -44,7 +44,7 @@ You'll receive a dict that contains two entries:
 - `major` will always report the running release of the Archipelago server.
 - `minor` will report the version of the endpoint that is running.
 
-If your application is programmed for `/tracker/version` `major: 0.6.7` and `minor: 1`, and your application reports something else, you'll know you need to update your application's API spec, and error accordingly.  
+If your application is programmed for a specfic version of the Archipelago API and your query returns a version you haven't accounted for, you should error accordingly, and update your application's API spec.  
 You will also have the ability to support multiple versions of the API spec in this manner. Allowing you to support more than just a single version of Archipelago at a time.
 
 **As changes are made to the API, the minor version may increase independently of the major Archipelago release version.**  
