@@ -44,8 +44,8 @@ You'll receive a dict that contains two entries:
 - `major` will always report the running release of the Archipelago server.
 - `minor` will report the version of the endpoint that is running.
 
-If your application is programmed for a specfic version of the Archipelago API and your query returns a version you haven't accounted for, you should error accordingly, and update your application's API spec.  
-You will also have the ability to support multiple versions of the API spec in this manner. Allowing you to support more than just a single version of Archipelago at a time.
+If your application is programmed for a specfic version of the Archipelago API and your query returns a version you haven't accounted for, you should error accordingly, and update your application's API code.  
+You will also have the ability to support multiple versions of the Archipelago API in this manner. Allowing you to support more than just a single version of Archipelago at a time.
 
 **As changes are made to the API, the minor version may increase independently of the major Archipelago release version.**  
 In most cases, the minor version will always be `1`. However, you should be prepared to handle other minor versions if changes to the API are deployed out-of-release.
