@@ -30,6 +30,34 @@ To reduce the strain on an Archipelago WebHost, many API endpoints will cache th
 Each API endpoint will have their "Cache timer" listed under their definition (if any).
 API calls to these endpoints should not be faster than the listed timer. This will result in wasted processing for your client and (more importantly) the Archipelago WebHost, as the data will not be refreshed by the WebHost until the internal timer has elapsed.
 
+## API Versions
+<a name="apiversion"></a>
+In order to provide the ability for applications to verify they have the correct API specs, each API endpoint is given a `major` and `minor` version number via their own `/<endpoint>/version`.  
+Example:
+```json
+{
+    "major": "0.6.7",
+    "minor": "1"
+}
+```
+You'll receive a dict that contains two entries:
+- `major` will always report the running release of the Archipelago server.
+- `minor` will report the version of the endpoint that is running.
+
+If your application is programmed for a specfic version of the Archipelago API and your query returns a version you haven't accounted for, you should error accordingly, and update your application's API code.  
+You will also have the ability to support multiple versions of the Archipelago API in this manner. Allowing you to support more than just a single version of Archipelago at a time.
+
+**As changes are made to the API, the minor version may increase independently of the major Archipelago release version.**  
+In most cases, the minor version will always be `1`. However, you should be prepared to handle other minor versions if changes to the API are deployed out-of-release.
+
+### Historical API Documentation
+Below are the 5 most recent versions of the API spec.
+- [0.6.7](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.7/docs/webhost%20api.md)
+- [0.6.6](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.6/docs/webhost%20api.md) (Note: This was a core security-only release)
+- [0.6.5](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.5/docs/webhost%20api.md)
+- [0.6.4](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.4/docs/webhost%20api.md)
+- [0.6.3](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.3/docs/webhost%20api.md)
+
 
 ## Datapackage Endpoints
 These endpoints are used by applications to acquire a room's datapackage, and validate that they have the correct datapackage for use. Datapackages normally include, item IDs, location IDs, and name groupings, for a given room, and are essential for mapping IDs received from Archipelago to their correct items or locations.
@@ -273,9 +301,8 @@ can either be viewed while on a room tracker page, or from the [room's endpoint]
 
 ### `/tracker/version`
 <a name=tracker_version></a>
+[See API Version](#apiversion)
 
-Simple version number for breaking tracker api changes.
-Note: this endpoint was added in version `2`, so no version is assumed version `1`
 
 ### `/tracker/<suuid:tracker>`
 <a name=tracker></a>
