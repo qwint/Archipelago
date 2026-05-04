@@ -155,6 +155,11 @@ class HKItem(Item):
 
 class HKEntrance(Entrance):
     hk_rule: list[HKClause]
+    _er_connected: bool
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._er_connected = False
 
     def can_reach(self, state: CollectionState) -> bool:
         if not self.connected_region or not self.parent_region:
