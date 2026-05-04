@@ -6,7 +6,7 @@ from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, NearbySoul  # noqa: F401
-from .data.item_effects import progression_effect_lookup
+from .parse_data import effects_prog_lookup, effects_items_by_term, effects_terms_by_item
 from .resource_state_vars import rs, rs_set_value, rs_leq
 
 if TYPE_CHECKING:
@@ -356,7 +356,7 @@ def hk_collect(self, state, item: "HKItem") -> bool:
             # to make sure grub counting is consistent across Groups etc.
             state.prog_items[player][item.name] += 1
 
-        if item.name not in progression_effect_lookup:
+        if item.name not in effects_prog_lookup:
             # handle events that don't have effects by adding them as their own terms
             state.prog_items[player][item.name] += 1
             if item.name in self.event_locations:
@@ -365,7 +365,7 @@ def hk_collect(self, state, item: "HKItem") -> bool:
                     if entrance in state._hk_checked_state_modifiers[player]:
                         state._hk_checked_state_modifiers[player][entrance].discard(modifier_id)
         else:
-            lookup = progression_effect_lookup[item.name]
+            lookup = effects_prog_lookup[item.name]
             add = True
 
             effects = handle_effect(item.name, lookup, state, player)
@@ -392,19 +392,19 @@ def hk_remove(self, state, item: "HKItem") -> bool:
             # to make sure grub counting is consistent across Groups etc.
             state.prog_items[player][item.name] -= 1
 
-        if item.name not in progression_effect_lookup:
+        if item.name not in effects_prog_lookup:
             # handle events that don't have effects by adding them as their own terms
             state.prog_items[player][item.name] -= 1
         else:
-            lookup = progression_effect_lookup[item.name]
+            lookup = effects_prog_lookup[item.name]
             add = False
 
             if lookup["type"] in ("conditional", "branching",):
                 state._hk_processed_item_cache[player][item.name] -= 1
-                reset_terms = affected_terms_by_item[item.name]
+                reset_terms = effects_terms_by_item[item.name]
                 for term in reset_terms:
                     state.prog_items[player][term] = 0
-                recalc_items = {item for term in reset_terms for item in affecting_items_by_term[term]}
+                recalc_items = {item for term in reset_terms for item in effects_items_by_term[term]}
                 owned_relevant_items = [
                     item
                     for item, count in state._hk_processed_item_cache[player].items()
@@ -412,7 +412,7 @@ def hk_remove(self, state, item: "HKItem") -> bool:
                     if item in recalc_items
                     ]
                 for recalc_item in owned_relevant_items:
-                    effects = handle_effect(item.name, progression_effect_lookup[recalc_item], state, player)
+                    effects = handle_effect(item.name, effects_prog_lookup[recalc_item], state, player)
                     # filter effects to just the ones we reset then add them to state
                     edit_effects(
                         state,

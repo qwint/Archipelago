@@ -14,18 +14,6 @@ from worlds.AutoWorld import World
 from .charms import charm_name_to_id, charm_names
 from .classes import HKClause, HKEntrance, HKItem, HKLocation, HKRegion, HKSettings, HKWeb
 from .constants import gamename, randomizable_starting_items, shop_cost_types, NearbySoul
-from .data.ids import item_name_to_id, location_name_to_id
-from .data.item_effects import (
-    affected_terms_by_item,
-    affecting_items_by_term,
-    non_progression_items,
-    progression_effect_lookup,
-)
-from .data.location_data import locations as locations_metadata
-from .data.location_data import multi_locations
-from .data.option_data import logic_options, pool_options
-from .data.region_structure import locations, regions, transition_to_region_map
-from .data.trando_data import starts, transitions
 from .items import item_name_groups
 from .options import (
     CostSanity,
@@ -38,34 +26,22 @@ from .options import (
     hollow_knight_options,
     shop_to_option,
 )
+from .parse_data import (
+    datapackage_items, datapackage_locations,
+    effects_terms_by_item, effects_items_by_term, effects_non_prog, effects_prog_lookup,
+    metadata_location_areas, metadata_location_multi,
+    options_logic_mappings, options_pool_mappings,
+    structure_regions, structure_transition_to_region_map,
+    trando_starts, trando_transitions,
+    event_locations, vanilla_shop_costs, vanilla_location_costs,
+    hk_regions, hk_locations,
+)
 from .resource_state_vars import ResourceStateHandler, rs_get_value
 from .resource_state_vars.cast_spell import NearbySoul
 from .rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin, default_state, hk_collect, hk_remove
 from .template_world import RandomizerCoreWorld
 logger = logging.getLogger("Hollow Knight")
-
-shop_locations = multi_locations
-event_locations = [location["name"] for location in locations if location["is_event"]
-                   and location["name"] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
-vanilla_cost_data = [pair for option in pool_options.values() for pair in option["vanilla"] if pair["costs"]]
-vanilla_location_costs = {
-    pair["location"]: {cost["term"]: cost["amount"] for cost in pair["costs"]}
-    for pair in vanilla_cost_data
-    if pair["location"] not in multi_locations
-    }
-vanilla_shop_costs = defaultdict(list)
-for i in vanilla_cost_data:
-    if i["location"] not in multi_locations:
-        continue
-    costs = {cost["term"]: cost["amount"] for cost in i["costs"]}
-    vanilla_shop_costs[(i["location"], i["item"])].append(costs)
-
-hk_regions = [
-    region for region in cast(list[dict[str, Any]], regions)
-    if not region["name"].startswith("$") and not region["name"] == "Bench-Godhome_Roof"
-]
-hk_locations = cast(list[dict[str, Any]], list(locations))
 
 
 class HKWorld(RandomizerCoreWorld, World):
@@ -77,8 +53,8 @@ class HKWorld(RandomizerCoreWorld, World):
 
     game = gamename
     web = HKWeb()
-    location_name_to_id = location_name_to_id
-    item_name_to_id = item_name_to_id
+    item_name_to_id = datapackage_items
+    location_name_to_id = datapackage_locations
     options_dataclass = HKOptions
     options: HKOptions
     settings: ClassVar[HKSettings]
@@ -115,7 +91,7 @@ class HKWorld(RandomizerCoreWorld, World):
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
         self.created_multi_locations: dict[str, list[HKLocation]] = {
-            location: [] for location in multi_locations
+            location: [] for location in metadata_location_multi
             if location != "Start"
         }
         self.ranges = {}
@@ -132,19 +108,19 @@ class HKWorld(RandomizerCoreWorld, World):
         wp = self.options.WhitePalace
         if wp <= WhitePalace.option_nopathofpain:
             exclusions.update({
-                name for name, loc in locations_metadata.items()
+                name for name, loc in metadata_location_areas.items()
                 if loc["titled_area"] == "Path of Pain"
                 })
         if wp <= WhitePalace.option_kingfragment:
             exclusions.update({
-                name for name, loc in locations_metadata.items()
+                name for name, loc in metadata_location_areas.items()
                 if loc["map_area"] == "White Palace"
                 # will add in last step if needed
                 and name != "King_Fragment"
                 })
 
         # TODO update or remove this
-        # loc_to_item = {pair["location"]: pair["item"] for pool in pool_options.values() for pair in pool}
+        # loc_to_item = {pair["location"]: pair["item"] for pool in options_pool_mappings.values() for pair in pool}
         # exclusions.update({loc_to_item[loc] for loc in exclusions if loc in loc_to_item})
 
         if wp == WhitePalace.option_exclude:
@@ -194,7 +170,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         if self.options.StartLocation == StartLocation.option_kings_pass:
             # Temporarily skip location validation on default start to workaround worlds with bad logicmixins
-            self.start_location_region = transition_to_region_map[starts[self.options.StartLocation.current_key]["granted_transition"]]
+            self.start_location_region = structure_transition_to_region_map[trando_starts[self.options.StartLocation.current_key]["granted_transition"]]
         else:
             start_location_key = self.options.StartLocation.current_key
             start_validation = self.validate_start(start_location_key)
@@ -202,7 +178,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 raise OptionError(f"Start Location {start_location_key} was invalid with other Options. "
                                   f"Requirements not met are:\n{start_validation}")
                 # TODO consider warning and resetting to KP
-            self.start_location_region = transition_to_region_map[starts[start_location_key]["granted_transition"]]
+            self.start_location_region = structure_transition_to_region_map[trando_starts[start_location_key]["granted_transition"]]
             # actually connect it later once we have regions created
 
         # defaulting so completion condition isn't incorrect before pre_fill
@@ -265,7 +241,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         valid_items.append(self.options.EntranceRandoType.tag)
 
-        start_location_logic = starts[start_location_key]["logic"]
+        start_location_logic = trando_starts[start_location_key]["logic"]
 
         if not start_location_logic:  # empty logic means always good
             return []
@@ -285,7 +261,7 @@ class HKWorld(RandomizerCoreWorld, World):
             self.get_location(loc).progress_type = LocationProgressType.EXCLUDED
 
         location_to_option = {
-            location: option for option, data in pool_options.items() for location in data["randomized"]["locations"]
+            location: option for option, data in options_pool_mappings.items() for location in data["randomized"]["locations"]
         }
         location_to_option["Elevator_Pass"] = "RandomizeElevatorPass"
         for location, costs in vanilla_location_costs.items():
@@ -311,13 +287,13 @@ class HKWorld(RandomizerCoreWorld, World):
 
         location_list = [
             location
-            for option, data in pool_options.items()
+            for option, data in options_pool_mappings.items()
             for location in data["randomized"]["locations"]
             if location not in self.event_locations and getattr(self.options, option)
             and location not in self.created_multi_locations
             ]
 
-        # options not handled in pool_options
+        # options not handled in options_pool_mappings
         if self.options.RandomizeElevatorPass:
             location_list.append("Elevator_Pass")
         # logic if random elevators is off just checks region access instead
@@ -370,14 +346,14 @@ class HKWorld(RandomizerCoreWorld, World):
             # handle both keys of item name and keys of itemname>count
             ret: Counter[str] = Counter()
             for full_req in reqs:
-                if full_req.split("=0")[0] in logic_options:
+                if full_req.split("=0")[0] in options_logic_mappings:
                     req = full_req.split("=")
                     if len(req) == 2 and req[1] == "0":
                         # handle RANDOMELEVATORS=0 checking for the option off
                         logic_bool = False
                     else:
                         logic_bool = True
-                    if getattr(self.options, logic_options[req[0]]) == logic_bool:
+                    if getattr(self.options, options_logic_mappings[req[0]]) == logic_bool:
                         # if the option is true, remove the requirement and let continue
                         continue
                     # else return skip_clause=True because the rest of the clause doesn't matter
@@ -415,8 +391,8 @@ class HKWorld(RandomizerCoreWorld, World):
             for item in items:
                 assert (
                     item == "FALSE"
-                    or item in affecting_items_by_term
-                    or item in affected_terms_by_item
+                    or item in effects_items_by_term
+                    or item in effects_terms_by_item
                     or item in self.event_locations
                 ), f"{item} not found in advancements"
             hk_rule.append(HKClause(
@@ -613,14 +589,14 @@ class HKWorld(RandomizerCoreWorld, World):
             "Right": "Left",
         }
         self.entrance_groups = defaultdict(list)
-        for name, trans_data in transitions.items():
+        for name, trans_data in trando_transitions.items():
             if self.options.EntranceRandoType.test_transition(trans_data) and self.options.SkipTitledAreaInER.test_transition(trans_data):
                 # TODO: keep white palace vanilla when excluded?
 
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
                 # create partial entrance for GER
 
-                region1 = self.get_region(transition_to_region_map[name])
+                region1 = self.get_region(structure_transition_to_region_map[name])
                 direction = trans_data["direction"]  # Left/Right/Top/Bot/Door
                 sides = trans_data["sides"]  # Both/OneWayIn/OneWayOut
                 entrance_subgroup = self.options.EntranceRandoType.get_subgroup(trans_data)
@@ -628,7 +604,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 entrance_type = EntranceType.TWO_WAY if sides == "Both" else EntranceType.ONE_WAY
                 group = direction if sides == "Both" else sides
                 if group == "Door":
-                    vanilla_target = transitions[trans_data["vanilla_target"]]
+                    vanilla_target = trando_transitions[trans_data["vanilla_target"]]
                     group = reverse_lookup[vanilla_target["direction"]]
                     assert group != "Door"
 
@@ -652,8 +628,8 @@ class HKWorld(RandomizerCoreWorld, World):
                     # is a one-way target
                     continue
 
-                region1 = self.get_region(transition_to_region_map[name])
-                region2 = self.get_region(transition_to_region_map[trans_data["vanilla_target"]])
+                region1 = self.get_region(structure_transition_to_region_map[name])
+                region2 = self.get_region(structure_transition_to_region_map[trans_data["vanilla_target"]])
                 region1.connect(region2, name)
 
         if not one_ways:
@@ -665,9 +641,10 @@ class HKWorld(RandomizerCoreWorld, World):
             self._stateless_connect_one_way(exit, entrance)
 
     def add_all_events(self):
-        location_to_region = {loc: reg["name"] for reg in regions for loc in reg["locations"]}
+        location_to_region = {loc: reg["name"] for reg in structure_regions for loc in reg["locations"]}
 
         def create_location(item: str, location: str, costs: list[dict]):
+            from .parse_data import shop_locations
             if location in shop_locations:
                 loc = self.add_shop_location(location)
                 if item:
@@ -697,7 +674,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 loc.show_in_spoiler = False
             return loc
 
-        for option, option_data in pool_options.items():
+        for option, option_data in options_pool_mappings.items():
             if not getattr(self.options, option):
                 for pair in option_data["vanilla"]:
                     if pair["location"] == "Start":
@@ -786,12 +763,12 @@ class HKWorld(RandomizerCoreWorld, World):
         # build out item_table (including counts) by option, excluding items in junk
         item_table = [
             item
-            for option, data in pool_options.items()
+            for option, data in options_pool_mappings.items()
             for item in data["randomized"]["items"]
             if getattr(self.options, option) and item not in junk
         ]
 
-        # options not handled in pool_options
+        # options not handled in options_pool_mappings
         directions = ("Left", "Right")
         if self.options.SplitMothwingCloak and self.options.RandomizeSkills:
             item_name = "Mothwing_Cloak"
@@ -834,22 +811,22 @@ class HKWorld(RandomizerCoreWorld, World):
             "Grimmchild1", "Grimmchild2"
         }
 
-        if name in non_progression_items:
+        if name in effects_non_prog:
             classification = ItemClassification.filler
-            assert name not in progression_effect_lookup
-        elif name in progression_effect_lookup:
+            assert name not in effects_prog_lookup
+        elif name in effects_prog_lookup:
             classification = ItemClassification.progression
         else:
             logger.warning(f"unknown item {name} setting to progression")
             classification = ItemClassification.progression
-        if name in affecting_items_by_term["DREAMER"] or \
-                name in affecting_items_by_term["GRUBS"] or \
-                name in affecting_items_by_term["ESSENCE"] or \
-                name in affecting_items_by_term["RANCIDEGGS"]:
+        if name in effects_items_by_term["DREAMER"] or \
+                name in effects_items_by_term["GRUBS"] or \
+                name in effects_items_by_term["ESSENCE"] or \
+                name in effects_items_by_term["RANCIDEGGS"]:
             classification |= ItemClassification.skip_balancing
         if name in ("Pale_Ore", "Arcane_Egg", "King's_Idol", "Hallownest_Seal", "Wanderer's_Journal"):
             classification |= ItemClassification.useful
-        if (name not in progression_charms and name in affecting_items_by_term["CHARMS"]):
+        if (name not in progression_charms and name in effects_items_by_term["CHARMS"]):
             classification |= ItemClassification.skip_balancing
         if name == "Mimic_Grub" or name == "Quill":
             classification |= ItemClassification.trap
@@ -865,7 +842,7 @@ class HKWorld(RandomizerCoreWorld, World):
                     "RandomizeRancidEggs"
             ):
                 if getattr(self.options, group):
-                    fillers.extend(item for item in pool_options[group]["randomized"]["items"] if item not in
+                    fillers.extend(item for item in options_pool_mappings[group]["randomized"]["items"] if item not in
                                    exclusions)
             self.cached_filler_items = fillers
         return self.cached_filler_items
@@ -1033,7 +1010,7 @@ class HKWorld(RandomizerCoreWorld, World):
             except TypeError:
                 pass
 
-        slot_data["options"]["StartLocationName"] = starts[self.options.StartLocation.current_key]["logic_name"]
+        slot_data["options"]["StartLocationName"] = trando_starts[self.options.StartLocation.current_key]["logic_name"]
         # slot_data["options"]["EntranceRandoTypeName"] = self.options.EntranceRandoType.current_key
 
         # 32 bit int

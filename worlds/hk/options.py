@@ -21,8 +21,7 @@ from Options import (
 
 from .constants import NearbySoul
 from .charms import charm_names, vanilla_costs
-from .data.option_data import logic_options, pool_options
-from .data.trando_data import starts, transitions
+from .parse_data import options_logic_mappings, options_pool_mappings, trando_starts, trando_transitions
 from .rules import cost_terms
 
 if typing.TYPE_CHECKING:
@@ -31,7 +30,7 @@ if typing.TYPE_CHECKING:
 else:
     Random = typing.Any
 
-locations = {"option_" + start: i for i, start in enumerate(starts.keys())}
+locations = {"option_" + start: i for i, start in enumerate(trando_starts.keys())}
 # This way the dynamic start names are picked up by the MetaClass Choice belongs to
 StartLocation = type("StartLocation", (Choice,), {
     "__module__": __name__,
@@ -151,7 +150,7 @@ shop_to_option = {
 hollow_knight_randomize_options: dict[str, type(Option)] = {}
 
 splitter_pattern = re.compile(r"(?<!^)(?=[A-Z])")
-for option_name, option_data in pool_options.items():
+for option_name, option_data in options_pool_mappings.items():
     extra_data = {"__module__": __name__}
     if option_name in option_docstrings:
         count = len(option_data["randomized"]["locations"])
@@ -166,11 +165,11 @@ for option_name, option_data in pool_options.items():
     hollow_knight_randomize_options[option.__name__] = option
 
 hollow_knight_logic_options: dict[str, type(Option)] = {}
-for option_name in logic_options.values():
+for option_name in options_logic_mappings.values():
     if option_name in hollow_knight_randomize_options:
         continue
     extra_data = {"__module__": __name__}
-    # some options, such as elevator pass, appear in logic_options despite explicitly being
+    # some options, such as elevator pass, appear in options_logic_mappings despite explicitly being
     # handled below as classes.
     if option_name in option_docstrings:
         extra_data["__doc__"] = option_docstrings[option_name]
@@ -262,18 +261,18 @@ class EntranceRandoType(Choice):
         elif self.value == self.option_room:
             return True
         elif self.value == self.option_connected_map_area:
-            target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
+            target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
             ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["map_area"] == trans_data["map_area"]
             assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_map_area_transition"]), trans_data
             return ret
         elif self.value == self.option_connected_titled_area:
-            target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
+            target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
             ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["titled_area"] == trans_data["titled_area"]
             assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_titled_area_transition"]), trans_data
             return ret
 
         elif self.value == self.option_doors:
-            target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
+            target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
             return bool(
                 trans_data["direction"] == "Door"
                 or (target_trans_data and target_trans_data["direction"] == "Door")
@@ -298,10 +297,10 @@ class EntranceRandoType(Choice):
 class SkipTitledAreaInER(OptionSet):
     """Hidden option: skips randomizing any entrance related to the chosen regions"""
     visibility = Visibility.spoiler
-    valid_keys = frozenset({trans_data["titled_area"] for trans_data in transitions.values()})
+    valid_keys = frozenset({trans_data["titled_area"] for trans_data in trando_transitions.values()})
 
     def test_transition(self, trans_data: dict[str, typing.Any]) -> bool:
-        target_trans_data: None | dict = trans_data["vanilla_target"] and transitions[trans_data["vanilla_target"]]
+        target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
         return trans_data["titled_area"] not in self.value and not (target_trans_data and target_trans_data["titled_area"] in self.value)
 
 
