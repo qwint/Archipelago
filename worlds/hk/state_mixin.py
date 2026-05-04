@@ -6,10 +6,12 @@ from Utils import KeyedDefaultDict
 from worlds.AutoWorld import LogicMixin
 
 from .constants import BASE_HEALTH, BASE_NOTCHES, BASE_SOUL, NearbySoul  # noqa: F401
+from .data.item_effects import progression_effect_lookup
 from .resource_state_vars import rs, rs_set_value, rs_leq
 
 if TYPE_CHECKING:
     from . import HKClause
+    from .classes import HKItem
 
 
 # default_state = KeyedDefaultDict(lambda key: True if key == "NOFLOWER" else False)
@@ -269,3 +271,169 @@ class HKLogicMixin(LogicMixin):
 # any key in left > right is a failure
 # any key in left and not in right is a failure
 # don't care about full equality because of codepath
+
+
+def edit_effects(state, player: int, item_effects: dict[str, int], add: bool):
+    if add:
+        for effect_name, effect_value in item_effects.items():
+            state.prog_items[player][effect_name] += effect_value
+    else:
+        for effect_name, effect_value in item_effects.items():
+            state.prog_items[player][effect_name] -= effect_value
+            if state.prog_items[player][effect_name] < 1:
+                del (state.prog_items[player][effect_name])
+
+
+def check_item_logic(condition, state, player) -> bool:
+    assert not condition["location_requirements"]
+    assert not condition["region_requirements"]
+    assert not condition["state_modifiers"]
+    item_requirements = condition["item_requirements"]
+    result = True
+    for req in item_requirements:
+        if ">" in req:
+            item, value = (*req.split(">"),)
+            result = result and state.count(item, player) > int(value)
+        elif "<" in req:
+            item, value = (*req.split("<"),)
+            result = result and state.count(item, player) < int(value)
+        elif "=" in req:
+            item, value = (*req.split("="),)
+            assert value.isdigit(), f"requirement {req} not supported"
+            result = result and state.count(item, player) == int(value)
+        else:
+            # assume entire req is term
+            result = result and state.has(req, player)
+    return result
+
+
+def handle_effect(item_name, lookup, state, player):
+    if lookup["type"] == "conditional":
+        if any(
+                check_item_logic(condition, state, player)
+                for condition in lookup["condition"]
+                ):
+            ret = lookup["effect"]
+        else:
+            return {}
+    elif lookup["type"] == "branching":
+        for branch in lookup["conditionals"]:
+            if any(
+                    check_item_logic(condition, state, player)
+                    for condition in branch["condition"]
+                    ):
+                ret = branch["effect"]
+                break
+        else:
+            # if none true use the parent else instead
+            ret = lookup["else"]
+
+    elif lookup["type"] == "incrementTerms":
+        return lookup["effects"]
+    elif lookup["type"] == "threshold":
+        count = state._hk_processed_item_cache[player][lookup["term"]]
+        if count == lookup["threshold"]:
+            ret = lookup["at_threshold"]
+        elif count < lookup["threshold"]:
+            ret = lookup["below_threshold"]
+        else:
+            ret = lookup["above_threshold"]
+        return {lookup["term"]: 1, **ret}
+
+    else:
+        raise Exception(f"unknown type {lookup['type']}")
+
+    if "type" in ret:
+        return handle_effect(item_name, ret, state, player)
+    else:  # noqa: RET505
+        raise Exception(f"unknown effect {ret}")
+
+
+def hk_collect(self, state, item: "HKItem") -> bool:
+    if item.advancement:
+        player = item.player
+        if item.name == "Grub":
+            # to make sure grub counting is consistent across Groups etc.
+            state.prog_items[player][item.name] += 1
+
+        if item.name not in progression_effect_lookup:
+            # handle events that don't have effects by adding them as their own terms
+            state.prog_items[player][item.name] += 1
+            if item.name in self.event_locations:
+                state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[item.name])
+                for entrance, modifier_id in self.entrance_state_modifier_by_term[item.name]:
+                    if entrance in state._hk_checked_state_modifiers[player]:
+                        state._hk_checked_state_modifiers[player][entrance].discard(modifier_id)
+        else:
+            lookup = progression_effect_lookup[item.name]
+            add = True
+
+            effects = handle_effect(item.name, lookup, state, player)
+            edit_effects(state, player, effects, add)
+            if lookup["type"] in ("conditional", "branching",):
+                state._hk_processed_item_cache[player][item.name] += 1
+            elif lookup["type"] == "threshold":
+                # increment term before checking threshold
+                state._hk_processed_item_cache[player][lookup["term"]] += 1
+
+            for term in effects.keys():
+                state._hk_per_player_sweepable_entrances[player].update(self.entrance_by_term[term])
+                for entrance, modifier_id in self.entrance_state_modifier_by_term[term]:
+                    if entrance in state._hk_checked_state_modifiers[player]:
+                        state._hk_checked_state_modifiers[player][entrance].discard(modifier_id)
+        state._hk_stale[item.player] = True
+    return item.advancement
+
+
+def hk_remove(self, state, item: "HKItem") -> bool:
+    if item.advancement:
+        player = item.player
+        if item.name == "Grub":
+            # to make sure grub counting is consistent across Groups etc.
+            state.prog_items[player][item.name] -= 1
+
+        if item.name not in progression_effect_lookup:
+            # handle events that don't have effects by adding them as their own terms
+            state.prog_items[player][item.name] -= 1
+        else:
+            lookup = progression_effect_lookup[item.name]
+            add = False
+
+            if lookup["type"] in ("conditional", "branching",):
+                state._hk_processed_item_cache[player][item.name] -= 1
+                reset_terms = affected_terms_by_item[item.name]
+                for term in reset_terms:
+                    state.prog_items[player][term] = 0
+                recalc_items = {item for term in reset_terms for item in affecting_items_by_term[term]}
+                owned_relevant_items = [
+                    item
+                    for item, count in state._hk_processed_item_cache[player].items()
+                    for count in range(count)
+                    if item in recalc_items
+                    ]
+                for recalc_item in owned_relevant_items:
+                    effects = handle_effect(item.name, progression_effect_lookup[recalc_item], state, player)
+                    # filter effects to just the ones we reset then add them to state
+                    edit_effects(
+                        state,
+                        player,
+                        {key: effects[key] for key in effects if key in reset_terms},
+                        True
+                        )
+            else:
+                if lookup["type"] == "threshold":
+                    # increment term before checking threshold
+                    state._hk_processed_item_cache[player][lookup["term"]] -= 1
+                edit_effects(state, player, handle_effect(item.name, lookup, state, player), add)
+
+        state._hk_entrance_clause_cache[item.player] = {}
+        state._hk_per_player_sweepable_entrances[item.player] = {
+            entrance.name for entrance in self.get_region("Menu").exits
+            }
+        state._hk_checked_state_modifiers[item.player] = {}
+        state._hk_per_player_resource_states[item.player] = KeyedDefaultDict(
+            lambda region: [default_state()] if region == "Menu" else []
+        )  # TODO: we have this code copied a couple different places, see if we can centralize it
+
+        state._hk_stale[item.player] = True
+    return item.advancement
