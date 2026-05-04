@@ -213,17 +213,17 @@ class EntranceRandoType(Choice):
     maparea: only shuffle the entrances between map areas
     fullarea: only shuffle the entrances between Titled areas
     room: shuffle all rooms entrances together
-    connected_map_area: shuffle entrances inside map areas but leave the connections between them vanilla
-    connected_titled_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
     doors: shuffle all transitions through doors together
     """
+    # connected_map_area: shuffle entrances inside map areas but leave the connections between them vanilla
+    # connected_titled_area: shuffle entrances inside Titled areas but leave the connections between them vanilla
     display_name = "Entrance Rando Type"
     option_none = 0
     option_maparea = 1
     option_fullarea = 2
     option_room = 3
-    option_connected_map_area = 4
-    option_connected_titled_area = 5
+    # option_connected_map_area = 4
+    # option_connected_titled_area = 5
     option_doors = 6
     default = option_none
     tag_lookup = {
@@ -231,8 +231,8 @@ class EntranceRandoType(Choice):
         option_maparea: "MAPAREARANDO",
         option_fullarea: "FULLAREARANDO",
         option_room: "ROOMRANDO",
-        option_connected_map_area: "ROOMRANDO",  # treated like room rando internally
-        option_connected_titled_area: "ROOMRANDO",  # treated like room rando internally
+        # option_connected_map_area: "ROOMRANDO",  # treated like room rando internally
+        # option_connected_titled_area: "ROOMRANDO",  # treated like room rando internally
         option_doors: "ROOMRANDO",  # treated like room rando internally
     }
     soul_lookup = {
@@ -240,8 +240,8 @@ class EntranceRandoType(Choice):
         option_maparea: NearbySoul.MAPAREASOUL,
         option_fullarea: NearbySoul.AREASOUL,
         option_room: NearbySoul.ROOMSOUL,
-        option_connected_map_area: NearbySoul.ROOMSOUL,
-        option_connected_titled_area: NearbySoul.ROOMSOUL,
+        # option_connected_map_area: NearbySoul.ROOMSOUL,
+        # option_connected_titled_area: NearbySoul.ROOMSOUL,
         option_doors: NearbySoul.ROOMSOUL,
     }
 
@@ -260,16 +260,16 @@ class EntranceRandoType(Choice):
             return trans_data["is_titled_area_transition"]
         elif self.value == self.option_room:
             return True
-        elif self.value == self.option_connected_map_area:
-            target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
-            ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["map_area"] == trans_data["map_area"]
-            assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_map_area_transition"]), trans_data
-            return ret
-        elif self.value == self.option_connected_titled_area:
-            target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
-            ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["titled_area"] == trans_data["titled_area"]
-            assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_titled_area_transition"]), trans_data
-            return ret
+        # elif self.value == self.option_connected_map_area:
+        #     target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
+        #     ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["map_area"] == trans_data["map_area"]
+        #     assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_map_area_transition"]), trans_data
+        #     return ret
+        # elif self.value == self.option_connected_titled_area:
+        #     target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
+        #     ret = trans_data["sides"][:6] != "OneWay" and target_trans_data and target_trans_data["titled_area"] == trans_data["titled_area"]
+        #     assert ret == (trans_data["sides"][:6] != "OneWay" and not trans_data["is_titled_area_transition"]), trans_data
+        #     return ret
 
         elif self.value == self.option_doors:
             target_trans_data: None | dict = trans_data["vanilla_target"] and trando_transitions[trans_data["vanilla_target"]]
@@ -282,12 +282,12 @@ class EntranceRandoType(Choice):
 
     def get_subgroup(self, trans_data: dict[str, typing.Any]) -> str:
         """Return a subgroup key for when entrances are shuffled together outside of the global scope"""
-        if self.value == self.option_connected_map_area:
-            return trans_data["map_area"]
-        elif self.value == self.option_connected_titled_area:
-            return trans_data["titled_area"]
-        else:
-            return "global"
+        # if self.value == self.option_connected_map_area:
+        #     return trans_data["map_area"]
+        # elif self.value == self.option_connected_titled_area:
+        #     return trans_data["titled_area"]
+
+        return "global"
 
     @property
     def soul_mode(self) -> NearbySoul:

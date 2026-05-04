@@ -538,7 +538,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 #     exits.remove(group_exits[0])
                 #     er_targets.remove(group_targets[0])
 
-                if exits or er_targets:
+                if exits is None or exits or er_targets:
                     raise ex
                     # reraise for retry attempts if there is still unmatched Entrances
 
@@ -548,9 +548,10 @@ class HKWorld(RandomizerCoreWorld, World):
                 if group == "global":
                     # will do afterwards
                     continue
+                raise Exception("idk i wanna move on from connected area er")
                 filtered_entrances = len([e for e in entrances if not e._er_connected])
                 if not filtered_entrances:
-                    logger.debug(f"Try {index} for group {group} skipped, as there were no filtered entrances")
+                    # logger.debug(f"Try {index} for group {group} skipped, as there were no filtered entrances")
                     continue
                 try:
                     _connect_entrances(group, entrances)
