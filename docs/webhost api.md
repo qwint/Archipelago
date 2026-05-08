@@ -40,14 +40,14 @@ These endpoints are used to query details about the running API stack for the We
 In order to provide the ability for applications to verify they have the correct API specs, the running Archipelago Core version, and each API endpoint version, is accessable to you. 
 
 You'll receive a dict that contains two entries:
-- `ap_core` will report the running release of the Archipelago server.
-- `tracker_api` will report the version of the tracker endpoint that the WebHost is running.
+- `ap_core_version` will report the running release of the Archipelago server.
+- `tracker_api_version` will report the version of the tracker endpoint that the WebHost is running.
 
 Example:
 ```json
 {
     "ap_core_version": "0.6.7",
-    "tracker_version": "1"
+    "tracker_api_version": "1"
 }
 ```
 
