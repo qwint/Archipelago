@@ -6,6 +6,7 @@ from uuid import UUID
 from flask import abort
 
 from NetUtils import ClientStatus, Hint, NetworkItem, SlotType
+from Utils import __version__
 from WebHostLib import cache
 from WebHostLib.api import api_endpoints
 from WebHostLib.models import Room
@@ -91,8 +92,7 @@ def tracker_data(tracker: UUID) -> dict[str, Any]:
     ]
     """Total number of locations checked for the entire multiworld per team."""
 
-    hints: list[PlayerHints] = []
-    hints: dict[tuple[int, int], list[PlayerHints]] = defaultdict(list)
+    hints: dict[tuple[int, int], list[PlayerHints]] = defaultdict(list)  # key is (team, player)
     """Hints that all players have used or received."""
     for team, players in tracker_data.get_all_slots().items():
         for player in players:

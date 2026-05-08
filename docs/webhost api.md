@@ -32,6 +32,7 @@ To reduce the strain on an Archipelago WebHost, many API endpoints will cache th
 Each API endpoint will have their "Cache timer" listed under their definition (if any).
 API calls to these endpoints should not be faster than the listed timer. This will result in wasted processing for your client and (more importantly) the Archipelago WebHost, as the data will not be refreshed by the WebHost until the internal timer has elapsed.
 
+
 ## Core Endpoints
 These endpoints are used to query details about the running API stack for the WebHost. These are server-wide, and not tied to an individual room, seed, tracker, or user.
 
