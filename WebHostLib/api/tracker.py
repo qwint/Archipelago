@@ -6,19 +6,13 @@ from uuid import UUID
 from flask import abort
 
 from NetUtils import ClientStatus, Hint, NetworkItem, SlotType
-from Utils import __version__
 from WebHostLib import cache
 from WebHostLib.api import api_endpoints
 from WebHostLib.models import Room
 from WebHostLib.tracker import TrackerData
 
 
-TRACKER_MINOR_VERSION = 2
-TRACKER_VERSION = {"major": __version__, "minor": str(TRACKER_MINOR_VERSION)}
-
-@api_endpoints.route("/tracker/version")
-def version() -> dict[str, str]:
-    return TRACKER_VERSION
+TRACKER_VERSION = 2
 
 
 class PlayerAlias(TypedDict):
