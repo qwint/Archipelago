@@ -75,8 +75,8 @@ class HKLogicMixin(LogicMixin):
         self._hk_stale = dict.fromkeys(players, True)
         self._hk_sweeping = dict.fromkeys(players, False)
         self._hk_processed_item_cache = {player: Counter() for player in players}
-        self._hk_charm_costs = HKWorld.charm_names_and_costs
-        self._hk_soul_modes = HKWorld.soul_modes
+        self._hk_charm_costs = KeyedDefaultDict(lambda player: multiworld.worlds[player].charm_names_and_costs)
+        self._hk_soul_modes = KeyedDefaultDict(lambda player: multiworld.worlds[player].soul_modes)
         for player in players:
             self.prog_items[player]["MASKSHARDS"] = BASE_HEALTH*4
             self.prog_items[player]["NOTCHES"] = BASE_NOTCHES

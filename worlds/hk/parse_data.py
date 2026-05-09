@@ -6,6 +6,8 @@ from .data import ids, item_effects, location_data, option_data, region_structur
 __all__ = [
     "datapackage_items",
     "datapackage_locations",
+    "datapackage_item_groups",
+    "datapackage_location_groups",
 
     "effects_terms_by_item",
     "effects_items_by_term",
@@ -77,3 +79,53 @@ hk_regions = [
     if not region["name"].startswith("$") and not region["name"] == "Bench-Godhome_Roof"
 ]
 hk_locations = cast(list[dict[str, Any]], list(structure_locations))
+
+
+# Datapackage Groups
+
+# strip "Randomize" from pool options and use their names as group names
+datapackage_item_groups = {
+    key[9:]: set(value["randomized"]["items"])
+    for key, value in options_pool_mappings.items()
+
+    # TODO dynamically exclude these if possible
+    if key not in ("RandomizeSwim", "RandomizeFocus")
+    }
+
+# override to remove world sense
+datapackage_item_groups["Dreamers"] = set(effects_items_by_term["DREAMER"])
+
+datapackage_item_groups["CDash"] = set(effects_items_by_term["LEFTSUPERDASH"] + effects_items_by_term["RIGHTSUPERDASH"])
+datapackage_item_groups["Claw"] = set(effects_items_by_term["LEFTCLAW"] + effects_items_by_term["RIGHTCLAW"])
+datapackage_item_groups["Cloak"] = set(effects_items_by_term["LEFTDASH"] + effects_items_by_term["RIGHTDASH"])
+datapackage_item_groups["Dive"] = set(effects_items_by_term["QUAKE"])
+datapackage_item_groups["Fireball"] = set(effects_items_by_term["FIREBALL"])
+datapackage_item_groups["Scream"] = set(effects_items_by_term["SCREAM"])
+datapackage_item_groups["Grimmchild"] = set(effects_items_by_term["Grimmchild"])
+datapackage_item_groups["Charms"] |= datapackage_item_groups["Grimmchild"]  # Grimmchild1 isn't in the options_pool_mappings for charms
+datapackage_item_groups["WhiteFragments"] = set(effects_items_by_term["WHITEFRAGMENT"])
+datapackage_item_groups["DreamNails"] = set(effects_items_by_term["DREAMNAIL"])
+
+# TODO
+# datapackage_item_groups["PalaceLore"] = set(effects_items_by_term["DREAMER"])
+# datapackage_item_groups["PalaceTotem"] = set(effects_items_by_term["DREAMER"])
+
+datapackage_item_groups["Horizontal"] = datapackage_item_groups["Cloak"] | datapackage_item_groups["CDash"]
+datapackage_item_groups["Vertical"] = datapackage_item_groups["Claw"] | {"Monarch_Wings"}
+# add split movement to skills
+datapackage_item_groups["Skills"] |= datapackage_item_groups["Vertical"] | datapackage_item_groups["Horizontal"]
+
+datapackage_item_groups["SoulTotems"].add("Soul_Refill")
+
+datapackage_location_groups = defaultdict(set)
+
+for name, location in metadata_location_areas.items():
+    if name in shop_locations:
+        for i in range(1, 17):
+            shop_name = f"{name}_{i}"
+            datapackage_location_groups[location["map_area"]].add(shop_name)
+            datapackage_location_groups[location["titled_area"]].add(shop_name)
+        continue
+
+    datapackage_location_groups[location["map_area"]].add(name)
+    datapackage_location_groups[location["titled_area"]].add(name)

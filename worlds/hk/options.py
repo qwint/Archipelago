@@ -595,6 +595,19 @@ class WhitePalace(Choice):
     option_include = 3  # Include all White Palace locations, including Path of Pain.
     default = 0
 
+    def location_exclusions(self) -> set[str]:
+        """Set of Locations that should not be randomized based on the chosen value"""
+        from . import HKWorld
+        exclusions = set()
+        if self <= WhitePalace.option_nopathofpain:
+            exclusions.update(HKWorld.location_name_groups["Path of Pain"])
+        if self <= WhitePalace.option_kingfragment:
+            exclusions.update(HKWorld.location_name_groups["White Palace"])
+            exclusions.remove("King_Fragment")
+        if self == WhitePalace.option_exclude:
+            exclusions.add("King_Fragment")
+        return exclusions
+
 
 class ExtraPlatforms(DefaultOnToggle):
     """Places additional platforms to make traveling throughout Hallownest more convenient."""

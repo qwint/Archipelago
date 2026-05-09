@@ -1,30 +1,16 @@
 from typing import Any, Callable, ClassVar
 
 from BaseClasses import CollectionState, Item, ItemClassification, Location, Region
+from worlds.AutoWorld import World
 
 
-class RandomizerCoreWorld:
+class RandomizerCoreWorld(World):
     rc_regions: ClassVar[list[dict[str, Any]]] = {}
     rc_locations: ClassVar[list[dict[str, Any]]] = {}
+    rule_lookup: ClassVar[dict[str, Any]] = {}
     item_class = Item
     location_class = Location
     region_class = Region
-
-    def get_region_list(self) -> list[str]:
-        return [region["name"] for region in self.rc_regions]
-
-    def get_connections(self) -> list[tuple[str, str, Any | None]]:
-        return [
-            (region["name"], exit["target"], exit["logic"])
-            for region in self.rc_regions for exit in region["exits"]
-            ]
-
-    def get_location_map(self) -> list[tuple[str, str, Any | None]]:
-        rule_lookup = {location["name"]: location["logic"] for location in self.rc_locations}
-        return [
-            (region["name"], location, rule_lookup[location])
-            for region in self.rc_regions for location in region["locations"]
-            ]
 
 # # black box methods
     def set_victory(self) -> None:
@@ -48,6 +34,27 @@ class RandomizerCoreWorld:
         return ItemClassification.progression
 
 # common methods
+    def get_region_list(self) -> list[str]:
+        """Base implementation of region data for use in create_regions"""
+        return [region["name"] for region in self.rc_regions]
+
+    def get_connections(self) -> list[tuple[str, str, Any | None]]:
+        """Base implementation of region connection data for use in create_regions"""
+        return [
+            (region["name"], exit["target"], exit["logic"])
+            for region in self.rc_regions for exit in region["exits"]
+            ]
+
+    def get_location_map(self) -> dict[str, dict[str, int | None]]:
+        """Base implementation of location-region mapping data for use in create_regions"""
+        return {
+            region["name"]: {
+                location: self.location_name_to_id.get(location, None)
+                for location in region["locations"]
+                }
+            for region in self.rc_regions
+            }
+
     def create_regions(self) -> None:
         # create a local map of get_region_list names to region object for referencing in create_regions
         # and adding those regions to the multiworld
@@ -63,21 +70,23 @@ class RandomizerCoreWorld:
                 self.set_rule(ent, self.create_rule(rule))
 
         # loop through get_location_map, adding the rules per self.create_rule(rule) if present to the location
-        for region, location, rule in self.get_location_map():
-            code = self.location_name_to_id.get(location, None)
-            loc = self.location_class(self.player, location, code, regions[region])
-            if rule:
-                self.set_rule(loc, self.create_rule(rule))
-            if not code:
-                loc.place_locked_item(self.item_class(location, ItemClassification.progression, None, self.player))
-                loc.show_in_spoiler = False
-            regions[region].locations.append(loc)
+        for region, placements in self.get_location_map().items():
+            regions[region].add_locations(placements, self.location_class)
+            for location_name, location_id in placements.items():
+                loc = self.get_location(location_name)
+                if location_name in self.rule_lookup:
+                    self.set_rule(loc, self.create_rule(self.rule_lookup[location_name]))
+
+                if not location_id:
+                    loc.place_locked_item(self.item_class(location_name, ItemClassification.progression, None, self.player))
+                    loc.show_in_spoiler = False
 
         self.set_victory()
 
-    def set_rule(self, spot, rule):
-        """override for alternative access_rule formats"""
-        spot.access_rule = rule
+    # unneeded now with rulebuilder's world.set_rule
+    # def set_rule(self, spot: Location | Entrance, rule: CollectionRule | Rule[Any]) -> None:
+    #     """override for alternative access_rule formats"""
+    #     spot.access_rule = rule
 
     def set_rules(self):
         pass

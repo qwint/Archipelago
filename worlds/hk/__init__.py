@@ -8,13 +8,12 @@ from typing import Any, ClassVar, cast
 
 from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld
 from Options import OptionError
-from entrance_rando import bake_target_group_lookup, randomize_entrances, EntranceRandomizationError
+from entrance_rando import randomize_entrances, EntranceRandomizationError
 from worlds.AutoWorld import World
 
 from .charms import charm_name_to_id, charm_names
 from .classes import HKClause, HKEntrance, HKItem, HKLocation, HKRegion, HKSettings, HKWeb
 from .constants import gamename, randomizable_starting_items, shop_cost_types, NearbySoul
-from .items import item_name_groups
 from .options import (
     CostSanity,
     Goal,
@@ -27,7 +26,7 @@ from .options import (
     shop_to_option,
 )
 from .parse_data import (
-    datapackage_items, datapackage_locations,
+    datapackage_items, datapackage_locations, datapackage_item_groups, datapackage_location_groups,
     effects_terms_by_item, effects_items_by_term, effects_non_prog, effects_prog_lookup,
     metadata_location_areas, metadata_location_multi,
     options_logic_mappings, options_pool_mappings,
@@ -58,7 +57,8 @@ class HKWorld(RandomizerCoreWorld, World):
     options_dataclass = HKOptions
     options: HKOptions
     settings: ClassVar[HKSettings]
-    item_name_groups = item_name_groups
+    item_name_groups = datapackage_item_groups
+    location_name_groups = datapackage_location_groups
 
     rc_regions: list[dict[str, Any]] = hk_regions
     rc_locations: list[dict[str, Any]] = hk_locations
@@ -66,7 +66,7 @@ class HKWorld(RandomizerCoreWorld, World):
     location_class = HKLocation
     region_class = HKRegion
 
-    rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations}
+    rule_lookup: ClassVar[dict[str, str]] = {location["name"]: location["logic"] for location in hk_locations if location["logic"]}
     region_lookup: ClassVar[dict[str, str]] = {location: r["name"] for r in hk_regions for location in r["locations"]}
     entrance_by_term: dict[str, list[str]]
     entrance_pairs: dict[str, str]
@@ -79,10 +79,8 @@ class HKWorld(RandomizerCoreWorld, World):
     event_locations: list[str]
     ranges: dict[str, tuple[int, int]]
     charm_costs: list[int]
-
-    # TODO: un-per-player-cache these too
-    charm_names_and_costs: ClassVar[dict[int, dict[str, int]]] = {}  # per player cache
-    soul_modes: ClassVar[dict[int, NearbySoul]] = {}  # per player cache
+    charm_names_and_costs: dict[str, int]
+    soul_modes: NearbySoul
 
     # imported class functions
     collect = hk_collect
@@ -102,34 +100,6 @@ class HKWorld(RandomizerCoreWorld, World):
         self.entrance_by_term = defaultdict(list)
         self.entrance_pairs = {}
         self.entrance_state_modifier_by_term = defaultdict(list)
-
-    def white_palace_exclusions(self) -> set[str]:
-        exclusions = set()
-        wp = self.options.WhitePalace
-        if wp <= WhitePalace.option_nopathofpain:
-            exclusions.update({
-                name for name, loc in metadata_location_areas.items()
-                if loc["titled_area"] == "Path of Pain"
-                })
-        if wp <= WhitePalace.option_kingfragment:
-            exclusions.update({
-                name for name, loc in metadata_location_areas.items()
-                if loc["map_area"] == "White Palace"
-                # will add in last step if needed
-                and name != "King_Fragment"
-                })
-
-        # TODO update or remove this
-        # loc_to_item = {pair["location"]: pair["item"] for pool in options_pool_mappings.values() for pair in pool}
-        # exclusions.update({loc_to_item[loc] for loc in exclusions if loc in loc_to_item})
-
-        if wp == WhitePalace.option_exclude:
-            exclusions.add("King_Fragment")
-            # these aren't item groups anymore
-            # exclusions.update(item_name_groups["PalaceJournal"])
-            # exclusions.update(item_name_groups["PalaceLore"])
-            # exclusions.update(item_name_groups["PalaceTotem"])
-        return exclusions
 
     # generate_early
     def generate_early(self):
@@ -151,8 +121,6 @@ class HKWorld(RandomizerCoreWorld, World):
             # if hybrid_chance and len([name for name, weight in weights.items() if name is not "GEO" and weight != 0]):
             #     raise OptionError(f"temp")
 
-        charm_costs = options.RandomCharmCosts.get_costs(self.random)
-        self.charm_costs = options.PlandoCharmCosts.get_costs(charm_costs)
         for term, data in cost_terms.items():
             mini = getattr(options, f"Minimum{data.option}Price")
             maxi = getattr(options, f"Maximum{data.option}Price")
@@ -162,9 +130,11 @@ class HKWorld(RandomizerCoreWorld, World):
             else:
                 self.ranges[term] = mini.value, maxi.value
 
-        self.charm_names_and_costs[self.player] = {name: (charm_costs[index] if name != "Void_Heart" else 0)
-                                                   for name, index in charm_name_to_id.items()}
-        self.soul_modes[self.player] = self.options.EntranceRandoType.soul_mode
+        charm_costs = options.RandomCharmCosts.get_costs(self.random)
+        self.charm_costs = options.PlandoCharmCosts.get_costs(charm_costs)
+        self.charm_names_and_costs = {name: (self.charm_costs[index] if name != "Void_Heart" else 0)
+                                      for name, index in charm_name_to_id.items()}
+        self.soul_modes = self.options.EntranceRandoType.soul_mode
 
         self.split_cloak_direction = self.random.randint(0, 1)
 
@@ -257,7 +227,7 @@ class HKWorld(RandomizerCoreWorld, World):
         self.add_all_events()
         self.add_shop_locations()
 
-        for loc in self.white_palace_exclusions():
+        for loc in self.options.WhitePalace.location_exclusions():
             self.get_location(loc).progress_type = LocationProgressType.EXCLUDED
 
         location_to_option = {
@@ -270,7 +240,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         self.get_region("Menu").connect(self.get_region(self.start_location_region))
 
-    def get_location_map(self) -> list[tuple[str, str, Any | None]]:
+    def get_location_map(self) -> dict[str, dict[str, int | None]]:
         # # Vanilla placements of the following items have no impact on logic, thus we can avoid creating these items
         # # and locations entirely when the option to randomize them is disabled.
         # logicless_options = {
@@ -281,7 +251,7 @@ class HKWorld(RandomizerCoreWorld, World):
 
         # make our location_list off of location per option
         # and add any necessary location for logic to event_locations to be create later
-        exclusions = self.white_palace_exclusions()
+        exclusions = self.options.WhitePalace.location_exclusions()
         if "King_Fragment" in exclusions:
             exclusions.remove("King_Fragment")
 
@@ -328,16 +298,18 @@ class HKWorld(RandomizerCoreWorld, World):
             location_list.append("Focus")
 
         # build out the map per location in the list
-        location_map = [
-            (region["name"], location, self.rule_lookup[location])
+        location_map = {
+            region["name"]: {
+                location: self.location_name_to_id[location]
+                for location in region["locations"]
+                if location in location_list
+            }
             for region in self.rc_regions
-            for location in region["locations"]
-            if location in location_list
-        ]
+        }
 
         # TODO bandaid fix to make sure these don't ever get added to the pool
-        assert not [obj for obj in location_map if obj[1] in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
-        return [obj for obj in location_map if obj[1] not in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
+        assert not [1 for obj in location_map.values() if obj in ("Can_Warp_To_DG_Bench", "Can_Warp_To_Bench")]
+        return location_map
 
     def create_rule(self, rule: Any) -> list[HKClause]:
         # TODO consider caching on these as they should be deterministic,
@@ -592,7 +564,6 @@ class HKWorld(RandomizerCoreWorld, World):
         self.entrance_groups = defaultdict(list)
         for name, trans_data in trando_transitions.items():
             if self.options.EntranceRandoType.test_transition(trans_data) and self.options.SkipTitledAreaInER.test_transition(trans_data):
-                # TODO: keep white palace vanilla when excluded?
 
                 assert self.options.EntranceRandoType, f"attempted to create er entrance ({name}) without er enabled"
                 # create partial entrance for GER
@@ -697,7 +668,7 @@ class HKWorld(RandomizerCoreWorld, World):
                 for term in shop_cost_types[shop]
             }
 
-        rule = self.rule_lookup[lookup_shop]
+        rule = self.rule_lookup.get(lookup_shop)
         region = self.get_region(self.region_lookup[lookup_shop])
         location_name = f"{shop}_{index+1}"
         code = self.location_name_to_id[location_name]
@@ -756,7 +727,7 @@ class HKWorld(RandomizerCoreWorld, World):
         junk: set[str] = {"Downslash"}
         if self.options.RemoveSpellUpgrades:
             junk.update(("Abyss_Shriek", "Shade_Soul", "Descending_Dark"))
-        exclusions = self.white_palace_exclusions()
+        exclusions = self.options.WhitePalace.location_exclusions()
         if "King_Fragment" in exclusions:
             exclusions.remove("King_Fragment")
         junk.update(exclusions)
@@ -837,7 +808,7 @@ class HKWorld(RandomizerCoreWorld, World):
     def get_filler_items(self) -> list[str]:
         if not self.cached_filler_items:
             fillers = ["One_Geo", "Soul_Refill"]
-            exclusions = self.white_palace_exclusions()
+            exclusions = self.options.WhitePalace.location_exclusions()
             for group in (
                     "RandomizeGeoRocks", "RandomizeSoulTotems", "RandomizeLoreTablets", "RandomizeJunkPitChests",
                     "RandomizeRancidEggs"
