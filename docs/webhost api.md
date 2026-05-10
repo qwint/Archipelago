@@ -19,7 +19,6 @@ Current endpoints:
 - Room API
     - [`/room_status/<suuid:room_id>`](#roomstatus)
 - Tracker API
-    - [`/tracker/version`](#tracker_version)
     - [`/tracker/<suuid:tracker>`](#tracker)
     - [`/static_tracker/<suuid:tracker>`](#statictracker)
     - [`/slot_data_tracker/<suuid:tracker>`](#slotdatatracker)
