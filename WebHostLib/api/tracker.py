@@ -6,7 +6,6 @@ from uuid import UUID
 from flask import abort
 
 from NetUtils import ClientStatus, Hint, NetworkItem, SlotType
-from Utils import __version__
 from WebHostLib import cache
 from WebHostLib.api import api_endpoints
 from WebHostLib.models import Room
