@@ -382,7 +382,8 @@ Will provide a dict of static tracker data with the following keys:
 - A per player object (`player_data`) with the following keys:
   - The game name for that player (`game`)
   - The number of checks found vs. total checks available per player (`locations_count`)
-    - Same logic as the multitracker template: found = len(checked_locations) / total = locations_count.total_locations (all available checks).
+    - Same logic as the multitracker template:
+      found = len(checked_locations) / total = locations_count.total_locations(all available checks).
   - The list of all location ids known for that player (`locations`)
   - The slot name of that player (`name`)
   - The slot number of that player (`player`)
