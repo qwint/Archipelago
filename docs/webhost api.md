@@ -7,6 +7,8 @@ The following API requests are formatted as: `https://<Archipelago URL>/api/<end
 The returned data will be formatted in a combination of JSON lists or dicts, with their keys or values being notated in `blocks` (if applicable)
 
 Current endpoints:
+- Core API
+    - [`/version`](#apiversion)
 - Datapackage API
     - [`/datapackage`](#datapackage)
     - [`/datapackage/<string:checksum>`](#datapackagestringchecksum)
@@ -30,27 +32,33 @@ To reduce the strain on an Archipelago WebHost, many API endpoints will cache th
 Each API endpoint will have their "Cache timer" listed under their definition (if any).
 API calls to these endpoints should not be faster than the listed timer. This will result in wasted processing for your client and (more importantly) the Archipelago WebHost, as the data will not be refreshed by the WebHost until the internal timer has elapsed.
 
-## API Versions
+
+## Core Endpoints
+These endpoints are used to query details about the running API stack for the WebHost. These are server-wide, and not tied to an individual room, seed, tracker, or user.
+
+### `/version`
 <a name="apiversion"></a>
-In order to provide the ability for applications to verify they have the correct API specs, each API endpoint is given a `major` and `minor` version number via their own `/<endpoint>/version`.  
+In order to provide the ability for applications to verify they have the correct API specs, the running Archipelago Core version and each API endpoint version are accessible to you. 
+
+You'll receive a dict that contains two entries:
+- `ap_core_version` will report the running release of the Archipelago server.
+- `tracker_api_version` will report the version of the tracker endpoint that the WebHost is running.
+
 Example:
 ```json
 {
-    "major": "0.6.7",
-    "minor": "1"
+    "ap_core_version": "0.6.7",
+    "tracker_api_version": "1"
 }
 ```
-You'll receive a dict that contains two entries:
-- `major` will always report the running release of the Archipelago server.
-- `minor` will report the version of the endpoint that is running.
 
 If your application is programmed for a specfic version of the Archipelago API and your query returns a version you haven't accounted for, you should error accordingly, and update your application's API code.  
 You will also have the ability to support multiple versions of the Archipelago API in this manner. Allowing you to support more than just a single version of Archipelago at a time.
 
-**As changes are made to the API, the minor version may increase independently of the major Archipelago release version.**  
-In most cases, the minor version will always be `1`. However, you should be prepared to handle other minor versions if changes to the API are deployed out-of-release.
+**As changes are made to the API, an endpoint's version may increase independently of the Archipelago Core version.**  
+In most cases, the endpoint's version will always be `1`. However, you should be prepared to handle other versions if changes to the API are deployed out-of-release.
 
-### Historical API Documentation
+#### Historical API Documentation
 Below are the 5 most recent versions of the API spec.
 - [0.6.7](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.7/docs/webhost%20api.md)
 - [0.6.6](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.6/docs/webhost%20api.md) (Note: This was a core security-only release)
@@ -298,11 +306,6 @@ Example:
 ## Tracker Endpoints
 Endpoints to fetch information regarding players of an active WebHost room with the supplied tracker_ID. The tracker ID
 can either be viewed while on a room tracker page, or from the [room's endpoint](#room-endpoints).
-
-### `/tracker/version`
-<a name=tracker_version></a>
-[See API Version](#apiversion)
-
 
 ### `/tracker/<suuid:tracker>`
 <a name=tracker></a>
