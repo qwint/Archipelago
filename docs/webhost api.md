@@ -33,11 +33,13 @@ API calls to these endpoints should not be faster than the listed timer. This wi
 
 
 ## Core Endpoints
-These endpoints are used to query details about the running API stack for the WebHost. These are server-wide,and not tied to an individual room, seed, tracker, or user.
+These endpoints are used to query details about the running API stack for the WebHost. These are server-wide
+and not tied to an individual room, seed, tracker, or user.
 
 ### `/version`
 <a name="apiversion"></a>
-In order to provide the ability for applications to verify they have the correct API specs, the running Archipelago Core version and each API endpoint version are accessible to you. 
+In order to provide the ability for applications to verify they have the correct API specs, the running Archipelago
+Core version and each API endpoint version are accessible to you. 
 
 You'll receive a dict that contains two entries:
 - `ap_core_version` will report the running release of the Archipelago server.
@@ -51,16 +53,20 @@ Example:
 }
 ```
 
-If your application is programmed for a specfic version of the Archipelago API and your query returns a version you haven't accounted for, you should error accordingly, and update your application's API code.  
-You will also have the ability to support multiple versions of the Archipelago API in this manner. Allowing you to support more than just a single version of Archipelago at a time.
+If your application is programmed for a specfic version of the Archipelago API and your query returns a version you
+haven't accounted for, you should error accordingly, and update your application's API code.  
+You will also have the ability to support multiple versions of the Archipelago API in this manner.
+Allowing you to support more than just a single version of Archipelago at a time.
 
-**As changes are made to the API, an endpoint's version may increase independently of the Archipelago Core version.**  
-In most cases, the endpoint's version will always be `1`. However, you should be prepared to handle other versions if changes to the API are deployed out-of-release.
+**As changes are made to the API, an endpoint's version may increase independently of the Archipelago Core version.**
+In most cases, the endpoint's version will always be `1`. However, you should be prepared to handle other versions
+if changes to the API are deployed out-of-release.
 
 #### Historical API Documentation
 Below are the 5 most recent versions of the API spec.
 - [0.6.7](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.7/docs/webhost%20api.md)
-- [0.6.6](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.6/docs/webhost%20api.md) (Note: This was a core security-only release)
+- [0.6.6](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.6/docs/webhost%20api.md)
+  (Note: This was a core security-only release)
 - [0.6.5](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.5/docs/webhost%20api.md)
 - [0.6.4](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.4/docs/webhost%20api.md)
 - [0.6.3](https://github.com/ArchipelagoMW/Archipelago/blob/0.6.3/docs/webhost%20api.md)
