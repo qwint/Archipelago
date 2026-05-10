@@ -33,7 +33,7 @@ API calls to these endpoints should not be faster than the listed timer. This wi
 
 
 ## Core Endpoints
-These endpoints are used to query details about the running API stack for the WebHost. These are server-wide, and not tied to an individual room, seed, tracker, or user.
+These endpoints are used to query details about the running API stack for the WebHost. These are server-wide,and not tied to an individual room, seed, tracker, or user.
 
 ### `/version`
 <a name="apiversion"></a>
