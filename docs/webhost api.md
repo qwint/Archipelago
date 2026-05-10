@@ -38,7 +38,7 @@ These endpoints are used to query details about the running API stack for the We
 
 ### `/version`
 <a name="apiversion"></a>
-In order to provide the ability for applications to verify they have the correct API specs, the running Archipelago Core version, and each API endpoint version, is accessable to you. 
+In order to provide the ability for applications to verify they have the correct API specs, the running Archipelago Core version and each API endpoint version are accessible to you. 
 
 You'll receive a dict that contains two entries:
 - `ap_core_version` will report the running release of the Archipelago server.
