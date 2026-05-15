@@ -55,6 +55,7 @@ jobs:
       - name: Build
         run: |
           python -m pip install --upgrade pip
+          python clear_worlds.py
           python setup.py build_exe --yes
           if ( $? -eq $false ) {
             Write-Error "setup.py failed!"
@@ -161,6 +162,7 @@ jobs:
           "${{ env.PYTHON }}" -m venv venv
           source venv/bin/activate
           "${{ env.PYTHON }}" -m pip install --upgrade pip "PyGObject<3.51.0" charset-normalizer
+          python clear_worlds.py
           python setup.py build_exe --yes bdist_appimage --yes
           echo -e "setup.py build output:\n `ls build`"
           echo -e "setup.py dist output:\n `ls dist`"
@@ -183,6 +185,7 @@ jobs:
       - name: Build Again
         run: |
           source venv/bin/activate
+          python clear_worlds.py
           python setup.py build_exe --yes
       - name: Check build loads expected worlds
         shell: bash
