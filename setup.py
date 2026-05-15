@@ -63,17 +63,7 @@ from Cython.Build import cythonize
 
 
 non_apworlds: set[str] = {
-    "A Link to the Past",
-    "Adventure",
     "Archipelago",
-    "Lufia II Ancient Cave",
-    "Meritous",
-    "Ocarina of Time",
-    "Overcooked! 2",
-    "Raft",
-    "Super Mario 64",
-    "VVVVVV",
-    "Wargroove",
 }
 
 
