@@ -516,11 +516,11 @@ def main(args: argparse.Namespace | dict | None = None):
         if path.startswith("archipelago://"):
             args["args"] = (path, *args.get("args", ()))
             # add the url arg to the passthrough args
-            components, text_client_component = handle_uri(path)
-            if not components:
+            picked_components, text_client_component = handle_uri(path)
+            if not picked_components:
                 args["component"] = text_client_component
             else:
-                args['launch_components'] = [text_client_component, *components]
+                args['launch_components'] = [text_client_component, *picked_components]
         else:
             file, component = identify(path)
             if file:
@@ -529,6 +529,12 @@ def main(args: argparse.Namespace | dict | None = None):
                 args['component'] = component
             if not component:
                 logging.warning(f"Could not identify Component responsible for {path}")
+    elif args['nogui']:
+        from curses_ap.utils import curses_select
+        component_lookup = {c.display_name: c for c in components}
+        component_name = curses_select(list(component_lookup.keys()))
+        if component_name is not None:
+            args['component'] = component_lookup[component_name]
 
     if args["update_settings"]:
         update_settings()
@@ -553,6 +559,7 @@ if __name__ == '__main__':
     run_group.add_argument("Patch|Game|Component|url", type=str, nargs="?",
                            help="Pass either a patch file, a generated game, the component name to run, or a url to "
                                 "connect with.")
+    run_group.add_argument("--nogui", action="store_true")
     run_group.add_argument("args", nargs="*",
                            help="Arguments to pass to component.")
     main(parser.parse_args())
