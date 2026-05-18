@@ -15,7 +15,7 @@ def curses_select(data: list[str]) -> str | None:
         DATA_COL = POINTER_COL + 1
         MAX_POINTER = len(data) - 1
         VERTICAL_OFFSET = 1
-        MAX_BOX_HEIGHT = 10
+        MAX_BOX_HEIGHT = 30
         MAX_BOX_LENGTH = 40
         SCROLLING_ENABLED = MAX_POINTER > MAX_BOX_HEIGHT
         BOX_HEIGHT = min(MAX_BOX_HEIGHT, MAX_POINTER)
