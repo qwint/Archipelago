@@ -530,7 +530,7 @@ def main(args: argparse.Namespace | dict | None = None):
             if not component:
                 logging.warning(f"Could not identify Component responsible for {path}")
     elif args['nogui']:
-        from curses_ap.utils import curses_select
+        from utils.curses import curses_select
         component_lookup = {c.display_name: c for c in components}
         component_name = curses_select(list(component_lookup.keys()))
         if component_name is not None:
