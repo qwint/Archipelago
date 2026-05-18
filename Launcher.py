@@ -535,6 +535,8 @@ def main(args: argparse.Namespace | dict | None = None):
         component_name = curses_select(list(component_lookup.keys()))
         if component_name is not None:
             args['component'] = component_lookup[component_name]
+        else:
+            return
 
     if args["update_settings"]:
         update_settings()

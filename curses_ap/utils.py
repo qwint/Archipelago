@@ -9,6 +9,14 @@ class CursesCancel(Exception):
 
 
 def curses_select(data: list[str]) -> str | None:
+    """
+    Starts a curses select box the user can navigate with arrow keys around,
+    escape to quit, and any other key to select the current listed string
+
+    :param data: list of selections for the user to pick from.
+
+    :return: None if cancelled, else the chosen string.
+    """
     def select_box(stdscr):
         nonlocal ret
         POINTER_COL = 1
@@ -60,22 +68,35 @@ def curses_select(data: list[str]) -> str | None:
         def page(self, down: bool):
             nonlocal pointer
             nonlocal scroll_offset
-            new_pointer = pointer + (int(down or -1) * BOX_HEIGHT)
-            if new_pointer >= MAX_POINTER:
-                # scroll to bottom, move pointer to retain pointer - offset visual position
-                # *potentially check if no scrolling is required, if so jump pointer to extreme
-                # if scroll_offset == MAX_POINTER + 1 - BOX_HEIGHT:
 
-                pointer = MAX_POINTER
-                scroll_offset = MAX_SCROLL_OFFSET
+            # get the index for blindly paging
+            new_pointer = pointer + (int(down or -1) * BOX_HEIGHT)
+
+            # if the blind paging goes too far off the valid values
+            if new_pointer >= MAX_POINTER:
+                # and we are already scrolled as far down
+                if scroll_offset >= MAX_SCROLL_OFFSET:
+                    # jump pointer to the bottom of the list
+                    pointer = MAX_POINTER
+                # else we can scroll to the bottom and offset the pointer by the scrolled amount
+                else:
+                    pointer -= (scroll_offset - MAX_SCROLL_OFFSET)
+                    scroll_offset -= (scroll_offset - MAX_SCROLL_OFFSET)
+            # elif the blind paging goes too far up
             elif new_pointer <= 0:
-                # scroll to top, move pointer to retain pointer - offset visual position
-                # *potentially check if no scrolling is required, if so jump pointer to extreme
-                pointer = 0
-                scroll_offset = 0
+                # and we are already scrolled as far up
+                if scroll_offset <= 0:
+                    # jump pointer to the top of the list
+                    pointer = 0
+                # else we can scroll to the top and offset the pointer by the scrolled amount
+                else:
+                    pointer -= scroll_offset
+                    scroll_offset -= scroll_offset
+            # else apply the blind paging
             else:
                 pointer = new_pointer
                 scroll_offset += (int(down or -1) * BOX_HEIGHT)
+                # but if the scroll offset goes out of bounds, bind it while offsetting pointer to real scrolled amount
                 if scroll_offset < 0:
                     pointer -= scroll_offset
                     scroll_offset -= scroll_offset
@@ -88,13 +109,13 @@ def curses_select(data: list[str]) -> str | None:
         def poll(self) -> int | None:
             key = self.getch()
             if key == curses.KEY_UP:
-                move_pointer(self, False)
+                move_pointer(self, down=False)
             elif key == curses.KEY_DOWN:
-                move_pointer(self, True)
+                move_pointer(self, down=True)
             elif key == curses.KEY_RIGHT:
-                page(self, True)
+                page(self, down=True)
             elif key == curses.KEY_LEFT:
-                page(self, False)
+                page(self, down=False)
             elif key == curses.ascii.ESC:
                 raise CursesCancel("User Cancelled")
             else:
@@ -102,8 +123,6 @@ def curses_select(data: list[str]) -> str | None:
 
         curses.textpad.rectangle(stdscr, 0, 0, BOX_HEIGHT + 1, MAX_BOX_LENGTH + 1)
         write_data(stdscr)
-
-        stdscr.addch(VERTICAL_OFFSET + 0, POINTER_COL, "*", curses.A_STANDOUT)
         set_pointer(stdscr, 0)
 
         while ret is None:
