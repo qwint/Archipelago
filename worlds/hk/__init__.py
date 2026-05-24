@@ -72,6 +72,10 @@ class HKWorld(RandomizerCoreWorld):
     item_name_groups = datapackage_item_groups
     location_name_groups = datapackage_location_groups
 
+    #UT Attributes
+    ut_can_gen_without_yaml = True
+    found_entrances_datastorage_key = "Slot:{player}:visited_transitions" #A Template string, not an f-string
+
     rc_regions: list[dict[str, Any]] = hk_regions
     rc_locations: list[dict[str, Any]] = hk_locations
     item_class = HKItem
@@ -114,10 +118,35 @@ class HKWorld(RandomizerCoreWorld):
         self.entrance_by_term = defaultdict(list)
         self.entrance_pairs = {}
         self.entrance_state_modifier_by_term = defaultdict(list)
+        self.pre_defined_location_costs = {}
 
     # generate_early
     def generate_early(self):
+
         options = self.options
+
+        if hasattr(self.multiworld,"re_gen_passthrough") and self.game in getattr(self.multiworld,"re_gen_passthrough"): #UT slot_data
+            slot_data = getattr(self.multiworld,"re_gen_passthrough")[self.game]
+            remote_options = slot_data["options"]
+            for option_name, option_value in remote_options.items():
+                if hasattr(options,option_name):
+                    setattr(getattr(options,option_name),"value",option_value)
+            self.pre_defined_location_costs=slot_data["location_costs"]
+            self.charm_costs = slot_data["notch_costs"]
+
+            self.grub_count = slot_data["grub_count"]
+
+            self.entrance_pairs = slot_data["entrance_pairs"]
+        else:
+            charm_costs = options.RandomCharmCosts.get_costs(self.random)
+            self.charm_costs = options.PlandoCharmCosts.get_costs(charm_costs)
+            # defaulting so completion condition isn't incorrect before pre_fill
+            self.grub_count = (
+                46 if options.GrubHuntGoal == GrubHuntGoal.special_range_names["all"]
+                else options.GrubHuntGoal.value
+                )
+
+
         weights = {
             data.term: getattr(options, f"CostSanity{data.option}Weight").value
             for data in cost_terms.values()
@@ -144,8 +173,6 @@ class HKWorld(RandomizerCoreWorld):
             else:
                 self.ranges[term] = mini.value, maxi.value
 
-        charm_costs = options.RandomCharmCosts.get_costs(self.random)
-        self.charm_costs = options.PlandoCharmCosts.get_costs(charm_costs)
         self.charm_names_and_costs = {name: (self.charm_costs[index] if name != "Void_Heart" else 0)
                                       for name, index in charm_name_to_id.items()}
         self.soul_modes = self.options.EntranceRandoType.soul_mode
@@ -169,11 +196,6 @@ class HKWorld(RandomizerCoreWorld):
             ]
             # actually connect it later once we have regions created
 
-        # defaulting so completion condition isn't incorrect before pre_fill
-        self.grub_count = (
-            46 if options.GrubHuntGoal == GrubHuntGoal.special_range_names["all"]
-            else options.GrubHuntGoal.value
-            )
         self.grub_player_count = {self.player: self.grub_count}
 
     @classmethod
@@ -472,6 +494,8 @@ class HKWorld(RandomizerCoreWorld):
     def connect_entrances(self):
         if not self.options.EntranceRandoType:
             return
+        if hasattr(self.multiworld, "generation_is_fake"):
+            return #In UT gen we don't want GER to re-randomize the entrances
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
 
         def _connect_entrances(group: str, entrances: list[HKEntrance] | None) -> None:
@@ -625,6 +649,17 @@ class HKWorld(RandomizerCoreWorld):
                 region2 = self.get_region(structure_transition_to_region_map[trans_data["vanilla_target"]])
                 region1.connect(region2, name)
 
+        if hasattr(self.multiworld,"generation_is_fake") and getattr(self.multiworld,"enforce_deferred_connections","off") == "off": #UT flag
+            #In UT generation, we already got connection_pairs from slot_data
+            for source,target in self.entrance_pairs.items():
+                exit_obj = self.get_entrance(source)
+                exit_region = self.get_region(structure_transition_to_region_map[target])
+                exits = [entrance for entrance in exit_region.entrances if entrance.name==target]
+                if len(exits) != 1:
+                    raise Exception("More then one viable target somehow")
+                self._stateless_connect_one_way(exit_obj,exits[0])
+            return
+
         if not one_ways:
             return
 
@@ -632,6 +667,27 @@ class HKWorld(RandomizerCoreWorld):
 
         for entrance, exit in zip(one_ways["OneWayOut"], one_ways["OneWayIn"], strict=True):
             self._stateless_connect_one_way(exit, entrance)
+
+    def reconnect_found_entrances(self, found_key:str,data_storage_value:dict[str,bool]):
+        for entrance_checked in data_storage_value.keys():
+            entrance = self.get_entrance(entrance_checked)
+            if entrance.connected_region is None:
+                target = self.entrance_pairs[entrance_checked]
+                target_region = self.get_region(structure_transition_to_region_map[target])
+                exits = [entrance for entrance in target_region.entrances if entrance.name==target]
+                if len(exits) != 1:
+                    raise Exception("More then one viable target somehow")
+                exit_name = exits[0].name
+                self._stateless_connect_one_way(entrance,exits[0])
+                if self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled:
+                    reverse_entrance = self.get_entrance(exit_name)
+                    if reverse_entrance.connected_region is None:
+                        assert entrance.parent_region
+                        reverse_exits = [entrance for entrance in entrance.parent_region.entrances if entrance.name==entrance_checked]
+                        if len(reverse_exits) != 1:
+                            raise Exception("More then one viable target somehow")
+                        self._stateless_connect_one_way(reverse_entrance,reverse_exits[0])
+
 
     def add_all_events(self):
         location_to_region = {loc: reg["name"] for reg in structure_regions for loc in reg["locations"]}
@@ -681,9 +737,12 @@ class HKWorld(RandomizerCoreWorld):
             index = len(self.created_multi_locations[shop])
         lookup_shop = shop if "(Requires_Charms)" not in shop else "Salubra"
         # fix because Salubra_(Requires_Charms) isn't actually in the source data
+        location_name = f"{shop}_{index+1}"
 
         costs = None
-        if shop in shop_cost_types:
+        if location_name in self.pre_defined_location_costs:
+            costs = self.pre_defined_location_costs[location_name]
+        elif shop in shop_cost_types:
             costs = {
                 term: self.random.randint(*self.ranges[term])
                 for term in shop_cost_types[shop]
@@ -691,7 +750,6 @@ class HKWorld(RandomizerCoreWorld):
 
         rule = self.rule_lookup.get(lookup_shop)
         region = self.get_region(self.region_lookup[lookup_shop])
-        location_name = f"{shop}_{index+1}"
         code = self.location_name_to_id[location_name]
 
         loc = self.location_class(self.player, location_name, code, region)
