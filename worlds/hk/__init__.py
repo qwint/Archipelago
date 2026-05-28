@@ -669,6 +669,8 @@ class HKWorld(RandomizerCoreWorld):
             self._stateless_connect_one_way(exit, entrance)
 
     def reconnect_found_entrances(self, found_key:str,data_storage_value:dict[str,bool]):
+        if not data_storage_value:
+            return
         for entrance_checked in data_storage_value.keys():
             entrance = self.get_entrance(entrance_checked)
             if entrance.connected_region is None:
@@ -740,9 +742,9 @@ class HKWorld(RandomizerCoreWorld):
         location_name = f"{shop}_{index+1}"
 
         costs = None
-        if location_name in self.pre_defined_location_costs:
-            costs = self.pre_defined_location_costs[location_name]
-        elif shop in shop_cost_types:
+        #if location_name in self.pre_defined_location_costs:
+        #    costs = self.pre_defined_location_costs[location_name]
+        if shop in shop_cost_types:
             costs = {
                 term: self.random.randint(*self.ranges[term])
                 for term in shop_cost_types[shop]
@@ -773,7 +775,8 @@ class HKWorld(RandomizerCoreWorld):
 
     def add_extra_shop_locations(self, count):
         # Add additional shop items, as needed.
-        if not count > 0:
+        gen_is_fake = hasattr(self.multiworld, "generation_is_fake")
+        if not count > 0 and not gen_is_fake:
             return
         shops = [shop for shop, locations in self.created_multi_locations.items() if len(locations) < 16]
         if not self.options.EggShopSlots.value:  # No eggshop, so don't place items there
@@ -781,6 +784,12 @@ class HKWorld(RandomizerCoreWorld):
 
         if not shops:
             return
+        if gen_is_fake:
+            for shop in shops:
+                while len(self.created_multi_locations[shop]) < 16:
+                    index = len(self.created_multi_locations[shop])
+                    self.add_shop_location(shop, index)
+            return #In UT gen, create all shops
         for _ in range(count):
             shop = self.random.choice(shops)
             index = len(self.created_multi_locations[shop])
@@ -955,6 +964,9 @@ class HKWorld(RandomizerCoreWorld):
                     continue
                 if not location.costs:
                     continue
+                if location.name in self.pre_defined_location_costs:
+                    location.costs = self.pre_defined_location_costs[location.name]
+                    continue
                 if location.name == "Vessel_Fragment-Basin":
                     continue
                 if setting == CostSanity.option_notshops and location.basename in self.created_multi_locations:
@@ -983,6 +995,8 @@ class HKWorld(RandomizerCoreWorld):
                 location.sort_costs()
 
     def sort_shops_by_cost(self):
+        if hasattr(self.multiworld, "generation_is_fake"):
+            return #In a UT gen we've already placed these where they should go
         for shop_locations in self.created_multi_locations.values():
             randomized_locations = [loc for loc in shop_locations if not loc.vanilla]
             if not randomized_locations:
