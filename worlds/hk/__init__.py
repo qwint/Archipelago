@@ -742,9 +742,9 @@ class HKWorld(RandomizerCoreWorld):
         location_name = f"{shop}_{index+1}"
 
         costs = None
-        #if location_name in self.pre_defined_location_costs:
-        #    costs = self.pre_defined_location_costs[location_name]
-        if shop in shop_cost_types:
+        if location_name in self.pre_defined_location_costs:
+            costs = self.pre_defined_location_costs[location_name]
+        elif shop in shop_cost_types:
             costs = {
                 term: self.random.randint(*self.ranges[term])
                 for term in shop_cost_types[shop]
@@ -789,15 +789,15 @@ class HKWorld(RandomizerCoreWorld):
                 while len(self.created_multi_locations[shop]) < 16:
                     index = len(self.created_multi_locations[shop])
                     self.add_shop_location(shop, index)
-            return #In UT gen, create all shops
-        for _ in range(count):
-            shop = self.random.choice(shops)
-            index = len(self.created_multi_locations[shop])
-            self.add_shop_location(shop, index)
-            if len(self.created_multi_locations[shop]) >= 16:
-                shops.remove(shop)
-                if not shops:
-                    break
+        else:
+            for _ in range(count):
+                shop = self.random.choice(shops)
+                index = len(self.created_multi_locations[shop])
+                self.add_shop_location(shop, index)
+                if len(self.created_multi_locations[shop]) >= 16:
+                    shops.remove(shop)
+                    if not shops:
+                        break
 
     # create_items
     def create_items(self):
