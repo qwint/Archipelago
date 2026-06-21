@@ -686,9 +686,9 @@ class HKWorld(RandomizerCoreWorld):
             for source,target in self.entrance_pairs.items():
                 exit_obj = self.get_entrance(source)
                 exit_region = self.get_region(structure_transition_to_region_map[target])
-                exits = [entrance for entrance in exit_region.entrances if entrance.name==target]
+                exits = [entrance for entrance in exit_region.entrances if entrance.name==target and entrance.parent_region is None]
                 if len(exits) != 1:
-                    raise Exception("More then one viable target somehow")
+                    raise Exception(f"More then one viable target somehow {exits}")
                 self._stateless_connect_one_way(exit_obj,exits[0])
             return
 
