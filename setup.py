@@ -349,8 +349,7 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
             shutil.copyfile(src, self.buildfolder / dst, follow_symlinks=False)
 
         # post build steps
-        if is_windows:  # kivy_deps is win32 only, linux picks them up automatically
-            from kivy_deps import sdl2, glew  # type: ignore
+        if is_windows:
             for folder in sdl2.dep_bins + glew.dep_bins:
                 shutil.copytree(folder, self.libfolder, dirs_exist_ok=True)
                 print(f"copying {folder} -> {self.libfolder}")
@@ -370,11 +369,7 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
         for data in self.extra_data:
             self.installfile(Path(data))
 
-        # kivi data files
-        import kivy  # type: ignore[import-untyped]
-        shutil.copytree(os.path.join(os.path.dirname(kivy.__file__), "data"),
-                        self.buildfolder / "data",
-                        dirs_exist_ok=True)
+        # kivy data files intentionally removed
 
         os.makedirs(self.buildfolder / "Players" / "Templates", exist_ok=True)
         from Options import generate_yaml_templates
@@ -655,13 +650,13 @@ cx_Freeze.setup(
     ext_modules=cythonize("_speedups.pyx"),
     options={
         "build_exe": {
-            "packages": ["worlds", "kivy", "cymem", "websockets", "kivymd"],
+            "packages": ["worlds", "cymem", "websockets"],
             "includes": ["rule_builder.cached_world"],
             "excludes": ["numpy", "Cython", "PySide2", "PIL",
                          "pandas"],
             "zip_includes": [],
             "zip_include_packages": ["*"],
-            "zip_exclude_packages": ["worlds", "sc2", "kivymd"],
+            "zip_exclude_packages": ["worlds", "sc2"],
             "include_files": [],  # broken in cx 6.14.0, we use more special sauce now
             "include_msvcr": False,
             "replace_paths": ["*."],

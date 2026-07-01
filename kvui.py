@@ -1,3 +1,5 @@
+raise ModuleNotFoundError("Kivy is intentionally not loaded on this device")
+
 import os
 import logging
 import sys
