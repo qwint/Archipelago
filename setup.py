@@ -350,11 +350,6 @@ class BuildExeCommand(cx_Freeze.command.build_exe.build_exe):
 
         # post build steps
         if is_windows:
-            for folder in sdl2.dep_bins + glew.dep_bins:
-                shutil.copytree(folder, self.libfolder, dirs_exist_ok=True)
-                print(f"copying {folder} -> {self.libfolder}")
-            # windows needs Visual Studio C++ Redistributable
-            # Installer works for x64 and arm64
             print("Downloading VC Redist")
             import certifi
             import ssl
