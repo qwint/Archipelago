@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from typing import Any, ClassVar
 
-from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld, Region
+from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld, Region, Location
 from entrance_rando import EntranceRandomizationError, randomize_entrances
 from Options import OptionError
 
@@ -732,7 +732,7 @@ class HKWorld(RandomizerCoreWorld):
             valid = state.can_reach_region(region,self.player)
             l_return.append({"type":"color","color":"green" if valid else "red","text":region})
             l_return.append({"type":"text","text":", "})
-        if clause.hk_state_requirements:
+        if clause.hk_state_requirements and parent_region:
             valid = state.can_reach_region(parent_region.name,self.player) and state._hk_test_fake_state(clause,parent_region)
             l_return.append({"type":"color","color":"green" if valid else "red","text":str(clause.hk_state_requirements)})
             l_return.append({"type":"text","text":", "})
@@ -750,6 +750,19 @@ class HKWorld(RandomizerCoreWorld):
             l_return.extend(self.parse_clause(clause,entrance.parent_region,state))
         return l_return
     
+    def explain_spot(self, location: Location, state: CollectionState) -> list:
+        hkClause = getattr(location,"hk_rule",None)
+        if not isinstance(hkClause,list):
+            return []
+        l_return = [{"type":"color","color":"green","text":f" -> {location.name}"}]
+        for index,clause in enumerate(hkClause):
+            if not isinstance(clause,HKClause):
+                continue #maybe fix later?
+            l_return.append({"type":"text","text":f"\nClause {index+1} - "})
+            l_return.extend(self.parse_clause(clause,location.parent_region,state))
+        return l_return
+
+
     def explain_rule(self, target_name: str, state: CollectionState) -> list:
         l_return = []
 
