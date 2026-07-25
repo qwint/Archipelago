@@ -55,7 +55,8 @@ def explain_rule(self: "HKWorld", target_name: str, state: CollectionState) -> l
     parent_region = None
     if target_name in self.multiworld.regions.region_cache[self.player]:
         target = self.get_region(target_name)
-        parent_region = target
+        l_return.extend([{"type":"text","text":"Region "},{"type":"color","color":"magenta","text":target_name},{"type":"text","text":"'s Entrances:\n"}])
+        # Leave parent_region None so if location/entrances don't match we return normally
         # Regions have to be dealt with differently, but they don't directly have rules or costs so it's fine
         for ent in target.entrances:
             ent_path = self.explain_path(ent,state)
@@ -63,21 +64,24 @@ def explain_rule(self: "HKWorld", target_name: str, state: CollectionState) -> l
                 l_return.extend(ent_path)
                 l_return.append({"type":"text","text":f"\n"})
             else: # Default entrance rule
-                l_return.append({"type":"text","text":f"{ent.name} - "})
+                l_return.append({"type":"color","color":"blue","text":ent.name})
+                l_return.append({"type":"text","text":"\nDefault rule - "})
                 passable = ent.access_rule(state)
                 l_return.append({"type":"color","text":"Passable" if passable else "Impassable","color":"green" if passable else "red"})
                 l_return.append({"type":"text","text":f"\n"})
-        l_return.pop() # Remove the last newline
-        return l_return
-    elif target_name in self.multiworld.regions.entrance_cache[self.player]:
+    if target_name in self.multiworld.regions.entrance_cache[self.player]:
+        l_return.extend([{"type":"text","text":"Entrance "},{"type":"color","color":"magenta","text":target_name},{"type":"text","text":"'s Rules:"}])
         target = self.get_entrance(target_name)
         parent_region = target.parent_region
     elif target_name in self.multiworld.regions.location_cache[self.player]:
+        l_return.extend([{"type":"text","text":"Location "},{"type":"color","color":"magenta","text":target_name},{"type":"text","text":"'s Rules:"}])
         target = self.get_location(target_name)
         parent_region = target.parent_region
 
     if target is None or parent_region is None:
-        return []
+        if l_return: # If there's content to return, we have a trailing newline we need to remove
+            l_return.pop()
+        return l_return
     hk_rule = getattr(target,"hk_rule",None)
     if hk_rule is None:
         l_return.append({"type":"text","text":"Default Access"})
