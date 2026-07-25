@@ -25,24 +25,24 @@ def parse_clause(self: "HKWorld", clause:HKClause, parent_region: Region, state:
 
 def explain_path(self: "HKWorld", entrance: Entrance, state: CollectionState) -> list[JSONMessagePart]:
     hk_rule = getattr(entrance,"hk_rule",None)
-    if not isinstance(hk_rule,list):
+    if hk_rule is None:
         return [] # Empty list to tell UT to use normal entrance handeling
+    assert isinstance(hk_rule,list)
     l_return:list[JSONMessagePart] = [{"type":"color","color":"blue","text":entrance.name}]
     for index,clause in enumerate(hk_rule):
-        if not isinstance(clause,HKClause):
-            continue #maybe fix later?
+        assert isinstance(clause,HKClause)
         l_return.append({"type":"text","text":f"\nClause {index+1} - "})
         l_return.extend(parse_clause(self,clause,entrance.parent_region,state))
     return l_return
 
 def explain_spot(self: "HKWorld", location: Location, state: CollectionState) -> list[JSONMessagePart]:
     hk_rule = getattr(location,"hk_rule",None)
-    if not isinstance(hk_rule,list):
-        return [] # Empty list to tell UT to use normal location handeling
+    if hk_rule is None:
+        return [] # Empty list to tell UT to use normal entrance handeling
+    assert isinstance(hk_rule,list)
     l_return:list[JSONMessagePart] = [{"type":"color","color":"green","text":f" -> {location.name}"}]
     for index,clause in enumerate(hk_rule):
-        if not isinstance(clause,HKClause):
-            continue #maybe fix later?
+        assert isinstance(clause,HKClause)
         l_return.append({"type":"text","text":f"\nClause {index+1} - "})
         l_return.extend(parse_clause(self,clause,location.parent_region,state))
     return l_return
@@ -79,16 +79,17 @@ def explain_rule(self: "HKWorld", target_name: str, state: CollectionState) -> l
     if target is None or parent_region is None:
         return []
     hk_rule = getattr(target,"hk_rule",None)
-    if not isinstance(hk_rule,list):
+    if hk_rule is None:
         l_return.append({"type":"text","text":"Default Access"})
     else:
+        assert isinstance(hk_rule,list)
         for index,clause in enumerate(hk_rule):
-            if not isinstance(clause,HKClause):
-                continue
+            assert isinstance(clause,HKClause)
             l_return.append({"type":"text","text":f"\nClause {index+1} - "})
             l_return.extend(parse_clause(self, clause,parent_region,state))
     costs = getattr(target,"costs",None)
-    if isinstance(costs,dict):
+    if costs is not None:
+        assert isinstance(costs,dict)
         l_return.append({"type":"text","text":"\nCosts - ["})
         for cost,count in costs.items():
             if cost == "GEO":
