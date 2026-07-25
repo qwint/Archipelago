@@ -5,7 +5,7 @@ from collections import Counter, defaultdict
 from copy import deepcopy
 from typing import Any, ClassVar
 
-from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld, Region, Location
+from BaseClasses import CollectionState, Entrance, EntranceType, ItemClassification, LocationProgressType, MultiWorld
 from entrance_rando import EntranceRandomizationError, randomize_entrances
 from Options import OptionError
 
@@ -50,6 +50,7 @@ from .rules import cost_terms
 from .state_mixin import HKLogicMixin as HKLogicMixin
 from .state_mixin import hk_collect, hk_remove
 from .template_world import RandomizerCoreWorld
+from .ut_things import explain_path, explain_rule, explain_spot
 
 logger = logging.getLogger("Hollow Knight")
 
@@ -103,6 +104,11 @@ class HKWorld(RandomizerCoreWorld):
     collect = hk_collect
     remove = hk_remove
 
+    # imported UT functions
+    explain_rule = explain_rule
+    explain_spot = explain_spot
+    explain_path = explain_path
+
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
         self.created_multi_locations: dict[str, list[HKLocation]] = {
@@ -116,7 +122,7 @@ class HKWorld(RandomizerCoreWorld):
         self.entrance_by_term = defaultdict(list)
         self.entrance_pairs = {}
         self.entrance_state_modifier_by_term = defaultdict(list)
-        self.pre_defined_location_costs = {}
+        self.pre_defined_location_costs: dict[str,dict[str,int]] = {}
 
     # generate_early
     def generate_early(self):
@@ -501,7 +507,7 @@ class HKWorld(RandomizerCoreWorld):
     def connect_entrances(self):
         if not self.options.EntranceRandoType:
             return
-        if hasattr(self.multiworld, "generation_is_fake"):
+        if getattr(self.multiworld, "generation_is_fake",False):
             return #In UT gen we don't want GER to re-randomize the entrances
         coupled = self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled
 
@@ -681,14 +687,16 @@ class HKWorld(RandomizerCoreWorld):
                 rule = self.create_rule(rule_data) if rule_data else None
                 region1.connect(region2, name, rule)
 
-        if hasattr(self.multiworld,"generation_is_fake") and getattr(self.multiworld,"enforce_deferred_connections","off") == "off": #UT flag
+        if getattr(self.multiworld,"generation_is_fake",False) and getattr(self.multiworld,"enforce_deferred_connections","off") == "off": #UT flag
             #In UT generation, we already got connection_pairs from slot_data
             for source,target in self.entrance_pairs.items():
                 exit_obj = self.get_entrance(source)
                 exit_region = self.get_region(structure_transition_to_region_map[target])
                 exits = [entrance for entrance in exit_region.entrances if entrance.name==target and entrance.parent_region is None]
-                if len(exits) != 1:
-                    raise Exception(f"More then one viable target somehow {exits}")
+                if len(exits) > 1:
+                    raise Exception(f"More then one viable for {target}, found {exits}")
+                elif len(exits) == 0:
+                    raise Exception(f"Unable to find any exists to match for {target}")
                 self._stateless_connect_one_way(exit_obj,exits[0])
             return
 
@@ -709,8 +717,10 @@ class HKWorld(RandomizerCoreWorld):
                 target = self.entrance_pairs[entrance_checked]
                 target_region = self.get_region(structure_transition_to_region_map[target])
                 exits = [entrance for entrance in target_region.entrances if entrance.name==target]
-                if len(exits) != 1:
-                    raise Exception("More then one viable target somehow")
+                if len(exits) > 1:
+                    raise Exception(f"More then one viable for {target}, found {exits}")
+                elif len(exits) == 0:
+                    raise Exception(f"Unable to find any exists to match for {target}")
                 exit_name = exits[0].name
                 self._stateless_connect_one_way(entrance,exits[0])
                 if self.options.ShuffleEntrancesMode != ShuffleEntrancesMode.option_decoupled:
@@ -718,97 +728,11 @@ class HKWorld(RandomizerCoreWorld):
                     if reverse_entrance.connected_region is None:
                         assert entrance.parent_region
                         reverse_exits = [entrance for entrance in entrance.parent_region.entrances if entrance.name==entrance_checked]
-                        if len(reverse_exits) != 1:
-                            raise Exception("More then one viable target somehow")
+                        if len(reverse_exits) > 1:
+                            raise Exception(f"More then one viable for {entrance_checked}, found {reverse_exits}")
+                        elif len(reverse_exits) == 0:
+                            raise Exception(f"Unable to find any exists to match for {target}")
                         self._stateless_connect_one_way(reverse_entrance,reverse_exits[0])
-
-    def parse_clause(self, clause:HKClause, parent_region: Region, state: CollectionState) -> list:
-        l_return = []
-        for item,count in clause.hk_item_requirements.items():
-            valid = state.has(item,self.player,count)
-            l_return.append({"type":"color","color":"green" if valid else "red","text":item if count==1 else f"{item}:{count}"})
-            l_return.append({"type":"text","text":", "})
-        for region in clause.hk_region_requirements:
-            valid = state.can_reach_region(region,self.player)
-            l_return.append({"type":"color","color":"green" if valid else "red","text":region})
-            l_return.append({"type":"text","text":", "})
-        if clause.hk_state_requirements and parent_region:
-            valid = state.can_reach_region(parent_region.name,self.player) and state._hk_test_fake_state(clause,parent_region)
-            l_return.append({"type":"color","color":"green" if valid else "red","text":str(clause.hk_state_requirements)})
-            l_return.append({"type":"text","text":", "})
-        return l_return[:-1]
-
-    def explain_path(self, entrance: Entrance, state: CollectionState) -> list:
-        hkClause = getattr(entrance,"hk_rule",None)
-        if not isinstance(hkClause,list):
-            return []
-        l_return = [{"type":"color","color":"blue","text":entrance.name}]
-        for index,clause in enumerate(hkClause):
-            if not isinstance(clause,HKClause):
-                continue #maybe fix later?
-            l_return.append({"type":"text","text":f"\nClause {index+1} - "})
-            l_return.extend(self.parse_clause(clause,entrance.parent_region,state))
-        return l_return
-    
-    def explain_spot(self, location: Location, state: CollectionState) -> list:
-        hkClause = getattr(location,"hk_rule",None)
-        if not isinstance(hkClause,list):
-            return []
-        l_return = [{"type":"color","color":"green","text":f" -> {location.name}"}]
-        for index,clause in enumerate(hkClause):
-            if not isinstance(clause,HKClause):
-                continue #maybe fix later?
-            l_return.append({"type":"text","text":f"\nClause {index+1} - "})
-            l_return.extend(self.parse_clause(clause,location.parent_region,state))
-        return l_return
-
-
-    def explain_rule(self, target_name: str, state: CollectionState) -> list:
-        l_return = []
-
-        target = None
-        parent_region = None
-        if target_name in self.multiworld.regions.region_cache[self.player]:
-            target = self.get_region(target_name)
-            parent_region = target
-            # Regions have to be dealt with differently, but they don't directly have rules or costs so it's fine
-            for ent in target.entrances:
-                l_return.extend(self.explain_path(ent,state))
-                l_return.append({"type":"text","text":f"\n"})
-            l_return.pop()
-            return l_return
-        elif target_name in self.multiworld.regions.entrance_cache[self.player]:
-            target = self.get_entrance(target_name)
-            parent_region = target.parent_region
-        elif target_name in self.multiworld.regions.location_cache[self.player]:
-            target = self.get_location(target_name)
-            parent_region = target.parent_region
-
-        if target is None or parent_region is None:
-            return []
-        hkClause = getattr(target,"hk_rule",None)
-        if not isinstance(hkClause,list):
-            l_return.append({"type":"text","text":"Default Access"})
-        else:
-            for index,clause in enumerate(hkClause):
-                if not isinstance(clause,HKClause):
-                    continue
-                l_return.append({"type":"text","text":f"\nClause {index+1} - "})
-                l_return.extend(self.parse_clause(clause,parent_region,state))
-        costs = getattr(target,"costs",None)
-        if isinstance(costs,dict):
-            l_return.append({"type":"text","text":"\nCosts - ["})
-            for cost,count in costs.items():
-                valid = False
-                if cost == "GEO":
-                    valid = state.has("Can_Replenish_Geo", self.player)
-                else:
-                    valid = state.has(cost,self.player,count)
-                l_return.append({"type":"color","color":"green" if valid else "red","text":f"{cost}:{count}"})
-                l_return.append({"type":"text","text":", "})
-            l_return.pop() #Remove the last comma
-            l_return.append({"type":"text","text":"]"}) #And replace with a close bracket
-        return l_return
         
     def add_all_events(self):
         location_to_region = {loc: reg["name"] for reg in structure_regions for loc in reg["locations"]}
@@ -895,7 +819,7 @@ class HKWorld(RandomizerCoreWorld):
 
     def add_extra_shop_locations(self, count):
         # Add additional shop items, as needed.
-        gen_is_fake = hasattr(self.multiworld, "generation_is_fake")
+        gen_is_fake = getattr(self.multiworld, "generation_is_fake", False)
         if not count > 0 and not gen_is_fake:
             return
         shops = [shop for shop, locations in self.created_multi_locations.items() if len(locations) < 16]
@@ -906,9 +830,8 @@ class HKWorld(RandomizerCoreWorld):
             return
         if gen_is_fake:
             for shop in shops:
-                while len(self.created_multi_locations[shop]) < 16:
-                    index = len(self.created_multi_locations[shop])
-                    self.add_shop_location(shop, index)
+                for index in range(len(self.created_multi_locations[shop]),16):
+                    self.add_shop_location(shop, index) # In UT excess locations are ignored, so create all shop slots and let it figure it out
         else:
             for _ in range(count):
                 shop = self.random.choice(shops)
@@ -1115,7 +1038,7 @@ class HKWorld(RandomizerCoreWorld):
                 location.sort_costs()
 
     def sort_shops_by_cost(self):
-        if hasattr(self.multiworld, "generation_is_fake"):
+        if getattr(self.multiworld, "generation_is_fake", False):
             return #In a UT gen we've already placed these where they should go
         for shop_locations in self.created_multi_locations.values():
             randomized_locations = [loc for loc in shop_locations if not loc.vanilla]
