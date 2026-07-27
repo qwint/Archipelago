@@ -8,6 +8,7 @@ from .classes import HKClause
 if TYPE_CHECKING:
     from . import HKWorld
 
+
 def parse_clause(
         self: "HKWorld", clause: HKClause, parent_region: Region, state: CollectionState
         ) -> list[JSONMessagePart]:
@@ -38,17 +39,19 @@ def parse_clause(
     l_return.pop()  # Remove the last comma
     return l_return
 
+
 def explain_path(self: "HKWorld", entrance: Entrance, state: CollectionState) -> list[JSONMessagePart]:
     hk_rule = getattr(entrance, "hk_rule", None)
     if hk_rule is None:
         return []  # Empty list to tell UT to use normal entrance handeling
     assert isinstance(hk_rule, list)
-    l_return:list[JSONMessagePart] = [{"type": "color", "color": "blue", "text": entrance.name}]
+    l_return: list[JSONMessagePart] = [{"type": "color", "color": "blue", "text": entrance.name}]
     for index, clause in enumerate(hk_rule):
         assert isinstance(clause, HKClause)
         l_return.append({"type": "text", "text": f"\nClause {index+1} - "})
         l_return.extend(parse_clause(self, clause, entrance.parent_region, state))
     return l_return
+
 
 def explain_spot(self: "HKWorld", location: Location, state: CollectionState) -> list[JSONMessagePart]:
     hk_rule = getattr(location, "hk_rule", None)

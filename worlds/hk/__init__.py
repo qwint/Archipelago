@@ -136,7 +136,7 @@ class HKWorld(RandomizerCoreWorld):
             for option_name, option_value in remote_options.items():
                 if hasattr(options, option_name):
                     getattr(options, option_name).value = option_value
-            self.pre_defined_location_costs=slot_data["location_costs"]
+            self.pre_defined_location_costs = slot_data["location_costs"]
             self.charm_costs = slot_data["notch_costs"]
 
             self.grub_count = slot_data["grub_count"]
@@ -688,7 +688,7 @@ class HKWorld(RandomizerCoreWorld):
                 region1.connect(region2, name, rule)
 
         if (
-            getattr(self.multiworld, "generation_is_fake", False) and 
+            getattr(self.multiworld, "generation_is_fake", False) and
             getattr(self.multiworld, "enforce_deferred_connections", "off") == "off"  # UT flag
         ):
             # In UT generation, we already got connection_pairs from slot_data
@@ -696,7 +696,7 @@ class HKWorld(RandomizerCoreWorld):
                 exit_obj = self.get_entrance(source)
                 exit_region = self.get_region(structure_transition_to_region_map[target])
                 exits = [
-                    entrance for entrance in exit_region.entrances 
+                    entrance for entrance in exit_region.entrances
                     if entrance.name == target and entrance.parent_region is None
                     ]
                 if len(exits) > 1:
