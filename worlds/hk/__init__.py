@@ -256,6 +256,8 @@ class HKWorld(RandomizerCoreWorld):
         for location, costs in vanilla_location_costs.items():
             if self.options.AddUnshuffledLocations or getattr(self.options, location_to_option[location]):
                 self.get_location(location).costs = costs.copy()
+        # TODO: see if we need to guard against the location not existing(?)
+        self.get_location("Elevator_Pass").costs = {"GEO": 150}
 
         self.get_region("Menu").connect(self.get_region(self.start_location_region))
 
