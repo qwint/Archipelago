@@ -43,6 +43,7 @@ class WorldSource:
     relative: bool = True  # relative to regular world import folder
     time_taken: float = -1.0
     version: Version = Version(0, 0, 0)
+    json_world: bool = False
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}({self.path}, is_zip={self.is_zip}, relative={self.relative})"
@@ -56,7 +57,20 @@ class WorldSource:
     def load(self) -> bool:
         try:
             start = time.perf_counter()
-            importlib.import_module(f".{Path(self.path).stem}", "worlds")
+            if self.json_world:
+                if self.is_zip:
+                    import zipfile
+                    with zipfile.ZipFile(self.resolved_path, "r") as zf:
+                        world_path = next(p for p in zf.namelist() if "world.json" in p)
+                        data = json.loads(zf.read(world_path))
+                else:
+                    with open(os.path.join(self.resolved_path, "world.json")) as f:
+                        data = json.load(f)
+                from .json_world import JsonWorld
+                world = JsonWorld.from_json(data)
+                world.__file__ = os.path.join(self.resolved_path, "world.json")
+            else:
+                importlib.import_module(f".{Path(self.path).stem}", "worlds")
             self.time_taken = time.perf_counter()-start
             return True
 
@@ -87,6 +101,8 @@ for folder in (folder for folder in (user_folder, local_folder) if folder):
                     world_sources.append(WorldSource(file_name, relative=relative))
                 elif os.path.isfile(os.path.join(entry.path, '__init__.pyc')):
                     world_sources.append(WorldSource(file_name, relative=relative))
+                elif os.path.isfile(os.path.join(entry.path, "world.json")):
+                    world_sources.append(WorldSource(file_name, relative=relative, json_world=True))
                 else:
                     logging.warning(f"excluding {entry.name} from world sources because it has no __init__.py")
             elif entry.is_file() and entry.name.endswith(".apworld"):
@@ -190,11 +206,17 @@ if apworlds:
                            f"as its game {apworld.game} is already loaded.",
                            add_as_failed_to_load=False)
             else:
-                importer = zipimport.zipimporter(apworld_source.resolved_path)
-                world_name = Path(apworld.path).stem
+                assert apworld.path
+                with ZipFile(apworld.path, "r") as zf:
+                    manifest = apworld.read_contents(zf)
+                apworld_source.json_world = manifest.get("json_world", False)
 
-                spec = importer.find_spec(f"worlds.{world_name}")
-                apworld_module_specs[f"worlds.{world_name}"] = spec
+                if not apworld_source.json_world:
+                    importer = zipimport.zipimporter(apworld_source.resolved_path)
+                    world_name = Path(apworld.path).stem
+
+                    spec = importer.find_spec(f"worlds.{world_name}")
+                    apworld_module_specs[f"worlds.{world_name}"] = spec
 
                 apworld_source.load()
                 if apworld.game in AutoWorldRegister.world_types:

@@ -133,7 +133,7 @@ class JsonWorld(World):
     filler_weights: dict[str, int]
 
     @classmethod
-    def from_json(cls, data):
+    def from_json(cls, data) -> "JsonWorld":
         """
         Class method to build a new World class from a json-parsed dict,
         following the formats in `docs/json world.md`
@@ -149,7 +149,7 @@ class JsonWorld(World):
 
         region_list, region_map = build_region_data(data)
         # only need to define the class, the metaclass registers it for use later
-        type(f"json_world_{game_name}", (JsonWorld,), {
+        return type(f"json_world_{game_name}", (JsonWorld,), {
             "__doc__": description,
             "game": game_name,
             # "web": WebWorld,
