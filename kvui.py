@@ -39,7 +39,7 @@ Config.set("graphics", "multisamples", "0")  # multisamples crash old intel driv
 # Workaround for gtk being selected before sdl2 and not functioning
 from kivy import kivy_options
 kivy_options = {
-  op: value if value != "clipboard" else tuple(clip for clip in kivy_options["clipboard"] if clip != "gtk3")
+  op: value if op != "clipboard" else tuple(clip for clip in kivy_options["clipboard"] if clip != "gtk3")
   for op, value in kivy_options.items()
 }
 
