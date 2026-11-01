@@ -365,7 +365,7 @@ class MessengerWorld(World):
 
         hint_data.update({self.player: {}})
 
-        all_state = self.multiworld.get_all_state(True)
+        all_state = self.multiworld.get_all_state()
         # sometimes some of my regions aren't in path for some reason?
         all_state.update_reachable_regions(self.player)
         paths = all_state.path
