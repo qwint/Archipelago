@@ -178,6 +178,9 @@ class RCStateVariable(metaclass=ResourceStateHandler):
         else:
             self.parse_term()
 
+    def __repr__(self) -> str:
+        return self.term_name
+
     def parse_term(self, *args) -> None:
         """Subclasses should use this to expect parameter counts for init"""
         pass
