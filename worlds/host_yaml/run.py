@@ -17,8 +17,6 @@ def run(*args):
         filetypes = (("Player Yaml", (".yaml", ".json")),)
         target = Utils.open_filename("Select Player Yaml", filetypes)
         assert target, "no file selected"
-    # TODO: not hardcode this
-#    target = "/home/qwint/.local/share/Archipelago/Players/Templates/APQuest.yaml"
     with tempfile.TemporaryDirectory() as d:
         args = Generate.mystery_argparse([])
         args.spoiler = 0
